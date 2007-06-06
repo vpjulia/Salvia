@@ -1,0 +1,256 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B05B8941-17F1-4769-8AFD-1940EE734D6B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RetailTrade</RootNamespace>
+    <AssemblyName>RetailTrade</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data3, Version=3.2.1.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4" />
+    <Reference Include="DevExpress.Utils3, Version=3.2.1.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4" />
+    <Reference Include="DevExpress.XtraEditors3, Version=3.2.1.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4" />
+    <Reference Include="DevExpress.XtraGrid3, Version=3.2.1.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4" />
+    <Reference Include="DevExpress.XtraNavBar3, Version=2.7.1.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dialog\FormDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialog\FormDialog.Designer.cs">
+      <DependentUpon>FormDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\Information.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dialog\Information.Designer.cs">
+      <DependentUpon>Information.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Directory\UCTradePuplet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Directory\UCTradePuplet.Designer.cs">
+      <DependentUpon>UCTradePuplet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MDataSet.cs">
+      <DependentUpon>MDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Dialog\FormDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FormDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialog\Information.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Information.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Directory\UCTradePuplet.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UCTradePuplet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Directory\UcGroupDirectory.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UcGroupDirectory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Directory\UCProductAll.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UCProductAll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Directory\ucProductRow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ucProductRow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Directory\UCSimpleDirectory.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UCSimpleDirectory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Directory\UCOrganizationAll.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UCOrganizationAll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Directory\UCOrganizationRow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UCOrganizationRow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receipt\ReceiptDetailByRef.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ReceiptDetailByRef.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receipt\ReceiptMasterNewAll.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ReceiptMasterNewAll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receipt\ReceiptRowOrganization.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ReceiptRowOrganization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receipt\ReceiptDetailRowAdd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ReceiptDetailRowAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SplashScreen.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="MDataSet.xsc">
+      <DependentUpon>MDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="MDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="MDataSet.xss">
+      <DependentUpon>MDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Directory\UcGroupDirectory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Directory\UcGroupDirectory.Designer.cs">
+      <DependentUpon>UcGroupDirectory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Directory\UCProductAll.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Directory\UCProductAll.Designer.cs">
+      <DependentUpon>UCProductAll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Directory\ucProductRow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Directory\ucProductRow.Designer.cs">
+      <DependentUpon>ucProductRow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Directory\UCSimpleDirectory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Directory\UCSimpleDirectory.Designer.cs">
+      <DependentUpon>UCSimpleDirectory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Directory\UCOrganizationAll.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Directory\UCOrganizationAll.Designer.cs">
+      <DependentUpon>UCOrganizationAll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Directory\UCOrganizationRow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Directory\UCOrganizationRow.Designer.cs">
+      <DependentUpon>UCOrganizationRow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receipt\ReceiptDetailByRef.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Receipt\ReceiptDetailByRef.Designer.cs">
+      <DependentUpon>ReceiptDetailByRef.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receipt\ReceiptMasterNewAll.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Receipt\ReceiptMasterNewAll.Designer.cs">
+      <DependentUpon>ReceiptMasterNewAll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receipt\ReceiptRowOrganization.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Receipt\ReceiptRowOrganization.Designer.cs">
+      <DependentUpon>ReceiptRowOrganization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receipt\ReceiptDetailRowAdd.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Receipt\ReceiptDetailRowAdd.Designer.cs">
+      <DependentUpon>ReceiptDetailRowAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashScreen.Designer.cs">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Invoice\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
