@@ -93,9 +93,9 @@ namespace RetailTrade {
         
         private System.Data.DataRelation relationFK_ReceiptMaster_Stock1;
         
-        private System.Data.DataRelation relationReceiptMaster_ReceiptDetail;
-        
         private System.Data.DataRelation relationReceiptMasterNew_ReceiptDetail;
+        
+        private System.Data.DataRelation relationReceiptMaster_ReceiptDetail;
         
         private System.Data.SchemaSerializationMode _schemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -645,8 +645,8 @@ namespace RetailTrade {
             this.relationFK_InvoiceMaster_Stock = this.Relations["FK_InvoiceMaster_Stock"];
             this.relationFK_ReceiptMaster_Stock = this.Relations["FK_ReceiptMaster_Stock"];
             this.relationFK_ReceiptMaster_Stock1 = this.Relations["FK_ReceiptMaster_Stock1"];
-            this.relationReceiptMaster_ReceiptDetail = this.Relations["ReceiptMaster_ReceiptDetail"];
             this.relationReceiptMasterNew_ReceiptDetail = this.Relations["ReceiptMasterNew_ReceiptDetail"];
+            this.relationReceiptMaster_ReceiptDetail = this.Relations["ReceiptMaster_ReceiptDetail"];
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -758,14 +758,14 @@ namespace RetailTrade {
                         this.tableStock.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptMaster.SenderStockRefColumn}, false);
             this.Relations.Add(this.relationFK_ReceiptMaster_Stock1);
-            this.relationReceiptMaster_ReceiptDetail = new System.Data.DataRelation("ReceiptMaster_ReceiptDetail", new System.Data.DataColumn[] {
-                        this.tableReceiptMaster.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableReceiptDetail.ReceiptMaterRefColumn}, false);
-            this.Relations.Add(this.relationReceiptMaster_ReceiptDetail);
             this.relationReceiptMasterNew_ReceiptDetail = new System.Data.DataRelation("ReceiptMasterNew_ReceiptDetail", new System.Data.DataColumn[] {
                         this.tableReceiptMasterNew.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptDetail.ReceiptMaterRefColumn}, false);
             this.Relations.Add(this.relationReceiptMasterNew_ReceiptDetail);
+            this.relationReceiptMaster_ReceiptDetail = new System.Data.DataRelation("ReceiptMaster_ReceiptDetail", new System.Data.DataColumn[] {
+                        this.tableReceiptMaster.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableReceiptDetail.ReceiptMaterRefColumn}, false);
+            this.Relations.Add(this.relationReceiptMaster_ReceiptDetail);
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4119,11 +4119,11 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptDetailRow AddReceiptDetailRow(ReceiptMasterRow parentReceiptMasterRowByReceiptMaster_ReceiptDetail, ProductRow parentProductRowByFK_ReceiptDetail_Product, string Series, System.DateTime UseByDate, decimal Quantity, decimal PricePurchase, decimal PurchaseNDS, decimal RetailNDS, decimal PriceRetailNDS, int InvoiceDetailRef, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, byte[] RowVersion) {
+            public ReceiptDetailRow AddReceiptDetailRow(ReceiptMasterNewRow parentReceiptMasterNewRowByReceiptMasterNew_ReceiptDetail, ProductRow parentProductRowByFK_ReceiptDetail_Product, string Series, System.DateTime UseByDate, decimal Quantity, decimal PricePurchase, decimal PurchaseNDS, decimal RetailNDS, decimal PriceRetailNDS, int InvoiceDetailRef, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, byte[] RowVersion) {
                 ReceiptDetailRow rowReceiptDetailRow = ((ReceiptDetailRow)(this.NewRow()));
                 rowReceiptDetailRow.ItemArray = new object[] {
                         null,
-                        parentReceiptMasterRowByReceiptMaster_ReceiptDetail[0],
+                        parentReceiptMasterNewRowByReceiptMasterNew_ReceiptDetail[0],
                         parentProductRowByFK_ReceiptDetail_Product[0],
                         Series,
                         UseByDate,
@@ -9098,22 +9098,22 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptMasterRow ReceiptMasterRow {
-                get {
-                    return ((ReceiptMasterRow)(this.GetParentRow(this.Table.ParentRelations["ReceiptMaster_ReceiptDetail"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["ReceiptMaster_ReceiptDetail"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public ReceiptMasterNewRow ReceiptMasterNewRow {
                 get {
                     return ((ReceiptMasterNewRow)(this.GetParentRow(this.Table.ParentRelations["ReceiptMasterNew_ReceiptDetail"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["ReceiptMasterNew_ReceiptDetail"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptMasterRow ReceiptMasterRow {
+                get {
+                    return ((ReceiptMasterRow)(this.GetParentRow(this.Table.ParentRelations["ReceiptMaster_ReceiptDetail"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["ReceiptMaster_ReceiptDetail"]);
                 }
             }
             
