@@ -55,9 +55,18 @@ namespace RetailTrade.Receipt
 
         private void ReceiptDetailRowAdd_Validating(object sender, CancelEventArgs e)
         {
-            if ((this.receiptDetailBindingSource.DataSource as DataRow).HasErrors)
-                e.Cancel = true;
-          
+
+            foreach (Control ctrl in this.tableLayoutPanel1.Controls)
+            {
+                ctrl.Focus();
+                if (errorProvider1.GetError(ctrl) != "")
+                {
+                    e.Cancel = true;
+
+                    break;
+                }
+            }
+
         }
 
         private void textEdit1_Validating(object sender, CancelEventArgs e)
