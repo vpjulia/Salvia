@@ -33,30 +33,30 @@ namespace RetailTrade.Receipt
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.receiptDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.mDataSet = new RetailTrade.MDataSet();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.QuantityEdit = new DevExpress.XtraEditors.TextEdit();
             this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
+            this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
+            this.textEdit3 = new DevExpress.XtraEditors.TextEdit();
             this.button1 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.mDataSet = new RetailTrade.MDataSet();
-            this.receiptDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.textEdit3 = new DevExpress.XtraEditors.TextEdit();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.QuantityEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -65,7 +65,7 @@ namespace RetailTrade.Receipt
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(108, 28);
+            this.label1.Size = new System.Drawing.Size(107, 28);
             this.label1.TabIndex = 0;
             this.label1.Text = "Количество";
             // 
@@ -92,6 +92,16 @@ namespace RetailTrade.Receipt
             this.errorProvider1.ContainerControl = this;
             this.errorProvider1.DataSource = this.receiptDetailBindingSource;
             // 
+            // receiptDetailBindingSource
+            // 
+            this.receiptDetailBindingSource.DataMember = "ReceiptDetail";
+            this.receiptDetailBindingSource.DataSource = this.mDataSet;
+            // 
+            // mDataSet
+            // 
+            this.mDataSet.DataSetName = "MDataSet";
+            this.mDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.tableLayoutPanel1);
@@ -106,7 +116,7 @@ namespace RetailTrade.Receipt
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.21683F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.78317F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 41F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
@@ -139,7 +149,7 @@ namespace RetailTrade.Receipt
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(309, 31);
+            this.button2.Location = new System.Drawing.Point(308, 31);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(31, 23);
             this.button2.TabIndex = 8;
@@ -150,7 +160,7 @@ namespace RetailTrade.Receipt
             // 
             this.QuantityEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.receiptDetailBindingSource, "Quantity", true));
             this.QuantityEdit.EnterMoveNextControl = true;
-            this.QuantityEdit.Location = new System.Drawing.Point(117, 3);
+            this.QuantityEdit.Location = new System.Drawing.Point(116, 3);
             this.QuantityEdit.Name = "QuantityEdit";
             this.QuantityEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.QuantityEdit.Properties.HideSelection = false;
@@ -167,7 +177,7 @@ namespace RetailTrade.Receipt
             // 
             this.textEdit2.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.receiptDetailBindingSource, "PricePurchase", true));
             this.textEdit2.EnterMoveNextControl = true;
-            this.textEdit2.Location = new System.Drawing.Point(117, 31);
+            this.textEdit2.Location = new System.Drawing.Point(116, 31);
             this.textEdit2.Name = "textEdit2";
             this.textEdit2.Properties.HideSelection = false;
             this.textEdit2.Properties.Mask.EditMask = "####0.00###";
@@ -175,6 +185,33 @@ namespace RetailTrade.Receipt
             this.textEdit2.Properties.ValidateOnEnterKey = true;
             this.textEdit2.Size = new System.Drawing.Size(100, 22);
             this.textEdit2.TabIndex = 1;
+            // 
+            // textEdit1
+            // 
+            this.textEdit1.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.receiptDetailBindingSource, "Series", true));
+            this.textEdit1.EnterMoveNextControl = true;
+            this.textEdit1.Location = new System.Drawing.Point(116, 60);
+            this.textEdit1.Name = "textEdit1";
+            this.textEdit1.Properties.HideSelection = false;
+            this.textEdit1.Properties.ValidateOnEnterKey = true;
+            this.textEdit1.Size = new System.Drawing.Size(100, 22);
+            this.textEdit1.TabIndex = 10;
+            // 
+            // textEdit3
+            // 
+            this.textEdit3.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.receiptDetailBindingSource, "UseByDate", true));
+            this.textEdit3.EnterMoveNextControl = true;
+            this.textEdit3.Location = new System.Drawing.Point(116, 88);
+            this.textEdit3.Name = "textEdit3";
+            this.textEdit3.Properties.DisplayFormat.FormatString = "d";
+            this.textEdit3.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.textEdit3.Properties.EditFormat.FormatString = "d";
+            this.textEdit3.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.textEdit3.Properties.Mask.EditMask = "d";
+            this.textEdit3.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTime;
+            this.textEdit3.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.textEdit3.Size = new System.Drawing.Size(100, 22);
+            this.textEdit3.TabIndex = 11;
             // 
             // button1
             // 
@@ -196,6 +233,11 @@ namespace RetailTrade.Receipt
             this.label4.TabIndex = 11;
             this.label4.Text = "label4";
             // 
+            // productBindingSource
+            // 
+            this.productBindingSource.DataMember = "Product";
+            this.productBindingSource.DataSource = this.mDataSet;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -205,48 +247,6 @@ namespace RetailTrade.Receipt
             this.label5.Size = new System.Drawing.Size(46, 17);
             this.label5.TabIndex = 12;
             this.label5.Text = "label5";
-            // 
-            // textEdit1
-            // 
-            this.textEdit1.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.receiptDetailBindingSource, "Series", true));
-            this.textEdit1.EnterMoveNextControl = true;
-            this.textEdit1.Location = new System.Drawing.Point(117, 60);
-            this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Properties.HideSelection = false;
-            this.textEdit1.Properties.ValidateOnEnterKey = true;
-            this.textEdit1.Size = new System.Drawing.Size(100, 22);
-            this.textEdit1.TabIndex = 10;
-            // 
-            // productBindingSource
-            // 
-            this.productBindingSource.DataMember = "Product";
-            this.productBindingSource.DataSource = this.mDataSet;
-            // 
-            // mDataSet
-            // 
-            this.mDataSet.DataSetName = "MDataSet";
-            this.mDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // receiptDetailBindingSource
-            // 
-            this.receiptDetailBindingSource.DataMember = "ReceiptDetail";
-            this.receiptDetailBindingSource.DataSource = this.mDataSet;
-            // 
-            // textEdit3
-            // 
-            this.textEdit3.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.receiptDetailBindingSource, "UseByDate", true));
-            this.textEdit3.EnterMoveNextControl = true;
-            this.textEdit3.Location = new System.Drawing.Point(117, 88);
-            this.textEdit3.Name = "textEdit3";
-            this.textEdit3.Properties.DisplayFormat.FormatString = "d";
-            this.textEdit3.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.textEdit3.Properties.EditFormat.FormatString = "d";
-            this.textEdit3.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.textEdit3.Properties.Mask.EditMask = "d";
-            this.textEdit3.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTime;
-            this.textEdit3.Properties.Mask.UseMaskAsDisplayFormat = true;
-            this.textEdit3.Size = new System.Drawing.Size(100, 22);
-            this.textEdit3.TabIndex = 11;
             // 
             // ReceiptDetailRowAdd
             // 
@@ -259,18 +259,19 @@ namespace RetailTrade.Receipt
             this.Controls.Add(this.groupBox1);
             this.Name = "ReceiptDetailRowAdd";
             this.Size = new System.Drawing.Size(389, 304);
+            this.Load += new System.EventHandler(this.ReceiptDetailRowAdd_Load);
             this.Validating += new System.ComponentModel.CancelEventHandler(this.ReceiptDetailRowAdd_Validating);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.QuantityEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
