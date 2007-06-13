@@ -25,7 +25,7 @@ namespace RetailTrade.Receipt
             InitializeComponent();
             _receiptDetailRow = source;
             _productRow = product;
-            
+
             this.receiptDetailBindingSource.DataSource = _receiptDetailRow;
             this.productBindingSource.DataSource = _productRow;
 
@@ -34,11 +34,11 @@ namespace RetailTrade.Receipt
 
             _receiptDetailRow.ProductRef = _productRow.ID;
 
-         /*   if (_productRow.MinDivisor == 1)
-                this.QuantityEdit.Properties.Mask.EditMask = "D";
-            else
-           */
-            
+            /*   if (_productRow.MinDivisor == 1)
+                   this.QuantityEdit.Properties.Mask.EditMask = "D";
+               else
+              */
+            _receiptDetailRow.ProductRef = _productRow.ID;
             this.QuantityEdit.Properties.Mask.EditMask = "#####0.000";
 
        //     source.BeginEdit();
@@ -75,6 +75,12 @@ namespace RetailTrade.Receipt
        //  if (this.QuantityEdit.Properties.Mask.ToString()!= "D")
 
             
+        }
+
+        private void ReceiptDetailRowAdd_Load(object sender, EventArgs e)
+        {
+            this.QuantityEdit.EditValue = 0;
+            _receiptDetailRow.ProductRef = _productRow.ID;
         }
 
        

@@ -70,7 +70,7 @@ namespace RetailTrade
 
                  MDataSet.ReceiptDetailRow sourceRow =((this.receiptDetailBindingSource.AddNew() as DataRowView).Row  as MDataSet.ReceiptDetailRow) ;
 
-                 this.receiptDetailBindingSource.EndEdit();
+                // this.receiptDetailBindingSource.EndEdit();
 
                  ReceiptDetailRowAdd _receiptDetailRowAdd = new ReceiptDetailRowAdd(sourceRow, (MDataSet.ProductRow)this.gridViewProduct.GetDataRow(this.gridViewProduct.FocusedRowHandle));
            
