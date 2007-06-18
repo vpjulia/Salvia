@@ -67,12 +67,12 @@ namespace RetailTrade
             settings["RetailTradeConnectionString"]="новая строка";
             settings.Save();
             */
-
+            this.receiptMasterTableAdapter.Fill(this.mDataSet.ReceiptMaster);
+      
             // TODO: This line of code loads data into the 'mDataSet.ReceiptDetail' table. You can move, or remove it, as needed.
             this.receiptDetailTableAdapter.Fill(this.mDataSet.ReceiptDetail);
            
-        this.receiptMasterTableAdapter.Fill(this.mDataSet.ReceiptMaster);
-            this.receiptDetailTableAdapter.Fill(this.mDataSet.ReceiptDetail);
+
 // TODO: This line of code loads data into the 'mDataSet.ReceiptMaster' table. You can move, or remove it, as needed.
             // TODO: This line of code loads data into the 'mDataSet.ReceiptMasterNew' table. You can move, or remove it, as needed.
            
@@ -190,7 +190,7 @@ namespace RetailTrade
         {
           //  try
             {
-                this.receiptMasterTableAdapter.Update(sourceRow);
+               this.receiptMasterTableAdapter.Update(sourceRow);
 
                this.receiptDetailTableAdapter.Update(sourceRow.GetReceiptDetailRows());
                 

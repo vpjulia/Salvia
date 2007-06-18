@@ -317,7 +317,7 @@ namespace RetailTrade
             // 
             // gridControl2
             // 
-            this.gridControl2.DataSource = this.receiptDetailBindingSource;
+            this.gridControl2.DataSource = this.receiptMasterBindingSource;
             // 
             // 
             // 
