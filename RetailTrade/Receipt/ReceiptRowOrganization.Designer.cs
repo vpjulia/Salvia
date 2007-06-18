@@ -75,6 +75,7 @@ namespace RetailTrade
             this.btSaveReciept = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.panelNumber = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -85,7 +86,7 @@ namespace RetailTrade
             this.receiptMasterNewTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptMasterNewTableAdapter();
             this.organizationTableAdapter = new RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter();
             this.stockTableAdapter = new RetailTrade.MDataSetTableAdapters.StockTableAdapter();
-            this.label6 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             numberLabel = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -546,6 +547,7 @@ namespace RetailTrade
             // panelNumber
             // 
             this.panelNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelNumber.Controls.Add(this.label9);
             this.panelNumber.Controls.Add(this.label6);
             this.panelNumber.Controls.Add(this.label8);
             this.panelNumber.Controls.Add(this.label7);
@@ -559,6 +561,17 @@ namespace RetailTrade
             this.panelNumber.Name = "panelNumber";
             this.panelNumber.Size = new System.Drawing.Size(528, 59);
             this.panelNumber.TabIndex = 3;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.receiptMasterBindingSource, "PurchSum", true));
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(59, 38);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(59, 20);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "label6";
             // 
             // label8
             // 
@@ -628,16 +641,15 @@ namespace RetailTrade
             // 
             this.stockTableAdapter.ClearBeforeFill = true;
             // 
-            // label6
+            // label9
             // 
-            this.label6.AutoSize = true;
-            this.label6.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.receiptMasterBindingSource, "PurchSum", true));
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(59, 38);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(59, 20);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "label6";
+            this.label9.AutoSize = true;
+            this.label9.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.receiptMasterBindingSource, "CalcPurchSum", true));
+            this.label9.Location = new System.Drawing.Point(361, 9);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(46, 17);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "label9";
             // 
             // ReceiptRowOrganization
             // 
@@ -733,5 +745,6 @@ namespace RetailTrade
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label9;
     }
 }
