@@ -128,8 +128,8 @@ namespace RetailTrade
             this.btAdd.Image = ((System.Drawing.Image)(resources.GetObject("btAdd.Image")));
             this.btAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btAdd.Name = "btAdd";
-            this.btAdd.Size = new System.Drawing.Size(53, 22);
-            this.btAdd.Text = "Add";
+            this.btAdd.Size = new System.Drawing.Size(89, 22);
+            this.btAdd.Text = "Создать ";
             this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
             // gridControl1

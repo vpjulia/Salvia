@@ -61,6 +61,8 @@ namespace RetailTrade {
         
         private ReceiptMasterNewDataTable tableReceiptMasterNew;
         
+        private System.Data.DataRelation relationReceiptMaster_ReceiptDetail;
+        
         private System.Data.DataRelation relationFK_InvoiceDetail_InvoiceMaster;
         
         private System.Data.DataRelation relationCountry_Manufacturer;
@@ -94,8 +96,6 @@ namespace RetailTrade {
         private System.Data.DataRelation relationFK_ReceiptMaster_Stock1;
         
         private System.Data.DataRelation relationReceiptMasterNew_ReceiptDetail;
-        
-        private System.Data.DataRelation relationReceiptMaster_ReceiptDetail;
         
         private System.Data.SchemaSerializationMode _schemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -629,6 +629,7 @@ namespace RetailTrade {
                     this.tableReceiptMasterNew.InitVars();
                 }
             }
+            this.relationReceiptMaster_ReceiptDetail = this.Relations["ReceiptMaster_ReceiptDetail"];
             this.relationFK_InvoiceDetail_InvoiceMaster = this.Relations["FK_InvoiceDetail_InvoiceMaster"];
             this.relationCountry_Manufacturer = this.Relations["Country_Manufacturer"];
             this.relationFK_FarmGroupLevel2_FarmGroup = this.Relations["FK_FarmGroupLevel2_FarmGroup"];
@@ -646,7 +647,6 @@ namespace RetailTrade {
             this.relationFK_ReceiptMaster_Stock = this.Relations["FK_ReceiptMaster_Stock"];
             this.relationFK_ReceiptMaster_Stock1 = this.Relations["FK_ReceiptMaster_Stock1"];
             this.relationReceiptMasterNew_ReceiptDetail = this.Relations["ReceiptMasterNew_ReceiptDetail"];
-            this.relationReceiptMaster_ReceiptDetail = this.Relations["ReceiptMaster_ReceiptDetail"];
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -694,6 +694,18 @@ namespace RetailTrade {
             base.Tables.Add(this.tableProduct);
             this.tableReceiptMasterNew = new ReceiptMasterNewDataTable();
             base.Tables.Add(this.tableReceiptMasterNew);
+            System.Data.ForeignKeyConstraint fkc;
+            fkc = new System.Data.ForeignKeyConstraint("ReceiptMaster_ReceiptDetail", new System.Data.DataColumn[] {
+                        this.tableReceiptMaster.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableReceiptDetail.ReceiptMaterRefColumn});
+            this.tableReceiptDetail.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.Cascade;
+            fkc.DeleteRule = System.Data.Rule.SetNull;
+            fkc.UpdateRule = System.Data.Rule.Cascade;
+            this.relationReceiptMaster_ReceiptDetail = new System.Data.DataRelation("ReceiptMaster_ReceiptDetail", new System.Data.DataColumn[] {
+                        this.tableReceiptMaster.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableReceiptDetail.ReceiptMaterRefColumn}, false);
+            this.Relations.Add(this.relationReceiptMaster_ReceiptDetail);
             this.relationFK_InvoiceDetail_InvoiceMaster = new System.Data.DataRelation("FK_InvoiceDetail_InvoiceMaster", new System.Data.DataColumn[] {
                         this.tableInvoiceMaster.IDColumn}, new System.Data.DataColumn[] {
                         this.tableInvoiceDetail.InvoiceMaterRefColumn}, false);
@@ -762,10 +774,6 @@ namespace RetailTrade {
                         this.tableReceiptMasterNew.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptDetail.ReceiptMaterRefColumn}, false);
             this.Relations.Add(this.relationReceiptMasterNew_ReceiptDetail);
-            this.relationReceiptMaster_ReceiptDetail = new System.Data.DataRelation("ReceiptMaster_ReceiptDetail", new System.Data.DataColumn[] {
-                        this.tableReceiptMaster.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableReceiptDetail.ReceiptMaterRefColumn}, false);
-            this.Relations.Add(this.relationReceiptMaster_ReceiptDetail);
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4119,11 +4127,11 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptDetailRow AddReceiptDetailRow(ReceiptMasterNewRow parentReceiptMasterNewRowByReceiptMasterNew_ReceiptDetail, ProductRow parentProductRowByFK_ReceiptDetail_Product, string Series, System.DateTime UseByDate, decimal Quantity, decimal PricePurchase, decimal PurchaseNDS, decimal RetailNDS, decimal PriceRetailNDS, int InvoiceDetailRef, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, byte[] RowVersion) {
+            public ReceiptDetailRow AddReceiptDetailRow(ReceiptMasterRow parentReceiptMasterRowByReceiptMaster_ReceiptDetail, ProductRow parentProductRowByFK_ReceiptDetail_Product, string Series, System.DateTime UseByDate, decimal Quantity, decimal PricePurchase, decimal PurchaseNDS, decimal RetailNDS, decimal PriceRetailNDS, int InvoiceDetailRef, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, byte[] RowVersion) {
                 ReceiptDetailRow rowReceiptDetailRow = ((ReceiptDetailRow)(this.NewRow()));
                 rowReceiptDetailRow.ItemArray = new object[] {
                         null,
-                        parentReceiptMasterNewRowByReceiptMasterNew_ReceiptDetail[0],
+                        parentReceiptMasterRowByReceiptMaster_ReceiptDetail[0],
                         parentProductRowByFK_ReceiptDetail_Product[0],
                         Series,
                         UseByDate,
@@ -4341,11 +4349,7 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnSenderInvoiceRef;
             
-            private System.Data.DataColumn columnTotalSum;
-            
             private System.Data.DataColumn columnPurchSum;
-            
-            private System.Data.DataColumn columnSumNDS;
             
             private System.Data.DataColumn columnIsReadOnly;
             
@@ -4357,7 +4361,11 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnRowVersion;
             
-            private static System.DateTime columnDocDate_defaultValue = System.DateTime.Parse("01/01/2001 00:00:00");
+            private System.Data.DataColumn columnSalesSum;
+            
+            private System.Data.DataColumn columnPurchSumNDS;
+            
+            private System.Data.DataColumn columnSalesSumNDS;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public ReceiptMasterDataTable() {
@@ -4453,23 +4461,9 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn TotalSumColumn {
-                get {
-                    return this.columnTotalSum;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.Data.DataColumn PurchSumColumn {
                 get {
                     return this.columnPurchSum;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn SumNDSColumn {
-                get {
-                    return this.columnSumNDS;
                 }
             }
             
@@ -4509,6 +4503,27 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn SalesSumColumn {
+                get {
+                    return this.columnSalesSum;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn PurchSumNDSColumn {
+                get {
+                    return this.columnPurchSumNDS;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn SalesSumNDSColumn {
+                get {
+                    return this.columnSalesSumNDS;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -4537,7 +4552,23 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptMasterRow AddReceiptMasterRow(string Note, System.DateTime DocDate, int DocumentTypeRef, OrganizationRow parentOrganizationRowByFK_ReceiptMaster_Organization, StockRow parentStockRowByFK_ReceiptMaster_Stock, StockRow parentStockRowByFK_ReceiptMaster_Stock1, int SenderInvoiceRef, decimal TotalSum, decimal PurchSum, decimal SumNDS, bool IsReadOnly, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, byte[] RowVersion) {
+            public ReceiptMasterRow AddReceiptMasterRow(
+                        string Note, 
+                        System.DateTime DocDate, 
+                        int DocumentTypeRef, 
+                        OrganizationRow parentOrganizationRowByFK_ReceiptMaster_Organization, 
+                        StockRow parentStockRowByFK_ReceiptMaster_Stock, 
+                        StockRow parentStockRowByFK_ReceiptMaster_Stock1, 
+                        int SenderInvoiceRef, 
+                        decimal PurchSum, 
+                        bool IsReadOnly, 
+                        string AuthorCreate, 
+                        string AuthorLastModif, 
+                        System.DateTime DateCreate, 
+                        byte[] RowVersion, 
+                        decimal SalesSum, 
+                        decimal PurchSumNDS, 
+                        decimal SalesSumNDS) {
                 ReceiptMasterRow rowReceiptMasterRow = ((ReceiptMasterRow)(this.NewRow()));
                 rowReceiptMasterRow.ItemArray = new object[] {
                         null,
@@ -4549,14 +4580,15 @@ namespace RetailTrade {
                         parentStockRowByFK_ReceiptMaster_Stock[0],
                         parentStockRowByFK_ReceiptMaster_Stock1[0],
                         SenderInvoiceRef,
-                        TotalSum,
                         PurchSum,
-                        SumNDS,
                         IsReadOnly,
                         AuthorCreate,
                         AuthorLastModif,
                         DateCreate,
-                        RowVersion};
+                        RowVersion,
+                        SalesSum,
+                        PurchSumNDS,
+                        SalesSumNDS};
                 this.Rows.Add(rowReceiptMasterRow);
                 return rowReceiptMasterRow;
             }
@@ -4595,14 +4627,15 @@ namespace RetailTrade {
                 this.columnMainStockRef = base.Columns["MainStockRef"];
                 this.columnSenderStockRef = base.Columns["SenderStockRef"];
                 this.columnSenderInvoiceRef = base.Columns["SenderInvoiceRef"];
-                this.columnTotalSum = base.Columns["TotalSum"];
                 this.columnPurchSum = base.Columns["PurchSum"];
-                this.columnSumNDS = base.Columns["SumNDS"];
                 this.columnIsReadOnly = base.Columns["IsReadOnly"];
                 this.columnAuthorCreate = base.Columns["AuthorCreate"];
                 this.columnAuthorLastModif = base.Columns["AuthorLastModif"];
                 this.columnDateCreate = base.Columns["DateCreate"];
                 this.columnRowVersion = base.Columns["RowVersion"];
+                this.columnSalesSum = base.Columns["SalesSum"];
+                this.columnPurchSumNDS = base.Columns["PurchSumNDS"];
+                this.columnSalesSumNDS = base.Columns["SalesSumNDS"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4625,12 +4658,8 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnSenderStockRef);
                 this.columnSenderInvoiceRef = new System.Data.DataColumn("SenderInvoiceRef", typeof(int), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSenderInvoiceRef);
-                this.columnTotalSum = new System.Data.DataColumn("TotalSum", typeof(decimal), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTotalSum);
                 this.columnPurchSum = new System.Data.DataColumn("PurchSum", typeof(decimal), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPurchSum);
-                this.columnSumNDS = new System.Data.DataColumn("SumNDS", typeof(decimal), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSumNDS);
                 this.columnIsReadOnly = new System.Data.DataColumn("IsReadOnly", typeof(bool), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsReadOnly);
                 this.columnAuthorCreate = new System.Data.DataColumn("AuthorCreate", typeof(string), null, System.Data.MappingType.Element);
@@ -4641,28 +4670,50 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnDateCreate);
                 this.columnRowVersion = new System.Data.DataColumn("RowVersion", typeof(byte[]), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRowVersion);
+                this.columnSalesSum = new System.Data.DataColumn("SalesSum", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSalesSum);
+                this.columnPurchSumNDS = new System.Data.DataColumn("PurchSumNDS", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPurchSumNDS);
+                this.columnSalesSumNDS = new System.Data.DataColumn("SalesSumNDS", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSalesSumNDS);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
+                this.columnID.AutoIncrementStep = -1;
                 this.columnID.AllowDBNull = false;
                 this.columnID.ReadOnly = true;
                 this.columnID.Unique = true;
                 this.columnNumber.AutoIncrement = true;
                 this.columnNumber.AutoIncrementSeed = -1;
                 this.columnNumber.AutoIncrementStep = -1;
+                this.columnNumber.AllowDBNull = false;
+                this.columnNote.AllowDBNull = false;
                 this.columnNote.DefaultValue = ((string)("\'\'"));
                 this.columnNote.MaxLength = 255;
-                this.columnDocDate.DefaultValue = ((System.DateTime)(ReceiptMasterDataTable.columnDocDate_defaultValue));
+                this.columnDocDate.AllowDBNull = false;
+                this.columnDocumentTypeRef.AllowDBNull = false;
+                this.columnDocumentTypeRef.DefaultValue = ((int)(0));
+                this.columnOrganizationRef.AllowDBNull = false;
                 this.columnOrganizationRef.DefaultValue = ((int)(0));
+                this.columnMainStockRef.AllowDBNull = false;
                 this.columnMainStockRef.DefaultValue = ((int)(0));
+                this.columnSenderStockRef.AllowDBNull = false;
                 this.columnSenderStockRef.DefaultValue = ((int)(0));
+                this.columnSenderInvoiceRef.AllowDBNull = false;
                 this.columnSenderInvoiceRef.DefaultValue = ((int)(0));
-                this.columnTotalSum.DefaultValue = ((decimal)(0m));
+                this.columnPurchSum.AllowDBNull = false;
                 this.columnPurchSum.DefaultValue = ((decimal)(0m));
-                this.columnSumNDS.DefaultValue = ((decimal)(0m));
+                this.columnIsReadOnly.AllowDBNull = false;
+                this.columnIsReadOnly.DefaultValue = ((bool)(false));
+                this.columnAuthorCreate.AllowDBNull = false;
                 this.columnAuthorCreate.MaxLength = 50;
+                this.columnAuthorLastModif.AllowDBNull = false;
                 this.columnAuthorLastModif.MaxLength = 50;
+                this.columnDateCreate.AllowDBNull = false;
                 this.columnRowVersion.ReadOnly = true;
+                this.columnSalesSum.AllowDBNull = false;
+                this.columnPurchSumNDS.AllowDBNull = false;
+                this.columnSalesSumNDS.AllowDBNull = false;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7129,11 +7180,7 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnSenderInvoiceRef;
             
-            private System.Data.DataColumn columnTotalSum;
-            
             private System.Data.DataColumn columnPurchSum;
-            
-            private System.Data.DataColumn columnSumNDS;
             
             private System.Data.DataColumn columnIsReadOnly;
             
@@ -7158,6 +7205,10 @@ namespace RetailTrade {
             private System.Data.DataColumn columnFullAuthorModif;
             
             private System.Data.DataColumn columnFullAuthorCreate;
+            
+            private System.Data.DataColumn columnPurchSumNDS;
+            
+            private System.Data.DataColumn columnSalesSumNDS;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public ReceiptMasterNewDataTable() {
@@ -7253,23 +7304,9 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn TotalSumColumn {
-                get {
-                    return this.columnTotalSum;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.Data.DataColumn PurchSumColumn {
                 get {
                     return this.columnPurchSum;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn SumNDSColumn {
-                get {
-                    return this.columnSumNDS;
                 }
             }
             
@@ -7358,6 +7395,20 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn PurchSumNDSColumn {
+                get {
+                    return this.columnPurchSumNDS;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn SalesSumNDSColumn {
+                get {
+                    return this.columnSalesSumNDS;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -7396,9 +7447,7 @@ namespace RetailTrade {
                         int MainStockRef, 
                         int SenderStockRef, 
                         int SenderInvoiceRef, 
-                        decimal TotalSum, 
                         decimal PurchSum, 
-                        decimal SumNDS, 
                         bool IsReadOnly, 
                         string AuthorCreate, 
                         string AuthorLastModif, 
@@ -7410,7 +7459,9 @@ namespace RetailTrade {
                         string TradePutletName, 
                         string OrganizationName, 
                         object FullAuthorModif, 
-                        object FullAuthorCreate) {
+                        object FullAuthorCreate, 
+                        decimal PurchSumNDS, 
+                        decimal SalesSumNDS) {
                 ReceiptMasterNewRow rowReceiptMasterNewRow = ((ReceiptMasterNewRow)(this.NewRow()));
                 rowReceiptMasterNewRow.ItemArray = new object[] {
                         ID,
@@ -7422,9 +7473,7 @@ namespace RetailTrade {
                         MainStockRef,
                         SenderStockRef,
                         SenderInvoiceRef,
-                        TotalSum,
                         PurchSum,
-                        SumNDS,
                         IsReadOnly,
                         AuthorCreate,
                         AuthorLastModif,
@@ -7436,7 +7485,9 @@ namespace RetailTrade {
                         TradePutletName,
                         OrganizationName,
                         FullAuthorModif,
-                        FullAuthorCreate};
+                        FullAuthorCreate,
+                        PurchSumNDS,
+                        SalesSumNDS};
                 this.Rows.Add(rowReceiptMasterNewRow);
                 return rowReceiptMasterNewRow;
             }
@@ -7475,9 +7526,7 @@ namespace RetailTrade {
                 this.columnMainStockRef = base.Columns["MainStockRef"];
                 this.columnSenderStockRef = base.Columns["SenderStockRef"];
                 this.columnSenderInvoiceRef = base.Columns["SenderInvoiceRef"];
-                this.columnTotalSum = base.Columns["TotalSum"];
                 this.columnPurchSum = base.Columns["PurchSum"];
-                this.columnSumNDS = base.Columns["SumNDS"];
                 this.columnIsReadOnly = base.Columns["IsReadOnly"];
                 this.columnAuthorCreate = base.Columns["AuthorCreate"];
                 this.columnAuthorLastModif = base.Columns["AuthorLastModif"];
@@ -7490,6 +7539,8 @@ namespace RetailTrade {
                 this.columnOrganizationName = base.Columns["OrganizationName"];
                 this.columnFullAuthorModif = base.Columns["FullAuthorModif"];
                 this.columnFullAuthorCreate = base.Columns["FullAuthorCreate"];
+                this.columnPurchSumNDS = base.Columns["PurchSumNDS"];
+                this.columnSalesSumNDS = base.Columns["SalesSumNDS"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7512,12 +7563,8 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnSenderStockRef);
                 this.columnSenderInvoiceRef = new System.Data.DataColumn("SenderInvoiceRef", typeof(int), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSenderInvoiceRef);
-                this.columnTotalSum = new System.Data.DataColumn("TotalSum", typeof(decimal), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTotalSum);
                 this.columnPurchSum = new System.Data.DataColumn("PurchSum", typeof(decimal), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPurchSum);
-                this.columnSumNDS = new System.Data.DataColumn("SumNDS", typeof(decimal), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSumNDS);
                 this.columnIsReadOnly = new System.Data.DataColumn("IsReadOnly", typeof(bool), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsReadOnly);
                 this.columnAuthorCreate = new System.Data.DataColumn("AuthorCreate", typeof(string), null, System.Data.MappingType.Element);
@@ -7542,6 +7589,10 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnFullAuthorModif);
                 this.columnFullAuthorCreate = new System.Data.DataColumn("FullAuthorCreate", typeof(object), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFullAuthorCreate);
+                this.columnPurchSumNDS = new System.Data.DataColumn("PurchSumNDS", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPurchSumNDS);
+                this.columnSalesSumNDS = new System.Data.DataColumn("SalesSumNDS", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSalesSumNDS);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AllowDBNull = false;
@@ -7555,9 +7606,7 @@ namespace RetailTrade {
                 this.columnMainStockRef.AllowDBNull = false;
                 this.columnSenderStockRef.AllowDBNull = false;
                 this.columnSenderInvoiceRef.AllowDBNull = false;
-                this.columnTotalSum.AllowDBNull = false;
                 this.columnPurchSum.AllowDBNull = false;
-                this.columnSumNDS.AllowDBNull = false;
                 this.columnIsReadOnly.AllowDBNull = false;
                 this.columnAuthorCreate.AllowDBNull = false;
                 this.columnAuthorCreate.MaxLength = 50;
@@ -7574,6 +7623,8 @@ namespace RetailTrade {
                 this.columnTradePutletName.MaxLength = 50;
                 this.columnOrganizationName.AllowDBNull = false;
                 this.columnOrganizationName.MaxLength = 255;
+                this.columnPurchSumNDS.AllowDBNull = false;
+                this.columnSalesSumNDS.AllowDBNull = false;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9088,6 +9139,16 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptMasterRow ReceiptMasterRow {
+                get {
+                    return ((ReceiptMasterRow)(this.GetParentRow(this.Table.ParentRelations["ReceiptMaster_ReceiptDetail"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["ReceiptMaster_ReceiptDetail"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public ProductRow ProductRow {
                 get {
                     return ((ProductRow)(this.GetParentRow(this.Table.ParentRelations["FK_ReceiptDetail_Product"])));
@@ -9104,16 +9165,6 @@ namespace RetailTrade {
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["ReceiptMasterNew_ReceiptDetail"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptMasterRow ReceiptMasterRow {
-                get {
-                    return ((ReceiptMasterRow)(this.GetParentRow(this.Table.ParentRelations["ReceiptMaster_ReceiptDetail"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["ReceiptMaster_ReceiptDetail"]);
                 }
             }
             
@@ -9272,12 +9323,7 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public int Number {
                 get {
-                    try {
-                        return ((int)(this[this.tableReceiptMaster.NumberColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'Number\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
+                    return ((int)(this[this.tableReceiptMaster.NumberColumn]));
                 }
                 set {
                     this[this.tableReceiptMaster.NumberColumn] = value;
@@ -9287,12 +9333,7 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string Note {
                 get {
-                    try {
-                        return ((string)(this[this.tableReceiptMaster.NoteColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'Note\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
+                    return ((string)(this[this.tableReceiptMaster.NoteColumn]));
                 }
                 set {
                     this[this.tableReceiptMaster.NoteColumn] = value;
@@ -9302,12 +9343,7 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.DateTime DocDate {
                 get {
-                    try {
-                        return ((System.DateTime)(this[this.tableReceiptMaster.DocDateColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'DocDate\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
+                    return ((System.DateTime)(this[this.tableReceiptMaster.DocDateColumn]));
                 }
                 set {
                     this[this.tableReceiptMaster.DocDateColumn] = value;
@@ -9317,12 +9353,7 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public int DocumentTypeRef {
                 get {
-                    try {
-                        return ((int)(this[this.tableReceiptMaster.DocumentTypeRefColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'DocumentTypeRef\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
+                    return ((int)(this[this.tableReceiptMaster.DocumentTypeRefColumn]));
                 }
                 set {
                     this[this.tableReceiptMaster.DocumentTypeRefColumn] = value;
@@ -9332,12 +9363,7 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public int OrganizationRef {
                 get {
-                    try {
-                        return ((int)(this[this.tableReceiptMaster.OrganizationRefColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'OrganizationRef\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
+                    return ((int)(this[this.tableReceiptMaster.OrganizationRefColumn]));
                 }
                 set {
                     this[this.tableReceiptMaster.OrganizationRefColumn] = value;
@@ -9347,12 +9373,7 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public int MainStockRef {
                 get {
-                    try {
-                        return ((int)(this[this.tableReceiptMaster.MainStockRefColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'MainStockRef\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
+                    return ((int)(this[this.tableReceiptMaster.MainStockRefColumn]));
                 }
                 set {
                     this[this.tableReceiptMaster.MainStockRefColumn] = value;
@@ -9362,12 +9383,7 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public int SenderStockRef {
                 get {
-                    try {
-                        return ((int)(this[this.tableReceiptMaster.SenderStockRefColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'SenderStockRef\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
+                    return ((int)(this[this.tableReceiptMaster.SenderStockRefColumn]));
                 }
                 set {
                     this[this.tableReceiptMaster.SenderStockRefColumn] = value;
@@ -9377,12 +9393,7 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public int SenderInvoiceRef {
                 get {
-                    try {
-                        return ((int)(this[this.tableReceiptMaster.SenderInvoiceRefColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'SenderInvoiceRef\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
+                    return ((int)(this[this.tableReceiptMaster.SenderInvoiceRefColumn]));
                 }
                 set {
                     this[this.tableReceiptMaster.SenderInvoiceRefColumn] = value;
@@ -9390,29 +9401,9 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal TotalSum {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableReceiptMaster.TotalSumColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'TotalSum\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReceiptMaster.TotalSumColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public decimal PurchSum {
                 get {
-                    try {
-                        return ((decimal)(this[this.tableReceiptMaster.PurchSumColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'PurchSum\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
+                    return ((decimal)(this[this.tableReceiptMaster.PurchSumColumn]));
                 }
                 set {
                     this[this.tableReceiptMaster.PurchSumColumn] = value;
@@ -9420,29 +9411,9 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal SumNDS {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableReceiptMaster.SumNDSColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'SumNDS\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReceiptMaster.SumNDSColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsReadOnly {
                 get {
-                    try {
-                        return ((bool)(this[this.tableReceiptMaster.IsReadOnlyColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'IsReadOnly\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
+                    return ((bool)(this[this.tableReceiptMaster.IsReadOnlyColumn]));
                 }
                 set {
                     this[this.tableReceiptMaster.IsReadOnlyColumn] = value;
@@ -9452,12 +9423,7 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string AuthorCreate {
                 get {
-                    try {
-                        return ((string)(this[this.tableReceiptMaster.AuthorCreateColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'AuthorCreate\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
+                    return ((string)(this[this.tableReceiptMaster.AuthorCreateColumn]));
                 }
                 set {
                     this[this.tableReceiptMaster.AuthorCreateColumn] = value;
@@ -9467,12 +9433,7 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string AuthorLastModif {
                 get {
-                    try {
-                        return ((string)(this[this.tableReceiptMaster.AuthorLastModifColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'AuthorLastModif\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
+                    return ((string)(this[this.tableReceiptMaster.AuthorLastModifColumn]));
                 }
                 set {
                     this[this.tableReceiptMaster.AuthorLastModifColumn] = value;
@@ -9482,12 +9443,7 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.DateTime DateCreate {
                 get {
-                    try {
-                        return ((System.DateTime)(this[this.tableReceiptMaster.DateCreateColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'DateCreate\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
+                    return ((System.DateTime)(this[this.tableReceiptMaster.DateCreateColumn]));
                 }
                 set {
                     this[this.tableReceiptMaster.DateCreateColumn] = value;
@@ -9506,6 +9462,36 @@ namespace RetailTrade {
                 }
                 set {
                     this[this.tableReceiptMaster.RowVersionColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal SalesSum {
+                get {
+                    return ((decimal)(this[this.tableReceiptMaster.SalesSumColumn]));
+                }
+                set {
+                    this[this.tableReceiptMaster.SalesSumColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal PurchSumNDS {
+                get {
+                    return ((decimal)(this[this.tableReceiptMaster.PurchSumNDSColumn]));
+                }
+                set {
+                    this[this.tableReceiptMaster.PurchSumNDSColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal SalesSumNDS {
+                get {
+                    return ((decimal)(this[this.tableReceiptMaster.SalesSumNDSColumn]));
+                }
+                set {
+                    this[this.tableReceiptMaster.SalesSumNDSColumn] = value;
                 }
             }
             
@@ -9537,156 +9523,6 @@ namespace RetailTrade {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_ReceiptMaster_Stock1"]);
                 }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsNumberNull() {
-                return this.IsNull(this.tableReceiptMaster.NumberColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetNumberNull() {
-                this[this.tableReceiptMaster.NumberColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsNoteNull() {
-                return this.IsNull(this.tableReceiptMaster.NoteColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetNoteNull() {
-                this[this.tableReceiptMaster.NoteColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsDocDateNull() {
-                return this.IsNull(this.tableReceiptMaster.DocDateColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetDocDateNull() {
-                this[this.tableReceiptMaster.DocDateColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsDocumentTypeRefNull() {
-                return this.IsNull(this.tableReceiptMaster.DocumentTypeRefColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetDocumentTypeRefNull() {
-                this[this.tableReceiptMaster.DocumentTypeRefColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsOrganizationRefNull() {
-                return this.IsNull(this.tableReceiptMaster.OrganizationRefColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetOrganizationRefNull() {
-                this[this.tableReceiptMaster.OrganizationRefColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsMainStockRefNull() {
-                return this.IsNull(this.tableReceiptMaster.MainStockRefColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetMainStockRefNull() {
-                this[this.tableReceiptMaster.MainStockRefColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsSenderStockRefNull() {
-                return this.IsNull(this.tableReceiptMaster.SenderStockRefColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetSenderStockRefNull() {
-                this[this.tableReceiptMaster.SenderStockRefColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsSenderInvoiceRefNull() {
-                return this.IsNull(this.tableReceiptMaster.SenderInvoiceRefColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetSenderInvoiceRefNull() {
-                this[this.tableReceiptMaster.SenderInvoiceRefColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsTotalSumNull() {
-                return this.IsNull(this.tableReceiptMaster.TotalSumColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetTotalSumNull() {
-                this[this.tableReceiptMaster.TotalSumColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsPurchSumNull() {
-                return this.IsNull(this.tableReceiptMaster.PurchSumColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetPurchSumNull() {
-                this[this.tableReceiptMaster.PurchSumColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsSumNDSNull() {
-                return this.IsNull(this.tableReceiptMaster.SumNDSColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetSumNDSNull() {
-                this[this.tableReceiptMaster.SumNDSColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsIsReadOnlyNull() {
-                return this.IsNull(this.tableReceiptMaster.IsReadOnlyColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetIsReadOnlyNull() {
-                this[this.tableReceiptMaster.IsReadOnlyColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsAuthorCreateNull() {
-                return this.IsNull(this.tableReceiptMaster.AuthorCreateColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetAuthorCreateNull() {
-                this[this.tableReceiptMaster.AuthorCreateColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsAuthorLastModifNull() {
-                return this.IsNull(this.tableReceiptMaster.AuthorLastModifColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetAuthorLastModifNull() {
-                this[this.tableReceiptMaster.AuthorLastModifColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsDateCreateNull() {
-                return this.IsNull(this.tableReceiptMaster.DateCreateColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetDateCreateNull() {
-                this[this.tableReceiptMaster.DateCreateColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10816,32 +10652,12 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal TotalSum {
-                get {
-                    return ((decimal)(this[this.tableReceiptMasterNew.TotalSumColumn]));
-                }
-                set {
-                    this[this.tableReceiptMasterNew.TotalSumColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public decimal PurchSum {
                 get {
                     return ((decimal)(this[this.tableReceiptMasterNew.PurchSumColumn]));
                 }
                 set {
                     this[this.tableReceiptMasterNew.PurchSumColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal SumNDS {
-                get {
-                    return ((decimal)(this[this.tableReceiptMasterNew.SumNDSColumn]));
-                }
-                set {
-                    this[this.tableReceiptMasterNew.SumNDSColumn] = value;
                 }
             }
             
@@ -10977,6 +10793,26 @@ namespace RetailTrade {
                 }
                 set {
                     this[this.tableReceiptMasterNew.FullAuthorCreateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal PurchSumNDS {
+                get {
+                    return ((decimal)(this[this.tableReceiptMasterNew.PurchSumNDSColumn]));
+                }
+                set {
+                    this[this.tableReceiptMasterNew.PurchSumNDSColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal SalesSumNDS {
+                get {
+                    return ((decimal)(this[this.tableReceiptMasterNew.SalesSumNDSColumn]));
+                }
+                set {
+                    this[this.tableReceiptMasterNew.SalesSumNDSColumn] = value;
                 }
             }
             
@@ -15148,14 +14984,15 @@ SELECT ID, ReceiptMaterRef, ProductRef, Series, UseByDate, Quantity, PricePurcha
             tableMapping.ColumnMappings.Add("MainStockRef", "MainStockRef");
             tableMapping.ColumnMappings.Add("SenderStockRef", "SenderStockRef");
             tableMapping.ColumnMappings.Add("SenderInvoiceRef", "SenderInvoiceRef");
-            tableMapping.ColumnMappings.Add("TotalSum", "TotalSum");
             tableMapping.ColumnMappings.Add("PurchSum", "PurchSum");
-            tableMapping.ColumnMappings.Add("SumNDS", "SumNDS");
             tableMapping.ColumnMappings.Add("IsReadOnly", "IsReadOnly");
             tableMapping.ColumnMappings.Add("AuthorCreate", "AuthorCreate");
             tableMapping.ColumnMappings.Add("AuthorLastModif", "AuthorLastModif");
             tableMapping.ColumnMappings.Add("DateCreate", "DateCreate");
             tableMapping.ColumnMappings.Add("RowVersion", "RowVersion");
+            tableMapping.ColumnMappings.Add("SalesSum", "SalesSum");
+            tableMapping.ColumnMappings.Add("PurchSumNDS", "PurchSumNDS");
+            tableMapping.ColumnMappings.Add("SalesSumNDS", "SalesSumNDS");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -15169,9 +15006,7 @@ SELECT ID, ReceiptMaterRef, ProductRef, Series, UseByDate, Quantity, PricePurcha
             this._adapter.InsertCommand.CommandText = "dbo.ReceiptMasterInsertCommand";
             this._adapter.InsertCommand.CommandType = System.Data.CommandType.StoredProcedure;
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Number", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "Number", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Note", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, 0, 0, "Note", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DocDate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DocDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OrganizationRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "OrganizationRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@MainStockRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "MainStockRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SenderStockRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "SenderStockRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -15193,9 +15028,6 @@ SELECT ID, ReceiptMaterRef, ProductRef, Series, UseByDate, Quantity, PricePurcha
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PurchSum", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 2, "PurchSum", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SumNDS", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 2, "SumNDS", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IsReadOnly", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, 1, 0, "IsReadOnly", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -15299,48 +15131,36 @@ SELECT ID, ReceiptMaterRef, ProductRef, Series, UseByDate, Quantity, PricePurcha
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(System.Nullable<int> Number, string Note, System.Nullable<System.DateTime> DocDate, System.Nullable<int> OrganizationRef, System.Nullable<int> MainStockRef, System.Nullable<int> SenderStockRef, System.Nullable<int> SenderInvoiceRef) {
-            if ((Number.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(Number.Value));
-            }
-            else {
+        public virtual int Insert(string Note, System.Nullable<int> OrganizationRef, System.Nullable<int> MainStockRef, System.Nullable<int> SenderStockRef, System.Nullable<int> SenderInvoiceRef) {
+            if ((Note == null)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = System.DBNull.Value;
             }
-            if ((Note == null)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = System.DBNull.Value;
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(Note));
+            }
+            if ((OrganizationRef.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(OrganizationRef.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(Note));
+                this.Adapter.InsertCommand.Parameters[2].Value = System.DBNull.Value;
             }
-            if ((DocDate.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((System.DateTime)(DocDate.Value));
+            if ((MainStockRef.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((int)(MainStockRef.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = System.DBNull.Value;
             }
-            if ((OrganizationRef.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((int)(OrganizationRef.Value));
+            if ((SenderStockRef.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((int)(SenderStockRef.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[4].Value = System.DBNull.Value;
             }
-            if ((MainStockRef.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((int)(MainStockRef.Value));
+            if ((SenderInvoiceRef.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((int)(SenderInvoiceRef.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[5].Value = System.DBNull.Value;
-            }
-            if ((SenderStockRef.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((int)(SenderStockRef.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[6].Value = System.DBNull.Value;
-            }
-            if ((SenderInvoiceRef.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((int)(SenderInvoiceRef.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[7].Value = System.DBNull.Value;
             }
             System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
@@ -15361,25 +15181,7 @@ SELECT ID, ReceiptMaterRef, ProductRef, Series, UseByDate, Quantity, PricePurcha
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(
-                    System.Nullable<int> Number, 
-                    string Note, 
-                    System.Nullable<System.DateTime> DocDate, 
-                    System.Nullable<int> DocumentTypeRef, 
-                    System.Nullable<int> OrganizationRef, 
-                    System.Nullable<int> MainStockRef, 
-                    System.Nullable<int> SenderStockRef, 
-                    System.Nullable<int> SenderInvoiceRef, 
-                    System.Nullable<decimal> TotalSum, 
-                    System.Nullable<decimal> PurchSum, 
-                    System.Nullable<decimal> SumNDS, 
-                    System.Nullable<bool> IsReadOnly, 
-                    string AuthorCreate, 
-                    string AuthorLastModif, 
-                    System.Nullable<System.DateTime> DateCreate, 
-                    System.Nullable<int> Original_ID, 
-                    byte[] Original_RowVersion, 
-                    System.Nullable<int> ID) {
+        public virtual int Update(System.Nullable<int> Number, string Note, System.Nullable<System.DateTime> DocDate, System.Nullable<int> DocumentTypeRef, System.Nullable<int> OrganizationRef, System.Nullable<int> MainStockRef, System.Nullable<int> SenderStockRef, System.Nullable<int> SenderInvoiceRef, System.Nullable<decimal> TotalSum, System.Nullable<decimal> PurchSum, System.Nullable<decimal> SumNDS, System.Nullable<bool> IsReadOnly, System.Nullable<int> Original_ID, byte[] Original_RowVersion, System.Nullable<int> ID) {
             if ((Number.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Number.Value));
             }
@@ -15452,41 +15254,23 @@ SELECT ID, ReceiptMaterRef, ProductRef, Series, UseByDate, Quantity, PricePurcha
             else {
                 this.Adapter.UpdateCommand.Parameters[12].Value = System.DBNull.Value;
             }
-            if ((AuthorCreate == null)) {
-                this.Adapter.UpdateCommand.Parameters[13].Value = System.DBNull.Value;
+            if ((Original_ID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_ID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((string)(AuthorCreate));
+                this.Adapter.UpdateCommand.Parameters[13].Value = System.DBNull.Value;
             }
-            if ((AuthorLastModif == null)) {
+            if ((Original_RowVersion == null)) {
                 this.Adapter.UpdateCommand.Parameters[14].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((string)(AuthorLastModif));
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((byte[])(Original_RowVersion));
             }
-            if ((DateCreate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((System.DateTime)(DateCreate.Value));
+            if ((ID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(ID.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[15].Value = System.DBNull.Value;
-            }
-            if ((Original_ID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((int)(Original_ID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[16].Value = System.DBNull.Value;
-            }
-            if ((Original_RowVersion == null)) {
-                this.Adapter.UpdateCommand.Parameters[17].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((byte[])(Original_RowVersion));
-            }
-            if ((ID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((int)(ID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[18].Value = System.DBNull.Value;
             }
             System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
@@ -17587,9 +17371,7 @@ SELECT ID, Name, FarmGroupRef, AuthorCreate, AuthorLastModif, DateCreate, RowVer
             tableMapping.ColumnMappings.Add("MainStockRef", "MainStockRef");
             tableMapping.ColumnMappings.Add("SenderStockRef", "SenderStockRef");
             tableMapping.ColumnMappings.Add("SenderInvoiceRef", "SenderInvoiceRef");
-            tableMapping.ColumnMappings.Add("TotalSum", "TotalSum");
             tableMapping.ColumnMappings.Add("PurchSum", "PurchSum");
-            tableMapping.ColumnMappings.Add("SumNDS", "SumNDS");
             tableMapping.ColumnMappings.Add("IsReadOnly", "IsReadOnly");
             tableMapping.ColumnMappings.Add("AuthorCreate", "AuthorCreate");
             tableMapping.ColumnMappings.Add("AuthorLastModif", "AuthorLastModif");
@@ -17602,6 +17384,8 @@ SELECT ID, Name, FarmGroupRef, AuthorCreate, AuthorLastModif, DateCreate, RowVer
             tableMapping.ColumnMappings.Add("OrganizationName", "OrganizationName");
             tableMapping.ColumnMappings.Add("FullAuthorModif", "FullAuthorModif");
             tableMapping.ColumnMappings.Add("FullAuthorCreate", "FullAuthorCreate");
+            tableMapping.ColumnMappings.Add("PurchSumNDS", "PurchSumNDS");
+            tableMapping.ColumnMappings.Add("SalesSumNDS", "SalesSumNDS");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -17616,9 +17400,9 @@ SELECT ID, Name, FarmGroupRef, AuthorCreate, AuthorLastModif, DateCreate, RowVer
             this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT ID, Number, Note, DocDate, DocumentTypeRef, OrganizationRef, MainStockRef, SenderStockRef, SenderInvoiceRef, TotalSum, PurchSum, SumNDS, 
-               IsReadOnly, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, DocumentTypeName, StockName, IsNDS, TradePutletName, 
-               OrganizationName, FullAuthorModif, FullAuthorCreate
+            this._commandCollection[0].CommandText = @"SELECT ID, Number, Note, DocDate, DocumentTypeRef, OrganizationRef, MainStockRef, SenderStockRef, SenderInvoiceRef, PurchSum, IsReadOnly, 
+               AuthorCreate, AuthorLastModif, DateCreate, RowVersion, DocumentTypeName, StockName, IsNDS, TradePutletName, OrganizationName, 
+               FullAuthorModif, FullAuthorCreate, PurchSumNDS, SalesSumNDS
 FROM  ReceiptMasterNew";
             this._commandCollection[0].CommandType = System.Data.CommandType.Text;
         }
