@@ -84,13 +84,16 @@ namespace RetailTrade
             GridLocalizer.Active = gLocalizer;
          
             
-            ReportParameter p = new   ReportParameter("ID", "1");
+            ReportParameter p = new   ReportParameter("ID", "0");
 
             this.reportViewer1.ServerReport.SetParameters(new ReportParameter[] {p});
             this.reportViewer1.RefreshReport();
-            this.receiptMasterBindingSource.CurrentChanged += new System.EventHandler(this.receiptMasterBindingSource_CurrentChanged);
-            thread.Abort();
+              thread.Abort();
             Thread.Sleep(30);
+
+            this.receiptMasterNewBindingSource.PositionChanged += new System.EventHandler(this.receiptMasterNewBindingSource_PositionChanged);
+           
+
           //  System.Configuration.AppSettingsReader app = new System.Configuration.AppSettingsReader();
 
          //   MessageBox.Show(app.GetValue("RetailTradeConnectionString", System.Type.GetType("System.String")).ToString());
@@ -192,7 +195,9 @@ namespace RetailTrade
             {
                this.receiptMasterTableAdapter.Update(sourceRow);
 
-               this.receiptDetailTableAdapter.Update(sourceRow.GetReceiptDetailRows());
+               DataRow[] dr = sourceRow.GetReceiptDetailRows();
+
+                this.receiptDetailTableAdapter.Update(dr );
                 
             }
          //   catch
@@ -360,13 +365,17 @@ namespace RetailTrade
             ShowNewDataTab(e.Node.Tag.ToString(),e.Node.ToolTipText.ToString());
         }
 
-        private void receiptMasterBindingSource_CurrentChanged(object sender, EventArgs e)
+        
+
+        private void receiptMasterNewBindingSource_PositionChanged(object sender, EventArgs e)
         {
+          
            
-            ReportParameter p = new ReportParameter("ID",  (this.receiptMasterNewBindingSource.Current as DataRowView).Row.ItemArray[0].ToString());
+         /*  ReportParameter p = new ReportParameter("ID", ((this.receiptMasterNewBindingSource.CurrencyManager.Current as DataRowView).Row as MDataSet.ReceiptMasterNewRow).ID.ToString());
             this.reportViewer1.ServerReport.SetParameters(new ReportParameter[] { p });
             this.reportViewer1.RefreshReport();
-
+       
+        */
         }
 
      

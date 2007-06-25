@@ -75,6 +75,7 @@ namespace RetailTrade
             this.btSaveReciept = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.panelNumber = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -86,7 +87,6 @@ namespace RetailTrade
             this.receiptMasterNewTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptMasterNewTableAdapter();
             this.organizationTableAdapter = new RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter();
             this.stockTableAdapter = new RetailTrade.MDataSetTableAdapters.StockTableAdapter();
-            this.label9 = new System.Windows.Forms.Label();
             numberLabel = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -185,7 +185,6 @@ namespace RetailTrade
             // receiptDetailBindingSource
             // 
             this.receiptDetailBindingSource.AllowNew = true;
-            this.receiptDetailBindingSource.DataMember = "ReceiptMaster_ReceiptDetail";
             this.receiptDetailBindingSource.DataSource = this.receiptMasterBindingSource;
             // 
             // receiptMasterBindingSource
@@ -562,6 +561,15 @@ namespace RetailTrade
             this.panelNumber.Size = new System.Drawing.Size(528, 59);
             this.panelNumber.TabIndex = 3;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(361, 9);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(46, 17);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "label9";
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -640,16 +648,6 @@ namespace RetailTrade
             // stockTableAdapter
             // 
             this.stockTableAdapter.ClearBeforeFill = true;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.receiptMasterBindingSource, "CalcPurchSum", true));
-            this.label9.Location = new System.Drawing.Point(361, 9);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(46, 17);
-            this.label9.TabIndex = 10;
-            this.label9.Text = "label9";
             // 
             // ReceiptRowOrganization
             // 
