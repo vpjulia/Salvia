@@ -59,8 +59,7 @@ namespace RetailTrade
             this.tabControl = new System.Windows.Forms.TabControl();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.gridControl2 = new DevExpress.XtraGrid.GridControl();
-            this.receiptDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.receiptMasterNewBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.receiptMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mDataSet = new RetailTrade.MDataSet();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID1 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -78,7 +77,8 @@ namespace RetailTrade
             this.colAuthorLastModif1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDateCreate1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colRowVersion1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.receiptMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.receiptDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.receiptMasterNewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.stockBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tradePutletBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.organizationBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -138,11 +138,11 @@ namespace RetailTrade
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.receiptMasterNewBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.receiptMasterNewBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stockBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tradePutletBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).BeginInit();
@@ -330,16 +330,10 @@ namespace RetailTrade
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
             // 
-            // receiptDetailBindingSource
+            // receiptMasterBindingSource
             // 
-            this.receiptDetailBindingSource.AllowNew = true;
-            this.receiptDetailBindingSource.DataMember = "ReceiptMasterNew_ReceiptDetail";
-            this.receiptDetailBindingSource.DataSource = this.receiptMasterNewBindingSource;
-            // 
-            // receiptMasterNewBindingSource
-            // 
-            this.receiptMasterNewBindingSource.DataMember = "ReceiptMasterNew";
-            this.receiptMasterNewBindingSource.DataSource = this.mDataSet;
+            this.receiptMasterBindingSource.DataMember = "ReceiptMaster";
+            this.receiptMasterBindingSource.DataSource = this.mDataSet;
             // 
             // mDataSet
             // 
@@ -504,10 +498,16 @@ namespace RetailTrade
             this.colRowVersion1.VisibleIndex = 14;
             this.colRowVersion1.Width = 43;
             // 
-            // receiptMasterBindingSource
+            // receiptDetailBindingSource
             // 
-            this.receiptMasterBindingSource.DataMember = "ReceiptMaster";
-            this.receiptMasterBindingSource.DataSource = this.mDataSet;
+            this.receiptDetailBindingSource.AllowNew = true;
+            this.receiptDetailBindingSource.DataMember = "ReceiptMasterNew_ReceiptDetail";
+            this.receiptDetailBindingSource.DataSource = this.receiptMasterNewBindingSource;
+            // 
+            // receiptMasterNewBindingSource
+            // 
+            this.receiptMasterNewBindingSource.DataMember = "ReceiptMasterNew";
+            this.receiptMasterNewBindingSource.DataSource = this.mDataSet;
             // 
             // stockBindingSource
             // 
@@ -844,11 +844,11 @@ namespace RetailTrade
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.receiptMasterNewBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.receiptMasterNewBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.stockBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tradePutletBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).EndInit();

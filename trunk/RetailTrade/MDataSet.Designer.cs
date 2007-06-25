@@ -41,10 +41,6 @@ namespace RetailTrade {
         
         private PackingDataTable tablePacking;
         
-        private ReceiptDetailDataTable tableReceiptDetail;
-        
-        private ReceiptMasterDataTable tableReceiptMaster;
-        
         private ReceiptRemainsDataTable tableReceiptRemains;
         
         private StockDataTable tableStock;
@@ -61,6 +57,10 @@ namespace RetailTrade {
         
         private ReceiptMasterNewDataTable tableReceiptMasterNew;
         
+        private ReceiptMasterDataTable tableReceiptMaster;
+        
+        private ReceiptDetailDataTable tableReceiptDetail;
+        
         private System.Data.DataRelation relationReceiptMaster_ReceiptDetail;
         
         private System.Data.DataRelation relationFK_InvoiceDetail_InvoiceMaster;
@@ -68,8 +68,6 @@ namespace RetailTrade {
         private System.Data.DataRelation relationCountry_Manufacturer;
         
         private System.Data.DataRelation relationFK_FarmGroupLevel2_FarmGroup;
-        
-        private System.Data.DataRelation relationFK_ReceiptDetail_Product;
         
         private System.Data.DataRelation relationFK_Product_FarmGroupLevel2;
         
@@ -85,15 +83,19 @@ namespace RetailTrade {
         
         private System.Data.DataRelation relationFK_InvoiceMaster_Organization;
         
-        private System.Data.DataRelation relationFK_ReceiptMaster_Organization;
-        
         private System.Data.DataRelation relationTradePutlet_Stock;
         
         private System.Data.DataRelation relationFK_InvoiceMaster_Stock;
         
+        private System.Data.DataRelation relationFK_ReceiptMaster_DocumentType;
+        
+        private System.Data.DataRelation relationFK_ReceiptMaster_Organization;
+        
         private System.Data.DataRelation relationFK_ReceiptMaster_Stock;
         
         private System.Data.DataRelation relationFK_ReceiptMaster_Stock1;
+        
+        private System.Data.DataRelation relationFK_ReceiptRemains_ReceiptDetail;
         
         private System.Data.DataRelation relationReceiptMasterNew_ReceiptDetail;
         
@@ -107,7 +109,6 @@ namespace RetailTrade {
             base.Tables.CollectionChanged += schemaChangedHandler;
             base.Relations.CollectionChanged += schemaChangedHandler;
             this.EndInit();
-            this.InitExpressions();
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -151,12 +152,6 @@ namespace RetailTrade {
                 if ((ds.Tables["Packing"] != null)) {
                     base.Tables.Add(new PackingDataTable(ds.Tables["Packing"]));
                 }
-                if ((ds.Tables["ReceiptDetail"] != null)) {
-                    base.Tables.Add(new ReceiptDetailDataTable(ds.Tables["ReceiptDetail"]));
-                }
-                if ((ds.Tables["ReceiptMaster"] != null)) {
-                    base.Tables.Add(new ReceiptMasterDataTable(ds.Tables["ReceiptMaster"]));
-                }
                 if ((ds.Tables["ReceiptRemains"] != null)) {
                     base.Tables.Add(new ReceiptRemainsDataTable(ds.Tables["ReceiptRemains"]));
                 }
@@ -181,6 +176,12 @@ namespace RetailTrade {
                 if ((ds.Tables["ReceiptMasterNew"] != null)) {
                     base.Tables.Add(new ReceiptMasterNewDataTable(ds.Tables["ReceiptMasterNew"]));
                 }
+                if ((ds.Tables["ReceiptMaster"] != null)) {
+                    base.Tables.Add(new ReceiptMasterDataTable(ds.Tables["ReceiptMaster"]));
+                }
+                if ((ds.Tables["ReceiptDetail"] != null)) {
+                    base.Tables.Add(new ReceiptDetailDataTable(ds.Tables["ReceiptDetail"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -192,7 +193,6 @@ namespace RetailTrade {
             }
             else {
                 this.ReadXmlSchema(new System.Xml.XmlTextReader(new System.IO.StringReader(strSchema)));
-                this.InitExpressions();
             }
             this.GetSerializationData(info, context);
             System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -284,24 +284,6 @@ namespace RetailTrade {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Browsable(false)]
         [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ReceiptDetailDataTable ReceiptDetail {
-            get {
-                return this.tableReceiptDetail;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Browsable(false)]
-        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ReceiptMasterDataTable ReceiptMaster {
-            get {
-                return this.tableReceiptMaster;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Browsable(false)]
-        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
         public ReceiptRemainsDataTable ReceiptRemains {
             get {
                 return this.tableReceiptRemains;
@@ -372,6 +354,24 @@ namespace RetailTrade {
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Browsable(false)]
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public ReceiptMasterDataTable ReceiptMaster {
+            get {
+                return this.tableReceiptMaster;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Browsable(false)]
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public ReceiptDetailDataTable ReceiptDetail {
+            get {
+                return this.tableReceiptDetail;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.BrowsableAttribute(true)]
         [System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -410,7 +410,6 @@ namespace RetailTrade {
         public override System.Data.DataSet Clone() {
             MDataSet cln = ((MDataSet)(base.Clone()));
             cln.InitVars();
-            cln.InitExpressions();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
         }
@@ -458,12 +457,6 @@ namespace RetailTrade {
                 if ((ds.Tables["Packing"] != null)) {
                     base.Tables.Add(new PackingDataTable(ds.Tables["Packing"]));
                 }
-                if ((ds.Tables["ReceiptDetail"] != null)) {
-                    base.Tables.Add(new ReceiptDetailDataTable(ds.Tables["ReceiptDetail"]));
-                }
-                if ((ds.Tables["ReceiptMaster"] != null)) {
-                    base.Tables.Add(new ReceiptMasterDataTable(ds.Tables["ReceiptMaster"]));
-                }
                 if ((ds.Tables["ReceiptRemains"] != null)) {
                     base.Tables.Add(new ReceiptRemainsDataTable(ds.Tables["ReceiptRemains"]));
                 }
@@ -487,6 +480,12 @@ namespace RetailTrade {
                 }
                 if ((ds.Tables["ReceiptMasterNew"] != null)) {
                     base.Tables.Add(new ReceiptMasterNewDataTable(ds.Tables["ReceiptMasterNew"]));
+                }
+                if ((ds.Tables["ReceiptMaster"] != null)) {
+                    base.Tables.Add(new ReceiptMasterDataTable(ds.Tables["ReceiptMaster"]));
+                }
+                if ((ds.Tables["ReceiptDetail"] != null)) {
+                    base.Tables.Add(new ReceiptDetailDataTable(ds.Tables["ReceiptDetail"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -572,18 +571,6 @@ namespace RetailTrade {
                     this.tablePacking.InitVars();
                 }
             }
-            this.tableReceiptDetail = ((ReceiptDetailDataTable)(base.Tables["ReceiptDetail"]));
-            if ((initTable == true)) {
-                if ((this.tableReceiptDetail != null)) {
-                    this.tableReceiptDetail.InitVars();
-                }
-            }
-            this.tableReceiptMaster = ((ReceiptMasterDataTable)(base.Tables["ReceiptMaster"]));
-            if ((initTable == true)) {
-                if ((this.tableReceiptMaster != null)) {
-                    this.tableReceiptMaster.InitVars();
-                }
-            }
             this.tableReceiptRemains = ((ReceiptRemainsDataTable)(base.Tables["ReceiptRemains"]));
             if ((initTable == true)) {
                 if ((this.tableReceiptRemains != null)) {
@@ -632,11 +619,22 @@ namespace RetailTrade {
                     this.tableReceiptMasterNew.InitVars();
                 }
             }
+            this.tableReceiptMaster = ((ReceiptMasterDataTable)(base.Tables["ReceiptMaster"]));
+            if ((initTable == true)) {
+                if ((this.tableReceiptMaster != null)) {
+                    this.tableReceiptMaster.InitVars();
+                }
+            }
+            this.tableReceiptDetail = ((ReceiptDetailDataTable)(base.Tables["ReceiptDetail"]));
+            if ((initTable == true)) {
+                if ((this.tableReceiptDetail != null)) {
+                    this.tableReceiptDetail.InitVars();
+                }
+            }
             this.relationReceiptMaster_ReceiptDetail = this.Relations["ReceiptMaster_ReceiptDetail"];
             this.relationFK_InvoiceDetail_InvoiceMaster = this.Relations["FK_InvoiceDetail_InvoiceMaster"];
             this.relationCountry_Manufacturer = this.Relations["Country_Manufacturer"];
             this.relationFK_FarmGroupLevel2_FarmGroup = this.Relations["FK_FarmGroupLevel2_FarmGroup"];
-            this.relationFK_ReceiptDetail_Product = this.Relations["FK_ReceiptDetail_Product"];
             this.relationFK_Product_FarmGroupLevel2 = this.Relations["FK_Product_FarmGroupLevel2"];
             this.relationFK_Product_Packing = this.Relations["FK_Product_Packing"];
             this.relationFK_Product_StorageCondition = this.Relations["FK_Product_StorageCondition"];
@@ -644,11 +642,13 @@ namespace RetailTrade {
             this.relationFK_Product_Unit = this.Relations["FK_Product_Unit"];
             this.relationManufacturer_Product = this.Relations["Manufacturer_Product"];
             this.relationFK_InvoiceMaster_Organization = this.Relations["FK_InvoiceMaster_Organization"];
-            this.relationFK_ReceiptMaster_Organization = this.Relations["FK_ReceiptMaster_Organization"];
             this.relationTradePutlet_Stock = this.Relations["TradePutlet_Stock"];
             this.relationFK_InvoiceMaster_Stock = this.Relations["FK_InvoiceMaster_Stock"];
+            this.relationFK_ReceiptMaster_DocumentType = this.Relations["FK_ReceiptMaster_DocumentType"];
+            this.relationFK_ReceiptMaster_Organization = this.Relations["FK_ReceiptMaster_Organization"];
             this.relationFK_ReceiptMaster_Stock = this.Relations["FK_ReceiptMaster_Stock"];
             this.relationFK_ReceiptMaster_Stock1 = this.Relations["FK_ReceiptMaster_Stock1"];
+            this.relationFK_ReceiptRemains_ReceiptDetail = this.Relations["FK_ReceiptRemains_ReceiptDetail"];
             this.relationReceiptMasterNew_ReceiptDetail = this.Relations["ReceiptMasterNew_ReceiptDetail"];
         }
         
@@ -677,10 +677,6 @@ namespace RetailTrade {
             base.Tables.Add(this.tableOrganization);
             this.tablePacking = new PackingDataTable();
             base.Tables.Add(this.tablePacking);
-            this.tableReceiptDetail = new ReceiptDetailDataTable();
-            base.Tables.Add(this.tableReceiptDetail);
-            this.tableReceiptMaster = new ReceiptMasterDataTable(false);
-            base.Tables.Add(this.tableReceiptMaster);
             this.tableReceiptRemains = new ReceiptRemainsDataTable();
             base.Tables.Add(this.tableReceiptRemains);
             this.tableStock = new StockDataTable();
@@ -697,17 +693,21 @@ namespace RetailTrade {
             base.Tables.Add(this.tableProduct);
             this.tableReceiptMasterNew = new ReceiptMasterNewDataTable();
             base.Tables.Add(this.tableReceiptMasterNew);
+            this.tableReceiptMaster = new ReceiptMasterDataTable();
+            base.Tables.Add(this.tableReceiptMaster);
+            this.tableReceiptDetail = new ReceiptDetailDataTable();
+            base.Tables.Add(this.tableReceiptDetail);
             System.Data.ForeignKeyConstraint fkc;
             fkc = new System.Data.ForeignKeyConstraint("ReceiptMaster_ReceiptDetail", new System.Data.DataColumn[] {
                         this.tableReceiptMaster.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableReceiptDetail.ReceiptMaterRefColumn});
+                        this.tableReceiptDetail.ReceiptMasterRefColumn});
             this.tableReceiptDetail.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.Cascade;
-            fkc.DeleteRule = System.Data.Rule.SetNull;
+            fkc.DeleteRule = System.Data.Rule.Cascade;
             fkc.UpdateRule = System.Data.Rule.Cascade;
             this.relationReceiptMaster_ReceiptDetail = new System.Data.DataRelation("ReceiptMaster_ReceiptDetail", new System.Data.DataColumn[] {
                         this.tableReceiptMaster.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableReceiptDetail.ReceiptMaterRefColumn}, false);
+                        this.tableReceiptDetail.ReceiptMasterRefColumn}, false);
             this.Relations.Add(this.relationReceiptMaster_ReceiptDetail);
             this.relationFK_InvoiceDetail_InvoiceMaster = new System.Data.DataRelation("FK_InvoiceDetail_InvoiceMaster", new System.Data.DataColumn[] {
                         this.tableInvoiceMaster.IDColumn}, new System.Data.DataColumn[] {
@@ -721,10 +721,6 @@ namespace RetailTrade {
                         this.tableFarmGroup.IDColumn}, new System.Data.DataColumn[] {
                         this.tableFarmGroupLevel2.FarmGroupRefColumn}, false);
             this.Relations.Add(this.relationFK_FarmGroupLevel2_FarmGroup);
-            this.relationFK_ReceiptDetail_Product = new System.Data.DataRelation("FK_ReceiptDetail_Product", new System.Data.DataColumn[] {
-                        this.tableProduct.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableReceiptDetail.ProductRefColumn}, false);
-            this.Relations.Add(this.relationFK_ReceiptDetail_Product);
             this.relationFK_Product_FarmGroupLevel2 = new System.Data.DataRelation("FK_Product_FarmGroupLevel2", new System.Data.DataColumn[] {
                         this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
                         this.tableProduct.FarmGrouplevel2RefColumn}, false);
@@ -753,10 +749,6 @@ namespace RetailTrade {
                         this.tableOrganization.IDColumn}, new System.Data.DataColumn[] {
                         this.tableInvoiceMaster.OrganisationRefColumn}, false);
             this.Relations.Add(this.relationFK_InvoiceMaster_Organization);
-            this.relationFK_ReceiptMaster_Organization = new System.Data.DataRelation("FK_ReceiptMaster_Organization", new System.Data.DataColumn[] {
-                        this.tableOrganization.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableReceiptMaster.OrganizationRefColumn}, false);
-            this.Relations.Add(this.relationFK_ReceiptMaster_Organization);
             this.relationTradePutlet_Stock = new System.Data.DataRelation("TradePutlet_Stock", new System.Data.DataColumn[] {
                         this.tableTradePutlet.IDColumn}, new System.Data.DataColumn[] {
                         this.tableStock.TradePupletRefColumn}, false);
@@ -765,6 +757,14 @@ namespace RetailTrade {
                         this.tableStock.IDColumn}, new System.Data.DataColumn[] {
                         this.tableInvoiceMaster.RemoteStockRefColumn}, false);
             this.Relations.Add(this.relationFK_InvoiceMaster_Stock);
+            this.relationFK_ReceiptMaster_DocumentType = new System.Data.DataRelation("FK_ReceiptMaster_DocumentType", new System.Data.DataColumn[] {
+                        this.tableDocumentType.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableReceiptMaster.DocumentTypeRefColumn}, false);
+            this.Relations.Add(this.relationFK_ReceiptMaster_DocumentType);
+            this.relationFK_ReceiptMaster_Organization = new System.Data.DataRelation("FK_ReceiptMaster_Organization", new System.Data.DataColumn[] {
+                        this.tableOrganization.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableReceiptMaster.OrganizationRefColumn}, false);
+            this.Relations.Add(this.relationFK_ReceiptMaster_Organization);
             this.relationFK_ReceiptMaster_Stock = new System.Data.DataRelation("FK_ReceiptMaster_Stock", new System.Data.DataColumn[] {
                         this.tableStock.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptMaster.MainStockRefColumn}, false);
@@ -773,9 +773,13 @@ namespace RetailTrade {
                         this.tableStock.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptMaster.SenderStockRefColumn}, false);
             this.Relations.Add(this.relationFK_ReceiptMaster_Stock1);
+            this.relationFK_ReceiptRemains_ReceiptDetail = new System.Data.DataRelation("FK_ReceiptRemains_ReceiptDetail", new System.Data.DataColumn[] {
+                        this.tableReceiptDetail.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableReceiptRemains.ReceiptDetailRefColumn}, false);
+            this.Relations.Add(this.relationFK_ReceiptRemains_ReceiptDetail);
             this.relationReceiptMasterNew_ReceiptDetail = new System.Data.DataRelation("ReceiptMasterNew_ReceiptDetail", new System.Data.DataColumn[] {
                         this.tableReceiptMasterNew.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableReceiptDetail.ReceiptMaterRefColumn}, false);
+                        this.tableReceiptDetail.ReceiptMasterRefColumn}, false);
             this.Relations.Add(this.relationReceiptMasterNew_ReceiptDetail);
         }
         
@@ -825,16 +829,6 @@ namespace RetailTrade {
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializeReceiptDetail() {
-            return false;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializeReceiptMaster() {
-            return false;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private bool ShouldSerializeReceiptRemains() {
             return false;
         }
@@ -875,6 +869,16 @@ namespace RetailTrade {
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializeReceiptMaster() {
+            return false;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializeReceiptDetail() {
+            return false;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void SchemaChanged(object sender, System.ComponentModel.CollectionChangeEventArgs e) {
             if ((e.Action == System.ComponentModel.CollectionChangeAction.Remove)) {
                 this.InitVars();
@@ -892,11 +896,6 @@ namespace RetailTrade {
             sequence.Items.Add(any);
             type.Particle = sequence;
             return type;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitExpressions() {
-            this.ReceiptMaster.CalcPurchNDSColumn.Expression = "Sum(Child.PurchNDS) ";
         }
         
         public delegate void CountryRowChangeEventHandler(object sender, CountryRowChangeEvent e);
@@ -917,10 +916,6 @@ namespace RetailTrade {
         
         public delegate void PackingRowChangeEventHandler(object sender, PackingRowChangeEvent e);
         
-        public delegate void ReceiptDetailRowChangeEventHandler(object sender, ReceiptDetailRowChangeEvent e);
-        
-        public delegate void ReceiptMasterRowChangeEventHandler(object sender, ReceiptMasterRowChangeEvent e);
-        
         public delegate void ReceiptRemainsRowChangeEventHandler(object sender, ReceiptRemainsRowChangeEvent e);
         
         public delegate void StockRowChangeEventHandler(object sender, StockRowChangeEvent e);
@@ -936,6 +931,10 @@ namespace RetailTrade {
         public delegate void ProductRowChangeEventHandler(object sender, ProductRowChangeEvent e);
         
         public delegate void ReceiptMasterNewRowChangeEventHandler(object sender, ReceiptMasterNewRowChangeEvent e);
+        
+        public delegate void ReceiptMasterRowChangeEventHandler(object sender, ReceiptMasterRowChangeEvent e);
+        
+        public delegate void ReceiptDetailRowChangeEventHandler(object sender, ReceiptDetailRowChangeEvent e);
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [System.Serializable()]
@@ -3935,985 +3934,6 @@ namespace RetailTrade {
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [System.Serializable()]
         [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ReceiptDetailDataTable : System.Data.DataTable, System.Collections.IEnumerable {
-            
-            private System.Data.DataColumn columnID;
-            
-            private System.Data.DataColumn columnReceiptMaterRef;
-            
-            private System.Data.DataColumn columnProductRef;
-            
-            private System.Data.DataColumn columnSeries;
-            
-            private System.Data.DataColumn columnUseByDate;
-            
-            private System.Data.DataColumn columnQuantity;
-            
-            private System.Data.DataColumn columnPricePurchase;
-            
-            private System.Data.DataColumn columnInvoiceDetailRef;
-            
-            private System.Data.DataColumn columnAuthorCreate;
-            
-            private System.Data.DataColumn columnAuthorLastModif;
-            
-            private System.Data.DataColumn columnDateCreate;
-            
-            private System.Data.DataColumn columnRowVersion;
-            
-            private System.Data.DataColumn columnPurchSum;
-            
-            private System.Data.DataColumn columnPurchNDS;
-            
-            private System.Data.DataColumn columnSalesNDS;
-            
-            private System.Data.DataColumn columnSalesPrice;
-            
-            private System.Data.DataColumn columnSalesSum;
-            
-            private static System.DateTime columnDateCreate_defaultValue = System.DateTime.Parse("01/01/2000 00:00:00");
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptDetailDataTable() {
-                this.TableName = "ReceiptDetail";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal ReceiptDetailDataTable(System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected ReceiptDetailDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn IDColumn {
-                get {
-                    return this.columnID;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn ReceiptMaterRefColumn {
-                get {
-                    return this.columnReceiptMaterRef;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn ProductRefColumn {
-                get {
-                    return this.columnProductRef;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn SeriesColumn {
-                get {
-                    return this.columnSeries;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn UseByDateColumn {
-                get {
-                    return this.columnUseByDate;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn QuantityColumn {
-                get {
-                    return this.columnQuantity;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn PricePurchaseColumn {
-                get {
-                    return this.columnPricePurchase;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn InvoiceDetailRefColumn {
-                get {
-                    return this.columnInvoiceDetailRef;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn AuthorCreateColumn {
-                get {
-                    return this.columnAuthorCreate;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn AuthorLastModifColumn {
-                get {
-                    return this.columnAuthorLastModif;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn DateCreateColumn {
-                get {
-                    return this.columnDateCreate;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn RowVersionColumn {
-                get {
-                    return this.columnRowVersion;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn PurchSumColumn {
-                get {
-                    return this.columnPurchSum;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn PurchNDSColumn {
-                get {
-                    return this.columnPurchNDS;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn SalesNDSColumn {
-                get {
-                    return this.columnSalesNDS;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn SalesPriceColumn {
-                get {
-                    return this.columnSalesPrice;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn SalesSumColumn {
-                get {
-                    return this.columnSalesSum;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptDetailRow this[int index] {
-                get {
-                    return ((ReceiptDetailRow)(this.Rows[index]));
-                }
-            }
-            
-            public event ReceiptDetailRowChangeEventHandler ReceiptDetailRowChanging;
-            
-            public event ReceiptDetailRowChangeEventHandler ReceiptDetailRowChanged;
-            
-            public event ReceiptDetailRowChangeEventHandler ReceiptDetailRowDeleting;
-            
-            public event ReceiptDetailRowChangeEventHandler ReceiptDetailRowDeleted;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddReceiptDetailRow(ReceiptDetailRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptDetailRow AddReceiptDetailRow(
-                        ReceiptMasterRow parentReceiptMasterRowByReceiptMaster_ReceiptDetail, 
-                        ProductRow parentProductRowByFK_ReceiptDetail_Product, 
-                        string Series, 
-                        System.DateTime UseByDate, 
-                        decimal Quantity, 
-                        decimal PricePurchase, 
-                        int InvoiceDetailRef, 
-                        string AuthorCreate, 
-                        string AuthorLastModif, 
-                        System.DateTime DateCreate, 
-                        byte[] RowVersion, 
-                        decimal PurchSum, 
-                        decimal PurchNDS, 
-                        decimal SalesNDS, 
-                        decimal SalesPrice, 
-                        decimal SalesSum) {
-                ReceiptDetailRow rowReceiptDetailRow = ((ReceiptDetailRow)(this.NewRow()));
-                rowReceiptDetailRow.ItemArray = new object[] {
-                        null,
-                        parentReceiptMasterRowByReceiptMaster_ReceiptDetail[0],
-                        parentProductRowByFK_ReceiptDetail_Product[0],
-                        Series,
-                        UseByDate,
-                        Quantity,
-                        PricePurchase,
-                        InvoiceDetailRef,
-                        AuthorCreate,
-                        AuthorLastModif,
-                        DateCreate,
-                        RowVersion,
-                        PurchSum,
-                        PurchNDS,
-                        SalesNDS,
-                        SalesPrice,
-                        SalesSum};
-                this.Rows.Add(rowReceiptDetailRow);
-                return rowReceiptDetailRow;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptDetailRow FindByID(int ID) {
-                return ((ReceiptDetailRow)(this.Rows.Find(new object[] {
-                            ID})));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public virtual System.Collections.IEnumerator GetEnumerator() {
-                return this.Rows.GetEnumerator();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public override System.Data.DataTable Clone() {
-                ReceiptDetailDataTable cln = ((ReceiptDetailDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataTable CreateInstance() {
-                return new ReceiptDetailDataTable();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal void InitVars() {
-                this.columnID = base.Columns["ID"];
-                this.columnReceiptMaterRef = base.Columns["ReceiptMaterRef"];
-                this.columnProductRef = base.Columns["ProductRef"];
-                this.columnSeries = base.Columns["Series"];
-                this.columnUseByDate = base.Columns["UseByDate"];
-                this.columnQuantity = base.Columns["Quantity"];
-                this.columnPricePurchase = base.Columns["PricePurchase"];
-                this.columnInvoiceDetailRef = base.Columns["InvoiceDetailRef"];
-                this.columnAuthorCreate = base.Columns["AuthorCreate"];
-                this.columnAuthorLastModif = base.Columns["AuthorLastModif"];
-                this.columnDateCreate = base.Columns["DateCreate"];
-                this.columnRowVersion = base.Columns["RowVersion"];
-                this.columnPurchSum = base.Columns["PurchSum"];
-                this.columnPurchNDS = base.Columns["PurchNDS"];
-                this.columnSalesNDS = base.Columns["SalesNDS"];
-                this.columnSalesPrice = base.Columns["SalesPrice"];
-                this.columnSalesSum = base.Columns["SalesSum"];
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitClass() {
-                this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnID);
-                this.columnReceiptMaterRef = new System.Data.DataColumn("ReceiptMaterRef", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnReceiptMaterRef);
-                this.columnProductRef = new System.Data.DataColumn("ProductRef", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnProductRef);
-                this.columnSeries = new System.Data.DataColumn("Series", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSeries);
-                this.columnUseByDate = new System.Data.DataColumn("UseByDate", typeof(System.DateTime), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUseByDate);
-                this.columnQuantity = new System.Data.DataColumn("Quantity", typeof(decimal), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnQuantity);
-                this.columnPricePurchase = new System.Data.DataColumn("PricePurchase", typeof(decimal), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPricePurchase);
-                this.columnInvoiceDetailRef = new System.Data.DataColumn("InvoiceDetailRef", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnInvoiceDetailRef);
-                this.columnAuthorCreate = new System.Data.DataColumn("AuthorCreate", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAuthorCreate);
-                this.columnAuthorLastModif = new System.Data.DataColumn("AuthorLastModif", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAuthorLastModif);
-                this.columnDateCreate = new System.Data.DataColumn("DateCreate", typeof(System.DateTime), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDateCreate);
-                this.columnRowVersion = new System.Data.DataColumn("RowVersion", typeof(byte[]), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRowVersion);
-                this.columnPurchSum = new System.Data.DataColumn("PurchSum", typeof(decimal), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPurchSum);
-                this.columnPurchNDS = new System.Data.DataColumn("PurchNDS", typeof(decimal), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPurchNDS);
-                this.columnSalesNDS = new System.Data.DataColumn("SalesNDS", typeof(decimal), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSalesNDS);
-                this.columnSalesPrice = new System.Data.DataColumn("SalesPrice", typeof(decimal), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSalesPrice);
-                this.columnSalesSum = new System.Data.DataColumn("SalesSum", typeof(decimal), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSalesSum);
-                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
-                                this.columnID}, true));
-                this.columnID.AutoIncrement = true;
-                this.columnID.AutoIncrementStep = -1;
-                this.columnID.AllowDBNull = false;
-                this.columnID.ReadOnly = true;
-                this.columnID.Unique = true;
-                this.columnReceiptMaterRef.AllowDBNull = false;
-                this.columnReceiptMaterRef.DefaultValue = ((int)(0));
-                this.columnProductRef.AllowDBNull = false;
-                this.columnProductRef.DefaultValue = ((int)(0));
-                this.columnSeries.AllowDBNull = false;
-                this.columnSeries.MaxLength = 15;
-                this.columnUseByDate.AllowDBNull = false;
-                this.columnQuantity.AllowDBNull = false;
-                this.columnQuantity.DefaultValue = ((decimal)(0m));
-                this.columnPricePurchase.AllowDBNull = false;
-                this.columnInvoiceDetailRef.AllowDBNull = false;
-                this.columnInvoiceDetailRef.DefaultValue = ((int)(0));
-                this.columnAuthorCreate.AllowDBNull = false;
-                this.columnAuthorCreate.ReadOnly = true;
-                this.columnAuthorCreate.DefaultValue = ((string)("\'\'"));
-                this.columnAuthorCreate.MaxLength = 50;
-                this.columnAuthorLastModif.AllowDBNull = false;
-                this.columnAuthorLastModif.ReadOnly = true;
-                this.columnAuthorLastModif.DefaultValue = ((string)("\'\'"));
-                this.columnAuthorLastModif.MaxLength = 50;
-                this.columnDateCreate.AllowDBNull = false;
-                this.columnDateCreate.ReadOnly = true;
-                this.columnDateCreate.DefaultValue = ((System.DateTime)(ReceiptDetailDataTable.columnDateCreate_defaultValue));
-                this.columnRowVersion.ReadOnly = true;
-                this.columnPurchSum.AllowDBNull = false;
-                this.columnPurchSum.DefaultValue = ((decimal)(0m));
-                this.columnPurchNDS.AllowDBNull = false;
-                this.columnPurchNDS.DefaultValue = ((decimal)(0m));
-                this.columnSalesNDS.AllowDBNull = false;
-                this.columnSalesNDS.DefaultValue = ((decimal)(0m));
-                this.columnSalesPrice.AllowDBNull = false;
-                this.columnSalesPrice.DefaultValue = ((decimal)(0m));
-                this.columnSalesSum.AllowDBNull = false;
-                this.columnSalesSum.DefaultValue = ((decimal)(0m));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptDetailRow NewReceiptDetailRow() {
-                return ((ReceiptDetailRow)(this.NewRow()));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
-                return new ReceiptDetailRow(builder);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Type GetRowType() {
-                return typeof(ReceiptDetailRow);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.ReceiptDetailRowChanged != null)) {
-                    this.ReceiptDetailRowChanged(this, new ReceiptDetailRowChangeEvent(((ReceiptDetailRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.ReceiptDetailRowChanging != null)) {
-                    this.ReceiptDetailRowChanging(this, new ReceiptDetailRowChangeEvent(((ReceiptDetailRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.ReceiptDetailRowDeleted != null)) {
-                    this.ReceiptDetailRowDeleted(this, new ReceiptDetailRowChangeEvent(((ReceiptDetailRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.ReceiptDetailRowDeleting != null)) {
-                    this.ReceiptDetailRowDeleting(this, new ReceiptDetailRowChangeEvent(((ReceiptDetailRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemoveReceiptDetailRow(ReceiptDetailRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
-                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
-                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
-                MDataSet ds = new MDataSet();
-                xs.Add(ds.GetSchemaSerializable());
-                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ReceiptDetailDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                return type;
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        [System.Serializable()]
-        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ReceiptMasterDataTable : System.Data.DataTable, System.Collections.IEnumerable {
-            
-            private System.Data.DataColumn columnID;
-            
-            private System.Data.DataColumn columnNumber;
-            
-            private System.Data.DataColumn columnNote;
-            
-            private System.Data.DataColumn columnDocDate;
-            
-            private System.Data.DataColumn columnDocumentTypeRef;
-            
-            private System.Data.DataColumn columnOrganizationRef;
-            
-            private System.Data.DataColumn columnMainStockRef;
-            
-            private System.Data.DataColumn columnSenderStockRef;
-            
-            private System.Data.DataColumn columnSenderInvoiceRef;
-            
-            private System.Data.DataColumn columnPurchSum;
-            
-            private System.Data.DataColumn columnIsReadOnly;
-            
-            private System.Data.DataColumn columnAuthorCreate;
-            
-            private System.Data.DataColumn columnAuthorLastModif;
-            
-            private System.Data.DataColumn columnDateCreate;
-            
-            private System.Data.DataColumn columnRowVersion;
-            
-            private System.Data.DataColumn columnSalesSum;
-            
-            private System.Data.DataColumn columnCalcPurchSum;
-            
-            private System.Data.DataColumn columnCalcPurchNDS;
-            
-            private System.Data.DataColumn columnPurchNDS;
-            
-            private System.Data.DataColumn columnSalesNDS;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptMasterDataTable() : 
-                    this(false) {
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal ReceiptMasterDataTable(bool initExpressions) {
-                this.TableName = "ReceiptMaster";
-                this.BeginInit();
-                this.InitClass();
-                if ((initExpressions == true)) {
-                    this.InitExpressions();
-                }
-                this.EndInit();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal ReceiptMasterDataTable(System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected ReceiptMasterDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn IDColumn {
-                get {
-                    return this.columnID;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn NumberColumn {
-                get {
-                    return this.columnNumber;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn NoteColumn {
-                get {
-                    return this.columnNote;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn DocDateColumn {
-                get {
-                    return this.columnDocDate;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn DocumentTypeRefColumn {
-                get {
-                    return this.columnDocumentTypeRef;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn OrganizationRefColumn {
-                get {
-                    return this.columnOrganizationRef;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn MainStockRefColumn {
-                get {
-                    return this.columnMainStockRef;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn SenderStockRefColumn {
-                get {
-                    return this.columnSenderStockRef;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn SenderInvoiceRefColumn {
-                get {
-                    return this.columnSenderInvoiceRef;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn PurchSumColumn {
-                get {
-                    return this.columnPurchSum;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn IsReadOnlyColumn {
-                get {
-                    return this.columnIsReadOnly;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn AuthorCreateColumn {
-                get {
-                    return this.columnAuthorCreate;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn AuthorLastModifColumn {
-                get {
-                    return this.columnAuthorLastModif;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn DateCreateColumn {
-                get {
-                    return this.columnDateCreate;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn RowVersionColumn {
-                get {
-                    return this.columnRowVersion;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn SalesSumColumn {
-                get {
-                    return this.columnSalesSum;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn CalcPurchSumColumn {
-                get {
-                    return this.columnCalcPurchSum;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn CalcPurchNDSColumn {
-                get {
-                    return this.columnCalcPurchNDS;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn PurchNDSColumn {
-                get {
-                    return this.columnPurchNDS;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn SalesNDSColumn {
-                get {
-                    return this.columnSalesNDS;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptMasterRow this[int index] {
-                get {
-                    return ((ReceiptMasterRow)(this.Rows[index]));
-                }
-            }
-            
-            public event ReceiptMasterRowChangeEventHandler ReceiptMasterRowChanging;
-            
-            public event ReceiptMasterRowChangeEventHandler ReceiptMasterRowChanged;
-            
-            public event ReceiptMasterRowChangeEventHandler ReceiptMasterRowDeleting;
-            
-            public event ReceiptMasterRowChangeEventHandler ReceiptMasterRowDeleted;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddReceiptMasterRow(ReceiptMasterRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptMasterRow AddReceiptMasterRow(
-                        string Note, 
-                        System.DateTime DocDate, 
-                        int DocumentTypeRef, 
-                        OrganizationRow parentOrganizationRowByFK_ReceiptMaster_Organization, 
-                        StockRow parentStockRowByFK_ReceiptMaster_Stock, 
-                        StockRow parentStockRowByFK_ReceiptMaster_Stock1, 
-                        int SenderInvoiceRef, 
-                        decimal PurchSum, 
-                        bool IsReadOnly, 
-                        string AuthorCreate, 
-                        string AuthorLastModif, 
-                        System.DateTime DateCreate, 
-                        byte[] RowVersion, 
-                        decimal SalesSum, 
-                        string CalcPurchSum, 
-                        string CalcPurchNDS, 
-                        decimal PurchNDS, 
-                        decimal SalesNDS) {
-                ReceiptMasterRow rowReceiptMasterRow = ((ReceiptMasterRow)(this.NewRow()));
-                rowReceiptMasterRow.ItemArray = new object[] {
-                        null,
-                        null,
-                        Note,
-                        DocDate,
-                        DocumentTypeRef,
-                        parentOrganizationRowByFK_ReceiptMaster_Organization[0],
-                        parentStockRowByFK_ReceiptMaster_Stock[0],
-                        parentStockRowByFK_ReceiptMaster_Stock1[0],
-                        SenderInvoiceRef,
-                        PurchSum,
-                        IsReadOnly,
-                        AuthorCreate,
-                        AuthorLastModif,
-                        DateCreate,
-                        RowVersion,
-                        SalesSum,
-                        CalcPurchSum,
-                        CalcPurchNDS,
-                        PurchNDS,
-                        SalesNDS};
-                this.Rows.Add(rowReceiptMasterRow);
-                return rowReceiptMasterRow;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptMasterRow FindByID(int ID) {
-                return ((ReceiptMasterRow)(this.Rows.Find(new object[] {
-                            ID})));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public virtual System.Collections.IEnumerator GetEnumerator() {
-                return this.Rows.GetEnumerator();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public override System.Data.DataTable Clone() {
-                ReceiptMasterDataTable cln = ((ReceiptMasterDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataTable CreateInstance() {
-                return new ReceiptMasterDataTable();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal void InitVars() {
-                this.columnID = base.Columns["ID"];
-                this.columnNumber = base.Columns["Number"];
-                this.columnNote = base.Columns["Note"];
-                this.columnDocDate = base.Columns["DocDate"];
-                this.columnDocumentTypeRef = base.Columns["DocumentTypeRef"];
-                this.columnOrganizationRef = base.Columns["OrganizationRef"];
-                this.columnMainStockRef = base.Columns["MainStockRef"];
-                this.columnSenderStockRef = base.Columns["SenderStockRef"];
-                this.columnSenderInvoiceRef = base.Columns["SenderInvoiceRef"];
-                this.columnPurchSum = base.Columns["PurchSum"];
-                this.columnIsReadOnly = base.Columns["IsReadOnly"];
-                this.columnAuthorCreate = base.Columns["AuthorCreate"];
-                this.columnAuthorLastModif = base.Columns["AuthorLastModif"];
-                this.columnDateCreate = base.Columns["DateCreate"];
-                this.columnRowVersion = base.Columns["RowVersion"];
-                this.columnSalesSum = base.Columns["SalesSum"];
-                this.columnCalcPurchSum = base.Columns["CalcPurchSum"];
-                this.columnCalcPurchNDS = base.Columns["CalcPurchNDS"];
-                this.columnPurchNDS = base.Columns["PurchNDS"];
-                this.columnSalesNDS = base.Columns["SalesNDS"];
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitClass() {
-                this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnID);
-                this.columnNumber = new System.Data.DataColumn("Number", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNumber);
-                this.columnNote = new System.Data.DataColumn("Note", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNote);
-                this.columnDocDate = new System.Data.DataColumn("DocDate", typeof(System.DateTime), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDocDate);
-                this.columnDocumentTypeRef = new System.Data.DataColumn("DocumentTypeRef", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDocumentTypeRef);
-                this.columnOrganizationRef = new System.Data.DataColumn("OrganizationRef", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnOrganizationRef);
-                this.columnMainStockRef = new System.Data.DataColumn("MainStockRef", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnMainStockRef);
-                this.columnSenderStockRef = new System.Data.DataColumn("SenderStockRef", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSenderStockRef);
-                this.columnSenderInvoiceRef = new System.Data.DataColumn("SenderInvoiceRef", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSenderInvoiceRef);
-                this.columnPurchSum = new System.Data.DataColumn("PurchSum", typeof(decimal), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPurchSum);
-                this.columnIsReadOnly = new System.Data.DataColumn("IsReadOnly", typeof(bool), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnIsReadOnly);
-                this.columnAuthorCreate = new System.Data.DataColumn("AuthorCreate", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAuthorCreate);
-                this.columnAuthorLastModif = new System.Data.DataColumn("AuthorLastModif", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAuthorLastModif);
-                this.columnDateCreate = new System.Data.DataColumn("DateCreate", typeof(System.DateTime), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDateCreate);
-                this.columnRowVersion = new System.Data.DataColumn("RowVersion", typeof(byte[]), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRowVersion);
-                this.columnSalesSum = new System.Data.DataColumn("SalesSum", typeof(decimal), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSalesSum);
-                this.columnCalcPurchSum = new System.Data.DataColumn("CalcPurchSum", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCalcPurchSum);
-                this.columnCalcPurchNDS = new System.Data.DataColumn("CalcPurchNDS", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCalcPurchNDS);
-                this.columnPurchNDS = new System.Data.DataColumn("PurchNDS", typeof(decimal), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPurchNDS);
-                this.columnSalesNDS = new System.Data.DataColumn("SalesNDS", typeof(decimal), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSalesNDS);
-                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
-                                this.columnID}, true));
-                this.columnID.AutoIncrement = true;
-                this.columnID.AutoIncrementStep = -1;
-                this.columnID.AllowDBNull = false;
-                this.columnID.ReadOnly = true;
-                this.columnID.Unique = true;
-                this.columnNumber.AutoIncrement = true;
-                this.columnNumber.AutoIncrementSeed = -1;
-                this.columnNumber.AutoIncrementStep = -1;
-                this.columnNumber.AllowDBNull = false;
-                this.columnNote.AllowDBNull = false;
-                this.columnNote.DefaultValue = ((string)("\'\'"));
-                this.columnNote.MaxLength = 255;
-                this.columnDocDate.AllowDBNull = false;
-                this.columnDocumentTypeRef.AllowDBNull = false;
-                this.columnDocumentTypeRef.DefaultValue = ((int)(0));
-                this.columnOrganizationRef.AllowDBNull = false;
-                this.columnOrganizationRef.DefaultValue = ((int)(0));
-                this.columnMainStockRef.AllowDBNull = false;
-                this.columnMainStockRef.DefaultValue = ((int)(0));
-                this.columnSenderStockRef.AllowDBNull = false;
-                this.columnSenderStockRef.DefaultValue = ((int)(0));
-                this.columnSenderInvoiceRef.AllowDBNull = false;
-                this.columnSenderInvoiceRef.DefaultValue = ((int)(0));
-                this.columnPurchSum.AllowDBNull = false;
-                this.columnPurchSum.DefaultValue = ((decimal)(0m));
-                this.columnIsReadOnly.AllowDBNull = false;
-                this.columnIsReadOnly.DefaultValue = ((bool)(false));
-                this.columnAuthorCreate.AllowDBNull = false;
-                this.columnAuthorCreate.MaxLength = 50;
-                this.columnAuthorLastModif.AllowDBNull = false;
-                this.columnAuthorLastModif.MaxLength = 50;
-                this.columnDateCreate.AllowDBNull = false;
-                this.columnRowVersion.ReadOnly = true;
-                this.columnSalesSum.AllowDBNull = false;
-                this.columnCalcPurchSum.DefaultValue = ((string)("Sum(Child.PurchSum) "));
-                this.columnCalcPurchNDS.ReadOnly = true;
-                this.columnPurchNDS.AllowDBNull = false;
-                this.columnSalesNDS.AllowDBNull = false;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptMasterRow NewReceiptMasterRow() {
-                return ((ReceiptMasterRow)(this.NewRow()));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
-                return new ReceiptMasterRow(builder);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Type GetRowType() {
-                return typeof(ReceiptMasterRow);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitExpressions() {
-                this.CalcPurchNDSColumn.Expression = "Sum(Child.PurchNDS) ";
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.ReceiptMasterRowChanged != null)) {
-                    this.ReceiptMasterRowChanged(this, new ReceiptMasterRowChangeEvent(((ReceiptMasterRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.ReceiptMasterRowChanging != null)) {
-                    this.ReceiptMasterRowChanging(this, new ReceiptMasterRowChangeEvent(((ReceiptMasterRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.ReceiptMasterRowDeleted != null)) {
-                    this.ReceiptMasterRowDeleted(this, new ReceiptMasterRowChangeEvent(((ReceiptMasterRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.ReceiptMasterRowDeleting != null)) {
-                    this.ReceiptMasterRowDeleting(this, new ReceiptMasterRowChangeEvent(((ReceiptMasterRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemoveReceiptMasterRow(ReceiptMasterRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
-                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
-                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
-                MDataSet ds = new MDataSet();
-                xs.Add(ds.GetSchemaSerializable());
-                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ReceiptMasterDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                return type;
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        [System.Serializable()]
-        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class ReceiptRemainsDataTable : System.Data.DataTable, System.Collections.IEnumerable {
             
             private System.Data.DataColumn columnReceiptDetailRef;
@@ -5038,10 +4058,10 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptRemainsRow AddReceiptRemainsRow(int ReceiptDetailRef, decimal QuantityReceipt, decimal QuantityRemains, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, byte[] RowVersion) {
+            public ReceiptRemainsRow AddReceiptRemainsRow(ReceiptDetailRow parentReceiptDetailRowByFK_ReceiptRemains_ReceiptDetail, decimal QuantityReceipt, decimal QuantityRemains, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, byte[] RowVersion) {
                 ReceiptRemainsRow rowReceiptRemainsRow = ((ReceiptRemainsRow)(this.NewRow()));
                 rowReceiptRemainsRow.ItemArray = new object[] {
-                        ReceiptDetailRef,
+                        parentReceiptDetailRowByFK_ReceiptRemains_ReceiptDetail[0],
                         QuantityReceipt,
                         QuantityRemains,
                         AuthorCreate,
@@ -7838,6 +6858,952 @@ namespace RetailTrade {
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [System.Serializable()]
+        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class ReceiptMasterDataTable : System.Data.DataTable, System.Collections.IEnumerable {
+            
+            private System.Data.DataColumn columnID;
+            
+            private System.Data.DataColumn columnNumber;
+            
+            private System.Data.DataColumn columnNote;
+            
+            private System.Data.DataColumn columnDocDate;
+            
+            private System.Data.DataColumn columnDocumentTypeRef;
+            
+            private System.Data.DataColumn columnOrganizationRef;
+            
+            private System.Data.DataColumn columnMainStockRef;
+            
+            private System.Data.DataColumn columnSenderStockRef;
+            
+            private System.Data.DataColumn columnSenderInvoiceRef;
+            
+            private System.Data.DataColumn columnSalesSum;
+            
+            private System.Data.DataColumn columnPurchSum;
+            
+            private System.Data.DataColumn columnPurchNDS;
+            
+            private System.Data.DataColumn columnSalesNDS;
+            
+            private System.Data.DataColumn columnIsReadOnly;
+            
+            private System.Data.DataColumn columnAuthorCreate;
+            
+            private System.Data.DataColumn columnAuthorLastModif;
+            
+            private System.Data.DataColumn columnDateCreate;
+            
+            private System.Data.DataColumn columnRowVersion;
+            
+            private System.Data.DataColumn columnRecalcSum;
+            
+            private static System.DateTime columnDocDate_defaultValue = System.DateTime.Parse("01/01/2007 00:00:00");
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptMasterDataTable() {
+                this.TableName = "ReceiptMaster";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal ReceiptMasterDataTable(System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected ReceiptMasterDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn IDColumn {
+                get {
+                    return this.columnID;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn NumberColumn {
+                get {
+                    return this.columnNumber;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn NoteColumn {
+                get {
+                    return this.columnNote;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DocDateColumn {
+                get {
+                    return this.columnDocDate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DocumentTypeRefColumn {
+                get {
+                    return this.columnDocumentTypeRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn OrganizationRefColumn {
+                get {
+                    return this.columnOrganizationRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn MainStockRefColumn {
+                get {
+                    return this.columnMainStockRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn SenderStockRefColumn {
+                get {
+                    return this.columnSenderStockRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn SenderInvoiceRefColumn {
+                get {
+                    return this.columnSenderInvoiceRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn SalesSumColumn {
+                get {
+                    return this.columnSalesSum;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn PurchSumColumn {
+                get {
+                    return this.columnPurchSum;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn PurchNDSColumn {
+                get {
+                    return this.columnPurchNDS;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn SalesNDSColumn {
+                get {
+                    return this.columnSalesNDS;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn IsReadOnlyColumn {
+                get {
+                    return this.columnIsReadOnly;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn AuthorCreateColumn {
+                get {
+                    return this.columnAuthorCreate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn AuthorLastModifColumn {
+                get {
+                    return this.columnAuthorLastModif;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateCreateColumn {
+                get {
+                    return this.columnDateCreate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn RowVersionColumn {
+                get {
+                    return this.columnRowVersion;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn RecalcSumColumn {
+                get {
+                    return this.columnRecalcSum;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptMasterRow this[int index] {
+                get {
+                    return ((ReceiptMasterRow)(this.Rows[index]));
+                }
+            }
+            
+            public event ReceiptMasterRowChangeEventHandler ReceiptMasterRowChanging;
+            
+            public event ReceiptMasterRowChangeEventHandler ReceiptMasterRowChanged;
+            
+            public event ReceiptMasterRowChangeEventHandler ReceiptMasterRowDeleting;
+            
+            public event ReceiptMasterRowChangeEventHandler ReceiptMasterRowDeleted;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddReceiptMasterRow(ReceiptMasterRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptMasterRow AddReceiptMasterRow(
+                        string Note, 
+                        System.DateTime DocDate, 
+                        DocumentTypeRow parentDocumentTypeRowByFK_ReceiptMaster_DocumentType, 
+                        OrganizationRow parentOrganizationRowByFK_ReceiptMaster_Organization, 
+                        StockRow parentStockRowByFK_ReceiptMaster_Stock, 
+                        StockRow parentStockRowByFK_ReceiptMaster_Stock1, 
+                        int SenderInvoiceRef, 
+                        decimal SalesSum, 
+                        decimal PurchSum, 
+                        decimal PurchNDS, 
+                        decimal SalesNDS, 
+                        bool IsReadOnly, 
+                        string AuthorCreate, 
+                        string AuthorLastModif, 
+                        System.DateTime DateCreate, 
+                        byte[] RowVersion, 
+                        bool RecalcSum) {
+                ReceiptMasterRow rowReceiptMasterRow = ((ReceiptMasterRow)(this.NewRow()));
+                rowReceiptMasterRow.ItemArray = new object[] {
+                        null,
+                        null,
+                        Note,
+                        DocDate,
+                        parentDocumentTypeRowByFK_ReceiptMaster_DocumentType[0],
+                        parentOrganizationRowByFK_ReceiptMaster_Organization[0],
+                        parentStockRowByFK_ReceiptMaster_Stock[0],
+                        parentStockRowByFK_ReceiptMaster_Stock1[0],
+                        SenderInvoiceRef,
+                        SalesSum,
+                        PurchSum,
+                        PurchNDS,
+                        SalesNDS,
+                        IsReadOnly,
+                        AuthorCreate,
+                        AuthorLastModif,
+                        DateCreate,
+                        RowVersion,
+                        RecalcSum};
+                this.Rows.Add(rowReceiptMasterRow);
+                return rowReceiptMasterRow;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptMasterRow FindByID(int ID) {
+                return ((ReceiptMasterRow)(this.Rows.Find(new object[] {
+                            ID})));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public virtual System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override System.Data.DataTable Clone() {
+                ReceiptMasterDataTable cln = ((ReceiptMasterDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataTable CreateInstance() {
+                return new ReceiptMasterDataTable();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars() {
+                this.columnID = base.Columns["ID"];
+                this.columnNumber = base.Columns["Number"];
+                this.columnNote = base.Columns["Note"];
+                this.columnDocDate = base.Columns["DocDate"];
+                this.columnDocumentTypeRef = base.Columns["DocumentTypeRef"];
+                this.columnOrganizationRef = base.Columns["OrganizationRef"];
+                this.columnMainStockRef = base.Columns["MainStockRef"];
+                this.columnSenderStockRef = base.Columns["SenderStockRef"];
+                this.columnSenderInvoiceRef = base.Columns["SenderInvoiceRef"];
+                this.columnSalesSum = base.Columns["SalesSum"];
+                this.columnPurchSum = base.Columns["PurchSum"];
+                this.columnPurchNDS = base.Columns["PurchNDS"];
+                this.columnSalesNDS = base.Columns["SalesNDS"];
+                this.columnIsReadOnly = base.Columns["IsReadOnly"];
+                this.columnAuthorCreate = base.Columns["AuthorCreate"];
+                this.columnAuthorLastModif = base.Columns["AuthorLastModif"];
+                this.columnDateCreate = base.Columns["DateCreate"];
+                this.columnRowVersion = base.Columns["RowVersion"];
+                this.columnRecalcSum = base.Columns["RecalcSum"];
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass() {
+                this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID);
+                this.columnNumber = new System.Data.DataColumn("Number", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNumber);
+                this.columnNote = new System.Data.DataColumn("Note", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNote);
+                this.columnDocDate = new System.Data.DataColumn("DocDate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDocDate);
+                this.columnDocumentTypeRef = new System.Data.DataColumn("DocumentTypeRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDocumentTypeRef);
+                this.columnOrganizationRef = new System.Data.DataColumn("OrganizationRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOrganizationRef);
+                this.columnMainStockRef = new System.Data.DataColumn("MainStockRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMainStockRef);
+                this.columnSenderStockRef = new System.Data.DataColumn("SenderStockRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSenderStockRef);
+                this.columnSenderInvoiceRef = new System.Data.DataColumn("SenderInvoiceRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSenderInvoiceRef);
+                this.columnSalesSum = new System.Data.DataColumn("SalesSum", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSalesSum);
+                this.columnPurchSum = new System.Data.DataColumn("PurchSum", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPurchSum);
+                this.columnPurchNDS = new System.Data.DataColumn("PurchNDS", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPurchNDS);
+                this.columnSalesNDS = new System.Data.DataColumn("SalesNDS", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSalesNDS);
+                this.columnIsReadOnly = new System.Data.DataColumn("IsReadOnly", typeof(bool), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsReadOnly);
+                this.columnAuthorCreate = new System.Data.DataColumn("AuthorCreate", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAuthorCreate);
+                this.columnAuthorLastModif = new System.Data.DataColumn("AuthorLastModif", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAuthorLastModif);
+                this.columnDateCreate = new System.Data.DataColumn("DateCreate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateCreate);
+                this.columnRowVersion = new System.Data.DataColumn("RowVersion", typeof(byte[]), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRowVersion);
+                this.columnRecalcSum = new System.Data.DataColumn("RecalcSum", typeof(bool), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRecalcSum);
+                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
+                                this.columnID}, true));
+                this.columnID.AutoIncrement = true;
+                this.columnID.AllowDBNull = false;
+                this.columnID.ReadOnly = true;
+                this.columnID.Unique = true;
+                this.columnNumber.AutoIncrement = true;
+                this.columnNumber.AutoIncrementStep = -1;
+                this.columnNumber.AllowDBNull = false;
+                this.columnNote.AllowDBNull = false;
+                this.columnNote.DefaultValue = ((string)("№"));
+                this.columnNote.MaxLength = 255;
+                this.columnDocDate.AllowDBNull = false;
+                this.columnDocDate.DefaultValue = ((System.DateTime)(ReceiptMasterDataTable.columnDocDate_defaultValue));
+                this.columnDocumentTypeRef.AllowDBNull = false;
+                this.columnDocumentTypeRef.DefaultValue = ((int)(0));
+                this.columnOrganizationRef.AllowDBNull = false;
+                this.columnOrganizationRef.DefaultValue = ((int)(0));
+                this.columnMainStockRef.AllowDBNull = false;
+                this.columnMainStockRef.ReadOnly = true;
+                this.columnMainStockRef.DefaultValue = ((int)(0));
+                this.columnSenderStockRef.AllowDBNull = false;
+                this.columnSenderStockRef.ReadOnly = true;
+                this.columnSenderStockRef.DefaultValue = ((int)(0));
+                this.columnSenderInvoiceRef.AllowDBNull = false;
+                this.columnSenderInvoiceRef.ReadOnly = true;
+                this.columnSenderInvoiceRef.DefaultValue = ((int)(0));
+                this.columnSalesSum.AllowDBNull = false;
+                this.columnSalesSum.ReadOnly = true;
+                this.columnSalesSum.DefaultValue = ((decimal)(0m));
+                this.columnPurchSum.AllowDBNull = false;
+                this.columnPurchSum.ReadOnly = true;
+                this.columnPurchSum.DefaultValue = ((decimal)(0m));
+                this.columnPurchNDS.AllowDBNull = false;
+                this.columnPurchNDS.ReadOnly = true;
+                this.columnPurchNDS.DefaultValue = ((decimal)(0m));
+                this.columnSalesNDS.AllowDBNull = false;
+                this.columnSalesNDS.ReadOnly = true;
+                this.columnSalesNDS.DefaultValue = ((decimal)(0m));
+                this.columnIsReadOnly.AllowDBNull = false;
+                this.columnIsReadOnly.ReadOnly = true;
+                this.columnIsReadOnly.DefaultValue = ((bool)(false));
+                this.columnAuthorCreate.MaxLength = 50;
+                this.columnAuthorLastModif.MaxLength = 50;
+                this.columnRowVersion.ReadOnly = true;
+                this.columnRecalcSum.AllowDBNull = false;
+                this.columnRecalcSum.DefaultValue = ((bool)(false));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptMasterRow NewReceiptMasterRow() {
+                return ((ReceiptMasterRow)(this.NewRow()));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
+                return new ReceiptMasterRow(builder);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Type GetRowType() {
+                return typeof(ReceiptMasterRow);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.ReceiptMasterRowChanged != null)) {
+                    this.ReceiptMasterRowChanged(this, new ReceiptMasterRowChangeEvent(((ReceiptMasterRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.ReceiptMasterRowChanging != null)) {
+                    this.ReceiptMasterRowChanging(this, new ReceiptMasterRowChangeEvent(((ReceiptMasterRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.ReceiptMasterRowDeleted != null)) {
+                    this.ReceiptMasterRowDeleted(this, new ReceiptMasterRowChangeEvent(((ReceiptMasterRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.ReceiptMasterRowDeleting != null)) {
+                    this.ReceiptMasterRowDeleting(this, new ReceiptMasterRowChangeEvent(((ReceiptMasterRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemoveReceiptMasterRow(ReceiptMasterRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
+                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
+                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
+                MDataSet ds = new MDataSet();
+                xs.Add(ds.GetSchemaSerializable());
+                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "ReceiptMasterDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                return type;
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [System.Serializable()]
+        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class ReceiptDetailDataTable : System.Data.DataTable, System.Collections.IEnumerable {
+            
+            private System.Data.DataColumn columnID;
+            
+            private System.Data.DataColumn columnReceiptMasterRef;
+            
+            private System.Data.DataColumn columnProductRef;
+            
+            private System.Data.DataColumn columnSeries;
+            
+            private System.Data.DataColumn columnUseByDate;
+            
+            private System.Data.DataColumn columnQuantity;
+            
+            private System.Data.DataColumn columnPricePurchase;
+            
+            private System.Data.DataColumn columnPurchSum;
+            
+            private System.Data.DataColumn columnPurchNDS;
+            
+            private System.Data.DataColumn columnSalesNDS;
+            
+            private System.Data.DataColumn columnSalesPrice;
+            
+            private System.Data.DataColumn columnSalesSum;
+            
+            private System.Data.DataColumn columnInvoiceDetailRef;
+            
+            private System.Data.DataColumn columnAuthorCreate;
+            
+            private System.Data.DataColumn columnAuthorLastModif;
+            
+            private System.Data.DataColumn columnDateCreate;
+            
+            private System.Data.DataColumn columnRowVersion;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptDetailDataTable() {
+                this.TableName = "ReceiptDetail";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal ReceiptDetailDataTable(System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected ReceiptDetailDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn IDColumn {
+                get {
+                    return this.columnID;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ReceiptMasterRefColumn {
+                get {
+                    return this.columnReceiptMasterRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ProductRefColumn {
+                get {
+                    return this.columnProductRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn SeriesColumn {
+                get {
+                    return this.columnSeries;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn UseByDateColumn {
+                get {
+                    return this.columnUseByDate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn QuantityColumn {
+                get {
+                    return this.columnQuantity;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn PricePurchaseColumn {
+                get {
+                    return this.columnPricePurchase;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn PurchSumColumn {
+                get {
+                    return this.columnPurchSum;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn PurchNDSColumn {
+                get {
+                    return this.columnPurchNDS;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn SalesNDSColumn {
+                get {
+                    return this.columnSalesNDS;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn SalesPriceColumn {
+                get {
+                    return this.columnSalesPrice;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn SalesSumColumn {
+                get {
+                    return this.columnSalesSum;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn InvoiceDetailRefColumn {
+                get {
+                    return this.columnInvoiceDetailRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn AuthorCreateColumn {
+                get {
+                    return this.columnAuthorCreate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn AuthorLastModifColumn {
+                get {
+                    return this.columnAuthorLastModif;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateCreateColumn {
+                get {
+                    return this.columnDateCreate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn RowVersionColumn {
+                get {
+                    return this.columnRowVersion;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptDetailRow this[int index] {
+                get {
+                    return ((ReceiptDetailRow)(this.Rows[index]));
+                }
+            }
+            
+            public event ReceiptDetailRowChangeEventHandler ReceiptDetailRowChanging;
+            
+            public event ReceiptDetailRowChangeEventHandler ReceiptDetailRowChanged;
+            
+            public event ReceiptDetailRowChangeEventHandler ReceiptDetailRowDeleting;
+            
+            public event ReceiptDetailRowChangeEventHandler ReceiptDetailRowDeleted;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddReceiptDetailRow(ReceiptDetailRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptDetailRow AddReceiptDetailRow(
+                        ReceiptMasterRow parentReceiptMasterRowByReceiptMaster_ReceiptDetail, 
+                        int ProductRef, 
+                        string Series, 
+                        System.DateTime UseByDate, 
+                        decimal Quantity, 
+                        decimal PricePurchase, 
+                        decimal PurchSum, 
+                        decimal PurchNDS, 
+                        decimal SalesNDS, 
+                        decimal SalesPrice, 
+                        decimal SalesSum, 
+                        int InvoiceDetailRef, 
+                        string AuthorCreate, 
+                        string AuthorLastModif, 
+                        System.DateTime DateCreate, 
+                        byte[] RowVersion) {
+                ReceiptDetailRow rowReceiptDetailRow = ((ReceiptDetailRow)(this.NewRow()));
+                rowReceiptDetailRow.ItemArray = new object[] {
+                        null,
+                        parentReceiptMasterRowByReceiptMaster_ReceiptDetail[0],
+                        ProductRef,
+                        Series,
+                        UseByDate,
+                        Quantity,
+                        PricePurchase,
+                        PurchSum,
+                        PurchNDS,
+                        SalesNDS,
+                        SalesPrice,
+                        SalesSum,
+                        InvoiceDetailRef,
+                        AuthorCreate,
+                        AuthorLastModif,
+                        DateCreate,
+                        RowVersion};
+                this.Rows.Add(rowReceiptDetailRow);
+                return rowReceiptDetailRow;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptDetailRow FindByID(int ID) {
+                return ((ReceiptDetailRow)(this.Rows.Find(new object[] {
+                            ID})));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public virtual System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override System.Data.DataTable Clone() {
+                ReceiptDetailDataTable cln = ((ReceiptDetailDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataTable CreateInstance() {
+                return new ReceiptDetailDataTable();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars() {
+                this.columnID = base.Columns["ID"];
+                this.columnReceiptMasterRef = base.Columns["ReceiptMasterRef"];
+                this.columnProductRef = base.Columns["ProductRef"];
+                this.columnSeries = base.Columns["Series"];
+                this.columnUseByDate = base.Columns["UseByDate"];
+                this.columnQuantity = base.Columns["Quantity"];
+                this.columnPricePurchase = base.Columns["PricePurchase"];
+                this.columnPurchSum = base.Columns["PurchSum"];
+                this.columnPurchNDS = base.Columns["PurchNDS"];
+                this.columnSalesNDS = base.Columns["SalesNDS"];
+                this.columnSalesPrice = base.Columns["SalesPrice"];
+                this.columnSalesSum = base.Columns["SalesSum"];
+                this.columnInvoiceDetailRef = base.Columns["InvoiceDetailRef"];
+                this.columnAuthorCreate = base.Columns["AuthorCreate"];
+                this.columnAuthorLastModif = base.Columns["AuthorLastModif"];
+                this.columnDateCreate = base.Columns["DateCreate"];
+                this.columnRowVersion = base.Columns["RowVersion"];
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass() {
+                this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID);
+                this.columnReceiptMasterRef = new System.Data.DataColumn("ReceiptMasterRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReceiptMasterRef);
+                this.columnProductRef = new System.Data.DataColumn("ProductRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnProductRef);
+                this.columnSeries = new System.Data.DataColumn("Series", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSeries);
+                this.columnUseByDate = new System.Data.DataColumn("UseByDate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUseByDate);
+                this.columnQuantity = new System.Data.DataColumn("Quantity", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnQuantity);
+                this.columnPricePurchase = new System.Data.DataColumn("PricePurchase", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPricePurchase);
+                this.columnPurchSum = new System.Data.DataColumn("PurchSum", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPurchSum);
+                this.columnPurchNDS = new System.Data.DataColumn("PurchNDS", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPurchNDS);
+                this.columnSalesNDS = new System.Data.DataColumn("SalesNDS", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSalesNDS);
+                this.columnSalesPrice = new System.Data.DataColumn("SalesPrice", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSalesPrice);
+                this.columnSalesSum = new System.Data.DataColumn("SalesSum", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSalesSum);
+                this.columnInvoiceDetailRef = new System.Data.DataColumn("InvoiceDetailRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnInvoiceDetailRef);
+                this.columnAuthorCreate = new System.Data.DataColumn("AuthorCreate", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAuthorCreate);
+                this.columnAuthorLastModif = new System.Data.DataColumn("AuthorLastModif", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAuthorLastModif);
+                this.columnDateCreate = new System.Data.DataColumn("DateCreate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateCreate);
+                this.columnRowVersion = new System.Data.DataColumn("RowVersion", typeof(byte[]), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRowVersion);
+                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
+                                this.columnID}, true));
+                this.columnID.AutoIncrement = true;
+                this.columnID.AllowDBNull = false;
+                this.columnID.ReadOnly = true;
+                this.columnID.Unique = true;
+                this.columnReceiptMasterRef.AllowDBNull = false;
+                this.columnProductRef.AllowDBNull = false;
+                this.columnSeries.AllowDBNull = false;
+                this.columnSeries.MaxLength = 15;
+                this.columnUseByDate.AllowDBNull = false;
+                this.columnQuantity.AllowDBNull = false;
+                this.columnPricePurchase.AllowDBNull = false;
+                this.columnPurchSum.AllowDBNull = false;
+                this.columnPurchSum.DefaultValue = ((decimal)(0m));
+                this.columnPurchNDS.AllowDBNull = false;
+                this.columnPurchNDS.DefaultValue = ((decimal)(0m));
+                this.columnSalesNDS.AllowDBNull = false;
+                this.columnSalesNDS.DefaultValue = ((decimal)(0m));
+                this.columnSalesPrice.AllowDBNull = false;
+                this.columnSalesPrice.DefaultValue = ((decimal)(0m));
+                this.columnSalesSum.AllowDBNull = false;
+                this.columnSalesSum.DefaultValue = ((decimal)(0m));
+                this.columnInvoiceDetailRef.AllowDBNull = false;
+                this.columnInvoiceDetailRef.DefaultValue = ((int)(0));
+                this.columnAuthorCreate.MaxLength = 50;
+                this.columnAuthorLastModif.MaxLength = 50;
+                this.columnRowVersion.ReadOnly = true;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptDetailRow NewReceiptDetailRow() {
+                return ((ReceiptDetailRow)(this.NewRow()));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
+                return new ReceiptDetailRow(builder);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Type GetRowType() {
+                return typeof(ReceiptDetailRow);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.ReceiptDetailRowChanged != null)) {
+                    this.ReceiptDetailRowChanged(this, new ReceiptDetailRowChangeEvent(((ReceiptDetailRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.ReceiptDetailRowChanging != null)) {
+                    this.ReceiptDetailRowChanging(this, new ReceiptDetailRowChangeEvent(((ReceiptDetailRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.ReceiptDetailRowDeleted != null)) {
+                    this.ReceiptDetailRowDeleted(this, new ReceiptDetailRowChangeEvent(((ReceiptDetailRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.ReceiptDetailRowDeleting != null)) {
+                    this.ReceiptDetailRowDeleting(this, new ReceiptDetailRowChangeEvent(((ReceiptDetailRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemoveReceiptDetailRow(ReceiptDetailRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
+                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
+                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
+                MDataSet ds = new MDataSet();
+                xs.Add(ds.GetSchemaSerializable());
+                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "ReceiptDetailDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                return type;
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         public partial class CountryRow : System.Data.DataRow {
             
             private CountryDataTable tableCountry;
@@ -8115,6 +8081,11 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetRowVersionNull() {
                 this[this.tableDocumentType.RowVersionColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptMasterRow[] GetReceiptMasterRows() {
+                return ((ReceiptMasterRow[])(base.GetChildRows(this.Table.ChildRelations["FK_ReceiptMaster_DocumentType"])));
             }
         }
         
@@ -9041,525 +9012,6 @@ namespace RetailTrade {
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class ReceiptDetailRow : System.Data.DataRow {
-            
-            private ReceiptDetailDataTable tableReceiptDetail;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal ReceiptDetailRow(System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableReceiptDetail = ((ReceiptDetailDataTable)(this.Table));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ID {
-                get {
-                    return ((int)(this[this.tableReceiptDetail.IDColumn]));
-                }
-                set {
-                    this[this.tableReceiptDetail.IDColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ReceiptMaterRef {
-                get {
-                    return ((int)(this[this.tableReceiptDetail.ReceiptMaterRefColumn]));
-                }
-                set {
-                    this[this.tableReceiptDetail.ReceiptMaterRefColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ProductRef {
-                get {
-                    return ((int)(this[this.tableReceiptDetail.ProductRefColumn]));
-                }
-                set {
-                    this[this.tableReceiptDetail.ProductRefColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string Series {
-                get {
-                    return ((string)(this[this.tableReceiptDetail.SeriesColumn]));
-                }
-                set {
-                    this[this.tableReceiptDetail.SeriesColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime UseByDate {
-                get {
-                    return ((System.DateTime)(this[this.tableReceiptDetail.UseByDateColumn]));
-                }
-                set {
-                    this[this.tableReceiptDetail.UseByDateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal Quantity {
-                get {
-                    return ((decimal)(this[this.tableReceiptDetail.QuantityColumn]));
-                }
-                set {
-                    this[this.tableReceiptDetail.QuantityColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal PricePurchase {
-                get {
-                    return ((decimal)(this[this.tableReceiptDetail.PricePurchaseColumn]));
-                }
-                set {
-                    this[this.tableReceiptDetail.PricePurchaseColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int InvoiceDetailRef {
-                get {
-                    return ((int)(this[this.tableReceiptDetail.InvoiceDetailRefColumn]));
-                }
-                set {
-                    this[this.tableReceiptDetail.InvoiceDetailRefColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string AuthorCreate {
-                get {
-                    return ((string)(this[this.tableReceiptDetail.AuthorCreateColumn]));
-                }
-                set {
-                    this[this.tableReceiptDetail.AuthorCreateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string AuthorLastModif {
-                get {
-                    return ((string)(this[this.tableReceiptDetail.AuthorLastModifColumn]));
-                }
-                set {
-                    this[this.tableReceiptDetail.AuthorLastModifColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime DateCreate {
-                get {
-                    return ((System.DateTime)(this[this.tableReceiptDetail.DateCreateColumn]));
-                }
-                set {
-                    this[this.tableReceiptDetail.DateCreateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public byte[] RowVersion {
-                get {
-                    try {
-                        return ((byte[])(this[this.tableReceiptDetail.RowVersionColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'RowVersion\' in table \'ReceiptDetail\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReceiptDetail.RowVersionColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal PurchSum {
-                get {
-                    return ((decimal)(this[this.tableReceiptDetail.PurchSumColumn]));
-                }
-                set {
-                    this[this.tableReceiptDetail.PurchSumColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal PurchNDS {
-                get {
-                    return ((decimal)(this[this.tableReceiptDetail.PurchNDSColumn]));
-                }
-                set {
-                    this[this.tableReceiptDetail.PurchNDSColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal SalesNDS {
-                get {
-                    return ((decimal)(this[this.tableReceiptDetail.SalesNDSColumn]));
-                }
-                set {
-                    this[this.tableReceiptDetail.SalesNDSColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal SalesPrice {
-                get {
-                    return ((decimal)(this[this.tableReceiptDetail.SalesPriceColumn]));
-                }
-                set {
-                    this[this.tableReceiptDetail.SalesPriceColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal SalesSum {
-                get {
-                    return ((decimal)(this[this.tableReceiptDetail.SalesSumColumn]));
-                }
-                set {
-                    this[this.tableReceiptDetail.SalesSumColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptMasterRow ReceiptMasterRow {
-                get {
-                    return ((ReceiptMasterRow)(this.GetParentRow(this.Table.ParentRelations["ReceiptMaster_ReceiptDetail"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["ReceiptMaster_ReceiptDetail"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ProductRow ProductRow {
-                get {
-                    return ((ProductRow)(this.GetParentRow(this.Table.ParentRelations["FK_ReceiptDetail_Product"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_ReceiptDetail_Product"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptMasterNewRow ReceiptMasterNewRow {
-                get {
-                    return ((ReceiptMasterNewRow)(this.GetParentRow(this.Table.ParentRelations["ReceiptMasterNew_ReceiptDetail"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["ReceiptMasterNew_ReceiptDetail"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsRowVersionNull() {
-                return this.IsNull(this.tableReceiptDetail.RowVersionColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetRowVersionNull() {
-                this[this.tableReceiptDetail.RowVersionColumn] = System.Convert.DBNull;
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class ReceiptMasterRow : System.Data.DataRow {
-            
-            private ReceiptMasterDataTable tableReceiptMaster;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal ReceiptMasterRow(System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableReceiptMaster = ((ReceiptMasterDataTable)(this.Table));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ID {
-                get {
-                    return ((int)(this[this.tableReceiptMaster.IDColumn]));
-                }
-                set {
-                    this[this.tableReceiptMaster.IDColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int Number {
-                get {
-                    return ((int)(this[this.tableReceiptMaster.NumberColumn]));
-                }
-                set {
-                    this[this.tableReceiptMaster.NumberColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string Note {
-                get {
-                    return ((string)(this[this.tableReceiptMaster.NoteColumn]));
-                }
-                set {
-                    this[this.tableReceiptMaster.NoteColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime DocDate {
-                get {
-                    return ((System.DateTime)(this[this.tableReceiptMaster.DocDateColumn]));
-                }
-                set {
-                    this[this.tableReceiptMaster.DocDateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int DocumentTypeRef {
-                get {
-                    return ((int)(this[this.tableReceiptMaster.DocumentTypeRefColumn]));
-                }
-                set {
-                    this[this.tableReceiptMaster.DocumentTypeRefColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int OrganizationRef {
-                get {
-                    return ((int)(this[this.tableReceiptMaster.OrganizationRefColumn]));
-                }
-                set {
-                    this[this.tableReceiptMaster.OrganizationRefColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int MainStockRef {
-                get {
-                    return ((int)(this[this.tableReceiptMaster.MainStockRefColumn]));
-                }
-                set {
-                    this[this.tableReceiptMaster.MainStockRefColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int SenderStockRef {
-                get {
-                    return ((int)(this[this.tableReceiptMaster.SenderStockRefColumn]));
-                }
-                set {
-                    this[this.tableReceiptMaster.SenderStockRefColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int SenderInvoiceRef {
-                get {
-                    return ((int)(this[this.tableReceiptMaster.SenderInvoiceRefColumn]));
-                }
-                set {
-                    this[this.tableReceiptMaster.SenderInvoiceRefColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal PurchSum {
-                get {
-                    return ((decimal)(this[this.tableReceiptMaster.PurchSumColumn]));
-                }
-                set {
-                    this[this.tableReceiptMaster.PurchSumColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsReadOnly {
-                get {
-                    return ((bool)(this[this.tableReceiptMaster.IsReadOnlyColumn]));
-                }
-                set {
-                    this[this.tableReceiptMaster.IsReadOnlyColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string AuthorCreate {
-                get {
-                    return ((string)(this[this.tableReceiptMaster.AuthorCreateColumn]));
-                }
-                set {
-                    this[this.tableReceiptMaster.AuthorCreateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string AuthorLastModif {
-                get {
-                    return ((string)(this[this.tableReceiptMaster.AuthorLastModifColumn]));
-                }
-                set {
-                    this[this.tableReceiptMaster.AuthorLastModifColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime DateCreate {
-                get {
-                    return ((System.DateTime)(this[this.tableReceiptMaster.DateCreateColumn]));
-                }
-                set {
-                    this[this.tableReceiptMaster.DateCreateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public byte[] RowVersion {
-                get {
-                    try {
-                        return ((byte[])(this[this.tableReceiptMaster.RowVersionColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'RowVersion\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReceiptMaster.RowVersionColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal SalesSum {
-                get {
-                    return ((decimal)(this[this.tableReceiptMaster.SalesSumColumn]));
-                }
-                set {
-                    this[this.tableReceiptMaster.SalesSumColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string CalcPurchSum {
-                get {
-                    try {
-                        return ((string)(this[this.tableReceiptMaster.CalcPurchSumColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'CalcPurchSum\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReceiptMaster.CalcPurchSumColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string CalcPurchNDS {
-                get {
-                    try {
-                        return ((string)(this[this.tableReceiptMaster.CalcPurchNDSColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'CalcPurchNDS\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReceiptMaster.CalcPurchNDSColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal PurchNDS {
-                get {
-                    return ((decimal)(this[this.tableReceiptMaster.PurchNDSColumn]));
-                }
-                set {
-                    this[this.tableReceiptMaster.PurchNDSColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public decimal SalesNDS {
-                get {
-                    return ((decimal)(this[this.tableReceiptMaster.SalesNDSColumn]));
-                }
-                set {
-                    this[this.tableReceiptMaster.SalesNDSColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public OrganizationRow OrganizationRow {
-                get {
-                    return ((OrganizationRow)(this.GetParentRow(this.Table.ParentRelations["FK_ReceiptMaster_Organization"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_ReceiptMaster_Organization"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public StockRow StockRowByFK_ReceiptMaster_Stock {
-                get {
-                    return ((StockRow)(this.GetParentRow(this.Table.ParentRelations["FK_ReceiptMaster_Stock"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_ReceiptMaster_Stock"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public StockRow StockRowByFK_ReceiptMaster_Stock1 {
-                get {
-                    return ((StockRow)(this.GetParentRow(this.Table.ParentRelations["FK_ReceiptMaster_Stock1"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_ReceiptMaster_Stock1"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsRowVersionNull() {
-                return this.IsNull(this.tableReceiptMaster.RowVersionColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetRowVersionNull() {
-                this[this.tableReceiptMaster.RowVersionColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsCalcPurchSumNull() {
-                return this.IsNull(this.tableReceiptMaster.CalcPurchSumColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetCalcPurchSumNull() {
-                this[this.tableReceiptMaster.CalcPurchSumColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsCalcPurchNDSNull() {
-                return this.IsNull(this.tableReceiptMaster.CalcPurchNDSColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetCalcPurchNDSNull() {
-                this[this.tableReceiptMaster.CalcPurchNDSColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptDetailRow[] GetReceiptDetailRows() {
-                return ((ReceiptDetailRow[])(base.GetChildRows(this.Table.ChildRelations["ReceiptMaster_ReceiptDetail"])));
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         public partial class ReceiptRemainsRow : System.Data.DataRow {
             
             private ReceiptRemainsDataTable tableReceiptRemains;
@@ -9642,6 +9094,16 @@ namespace RetailTrade {
                 }
                 set {
                     this[this.tableReceiptRemains.RowVersionColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptDetailRow ReceiptDetailRow {
+                get {
+                    return ((ReceiptDetailRow)(this.GetParentRow(this.Table.ParentRelations["FK_ReceiptRemains_ReceiptDetail"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_ReceiptRemains_ReceiptDetail"]);
                 }
             }
             
@@ -10561,11 +10023,6 @@ namespace RetailTrade {
             public void SetRowVersionNull() {
                 this[this.tableProduct.RowVersionColumn] = System.Convert.DBNull;
             }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptDetailRow[] GetReceiptDetailRows() {
-                return ((ReceiptDetailRow[])(base.GetChildRows(this.Table.ChildRelations["FK_ReceiptDetail_Product"])));
-            }
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
@@ -10881,6 +10338,580 @@ namespace RetailTrade {
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class ReceiptMasterRow : System.Data.DataRow {
+            
+            private ReceiptMasterDataTable tableReceiptMaster;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal ReceiptMasterRow(System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableReceiptMaster = ((ReceiptMasterDataTable)(this.Table));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ID {
+                get {
+                    return ((int)(this[this.tableReceiptMaster.IDColumn]));
+                }
+                set {
+                    this[this.tableReceiptMaster.IDColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int Number {
+                get {
+                    return ((int)(this[this.tableReceiptMaster.NumberColumn]));
+                }
+                set {
+                    this[this.tableReceiptMaster.NumberColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Note {
+                get {
+                    return ((string)(this[this.tableReceiptMaster.NoteColumn]));
+                }
+                set {
+                    this[this.tableReceiptMaster.NoteColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime DocDate {
+                get {
+                    return ((System.DateTime)(this[this.tableReceiptMaster.DocDateColumn]));
+                }
+                set {
+                    this[this.tableReceiptMaster.DocDateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int DocumentTypeRef {
+                get {
+                    return ((int)(this[this.tableReceiptMaster.DocumentTypeRefColumn]));
+                }
+                set {
+                    this[this.tableReceiptMaster.DocumentTypeRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int OrganizationRef {
+                get {
+                    return ((int)(this[this.tableReceiptMaster.OrganizationRefColumn]));
+                }
+                set {
+                    this[this.tableReceiptMaster.OrganizationRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int MainStockRef {
+                get {
+                    return ((int)(this[this.tableReceiptMaster.MainStockRefColumn]));
+                }
+                set {
+                    this[this.tableReceiptMaster.MainStockRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int SenderStockRef {
+                get {
+                    return ((int)(this[this.tableReceiptMaster.SenderStockRefColumn]));
+                }
+                set {
+                    this[this.tableReceiptMaster.SenderStockRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int SenderInvoiceRef {
+                get {
+                    return ((int)(this[this.tableReceiptMaster.SenderInvoiceRefColumn]));
+                }
+                set {
+                    this[this.tableReceiptMaster.SenderInvoiceRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal SalesSum {
+                get {
+                    return ((decimal)(this[this.tableReceiptMaster.SalesSumColumn]));
+                }
+                set {
+                    this[this.tableReceiptMaster.SalesSumColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal PurchSum {
+                get {
+                    return ((decimal)(this[this.tableReceiptMaster.PurchSumColumn]));
+                }
+                set {
+                    this[this.tableReceiptMaster.PurchSumColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal PurchNDS {
+                get {
+                    return ((decimal)(this[this.tableReceiptMaster.PurchNDSColumn]));
+                }
+                set {
+                    this[this.tableReceiptMaster.PurchNDSColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal SalesNDS {
+                get {
+                    return ((decimal)(this[this.tableReceiptMaster.SalesNDSColumn]));
+                }
+                set {
+                    this[this.tableReceiptMaster.SalesNDSColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsReadOnly {
+                get {
+                    return ((bool)(this[this.tableReceiptMaster.IsReadOnlyColumn]));
+                }
+                set {
+                    this[this.tableReceiptMaster.IsReadOnlyColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string AuthorCreate {
+                get {
+                    try {
+                        return ((string)(this[this.tableReceiptMaster.AuthorCreateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'AuthorCreate\' in table \'ReceiptMaster\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReceiptMaster.AuthorCreateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string AuthorLastModif {
+                get {
+                    try {
+                        return ((string)(this[this.tableReceiptMaster.AuthorLastModifColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'AuthorLastModif\' in table \'ReceiptMaster\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReceiptMaster.AuthorLastModifColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime DateCreate {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableReceiptMaster.DateCreateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'DateCreate\' in table \'ReceiptMaster\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReceiptMaster.DateCreateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public byte[] RowVersion {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableReceiptMaster.RowVersionColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'RowVersion\' in table \'ReceiptMaster\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReceiptMaster.RowVersionColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool RecalcSum {
+                get {
+                    return ((bool)(this[this.tableReceiptMaster.RecalcSumColumn]));
+                }
+                set {
+                    this[this.tableReceiptMaster.RecalcSumColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public DocumentTypeRow DocumentTypeRow {
+                get {
+                    return ((DocumentTypeRow)(this.GetParentRow(this.Table.ParentRelations["FK_ReceiptMaster_DocumentType"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_ReceiptMaster_DocumentType"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public OrganizationRow OrganizationRow {
+                get {
+                    return ((OrganizationRow)(this.GetParentRow(this.Table.ParentRelations["FK_ReceiptMaster_Organization"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_ReceiptMaster_Organization"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public StockRow StockRowByFK_ReceiptMaster_Stock {
+                get {
+                    return ((StockRow)(this.GetParentRow(this.Table.ParentRelations["FK_ReceiptMaster_Stock"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_ReceiptMaster_Stock"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public StockRow StockRowByFK_ReceiptMaster_Stock1 {
+                get {
+                    return ((StockRow)(this.GetParentRow(this.Table.ParentRelations["FK_ReceiptMaster_Stock1"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_ReceiptMaster_Stock1"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsAuthorCreateNull() {
+                return this.IsNull(this.tableReceiptMaster.AuthorCreateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetAuthorCreateNull() {
+                this[this.tableReceiptMaster.AuthorCreateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsAuthorLastModifNull() {
+                return this.IsNull(this.tableReceiptMaster.AuthorLastModifColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetAuthorLastModifNull() {
+                this[this.tableReceiptMaster.AuthorLastModifColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateCreateNull() {
+                return this.IsNull(this.tableReceiptMaster.DateCreateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateCreateNull() {
+                this[this.tableReceiptMaster.DateCreateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsRowVersionNull() {
+                return this.IsNull(this.tableReceiptMaster.RowVersionColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetRowVersionNull() {
+                this[this.tableReceiptMaster.RowVersionColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptDetailRow[] GetReceiptDetailRows() {
+                return ((ReceiptDetailRow[])(base.GetChildRows(this.Table.ChildRelations["ReceiptMaster_ReceiptDetail"])));
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class ReceiptDetailRow : System.Data.DataRow {
+            
+            private ReceiptDetailDataTable tableReceiptDetail;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal ReceiptDetailRow(System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableReceiptDetail = ((ReceiptDetailDataTable)(this.Table));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ID {
+                get {
+                    return ((int)(this[this.tableReceiptDetail.IDColumn]));
+                }
+                set {
+                    this[this.tableReceiptDetail.IDColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ReceiptMasterRef {
+                get {
+                    return ((int)(this[this.tableReceiptDetail.ReceiptMasterRefColumn]));
+                }
+                set {
+                    this[this.tableReceiptDetail.ReceiptMasterRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ProductRef {
+                get {
+                    return ((int)(this[this.tableReceiptDetail.ProductRefColumn]));
+                }
+                set {
+                    this[this.tableReceiptDetail.ProductRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Series {
+                get {
+                    return ((string)(this[this.tableReceiptDetail.SeriesColumn]));
+                }
+                set {
+                    this[this.tableReceiptDetail.SeriesColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime UseByDate {
+                get {
+                    return ((System.DateTime)(this[this.tableReceiptDetail.UseByDateColumn]));
+                }
+                set {
+                    this[this.tableReceiptDetail.UseByDateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal Quantity {
+                get {
+                    return ((decimal)(this[this.tableReceiptDetail.QuantityColumn]));
+                }
+                set {
+                    this[this.tableReceiptDetail.QuantityColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal PricePurchase {
+                get {
+                    return ((decimal)(this[this.tableReceiptDetail.PricePurchaseColumn]));
+                }
+                set {
+                    this[this.tableReceiptDetail.PricePurchaseColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal PurchSum {
+                get {
+                    return ((decimal)(this[this.tableReceiptDetail.PurchSumColumn]));
+                }
+                set {
+                    this[this.tableReceiptDetail.PurchSumColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal PurchNDS {
+                get {
+                    return ((decimal)(this[this.tableReceiptDetail.PurchNDSColumn]));
+                }
+                set {
+                    this[this.tableReceiptDetail.PurchNDSColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal SalesNDS {
+                get {
+                    return ((decimal)(this[this.tableReceiptDetail.SalesNDSColumn]));
+                }
+                set {
+                    this[this.tableReceiptDetail.SalesNDSColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal SalesPrice {
+                get {
+                    return ((decimal)(this[this.tableReceiptDetail.SalesPriceColumn]));
+                }
+                set {
+                    this[this.tableReceiptDetail.SalesPriceColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal SalesSum {
+                get {
+                    return ((decimal)(this[this.tableReceiptDetail.SalesSumColumn]));
+                }
+                set {
+                    this[this.tableReceiptDetail.SalesSumColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int InvoiceDetailRef {
+                get {
+                    return ((int)(this[this.tableReceiptDetail.InvoiceDetailRefColumn]));
+                }
+                set {
+                    this[this.tableReceiptDetail.InvoiceDetailRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string AuthorCreate {
+                get {
+                    try {
+                        return ((string)(this[this.tableReceiptDetail.AuthorCreateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'AuthorCreate\' in table \'ReceiptDetail\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReceiptDetail.AuthorCreateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string AuthorLastModif {
+                get {
+                    try {
+                        return ((string)(this[this.tableReceiptDetail.AuthorLastModifColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'AuthorLastModif\' in table \'ReceiptDetail\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReceiptDetail.AuthorLastModifColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime DateCreate {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableReceiptDetail.DateCreateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'DateCreate\' in table \'ReceiptDetail\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReceiptDetail.DateCreateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public byte[] RowVersion {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableReceiptDetail.RowVersionColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'RowVersion\' in table \'ReceiptDetail\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReceiptDetail.RowVersionColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptMasterRow ReceiptMasterRow {
+                get {
+                    return ((ReceiptMasterRow)(this.GetParentRow(this.Table.ParentRelations["ReceiptMaster_ReceiptDetail"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["ReceiptMaster_ReceiptDetail"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptMasterNewRow ReceiptMasterNewRow {
+                get {
+                    return ((ReceiptMasterNewRow)(this.GetParentRow(this.Table.ParentRelations["ReceiptMasterNew_ReceiptDetail"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["ReceiptMasterNew_ReceiptDetail"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsAuthorCreateNull() {
+                return this.IsNull(this.tableReceiptDetail.AuthorCreateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetAuthorCreateNull() {
+                this[this.tableReceiptDetail.AuthorCreateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsAuthorLastModifNull() {
+                return this.IsNull(this.tableReceiptDetail.AuthorLastModifColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetAuthorLastModifNull() {
+                this[this.tableReceiptDetail.AuthorLastModifColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateCreateNull() {
+                return this.IsNull(this.tableReceiptDetail.DateCreateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateCreateNull() {
+                this[this.tableReceiptDetail.DateCreateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsRowVersionNull() {
+                return this.IsNull(this.tableReceiptDetail.RowVersionColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetRowVersionNull() {
+                this[this.tableReceiptDetail.RowVersionColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptRemainsRow[] GetReceiptRemainsRows() {
+                return ((ReceiptRemainsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_ReceiptRemains_ReceiptDetail"])));
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         public class CountryRowChangeEvent : System.EventArgs {
             
             private CountryRow eventRow;
@@ -11133,62 +11164,6 @@ namespace RetailTrade {
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class ReceiptDetailRowChangeEvent : System.EventArgs {
-            
-            private ReceiptDetailRow eventRow;
-            
-            private System.Data.DataRowAction eventAction;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptDetailRowChangeEvent(ReceiptDetailRow row, System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptDetailRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class ReceiptMasterRowChangeEvent : System.EventArgs {
-            
-            private ReceiptMasterRow eventRow;
-            
-            private System.Data.DataRowAction eventAction;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptMasterRowChangeEvent(ReceiptMasterRow row, System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReceiptMasterRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         public class ReceiptRemainsRowChangeEvent : System.EventArgs {
             
             private ReceiptRemainsRow eventRow;
@@ -11399,6 +11374,62 @@ namespace RetailTrade {
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public ReceiptMasterNewRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class ReceiptMasterRowChangeEvent : System.EventArgs {
+            
+            private ReceiptMasterRow eventRow;
+            
+            private System.Data.DataRowAction eventAction;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptMasterRowChangeEvent(ReceiptMasterRow row, System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptMasterRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class ReceiptDetailRowChangeEvent : System.EventArgs {
+            
+            private ReceiptDetailRow eventRow;
+            
+            private System.Data.DataRowAction eventAction;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptDetailRowChangeEvent(ReceiptDetailRow row, System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptDetailRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -14474,849 +14505,6 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion FROM Pack
     [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class ReceiptDetailTableAdapter : System.ComponentModel.Component {
-        
-        private System.Data.SqlClient.SqlDataAdapter _adapter;
-        
-        private System.Data.SqlClient.SqlConnection _connection;
-        
-        private System.Data.SqlClient.SqlCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public ReceiptDetailTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private System.Data.SqlClient.SqlDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        internal System.Data.SqlClient.SqlConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitAdapter() {
-            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
-            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "ReceiptDetail";
-            tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("ReceiptMaterRef", "ReceiptMaterRef");
-            tableMapping.ColumnMappings.Add("ProductRef", "ProductRef");
-            tableMapping.ColumnMappings.Add("Series", "Series");
-            tableMapping.ColumnMappings.Add("UseByDate", "UseByDate");
-            tableMapping.ColumnMappings.Add("Quantity", "Quantity");
-            tableMapping.ColumnMappings.Add("PricePurchase", "PricePurchase");
-            tableMapping.ColumnMappings.Add("InvoiceDetailRef", "InvoiceDetailRef");
-            tableMapping.ColumnMappings.Add("AuthorCreate", "AuthorCreate");
-            tableMapping.ColumnMappings.Add("AuthorLastModif", "AuthorLastModif");
-            tableMapping.ColumnMappings.Add("DateCreate", "DateCreate");
-            tableMapping.ColumnMappings.Add("RowVersion", "RowVersion");
-            tableMapping.ColumnMappings.Add("PurchSum", "PurchSum");
-            tableMapping.ColumnMappings.Add("PurchNDS", "PurchNDS");
-            tableMapping.ColumnMappings.Add("SalesNDS", "SalesNDS");
-            tableMapping.ColumnMappings.Add("SalesPrice", "SalesPrice");
-            tableMapping.ColumnMappings.Add("SalesSum", "SalesSum");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "dbo.ReceiptDetailDeleteCommand";
-            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "dbo.ReceiptDetailInsertCommand";
-            this._adapter.InsertCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ReceiptMaterRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ReceiptMaterRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ProductRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ProductRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Series", System.Data.SqlDbType.NChar, 15, System.Data.ParameterDirection.Input, 0, 0, "Series", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@UseByDate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "UseByDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Quantity", System.Data.SqlDbType.Decimal, 5, System.Data.ParameterDirection.Input, 5, 3, "Quantity", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PricePurchase", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 5, "PricePurchase", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "dbo.ReceiptDetailUpdateCommand";
-            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ReceiptMaterRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ReceiptMaterRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ProductRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ProductRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Series", System.Data.SqlDbType.NChar, 15, System.Data.ParameterDirection.Input, 0, 0, "Series", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@UseByDate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "UseByDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Quantity", System.Data.SqlDbType.Decimal, 5, System.Data.ParameterDirection.Input, 5, 3, "Quantity", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PricePurchase", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 5, "PricePurchase", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PurchSum", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 3, "PurchSum", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PurchNDS", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 3, "PurchNDS", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SalesNDS", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 3, "SalesNDS", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SalesPrice", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 2, "SalesPrice", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SalesSum", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 2, "SalesSum", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@InvoiceDetailRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "InvoiceDetailRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitConnection() {
-            this._connection = new System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::RetailTrade.Properties.Settings.Default.RetailTradeConnectionString;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
-            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "dbo.ReceiptDetailSelectCommand";
-            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
-            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(MDataSet.ReceiptDetailDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual MDataSet.ReceiptDetailDataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            MDataSet.ReceiptDetailDataTable dataTable = new MDataSet.ReceiptDetailDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(MDataSet.ReceiptDetailDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(MDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "ReceiptDetail");
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(System.Nullable<int> Original_ID, byte[] Original_RowVersion) {
-            if ((Original_ID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_ID.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = System.DBNull.Value;
-            }
-            if ((Original_RowVersion == null)) {
-                this.Adapter.DeleteCommand.Parameters[2].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((byte[])(Original_RowVersion));
-            }
-            System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(System.Nullable<int> ReceiptMaterRef, System.Nullable<int> ProductRef, string Series, System.Nullable<System.DateTime> UseByDate, System.Nullable<decimal> Quantity, System.Nullable<decimal> PricePurchase) {
-            if ((ReceiptMaterRef.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(ReceiptMaterRef.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = System.DBNull.Value;
-            }
-            if ((ProductRef.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(ProductRef.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = System.DBNull.Value;
-            }
-            if ((Series == null)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(Series));
-            }
-            if ((UseByDate.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(UseByDate.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[4].Value = System.DBNull.Value;
-            }
-            if ((Quantity.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((decimal)(Quantity.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[5].Value = System.DBNull.Value;
-            }
-            if ((PricePurchase.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((decimal)(PricePurchase.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[6].Value = System.DBNull.Value;
-            }
-            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(
-                    System.Nullable<int> ReceiptMaterRef, 
-                    System.Nullable<int> ProductRef, 
-                    string Series, 
-                    System.Nullable<System.DateTime> UseByDate, 
-                    System.Nullable<decimal> Quantity, 
-                    System.Nullable<decimal> PricePurchase, 
-                    System.Nullable<decimal> PurchSum, 
-                    System.Nullable<decimal> PurchNDS, 
-                    System.Nullable<decimal> SalesNDS, 
-                    System.Nullable<decimal> SalesPrice, 
-                    System.Nullable<decimal> SalesSum, 
-                    System.Nullable<int> InvoiceDetailRef, 
-                    string AuthorCreate, 
-                    string AuthorLastModif, 
-                    System.Nullable<System.DateTime> DateCreate, 
-                    System.Nullable<int> Original_ID, 
-                    byte[] Original_RowVersion, 
-                    System.Nullable<int> ID) {
-            if ((ReceiptMaterRef.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(ReceiptMaterRef.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = System.DBNull.Value;
-            }
-            if ((ProductRef.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(ProductRef.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = System.DBNull.Value;
-            }
-            if ((Series == null)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Series));
-            }
-            if ((UseByDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(UseByDate.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = System.DBNull.Value;
-            }
-            if ((Quantity.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((decimal)(Quantity.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = System.DBNull.Value;
-            }
-            if ((PricePurchase.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((decimal)(PricePurchase.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = System.DBNull.Value;
-            }
-            if ((PurchSum.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((decimal)(PurchSum.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = System.DBNull.Value;
-            }
-            if ((PurchNDS.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((decimal)(PurchNDS.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = System.DBNull.Value;
-            }
-            if ((SalesNDS.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((decimal)(SalesNDS.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = System.DBNull.Value;
-            }
-            if ((SalesPrice.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((decimal)(SalesPrice.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = System.DBNull.Value;
-            }
-            if ((SalesSum.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((decimal)(SalesSum.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = System.DBNull.Value;
-            }
-            if ((InvoiceDetailRef.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(InvoiceDetailRef.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[12].Value = System.DBNull.Value;
-            }
-            if ((AuthorCreate == null)) {
-                this.Adapter.UpdateCommand.Parameters[13].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((string)(AuthorCreate));
-            }
-            if ((AuthorLastModif == null)) {
-                this.Adapter.UpdateCommand.Parameters[14].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((string)(AuthorLastModif));
-            }
-            if ((DateCreate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((System.DateTime)(DateCreate.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[15].Value = System.DBNull.Value;
-            }
-            if ((Original_ID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((int)(Original_ID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[16].Value = System.DBNull.Value;
-            }
-            if ((Original_RowVersion == null)) {
-                this.Adapter.UpdateCommand.Parameters[17].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((byte[])(Original_RowVersion));
-            }
-            if ((ID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((int)(ID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[18].Value = System.DBNull.Value;
-            }
-            System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.ComponentModel.ToolboxItem(true)]
-    [System.ComponentModel.DataObjectAttribute(true)]
-    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class ReceiptMasterTableAdapter : System.ComponentModel.Component {
-        
-        private System.Data.SqlClient.SqlDataAdapter _adapter;
-        
-        private System.Data.SqlClient.SqlConnection _connection;
-        
-        private System.Data.SqlClient.SqlCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public ReceiptMasterTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private System.Data.SqlClient.SqlDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        internal System.Data.SqlClient.SqlConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitAdapter() {
-            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
-            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "ReceiptMaster";
-            tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("Number", "Number");
-            tableMapping.ColumnMappings.Add("Note", "Note");
-            tableMapping.ColumnMappings.Add("DocDate", "DocDate");
-            tableMapping.ColumnMappings.Add("DocumentTypeRef", "DocumentTypeRef");
-            tableMapping.ColumnMappings.Add("OrganizationRef", "OrganizationRef");
-            tableMapping.ColumnMappings.Add("MainStockRef", "MainStockRef");
-            tableMapping.ColumnMappings.Add("SenderStockRef", "SenderStockRef");
-            tableMapping.ColumnMappings.Add("SenderInvoiceRef", "SenderInvoiceRef");
-            tableMapping.ColumnMappings.Add("PurchSum", "PurchSum");
-            tableMapping.ColumnMappings.Add("IsReadOnly", "IsReadOnly");
-            tableMapping.ColumnMappings.Add("AuthorCreate", "AuthorCreate");
-            tableMapping.ColumnMappings.Add("AuthorLastModif", "AuthorLastModif");
-            tableMapping.ColumnMappings.Add("DateCreate", "DateCreate");
-            tableMapping.ColumnMappings.Add("RowVersion", "RowVersion");
-            tableMapping.ColumnMappings.Add("SalesSum", "SalesSum");
-            tableMapping.ColumnMappings.Add("PurchNDS", "PurchNDS");
-            tableMapping.ColumnMappings.Add("SalesNDS", "SalesNDS");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "dbo.ReceiptMasterDeleteCommand";
-            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "dbo.ReceiptMasterInsertCommand";
-            this._adapter.InsertCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Note", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, 0, 0, "Note", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OrganizationRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "OrganizationRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@MainStockRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "MainStockRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SenderStockRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "SenderStockRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SenderInvoiceRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "SenderInvoiceRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "dbo.ReceiptMasterUpdateCommand";
-            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Number", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "Number", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Note", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, 0, 0, "Note", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DocDate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DocDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DocumentTypeRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "DocumentTypeRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OrganizationRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "OrganizationRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@MainStockRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "MainStockRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SenderStockRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "SenderStockRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SenderInvoiceRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "SenderInvoiceRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@TotalSum", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 2, "TotalSum", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PurchSum", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 2, "PurchSum", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SumNDS", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 2, "SumNDS", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IsReadOnly", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, 1, 0, "IsReadOnly", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitConnection() {
-            this._connection = new System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::RetailTrade.Properties.Settings.Default.RetailTradeConnectionString;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
-            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "dbo.ReceiptMasterSelectCommand";
-            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
-            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(MDataSet.ReceiptMasterDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual MDataSet.ReceiptMasterDataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            MDataSet.ReceiptMasterDataTable dataTable = new MDataSet.ReceiptMasterDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(MDataSet.ReceiptMasterDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(MDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "ReceiptMaster");
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(System.Nullable<int> Original_ID, byte[] Original_RowVersion) {
-            if ((Original_ID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_ID.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = System.DBNull.Value;
-            }
-            if ((Original_RowVersion == null)) {
-                this.Adapter.DeleteCommand.Parameters[2].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((byte[])(Original_RowVersion));
-            }
-            System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Note, System.Nullable<int> OrganizationRef, System.Nullable<int> MainStockRef, System.Nullable<int> SenderStockRef, System.Nullable<int> SenderInvoiceRef) {
-            if ((Note == null)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(Note));
-            }
-            if ((OrganizationRef.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(OrganizationRef.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = System.DBNull.Value;
-            }
-            if ((MainStockRef.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((int)(MainStockRef.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = System.DBNull.Value;
-            }
-            if ((SenderStockRef.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((int)(SenderStockRef.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[4].Value = System.DBNull.Value;
-            }
-            if ((SenderInvoiceRef.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((int)(SenderInvoiceRef.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[5].Value = System.DBNull.Value;
-            }
-            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(System.Nullable<int> Number, string Note, System.Nullable<System.DateTime> DocDate, System.Nullable<int> DocumentTypeRef, System.Nullable<int> OrganizationRef, System.Nullable<int> MainStockRef, System.Nullable<int> SenderStockRef, System.Nullable<int> SenderInvoiceRef, System.Nullable<decimal> TotalSum, System.Nullable<decimal> PurchSum, System.Nullable<decimal> SumNDS, System.Nullable<bool> IsReadOnly, System.Nullable<int> Original_ID, byte[] Original_RowVersion, System.Nullable<int> ID) {
-            if ((Number.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Number.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = System.DBNull.Value;
-            }
-            if ((Note == null)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Note));
-            }
-            if ((DocDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((System.DateTime)(DocDate.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = System.DBNull.Value;
-            }
-            if ((DocumentTypeRef.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(DocumentTypeRef.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = System.DBNull.Value;
-            }
-            if ((OrganizationRef.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(OrganizationRef.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = System.DBNull.Value;
-            }
-            if ((MainStockRef.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(MainStockRef.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = System.DBNull.Value;
-            }
-            if ((SenderStockRef.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(SenderStockRef.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = System.DBNull.Value;
-            }
-            if ((SenderInvoiceRef.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(SenderInvoiceRef.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = System.DBNull.Value;
-            }
-            if ((TotalSum.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((decimal)(TotalSum.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = System.DBNull.Value;
-            }
-            if ((PurchSum.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((decimal)(PurchSum.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = System.DBNull.Value;
-            }
-            if ((SumNDS.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((decimal)(SumNDS.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = System.DBNull.Value;
-            }
-            if ((IsReadOnly.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((bool)(IsReadOnly.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[12].Value = System.DBNull.Value;
-            }
-            if ((Original_ID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_ID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[13].Value = System.DBNull.Value;
-            }
-            if ((Original_RowVersion == null)) {
-                this.Adapter.UpdateCommand.Parameters[14].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((byte[])(Original_RowVersion));
-            }
-            if ((ID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(ID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[15].Value = System.DBNull.Value;
-            }
-            System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.ComponentModel.ToolboxItem(true)]
-    [System.ComponentModel.DataObjectAttribute(true)]
-    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
     public partial class ReceiptRemainsTableAdapter : System.ComponentModel.Component {
         
         private System.Data.SqlClient.SqlDataAdapter _adapter;
@@ -17446,6 +16634,427 @@ SELECT ID, Name, FarmGroupRef, AuthorCreate, AuthorLastModif, DateCreate, RowVer
             MDataSet.ReceiptMasterNewDataTable dataTable = new MDataSet.ReceiptMasterNewDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.ComponentModel.ToolboxItem(true)]
+    [System.ComponentModel.DataObjectAttribute(true)]
+    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class ReceiptMasterTableAdapter : System.ComponentModel.Component {
+        
+        private System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private System.Data.SqlClient.SqlConnection _connection;
+        
+        private System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public ReceiptMasterTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        internal System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitAdapter() {
+            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
+            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "ReceiptMaster";
+            tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("Number", "Number");
+            tableMapping.ColumnMappings.Add("Note", "Note");
+            tableMapping.ColumnMappings.Add("DocDate", "DocDate");
+            tableMapping.ColumnMappings.Add("DocumentTypeRef", "DocumentTypeRef");
+            tableMapping.ColumnMappings.Add("OrganizationRef", "OrganizationRef");
+            tableMapping.ColumnMappings.Add("MainStockRef", "MainStockRef");
+            tableMapping.ColumnMappings.Add("SenderStockRef", "SenderStockRef");
+            tableMapping.ColumnMappings.Add("SenderInvoiceRef", "SenderInvoiceRef");
+            tableMapping.ColumnMappings.Add("SalesSum", "SalesSum");
+            tableMapping.ColumnMappings.Add("PurchSum", "PurchSum");
+            tableMapping.ColumnMappings.Add("PurchNDS", "PurchNDS");
+            tableMapping.ColumnMappings.Add("SalesNDS", "SalesNDS");
+            tableMapping.ColumnMappings.Add("IsReadOnly", "IsReadOnly");
+            tableMapping.ColumnMappings.Add("AuthorCreate", "AuthorCreate");
+            tableMapping.ColumnMappings.Add("AuthorLastModif", "AuthorLastModif");
+            tableMapping.ColumnMappings.Add("DateCreate", "DateCreate");
+            tableMapping.ColumnMappings.Add("RowVersion", "RowVersion");
+            tableMapping.ColumnMappings.Add("RecalcSum", "RecalcSum");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = "dbo.ReceiptMasterDeleteCommand";
+            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = "dbo.ReceiptMasterInsertCommand";
+            this._adapter.InsertCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Note", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, 0, 0, "Note", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OrganizationRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "OrganizationRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@MainStockRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "MainStockRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SenderStockRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "SenderStockRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SenderInvoiceRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "SenderInvoiceRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = "dbo.ReceiptDetailUpdateCommand";
+            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ReceiptMaterRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ProductRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Series", System.Data.SqlDbType.NChar, 15, System.Data.ParameterDirection.Input, 0, 0, "", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@UseByDate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Quantity", System.Data.SqlDbType.Decimal, 5, System.Data.ParameterDirection.Input, 5, 3, "", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PricePurchase", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 5, "", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PurchSum", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 3, "PurchSum", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PurchNDS", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 3, "PurchNDS", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SalesNDS", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 3, "SalesNDS", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SalesPrice", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 2, "", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SalesSum", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 2, "SalesSum", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@InvoiceDetailRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitConnection() {
+            this._connection = new System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::RetailTrade.Properties.Settings.Default.RetailTradeConnectionString;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitCommandCollection() {
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "dbo.ReceiptMasterSelectCommand";
+            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(MDataSet.ReceiptMasterDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual MDataSet.ReceiptMasterDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            MDataSet.ReceiptMasterDataTable dataTable = new MDataSet.ReceiptMasterDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(MDataSet.ReceiptMasterDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(MDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "ReceiptMaster");
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.ComponentModel.ToolboxItem(true)]
+    [System.ComponentModel.DataObjectAttribute(true)]
+    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class ReceiptDetailTableAdapter : System.ComponentModel.Component {
+        
+        private System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private System.Data.SqlClient.SqlConnection _connection;
+        
+        private System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public ReceiptDetailTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        internal System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitAdapter() {
+            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
+            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "ReceiptDetail";
+            tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("ReceiptMasterRef", "ReceiptMasterRef");
+            tableMapping.ColumnMappings.Add("ProductRef", "ProductRef");
+            tableMapping.ColumnMappings.Add("Series", "Series");
+            tableMapping.ColumnMappings.Add("UseByDate", "UseByDate");
+            tableMapping.ColumnMappings.Add("Quantity", "Quantity");
+            tableMapping.ColumnMappings.Add("PricePurchase", "PricePurchase");
+            tableMapping.ColumnMappings.Add("PurchSum", "PurchSum");
+            tableMapping.ColumnMappings.Add("PurchNDS", "PurchNDS");
+            tableMapping.ColumnMappings.Add("SalesNDS", "SalesNDS");
+            tableMapping.ColumnMappings.Add("SalesPrice", "SalesPrice");
+            tableMapping.ColumnMappings.Add("SalesSum", "SalesSum");
+            tableMapping.ColumnMappings.Add("InvoiceDetailRef", "InvoiceDetailRef");
+            tableMapping.ColumnMappings.Add("AuthorCreate", "AuthorCreate");
+            tableMapping.ColumnMappings.Add("AuthorLastModif", "AuthorLastModif");
+            tableMapping.ColumnMappings.Add("DateCreate", "DateCreate");
+            tableMapping.ColumnMappings.Add("RowVersion", "RowVersion");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = "dbo.ReceiptDetailDeleteCommand";
+            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = "dbo.ReceiptDetailInsertCommand";
+            this._adapter.InsertCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ReceiptMasterRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ReceiptMasterRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ProductRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ProductRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Series", System.Data.SqlDbType.NChar, 15, System.Data.ParameterDirection.Input, 0, 0, "Series", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@UseByDate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "UseByDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Quantity", System.Data.SqlDbType.Decimal, 5, System.Data.ParameterDirection.Input, 5, 3, "Quantity", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PricePurchase", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 5, "PricePurchase", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = "dbo.ReceiptDetailUpdateCommand";
+            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ReceiptMaterRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ProductRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ProductRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Series", System.Data.SqlDbType.NChar, 15, System.Data.ParameterDirection.Input, 0, 0, "Series", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@UseByDate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "UseByDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Quantity", System.Data.SqlDbType.Decimal, 5, System.Data.ParameterDirection.Input, 5, 3, "Quantity", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PricePurchase", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 5, "PricePurchase", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PurchSum", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 3, "PurchSum", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PurchNDS", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 3, "PurchNDS", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SalesNDS", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 3, "SalesNDS", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SalesPrice", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 2, "SalesPrice", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SalesSum", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 2, "SalesSum", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@InvoiceDetailRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "InvoiceDetailRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitConnection() {
+            this._connection = new System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::RetailTrade.Properties.Settings.Default.RetailTradeConnectionString;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitCommandCollection() {
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "dbo.ReceiptDetailSelectCommand";
+            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(MDataSet.ReceiptDetailDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual MDataSet.ReceiptDetailDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            MDataSet.ReceiptDetailDataTable dataTable = new MDataSet.ReceiptDetailDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(MDataSet.ReceiptDetailDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(MDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "ReceiptDetail");
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
         }
     }
 }
