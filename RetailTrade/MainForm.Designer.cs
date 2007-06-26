@@ -57,7 +57,7 @@ namespace RetailTrade
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.mainReportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             this.gridControl2 = new DevExpress.XtraGrid.GridControl();
             this.receiptMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mDataSet = new RetailTrade.MDataSet();
@@ -190,7 +190,7 @@ namespace RetailTrade
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
-            this.splitContainer1.Panel2.Controls.Add(this.reportViewer1);
+            this.splitContainer1.Panel2.Controls.Add(this.mainReportViewer);
             this.splitContainer1.Panel2.Controls.Add(this.gridControl2);
             this.splitContainer1.Panel2MinSize = 50;
             this.splitContainer1.Size = new System.Drawing.Size(837, 611);
@@ -300,20 +300,22 @@ namespace RetailTrade
             this.tabControl.Size = new System.Drawing.Size(615, 411);
             this.tabControl.TabIndex = 0;
             // 
-            // reportViewer1
+            // mainReportViewer
             // 
-            this.reportViewer1.AutoScroll = true;
-            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.reportViewer1.Location = new System.Drawing.Point(356, 0);
-            this.reportViewer1.Name = "reportViewer1";
-            this.reportViewer1.ProcessingMode = Microsoft.Reporting.WinForms.ProcessingMode.Remote;
-            this.reportViewer1.ServerReport.ReportPath = "/ReportRatailTrade/ReceiptMasterByID";
-            this.reportViewer1.ServerReport.ReportServerUrl = new System.Uri("http://server/reportserver", System.UriKind.Absolute);
-            this.reportViewer1.ShowCredentialPrompts = false;
-            this.reportViewer1.ShowParameterPrompts = false;
-            this.reportViewer1.Size = new System.Drawing.Size(481, 196);
-            this.reportViewer1.TabIndex = 1;
-            this.reportViewer1.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.PageWidth;
+            this.mainReportViewer.AutoScroll = true;
+            this.mainReportViewer.Dock = System.Windows.Forms.DockStyle.Right;
+            this.mainReportViewer.Location = new System.Drawing.Point(356, 0);
+            this.mainReportViewer.Name = "mainReportViewer";
+            this.mainReportViewer.ProcessingMode = Microsoft.Reporting.WinForms.ProcessingMode.Remote;
+            this.mainReportViewer.ServerReport.ReportPath = "/ReportRatailTrade/ReceiptMasterByID";
+            this.mainReportViewer.ServerReport.ReportServerUrl = new System.Uri("http://server/reportserver", System.UriKind.Absolute);
+            this.mainReportViewer.ShowCredentialPrompts = false;
+            this.mainReportViewer.ShowParameterPrompts = false;
+            this.mainReportViewer.Size = new System.Drawing.Size(481, 196);
+            this.mainReportViewer.TabIndex = 1;
+            this.mainReportViewer.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.PageWidth;
+            this.mainReportViewer.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.mainReportViewer_MouseDoubleClick);
+            this.mainReportViewer.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mainReportViewer_MouseClick);
             // 
             // gridControl2
             // 
@@ -951,7 +953,7 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Columns.GridColumn colRowVersion1;
         public System.Windows.Forms.BindingSource receiptDetailBindingSource;
         public System.Windows.Forms.BindingSource receiptMasterBindingSource;
-        private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
+        private Microsoft.Reporting.WinForms.ReportViewer mainReportViewer;
         public System.Windows.Forms.BindingSource receiptMasterNewBindingSource;
     }
 }

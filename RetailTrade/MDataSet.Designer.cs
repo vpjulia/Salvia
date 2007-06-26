@@ -702,7 +702,7 @@ namespace RetailTrade {
                         this.tableReceiptMaster.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptDetail.ReceiptMasterRefColumn});
             this.tableReceiptDetail.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.Cascade;
+            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.Cascade;
             fkc.UpdateRule = System.Data.Rule.Cascade;
             this.relationReceiptMaster_ReceiptDetail = new System.Data.DataRelation("ReceiptMaster_ReceiptDetail", new System.Data.DataColumn[] {
@@ -7226,6 +7226,8 @@ namespace RetailTrade {
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
+                this.columnID.AutoIncrementSeed = -1;
+                this.columnID.AutoIncrementStep = -1;
                 this.columnID.AllowDBNull = false;
                 this.columnID.ReadOnly = true;
                 this.columnID.Unique = true;
@@ -7694,6 +7696,8 @@ namespace RetailTrade {
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
+                this.columnID.AutoIncrementSeed = -1;
+                this.columnID.AutoIncrementStep = -1;
                 this.columnID.AllowDBNull = false;
                 this.columnID.ReadOnly = true;
                 this.columnID.Unique = true;
@@ -7704,17 +7708,11 @@ namespace RetailTrade {
                 this.columnUseByDate.AllowDBNull = false;
                 this.columnQuantity.AllowDBNull = false;
                 this.columnPricePurchase.AllowDBNull = false;
-                this.columnPurchSum.AllowDBNull = false;
                 this.columnPurchSum.DefaultValue = ((decimal)(0m));
-                this.columnPurchNDS.AllowDBNull = false;
                 this.columnPurchNDS.DefaultValue = ((decimal)(0m));
-                this.columnSalesNDS.AllowDBNull = false;
                 this.columnSalesNDS.DefaultValue = ((decimal)(0m));
-                this.columnSalesPrice.AllowDBNull = false;
                 this.columnSalesPrice.DefaultValue = ((decimal)(0m));
-                this.columnSalesSum.AllowDBNull = false;
                 this.columnSalesSum.DefaultValue = ((decimal)(0m));
-                this.columnInvoiceDetailRef.AllowDBNull = false;
                 this.columnInvoiceDetailRef.DefaultValue = ((int)(0));
                 this.columnAuthorCreate.MaxLength = 50;
                 this.columnAuthorLastModif.MaxLength = 50;
@@ -10728,7 +10726,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public decimal PurchSum {
                 get {
-                    return ((decimal)(this[this.tableReceiptDetail.PurchSumColumn]));
+                    try {
+                        return ((decimal)(this[this.tableReceiptDetail.PurchSumColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'PurchSum\' in table \'ReceiptDetail\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableReceiptDetail.PurchSumColumn] = value;
@@ -10738,7 +10741,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public decimal PurchNDS {
                 get {
-                    return ((decimal)(this[this.tableReceiptDetail.PurchNDSColumn]));
+                    try {
+                        return ((decimal)(this[this.tableReceiptDetail.PurchNDSColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'PurchNDS\' in table \'ReceiptDetail\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableReceiptDetail.PurchNDSColumn] = value;
@@ -10748,7 +10756,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public decimal SalesNDS {
                 get {
-                    return ((decimal)(this[this.tableReceiptDetail.SalesNDSColumn]));
+                    try {
+                        return ((decimal)(this[this.tableReceiptDetail.SalesNDSColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'SalesNDS\' in table \'ReceiptDetail\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableReceiptDetail.SalesNDSColumn] = value;
@@ -10758,7 +10771,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public decimal SalesPrice {
                 get {
-                    return ((decimal)(this[this.tableReceiptDetail.SalesPriceColumn]));
+                    try {
+                        return ((decimal)(this[this.tableReceiptDetail.SalesPriceColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'SalesPrice\' in table \'ReceiptDetail\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableReceiptDetail.SalesPriceColumn] = value;
@@ -10768,7 +10786,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public decimal SalesSum {
                 get {
-                    return ((decimal)(this[this.tableReceiptDetail.SalesSumColumn]));
+                    try {
+                        return ((decimal)(this[this.tableReceiptDetail.SalesSumColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'SalesSum\' in table \'ReceiptDetail\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableReceiptDetail.SalesSumColumn] = value;
@@ -10778,7 +10801,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public int InvoiceDetailRef {
                 get {
-                    return ((int)(this[this.tableReceiptDetail.InvoiceDetailRefColumn]));
+                    try {
+                        return ((int)(this[this.tableReceiptDetail.InvoiceDetailRefColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'InvoiceDetailRef\' in table \'ReceiptDetail\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableReceiptDetail.InvoiceDetailRefColumn] = value;
@@ -10863,6 +10891,66 @@ namespace RetailTrade {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["ReceiptMasterNew_ReceiptDetail"]);
                 }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsPurchSumNull() {
+                return this.IsNull(this.tableReceiptDetail.PurchSumColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetPurchSumNull() {
+                this[this.tableReceiptDetail.PurchSumColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsPurchNDSNull() {
+                return this.IsNull(this.tableReceiptDetail.PurchNDSColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetPurchNDSNull() {
+                this[this.tableReceiptDetail.PurchNDSColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsSalesNDSNull() {
+                return this.IsNull(this.tableReceiptDetail.SalesNDSColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetSalesNDSNull() {
+                this[this.tableReceiptDetail.SalesNDSColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsSalesPriceNull() {
+                return this.IsNull(this.tableReceiptDetail.SalesPriceColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetSalesPriceNull() {
+                this[this.tableReceiptDetail.SalesPriceColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsSalesSumNull() {
+                return this.IsNull(this.tableReceiptDetail.SalesSumColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetSalesSumNull() {
+                this[this.tableReceiptDetail.SalesSumColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsInvoiceDetailRefNull() {
+                return this.IsNull(this.tableReceiptDetail.InvoiceDetailRefColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetInvoiceDetailRefNull() {
+                this[this.tableReceiptDetail.InvoiceDetailRefColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -16974,24 +17062,12 @@ SELECT ID, Name, FarmGroupRef, AuthorCreate, AuthorLastModif, DateCreate, RowVer
             this._adapter.UpdateCommand.CommandText = "dbo.ReceiptDetailUpdateCommand";
             this._adapter.UpdateCommand.CommandType = System.Data.CommandType.StoredProcedure;
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ReceiptMaterRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ProductRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ProductRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Series", System.Data.SqlDbType.NChar, 15, System.Data.ParameterDirection.Input, 0, 0, "Series", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@UseByDate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "UseByDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Quantity", System.Data.SqlDbType.Decimal, 5, System.Data.ParameterDirection.Input, 5, 3, "Quantity", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PricePurchase", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 5, "PricePurchase", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PurchSum", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 3, "PurchSum", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PurchNDS", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 3, "PurchNDS", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SalesNDS", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 3, "SalesNDS", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SalesPrice", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 2, "SalesPrice", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SalesSum", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 2, "SalesSum", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@InvoiceDetailRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "InvoiceDetailRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]

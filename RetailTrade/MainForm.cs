@@ -86,8 +86,8 @@ namespace RetailTrade
             
             ReportParameter p = new   ReportParameter("ID", "0");
 
-            this.reportViewer1.ServerReport.SetParameters(new ReportParameter[] {p});
-            this.reportViewer1.RefreshReport();
+            this.mainReportViewer.ServerReport.SetParameters(new ReportParameter[] {p});
+            this.mainReportViewer.RefreshReport();
               thread.Abort();
             Thread.Sleep(30);
 
@@ -191,7 +191,7 @@ namespace RetailTrade
 
         public bool SaveToBase(MDataSet.ReceiptMasterRow sourceRow)
         {
-          //  try
+          try
             {
                this.receiptMasterTableAdapter.Update(sourceRow);
 
@@ -200,21 +200,17 @@ namespace RetailTrade
                 this.receiptDetailTableAdapter.Update(dr );
                 
             }
-         //   catch
+              catch
             {
-               
+                return false;
 
             }
-          //  finally
+           finally
             {
                 this.receiptMasterNewTableAdapter.Fill(this.mDataSet.ReceiptMasterNew);
-                return true;
+                
             } 
-            return false;        
-        }
-        public bool SaveToBase(MDataSet.ReceiptDetailRow sourceRow)
-        {
-            return false;
+            return true;        
         }
 
 
@@ -378,7 +374,21 @@ namespace RetailTrade
         */
         }
 
-     
+        private void mainReportViewer_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+
+            FormDialog _fDialog = new FormDialog();
+            _fDialog.panel.Controls.Add(this.mainReportViewer);
+            
+            
+             if (DialogResult.OK == _fDialog.ShowDialog(this))
+                {
+                    MessageBox.Show("ok"); 
+                }
+               
+        }
+
+        
     
     }
 }
