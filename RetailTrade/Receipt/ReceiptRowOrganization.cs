@@ -73,14 +73,7 @@ namespace RetailTrade
 
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-           
-         //   this.receiptMasterBindingSource.EndEdit();
-            //EndCurrentEdit();
-            this.receiptMasterBindingSource.ResetCurrentItem();            
-             // MessageBox.Show(this.receiptMasterBindingSource.CurrencyManager.Position.ToString());
-        }
+        
 
         private void btSaveReciept_Click(object sender, EventArgs e)
         {
@@ -94,6 +87,28 @@ namespace RetailTrade
                 this.panelNumber.Enabled = true;
             }
         
+
+        }
+
+        private void panelNumber_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void textEdit3_EditValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gridView1_InvalidValueException(object sender, DevExpress.XtraEditors.Controls.InvalidValueExceptionEventArgs e)
+        {
+            MessageBox.Show(e.ErrorText);
+        }
+
+        private void gridView1_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
+        {
+            this.gridView1.SetColumnError(this.gridView1.Columns[1], e.ErrorText.ToString());
+            e.ExceptionMode = DevExpress.XtraEditors.Controls.ExceptionMode.NoAction;
 
         }
 

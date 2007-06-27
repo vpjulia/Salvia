@@ -106,7 +106,7 @@ namespace RetailTrade
 
         }
 
-        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        private void btAdd_Click(object sender, EventArgs e)
         {
              this.grid.EmbeddedNavigator.Buttons.Append.DoClick();
         

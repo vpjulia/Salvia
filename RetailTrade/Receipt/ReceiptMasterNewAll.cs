@@ -24,7 +24,7 @@ namespace RetailTrade
            
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        private void btEdit_Click(object sender, EventArgs e)
         {
             if ((this.ParentForm as MainForm) != null)
         
