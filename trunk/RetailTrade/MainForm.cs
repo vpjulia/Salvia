@@ -197,12 +197,13 @@ namespace RetailTrade
 
                DataRow[] dr = sourceRow.GetReceiptDetailRows();
 
-                this.receiptDetailTableAdapter.Update(dr );
+                this.receiptDetailTableAdapter.Update(dr);
                 
             }
-              catch
+              catch 
             {
-                return false;
+                
+                  return false;
 
             }
            finally
@@ -212,6 +213,8 @@ namespace RetailTrade
             } 
             return true;        
         }
+
+
 
 
         private bool FindOpenedTabs(String TagControl)

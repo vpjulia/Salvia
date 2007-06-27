@@ -32,8 +32,10 @@ namespace RetailTrade
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReceiptMasterNewAll));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.btAdd = new System.Windows.Forms.ToolStripButton();
+            this.btEdit = new System.Windows.Forms.ToolStripButton();
+            this.btDel = new System.Windows.Forms.ToolStripButton();
+            this.BtClose = new System.Windows.Forms.ToolStripButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.receiptMasterNewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mDataSet = new RetailTrade.MDataSet();
@@ -72,32 +74,51 @@ namespace RetailTrade
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.btAdd});
+            this.btAdd,
+            this.btEdit,
+            this.btDel,
+            this.BtClose});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(740, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
             // btAdd
             // 
             this.btAdd.Image = ((System.Drawing.Image)(resources.GetObject("btAdd.Image")));
             this.btAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btAdd.Name = "btAdd";
-            this.btAdd.Size = new System.Drawing.Size(89, 22);
-            this.btAdd.Text = "Создать ";
+            this.btAdd.Size = new System.Drawing.Size(72, 22);
+            this.btAdd.Text = "Новый";
             this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
+            // 
+            // btEdit
+            // 
+            this.btEdit.Image = ((System.Drawing.Image)(resources.GetObject("btEdit.Image")));
+            this.btEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btEdit.Name = "btEdit";
+            this.btEdit.Size = new System.Drawing.Size(95, 22);
+            this.btEdit.Text = "Изменить";
+            this.btEdit.Click += new System.EventHandler(this.btEdit_Click);
+            // 
+            // btDel
+            // 
+            this.btDel.Image = ((System.Drawing.Image)(resources.GetObject("btDel.Image")));
+            this.btDel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btDel.Name = "btDel";
+            this.btDel.Size = new System.Drawing.Size(85, 22);
+            this.btDel.Text = "Удалить";
+            // 
+            // BtClose
+            // 
+            this.BtClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.BtClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.BtClose.Image = ((System.Drawing.Image)(resources.GetObject("BtClose.Image")));
+            this.BtClose.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BtClose.Name = "BtClose";
+            this.BtClose.Size = new System.Drawing.Size(23, 22);
+            this.BtClose.Text = "х";
             // 
             // gridControl1
             // 
@@ -151,6 +172,7 @@ namespace RetailTrade
             this.colNumber.Name = "colNumber";
             this.colNumber.Visible = true;
             this.colNumber.VisibleIndex = 0;
+            this.colNumber.Width = 70;
             // 
             // colDocDate
             // 
@@ -159,6 +181,7 @@ namespace RetailTrade
             this.colDocDate.Name = "colDocDate";
             this.colDocDate.Visible = true;
             this.colDocDate.VisibleIndex = 1;
+            this.colDocDate.Width = 59;
             // 
             // colNote
             // 
@@ -167,6 +190,7 @@ namespace RetailTrade
             this.colNote.Name = "colNote";
             this.colNote.Visible = true;
             this.colNote.VisibleIndex = 2;
+            this.colNote.Width = 59;
             // 
             // colOrganizationName
             // 
@@ -175,6 +199,7 @@ namespace RetailTrade
             this.colOrganizationName.Name = "colOrganizationName";
             this.colOrganizationName.Visible = true;
             this.colOrganizationName.VisibleIndex = 3;
+            this.colOrganizationName.Width = 59;
             // 
             // colStockName
             // 
@@ -183,6 +208,7 @@ namespace RetailTrade
             this.colStockName.Name = "colStockName";
             this.colStockName.Visible = true;
             this.colStockName.VisibleIndex = 4;
+            this.colStockName.Width = 59;
             // 
             // colDocumentTypeName
             // 
@@ -191,6 +217,7 @@ namespace RetailTrade
             this.colDocumentTypeName.Name = "colDocumentTypeName";
             this.colDocumentTypeName.Visible = true;
             this.colDocumentTypeName.VisibleIndex = 5;
+            this.colDocumentTypeName.Width = 59;
             // 
             // colIsNDS
             // 
@@ -199,6 +226,7 @@ namespace RetailTrade
             this.colIsNDS.Name = "colIsNDS";
             this.colIsNDS.Visible = true;
             this.colIsNDS.VisibleIndex = 6;
+            this.colIsNDS.Width = 59;
             // 
             // colTradePutletName
             // 
@@ -207,6 +235,7 @@ namespace RetailTrade
             this.colTradePutletName.Name = "colTradePutletName";
             this.colTradePutletName.Visible = true;
             this.colTradePutletName.VisibleIndex = 7;
+            this.colTradePutletName.Width = 59;
             // 
             // colFullAuthorModif
             // 
@@ -215,6 +244,7 @@ namespace RetailTrade
             this.colFullAuthorModif.Name = "colFullAuthorModif";
             this.colFullAuthorModif.Visible = true;
             this.colFullAuthorModif.VisibleIndex = 8;
+            this.colFullAuthorModif.Width = 59;
             // 
             // colFullAuthorCreate
             // 
@@ -223,6 +253,7 @@ namespace RetailTrade
             this.colFullAuthorCreate.Name = "colFullAuthorCreate";
             this.colFullAuthorCreate.Visible = true;
             this.colFullAuthorCreate.VisibleIndex = 9;
+            this.colFullAuthorCreate.Width = 59;
             // 
             // colPurchSum
             // 
@@ -231,6 +262,7 @@ namespace RetailTrade
             this.colPurchSum.Name = "colPurchSum";
             this.colPurchSum.Visible = true;
             this.colPurchSum.VisibleIndex = 10;
+            this.colPurchSum.Width = 59;
             // 
             // colPurchNDS
             // 
@@ -239,6 +271,7 @@ namespace RetailTrade
             this.colPurchNDS.Name = "colPurchNDS";
             this.colPurchNDS.Visible = true;
             this.colPurchNDS.VisibleIndex = 11;
+            this.colPurchNDS.Width = 60;
             // 
             // receiptMasterNewTableAdapter
             // 
@@ -284,7 +317,7 @@ namespace RetailTrade
         private System.Windows.Forms.BindingSource receiptMasterNewBindingSource;
         private MDataSet mDataSet;
         private RetailTrade.MDataSetTableAdapters.ReceiptMasterNewTableAdapter receiptMasterNewTableAdapter;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton btEdit;
         private System.Windows.Forms.ToolStripButton btAdd;
         private System.Windows.Forms.BindingSource receiptMasterBindingSource;
         private RetailTrade.MDataSetTableAdapters.ReceiptMasterTableAdapter receiptMasterTableAdapter;
@@ -300,5 +333,7 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Columns.GridColumn colFullAuthorCreate;
         private DevExpress.XtraGrid.Columns.GridColumn colPurchSum;
         private DevExpress.XtraGrid.Columns.GridColumn colPurchNDS;
+        private System.Windows.Forms.ToolStripButton btDel;
+        private System.Windows.Forms.ToolStripButton BtClose;
     }
 }

@@ -153,7 +153,7 @@ namespace RetailTrade
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(627, 363);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "Документ";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // splitContainer1
@@ -177,9 +177,6 @@ namespace RetailTrade
             // 
             this.gridProduct.DataSource = this.productBindingSource;
             this.gridProduct.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
             this.gridProduct.EmbeddedNavigator.Name = "";
             this.gridProduct.Location = new System.Drawing.Point(0, 0);
             this.gridProduct.MainView = this.gridViewProduct;
@@ -407,16 +404,13 @@ namespace RetailTrade
             // gridControl2
             // 
             this.gridControl2.DataSource = this.receiptDetailBindingSource;
-            // 
-            // 
-            // 
+            this.gridControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridControl2.EmbeddedNavigator.Name = "";
-            this.gridControl2.Location = new System.Drawing.Point(-15, 69);
+            this.gridControl2.Location = new System.Drawing.Point(0, 0);
             this.gridControl2.MainView = this.gridView2;
             this.gridControl2.Name = "gridControl2";
-            this.gridControl2.Size = new System.Drawing.Size(400, 200);
+            this.gridControl2.Size = new System.Drawing.Size(320, 357);
             this.gridControl2.TabIndex = 0;
-            this.gridControl2.UseEmbeddedNavigator = true;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
             // 
@@ -561,7 +555,7 @@ namespace RetailTrade
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(627, 363);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "Заявки на товар";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // receiptMasterBindingSourceView

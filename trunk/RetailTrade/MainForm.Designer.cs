@@ -315,7 +315,7 @@ namespace RetailTrade
             this.mainReportViewer.TabIndex = 1;
             this.mainReportViewer.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.PageWidth;
             this.mainReportViewer.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.mainReportViewer_MouseDoubleClick);
-            this.mainReportViewer.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mainReportViewer_MouseClick);
+
             // 
             // gridControl2
             // 
