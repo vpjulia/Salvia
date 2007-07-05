@@ -706,7 +706,6 @@ namespace RetailTrade
             this.textEdit16.Size = new System.Drawing.Size(100, 22);
             this.textEdit16.TabIndex = 16;
             this.textEdit16.Tag = "";
-            this.textEdit16.EditValueChanged += new System.EventHandler(this.textEdit16_EditValueChanged);
             // 
             // organizationTableAdapter
             // 
@@ -725,7 +724,7 @@ namespace RetailTrade
             this.button1.TabIndex = 4;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+
             // 
             // UCOrganizationRow
             // 

@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid.Views.Base;
 
 namespace RetailTrade
 {
@@ -24,37 +25,10 @@ namespace RetailTrade
             this.grid.DataSource = this.bindingSource;
         }
 
-        private void grid_Validating(object sender, CancelEventArgs e)
-        {
-           if (this.gridView.FocusedRowHandle == DevExpress.XtraGrid.GridControl.AutoFilterRowHandle)
-            {
-                this.gridView.FocusedRowHandle = 0;
-                e.Cancel = true;
-            }
-        }
 
-
-        private void btEdit_Click(object sender, EventArgs e)
-        {
-
-            this.gridView.OptionsBehavior.Editable = true;
-            this.grid.EmbeddedNavigator.Buttons.Edit.DoClick();
-            this.btEdit.Enabled = false;
-
-        }
-
-        private void bindingSource_CurrentChanged(object sender, EventArgs e)
-        {
-            this.btEdit.Enabled = true;
-        }
-
-        private void btSave_Click(object sender, EventArgs e)
-        {
-             this.bindingSource.EndEdit();
-           //  this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
-
-
-            DataTable dt = (this.bindingSource.DataSource as DataTable);
+        private bool SaveChange ()
+        { 
+             DataTable dt = (this.bindingSource.DataSource as DataTable);
 
             if (dt.GetChanges()!= null)
             {
@@ -83,21 +57,79 @@ namespace RetailTrade
               
                  fInf.panel.Controls.Add(infcontr);
 
-              if (DialogResult.OK == fInf.ShowDialog(this.ParentForm))
-                {
-                    MessageBox.Show("DialogResult.OK");
-               
-                  /*сохранить изменения*/
-                  
-                  /*сохранить добавления*/
-                 
-                  /*сохранить удаление*/
-                  
+                 if (DialogResult.OK == fInf.ShowDialog(this.ParentForm))
+                 {
 
-                }
+                     /*сохранить изменения*/
+
+                     /*сохранить добавления*/
+
+                     /*сохранить удаление*/
+
+
+
+                 }
+                 else return false;
+        }
+
+        return true;
+        }
+
+        private void grid_Validating(object sender, CancelEventArgs e)
+        {
+           if (this.gridView.FocusedRowHandle == DevExpress.XtraGrid.GridControl.AutoFilterRowHandle)
+            {
+                this.gridView.FocusedRowHandle = 0;
+                e.Cancel = true;
+            }
+        }
+
+
+        private void btEdit_Click(object sender, EventArgs e)
+        {
+
+            this.gridView.OptionsBehavior.Editable = true;
+            this.grid.EmbeddedNavigator.Buttons.Edit.DoClick();
+            this.btEdit.Enabled = false;
+            this.btSave.Enabled = true;
+
+        }
+
+        private void bindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+          //  this.btEdit.Enabled = true;
+        }
+
+        private void btSave_Click(object sender, EventArgs e)
+        {
+
+            this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
+
+            if (this.gridView.HasColumnErrors) return;
+
+            this.btEdit.Enabled = true;
+            this.btSave.Enabled = false;
+            this.gridView.OptionsBehavior.Editable = false;
+           
+
+
+            this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
+        
+            if (this.SaveChange())
+
+            {        this.btEdit.Enabled = true;
+                     this.btSave.Enabled = false;
+
+                 }
+                 else
+                 {
+                     this.btEdit.Enabled = false;
+                     this.btSave.Enabled = true;
+                     this.gridView.OptionsBehavior.Editable = true;
+                 }
 
             }
-          }
+
 
         private void gridView_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
         {
@@ -109,6 +141,7 @@ namespace RetailTrade
         private void btAdd_Click(object sender, EventArgs e)
         {
              this.grid.EmbeddedNavigator.Buttons.Append.DoClick();
+             this.btEdit.PerformClick();
         
         }
 
@@ -136,5 +169,63 @@ namespace RetailTrade
             if((e.KeyCode==Keys.Enter)&(this.gridView.State==GridState.Normal)) 
                 (this.ParentForm as FormDialog).AcceptButton.PerformClick();
         }
+
+        private void btClose_Click(object sender, EventArgs e)
+        {
+            this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
+         
+            if (this.gridView.HasColumnErrors)
+            {
+                this.bindingSource.CancelEdit();
+            }
+            else if (this.SaveChange())
+            {
+                if ((this.ParentForm as MainForm)!=null)
+                (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+
+            }
+           
+
+        }
+
+        private void btDelete_Click(object sender, EventArgs e)
+        {
+          
+           int hendl = (this.grid.FocusedView as ColumnView).FocusedRowHandle;
+
+           if (this.gridView.IsValidRowHandle(hendl) & hendl != DevExpress.XtraGrid.GridControl.AutoFilterRowHandle )
+           {
+               int countChild = 0;
+
+
+               DataRow[] arrRows;
+               DataRow mrow = (this.grid.FocusedView as ColumnView).GetDataRow(hendl);
+
+               foreach (DataRelation relation in (this.bindingSource.DataSource as DataTable).ChildRelations)
+               {
+
+                   if (mrow.GetChildRows(relation) != null)
+                   {
+                       arrRows = mrow.GetChildRows(relation);
+
+                       countChild += arrRows.Length;
+                   }
+
+               }
+
+               if (countChild != 0)
+
+                   MessageBox.Show("Невозможно удалить запись, ссылок на нее :  " + countChild.ToString());
+               else
+
+                   if (MessageBox.Show(" Удалить запись? " + this.gridView.GetFocusedRowCellDisplayText(this.gridView.Columns[1]), "Удаление карточки",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                        == DialogResult.Yes)
+                   {
+                       this.grid.EmbeddedNavigator.Buttons.Remove.DoClick();
+                       this.btSave.Enabled = true;
+                   }
+           }
+           }
     }
 }

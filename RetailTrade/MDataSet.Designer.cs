@@ -3181,6 +3181,8 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnBankRS;
             
+            private System.Data.DataColumn columnDateLastModif;
+            
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public OrganizationDataTable() {
                 this.TableName = "Organization";
@@ -3359,6 +3361,13 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateLastModifColumn {
+                get {
+                    return this.columnDateLastModif;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -3407,7 +3416,8 @@ namespace RetailTrade {
                         string AuthorLastModif, 
                         System.DateTime DateCreate, 
                         byte[] RowVersion, 
-                        string BankRS) {
+                        string BankRS, 
+                        System.DateTime DateLastModif) {
                 OrganizationRow rowOrganizationRow = ((OrganizationRow)(this.NewRow()));
                 rowOrganizationRow.ItemArray = new object[] {
                         null,
@@ -3430,7 +3440,8 @@ namespace RetailTrade {
                         AuthorLastModif,
                         DateCreate,
                         RowVersion,
-                        BankRS};
+                        BankRS,
+                        DateLastModif};
                 this.Rows.Add(rowOrganizationRow);
                 return rowOrganizationRow;
             }
@@ -3481,6 +3492,7 @@ namespace RetailTrade {
                 this.columnDateCreate = base.Columns["DateCreate"];
                 this.columnRowVersion = base.Columns["RowVersion"];
                 this.columnBankRS = base.Columns["BankRS"];
+                this.columnDateLastModif = base.Columns["DateLastModif"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3527,49 +3539,32 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnRowVersion);
                 this.columnBankRS = new System.Data.DataColumn("BankRS", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnBankRS);
+                this.columnDateLastModif = new System.Data.DataColumn("DateLastModif", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateLastModif);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
                 this.columnID.AllowDBNull = false;
                 this.columnID.ReadOnly = true;
                 this.columnID.Unique = true;
-                this.columnName.AllowDBNull = false;
                 this.columnName.MaxLength = 255;
-                this.columnShortName.AllowDBNull = false;
                 this.columnShortName.MaxLength = 70;
-                this.columnDirector.AllowDBNull = false;
                 this.columnDirector.MaxLength = 50;
-                this.columnAdress.AllowDBNull = false;
                 this.columnAdress.MaxLength = 70;
-                this.columnAddress_jur.AllowDBNull = false;
                 this.columnAddress_jur.MaxLength = 70;
-                this.columnOKPO.AllowDBNull = false;
                 this.columnOKPO.MaxLength = 10;
-                this.columnBankName.AllowDBNull = false;
                 this.columnBankName.MaxLength = 70;
-                this.columnBankMFO.AllowDBNull = false;
                 this.columnBankMFO.MaxLength = 6;
-                this.columnINN.AllowDBNull = false;
                 this.columnINN.MaxLength = 12;
-                this.columnNumSvid.AllowDBNull = false;
                 this.columnNumSvid.MaxLength = 15;
-                this.columnNumSvidChp.AllowDBNull = false;
                 this.columnNumSvidChp.MaxLength = 15;
-                this.columnPassChp.AllowDBNull = false;
                 this.columnPassChp.MaxLength = 50;
-                this.columnPhone.AllowDBNull = false;
                 this.columnPhone.MaxLength = 50;
-                this.columnLicense.AllowDBNull = false;
                 this.columnLicense.MaxLength = 40;
-                this.columnNote.AllowDBNull = false;
                 this.columnNote.MaxLength = 50;
-                this.columnAuthorCreate.AllowDBNull = false;
                 this.columnAuthorCreate.MaxLength = 50;
-                this.columnAuthorLastModif.AllowDBNull = false;
                 this.columnAuthorLastModif.MaxLength = 50;
-                this.columnDateCreate.AllowDBNull = false;
                 this.columnRowVersion.ReadOnly = true;
-                this.columnBankRS.AllowDBNull = false;
                 this.columnBankRS.MaxLength = 15;
             }
             
@@ -5891,12 +5886,8 @@ namespace RetailTrade {
                 this.columnID.AllowDBNull = false;
                 this.columnID.ReadOnly = true;
                 this.columnID.Unique = true;
-                this.columnName.AllowDBNull = false;
                 this.columnName.MaxLength = 255;
-                this.columnSmallName.AllowDBNull = false;
                 this.columnSmallName.MaxLength = 25;
-                this.columnPriceManufact.AllowDBNull = false;
-                this.columnUnitRef.AllowDBNull = false;
                 this.columnPackingRef.AllowDBNull = false;
                 this.columnStorageConditionRef.AllowDBNull = false;
                 this.columnSubstanceRef.AllowDBNull = false;
@@ -7719,17 +7710,15 @@ namespace RetailTrade {
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
+                this.columnID.AutoIncrementSeed = -1;
+                this.columnID.AutoIncrementStep = -1;
                 this.columnID.AllowDBNull = false;
                 this.columnID.ReadOnly = true;
                 this.columnID.Unique = true;
                 this.columnName.AllowDBNull = false;
                 this.columnName.MaxLength = 50;
-                this.columnDateLastModif.AllowDBNull = false;
-                this.columnAuthorCreate.AllowDBNull = false;
                 this.columnAuthorCreate.MaxLength = 50;
-                this.columnAuthorLastModif.AllowDBNull = false;
                 this.columnAuthorLastModif.MaxLength = 50;
-                this.columnDateCreate.AllowDBNull = false;
                 this.columnRowVersion.ReadOnly = true;
             }
             
@@ -8708,7 +8697,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string Name {
                 get {
-                    return ((string)(this[this.tableOrganization.NameColumn]));
+                    try {
+                        return ((string)(this[this.tableOrganization.NameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Name\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.NameColumn] = value;
@@ -8718,7 +8712,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string ShortName {
                 get {
-                    return ((string)(this[this.tableOrganization.ShortNameColumn]));
+                    try {
+                        return ((string)(this[this.tableOrganization.ShortNameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'ShortName\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.ShortNameColumn] = value;
@@ -8728,7 +8727,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string Director {
                 get {
-                    return ((string)(this[this.tableOrganization.DirectorColumn]));
+                    try {
+                        return ((string)(this[this.tableOrganization.DirectorColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Director\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.DirectorColumn] = value;
@@ -8738,7 +8742,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string Adress {
                 get {
-                    return ((string)(this[this.tableOrganization.AdressColumn]));
+                    try {
+                        return ((string)(this[this.tableOrganization.AdressColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Adress\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.AdressColumn] = value;
@@ -8748,7 +8757,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string Address_jur {
                 get {
-                    return ((string)(this[this.tableOrganization.Address_jurColumn]));
+                    try {
+                        return ((string)(this[this.tableOrganization.Address_jurColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Address_jur\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.Address_jurColumn] = value;
@@ -8758,7 +8772,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string OKPO {
                 get {
-                    return ((string)(this[this.tableOrganization.OKPOColumn]));
+                    try {
+                        return ((string)(this[this.tableOrganization.OKPOColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'OKPO\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.OKPOColumn] = value;
@@ -8768,7 +8787,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string BankName {
                 get {
-                    return ((string)(this[this.tableOrganization.BankNameColumn]));
+                    try {
+                        return ((string)(this[this.tableOrganization.BankNameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'BankName\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.BankNameColumn] = value;
@@ -8778,7 +8802,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string BankMFO {
                 get {
-                    return ((string)(this[this.tableOrganization.BankMFOColumn]));
+                    try {
+                        return ((string)(this[this.tableOrganization.BankMFOColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'BankMFO\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.BankMFOColumn] = value;
@@ -8788,7 +8817,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string INN {
                 get {
-                    return ((string)(this[this.tableOrganization.INNColumn]));
+                    try {
+                        return ((string)(this[this.tableOrganization.INNColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'INN\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.INNColumn] = value;
@@ -8798,7 +8832,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string NumSvid {
                 get {
-                    return ((string)(this[this.tableOrganization.NumSvidColumn]));
+                    try {
+                        return ((string)(this[this.tableOrganization.NumSvidColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'NumSvid\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.NumSvidColumn] = value;
@@ -8808,7 +8847,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string NumSvidChp {
                 get {
-                    return ((string)(this[this.tableOrganization.NumSvidChpColumn]));
+                    try {
+                        return ((string)(this[this.tableOrganization.NumSvidChpColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'NumSvidChp\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.NumSvidChpColumn] = value;
@@ -8818,7 +8862,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string PassChp {
                 get {
-                    return ((string)(this[this.tableOrganization.PassChpColumn]));
+                    try {
+                        return ((string)(this[this.tableOrganization.PassChpColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'PassChp\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.PassChpColumn] = value;
@@ -8828,7 +8877,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string Phone {
                 get {
-                    return ((string)(this[this.tableOrganization.PhoneColumn]));
+                    try {
+                        return ((string)(this[this.tableOrganization.PhoneColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Phone\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.PhoneColumn] = value;
@@ -8838,7 +8892,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string License {
                 get {
-                    return ((string)(this[this.tableOrganization.LicenseColumn]));
+                    try {
+                        return ((string)(this[this.tableOrganization.LicenseColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'License\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.LicenseColumn] = value;
@@ -8848,7 +8907,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string Note {
                 get {
-                    return ((string)(this[this.tableOrganization.NoteColumn]));
+                    try {
+                        return ((string)(this[this.tableOrganization.NoteColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Note\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.NoteColumn] = value;
@@ -8858,7 +8922,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string AuthorCreate {
                 get {
-                    return ((string)(this[this.tableOrganization.AuthorCreateColumn]));
+                    try {
+                        return ((string)(this[this.tableOrganization.AuthorCreateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'AuthorCreate\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.AuthorCreateColumn] = value;
@@ -8868,7 +8937,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string AuthorLastModif {
                 get {
-                    return ((string)(this[this.tableOrganization.AuthorLastModifColumn]));
+                    try {
+                        return ((string)(this[this.tableOrganization.AuthorLastModifColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'AuthorLastModif\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.AuthorLastModifColumn] = value;
@@ -8878,7 +8952,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.DateTime DateCreate {
                 get {
-                    return ((System.DateTime)(this[this.tableOrganization.DateCreateColumn]));
+                    try {
+                        return ((System.DateTime)(this[this.tableOrganization.DateCreateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'DateCreate\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.DateCreateColumn] = value;
@@ -8903,11 +8982,211 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string BankRS {
                 get {
-                    return ((string)(this[this.tableOrganization.BankRSColumn]));
+                    try {
+                        return ((string)(this[this.tableOrganization.BankRSColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'BankRS\' in table \'Organization\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableOrganization.BankRSColumn] = value;
                 }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime DateLastModif {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableOrganization.DateLastModifColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'DateLastModif\' in table \'Organization\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableOrganization.DateLastModifColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsNameNull() {
+                return this.IsNull(this.tableOrganization.NameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetNameNull() {
+                this[this.tableOrganization.NameColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsShortNameNull() {
+                return this.IsNull(this.tableOrganization.ShortNameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetShortNameNull() {
+                this[this.tableOrganization.ShortNameColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDirectorNull() {
+                return this.IsNull(this.tableOrganization.DirectorColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDirectorNull() {
+                this[this.tableOrganization.DirectorColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsAdressNull() {
+                return this.IsNull(this.tableOrganization.AdressColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetAdressNull() {
+                this[this.tableOrganization.AdressColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsAddress_jurNull() {
+                return this.IsNull(this.tableOrganization.Address_jurColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetAddress_jurNull() {
+                this[this.tableOrganization.Address_jurColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsOKPONull() {
+                return this.IsNull(this.tableOrganization.OKPOColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetOKPONull() {
+                this[this.tableOrganization.OKPOColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsBankNameNull() {
+                return this.IsNull(this.tableOrganization.BankNameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetBankNameNull() {
+                this[this.tableOrganization.BankNameColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsBankMFONull() {
+                return this.IsNull(this.tableOrganization.BankMFOColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetBankMFONull() {
+                this[this.tableOrganization.BankMFOColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsINNNull() {
+                return this.IsNull(this.tableOrganization.INNColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetINNNull() {
+                this[this.tableOrganization.INNColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsNumSvidNull() {
+                return this.IsNull(this.tableOrganization.NumSvidColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetNumSvidNull() {
+                this[this.tableOrganization.NumSvidColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsNumSvidChpNull() {
+                return this.IsNull(this.tableOrganization.NumSvidChpColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetNumSvidChpNull() {
+                this[this.tableOrganization.NumSvidChpColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsPassChpNull() {
+                return this.IsNull(this.tableOrganization.PassChpColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetPassChpNull() {
+                this[this.tableOrganization.PassChpColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsPhoneNull() {
+                return this.IsNull(this.tableOrganization.PhoneColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetPhoneNull() {
+                this[this.tableOrganization.PhoneColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsLicenseNull() {
+                return this.IsNull(this.tableOrganization.LicenseColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetLicenseNull() {
+                this[this.tableOrganization.LicenseColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsNoteNull() {
+                return this.IsNull(this.tableOrganization.NoteColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetNoteNull() {
+                this[this.tableOrganization.NoteColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsAuthorCreateNull() {
+                return this.IsNull(this.tableOrganization.AuthorCreateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetAuthorCreateNull() {
+                this[this.tableOrganization.AuthorCreateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsAuthorLastModifNull() {
+                return this.IsNull(this.tableOrganization.AuthorLastModifColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetAuthorLastModifNull() {
+                this[this.tableOrganization.AuthorLastModifColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateCreateNull() {
+                return this.IsNull(this.tableOrganization.DateCreateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateCreateNull() {
+                this[this.tableOrganization.DateCreateColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8918,6 +9197,26 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetRowVersionNull() {
                 this[this.tableOrganization.RowVersionColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsBankRSNull() {
+                return this.IsNull(this.tableOrganization.BankRSColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetBankRSNull() {
+                this[this.tableOrganization.BankRSColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateLastModifNull() {
+                return this.IsNull(this.tableOrganization.DateLastModifColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateLastModifNull() {
+                this[this.tableOrganization.DateLastModifColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9612,7 +9911,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string Name {
                 get {
-                    return ((string)(this[this.tableProduct.NameColumn]));
+                    try {
+                        return ((string)(this[this.tableProduct.NameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Name\' in table \'Product\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableProduct.NameColumn] = value;
@@ -9622,7 +9926,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string SmallName {
                 get {
-                    return ((string)(this[this.tableProduct.SmallNameColumn]));
+                    try {
+                        return ((string)(this[this.tableProduct.SmallNameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'SmallName\' in table \'Product\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableProduct.SmallNameColumn] = value;
@@ -9632,7 +9941,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public decimal PriceManufact {
                 get {
-                    return ((decimal)(this[this.tableProduct.PriceManufactColumn]));
+                    try {
+                        return ((decimal)(this[this.tableProduct.PriceManufactColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'PriceManufact\' in table \'Product\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableProduct.PriceManufactColumn] = value;
@@ -9642,7 +9956,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public int UnitRef {
                 get {
-                    return ((int)(this[this.tableProduct.UnitRefColumn]));
+                    try {
+                        return ((int)(this[this.tableProduct.UnitRefColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'UnitRef\' in table \'Product\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableProduct.UnitRefColumn] = value;
@@ -9932,6 +10251,46 @@ namespace RetailTrade {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_StorageCondition_Product"]);
                 }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsNameNull() {
+                return this.IsNull(this.tableProduct.NameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetNameNull() {
+                this[this.tableProduct.NameColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsSmallNameNull() {
+                return this.IsNull(this.tableProduct.SmallNameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetSmallNameNull() {
+                this[this.tableProduct.SmallNameColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsPriceManufactNull() {
+                return this.IsNull(this.tableProduct.PriceManufactColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetPriceManufactNull() {
+                this[this.tableProduct.PriceManufactColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsUnitRefNull() {
+                return this.IsNull(this.tableProduct.UnitRefColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetUnitRefNull() {
+                this[this.tableProduct.UnitRefColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10820,7 +11179,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.DateTime DateLastModif {
                 get {
-                    return ((System.DateTime)(this[this.tableStorageCondition.DateLastModifColumn]));
+                    try {
+                        return ((System.DateTime)(this[this.tableStorageCondition.DateLastModifColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'DateLastModif\' in table \'StorageCondition\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableStorageCondition.DateLastModifColumn] = value;
@@ -10830,7 +11194,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string AuthorCreate {
                 get {
-                    return ((string)(this[this.tableStorageCondition.AuthorCreateColumn]));
+                    try {
+                        return ((string)(this[this.tableStorageCondition.AuthorCreateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'AuthorCreate\' in table \'StorageCondition\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableStorageCondition.AuthorCreateColumn] = value;
@@ -10840,7 +11209,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string AuthorLastModif {
                 get {
-                    return ((string)(this[this.tableStorageCondition.AuthorLastModifColumn]));
+                    try {
+                        return ((string)(this[this.tableStorageCondition.AuthorLastModifColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'AuthorLastModif\' in table \'StorageCondition\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableStorageCondition.AuthorLastModifColumn] = value;
@@ -10850,7 +11224,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.DateTime DateCreate {
                 get {
-                    return ((System.DateTime)(this[this.tableStorageCondition.DateCreateColumn]));
+                    try {
+                        return ((System.DateTime)(this[this.tableStorageCondition.DateCreateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'DateCreate\' in table \'StorageCondition\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableStorageCondition.DateCreateColumn] = value;
@@ -10870,6 +11249,46 @@ namespace RetailTrade {
                 set {
                     this[this.tableStorageCondition.RowVersionColumn] = value;
                 }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateLastModifNull() {
+                return this.IsNull(this.tableStorageCondition.DateLastModifColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateLastModifNull() {
+                this[this.tableStorageCondition.DateLastModifColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsAuthorCreateNull() {
+                return this.IsNull(this.tableStorageCondition.AuthorCreateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetAuthorCreateNull() {
+                this[this.tableStorageCondition.AuthorCreateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsAuthorLastModifNull() {
+                return this.IsNull(this.tableStorageCondition.AuthorLastModifColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetAuthorLastModifNull() {
+                this[this.tableStorageCondition.AuthorLastModifColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateCreateNull() {
+                return this.IsNull(this.tableStorageCondition.DateCreateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateCreateNull() {
+                this[this.tableStorageCondition.DateCreateColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13716,65 +14135,64 @@ SELECT ID, Number, Date, OrganisationRef, DocumentTypeRef, RemoteStockRef, Remot
             tableMapping.ColumnMappings.Add("DateCreate", "DateCreate");
             tableMapping.ColumnMappings.Add("RowVersion", "RowVersion");
             tableMapping.ColumnMappings.Add("BankRS", "BankRS");
+            tableMapping.ColumnMappings.Add("DateLastModif", "DateLastModif");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [Organization] WHERE (([ID] = @Original_ID) AND ([RowVersion] = @Orig" +
-                "inal_RowVersion))";
-            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 0, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.CommandText = "dbo.OrganizationDeleteCommand";
+            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Organization] ([Name], [ShortName], [Director], [Adress], [Address_jur], [OKPO], [BankName], [BankMFO], [INN], [NumSvid], [NumSvidChp], [PassChp], [Phone], [License], [Note], [AuthorCreate], [AuthorLastModif], [DateCreate], [BankRS]) VALUES (@Name, @ShortName, @Director, @Adress, @Address_jur, @OKPO, @BankName, @BankMFO, @INN, @NumSvid, @NumSvidChp, @PassChp, @Phone, @License, @Note, @AuthorCreate, @AuthorLastModif, @DateCreate, @BankRS);
-SELECT ID, Name, ShortName, Director, Adress, Address_jur, OKPO, BankName, BankMFO, INN, NumSvid, NumSvidChp, PassChp, Phone, License, Note, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, BankRS FROM Organization WHERE (ID = SCOPE_IDENTITY())";
-            this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ShortName", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "ShortName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Director", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Director", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Adress", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Adress", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Address_jur", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Address_jur", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OKPO", System.Data.SqlDbType.NChar, 0, System.Data.ParameterDirection.Input, 0, 0, "OKPO", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BankName", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "BankName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BankMFO", System.Data.SqlDbType.NChar, 0, System.Data.ParameterDirection.Input, 0, 0, "BankMFO", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@INN", System.Data.SqlDbType.NChar, 0, System.Data.ParameterDirection.Input, 0, 0, "INN", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NumSvid", System.Data.SqlDbType.NChar, 0, System.Data.ParameterDirection.Input, 0, 0, "NumSvid", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NumSvidChp", System.Data.SqlDbType.NChar, 0, System.Data.ParameterDirection.Input, 0, 0, "NumSvidChp", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PassChp", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "PassChp", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Phone", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Phone", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@License", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "License", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Note", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Note", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BankRS", System.Data.SqlDbType.NChar, 0, System.Data.ParameterDirection.Input, 0, 0, "BankRS", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.CommandText = "dbo.OrganizationInsertCommand";
+            this._adapter.InsertCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ShortName", System.Data.SqlDbType.NVarChar, 70, System.Data.ParameterDirection.Input, 0, 0, "ShortName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Director", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Director", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Adress", System.Data.SqlDbType.NVarChar, 70, System.Data.ParameterDirection.Input, 0, 0, "Adress", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Address_jur", System.Data.SqlDbType.NVarChar, 70, System.Data.ParameterDirection.Input, 0, 0, "Address_jur", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OKPO", System.Data.SqlDbType.NChar, 10, System.Data.ParameterDirection.Input, 0, 0, "OKPO", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BankName", System.Data.SqlDbType.NVarChar, 70, System.Data.ParameterDirection.Input, 0, 0, "BankName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BankMFO", System.Data.SqlDbType.NChar, 6, System.Data.ParameterDirection.Input, 0, 0, "BankMFO", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@INN", System.Data.SqlDbType.NChar, 12, System.Data.ParameterDirection.Input, 0, 0, "INN", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NumSvid", System.Data.SqlDbType.NChar, 15, System.Data.ParameterDirection.Input, 0, 0, "NumSvid", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NumSvidChp", System.Data.SqlDbType.NChar, 15, System.Data.ParameterDirection.Input, 0, 0, "NumSvidChp", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PassChp", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "PassChp", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Phone", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Phone", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@License", System.Data.SqlDbType.NVarChar, 40, System.Data.ParameterDirection.Input, 0, 0, "License", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Note", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Note", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BankRS", System.Data.SqlDbType.NChar, 15, System.Data.ParameterDirection.Input, 0, 0, "BankRS", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [Organization] SET [Name] = @Name, [ShortName] = @ShortName, [Director] = @Director, [Adress] = @Adress, [Address_jur] = @Address_jur, [OKPO] = @OKPO, [BankName] = @BankName, [BankMFO] = @BankMFO, [INN] = @INN, [NumSvid] = @NumSvid, [NumSvidChp] = @NumSvidChp, [PassChp] = @PassChp, [Phone] = @Phone, [License] = @License, [Note] = @Note, [AuthorCreate] = @AuthorCreate, [AuthorLastModif] = @AuthorLastModif, [DateCreate] = @DateCreate, [BankRS] = @BankRS WHERE (([ID] = @Original_ID) AND ([RowVersion] = @Original_RowVersion));
-SELECT ID, Name, ShortName, Director, Adress, Address_jur, OKPO, BankName, BankMFO, INN, NumSvid, NumSvidChp, PassChp, Phone, License, Note, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, BankRS FROM Organization WHERE (ID = @ID)";
-            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ShortName", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "ShortName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Director", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Director", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Adress", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Adress", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Address_jur", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Address_jur", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OKPO", System.Data.SqlDbType.NChar, 0, System.Data.ParameterDirection.Input, 0, 0, "OKPO", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BankName", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "BankName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BankMFO", System.Data.SqlDbType.NChar, 0, System.Data.ParameterDirection.Input, 0, 0, "BankMFO", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@INN", System.Data.SqlDbType.NChar, 0, System.Data.ParameterDirection.Input, 0, 0, "INN", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NumSvid", System.Data.SqlDbType.NChar, 0, System.Data.ParameterDirection.Input, 0, 0, "NumSvid", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NumSvidChp", System.Data.SqlDbType.NChar, 0, System.Data.ParameterDirection.Input, 0, 0, "NumSvidChp", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PassChp", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "PassChp", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Phone", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Phone", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@License", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "License", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Note", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Note", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BankRS", System.Data.SqlDbType.NChar, 0, System.Data.ParameterDirection.Input, 0, 0, "BankRS", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 0, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.CommandText = "dbo.OrganizationUpdateCommand";
+            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 255, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ShortName", System.Data.SqlDbType.NVarChar, 70, System.Data.ParameterDirection.Input, 0, 0, "ShortName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Director", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Director", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Adress", System.Data.SqlDbType.NVarChar, 70, System.Data.ParameterDirection.Input, 0, 0, "Adress", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Address_jur", System.Data.SqlDbType.NVarChar, 70, System.Data.ParameterDirection.Input, 0, 0, "Address_jur", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OKPO", System.Data.SqlDbType.NChar, 10, System.Data.ParameterDirection.Input, 0, 0, "OKPO", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BankName", System.Data.SqlDbType.NVarChar, 70, System.Data.ParameterDirection.Input, 0, 0, "BankName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BankMFO", System.Data.SqlDbType.NChar, 6, System.Data.ParameterDirection.Input, 0, 0, "BankMFO", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@INN", System.Data.SqlDbType.NChar, 12, System.Data.ParameterDirection.Input, 0, 0, "INN", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NumSvid", System.Data.SqlDbType.NChar, 15, System.Data.ParameterDirection.Input, 0, 0, "NumSvid", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NumSvidChp", System.Data.SqlDbType.NChar, 15, System.Data.ParameterDirection.Input, 0, 0, "NumSvidChp", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PassChp", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "PassChp", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Phone", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Phone", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@License", System.Data.SqlDbType.NVarChar, 40, System.Data.ParameterDirection.Input, 0, 0, "License", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Note", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Note", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BankRS", System.Data.SqlDbType.NChar, 15, System.Data.ParameterDirection.Input, 0, 0, "BankRS", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastModif", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13788,10 +14206,9 @@ SELECT ID, Name, ShortName, Director, Adress, Address_jur, OKPO, BankName, BankM
             this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, Name, ShortName, Director, Adress, Address_jur, OKPO, BankName, BankMF" +
-                "O, INN, NumSvid, NumSvidChp, PassChp, Phone, License, Note, \r\n               Aut" +
-                "horCreate, AuthorLastModif, DateCreate, RowVersion, BankRS\r\nFROM  Organization";
-            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[0].CommandText = "dbo.OrganizationSelectCommand";
+            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13844,13 +14261,18 @@ SELECT ID, Name, ShortName, Director, Adress, Address_jur, OKPO, BankName, BankM
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, byte[] Original_RowVersion) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
-            if ((Original_RowVersion == null)) {
-                throw new System.ArgumentNullException("Original_RowVersion");
+        public virtual int Delete(System.Nullable<int> Original_ID, byte[] Original_RowVersion) {
+            if ((Original_ID.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_ID.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((byte[])(Original_RowVersion));
+                this.Adapter.DeleteCommand.Parameters[1].Value = System.DBNull.Value;
+            }
+            if ((Original_RowVersion == null)) {
+                this.Adapter.DeleteCommand.Parameters[2].Value = System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((byte[])(Original_RowVersion));
             }
             System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & System.Data.ConnectionState.Open) 
@@ -13887,118 +14309,102 @@ SELECT ID, Name, ShortName, Director, Adress, Address_jur, OKPO, BankName, BankM
                     string Phone, 
                     string License, 
                     string Note, 
-                    string AuthorCreate, 
-                    string AuthorLastModif, 
-                    System.DateTime DateCreate, 
                     string BankRS) {
             if ((Name == null)) {
-                throw new System.ArgumentNullException("Name");
+                this.Adapter.InsertCommand.Parameters[1].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(Name));
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(Name));
             }
             if ((ShortName == null)) {
-                throw new System.ArgumentNullException("ShortName");
+                this.Adapter.InsertCommand.Parameters[2].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(ShortName));
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(ShortName));
             }
             if ((Director == null)) {
-                throw new System.ArgumentNullException("Director");
+                this.Adapter.InsertCommand.Parameters[3].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(Director));
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(Director));
             }
             if ((Adress == null)) {
-                throw new System.ArgumentNullException("Adress");
+                this.Adapter.InsertCommand.Parameters[4].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(Adress));
+                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(Adress));
             }
             if ((Address_jur == null)) {
-                throw new System.ArgumentNullException("Address_jur");
+                this.Adapter.InsertCommand.Parameters[5].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(Address_jur));
+                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(Address_jur));
             }
             if ((OKPO == null)) {
-                throw new System.ArgumentNullException("OKPO");
+                this.Adapter.InsertCommand.Parameters[6].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(OKPO));
+                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(OKPO));
             }
             if ((BankName == null)) {
-                throw new System.ArgumentNullException("BankName");
+                this.Adapter.InsertCommand.Parameters[7].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(BankName));
+                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(BankName));
             }
             if ((BankMFO == null)) {
-                throw new System.ArgumentNullException("BankMFO");
+                this.Adapter.InsertCommand.Parameters[8].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(BankMFO));
+                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(BankMFO));
             }
             if ((INN == null)) {
-                throw new System.ArgumentNullException("INN");
+                this.Adapter.InsertCommand.Parameters[9].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(INN));
+                this.Adapter.InsertCommand.Parameters[9].Value = ((string)(INN));
             }
             if ((NumSvid == null)) {
-                throw new System.ArgumentNullException("NumSvid");
+                this.Adapter.InsertCommand.Parameters[10].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[9].Value = ((string)(NumSvid));
+                this.Adapter.InsertCommand.Parameters[10].Value = ((string)(NumSvid));
             }
             if ((NumSvidChp == null)) {
-                throw new System.ArgumentNullException("NumSvidChp");
+                this.Adapter.InsertCommand.Parameters[11].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[10].Value = ((string)(NumSvidChp));
+                this.Adapter.InsertCommand.Parameters[11].Value = ((string)(NumSvidChp));
             }
             if ((PassChp == null)) {
-                throw new System.ArgumentNullException("PassChp");
+                this.Adapter.InsertCommand.Parameters[12].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[11].Value = ((string)(PassChp));
+                this.Adapter.InsertCommand.Parameters[12].Value = ((string)(PassChp));
             }
             if ((Phone == null)) {
-                throw new System.ArgumentNullException("Phone");
+                this.Adapter.InsertCommand.Parameters[13].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[12].Value = ((string)(Phone));
+                this.Adapter.InsertCommand.Parameters[13].Value = ((string)(Phone));
             }
             if ((License == null)) {
-                throw new System.ArgumentNullException("License");
+                this.Adapter.InsertCommand.Parameters[14].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[13].Value = ((string)(License));
+                this.Adapter.InsertCommand.Parameters[14].Value = ((string)(License));
             }
             if ((Note == null)) {
-                throw new System.ArgumentNullException("Note");
+                this.Adapter.InsertCommand.Parameters[15].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[14].Value = ((string)(Note));
+                this.Adapter.InsertCommand.Parameters[15].Value = ((string)(Note));
             }
-            if ((AuthorCreate == null)) {
-                throw new System.ArgumentNullException("AuthorCreate");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[15].Value = ((string)(AuthorCreate));
-            }
-            if ((AuthorLastModif == null)) {
-                throw new System.ArgumentNullException("AuthorLastModif");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[16].Value = ((string)(AuthorLastModif));
-            }
-            this.Adapter.InsertCommand.Parameters[17].Value = ((System.DateTime)(DateCreate));
             if ((BankRS == null)) {
-                throw new System.ArgumentNullException("BankRS");
+                this.Adapter.InsertCommand.Parameters[16].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[18].Value = ((string)(BankRS));
+                this.Adapter.InsertCommand.Parameters[16].Value = ((string)(BankRS));
             }
             System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
@@ -14037,128 +14443,150 @@ SELECT ID, Name, ShortName, Director, Adress, Address_jur, OKPO, BankName, BankM
                     string Note, 
                     string AuthorCreate, 
                     string AuthorLastModif, 
-                    System.DateTime DateCreate, 
+                    System.Nullable<System.DateTime> DateCreate, 
                     string BankRS, 
-                    int Original_ID, 
+                    System.Nullable<System.DateTime> DateLastModif, 
+                    System.Nullable<int> Original_ID, 
                     byte[] Original_RowVersion, 
-                    int ID) {
+                    System.Nullable<int> ID) {
             if ((Name == null)) {
-                throw new System.ArgumentNullException("Name");
+                this.Adapter.UpdateCommand.Parameters[1].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(Name));
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(Name));
             }
             if ((ShortName == null)) {
-                throw new System.ArgumentNullException("ShortName");
+                this.Adapter.UpdateCommand.Parameters[2].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(ShortName));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(ShortName));
             }
             if ((Director == null)) {
-                throw new System.ArgumentNullException("Director");
+                this.Adapter.UpdateCommand.Parameters[3].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Director));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Director));
             }
             if ((Adress == null)) {
-                throw new System.ArgumentNullException("Adress");
+                this.Adapter.UpdateCommand.Parameters[4].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Adress));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Adress));
             }
             if ((Address_jur == null)) {
-                throw new System.ArgumentNullException("Address_jur");
+                this.Adapter.UpdateCommand.Parameters[5].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Address_jur));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Address_jur));
             }
             if ((OKPO == null)) {
-                throw new System.ArgumentNullException("OKPO");
+                this.Adapter.UpdateCommand.Parameters[6].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(OKPO));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(OKPO));
             }
             if ((BankName == null)) {
-                throw new System.ArgumentNullException("BankName");
+                this.Adapter.UpdateCommand.Parameters[7].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(BankName));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(BankName));
             }
             if ((BankMFO == null)) {
-                throw new System.ArgumentNullException("BankMFO");
+                this.Adapter.UpdateCommand.Parameters[8].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(BankMFO));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(BankMFO));
             }
             if ((INN == null)) {
-                throw new System.ArgumentNullException("INN");
+                this.Adapter.UpdateCommand.Parameters[9].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(INN));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(INN));
             }
             if ((NumSvid == null)) {
-                throw new System.ArgumentNullException("NumSvid");
+                this.Adapter.UpdateCommand.Parameters[10].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(NumSvid));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(NumSvid));
             }
             if ((NumSvidChp == null)) {
-                throw new System.ArgumentNullException("NumSvidChp");
+                this.Adapter.UpdateCommand.Parameters[11].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(NumSvidChp));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((string)(NumSvidChp));
             }
             if ((PassChp == null)) {
-                throw new System.ArgumentNullException("PassChp");
+                this.Adapter.UpdateCommand.Parameters[12].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((string)(PassChp));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(PassChp));
             }
             if ((Phone == null)) {
-                throw new System.ArgumentNullException("Phone");
+                this.Adapter.UpdateCommand.Parameters[13].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Phone));
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((string)(Phone));
             }
             if ((License == null)) {
-                throw new System.ArgumentNullException("License");
+                this.Adapter.UpdateCommand.Parameters[14].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((string)(License));
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((string)(License));
             }
             if ((Note == null)) {
-                throw new System.ArgumentNullException("Note");
+                this.Adapter.UpdateCommand.Parameters[15].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((string)(Note));
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((string)(Note));
             }
             if ((AuthorCreate == null)) {
-                throw new System.ArgumentNullException("AuthorCreate");
+                this.Adapter.UpdateCommand.Parameters[16].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((string)(AuthorCreate));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(AuthorCreate));
             }
             if ((AuthorLastModif == null)) {
-                throw new System.ArgumentNullException("AuthorLastModif");
+                this.Adapter.UpdateCommand.Parameters[17].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(AuthorLastModif));
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((string)(AuthorLastModif));
             }
-            this.Adapter.UpdateCommand.Parameters[17].Value = ((System.DateTime)(DateCreate));
+            if ((DateCreate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((System.DateTime)(DateCreate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[18].Value = System.DBNull.Value;
+            }
             if ((BankRS == null)) {
-                throw new System.ArgumentNullException("BankRS");
+                this.Adapter.UpdateCommand.Parameters[19].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((string)(BankRS));
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((string)(BankRS));
             }
-            this.Adapter.UpdateCommand.Parameters[19].Value = ((int)(Original_ID));
+            if ((DateLastModif.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((System.DateTime)(DateLastModif.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[20].Value = System.DBNull.Value;
+            }
+            if ((Original_ID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((int)(Original_ID.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[21].Value = System.DBNull.Value;
+            }
             if ((Original_RowVersion == null)) {
-                throw new System.ArgumentNullException("Original_RowVersion");
+                this.Adapter.UpdateCommand.Parameters[22].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((byte[])(Original_RowVersion));
+                this.Adapter.UpdateCommand.Parameters[22].Value = ((byte[])(Original_RowVersion));
             }
-            this.Adapter.UpdateCommand.Parameters[21].Value = ((int)(ID));
+            if ((ID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[23].Value = ((int)(ID.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[23].Value = System.DBNull.Value;
+            }
             System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
                         != System.Data.ConnectionState.Open)) {
@@ -17035,20 +17463,12 @@ SELECT ID, Name, FarmGroupRef, AuthorCreate, AuthorLastModif, DateCreate, RowVer
             this._adapter.InsertCommand.CommandType = System.Data.CommandType.StoredProcedure;
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastModif", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "dbo.StorageConditionUpdateCommand";
             this._adapter.UpdateCommand.CommandType = System.Data.CommandType.StoredProcedure;
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastModif", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));

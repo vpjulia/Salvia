@@ -31,6 +31,12 @@ namespace RetailTrade
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCOrganizationAll));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btEdit = new System.Windows.Forms.ToolStripButton();
+            this.btAdd = new System.Windows.Forms.ToolStripButton();
+            this.btDel = new System.Windows.Forms.ToolStripButton();
+            this.btSave = new System.Windows.Forms.ToolStripButton();
+            this.btClose = new System.Windows.Forms.ToolStripButton();
+            this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.grid = new DevExpress.XtraGrid.GridControl();
             this.organizationBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -56,7 +62,6 @@ namespace RetailTrade
             this.colAuthorLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
             this.organizationTableAdapter = new RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).BeginInit();
@@ -68,18 +73,78 @@ namespace RetailTrade
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1});
+            this.btEdit,
+            this.btAdd,
+            this.btDel,
+            this.btSave,
+            this.btClose,
+            this.btRefresh});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(410, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(548, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // btEdit
+            // 
+            this.btEdit.Image = ((System.Drawing.Image)(resources.GetObject("btEdit.Image")));
+            this.btEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btEdit.Name = "btEdit";
+            this.btEdit.Size = new System.Drawing.Size(95, 22);
+            this.btEdit.Text = "Изменить";
+            this.btEdit.Click += new System.EventHandler(this.btEdit_Click);
+            // 
+            // btAdd
+            // 
+            this.btAdd.Image = ((System.Drawing.Image)(resources.GetObject("btAdd.Image")));
+            this.btAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btAdd.Name = "btAdd";
+            this.btAdd.Size = new System.Drawing.Size(94, 22);
+            this.btAdd.Text = "Добавить";
+            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
+            // 
+            // btDel
+            // 
+            this.btDel.Image = ((System.Drawing.Image)(resources.GetObject("btDel.Image")));
+            this.btDel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btDel.Name = "btDel";
+            this.btDel.Size = new System.Drawing.Size(85, 22);
+            this.btDel.Text = "Удалить";
+            // 
+            // btSave
+            // 
+            this.btSave.Image = ((System.Drawing.Image)(resources.GetObject("btSave.Image")));
+            this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btSave.Name = "btSave";
+            this.btSave.Size = new System.Drawing.Size(101, 22);
+            this.btSave.Text = "Сохранить";
+            // 
+            // btClose
+            // 
+            this.btClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btClose.Image = ((System.Drawing.Image)(resources.GetObject("btClose.Image")));
+            this.btClose.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btClose.Name = "btClose";
+            this.btClose.Size = new System.Drawing.Size(23, 22);
+            this.btClose.Text = "X";
+            this.btClose.ToolTipText = "Выйти";
+            // 
+            // btRefresh
+            // 
+            this.btRefresh.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btRefresh.Image")));
+            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btRefresh.Name = "btRefresh";
+            this.btRefresh.Size = new System.Drawing.Size(23, 22);
+            this.btRefresh.Text = "Обновить";
+            // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 313);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 390);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(410, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(548, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -94,7 +159,7 @@ namespace RetailTrade
             this.grid.Location = new System.Drawing.Point(0, 25);
             this.grid.MainView = this.gridView;
             this.grid.Name = "grid";
-            this.grid.Size = new System.Drawing.Size(410, 288);
+            this.grid.Size = new System.Drawing.Size(548, 365);
             this.grid.TabIndex = 2;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView});
@@ -282,16 +347,6 @@ namespace RetailTrade
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
             // UCOrganizationAll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -300,7 +355,7 @@ namespace RetailTrade
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "UCOrganizationAll";
-            this.Size = new System.Drawing.Size(410, 335);
+            this.Size = new System.Drawing.Size(548, 412);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
@@ -341,6 +396,11 @@ namespace RetailTrade
         private System.Windows.Forms.ErrorProvider errorProvider1;
         public DevExpress.XtraGrid.GridControl grid;
         public DevExpress.XtraGrid.Views.Grid.GridView gridView;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton btEdit;
+        private System.Windows.Forms.ToolStripButton btAdd;
+        private System.Windows.Forms.ToolStripButton btDel;
+        private System.Windows.Forms.ToolStripButton btSave;
+        private System.Windows.Forms.ToolStripButton btClose;
+        private System.Windows.Forms.ToolStripButton btRefresh;
     }
 }

@@ -15,29 +15,21 @@ namespace RetailTrade
             InitializeComponent();
         }
 
-        public UCOrganizationRow(MDataSet.OrganizationRow organizationRow, MainForm.ActionDialog actionDialog, MDataSet mainDataset)
+        public UCOrganizationRow(MDataSet.OrganizationRow organizationRow, MainForm.ActionDialog actionDialog)
         {
             InitializeComponent();
-            this.mDataSet = mainDataset;
-            this.organizationBindingSource.DataSource = mainDataset.Organization;
+            this.mDataSet =organizationRow.Table.DataSet as MDataSet;
+            this.organizationBindingSource.DataSource = organizationRow;
          
         }
 
         private void UCOrganizationRow_Load(object sender, EventArgs e)
         {
-            this.ParentForm.AcceptButton = null;
+           // this.ParentForm.AcceptButton = null;
         }
 
-        private void textEdit16_EditValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.organizationBindingSource.EndEdit();
-        }
-
+        
+       
         
     }
 }

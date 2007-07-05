@@ -3,6 +3,10 @@
 
     partial class MDataSet
     {
+        partial class StorageConditionDataTable
+        {
+        }
+    
         partial class ReceiptMasterDataTable
         {
         }
