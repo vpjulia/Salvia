@@ -315,7 +315,6 @@ namespace RetailTrade
             this.mainReportViewer.TabIndex = 1;
             this.mainReportViewer.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.PageWidth;
             this.mainReportViewer.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.mainReportViewer_MouseDoubleClick);
-
             // 
             // gridControl2
             // 
@@ -908,7 +907,6 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripMenuItem CountryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem UnitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem PackingToolStripMenuItem;
-        private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.ToolStripMenuItem OrganisationToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem ÚËÔÓ‚ƒÓÍÛÏÂÌÚ‡ToolStripMenuItem;
@@ -955,6 +953,7 @@ namespace RetailTrade
         public System.Windows.Forms.BindingSource receiptMasterBindingSource;
         private Microsoft.Reporting.WinForms.ReportViewer mainReportViewer;
         public System.Windows.Forms.BindingSource receiptMasterNewBindingSource;
+        public System.Windows.Forms.TabControl tabControl;
     }
 }
 
