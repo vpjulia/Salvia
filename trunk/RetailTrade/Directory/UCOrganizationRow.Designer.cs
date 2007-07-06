@@ -129,7 +129,7 @@ namespace RetailTrade
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.48276F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.51724F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 54F));
             this.tableLayoutPanel1.Controls.Add(this.textEdit2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
@@ -158,7 +158,7 @@ namespace RetailTrade
             this.textEdit2.Name = "textEdit2";
             this.textEdit2.Properties.MaxLength = 25;
             this.textEdit2.Properties.ValidateOnEnterKey = true;
-            this.textEdit2.Size = new System.Drawing.Size(311, 22);
+            this.textEdit2.Size = new System.Drawing.Size(310, 22);
             this.textEdit2.TabIndex = 0;
             this.textEdit2.Tag = "";
             // 
@@ -724,7 +724,6 @@ namespace RetailTrade
             this.button1.TabIndex = 4;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
-
             // 
             // UCOrganizationRow
             // 
