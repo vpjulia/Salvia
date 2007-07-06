@@ -20,11 +20,11 @@ namespace RetailTrade
             InitializeComponent();
         }
 
-        public ucProductRow(MDataSet.ProductRow productRow,MainForm.ActionDialog actionDialog,MDataSet mainDataset)
+        public ucProductRow(MDataSet.ProductRow productRow,MainForm.ActionDialog actionDialog)
         {
        
             InitializeComponent();
-            this.mDataSet = mainDataset;
+            this.mDataSet = productRow.Table.DataSet as MDataSet;
             this.productBindingSource.DataSource = productRow;
             this.manufacturerBindingSource.DataSource = this.mDataSet.Manufacturer;
             this.packingBindingSource.DataSource = this.mDataSet.Packing;
@@ -106,6 +106,11 @@ namespace RetailTrade
 
             }
 
+        }
+
+        private void ucProductRow_Validating(object sender, CancelEventArgs e)
+        {
+            MessageBox.Show("kjhkj");
         }
 
         
