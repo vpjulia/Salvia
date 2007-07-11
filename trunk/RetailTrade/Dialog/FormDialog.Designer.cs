@@ -106,8 +106,8 @@ namespace RetailTrade
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btCancel;
         private System.Windows.Forms.Button btOk;
         public System.Windows.Forms.Panel panel;
+        public System.Windows.Forms.Button btCancel;
     }
 }

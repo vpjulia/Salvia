@@ -59,7 +59,8 @@ namespace RetailTrade
             this.tabControl = new System.Windows.Forms.TabControl();
             this.mainReportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             this.gridControl2 = new DevExpress.XtraGrid.GridControl();
-            this.receiptMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.storageConditionBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.mDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mDataSet = new RetailTrade.MDataSet();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID1 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -77,6 +78,7 @@ namespace RetailTrade
             this.colAuthorLastModif1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDateCreate1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colRowVersion1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.receiptMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.receiptDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.receiptMasterNewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.stockBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -84,7 +86,6 @@ namespace RetailTrade
             this.organizationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.countryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.unitBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.mDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.substanceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.packingBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.farmGroupBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -118,7 +119,6 @@ namespace RetailTrade
             this.farmGroupLevel2BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.farmGroupLevel2TableAdapter = new RetailTrade.MDataSetTableAdapters.FarmGroupLevel2TableAdapter();
             this.packingTableAdapter = new RetailTrade.MDataSetTableAdapters.PackingTableAdapter();
-            this.storageConditionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.storageConditionTableAdapter = new RetailTrade.MDataSetTableAdapters.StorageConditionTableAdapter();
             this.substanceTableAdapter = new RetailTrade.MDataSetTableAdapters.SubstanceTableAdapter();
             this.unitTableAdapter = new RetailTrade.MDataSetTableAdapters.UnitTableAdapter();
@@ -138,9 +138,11 @@ namespace RetailTrade
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.storageConditionBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterNewBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stockBindingSource)).BeginInit();
@@ -148,7 +150,6 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.countryBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unitBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.substanceBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.packingBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.farmGroupBindingSource)).BeginInit();
@@ -156,7 +157,6 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.farmGroupLevel2BindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.storageConditionBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -318,7 +318,7 @@ namespace RetailTrade
             // 
             // gridControl2
             // 
-            this.gridControl2.DataSource = this.receiptMasterBindingSource;
+            this.gridControl2.DataSource = this.storageConditionBindingSource;
             // 
             // 
             // 
@@ -331,10 +331,15 @@ namespace RetailTrade
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
             // 
-            // receiptMasterBindingSource
+            // storageConditionBindingSource
             // 
-            this.receiptMasterBindingSource.DataMember = "ReceiptMaster";
-            this.receiptMasterBindingSource.DataSource = this.mDataSet;
+            this.storageConditionBindingSource.DataMember = "StorageCondition";
+            this.storageConditionBindingSource.DataSource = this.mDataSetBindingSource;
+            // 
+            // mDataSetBindingSource
+            // 
+            this.mDataSetBindingSource.DataSource = this.mDataSet;
+            this.mDataSetBindingSource.Position = 0;
             // 
             // mDataSet
             // 
@@ -499,6 +504,11 @@ namespace RetailTrade
             this.colRowVersion1.VisibleIndex = 14;
             this.colRowVersion1.Width = 43;
             // 
+            // receiptMasterBindingSource
+            // 
+            this.receiptMasterBindingSource.DataMember = "ReceiptMaster";
+            this.receiptMasterBindingSource.DataSource = this.mDataSet;
+            // 
             // receiptDetailBindingSource
             // 
             this.receiptDetailBindingSource.AllowNew = true;
@@ -534,11 +544,6 @@ namespace RetailTrade
             // 
             this.unitBindingSource.DataMember = "Unit";
             this.unitBindingSource.DataSource = this.mDataSetBindingSource;
-            // 
-            // mDataSetBindingSource
-            // 
-            this.mDataSetBindingSource.DataSource = this.mDataSet;
-            this.mDataSetBindingSource.Position = 0;
             // 
             // substanceBindingSource
             // 
@@ -780,11 +785,6 @@ namespace RetailTrade
             // 
             this.packingTableAdapter.ClearBeforeFill = true;
             // 
-            // storageConditionBindingSource
-            // 
-            this.storageConditionBindingSource.DataMember = "StorageCondition";
-            this.storageConditionBindingSource.DataSource = this.mDataSetBindingSource;
-            // 
             // storageConditionTableAdapter
             // 
             this.storageConditionTableAdapter.ClearBeforeFill = true;
@@ -845,9 +845,11 @@ namespace RetailTrade
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.storageConditionBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterNewBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.stockBindingSource)).EndInit();
@@ -855,7 +857,6 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.countryBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unitBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.substanceBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.packingBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.farmGroupBindingSource)).EndInit();
@@ -864,7 +865,6 @@ namespace RetailTrade
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.farmGroupLevel2BindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.storageConditionBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

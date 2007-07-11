@@ -67,6 +67,9 @@ namespace RetailTrade
             // grid
             // 
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
             this.grid.EmbeddedNavigator.Name = "";
             this.grid.Location = new System.Drawing.Point(0, 25);
             this.grid.MainView = this.gridView;
@@ -314,6 +317,8 @@ namespace RetailTrade
             this.Controls.Add(this.bindingNavigator1);
             this.Name = "UCSimpleDirectory";
             this.Size = new System.Drawing.Size(578, 464);
+            this.Validated += new System.EventHandler(this.UCSimpleDirectory_Validated);
+            this.Validating += new System.ComponentModel.CancelEventHandler(this.UCSimpleDirectory_Validating);
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit)).EndInit();
