@@ -34,6 +34,11 @@ namespace RetailTrade
             this.gridView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDateLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAuthorCreate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAuthorLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDateCreate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDateUpdate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemTextEdit = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -47,7 +52,8 @@ namespace RetailTrade
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.btRefresh = new System.Windows.Forms.ToolStripButton();
+            this.btGridField = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btAdd = new System.Windows.Forms.ToolStripButton();
             this.btEdit = new System.Windows.Forms.ToolStripButton();
@@ -67,9 +73,6 @@ namespace RetailTrade
             // grid
             // 
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
             this.grid.EmbeddedNavigator.Name = "";
             this.grid.Location = new System.Drawing.Point(0, 25);
             this.grid.MainView = this.gridView;
@@ -89,7 +92,12 @@ namespace RetailTrade
             this.gridView.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
             this.gridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colID,
-            this.colName});
+            this.colName,
+            this.colDateLastModif,
+            this.colAuthorCreate,
+            this.colAuthorLastModif,
+            this.colDateCreate,
+            this.colDateUpdate});
             this.gridView.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.gridView.GridControl = this.grid;
             this.gridView.Name = "gridView";
@@ -126,6 +134,44 @@ namespace RetailTrade
             this.colName.VisibleIndex = 1;
             this.colName.Width = 424;
             // 
+            // colDateLastModif
+            // 
+            this.colDateLastModif.Caption = "Дата последнего изменения";
+            this.colDateLastModif.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.colDateLastModif.FieldName = "DateLastModif";
+            this.colDateLastModif.Name = "colDateLastModif";
+            this.colDateLastModif.OptionsColumn.AllowEdit = false;
+            // 
+            // colAuthorCreate
+            // 
+            this.colAuthorCreate.Caption = "Автор";
+            this.colAuthorCreate.FieldName = "AuthorCreate";
+            this.colAuthorCreate.Name = "colAuthorCreate";
+            this.colAuthorCreate.OptionsColumn.AllowEdit = false;
+            // 
+            // colAuthorLastModif
+            // 
+            this.colAuthorLastModif.Caption = "Автор изменений";
+            this.colAuthorLastModif.FieldName = "AuthorLastModif";
+            this.colAuthorLastModif.Name = "colAuthorLastModif";
+            this.colAuthorLastModif.OptionsColumn.AllowEdit = false;
+            // 
+            // colDateCreate
+            // 
+            this.colDateCreate.Caption = "Дата создания";
+            this.colDateCreate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.colDateCreate.FieldName = "DateCreate";
+            this.colDateCreate.Name = "colDateCreate";
+            this.colDateCreate.OptionsColumn.AllowEdit = false;
+            // 
+            // colDateUpdate
+            // 
+            this.colDateUpdate.Caption = "Дата обновления";
+            this.colDateUpdate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.colDateUpdate.FieldName = "DateUpdate";
+            this.colDateUpdate.Name = "colDateUpdate";
+            this.colDateUpdate.OptionsColumn.AllowEdit = false;
+            // 
             // repositoryItemTextEdit
             // 
             this.repositoryItemTextEdit.AutoHeight = false;
@@ -159,7 +205,8 @@ namespace RetailTrade
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2,
-            this.toolStripButton2});
+            this.btRefresh,
+            this.btGridField});
             this.bindingNavigator1.Location = new System.Drawing.Point(0, 439);
             this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -238,13 +285,24 @@ namespace RetailTrade
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripButton2
+            // btRefresh
             // 
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(47, 22);
-            this.toolStripButton2.Text = "focus";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            this.btRefresh.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btRefresh.Name = "btRefresh";
+            this.btRefresh.Size = new System.Drawing.Size(79, 22);
+            this.btRefresh.Text = "Обновить";
+            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
+            // 
+            // btGridField
+            // 
+            this.btGridField.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btGridField.Image = ((System.Drawing.Image)(resources.GetObject("btGridField.Image")));
+            this.btGridField.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btGridField.Name = "btGridField";
+            this.btGridField.Size = new System.Drawing.Size(46, 22);
+            this.btGridField.Text = "Поля";
+            this.btGridField.Click += new System.EventHandler(this.btGridField_Click);
             // 
             // toolStrip1
             // 
@@ -353,12 +411,18 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.BindingSource bindingSource;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton btRefresh;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btAdd;
         private System.Windows.Forms.ToolStripButton btEdit;
         private System.Windows.Forms.ToolStripButton btDelete;
         private System.Windows.Forms.ToolStripButton btSave;
         private System.Windows.Forms.ToolStripButton btClose;
+        private System.Windows.Forms.ToolStripButton btGridField;
+        private DevExpress.XtraGrid.Columns.GridColumn colDateLastModif;
+        private DevExpress.XtraGrid.Columns.GridColumn colAuthorCreate;
+        private DevExpress.XtraGrid.Columns.GridColumn colAuthorLastModif;
+        private DevExpress.XtraGrid.Columns.GridColumn colDateCreate;
+        private DevExpress.XtraGrid.Columns.GridColumn colDateUpdate;
     }
 }
