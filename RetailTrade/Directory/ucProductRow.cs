@@ -110,7 +110,7 @@ namespace RetailTrade
 
         private void ucProductRow_Validating(object sender, CancelEventArgs e)
         {
-            MessageBox.Show("kjhkj");
+            this.productBindingSource.CurrencyManager.EndCurrentEdit();
         }
 
         

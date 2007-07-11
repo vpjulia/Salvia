@@ -95,6 +95,12 @@ namespace RetailTrade {
         
         private System.Data.DataRelation relationFK_Product_Unit;
         
+        private System.Data.DataRelation relationManufacturer_Product;
+        
+        private System.Data.DataRelation relationProduct_ReceiptDetail;
+        
+        private System.Data.DataRelation relationStorageCondition_Product;
+        
         private System.Data.SchemaSerializationMode _schemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -105,6 +111,7 @@ namespace RetailTrade {
             base.Tables.CollectionChanged += schemaChangedHandler;
             base.Relations.CollectionChanged += schemaChangedHandler;
             this.EndInit();
+            this.InitExpressions();
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -189,6 +196,7 @@ namespace RetailTrade {
             }
             else {
                 this.ReadXmlSchema(new System.Xml.XmlTextReader(new System.IO.StringReader(strSchema)));
+                this.InitExpressions();
             }
             this.GetSerializationData(info, context);
             System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -406,6 +414,7 @@ namespace RetailTrade {
         public override System.Data.DataSet Clone() {
             MDataSet cln = ((MDataSet)(base.Clone()));
             cln.InitVars();
+            cln.InitExpressions();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
         }
@@ -644,6 +653,9 @@ namespace RetailTrade {
             this.relationFK_Product_Packing = this.Relations["FK_Product_Packing"];
             this.relationFK_Product_Substance = this.Relations["FK_Product_Substance"];
             this.relationFK_Product_Unit = this.Relations["FK_Product_Unit"];
+            this.relationManufacturer_Product = this.Relations["Manufacturer_Product"];
+            this.relationProduct_ReceiptDetail = this.Relations["Product_ReceiptDetail"];
+            this.relationStorageCondition_Product = this.Relations["StorageCondition_Product"];
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -687,7 +699,7 @@ namespace RetailTrade {
             base.Tables.Add(this.tableReceiptMaster);
             this.tableReceiptDetail = new ReceiptDetailDataTable();
             base.Tables.Add(this.tableReceiptDetail);
-            this.tableStorageCondition = new StorageConditionDataTable();
+            this.tableStorageCondition = new StorageConditionDataTable(false);
             base.Tables.Add(this.tableStorageCondition);
             this.tableProduct = new ProductDataTable();
             base.Tables.Add(this.tableProduct);
@@ -767,6 +779,18 @@ namespace RetailTrade {
                         this.tableUnit.IDColumn}, new System.Data.DataColumn[] {
                         this.tableProduct.UnitRefColumn}, false);
             this.Relations.Add(this.relationFK_Product_Unit);
+            this.relationManufacturer_Product = new System.Data.DataRelation("Manufacturer_Product", new System.Data.DataColumn[] {
+                        this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.ManufacturerRefColumn}, false);
+            this.Relations.Add(this.relationManufacturer_Product);
+            this.relationProduct_ReceiptDetail = new System.Data.DataRelation("Product_ReceiptDetail", new System.Data.DataColumn[] {
+                        this.tableProduct.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableReceiptDetail.ProductRefColumn}, false);
+            this.Relations.Add(this.relationProduct_ReceiptDetail);
+            this.relationStorageCondition_Product = new System.Data.DataRelation("StorageCondition_Product", new System.Data.DataColumn[] {
+                        this.tableStorageCondition.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.StorageConditionRefColumn}, false);
+            this.Relations.Add(this.relationStorageCondition_Product);
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -882,6 +906,11 @@ namespace RetailTrade {
             sequence.Items.Add(any);
             type.Particle = sequence;
             return type;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitExpressions() {
+            this.StorageCondition.DateUpdateColumn.Expression = "Max(DateLastModif)";
         }
         
         public delegate void CountryRowChangeEventHandler(object sender, CountryRowChangeEvent e);
@@ -6673,7 +6702,7 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public ReceiptDetailRow AddReceiptDetailRow(
                         ReceiptMasterRow parentReceiptMasterRowByReceiptMaster_ReceiptDetail, 
-                        int ProductRef, 
+                        ProductRow parentProductRowByProduct_ReceiptDetail, 
                         string Series, 
                         System.DateTime UseByDate, 
                         decimal Quantity, 
@@ -6692,7 +6721,7 @@ namespace RetailTrade {
                 rowReceiptDetailRow.ItemArray = new object[] {
                         null,
                         parentReceiptMasterRowByReceiptMaster_ReceiptDetail[0],
-                        ProductRef,
+                        parentProductRowByProduct_ReceiptDetail[0],
                         Series,
                         UseByDate,
                         Quantity,
@@ -6919,11 +6948,21 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnRowVersion;
             
+            private System.Data.DataColumn columnDateUpdate;
+            
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public StorageConditionDataTable() {
+            public StorageConditionDataTable() : 
+                    this(false) {
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal StorageConditionDataTable(bool initExpressions) {
                 this.TableName = "StorageCondition";
                 this.BeginInit();
                 this.InitClass();
+                if ((initExpressions == true)) {
+                    this.InitExpressions();
+                }
                 this.EndInit();
             }
             
@@ -6999,6 +7038,13 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateUpdateColumn {
+                get {
+                    return this.columnDateUpdate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -7027,7 +7073,7 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public StorageConditionRow AddStorageConditionRow(string Name, System.DateTime DateLastModif, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, byte[] RowVersion) {
+            public StorageConditionRow AddStorageConditionRow(string Name, System.DateTime DateLastModif, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, byte[] RowVersion, System.DateTime DateUpdate) {
                 StorageConditionRow rowStorageConditionRow = ((StorageConditionRow)(this.NewRow()));
                 rowStorageConditionRow.ItemArray = new object[] {
                         null,
@@ -7036,7 +7082,8 @@ namespace RetailTrade {
                         AuthorCreate,
                         AuthorLastModif,
                         DateCreate,
-                        RowVersion};
+                        RowVersion,
+                        DateUpdate};
                 this.Rows.Add(rowStorageConditionRow);
                 return rowStorageConditionRow;
             }
@@ -7073,6 +7120,7 @@ namespace RetailTrade {
                 this.columnAuthorLastModif = base.Columns["AuthorLastModif"];
                 this.columnDateCreate = base.Columns["DateCreate"];
                 this.columnRowVersion = base.Columns["RowVersion"];
+                this.columnDateUpdate = base.Columns["DateUpdate"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7091,6 +7139,8 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnDateCreate);
                 this.columnRowVersion = new System.Data.DataColumn("RowVersion", typeof(byte[]), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRowVersion);
+                this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateUpdate);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -7104,6 +7154,7 @@ namespace RetailTrade {
                 this.columnAuthorCreate.MaxLength = 50;
                 this.columnAuthorLastModif.MaxLength = 50;
                 this.columnRowVersion.ReadOnly = true;
+                this.columnDateUpdate.ReadOnly = true;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7119,6 +7170,11 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Type GetRowType() {
                 return typeof(StorageConditionRow);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitExpressions() {
+                this.DateUpdateColumn.Expression = "Max(DateLastModif)";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7546,10 +7602,10 @@ namespace RetailTrade {
                         decimal PriceManufact, 
                         UnitRow parentUnitRowByFK_Product_Unit, 
                         PackingRow parentPackingRowByFK_Product_Packing, 
-                        int StorageConditionRef, 
+                        StorageConditionRow parentStorageConditionRowByStorageCondition_Product, 
                         SubstanceRow parentSubstanceRowByFK_Product_Substance, 
                         FarmGroupLevel2Row parentFarmGroupLevel2RowByFK_Product_FarmGroupLevel2, 
-                        int ManufacturerRef, 
+                        ManufacturerRow parentManufacturerRowByManufacturer_Product, 
                         bool IsRecept, 
                         bool IsOneRecept, 
                         string IsHide, 
@@ -7580,10 +7636,10 @@ namespace RetailTrade {
                         PriceManufact,
                         parentUnitRowByFK_Product_Unit[0],
                         parentPackingRowByFK_Product_Packing[0],
-                        StorageConditionRef,
+                        parentStorageConditionRowByStorageCondition_Product[0],
                         parentSubstanceRowByFK_Product_Substance[0],
                         parentFarmGroupLevel2RowByFK_Product_FarmGroupLevel2[0],
-                        ManufacturerRef,
+                        parentManufacturerRowByManufacturer_Product[0],
                         IsRecept,
                         IsOneRecept,
                         IsHide,
@@ -8702,6 +8758,11 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetRowVersionNull() {
                 this[this.tableManufacturer.RowVersionColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ProductRow[] GetProductRows() {
+                return ((ProductRow[])(base.GetChildRows(this.Table.ChildRelations["Manufacturer_Product"])));
             }
         }
         
@@ -10745,6 +10806,16 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ProductRow ProductRow {
+                get {
+                    return ((ProductRow)(this.GetParentRow(this.Table.ParentRelations["Product_ReceiptDetail"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["Product_ReceiptDetail"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsRowVersionNull() {
                 return this.IsNull(this.tableReceiptDetail.RowVersionColumn);
             }
@@ -10867,6 +10938,21 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime DateUpdate {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableStorageCondition.DateUpdateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'DateUpdate\' in table \'StorageCondition\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableStorageCondition.DateUpdateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsDateLastModifNull() {
                 return this.IsNull(this.tableStorageCondition.DateLastModifColumn);
             }
@@ -10914,6 +11000,21 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetRowVersionNull() {
                 this[this.tableStorageCondition.RowVersionColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateUpdateNull() {
+                return this.IsNull(this.tableStorageCondition.DateUpdateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateUpdateNull() {
+                this[this.tableStorageCondition.DateUpdateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ProductRow[] GetProductRows() {
+                return ((ProductRow[])(base.GetChildRows(this.Table.ChildRelations["StorageCondition_Product"])));
             }
         }
         
@@ -11444,6 +11545,26 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ManufacturerRow ManufacturerRow {
+                get {
+                    return ((ManufacturerRow)(this.GetParentRow(this.Table.ParentRelations["Manufacturer_Product"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["Manufacturer_Product"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public StorageConditionRow StorageConditionRow {
+                get {
+                    return ((StorageConditionRow)(this.GetParentRow(this.Table.ParentRelations["StorageCondition_Product"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["StorageCondition_Product"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsNameNull() {
                 return this.IsNull(this.tableProduct.NameColumn);
             }
@@ -11751,6 +11872,11 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetSubstanceNameNull() {
                 this[this.tableProduct.SubstanceNameColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptDetailRow[] GetReceiptDetailRows() {
+                return ((ReceiptDetailRow[])(base.GetChildRows(this.Table.ChildRelations["Product_ReceiptDetail"])));
             }
         }
         
@@ -17694,12 +17820,18 @@ SELECT ID, Name, FarmGroupRef, AuthorCreate, AuthorLastModif, DateCreate, RowVer
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "dbo.StorageConditionSelectCommand";
             this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "dbo.StorageConditionSelectNewCommand";
+            this._commandCollection[1].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateUpdate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -17719,6 +17851,40 @@ SELECT ID, Name, FarmGroupRef, AuthorCreate, AuthorLastModif, DateCreate, RowVer
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual MDataSet.StorageConditionDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            MDataSet.StorageConditionDataTable dataTable = new MDataSet.StorageConditionDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillNew(MDataSet.StorageConditionDataTable dataTable, System.Nullable<System.DateTime> DateLastUpdate) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((DateLastUpdate.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual MDataSet.StorageConditionDataTable GetDataNew(System.Nullable<System.DateTime> DateLastUpdate) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((DateLastUpdate.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
             MDataSet.StorageConditionDataTable dataTable = new MDataSet.StorageConditionDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;

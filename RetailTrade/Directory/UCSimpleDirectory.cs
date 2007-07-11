@@ -58,15 +58,18 @@ namespace RetailTrade
                  fInf.panel.Controls.Add(infcontr);
 
                  if (DialogResult.OK == fInf.ShowDialog(this.ParentForm))
-                 {
+                 {   /*сохранить удаление*/
+                     (this.ParentForm as MainForm).SaveToBase(dt.Select(null, null, DataViewRowState.Deleted));
+                     /*сохранить добавления*/
+                     (this.ParentForm as MainForm).SaveToBase(dt.Select(null,null,DataViewRowState.Added));
+    
+                      /*сохранить изменения*/
+
+                     (this.ParentForm as MainForm).SaveToBaseModifed(dt.Select(null, null, DataViewRowState.ModifiedCurrent));
 
                      /*сохранить изменения*/
-
-                     /*сохранить добавления*/
-
-                     /*сохранить удаление*/
-
-
+                     
+                     dt.AcceptChanges();
 
                  }
                  else return false;
@@ -227,5 +230,29 @@ namespace RetailTrade
                    }
            }
            }
+
+        private void UCSimpleDirectory_Validated(object sender, EventArgs e)
+        {
+             if (this.SaveChange())
+
+            {        this.btEdit.Enabled = true;
+                     this.btSave.Enabled = false;
+
+                 }
+                 else
+                 {
+                     this.btEdit.Enabled = false;
+                     this.btSave.Enabled = true;
+                     this.gridView.OptionsBehavior.Editable = true;
+                 }
+
+            }
+
+        private void UCSimpleDirectory_Validating(object sender, CancelEventArgs e)
+        {
+            MessageBox.Show("UCSimpleDirectory_Validating");
+        }
+
+        }
     }
-}
+

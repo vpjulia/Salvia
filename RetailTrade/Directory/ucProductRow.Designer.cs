@@ -32,12 +32,10 @@ namespace RetailTrade
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.ceIsRecept = new DevExpress.XtraEditors.CheckEdit();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.ManufacturerlookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
-            this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.mDataSet = new RetailTrade.MDataSet();
-            this.manufacturerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btManufacturer = new System.Windows.Forms.Button();
             this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
             this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
@@ -46,31 +44,35 @@ namespace RetailTrade
             this.label5 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.ceIsHide = new DevExpress.XtraEditors.CheckEdit();
-            this.ceISNDS = new DevExpress.XtraEditors.CheckEdit();
             this.PackinglookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
-            this.packingBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.UnitlookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
-            this.unitBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.FarmGroupLevel2lookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
-            this.farmGroupLevel2BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.StorageConditionlookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
-            this.storageConditionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.SubstancelookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
-            this.substanceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btPaking = new System.Windows.Forms.Button();
             this.btUnit = new System.Windows.Forms.Button();
             this.btFarmGroupLevel2 = new System.Windows.Forms.Button();
             this.btPlace = new System.Windows.Forms.Button();
             this.btSubstance = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.ceIsOneRecept = new DevExpress.XtraEditors.CheckEdit();
+            this.ceIsHide = new DevExpress.XtraEditors.CheckEdit();
+            this.label11 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.ceISNDS = new DevExpress.XtraEditors.CheckEdit();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.mDataSet = new RetailTrade.MDataSet();
+            this.manufacturerBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.packingBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.unitBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.farmGroupLevel2BindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.storageConditionBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.substanceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.productTableAdapter = new RetailTrade.MDataSetTableAdapters.ProductTableAdapter();
             this.manufacturerTableAdapter = new RetailTrade.MDataSetTableAdapters.ManufacturerTableAdapter();
             this.packingTableAdapter = new RetailTrade.MDataSetTableAdapters.PackingTableAdapter();
@@ -78,34 +80,35 @@ namespace RetailTrade
             this.substanceTableAdapter = new RetailTrade.MDataSetTableAdapters.SubstanceTableAdapter();
             this.farmGroupLevel2TableAdapter = new RetailTrade.MDataSetTableAdapters.FarmGroupLevel2TableAdapter();
             this.unitTableAdapter = new RetailTrade.MDataSetTableAdapters.UnitTableAdapter();
-            this.ceIsOneRecept = new DevExpress.XtraEditors.CheckEdit();
-            this.ceIsRecept = new DevExpress.XtraEditors.CheckEdit();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ceIsRecept.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ManufacturerlookUpEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PackinglookUpEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UnitlookUpEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FarmGroupLevel2lookUpEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StorageConditionlookUpEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SubstancelookUpEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ceIsOneRecept.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ceIsHide.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ceISNDS.Properties)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.manufacturerBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ceIsHide.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ceISNDS.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PackinglookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.packingBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.UnitlookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unitBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FarmGroupLevel2lookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.farmGroupLevel2BindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.StorageConditionlookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.storageConditionBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SubstancelookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.substanceBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ceIsOneRecept.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ceIsRecept.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -167,10 +170,13 @@ namespace RetailTrade
             this.tableLayoutPanel1.Controls.Add(this.label11, 0, 12);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown1, 1, 12);
             this.tableLayoutPanel1.Controls.Add(this.ceISNDS, 1, 13);
+            this.tableLayoutPanel1.Controls.Add(this.label12, 2, 17);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 1, 17);
+            this.tableLayoutPanel1.Controls.Add(this.textBox1, 0, 17);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 17;
+            this.tableLayoutPanel1.RowCount = 18;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -187,9 +193,20 @@ namespace RetailTrade
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(540, 417);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // ceIsRecept
+            // 
+            this.ceIsRecept.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "IsRecept", true));
+            this.ceIsRecept.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ceIsRecept.Location = new System.Drawing.Point(3, 288);
+            this.ceIsRecept.Name = "ceIsRecept";
+            this.ceIsRecept.Properties.Caption = "по рецепту";
+            this.ceIsRecept.Size = new System.Drawing.Size(207, 21);
+            this.ceIsRecept.TabIndex = 32;
             // 
             // label1
             // 
@@ -231,21 +248,6 @@ namespace RetailTrade
             this.ManufacturerlookUpEdit.Properties.ValueMember = "ID";
             this.ManufacturerlookUpEdit.Size = new System.Drawing.Size(264, 22);
             this.ManufacturerlookUpEdit.TabIndex = 2;
-            // 
-            // productBindingSource
-            // 
-            this.productBindingSource.DataMember = "Product";
-            this.productBindingSource.DataSource = this.mDataSet;
-            // 
-            // mDataSet
-            // 
-            this.mDataSet.DataSetName = "MDataSet";
-            this.mDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // manufacturerBindingSource
-            // 
-            this.manufacturerBindingSource.DataMember = "Manufacturer";
-            this.manufacturerBindingSource.DataSource = this.mDataSet;
             // 
             // btManufacturer
             // 
@@ -332,27 +334,6 @@ namespace RetailTrade
             this.label10.TabIndex = 14;
             this.label10.Text = "Действующее вещество";
             // 
-            // ceIsHide
-            // 
-            this.ceIsHide.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "IsHide", true));
-            this.ceIsHide.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ceIsHide.Location = new System.Drawing.Point(216, 288);
-            this.ceIsHide.Name = "ceIsHide";
-            this.ceIsHide.Properties.Caption = "скрывать";
-            this.ceIsHide.Size = new System.Drawing.Size(264, 21);
-            this.ceIsHide.TabIndex = 10;
-            // 
-            // ceISNDS
-            // 
-            this.ceISNDS.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "IsNDS", true));
-            this.ceISNDS.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ceISNDS.Location = new System.Drawing.Point(216, 261);
-            this.ceISNDS.Name = "ceISNDS";
-            this.ceISNDS.Properties.Caption = "НДС";
-            this.ceISNDS.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.ceISNDS.Size = new System.Drawing.Size(264, 21);
-            this.ceISNDS.TabIndex = 9;
-            // 
             // PackinglookUpEdit
             // 
             this.PackinglookUpEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "PackingRef", true));
@@ -369,11 +350,6 @@ namespace RetailTrade
             this.PackinglookUpEdit.Size = new System.Drawing.Size(264, 22);
             this.PackinglookUpEdit.TabIndex = 3;
             this.PackinglookUpEdit.Tag = "Packing";
-            // 
-            // packingBindingSource
-            // 
-            this.packingBindingSource.DataMember = "Packing";
-            this.packingBindingSource.DataSource = this.mDataSet;
             // 
             // UnitlookUpEdit
             // 
@@ -394,11 +370,6 @@ namespace RetailTrade
             this.UnitlookUpEdit.Size = new System.Drawing.Size(264, 22);
             this.UnitlookUpEdit.TabIndex = 4;
             // 
-            // unitBindingSource
-            // 
-            this.unitBindingSource.DataMember = "Unit";
-            this.unitBindingSource.DataSource = this.mDataSet;
-            // 
             // FarmGroupLevel2lookUpEdit
             // 
             this.FarmGroupLevel2lookUpEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "FarmGrouplevel2Ref", true));
@@ -418,11 +389,6 @@ namespace RetailTrade
             this.FarmGroupLevel2lookUpEdit.Size = new System.Drawing.Size(264, 22);
             this.FarmGroupLevel2lookUpEdit.TabIndex = 5;
             // 
-            // farmGroupLevel2BindingSource
-            // 
-            this.farmGroupLevel2BindingSource.DataMember = "FarmGroupLevel2";
-            this.farmGroupLevel2BindingSource.DataSource = this.mDataSet;
-            // 
             // StorageConditionlookUpEdit
             // 
             this.StorageConditionlookUpEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "StorageConditionRef", true));
@@ -438,11 +404,6 @@ namespace RetailTrade
             this.StorageConditionlookUpEdit.Properties.ValueMember = "ID";
             this.StorageConditionlookUpEdit.Size = new System.Drawing.Size(264, 22);
             this.StorageConditionlookUpEdit.TabIndex = 6;
-            // 
-            // storageConditionBindingSource
-            // 
-            this.storageConditionBindingSource.DataMember = "StorageCondition";
-            this.storageConditionBindingSource.DataSource = this.mDataSet;
             // 
             // SubstancelookUpEdit
             // 
@@ -462,11 +423,6 @@ namespace RetailTrade
             this.SubstancelookUpEdit.Properties.ValueMember = "ID";
             this.SubstancelookUpEdit.Size = new System.Drawing.Size(264, 22);
             this.SubstancelookUpEdit.TabIndex = 7;
-            // 
-            // substanceBindingSource
-            // 
-            this.substanceBindingSource.DataMember = "Substance";
-            this.substanceBindingSource.DataSource = this.mDataSet;
             // 
             // btPaking
             // 
@@ -533,6 +489,35 @@ namespace RetailTrade
             this.btSubstance.UseVisualStyleBackColor = true;
             this.btSubstance.Click += new System.EventHandler(this.btSimpleDirectory_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 56);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(110, 17);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Производитель";
+            // 
+            // ceIsOneRecept
+            // 
+            this.ceIsOneRecept.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "IsOneRecept", true));
+            this.ceIsOneRecept.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ceIsOneRecept.Location = new System.Drawing.Point(3, 261);
+            this.ceIsOneRecept.Name = "ceIsOneRecept";
+            this.ceIsOneRecept.Properties.Caption = "один на рецепте";
+            this.ceIsOneRecept.Size = new System.Drawing.Size(207, 21);
+            this.ceIsOneRecept.TabIndex = 31;
+            // 
+            // ceIsHide
+            // 
+            this.ceIsHide.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "IsHide", true));
+            this.ceIsHide.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ceIsHide.Location = new System.Drawing.Point(216, 288);
+            this.ceIsHide.Name = "ceIsHide";
+            this.ceIsHide.Properties.Caption = "скрывать";
+            this.ceIsHide.Size = new System.Drawing.Size(264, 21);
+            this.ceIsHide.TabIndex = 10;
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -543,15 +528,6 @@ namespace RetailTrade
             this.label11.TabIndex = 30;
             this.label11.Text = "Делить на:";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 56);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(110, 17);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Производитель";
-            // 
             // numericUpDown1
             // 
             this.numericUpDown1.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.productBindingSource, "MinDivisor", true));
@@ -559,6 +535,17 @@ namespace RetailTrade
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(45, 22);
             this.numericUpDown1.TabIndex = 8;
+            // 
+            // ceISNDS
+            // 
+            this.ceISNDS.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "IsNDS", true));
+            this.ceISNDS.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ceISNDS.Location = new System.Drawing.Point(216, 261);
+            this.ceISNDS.Name = "ceISNDS";
+            this.ceISNDS.Properties.Caption = "НДС";
+            this.ceISNDS.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.ceISNDS.Size = new System.Drawing.Size(264, 21);
+            this.ceISNDS.TabIndex = 9;
             // 
             // tabPage2
             // 
@@ -595,6 +582,46 @@ namespace RetailTrade
             this.errorProvider1.ContainerControl = this;
             this.errorProvider1.DataSource = this.productBindingSource;
             // 
+            // productBindingSource
+            // 
+            this.productBindingSource.DataMember = "Product";
+            this.productBindingSource.DataSource = this.mDataSet;
+            // 
+            // mDataSet
+            // 
+            this.mDataSet.DataSetName = "MDataSet";
+            this.mDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // manufacturerBindingSource
+            // 
+            this.manufacturerBindingSource.DataMember = "Manufacturer";
+            this.manufacturerBindingSource.DataSource = this.mDataSet;
+            // 
+            // packingBindingSource
+            // 
+            this.packingBindingSource.DataMember = "Packing";
+            this.packingBindingSource.DataSource = this.mDataSet;
+            // 
+            // unitBindingSource
+            // 
+            this.unitBindingSource.DataMember = "Unit";
+            this.unitBindingSource.DataSource = this.mDataSet;
+            // 
+            // farmGroupLevel2BindingSource
+            // 
+            this.farmGroupLevel2BindingSource.DataMember = "FarmGroupLevel2";
+            this.farmGroupLevel2BindingSource.DataSource = this.mDataSet;
+            // 
+            // storageConditionBindingSource
+            // 
+            this.storageConditionBindingSource.DataMember = "StorageCondition";
+            this.storageConditionBindingSource.DataSource = this.mDataSet;
+            // 
+            // substanceBindingSource
+            // 
+            this.substanceBindingSource.DataMember = "Substance";
+            this.substanceBindingSource.DataSource = this.mDataSet;
+            // 
             // productTableAdapter
             // 
             this.productTableAdapter.ClearBeforeFill = true;
@@ -623,25 +650,33 @@ namespace RetailTrade
             // 
             this.unitTableAdapter.ClearBeforeFill = true;
             // 
-            // ceIsOneRecept
+            // label3
             // 
-            this.ceIsOneRecept.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "IsOneRecept", true));
-            this.ceIsOneRecept.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ceIsOneRecept.Location = new System.Drawing.Point(3, 261);
-            this.ceIsOneRecept.Name = "ceIsOneRecept";
-            this.ceIsOneRecept.Properties.Caption = "один на рецепте";
-            this.ceIsOneRecept.Size = new System.Drawing.Size(207, 21);
-            this.ceIsOneRecept.TabIndex = 31;
+            this.label3.AutoSize = true;
+            this.label3.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "OldName", true));
+            this.label3.Location = new System.Drawing.Point(216, 330);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(46, 17);
+            this.label3.TabIndex = 33;
+            this.label3.Text = "label3";
             // 
-            // ceIsRecept
+            // label12
             // 
-            this.ceIsRecept.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "IsRecept", true));
-            this.ceIsRecept.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ceIsRecept.Location = new System.Drawing.Point(3, 288);
-            this.ceIsRecept.Name = "ceIsRecept";
-            this.ceIsRecept.Properties.Caption = "по рецепту";
-            this.ceIsRecept.Size = new System.Drawing.Size(207, 21);
-            this.ceIsRecept.TabIndex = 32;
+            this.label12.AutoSize = true;
+            this.label12.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "OldKod", true));
+            this.label12.Location = new System.Drawing.Point(486, 330);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(46, 34);
+            this.label12.TabIndex = 34;
+            this.label12.Text = "label12";
+            // 
+            // textBox1
+            // 
+            this.textBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "OldKol", true));
+            this.textBox1.Location = new System.Drawing.Point(3, 333);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 22);
+            this.textBox1.TabIndex = 35;
             // 
             // ucProductRow
             // 
@@ -658,30 +693,30 @@ namespace RetailTrade
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ceIsRecept.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ManufacturerlookUpEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.manufacturerBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ceIsHide.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ceISNDS.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PackinglookUpEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.packingBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UnitlookUpEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unitBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FarmGroupLevel2lookUpEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.farmGroupLevel2BindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.StorageConditionlookUpEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.storageConditionBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SubstancelookUpEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.substanceBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ceIsOneRecept.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ceIsHide.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ceISNDS.Properties)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ceIsOneRecept.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ceIsRecept.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.manufacturerBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.packingBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unitBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.farmGroupLevel2BindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.storageConditionBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.substanceBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -739,5 +774,8 @@ namespace RetailTrade
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private DevExpress.XtraEditors.CheckEdit ceIsRecept;
         private DevExpress.XtraEditors.CheckEdit ceIsOneRecept;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

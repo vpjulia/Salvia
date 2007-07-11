@@ -11,6 +11,7 @@ using Microsoft.Reporting.WinForms;
 
 
 using System.Threading;
+using System.Data.SqlClient;
 
 
 
@@ -97,7 +98,7 @@ namespace RetailTrade
           //  System.Configuration.AppSettingsReader app = new System.Configuration.AppSettingsReader();
 
          //   MessageBox.Show(app.GetValue("RetailTradeConnectionString", System.Type.GetType("System.String")).ToString());
-            
+          
         
         }
       
@@ -184,12 +185,102 @@ namespace RetailTrade
             Type tp = this.components.Components[NameTable+"TableAdapter"].GetType();
             Object[] args = new Object[1];
             args[0]=this.mDataSet.Tables[NameTable];
-            tp.GetMethod("Fill").Invoke(this.components.Components[NameTable+"TableAdapter"],args);
             foreach (DataRelation relation in this.mDataSet.Tables[NameTable].ParentRelations)
                     FillTable(relation.ParentTable.ToString());
+            tp.GetMethod("Fill").Invoke(this.components.Components[NameTable+"TableAdapter"],args);
+            
        }
 
-        public bool SaveToBase(MDataSet.ReceiptMasterRow sourceRow)
+        /******************Модификация справочников ******************/
+
+
+       public bool SaveToBaseModifed(DataRow[] dataRows)
+       {
+      
+           if (dataRows.Length == 0) return false;
+              Type tp = this.components.Components[dataRows[0].Table.TableName + "TableAdapter"].GetType();
+               Object[] _args = new Object[1];
+               _args[0] = dataRows;
+               Type[] types = new Type[1];
+               types[0] = dataRows.GetType();
+
+                //**Новые данные**//     
+                 Object[] _argsFill = new Object[2];
+                   _argsFill[0] = dataRows[0].Table.Clone();
+                   _argsFill[1] = dataRows[0]["DateUpdate"];
+                   tp.GetMethod("FillNew").Invoke(this.components.Components[dataRows[0].Table.TableName + "TableAdapter"], _argsFill);
+   
+           try
+               {
+   
+                   tp.GetMethod("Update", types).Invoke(this.components.Components[dataRows[0].Table.TableName + "TableAdapter"], _args);
+               }
+               catch (SqlException SqlErr)
+               {
+                   foreach (DataRow dataRow in dataRows)
+                       if (dataRow.HasErrors)
+                           MessageBox.Show(SqlErr.Message);
+               }
+               catch (Exception err)
+               {   
+                   
+                   FormDialog formDialog = new FormDialog();
+                   formDialog.btCancel.Enabled = false;
+                   Information ctlInform = new Information();
+                   formDialog.panel.Controls.Add(ctlInform);
+
+                   foreach (DataRow dataRow in dataRows)
+                
+                       if (dataRow.HasErrors)
+                       {   ctlInform.labelHeader.Text="Запись была изменена пользователем: ";
+                           ctlInform.labelAsk.Text=(_argsFill[0] as DataTable).Rows.Find(dataRow["Id"])["AuthorLastModif"].ToString();
+
+                           if (DialogResult.OK == formDialog.ShowDialog(this.ParentForm))
+                  
+                               dataRow.RejectChanges();
+                        }
+              }
+           finally
+           { 
+               dataRows[0].Table.Merge(_argsFill[0] as DataTable,false);        
+           }
+           return true;
+       }
+
+        public bool SaveToBase(DataRow[] dataRows)
+        {
+            if (dataRows.Length == 0) return false;
+            Type tp = this.components.Components[dataRows[0].Table.TableName + "TableAdapter"].GetType();
+            Object[] args = new Object[1];
+            args[0] = dataRows;
+            Type[] types = new Type[1];
+            types[0] = dataRows.GetType();
+            try
+            {
+
+                /*НЕ РАБОТАЕТ!!!!**/
+                tp.GetMethod("Update", types).Invoke(this.components.Components[dataRows[0].Table.TableName + "TableAdapter"], args);
+
+
+            }
+            catch
+            {
+
+                return false;
+
+            }
+            finally
+            {
+                //  this.mDataSet.StorageCondition.Merge(dataTable,false);
+                /*  args[0] =dataTable;
+
+                  tp.GetMethod("Fill").Invoke(this.components.Components[dataTable.TableName + "TableAdapter"], args);
+      
+                 */
+            }
+            return true;
+        }
+       public bool SaveToBase(MDataSet.ReceiptMasterRow sourceRow)
         {
           try
             {
