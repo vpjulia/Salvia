@@ -665,7 +665,7 @@ namespace RetailTrade {
             this.Namespace = "http://tempuri.org/MDataSet.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableCountry = new CountryDataTable();
+            this.tableCountry = new CountryDataTable(false);
             base.Tables.Add(this.tableCountry);
             this.tableUnit = new UnitDataTable();
             base.Tables.Add(this.tableUnit);
@@ -910,6 +910,7 @@ namespace RetailTrade {
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitExpressions() {
+            this.Country.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.StorageCondition.DateUpdateColumn.Expression = "Max(DateLastModif)";
         }
         
@@ -968,11 +969,23 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnRowVersion;
             
+            private System.Data.DataColumn columnDateLastModif;
+            
+            private System.Data.DataColumn columnDateUpdate;
+            
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public CountryDataTable() {
+            public CountryDataTable() : 
+                    this(false) {
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal CountryDataTable(bool initExpressions) {
                 this.TableName = "Country";
                 this.BeginInit();
                 this.InitClass();
+                if ((initExpressions == true)) {
+                    this.InitExpressions();
+                }
                 this.EndInit();
             }
             
@@ -1041,6 +1054,20 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateLastModifColumn {
+                get {
+                    return this.columnDateLastModif;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateUpdateColumn {
+                get {
+                    return this.columnDateUpdate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1069,7 +1096,7 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public CountryRow AddCountryRow(string Name, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, byte[] RowVersion) {
+            public CountryRow AddCountryRow(string Name, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, byte[] RowVersion, System.DateTime DateLastModif, System.DateTime DateUpdate) {
                 CountryRow rowCountryRow = ((CountryRow)(this.NewRow()));
                 rowCountryRow.ItemArray = new object[] {
                         null,
@@ -1077,7 +1104,9 @@ namespace RetailTrade {
                         AuthorCreate,
                         AuthorLastModif,
                         DateCreate,
-                        RowVersion};
+                        RowVersion,
+                        DateLastModif,
+                        DateUpdate};
                 this.Rows.Add(rowCountryRow);
                 return rowCountryRow;
             }
@@ -1113,6 +1142,8 @@ namespace RetailTrade {
                 this.columnAuthorLastModif = base.Columns["AuthorLastModif"];
                 this.columnDateCreate = base.Columns["DateCreate"];
                 this.columnRowVersion = base.Columns["RowVersion"];
+                this.columnDateLastModif = base.Columns["DateLastModif"];
+                this.columnDateUpdate = base.Columns["DateUpdate"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1129,20 +1160,24 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnDateCreate);
                 this.columnRowVersion = new System.Data.DataColumn("RowVersion", typeof(byte[]), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRowVersion);
+                this.columnDateLastModif = new System.Data.DataColumn("DateLastModif", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateLastModif);
+                this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateUpdate);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
+                this.columnID.AutoIncrementSeed = -1;
+                this.columnID.AutoIncrementStep = -1;
                 this.columnID.AllowDBNull = false;
                 this.columnID.ReadOnly = true;
                 this.columnID.Unique = true;
                 this.columnName.AllowDBNull = false;
                 this.columnName.MaxLength = 50;
-                this.columnAuthorCreate.AllowDBNull = false;
                 this.columnAuthorCreate.MaxLength = 50;
-                this.columnAuthorLastModif.AllowDBNull = false;
                 this.columnAuthorLastModif.MaxLength = 50;
-                this.columnDateCreate.AllowDBNull = false;
                 this.columnRowVersion.ReadOnly = true;
+                this.columnDateUpdate.ReadOnly = true;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1158,6 +1193,11 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Type GetRowType() {
                 return typeof(CountryRow);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitExpressions() {
+                this.DateUpdateColumn.Expression = "Max(DateLastModif)";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7931,7 +7971,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string AuthorCreate {
                 get {
-                    return ((string)(this[this.tableCountry.AuthorCreateColumn]));
+                    try {
+                        return ((string)(this[this.tableCountry.AuthorCreateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'AuthorCreate\' in table \'Country\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableCountry.AuthorCreateColumn] = value;
@@ -7941,7 +7986,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string AuthorLastModif {
                 get {
-                    return ((string)(this[this.tableCountry.AuthorLastModifColumn]));
+                    try {
+                        return ((string)(this[this.tableCountry.AuthorLastModifColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'AuthorLastModif\' in table \'Country\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableCountry.AuthorLastModifColumn] = value;
@@ -7951,7 +8001,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.DateTime DateCreate {
                 get {
-                    return ((System.DateTime)(this[this.tableCountry.DateCreateColumn]));
+                    try {
+                        return ((System.DateTime)(this[this.tableCountry.DateCreateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'DateCreate\' in table \'Country\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableCountry.DateCreateColumn] = value;
@@ -7974,6 +8029,66 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime DateLastModif {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableCountry.DateLastModifColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'DateLastModif\' in table \'Country\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCountry.DateLastModifColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime DateUpdate {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableCountry.DateUpdateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'DateUpdate\' in table \'Country\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCountry.DateUpdateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsAuthorCreateNull() {
+                return this.IsNull(this.tableCountry.AuthorCreateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetAuthorCreateNull() {
+                this[this.tableCountry.AuthorCreateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsAuthorLastModifNull() {
+                return this.IsNull(this.tableCountry.AuthorLastModifColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetAuthorLastModifNull() {
+                this[this.tableCountry.AuthorLastModifColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateCreateNull() {
+                return this.IsNull(this.tableCountry.DateCreateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateCreateNull() {
+                this[this.tableCountry.DateCreateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsRowVersionNull() {
                 return this.IsNull(this.tableCountry.RowVersionColumn);
             }
@@ -7981,6 +8096,26 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetRowVersionNull() {
                 this[this.tableCountry.RowVersionColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateLastModifNull() {
+                return this.IsNull(this.tableCountry.DateLastModifColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateLastModifNull() {
+                this[this.tableCountry.DateLastModifColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateUpdateNull() {
+                return this.IsNull(this.tableCountry.DateUpdateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateUpdateNull() {
+                this[this.tableCountry.DateUpdateColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12507,35 +12642,30 @@ namespace RetailTrade.MDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("AuthorLastModif", "AuthorLastModif");
             tableMapping.ColumnMappings.Add("DateCreate", "DateCreate");
             tableMapping.ColumnMappings.Add("RowVersion", "RowVersion");
+            tableMapping.ColumnMappings.Add("DateLastModif", "DateLastModif");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Country] WHERE (([ID] = @Original_ID) AND ([RowVersion] = @Ori" +
-                "ginal_RowVersion))";
-            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 0, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.CommandText = "dbo.CountryDeleteCommand";
+            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Country] ([Name], [AuthorCreate], [AuthorLastModif], [DateCreate]) VALUES (@Name, @AuthorCreate, @AuthorLastModif, @DateCreate);
-SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion FROM Country WHERE (ID = SCOPE_IDENTITY())";
-            this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.CommandText = "dbo.CountryInsertCommand";
+            this._adapter.InsertCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Country] SET [Name] = @Name, [AuthorCreate] = @AuthorCreate, [AuthorLastModif] = @AuthorLastModif, [DateCreate] = @DateCreate WHERE (([ID] = @Original_ID) AND ([RowVersion] = @Original_RowVersion));
-SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion FROM Country WHERE (ID = @ID)";
-            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 0, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.CommandText = "dbo.CountryUpdateCommand";
+            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12546,12 +12676,18 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion FROM Coun
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion FROM dbo.C" +
-                "ountry";
-            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[0].CommandText = "dbo.CountrySelectCommand";
+            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "dbo.CountrySelectNewCommand";
+            this._commandCollection[1].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12571,6 +12707,40 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion FROM Coun
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual MDataSet.CountryDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            MDataSet.CountryDataTable dataTable = new MDataSet.CountryDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillNew(MDataSet.CountryDataTable dataTable, System.Nullable<System.DateTime> DateLastUpdate) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((DateLastUpdate.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual MDataSet.CountryDataTable GetDataNew(System.Nullable<System.DateTime> DateLastUpdate) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((DateLastUpdate.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
             MDataSet.CountryDataTable dataTable = new MDataSet.CountryDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -12604,13 +12774,18 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion FROM Coun
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, byte[] Original_RowVersion) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
-            if ((Original_RowVersion == null)) {
-                throw new System.ArgumentNullException("Original_RowVersion");
+        public virtual int Delete(System.Nullable<int> Original_ID, byte[] Original_RowVersion) {
+            if ((Original_ID.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_ID.Value));
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((byte[])(Original_RowVersion));
+                this.Adapter.DeleteCommand.Parameters[1].Value = System.DBNull.Value;
+            }
+            if ((Original_RowVersion == null)) {
+                this.Adapter.DeleteCommand.Parameters[2].Value = System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((byte[])(Original_RowVersion));
             }
             System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & System.Data.ConnectionState.Open) 
@@ -12631,26 +12806,13 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion FROM Coun
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Name, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate) {
+        public virtual int Insert(string Name) {
             if ((Name == null)) {
-                throw new System.ArgumentNullException("Name");
+                this.Adapter.InsertCommand.Parameters[1].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(Name));
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(Name));
             }
-            if ((AuthorCreate == null)) {
-                throw new System.ArgumentNullException("AuthorCreate");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(AuthorCreate));
-            }
-            if ((AuthorLastModif == null)) {
-                throw new System.ArgumentNullException("AuthorLastModif");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(AuthorLastModif));
-            }
-            this.Adapter.InsertCommand.Parameters[3].Value = ((System.DateTime)(DateCreate));
             System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
                         != System.Data.ConnectionState.Open)) {
@@ -12670,34 +12832,31 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion FROM Coun
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Name, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, int Original_ID, byte[] Original_RowVersion, int ID) {
+        public virtual int Update(string Name, System.Nullable<int> Original_ID, byte[] Original_RowVersion, System.Nullable<int> ID) {
             if ((Name == null)) {
-                throw new System.ArgumentNullException("Name");
+                this.Adapter.UpdateCommand.Parameters[1].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(Name));
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(Name));
             }
-            if ((AuthorCreate == null)) {
-                throw new System.ArgumentNullException("AuthorCreate");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(AuthorCreate));
-            }
-            if ((AuthorLastModif == null)) {
-                throw new System.ArgumentNullException("AuthorLastModif");
+            if ((Original_ID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_ID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(AuthorLastModif));
+                this.Adapter.UpdateCommand.Parameters[2].Value = System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((System.DateTime)(DateCreate));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_ID));
             if ((Original_RowVersion == null)) {
-                throw new System.ArgumentNullException("Original_RowVersion");
+                this.Adapter.UpdateCommand.Parameters[3].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((byte[])(Original_RowVersion));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((byte[])(Original_RowVersion));
             }
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(ID));
+            if ((ID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(ID.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = System.DBNull.Value;
+            }
             System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
                         != System.Data.ConnectionState.Open)) {

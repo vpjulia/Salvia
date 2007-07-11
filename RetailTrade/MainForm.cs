@@ -194,7 +194,7 @@ namespace RetailTrade
         /******************Модификация справочников ******************/
 
 
-       public bool SaveToBaseModifed(DataRow[] dataRows)
+       public bool SaveToBaseDirectoryModifed(DataRow[] dataRows)
        {
       
            if (dataRows.Length == 0) return false;
@@ -232,8 +232,17 @@ namespace RetailTrade
                    foreach (DataRow dataRow in dataRows)
                 
                        if (dataRow.HasErrors)
-                       {   ctlInform.labelHeader.Text="Запись была изменена пользователем: ";
-                           ctlInform.labelAsk.Text=(_argsFill[0] as DataTable).Rows.Find(dataRow["Id"])["AuthorLastModif"].ToString();
+                       {
+                           if ((_argsFill[0] as DataTable).Rows.Find(dataRow["Id"]) != null)
+                           {
+                               ctlInform.labelHeader.Text = "Запись была изменена пользователем: ";
+                               ctlInform.labelAsk.Text = (_argsFill[0] as DataTable).Rows.Find(dataRow["Id"])["AuthorLastModif"].ToString();
+                           }
+                           else
+                           {
+                               ctlInform.labelHeader.Text = "Ошибка совмесного доступа";
+                               ctlInform.labelAsk.Text = "Запись не найдена! Обновление не возможно ";
+                           }
 
                            if (DialogResult.OK == formDialog.ShowDialog(this.ParentForm))
                   
@@ -241,13 +250,15 @@ namespace RetailTrade
                         }
               }
            finally
-           { 
-               dataRows[0].Table.Merge(_argsFill[0] as DataTable,false);        
+              {   dataRows[0].Table.Merge(_argsFill[0] as DataTable,false);   
+                  tp.GetMethod("FillNew").Invoke(this.components.Components[dataRows[0].Table.TableName + "TableAdapter"], _argsFill);
+                  dataRows[0].Table.Merge(_argsFill[0] as DataTable, false); 
+                  
            }
            return true;
        }
 
-        public bool SaveToBase(DataRow[] dataRows)
+        public bool SaveToBaseDirectoryDeleted(DataRow[] dataRows)
         {
             if (dataRows.Length == 0) return false;
             Type tp = this.components.Components[dataRows[0].Table.TableName + "TableAdapter"].GetType();
@@ -257,27 +268,20 @@ namespace RetailTrade
             types[0] = dataRows.GetType();
             try
             {
-
-                /*НЕ РАБОТАЕТ!!!!**/
                 tp.GetMethod("Update", types).Invoke(this.components.Components[dataRows[0].Table.TableName + "TableAdapter"], args);
-
-
             }
             catch
             {
-
                 return false;
-
             }
             finally
             {
-                //  this.mDataSet.StorageCondition.Merge(dataTable,false);
-                /*  args[0] =dataTable;
-
-                  tp.GetMethod("Fill").Invoke(this.components.Components[dataTable.TableName + "TableAdapter"], args);
-      
-                 */
-            }
+                Object[] _argsFill = new Object[2];
+                _argsFill[0] = dataRows[0].Table.Clone();
+                _argsFill[1] = DateTime.Now;
+                tp.GetMethod("FillNew").Invoke(this.components.Components[dataRows[0].Table.TableName + "TableAdapter"], _argsFill);
+                dataRows[0].Table.Merge(_argsFill[0] as DataTable, false); 
+           }
             return true;
         }
        public bool SaveToBase(MDataSet.ReceiptMasterRow sourceRow)

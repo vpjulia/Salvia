@@ -59,16 +59,14 @@ namespace RetailTrade
 
                  if (DialogResult.OK == fInf.ShowDialog(this.ParentForm))
                  {   /*сохранить удаление*/
-                     (this.ParentForm as MainForm).SaveToBase(dt.Select(null, null, DataViewRowState.Deleted));
+                     (this.ParentForm as MainForm).SaveToBaseDirectoryDeleted(dt.Select(null, null, DataViewRowState.Deleted));
                      /*сохранить добавления*/
-                     (this.ParentForm as MainForm).SaveToBase(dt.Select(null,null,DataViewRowState.Added));
+                     (this.ParentForm as MainForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.Added));
     
                       /*сохранить изменения*/
 
-                     (this.ParentForm as MainForm).SaveToBaseModifed(dt.Select(null, null, DataViewRowState.ModifiedCurrent));
-
-                     /*сохранить изменения*/
-                     
+                     (this.ParentForm as MainForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.ModifiedCurrent));
+                                                        
                      dt.AcceptChanges();
 
                  }
@@ -152,14 +150,6 @@ namespace RetailTrade
         {
             this.grid.EmbeddedNavigator.Buttons.Append.DoClick();
         
-        }
-
-        private void toolStripButton2_Click(object sender, EventArgs e)
-        {
-            this.grid.Focus();
-            this.gridView.FocusedColumn = this.gridView.Columns[1];
-            this.gridView.FocusedRowHandle = 0; 
-          
         }
 
         private void grid_DoubleClick(object sender, EventArgs e)
@@ -251,6 +241,16 @@ namespace RetailTrade
         private void UCSimpleDirectory_Validating(object sender, CancelEventArgs e)
         {
             MessageBox.Show("UCSimpleDirectory_Validating");
+        }
+
+        private void btRefresh_Click(object sender, EventArgs e)
+        {
+            (this.ParentForm as MainForm).FillTable((this.bindingSource.DataSource as DataTable).TableName);
+        }
+
+        private void btGridField_Click(object sender, EventArgs e)
+        {
+            this.gridView.ColumnsCustomization();
         }
 
         }
