@@ -42,6 +42,7 @@ namespace RetailTrade
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
+            this.btViewDict = new System.Windows.Forms.ToolStripButton();
             this.grid = new DevExpress.XtraGrid.GridControl();
             this.gridView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -55,7 +56,6 @@ namespace RetailTrade
             this.btDel = new System.Windows.Forms.ToolStripButton();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btClose = new System.Windows.Forms.ToolStripButton();
-            this.btViewDict = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
@@ -172,6 +172,15 @@ namespace RetailTrade
             this.btRefresh.Size = new System.Drawing.Size(95, 22);
             this.btRefresh.Text = "Обновить";
             // 
+            // btViewDict
+            // 
+            this.btViewDict.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btViewDict.Image = ((System.Drawing.Image)(resources.GetObject("btViewDict.Image")));
+            this.btViewDict.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btViewDict.Name = "btViewDict";
+            this.btViewDict.Size = new System.Drawing.Size(145, 22);
+            this.btViewDict.Text = "Добавить группу";
+            // 
             // grid
             // 
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -194,6 +203,7 @@ namespace RetailTrade
             this.colGroupRef});
             this.gridView.GridControl = this.grid;
             this.gridView.Name = "gridView";
+            this.gridView.OptionsBehavior.Editable = false;
             this.gridView.InvalidRowException += new DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventHandler(this.gridView_InvalidRowException);
             // 
             // colID
@@ -284,6 +294,7 @@ namespace RetailTrade
             // 
             // btSave
             // 
+            this.btSave.Enabled = false;
             this.btSave.Image = ((System.Drawing.Image)(resources.GetObject("btSave.Image")));
             this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSave.Name = "btSave";
@@ -301,15 +312,6 @@ namespace RetailTrade
             this.btClose.Size = new System.Drawing.Size(23, 22);
             this.btClose.Text = "X";
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
-            // 
-            // btViewDict
-            // 
-            this.btViewDict.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btViewDict.Image = ((System.Drawing.Image)(resources.GetObject("btViewDict.Image")));
-            this.btViewDict.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btViewDict.Name = "btViewDict";
-            this.btViewDict.Size = new System.Drawing.Size(145, 22);
-            this.btViewDict.Text = "Добавить группу";
             // 
             // UcGroupDirectory
             // 

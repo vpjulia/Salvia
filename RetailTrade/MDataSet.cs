@@ -3,6 +3,14 @@
 
     partial class MDataSet
     {
+        partial class PackingDataTable
+        {
+        }
+    
+        partial class CountryDataTable
+        {
+        }
+    
         partial class StorageConditionDataTable
         {
         }
