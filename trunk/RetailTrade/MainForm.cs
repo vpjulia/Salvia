@@ -207,7 +207,10 @@ namespace RetailTrade
                 //**Новые данные**//     
                  Object[] _argsFill = new Object[2];
                    _argsFill[0] = dataRows[0].Table.Clone();
-                   _argsFill[1] = dataRows[0]["DateUpdate"];
+                   if (  dataRows[0]["DateUpdate"]!=DBNull.Value)     
+                    _argsFill[1] = dataRows[0]["DateUpdate"];
+                  else
+                    _argsFill[1] = DateTime.Now; 
                    tp.GetMethod("FillNew").Invoke(this.components.Components[dataRows[0].Table.TableName + "TableAdapter"], _argsFill);
    
            try
@@ -250,7 +253,8 @@ namespace RetailTrade
                         }
               }
            finally
-              {   dataRows[0].Table.Merge(_argsFill[0] as DataTable,false);   
+              {  
+                  dataRows[0].Table.Merge(_argsFill[0] as DataTable,true);   
                   tp.GetMethod("FillNew").Invoke(this.components.Components[dataRows[0].Table.TableName + "TableAdapter"], _argsFill);
                   dataRows[0].Table.Merge(_argsFill[0] as DataTable, false); 
                   
@@ -276,12 +280,14 @@ namespace RetailTrade
             }
             finally
             {
-                Object[] _argsFill = new Object[2];
-                _argsFill[0] = dataRows[0].Table.Clone();
-                _argsFill[1] = DateTime.Now;
-                tp.GetMethod("FillNew").Invoke(this.components.Components[dataRows[0].Table.TableName + "TableAdapter"], _argsFill);
-                dataRows[0].Table.Merge(_argsFill[0] as DataTable, false); 
-           }
+               /*
+                    Object[] _argsFill = new Object[2];
+                    _argsFill[0] = dataRows[0].Table.Clone();
+                    _argsFill[1] = DateTime.Now;
+                    tp.GetMethod("FillNew").Invoke(this.components.Components[dataRows[0].Table.TableName + "TableAdapter"], _argsFill);
+                    dataRows[0].Table.Merge(_argsFill[0] as DataTable, false);
+                */
+            }
             return true;
         }
        public bool SaveToBase(MDataSet.ReceiptMasterRow sourceRow)
@@ -308,9 +314,6 @@ namespace RetailTrade
             } 
             return true;        
         }
-
-
-
 
         private bool FindOpenedTabs(String TagControl)
         {

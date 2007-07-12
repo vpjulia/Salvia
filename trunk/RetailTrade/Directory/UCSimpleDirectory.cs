@@ -58,15 +58,19 @@ namespace RetailTrade
                  fInf.panel.Controls.Add(infcontr);
 
                  if (DialogResult.OK == fInf.ShowDialog(this.ParentForm))
-                 {   /*сохранить удаление*/
+                 {  /*сохранить удаление*/
                      (this.ParentForm as MainForm).SaveToBaseDirectoryDeleted(dt.Select(null, null, DataViewRowState.Deleted));
-                     /*сохранить добавления*/
+                  
+                     /*сохранить изменения*/ 
+                     
+                     (this.ParentForm as MainForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.ModifiedCurrent));
+                      
+                       /*сохранить добавления*/
                      (this.ParentForm as MainForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.Added));
     
-                      /*сохранить изменения*/
+                       
 
-                     (this.ParentForm as MainForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.ModifiedCurrent));
-                                                        
+                                                      
                      dt.AcceptChanges();
 
                  }
