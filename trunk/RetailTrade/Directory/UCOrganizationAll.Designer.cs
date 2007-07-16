@@ -110,14 +110,17 @@ namespace RetailTrade
             this.btDel.Name = "btDel";
             this.btDel.Size = new System.Drawing.Size(85, 22);
             this.btDel.Text = "Удалить";
+            this.btDel.Click += new System.EventHandler(this.btDel_Click);
             // 
             // btSave
             // 
+            this.btSave.Enabled = false;
             this.btSave.Image = ((System.Drawing.Image)(resources.GetObject("btSave.Image")));
             this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(101, 22);
             this.btSave.Text = "Сохранить";
+            this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
             // btClose
             // 
@@ -129,6 +132,7 @@ namespace RetailTrade
             this.btClose.Size = new System.Drawing.Size(23, 22);
             this.btClose.Text = "X";
             this.btClose.ToolTipText = "Выйти";
+            this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
             // btRefresh
             // 
@@ -197,6 +201,7 @@ namespace RetailTrade
             this.colAuthorLastModif});
             this.gridView.GridControl = this.grid;
             this.gridView.Name = "gridView";
+            this.gridView.OptionsBehavior.Editable = false;
             // 
             // colID
             // 

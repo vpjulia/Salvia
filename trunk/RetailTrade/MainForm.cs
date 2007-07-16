@@ -68,19 +68,19 @@ namespace RetailTrade
             settings["RetailTradeConnectionString"]="новая строка";
             settings.Save();
             */
-            this.receiptMasterTableAdapter.Fill(this.mDataSet.ReceiptMaster);
+          /*  this.receiptMasterTableAdapter.Fill(this.mDataSet.ReceiptMaster);
       
-            // TODO: This line of code loads data into the 'mDataSet.ReceiptDetail' table. You can move, or remove it, as needed.
-            this.receiptDetailTableAdapter.Fill(this.mDataSet.ReceiptDetail);
-           
+           */ // TODO: This line of code loads data into the 'mDataSet.ReceiptDetail' table. You can move, or remove it, as needed.
+           /* this.receiptDetailTableAdapter.Fill(this.mDataSet.ReceiptDetail);
+          */ 
 
 // TODO: This line of code loads data into the 'mDataSet.ReceiptMaster' table. You can move, or remove it, as needed.
             // TODO: This line of code loads data into the 'mDataSet.ReceiptMasterNew' table. You can move, or remove it, as needed.
            
-         this.receiptMasterNewTableAdapter.Fill(this.mDataSet.ReceiptMasterNew);
-            // TODO: This line of code loads data into the 'mDataSet.Stock' table. You can move, or remove it, as needed.
-            this.stockTableAdapter.Fill(this.mDataSet.Stock);
-       
+     /**  this.receiptMasterNewTableAdapter.Fill(this.mDataSet.ReceiptMasterNew);
+         */     // TODO: This line of code loads data into the 'mDataSet.Stock' table. You can move, or remove it, as needed.
+         /*   this.stockTableAdapter.Fill(this.mDataSet.Stock);
+       */
             SanseeGridLocalizer gLocalizer = new SanseeGridLocalizer();
             GridLocalizer.Active = gLocalizer;
          

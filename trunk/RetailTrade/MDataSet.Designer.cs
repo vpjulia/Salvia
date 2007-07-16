@@ -39,8 +39,6 @@ namespace RetailTrade {
         
         private TradePutletDataTable tableTradePutlet;
         
-        private FarmGroupLevel2DataTable tableFarmGroupLevel2;
-        
         private ReceiptMasterNewDataTable tableReceiptMasterNew;
         
         private ReceiptMasterDataTable tableReceiptMaster;
@@ -61,6 +59,8 @@ namespace RetailTrade {
         
         private ManufacturerDataTable tableManufacturer;
         
+        private FarmGroupLevel2DataTable tableFarmGroupLevel2;
+        
         private System.Data.DataRelation relationReceiptMaster_ReceiptDetail;
         
         private System.Data.DataRelation relationFK_Manufacturer_Product;
@@ -69,7 +69,11 @@ namespace RetailTrade {
         
         private System.Data.DataRelation relationFK_Unit_Product;
         
+        private System.Data.DataRelation relationFK_FarmGroupLevel2_Product;
+        
         private System.Data.DataRelation relationFK_Country_Manufacturer;
+        
+        private System.Data.DataRelation relationFK_FarmGroup_FarmGroupLevel2;
         
         private System.Data.DataRelation relationFK_InvoiceDetail_InvoiceMaster;
         
@@ -91,13 +95,9 @@ namespace RetailTrade {
         
         private System.Data.DataRelation relationReceiptMasterNew_ReceiptDetail;
         
-        private System.Data.DataRelation relationFK_Product_FarmGroupLevel2;
-        
         private System.Data.DataRelation relationProduct_ReceiptDetail;
         
         private System.Data.DataRelation relationStorageCondition_Product;
-        
-        private System.Data.DataRelation relationFK_FarmGroupLevel2_FarmGroup;
         
         private System.Data.DataRelation relationFK_Packing_Product;
         
@@ -152,9 +152,6 @@ namespace RetailTrade {
                 if ((ds.Tables["TradePutlet"] != null)) {
                     base.Tables.Add(new TradePutletDataTable(ds.Tables["TradePutlet"]));
                 }
-                if ((ds.Tables["FarmGroupLevel2"] != null)) {
-                    base.Tables.Add(new FarmGroupLevel2DataTable(ds.Tables["FarmGroupLevel2"]));
-                }
                 if ((ds.Tables["ReceiptMasterNew"] != null)) {
                     base.Tables.Add(new ReceiptMasterNewDataTable(ds.Tables["ReceiptMasterNew"]));
                 }
@@ -184,6 +181,9 @@ namespace RetailTrade {
                 }
                 if ((ds.Tables["Manufacturer"] != null)) {
                     base.Tables.Add(new ManufacturerDataTable(ds.Tables["Manufacturer"]));
+                }
+                if ((ds.Tables["FarmGroupLevel2"] != null)) {
+                    base.Tables.Add(new FarmGroupLevel2DataTable(ds.Tables["FarmGroupLevel2"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -279,15 +279,6 @@ namespace RetailTrade {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Browsable(false)]
         [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public FarmGroupLevel2DataTable FarmGroupLevel2 {
-            get {
-                return this.tableFarmGroupLevel2;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Browsable(false)]
-        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
         public ReceiptMasterNewDataTable ReceiptMasterNew {
             get {
                 return this.tableReceiptMasterNew;
@@ -376,6 +367,15 @@ namespace RetailTrade {
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Browsable(false)]
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public FarmGroupLevel2DataTable FarmGroupLevel2 {
+            get {
+                return this.tableFarmGroupLevel2;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.BrowsableAttribute(true)]
         [System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -459,9 +459,6 @@ namespace RetailTrade {
                 if ((ds.Tables["TradePutlet"] != null)) {
                     base.Tables.Add(new TradePutletDataTable(ds.Tables["TradePutlet"]));
                 }
-                if ((ds.Tables["FarmGroupLevel2"] != null)) {
-                    base.Tables.Add(new FarmGroupLevel2DataTable(ds.Tables["FarmGroupLevel2"]));
-                }
                 if ((ds.Tables["ReceiptMasterNew"] != null)) {
                     base.Tables.Add(new ReceiptMasterNewDataTable(ds.Tables["ReceiptMasterNew"]));
                 }
@@ -491,6 +488,9 @@ namespace RetailTrade {
                 }
                 if ((ds.Tables["Manufacturer"] != null)) {
                     base.Tables.Add(new ManufacturerDataTable(ds.Tables["Manufacturer"]));
+                }
+                if ((ds.Tables["FarmGroupLevel2"] != null)) {
+                    base.Tables.Add(new FarmGroupLevel2DataTable(ds.Tables["FarmGroupLevel2"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -570,12 +570,6 @@ namespace RetailTrade {
                     this.tableTradePutlet.InitVars();
                 }
             }
-            this.tableFarmGroupLevel2 = ((FarmGroupLevel2DataTable)(base.Tables["FarmGroupLevel2"]));
-            if ((initTable == true)) {
-                if ((this.tableFarmGroupLevel2 != null)) {
-                    this.tableFarmGroupLevel2.InitVars();
-                }
-            }
             this.tableReceiptMasterNew = ((ReceiptMasterNewDataTable)(base.Tables["ReceiptMasterNew"]));
             if ((initTable == true)) {
                 if ((this.tableReceiptMasterNew != null)) {
@@ -636,11 +630,19 @@ namespace RetailTrade {
                     this.tableManufacturer.InitVars();
                 }
             }
+            this.tableFarmGroupLevel2 = ((FarmGroupLevel2DataTable)(base.Tables["FarmGroupLevel2"]));
+            if ((initTable == true)) {
+                if ((this.tableFarmGroupLevel2 != null)) {
+                    this.tableFarmGroupLevel2.InitVars();
+                }
+            }
             this.relationReceiptMaster_ReceiptDetail = this.Relations["ReceiptMaster_ReceiptDetail"];
             this.relationFK_Manufacturer_Product = this.Relations["FK_Manufacturer_Product"];
             this.relationFK_Substance_Product = this.Relations["FK_Substance_Product"];
             this.relationFK_Unit_Product = this.Relations["FK_Unit_Product"];
+            this.relationFK_FarmGroupLevel2_Product = this.Relations["FK_FarmGroupLevel2_Product"];
             this.relationFK_Country_Manufacturer = this.Relations["FK_Country_Manufacturer"];
+            this.relationFK_FarmGroup_FarmGroupLevel2 = this.Relations["FK_FarmGroup_FarmGroupLevel2"];
             this.relationFK_InvoiceDetail_InvoiceMaster = this.Relations["FK_InvoiceDetail_InvoiceMaster"];
             this.relationFK_InvoiceMaster_Organization = this.Relations["FK_InvoiceMaster_Organization"];
             this.relationTradePutlet_Stock = this.Relations["TradePutlet_Stock"];
@@ -651,10 +653,8 @@ namespace RetailTrade {
             this.relationFK_ReceiptMaster_Stock1 = this.Relations["FK_ReceiptMaster_Stock1"];
             this.relationFK_ReceiptRemains_ReceiptDetail = this.Relations["FK_ReceiptRemains_ReceiptDetail"];
             this.relationReceiptMasterNew_ReceiptDetail = this.Relations["ReceiptMasterNew_ReceiptDetail"];
-            this.relationFK_Product_FarmGroupLevel2 = this.Relations["FK_Product_FarmGroupLevel2"];
             this.relationProduct_ReceiptDetail = this.Relations["Product_ReceiptDetail"];
             this.relationStorageCondition_Product = this.Relations["StorageCondition_Product"];
-            this.relationFK_FarmGroupLevel2_FarmGroup = this.Relations["FK_FarmGroupLevel2_FarmGroup"];
             this.relationFK_Packing_Product = this.Relations["FK_Packing_Product"];
         }
         
@@ -673,7 +673,7 @@ namespace RetailTrade {
             base.Tables.Add(this.tableInvoiceDetail);
             this.tableInvoiceMaster = new InvoiceMasterDataTable();
             base.Tables.Add(this.tableInvoiceMaster);
-            this.tableOrganization = new OrganizationDataTable();
+            this.tableOrganization = new OrganizationDataTable(false);
             base.Tables.Add(this.tableOrganization);
             this.tableReceiptRemains = new ReceiptRemainsDataTable();
             base.Tables.Add(this.tableReceiptRemains);
@@ -681,8 +681,6 @@ namespace RetailTrade {
             base.Tables.Add(this.tableStock);
             this.tableTradePutlet = new TradePutletDataTable();
             base.Tables.Add(this.tableTradePutlet);
-            this.tableFarmGroupLevel2 = new FarmGroupLevel2DataTable();
-            base.Tables.Add(this.tableFarmGroupLevel2);
             this.tableReceiptMasterNew = new ReceiptMasterNewDataTable();
             base.Tables.Add(this.tableReceiptMasterNew);
             this.tableReceiptMaster = new ReceiptMasterDataTable();
@@ -703,6 +701,8 @@ namespace RetailTrade {
             base.Tables.Add(this.tableUnit);
             this.tableManufacturer = new ManufacturerDataTable(false);
             base.Tables.Add(this.tableManufacturer);
+            this.tableFarmGroupLevel2 = new FarmGroupLevel2DataTable(false);
+            base.Tables.Add(this.tableFarmGroupLevel2);
             System.Data.ForeignKeyConstraint fkc;
             fkc = new System.Data.ForeignKeyConstraint("ReceiptMaster_ReceiptDetail", new System.Data.DataColumn[] {
                         this.tableReceiptMaster.IDColumn}, new System.Data.DataColumn[] {
@@ -732,10 +732,24 @@ namespace RetailTrade {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
+            fkc = new System.Data.ForeignKeyConstraint("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
+                        this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.FarmGrouplevel2RefColumn});
+            this.tableProduct.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = System.Data.Rule.None;
+            fkc.UpdateRule = System.Data.Rule.Cascade;
             fkc = new System.Data.ForeignKeyConstraint("FK_Country_Manufacturer", new System.Data.DataColumn[] {
                         this.tableCountry.IDColumn}, new System.Data.DataColumn[] {
                         this.tableManufacturer.CounrtyRefColumn});
             this.tableManufacturer.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = System.Data.Rule.None;
+            fkc.UpdateRule = System.Data.Rule.Cascade;
+            fkc = new System.Data.ForeignKeyConstraint("FK_FarmGroup_FarmGroupLevel2", new System.Data.DataColumn[] {
+                        this.tableFarmGroup.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableFarmGroupLevel2.FarmGroupRefColumn});
+            this.tableFarmGroupLevel2.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
@@ -755,10 +769,18 @@ namespace RetailTrade {
                         this.tableUnit.IDColumn}, new System.Data.DataColumn[] {
                         this.tableProduct.UnitRefColumn}, false);
             this.Relations.Add(this.relationFK_Unit_Product);
+            this.relationFK_FarmGroupLevel2_Product = new System.Data.DataRelation("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
+                        this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.FarmGrouplevel2RefColumn}, false);
+            this.Relations.Add(this.relationFK_FarmGroupLevel2_Product);
             this.relationFK_Country_Manufacturer = new System.Data.DataRelation("FK_Country_Manufacturer", new System.Data.DataColumn[] {
                         this.tableCountry.IDColumn}, new System.Data.DataColumn[] {
                         this.tableManufacturer.CounrtyRefColumn}, false);
             this.Relations.Add(this.relationFK_Country_Manufacturer);
+            this.relationFK_FarmGroup_FarmGroupLevel2 = new System.Data.DataRelation("FK_FarmGroup_FarmGroupLevel2", new System.Data.DataColumn[] {
+                        this.tableFarmGroup.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableFarmGroupLevel2.FarmGroupRefColumn}, false);
+            this.Relations.Add(this.relationFK_FarmGroup_FarmGroupLevel2);
             this.relationFK_InvoiceDetail_InvoiceMaster = new System.Data.DataRelation("FK_InvoiceDetail_InvoiceMaster", new System.Data.DataColumn[] {
                         this.tableInvoiceMaster.IDColumn}, new System.Data.DataColumn[] {
                         this.tableInvoiceDetail.InvoiceMaterRefColumn}, false);
@@ -799,10 +821,6 @@ namespace RetailTrade {
                         this.tableReceiptMasterNew.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptDetail.ReceiptMasterRefColumn}, false);
             this.Relations.Add(this.relationReceiptMasterNew_ReceiptDetail);
-            this.relationFK_Product_FarmGroupLevel2 = new System.Data.DataRelation("FK_Product_FarmGroupLevel2", new System.Data.DataColumn[] {
-                        this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.FarmGrouplevel2RefColumn}, false);
-            this.Relations.Add(this.relationFK_Product_FarmGroupLevel2);
             this.relationProduct_ReceiptDetail = new System.Data.DataRelation("Product_ReceiptDetail", new System.Data.DataColumn[] {
                         this.tableProduct.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptDetail.ProductRefColumn}, false);
@@ -811,10 +829,6 @@ namespace RetailTrade {
                         this.tableStorageCondition.IDColumn}, new System.Data.DataColumn[] {
                         this.tableProduct.StorageConditionRefColumn}, false);
             this.Relations.Add(this.relationStorageCondition_Product);
-            this.relationFK_FarmGroupLevel2_FarmGroup = new System.Data.DataRelation("FK_FarmGroupLevel2_FarmGroup", new System.Data.DataColumn[] {
-                        this.tableFarmGroup.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableFarmGroupLevel2.FarmGroupRefColumn}, false);
-            this.Relations.Add(this.relationFK_FarmGroupLevel2_FarmGroup);
             this.relationFK_Packing_Product = new System.Data.DataRelation("FK_Packing_Product", new System.Data.DataColumn[] {
                         this.tablePacking.IDColumn}, new System.Data.DataColumn[] {
                         this.tableProduct.PackingRefColumn}, false);
@@ -858,11 +872,6 @@ namespace RetailTrade {
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private bool ShouldSerializeTradePutlet() {
-            return false;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializeFarmGroupLevel2() {
             return false;
         }
         
@@ -917,6 +926,11 @@ namespace RetailTrade {
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializeFarmGroupLevel2() {
+            return false;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void SchemaChanged(object sender, System.ComponentModel.CollectionChangeEventArgs e) {
             if ((e.Action == System.ComponentModel.CollectionChangeAction.Remove)) {
                 this.InitVars();
@@ -939,12 +953,14 @@ namespace RetailTrade {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitExpressions() {
             this.Country.DateUpdateColumn.Expression = "Max(DateLastModif)";
+            this.Organization.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.StorageCondition.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.FarmGroup.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.Packing.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.Substance.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.Unit.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.Manufacturer.DateUpdateColumn.Expression = "Max(DateLastModif)";
+            this.FarmGroupLevel2.DateUpdateColumn.Expression = "Max(DateLastModif)";
         }
         
         public delegate void CountryRowChangeEventHandler(object sender, CountryRowChangeEvent e);
@@ -962,8 +978,6 @@ namespace RetailTrade {
         public delegate void StockRowChangeEventHandler(object sender, StockRowChangeEvent e);
         
         public delegate void TradePutletRowChangeEventHandler(object sender, TradePutletRowChangeEvent e);
-        
-        public delegate void FarmGroupLevel2RowChangeEventHandler(object sender, FarmGroupLevel2RowChangeEvent e);
         
         public delegate void ReceiptMasterNewRowChangeEventHandler(object sender, ReceiptMasterNewRowChangeEvent e);
         
@@ -984,6 +998,8 @@ namespace RetailTrade {
         public delegate void UnitRowChangeEventHandler(object sender, UnitRowChangeEvent e);
         
         public delegate void ManufacturerRowChangeEventHandler(object sender, ManufacturerRowChangeEvent e);
+        
+        public delegate void FarmGroupLevel2RowChangeEventHandler(object sender, FarmGroupLevel2RowChangeEvent e);
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [System.Serializable()]
@@ -2427,11 +2443,21 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnDateLastModif;
             
+            private System.Data.DataColumn columnDateUpdate;
+            
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public OrganizationDataTable() {
+            public OrganizationDataTable() : 
+                    this(false) {
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal OrganizationDataTable(bool initExpressions) {
                 this.TableName = "Organization";
                 this.BeginInit();
                 this.InitClass();
+                if ((initExpressions == true)) {
+                    this.InitExpressions();
+                }
                 this.EndInit();
             }
             
@@ -2612,6 +2638,13 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateUpdateColumn {
+                get {
+                    return this.columnDateUpdate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2661,7 +2694,8 @@ namespace RetailTrade {
                         System.DateTime DateCreate, 
                         byte[] RowVersion, 
                         string BankRS, 
-                        System.DateTime DateLastModif) {
+                        System.DateTime DateLastModif, 
+                        System.DateTime DateUpdate) {
                 OrganizationRow rowOrganizationRow = ((OrganizationRow)(this.NewRow()));
                 rowOrganizationRow.ItemArray = new object[] {
                         null,
@@ -2685,7 +2719,8 @@ namespace RetailTrade {
                         DateCreate,
                         RowVersion,
                         BankRS,
-                        DateLastModif};
+                        DateLastModif,
+                        DateUpdate};
                 this.Rows.Add(rowOrganizationRow);
                 return rowOrganizationRow;
             }
@@ -2737,6 +2772,7 @@ namespace RetailTrade {
                 this.columnRowVersion = base.Columns["RowVersion"];
                 this.columnBankRS = base.Columns["BankRS"];
                 this.columnDateLastModif = base.Columns["DateLastModif"];
+                this.columnDateUpdate = base.Columns["DateUpdate"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2785,31 +2821,51 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnBankRS);
                 this.columnDateLastModif = new System.Data.DataColumn("DateLastModif", typeof(System.DateTime), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDateLastModif);
+                this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateUpdate);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
+                this.columnID.AutoIncrementSeed = -1;
+                this.columnID.AutoIncrementStep = -1;
                 this.columnID.AllowDBNull = false;
                 this.columnID.ReadOnly = true;
                 this.columnID.Unique = true;
+                this.columnName.DefaultValue = ((string)("\'\'"));
                 this.columnName.MaxLength = 255;
                 this.columnShortName.MaxLength = 70;
+                this.columnDirector.DefaultValue = ((string)("\'\'"));
                 this.columnDirector.MaxLength = 50;
+                this.columnAdress.DefaultValue = ((string)("\'\'"));
                 this.columnAdress.MaxLength = 70;
+                this.columnAddress_jur.DefaultValue = ((string)("\'\'"));
                 this.columnAddress_jur.MaxLength = 70;
+                this.columnOKPO.DefaultValue = ((string)("0"));
                 this.columnOKPO.MaxLength = 10;
+                this.columnBankName.DefaultValue = ((string)("\'\'"));
                 this.columnBankName.MaxLength = 70;
+                this.columnBankMFO.DefaultValue = ((string)("0"));
                 this.columnBankMFO.MaxLength = 6;
+                this.columnINN.DefaultValue = ((string)("0"));
                 this.columnINN.MaxLength = 12;
+                this.columnNumSvid.DefaultValue = ((string)("0"));
                 this.columnNumSvid.MaxLength = 15;
+                this.columnNumSvidChp.DefaultValue = ((string)("\'\'"));
                 this.columnNumSvidChp.MaxLength = 15;
+                this.columnPassChp.DefaultValue = ((string)("\'\'"));
                 this.columnPassChp.MaxLength = 50;
+                this.columnPhone.DefaultValue = ((string)("\'\'"));
                 this.columnPhone.MaxLength = 50;
+                this.columnLicense.DefaultValue = ((string)("\'\'"));
                 this.columnLicense.MaxLength = 40;
+                this.columnNote.DefaultValue = ((string)("\'\'"));
                 this.columnNote.MaxLength = 50;
                 this.columnAuthorCreate.MaxLength = 50;
                 this.columnAuthorLastModif.MaxLength = 50;
                 this.columnRowVersion.ReadOnly = true;
+                this.columnBankRS.DefaultValue = ((string)("0"));
                 this.columnBankRS.MaxLength = 15;
+                this.columnDateUpdate.ReadOnly = true;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2825,6 +2881,11 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Type GetRowType() {
                 return typeof(OrganizationRow);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitExpressions() {
+                this.DateUpdateColumn.Expression = "Max(DateLastModif)";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3799,296 +3860,6 @@ namespace RetailTrade {
                 System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "TradePutletDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                return type;
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        [System.Serializable()]
-        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class FarmGroupLevel2DataTable : System.Data.DataTable, System.Collections.IEnumerable {
-            
-            private System.Data.DataColumn columnID;
-            
-            private System.Data.DataColumn columnName;
-            
-            private System.Data.DataColumn columnFarmGroupRef;
-            
-            private System.Data.DataColumn columnAuthorCreate;
-            
-            private System.Data.DataColumn columnAuthorLastModif;
-            
-            private System.Data.DataColumn columnDateCreate;
-            
-            private System.Data.DataColumn columnRowVersion;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FarmGroupLevel2DataTable() {
-                this.TableName = "FarmGroupLevel2";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal FarmGroupLevel2DataTable(System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected FarmGroupLevel2DataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn IDColumn {
-                get {
-                    return this.columnID;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn NameColumn {
-                get {
-                    return this.columnName;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn FarmGroupRefColumn {
-                get {
-                    return this.columnFarmGroupRef;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn AuthorCreateColumn {
-                get {
-                    return this.columnAuthorCreate;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn AuthorLastModifColumn {
-                get {
-                    return this.columnAuthorLastModif;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn DateCreateColumn {
-                get {
-                    return this.columnDateCreate;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn RowVersionColumn {
-                get {
-                    return this.columnRowVersion;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FarmGroupLevel2Row this[int index] {
-                get {
-                    return ((FarmGroupLevel2Row)(this.Rows[index]));
-                }
-            }
-            
-            public event FarmGroupLevel2RowChangeEventHandler FarmGroupLevel2RowChanging;
-            
-            public event FarmGroupLevel2RowChangeEventHandler FarmGroupLevel2RowChanged;
-            
-            public event FarmGroupLevel2RowChangeEventHandler FarmGroupLevel2RowDeleting;
-            
-            public event FarmGroupLevel2RowChangeEventHandler FarmGroupLevel2RowDeleted;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddFarmGroupLevel2Row(FarmGroupLevel2Row row) {
-                this.Rows.Add(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FarmGroupLevel2Row AddFarmGroupLevel2Row(string Name, FarmGroupRow parentFarmGroupRowByFK_FarmGroupLevel2_FarmGroup, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, byte[] RowVersion) {
-                FarmGroupLevel2Row rowFarmGroupLevel2Row = ((FarmGroupLevel2Row)(this.NewRow()));
-                rowFarmGroupLevel2Row.ItemArray = new object[] {
-                        null,
-                        Name,
-                        parentFarmGroupRowByFK_FarmGroupLevel2_FarmGroup[0],
-                        AuthorCreate,
-                        AuthorLastModif,
-                        DateCreate,
-                        RowVersion};
-                this.Rows.Add(rowFarmGroupLevel2Row);
-                return rowFarmGroupLevel2Row;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FarmGroupLevel2Row FindByID(int ID) {
-                return ((FarmGroupLevel2Row)(this.Rows.Find(new object[] {
-                            ID})));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public virtual System.Collections.IEnumerator GetEnumerator() {
-                return this.Rows.GetEnumerator();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public override System.Data.DataTable Clone() {
-                FarmGroupLevel2DataTable cln = ((FarmGroupLevel2DataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataTable CreateInstance() {
-                return new FarmGroupLevel2DataTable();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal void InitVars() {
-                this.columnID = base.Columns["ID"];
-                this.columnName = base.Columns["Name"];
-                this.columnFarmGroupRef = base.Columns["FarmGroupRef"];
-                this.columnAuthorCreate = base.Columns["AuthorCreate"];
-                this.columnAuthorLastModif = base.Columns["AuthorLastModif"];
-                this.columnDateCreate = base.Columns["DateCreate"];
-                this.columnRowVersion = base.Columns["RowVersion"];
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitClass() {
-                this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnID);
-                this.columnName = new System.Data.DataColumn("Name", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnName);
-                this.columnFarmGroupRef = new System.Data.DataColumn("FarmGroupRef", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnFarmGroupRef);
-                this.columnAuthorCreate = new System.Data.DataColumn("AuthorCreate", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAuthorCreate);
-                this.columnAuthorLastModif = new System.Data.DataColumn("AuthorLastModif", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAuthorLastModif);
-                this.columnDateCreate = new System.Data.DataColumn("DateCreate", typeof(System.DateTime), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDateCreate);
-                this.columnRowVersion = new System.Data.DataColumn("RowVersion", typeof(byte[]), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRowVersion);
-                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
-                                this.columnID}, true));
-                this.columnID.AutoIncrement = true;
-                this.columnID.AllowDBNull = false;
-                this.columnID.ReadOnly = true;
-                this.columnID.Unique = true;
-                this.columnName.AllowDBNull = false;
-                this.columnName.MaxLength = 50;
-                this.columnFarmGroupRef.AllowDBNull = false;
-                this.columnAuthorCreate.AllowDBNull = false;
-                this.columnAuthorCreate.MaxLength = 50;
-                this.columnAuthorLastModif.AllowDBNull = false;
-                this.columnAuthorLastModif.MaxLength = 50;
-                this.columnDateCreate.AllowDBNull = false;
-                this.columnRowVersion.ReadOnly = true;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FarmGroupLevel2Row NewFarmGroupLevel2Row() {
-                return ((FarmGroupLevel2Row)(this.NewRow()));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
-                return new FarmGroupLevel2Row(builder);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Type GetRowType() {
-                return typeof(FarmGroupLevel2Row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.FarmGroupLevel2RowChanged != null)) {
-                    this.FarmGroupLevel2RowChanged(this, new FarmGroupLevel2RowChangeEvent(((FarmGroupLevel2Row)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.FarmGroupLevel2RowChanging != null)) {
-                    this.FarmGroupLevel2RowChanging(this, new FarmGroupLevel2RowChangeEvent(((FarmGroupLevel2Row)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.FarmGroupLevel2RowDeleted != null)) {
-                    this.FarmGroupLevel2RowDeleted(this, new FarmGroupLevel2RowChangeEvent(((FarmGroupLevel2Row)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.FarmGroupLevel2RowDeleting != null)) {
-                    this.FarmGroupLevel2RowDeleting(this, new FarmGroupLevel2RowChangeEvent(((FarmGroupLevel2Row)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemoveFarmGroupLevel2Row(FarmGroupLevel2Row row) {
-                this.Rows.Remove(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
-                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
-                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
-                MDataSet ds = new MDataSet();
-                xs.Add(ds.GetSchemaSerializable());
-                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "FarmGroupLevel2DataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 return type;
@@ -6281,7 +6052,7 @@ namespace RetailTrade {
                         PackingRow parentPackingRowByFK_Packing_Product, 
                         StorageConditionRow parentStorageConditionRowByStorageCondition_Product, 
                         SubstanceRow parentSubstanceRowByFK_Substance_Product, 
-                        FarmGroupLevel2Row parentFarmGroupLevel2RowByFK_Product_FarmGroupLevel2, 
+                        FarmGroupLevel2Row parentFarmGroupLevel2RowByFK_FarmGroupLevel2_Product, 
                         ManufacturerRow parentManufacturerRowByFK_Manufacturer_Product, 
                         bool IsRecept, 
                         bool IsOneRecept, 
@@ -6315,7 +6086,7 @@ namespace RetailTrade {
                         parentPackingRowByFK_Packing_Product[0],
                         parentStorageConditionRowByStorageCondition_Product[0],
                         parentSubstanceRowByFK_Substance_Product[0],
-                        parentFarmGroupLevel2RowByFK_Product_FarmGroupLevel2[0],
+                        parentFarmGroupLevel2RowByFK_FarmGroupLevel2_Product[0],
                         parentManufacturerRowByFK_Manufacturer_Product[0],
                         IsRecept,
                         IsOneRecept,
@@ -8165,6 +7936,336 @@ namespace RetailTrade {
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [System.Serializable()]
+        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class FarmGroupLevel2DataTable : System.Data.DataTable, System.Collections.IEnumerable {
+            
+            private System.Data.DataColumn columnID;
+            
+            private System.Data.DataColumn columnName;
+            
+            private System.Data.DataColumn columnFarmGroupRef;
+            
+            private System.Data.DataColumn columnAuthorCreate;
+            
+            private System.Data.DataColumn columnAuthorLastModif;
+            
+            private System.Data.DataColumn columnDateLastModif;
+            
+            private System.Data.DataColumn columnDateCreate;
+            
+            private System.Data.DataColumn columnRowVersion;
+            
+            private System.Data.DataColumn columnDateUpdate;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public FarmGroupLevel2DataTable() : 
+                    this(false) {
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal FarmGroupLevel2DataTable(bool initExpressions) {
+                this.TableName = "FarmGroupLevel2";
+                this.BeginInit();
+                this.InitClass();
+                if ((initExpressions == true)) {
+                    this.InitExpressions();
+                }
+                this.EndInit();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal FarmGroupLevel2DataTable(System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected FarmGroupLevel2DataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn IDColumn {
+                get {
+                    return this.columnID;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn NameColumn {
+                get {
+                    return this.columnName;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn FarmGroupRefColumn {
+                get {
+                    return this.columnFarmGroupRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn AuthorCreateColumn {
+                get {
+                    return this.columnAuthorCreate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn AuthorLastModifColumn {
+                get {
+                    return this.columnAuthorLastModif;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateLastModifColumn {
+                get {
+                    return this.columnDateLastModif;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateCreateColumn {
+                get {
+                    return this.columnDateCreate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn RowVersionColumn {
+                get {
+                    return this.columnRowVersion;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateUpdateColumn {
+                get {
+                    return this.columnDateUpdate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public FarmGroupLevel2Row this[int index] {
+                get {
+                    return ((FarmGroupLevel2Row)(this.Rows[index]));
+                }
+            }
+            
+            public event FarmGroupLevel2RowChangeEventHandler FarmGroupLevel2RowChanging;
+            
+            public event FarmGroupLevel2RowChangeEventHandler FarmGroupLevel2RowChanged;
+            
+            public event FarmGroupLevel2RowChangeEventHandler FarmGroupLevel2RowDeleting;
+            
+            public event FarmGroupLevel2RowChangeEventHandler FarmGroupLevel2RowDeleted;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddFarmGroupLevel2Row(FarmGroupLevel2Row row) {
+                this.Rows.Add(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public FarmGroupLevel2Row AddFarmGroupLevel2Row(string Name, FarmGroupRow parentFarmGroupRowByFK_FarmGroup_FarmGroupLevel2, string AuthorCreate, string AuthorLastModif, System.DateTime DateLastModif, System.DateTime DateCreate, byte[] RowVersion, System.DateTime DateUpdate) {
+                FarmGroupLevel2Row rowFarmGroupLevel2Row = ((FarmGroupLevel2Row)(this.NewRow()));
+                rowFarmGroupLevel2Row.ItemArray = new object[] {
+                        null,
+                        Name,
+                        parentFarmGroupRowByFK_FarmGroup_FarmGroupLevel2[0],
+                        AuthorCreate,
+                        AuthorLastModif,
+                        DateLastModif,
+                        DateCreate,
+                        RowVersion,
+                        DateUpdate};
+                this.Rows.Add(rowFarmGroupLevel2Row);
+                return rowFarmGroupLevel2Row;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public FarmGroupLevel2Row FindByID(int ID) {
+                return ((FarmGroupLevel2Row)(this.Rows.Find(new object[] {
+                            ID})));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public virtual System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override System.Data.DataTable Clone() {
+                FarmGroupLevel2DataTable cln = ((FarmGroupLevel2DataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataTable CreateInstance() {
+                return new FarmGroupLevel2DataTable();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars() {
+                this.columnID = base.Columns["ID"];
+                this.columnName = base.Columns["Name"];
+                this.columnFarmGroupRef = base.Columns["FarmGroupRef"];
+                this.columnAuthorCreate = base.Columns["AuthorCreate"];
+                this.columnAuthorLastModif = base.Columns["AuthorLastModif"];
+                this.columnDateLastModif = base.Columns["DateLastModif"];
+                this.columnDateCreate = base.Columns["DateCreate"];
+                this.columnRowVersion = base.Columns["RowVersion"];
+                this.columnDateUpdate = base.Columns["DateUpdate"];
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass() {
+                this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID);
+                this.columnName = new System.Data.DataColumn("Name", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnName);
+                this.columnFarmGroupRef = new System.Data.DataColumn("FarmGroupRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFarmGroupRef);
+                this.columnAuthorCreate = new System.Data.DataColumn("AuthorCreate", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAuthorCreate);
+                this.columnAuthorLastModif = new System.Data.DataColumn("AuthorLastModif", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAuthorLastModif);
+                this.columnDateLastModif = new System.Data.DataColumn("DateLastModif", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateLastModif);
+                this.columnDateCreate = new System.Data.DataColumn("DateCreate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateCreate);
+                this.columnRowVersion = new System.Data.DataColumn("RowVersion", typeof(byte[]), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRowVersion);
+                this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateUpdate);
+                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
+                                this.columnID}, true));
+                this.columnID.AutoIncrement = true;
+                this.columnID.AutoIncrementSeed = -1;
+                this.columnID.AutoIncrementStep = -1;
+                this.columnID.AllowDBNull = false;
+                this.columnID.ReadOnly = true;
+                this.columnID.Unique = true;
+                this.columnName.AllowDBNull = false;
+                this.columnName.MaxLength = 50;
+                this.columnFarmGroupRef.AllowDBNull = false;
+                this.columnFarmGroupRef.DefaultValue = ((int)(0));
+                this.columnAuthorCreate.MaxLength = 50;
+                this.columnAuthorLastModif.MaxLength = 50;
+                this.columnRowVersion.ReadOnly = true;
+                this.columnDateUpdate.ReadOnly = true;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public FarmGroupLevel2Row NewFarmGroupLevel2Row() {
+                return ((FarmGroupLevel2Row)(this.NewRow()));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
+                return new FarmGroupLevel2Row(builder);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Type GetRowType() {
+                return typeof(FarmGroupLevel2Row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitExpressions() {
+                this.DateUpdateColumn.Expression = "Max(DateLastModif)";
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.FarmGroupLevel2RowChanged != null)) {
+                    this.FarmGroupLevel2RowChanged(this, new FarmGroupLevel2RowChangeEvent(((FarmGroupLevel2Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.FarmGroupLevel2RowChanging != null)) {
+                    this.FarmGroupLevel2RowChanging(this, new FarmGroupLevel2RowChangeEvent(((FarmGroupLevel2Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.FarmGroupLevel2RowDeleted != null)) {
+                    this.FarmGroupLevel2RowDeleted(this, new FarmGroupLevel2RowChangeEvent(((FarmGroupLevel2Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.FarmGroupLevel2RowDeleting != null)) {
+                    this.FarmGroupLevel2RowDeleting(this, new FarmGroupLevel2RowChangeEvent(((FarmGroupLevel2Row)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemoveFarmGroupLevel2Row(FarmGroupLevel2Row row) {
+                this.Rows.Remove(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
+                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
+                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
+                MDataSet ds = new MDataSet();
+                xs.Add(ds.GetSchemaSerializable());
+                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "FarmGroupLevel2DataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                return type;
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         public partial class CountryRow : System.Data.DataRow {
             
             private CountryDataTable tableCountry;
@@ -9169,6 +9270,21 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime DateUpdate {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableOrganization.DateUpdateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'DateUpdate\' in table \'Organization\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableOrganization.DateUpdateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsNameNull() {
                 return this.IsNull(this.tableOrganization.NameColumn);
             }
@@ -9376,6 +9492,16 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetDateLastModifNull() {
                 this[this.tableOrganization.DateLastModifColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateUpdateNull() {
+                return this.IsNull(this.tableOrganization.DateUpdateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateUpdateNull() {
+                this[this.tableOrganization.DateUpdateColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9747,118 +9873,6 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public StockRow[] GetStockRows() {
                 return ((StockRow[])(base.GetChildRows(this.Table.ChildRelations["TradePutlet_Stock"])));
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class FarmGroupLevel2Row : System.Data.DataRow {
-            
-            private FarmGroupLevel2DataTable tableFarmGroupLevel2;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal FarmGroupLevel2Row(System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableFarmGroupLevel2 = ((FarmGroupLevel2DataTable)(this.Table));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ID {
-                get {
-                    return ((int)(this[this.tableFarmGroupLevel2.IDColumn]));
-                }
-                set {
-                    this[this.tableFarmGroupLevel2.IDColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string Name {
-                get {
-                    return ((string)(this[this.tableFarmGroupLevel2.NameColumn]));
-                }
-                set {
-                    this[this.tableFarmGroupLevel2.NameColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int FarmGroupRef {
-                get {
-                    return ((int)(this[this.tableFarmGroupLevel2.FarmGroupRefColumn]));
-                }
-                set {
-                    this[this.tableFarmGroupLevel2.FarmGroupRefColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string AuthorCreate {
-                get {
-                    return ((string)(this[this.tableFarmGroupLevel2.AuthorCreateColumn]));
-                }
-                set {
-                    this[this.tableFarmGroupLevel2.AuthorCreateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string AuthorLastModif {
-                get {
-                    return ((string)(this[this.tableFarmGroupLevel2.AuthorLastModifColumn]));
-                }
-                set {
-                    this[this.tableFarmGroupLevel2.AuthorLastModifColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime DateCreate {
-                get {
-                    return ((System.DateTime)(this[this.tableFarmGroupLevel2.DateCreateColumn]));
-                }
-                set {
-                    this[this.tableFarmGroupLevel2.DateCreateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public byte[] RowVersion {
-                get {
-                    try {
-                        return ((byte[])(this[this.tableFarmGroupLevel2.RowVersionColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'RowVersion\' in table \'FarmGroupLevel2\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableFarmGroupLevel2.RowVersionColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FarmGroupRow FarmGroupRow {
-                get {
-                    return ((FarmGroupRow)(this.GetParentRow(this.Table.ParentRelations["FK_FarmGroupLevel2_FarmGroup"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_FarmGroupLevel2_FarmGroup"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsRowVersionNull() {
-                return this.IsNull(this.tableFarmGroupLevel2.RowVersionColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetRowVersionNull() {
-                this[this.tableFarmGroupLevel2.RowVersionColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ProductRow[] GetProductRows() {
-                return ((ProductRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Product_FarmGroupLevel2"])));
             }
         }
         
@@ -11419,10 +11433,10 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public FarmGroupLevel2Row FarmGroupLevel2Row {
                 get {
-                    return ((FarmGroupLevel2Row)(this.GetParentRow(this.Table.ParentRelations["FK_Product_FarmGroupLevel2"])));
+                    return ((FarmGroupLevel2Row)(this.GetParentRow(this.Table.ParentRelations["FK_FarmGroupLevel2_Product"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Product_FarmGroupLevel2"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_FarmGroupLevel2_Product"]);
                 }
             }
             
@@ -11945,7 +11959,7 @@ namespace RetailTrade {
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public FarmGroupLevel2Row[] GetFarmGroupLevel2Rows() {
-                return ((FarmGroupLevel2Row[])(base.GetChildRows(this.Table.ChildRelations["FK_FarmGroupLevel2_FarmGroup"])));
+                return ((FarmGroupLevel2Row[])(base.GetChildRows(this.Table.ChildRelations["FK_FarmGroup_FarmGroupLevel2"])));
             }
         }
         
@@ -12718,6 +12732,213 @@ namespace RetailTrade {
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class FarmGroupLevel2Row : System.Data.DataRow {
+            
+            private FarmGroupLevel2DataTable tableFarmGroupLevel2;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal FarmGroupLevel2Row(System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableFarmGroupLevel2 = ((FarmGroupLevel2DataTable)(this.Table));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ID {
+                get {
+                    return ((int)(this[this.tableFarmGroupLevel2.IDColumn]));
+                }
+                set {
+                    this[this.tableFarmGroupLevel2.IDColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Name {
+                get {
+                    return ((string)(this[this.tableFarmGroupLevel2.NameColumn]));
+                }
+                set {
+                    this[this.tableFarmGroupLevel2.NameColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int FarmGroupRef {
+                get {
+                    return ((int)(this[this.tableFarmGroupLevel2.FarmGroupRefColumn]));
+                }
+                set {
+                    this[this.tableFarmGroupLevel2.FarmGroupRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string AuthorCreate {
+                get {
+                    try {
+                        return ((string)(this[this.tableFarmGroupLevel2.AuthorCreateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'AuthorCreate\' in table \'FarmGroupLevel2\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFarmGroupLevel2.AuthorCreateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string AuthorLastModif {
+                get {
+                    try {
+                        return ((string)(this[this.tableFarmGroupLevel2.AuthorLastModifColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'AuthorLastModif\' in table \'FarmGroupLevel2\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFarmGroupLevel2.AuthorLastModifColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime DateLastModif {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableFarmGroupLevel2.DateLastModifColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'DateLastModif\' in table \'FarmGroupLevel2\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFarmGroupLevel2.DateLastModifColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime DateCreate {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableFarmGroupLevel2.DateCreateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'DateCreate\' in table \'FarmGroupLevel2\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFarmGroupLevel2.DateCreateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public byte[] RowVersion {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableFarmGroupLevel2.RowVersionColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'RowVersion\' in table \'FarmGroupLevel2\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFarmGroupLevel2.RowVersionColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime DateUpdate {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableFarmGroupLevel2.DateUpdateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'DateUpdate\' in table \'FarmGroupLevel2\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFarmGroupLevel2.DateUpdateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public FarmGroupRow FarmGroupRow {
+                get {
+                    return ((FarmGroupRow)(this.GetParentRow(this.Table.ParentRelations["FK_FarmGroup_FarmGroupLevel2"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_FarmGroup_FarmGroupLevel2"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsAuthorCreateNull() {
+                return this.IsNull(this.tableFarmGroupLevel2.AuthorCreateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetAuthorCreateNull() {
+                this[this.tableFarmGroupLevel2.AuthorCreateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsAuthorLastModifNull() {
+                return this.IsNull(this.tableFarmGroupLevel2.AuthorLastModifColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetAuthorLastModifNull() {
+                this[this.tableFarmGroupLevel2.AuthorLastModifColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateLastModifNull() {
+                return this.IsNull(this.tableFarmGroupLevel2.DateLastModifColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateLastModifNull() {
+                this[this.tableFarmGroupLevel2.DateLastModifColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateCreateNull() {
+                return this.IsNull(this.tableFarmGroupLevel2.DateCreateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateCreateNull() {
+                this[this.tableFarmGroupLevel2.DateCreateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsRowVersionNull() {
+                return this.IsNull(this.tableFarmGroupLevel2.RowVersionColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetRowVersionNull() {
+                this[this.tableFarmGroupLevel2.RowVersionColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateUpdateNull() {
+                return this.IsNull(this.tableFarmGroupLevel2.DateUpdateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateUpdateNull() {
+                this[this.tableFarmGroupLevel2.DateUpdateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ProductRow[] GetProductRows() {
+                return ((ProductRow[])(base.GetChildRows(this.Table.ChildRelations["FK_FarmGroupLevel2_Product"])));
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         public class CountryRowChangeEvent : System.EventArgs {
             
             private CountryRow eventRow;
@@ -12928,34 +13149,6 @@ namespace RetailTrade {
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public TradePutletRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class FarmGroupLevel2RowChangeEvent : System.EventArgs {
-            
-            private FarmGroupLevel2Row eventRow;
-            
-            private System.Data.DataRowAction eventAction;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FarmGroupLevel2RowChangeEvent(FarmGroupLevel2Row row, System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FarmGroupLevel2Row Row {
                 get {
                     return this.eventRow;
                 }
@@ -13236,6 +13429,34 @@ namespace RetailTrade {
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public ManufacturerRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class FarmGroupLevel2RowChangeEvent : System.EventArgs {
+            
+            private FarmGroupLevel2Row eventRow;
+            
+            private System.Data.DataRowAction eventAction;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public FarmGroupLevel2RowChangeEvent(FarmGroupLevel2Row row, System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public FarmGroupLevel2Row Row {
                 get {
                     return this.eventRow;
                 }
@@ -14717,11 +14938,7 @@ SELECT ID, Number, Date, OrganisationRef, DocumentTypeRef, RemoteStockRef, Remot
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Phone", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Phone", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@License", System.Data.SqlDbType.NVarChar, 40, System.Data.ParameterDirection.Input, 0, 0, "License", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Note", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Note", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BankRS", System.Data.SqlDbType.NChar, 15, System.Data.ParameterDirection.Input, 0, 0, "BankRS", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastModif", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -14735,12 +14952,18 @@ SELECT ID, Number, Date, OrganisationRef, DocumentTypeRef, RemoteStockRef, Remot
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "dbo.OrganizationSelectCommand";
             this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "dbo.OrganizationSelectNewCommand";
+            this._commandCollection[1].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -14760,6 +14983,40 @@ SELECT ID, Number, Date, OrganisationRef, DocumentTypeRef, RemoteStockRef, Remot
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual MDataSet.OrganizationDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            MDataSet.OrganizationDataTable dataTable = new MDataSet.OrganizationDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillNew(MDataSet.OrganizationDataTable dataTable, System.Nullable<System.DateTime> DateLastUpdate) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((DateLastUpdate.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual MDataSet.OrganizationDataTable GetDataNew(System.Nullable<System.DateTime> DateLastUpdate) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((DateLastUpdate.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
             MDataSet.OrganizationDataTable dataTable = new MDataSet.OrganizationDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -14973,11 +15230,7 @@ SELECT ID, Number, Date, OrganisationRef, DocumentTypeRef, RemoteStockRef, Remot
                     string Phone, 
                     string License, 
                     string Note, 
-                    string AuthorCreate, 
-                    string AuthorLastModif, 
-                    System.Nullable<System.DateTime> DateCreate, 
                     string BankRS, 
-                    System.Nullable<System.DateTime> DateLastModif, 
                     System.Nullable<int> Original_ID, 
                     byte[] Original_RowVersion, 
                     System.Nullable<int> ID) {
@@ -15071,53 +15324,29 @@ SELECT ID, Number, Date, OrganisationRef, DocumentTypeRef, RemoteStockRef, Remot
             else {
                 this.Adapter.UpdateCommand.Parameters[15].Value = ((string)(Note));
             }
-            if ((AuthorCreate == null)) {
+            if ((BankRS == null)) {
                 this.Adapter.UpdateCommand.Parameters[16].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(AuthorCreate));
-            }
-            if ((AuthorLastModif == null)) {
-                this.Adapter.UpdateCommand.Parameters[17].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((string)(AuthorLastModif));
-            }
-            if ((DateCreate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((System.DateTime)(DateCreate.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[18].Value = System.DBNull.Value;
-            }
-            if ((BankRS == null)) {
-                this.Adapter.UpdateCommand.Parameters[19].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((string)(BankRS));
-            }
-            if ((DateLastModif.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((System.DateTime)(DateLastModif.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[20].Value = System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(BankRS));
             }
             if ((Original_ID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[21].Value = ((int)(Original_ID.Value));
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((int)(Original_ID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[21].Value = System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[17].Value = System.DBNull.Value;
             }
             if ((Original_RowVersion == null)) {
-                this.Adapter.UpdateCommand.Parameters[22].Value = System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[18].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((byte[])(Original_RowVersion));
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((byte[])(Original_RowVersion));
             }
             if ((ID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((int)(ID.Value));
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((int)(ID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[23].Value = System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[19].Value = System.DBNull.Value;
             }
             System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
@@ -15970,310 +16199,6 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
                 this.Adapter.UpdateCommand.Parameters[7].Value = ((byte[])(Original_RowVersion));
             }
             this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(ID));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.ComponentModel.ToolboxItem(true)]
-    [System.ComponentModel.DataObjectAttribute(true)]
-    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class FarmGroupLevel2TableAdapter : System.ComponentModel.Component {
-        
-        private System.Data.SqlClient.SqlDataAdapter _adapter;
-        
-        private System.Data.SqlClient.SqlConnection _connection;
-        
-        private System.Data.SqlClient.SqlCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public FarmGroupLevel2TableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private System.Data.SqlClient.SqlDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        internal System.Data.SqlClient.SqlConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitAdapter() {
-            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
-            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "FarmGroupLevel2";
-            tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("Name", "Name");
-            tableMapping.ColumnMappings.Add("FarmGroupRef", "FarmGroupRef");
-            tableMapping.ColumnMappings.Add("AuthorCreate", "AuthorCreate");
-            tableMapping.ColumnMappings.Add("AuthorLastModif", "AuthorLastModif");
-            tableMapping.ColumnMappings.Add("DateCreate", "DateCreate");
-            tableMapping.ColumnMappings.Add("RowVersion", "RowVersion");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[FarmGroupLevel2] WHERE (([ID] = @Original_ID) AND ([RowVersion" +
-                "] = @Original_RowVersion))";
-            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 0, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[FarmGroupLevel2] ([Name], [FarmGroupRef], [AuthorCreate], [AuthorLastModif], [DateCreate]) VALUES (@Name, @FarmGroupRef, @AuthorCreate, @AuthorLastModif, @DateCreate);
-SELECT ID, Name, FarmGroupRef, AuthorCreate, AuthorLastModif, DateCreate, RowVersion FROM FarmGroupLevel2 WHERE (ID = SCOPE_IDENTITY())";
-            this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FarmGroupRef", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "FarmGroupRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[FarmGroupLevel2] SET [Name] = @Name, [FarmGroupRef] = @FarmGroupRef, [AuthorCreate] = @AuthorCreate, [AuthorLastModif] = @AuthorLastModif, [DateCreate] = @DateCreate WHERE (([ID] = @Original_ID) AND ([RowVersion] = @Original_RowVersion));
-SELECT ID, Name, FarmGroupRef, AuthorCreate, AuthorLastModif, DateCreate, RowVersion FROM FarmGroupLevel2 WHERE (ID = @ID)";
-            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FarmGroupRef", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "FarmGroupRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 0, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitConnection() {
-            this._connection = new System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::RetailTrade.Properties.Settings.Default.RetailTradeConnectionString;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
-            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, Name, FarmGroupRef, AuthorCreate, AuthorLastModif, DateCreate, RowVers" +
-                "ion FROM dbo.FarmGroupLevel2";
-            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(MDataSet.FarmGroupLevel2DataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual MDataSet.FarmGroupLevel2DataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            MDataSet.FarmGroupLevel2DataTable dataTable = new MDataSet.FarmGroupLevel2DataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(MDataSet.FarmGroupLevel2DataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(MDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "FarmGroupLevel2");
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, byte[] Original_RowVersion) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
-            if ((Original_RowVersion == null)) {
-                throw new System.ArgumentNullException("Original_RowVersion");
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((byte[])(Original_RowVersion));
-            }
-            System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Name, int FarmGroupRef, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate) {
-            if ((Name == null)) {
-                throw new System.ArgumentNullException("Name");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(Name));
-            }
-            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(FarmGroupRef));
-            if ((AuthorCreate == null)) {
-                throw new System.ArgumentNullException("AuthorCreate");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(AuthorCreate));
-            }
-            if ((AuthorLastModif == null)) {
-                throw new System.ArgumentNullException("AuthorLastModif");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(AuthorLastModif));
-            }
-            this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(DateCreate));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Name, int FarmGroupRef, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, int Original_ID, byte[] Original_RowVersion, int ID) {
-            if ((Name == null)) {
-                throw new System.ArgumentNullException("Name");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(Name));
-            }
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(FarmGroupRef));
-            if ((AuthorCreate == null)) {
-                throw new System.ArgumentNullException("AuthorCreate");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(AuthorCreate));
-            }
-            if ((AuthorLastModif == null)) {
-                throw new System.ArgumentNullException("AuthorLastModif");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(AuthorLastModif));
-            }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(DateCreate));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_ID));
-            if ((Original_RowVersion == null)) {
-                throw new System.ArgumentNullException("Original_RowVersion");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((byte[])(Original_RowVersion));
-            }
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(ID));
             System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
                         != System.Data.ConnectionState.Open)) {
@@ -19018,6 +18943,229 @@ SELECT ID, Name, FarmGroupRef, AuthorCreate, AuthorLastModif, DateCreate, RowVer
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual int Update(MDataSet dataSet) {
             return this.Adapter.Update(dataSet, "Manufacturer");
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.ComponentModel.ToolboxItem(true)]
+    [System.ComponentModel.DataObjectAttribute(true)]
+    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class FarmGroupLevel2TableAdapter : System.ComponentModel.Component {
+        
+        private System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private System.Data.SqlClient.SqlConnection _connection;
+        
+        private System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public FarmGroupLevel2TableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        internal System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitAdapter() {
+            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
+            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "FarmGroupLevel2";
+            tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("Name", "Name");
+            tableMapping.ColumnMappings.Add("FarmGroupRef", "FarmGroupRef");
+            tableMapping.ColumnMappings.Add("AuthorCreate", "AuthorCreate");
+            tableMapping.ColumnMappings.Add("AuthorLastModif", "AuthorLastModif");
+            tableMapping.ColumnMappings.Add("DateLastModif", "DateLastModif");
+            tableMapping.ColumnMappings.Add("DateCreate", "DateCreate");
+            tableMapping.ColumnMappings.Add("RowVersion", "RowVersion");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = "dbo.FarmGroupLevel2DeleteCommand";
+            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = "dbo.FarmGroupLevel2InsertCommand";
+            this._adapter.InsertCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = "dbo.FarmGroupLevel2UpdateCommand";
+            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FarmGroupRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "FarmGroupRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitConnection() {
+            this._connection = new System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::RetailTrade.Properties.Settings.Default.RetailTradeConnectionString;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitCommandCollection() {
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[2];
+            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "dbo.FarmGroupLevel2SelectCommand";
+            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "dbo.FarmGroupLevel2SelectNewCommand";
+            this._commandCollection[1].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(MDataSet.FarmGroupLevel2DataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual MDataSet.FarmGroupLevel2DataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            MDataSet.FarmGroupLevel2DataTable dataTable = new MDataSet.FarmGroupLevel2DataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillNew(MDataSet.FarmGroupLevel2DataTable dataTable, System.Nullable<System.DateTime> DateLastUpdate) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((DateLastUpdate.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual MDataSet.FarmGroupLevel2DataTable GetDataNew(System.Nullable<System.DateTime> DateLastUpdate) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((DateLastUpdate.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
+            MDataSet.FarmGroupLevel2DataTable dataTable = new MDataSet.FarmGroupLevel2DataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(MDataSet.FarmGroupLevel2DataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(MDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "FarmGroupLevel2");
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
