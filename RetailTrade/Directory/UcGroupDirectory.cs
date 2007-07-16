@@ -22,10 +22,10 @@ namespace RetailTrade
 
             this.bindingSource.DataSource = source;
             this.grid.DataSource = this.bindingSource;
-           /*  this.colGroupRef.FieldName =source.Columns[2].ColumnName;
+           this.colGroupRef.FieldName =source.Columns[2].ColumnName;
             if  (source.ParentRelations.Count>0)
               
-           this.LookUpEdit.DataSource=source.ParentRelations[0].ParentTable;*/
+           this.LookUpEdit.DataSource=source.ParentRelations[0].ParentTable;
         }
 
         private bool SaveChange()
@@ -71,8 +71,8 @@ namespace RetailTrade
                     DataTable tbChahges1 = dt.GetChanges(DataRowState.Modified);
                     /*сохранить добавления*/
                     (this.ParentForm as MainForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.Added));
-    
-                       
+
+                    (this.bindingSource.DataSource as DataTable).AcceptChanges();  
 
 
                 }
