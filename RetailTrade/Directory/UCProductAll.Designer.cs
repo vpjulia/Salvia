@@ -44,23 +44,20 @@ namespace RetailTrade
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSmallName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colManufacturerName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colUnitName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPriceManufact = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colManufacturerRef = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsRecept = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsNDS = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colUnitRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPackingRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colStorageConditionRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colSubstanceRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colFarmGroupRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colFarmGrouplevel2Ref = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsOneRecept = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsVisible = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colMinDivisor = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAuthorCreate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAuthorLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDateCreate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colRowVersion = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOldKod = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOldName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -73,6 +70,7 @@ namespace RetailTrade
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
+            this.btField = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
@@ -131,6 +129,7 @@ namespace RetailTrade
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(101, 22);
             this.btSave.Text = "Сохранить";
+            this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
             // btClose
             // 
@@ -141,6 +140,7 @@ namespace RetailTrade
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(23, 22);
             this.btClose.Text = "X";
+            this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
             // mDataSet
             // 
@@ -180,23 +180,20 @@ namespace RetailTrade
             this.colID,
             this.colName,
             this.colSmallName,
+            this.colManufacturerName,
+            this.colUnitName,
             this.colPriceManufact,
             this.colManufacturerRef,
             this.colIsRecept,
             this.colIsNDS,
-            this.colUnitRef,
-            this.colPackingRef,
-            this.colStorageConditionRef,
-            this.colSubstanceRef,
-            this.colFarmGroupRef,
-            this.colFarmGrouplevel2Ref,
             this.colIsOneRecept,
             this.colIsVisible,
             this.colMinDivisor,
             this.colAuthorCreate,
             this.colAuthorLastModif,
             this.colDateCreate,
-            this.colRowVersion});
+            this.colOldKod,
+            this.colOldName});
             this.gridView.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.gridView.GridControl = this.grid;
             this.gridView.Name = "gridView";
@@ -213,167 +210,130 @@ namespace RetailTrade
             this.colID.OptionsColumn.ReadOnly = true;
             this.colID.Visible = true;
             this.colID.VisibleIndex = 0;
-            this.colID.Width = 44;
             // 
             // colName
             // 
-            this.colName.Caption = "Name";
+            this.colName.Caption = "Наименование";
             this.colName.FieldName = "Name";
             this.colName.Name = "colName";
             this.colName.Visible = true;
             this.colName.VisibleIndex = 1;
-            this.colName.Width = 118;
+            this.colName.Width = 112;
             // 
             // colSmallName
             // 
-            this.colSmallName.Caption = "SmallName";
+            this.colSmallName.Caption = "Краткое";
             this.colSmallName.FieldName = "SmallName";
             this.colSmallName.Name = "colSmallName";
-            this.colSmallName.Visible = true;
-            this.colSmallName.VisibleIndex = 2;
-            this.colSmallName.Width = 38;
+            this.colSmallName.Width = 135;
+            // 
+            // colManufacturerName
+            // 
+            this.colManufacturerName.Caption = "Изготовитель";
+            this.colManufacturerName.FieldName = "ManufacturerName";
+            this.colManufacturerName.Name = "colManufacturerName";
+            this.colManufacturerName.Visible = true;
+            this.colManufacturerName.VisibleIndex = 2;
+            this.colManufacturerName.Width = 129;
+            // 
+            // colUnitName
+            // 
+            this.colUnitName.Caption = "Ед.изм";
+            this.colUnitName.FieldName = "UnitName";
+            this.colUnitName.Name = "colUnitName";
+            this.colUnitName.Visible = true;
+            this.colUnitName.VisibleIndex = 6;
+            this.colUnitName.Width = 58;
             // 
             // colPriceManufact
             // 
-            this.colPriceManufact.Caption = "PriceManufact";
+            this.colPriceManufact.Caption = "Цена изг.";
             this.colPriceManufact.FieldName = "PriceManufact";
             this.colPriceManufact.Name = "colPriceManufact";
-            this.colPriceManufact.Visible = true;
-            this.colPriceManufact.VisibleIndex = 3;
-            this.colPriceManufact.Width = 38;
+            this.colPriceManufact.Width = 36;
             // 
             // colManufacturerRef
             // 
-            this.colManufacturerRef.Caption = "ManufacturerRef";
+            this.colManufacturerRef.Caption = "Код изготовителя";
             this.colManufacturerRef.FieldName = "ManufacturerRef";
             this.colManufacturerRef.Name = "colManufacturerRef";
-            this.colManufacturerRef.Visible = true;
-            this.colManufacturerRef.VisibleIndex = 10;
-            this.colManufacturerRef.Width = 38;
+            this.colManufacturerRef.Width = 36;
             // 
             // colIsRecept
             // 
-            this.colIsRecept.Caption = "IsRecept";
+            this.colIsRecept.Caption = "По рецепту";
             this.colIsRecept.FieldName = "IsRecept";
             this.colIsRecept.Name = "colIsRecept";
-            this.colIsRecept.Visible = true;
-            this.colIsRecept.VisibleIndex = 11;
-            this.colIsRecept.Width = 38;
+            this.colIsRecept.Width = 36;
             // 
             // colIsNDS
             // 
-            this.colIsNDS.Caption = "IsNDS";
+            this.colIsNDS.Caption = "НДС";
             this.colIsNDS.FieldName = "IsNDS";
             this.colIsNDS.Name = "colIsNDS";
             this.colIsNDS.Visible = true;
-            this.colIsNDS.VisibleIndex = 15;
+            this.colIsNDS.VisibleIndex = 3;
             this.colIsNDS.Width = 60;
-            // 
-            // colUnitRef
-            // 
-            this.colUnitRef.Caption = "UnitRef";
-            this.colUnitRef.FieldName = "UnitRef";
-            this.colUnitRef.Name = "colUnitRef";
-            this.colUnitRef.Visible = true;
-            this.colUnitRef.VisibleIndex = 4;
-            this.colUnitRef.Width = 38;
-            // 
-            // colPackingRef
-            // 
-            this.colPackingRef.Caption = "PackingRef";
-            this.colPackingRef.FieldName = "PackingRef";
-            this.colPackingRef.Name = "colPackingRef";
-            this.colPackingRef.Visible = true;
-            this.colPackingRef.VisibleIndex = 5;
-            this.colPackingRef.Width = 38;
-            // 
-            // colStorageConditionRef
-            // 
-            this.colStorageConditionRef.Caption = "StorageConditionRef";
-            this.colStorageConditionRef.FieldName = "StorageConditionRef";
-            this.colStorageConditionRef.Name = "colStorageConditionRef";
-            this.colStorageConditionRef.Visible = true;
-            this.colStorageConditionRef.VisibleIndex = 6;
-            this.colStorageConditionRef.Width = 38;
-            // 
-            // colSubstanceRef
-            // 
-            this.colSubstanceRef.Caption = "SubstanceRef";
-            this.colSubstanceRef.FieldName = "SubstanceRef";
-            this.colSubstanceRef.Name = "colSubstanceRef";
-            this.colSubstanceRef.Visible = true;
-            this.colSubstanceRef.VisibleIndex = 7;
-            this.colSubstanceRef.Width = 38;
-            // 
-            // colFarmGroupRef
-            // 
-            this.colFarmGroupRef.Caption = "FarmGroupRef";
-            this.colFarmGroupRef.FieldName = "FarmGroupRef";
-            this.colFarmGroupRef.Name = "colFarmGroupRef";
-            this.colFarmGroupRef.Visible = true;
-            this.colFarmGroupRef.VisibleIndex = 8;
-            this.colFarmGroupRef.Width = 38;
-            // 
-            // colFarmGrouplevel2Ref
-            // 
-            this.colFarmGrouplevel2Ref.Caption = "FarmGrouplevel2Ref";
-            this.colFarmGrouplevel2Ref.FieldName = "FarmGrouplevel2Ref";
-            this.colFarmGrouplevel2Ref.Name = "colFarmGrouplevel2Ref";
-            this.colFarmGrouplevel2Ref.Visible = true;
-            this.colFarmGrouplevel2Ref.VisibleIndex = 9;
-            this.colFarmGrouplevel2Ref.Width = 38;
             // 
             // colIsOneRecept
             // 
-            this.colIsOneRecept.Caption = "IsOneRecept";
+            this.colIsOneRecept.Caption = "Один на рецепте";
             this.colIsOneRecept.FieldName = "IsOneRecept";
             this.colIsOneRecept.Name = "colIsOneRecept";
-            this.colIsOneRecept.Visible = true;
-            this.colIsOneRecept.VisibleIndex = 12;
-            this.colIsOneRecept.Width = 38;
+            this.colIsOneRecept.Width = 36;
             // 
             // colIsVisible
             // 
-            this.colIsVisible.Caption = "IsVisible";
+            this.colIsVisible.Caption = "Видимость";
             this.colIsVisible.FieldName = "IsVisible";
             this.colIsVisible.Name = "colIsVisible";
-            this.colIsVisible.Visible = true;
-            this.colIsVisible.VisibleIndex = 13;
-            this.colIsVisible.Width = 38;
+            this.colIsVisible.Width = 36;
             // 
             // colMinDivisor
             // 
-            this.colMinDivisor.Caption = "MinDivisor";
+            this.colMinDivisor.Caption = "Делитель";
             this.colMinDivisor.FieldName = "MinDivisor";
             this.colMinDivisor.Name = "colMinDivisor";
             this.colMinDivisor.Visible = true;
-            this.colMinDivisor.VisibleIndex = 14;
-            this.colMinDivisor.Width = 38;
+            this.colMinDivisor.VisibleIndex = 7;
+            this.colMinDivisor.Width = 62;
             // 
             // colAuthorCreate
             // 
-            this.colAuthorCreate.Caption = "AuthorCreate";
+            this.colAuthorCreate.Caption = "Автор";
             this.colAuthorCreate.FieldName = "AuthorCreate";
             this.colAuthorCreate.Name = "colAuthorCreate";
             // 
             // colAuthorLastModif
             // 
-            this.colAuthorLastModif.Caption = "AuthorLastModif";
+            this.colAuthorLastModif.Caption = "Редактор";
             this.colAuthorLastModif.FieldName = "AuthorLastModif";
             this.colAuthorLastModif.Name = "colAuthorLastModif";
             // 
             // colDateCreate
             // 
-            this.colDateCreate.Caption = "DateCreate";
+            this.colDateCreate.Caption = "Создан";
             this.colDateCreate.FieldName = "DateCreate";
             this.colDateCreate.Name = "colDateCreate";
+            this.colDateCreate.Width = 67;
             // 
-            // colRowVersion
+            // colOldKod
             // 
-            this.colRowVersion.Caption = "RowVersion";
-            this.colRowVersion.FieldName = "RowVersion";
-            this.colRowVersion.Name = "colRowVersion";
-            this.colRowVersion.OptionsColumn.ReadOnly = true;
+            this.colOldKod.Caption = "Код Старый";
+            this.colOldKod.FieldName = "OldKod";
+            this.colOldKod.Name = "colOldKod";
+            this.colOldKod.Visible = true;
+            this.colOldKod.VisibleIndex = 4;
+            this.colOldKod.Width = 79;
+            // 
+            // colOldName
+            // 
+            this.colOldName.Caption = "Имя старое";
+            this.colOldName.FieldName = "OldName";
+            this.colOldName.Name = "colOldName";
+            this.colOldName.Visible = true;
+            this.colOldName.VisibleIndex = 5;
+            this.colOldName.Width = 70;
             // 
             // errorProvider1
             // 
@@ -396,7 +356,8 @@ namespace RetailTrade
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2,
-            this.btRefresh});
+            this.btRefresh,
+            this.btField});
             this.bindingNavigator1.Location = new System.Drawing.Point(0, 555);
             this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -406,7 +367,7 @@ namespace RetailTrade
             this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
             this.bindingNavigator1.Size = new System.Drawing.Size(732, 25);
             this.bindingNavigator1.TabIndex = 3;
-            this.bindingNavigator1.Text = "bindingNavigator1";
+            this.bindingNavigator1.Text = "Настройка полей";
             // 
             // bindingNavigatorCountItem
             // 
@@ -485,6 +446,16 @@ namespace RetailTrade
             this.btRefresh.Size = new System.Drawing.Size(23, 22);
             this.btRefresh.Text = "Обновить";
             // 
+            // btField
+            // 
+            this.btField.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btField.Image = ((System.Drawing.Image)(resources.GetObject("btField.Image")));
+            this.btField.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btField.Name = "btField";
+            this.btField.Size = new System.Drawing.Size(114, 22);
+            this.btField.Text = "toolStripButton1";
+            this.btField.Click += new System.EventHandler(this.btField_Click);
+            // 
             // UCProductAll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -521,12 +492,6 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Columns.GridColumn colName;
         private DevExpress.XtraGrid.Columns.GridColumn colSmallName;
         private DevExpress.XtraGrid.Columns.GridColumn colPriceManufact;
-        private DevExpress.XtraGrid.Columns.GridColumn colUnitRef;
-        private DevExpress.XtraGrid.Columns.GridColumn colPackingRef;
-        private DevExpress.XtraGrid.Columns.GridColumn colStorageConditionRef;
-        private DevExpress.XtraGrid.Columns.GridColumn colSubstanceRef;
-        private DevExpress.XtraGrid.Columns.GridColumn colFarmGroupRef;
-        private DevExpress.XtraGrid.Columns.GridColumn colFarmGrouplevel2Ref;
         private DevExpress.XtraGrid.Columns.GridColumn colManufacturerRef;
         private DevExpress.XtraGrid.Columns.GridColumn colIsRecept;
         private DevExpress.XtraGrid.Columns.GridColumn colIsOneRecept;
@@ -536,7 +501,6 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Columns.GridColumn colAuthorCreate;
         private DevExpress.XtraGrid.Columns.GridColumn colAuthorLastModif;
         private DevExpress.XtraGrid.Columns.GridColumn colDateCreate;
-        private DevExpress.XtraGrid.Columns.GridColumn colRowVersion;
         private System.Windows.Forms.BindingSource productBindingSource;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.ToolStripButton btAdd;
@@ -555,5 +519,10 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.ToolStripButton btRefresh;
+        private System.Windows.Forms.ToolStripButton btField;
+        private DevExpress.XtraGrid.Columns.GridColumn colOldKod;
+        private DevExpress.XtraGrid.Columns.GridColumn colOldName;
+        private DevExpress.XtraGrid.Columns.GridColumn colManufacturerName;
+        private DevExpress.XtraGrid.Columns.GridColumn colUnitName;
     }
 }

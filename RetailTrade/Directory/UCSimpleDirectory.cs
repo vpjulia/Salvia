@@ -24,7 +24,13 @@ namespace RetailTrade
             this.bindingSource.DataSource=source;
             this.grid.DataSource = this.bindingSource;
         }
-
+        private MainForm FindMainForm(Form sender)
+        {
+            if ((sender as MainForm) != null)
+                return (sender as MainForm);
+            else
+                return FindMainForm(sender.Owner);
+        }
 
         private bool SaveChange ()
         { 
@@ -59,18 +65,17 @@ namespace RetailTrade
 
                  if (DialogResult.OK == fInf.ShowDialog(this.ParentForm))
                  {  /*сохранить удаление*/
-                     (this.ParentForm as MainForm).SaveToBaseDirectoryDeleted(dt.Select(null, null, DataViewRowState.Deleted));
+
+                     MainForm _mainForm = FindMainForm(this.ParentForm);
+                     _mainForm.SaveToBaseDirectoryDeleted(dt.Select(null, null, DataViewRowState.Deleted));
                   
-                     /*сохранить изменения*/ 
-                     
-                     (this.ParentForm as MainForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.ModifiedCurrent));
+                     /*сохранить изменения*/
+
+                     _mainForm.SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.ModifiedCurrent));
                       
                        /*сохранить добавления*/
-                     (this.ParentForm as MainForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.Added));
-    
-                       
-
-                                                      
+                     _mainForm.SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.Added));
+                             
                      dt.AcceptChanges();
 
                  }
@@ -240,16 +245,13 @@ namespace RetailTrade
                      this.gridView.OptionsBehavior.Editable = true;
                  }
 
-            }
-
-        private void UCSimpleDirectory_Validating(object sender, CancelEventArgs e)
-        {
-            MessageBox.Show("UCSimpleDirectory_Validating");
         }
+
+       
 
         private void btRefresh_Click(object sender, EventArgs e)
         {
-            (this.ParentForm as MainForm).FillTable((this.bindingSource.DataSource as DataTable).TableName);
+             FindMainForm(this.ParentForm).FillTable((this.bindingSource.DataSource as DataTable).TableName);
         }
 
         private void btGridField_Click(object sender, EventArgs e)

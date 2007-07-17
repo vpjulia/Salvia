@@ -25,7 +25,60 @@ namespace RetailTrade
              
         }
 
+        private bool SaveChange()
+        {
+           
 
+            DataTable dt = (this.productBindingSource.DataSource as DataTable);
+
+            if (dt.GetChanges() != null)
+            {
+                FormDialog fInf = new FormDialog();
+                Information infcontr = new Information();
+                infcontr.Dock = DockStyle.Fill;
+
+                DataTable tbChahgesAdd = dt.GetChanges(DataRowState.Added);
+                if (tbChahgesAdd != null)
+                    foreach (DataRow frRow in tbChahgesAdd.Rows)
+                        infcontr.listBoxInf.Items.Add("Добавить " + "'" + frRow[1, DataRowVersion.Current].ToString() + "'");
+
+
+                DataTable tbChahges = dt.GetChanges(DataRowState.Modified);
+                if (tbChahges != null)
+                    foreach (DataRow frRow in tbChahges.Rows)
+                        infcontr.listBoxInf.Items.Add("Изменить   " + "'" + frRow[1, DataRowVersion.Original].ToString() + "' на " + " '" + frRow[1, DataRowVersion.Current].ToString() + "'");
+
+
+                DataTable tbChahgesDel = dt.GetChanges(DataRowState.Deleted);
+                if (tbChahgesDel != null)
+                    foreach (DataRow frRow in tbChahgesDel.Rows)
+                        infcontr.listBoxInf.Items.Add("Удалить   " + "'" + frRow[1, DataRowVersion.Original].ToString() + "'");
+
+                fInf.Size = new System.Drawing.Size((Screen.PrimaryScreen.WorkingArea.Width / 3), (Screen.PrimaryScreen.WorkingArea.Height / 2));
+
+                fInf.panel.Controls.Add(infcontr);
+
+                if (DialogResult.OK == fInf.ShowDialog(this.ParentForm))
+                {  /*сохранить удаление*/
+                    (this.ParentForm as MainForm).SaveToBaseDirectoryDeleted(dt.Select(null, null, DataViewRowState.Deleted));
+
+                    /*сохранить изменения*/
+
+                    (this.ParentForm as MainForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.ModifiedCurrent));
+
+                    /*сохранить добавления*/
+                    (this.ParentForm as MainForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.Added));
+
+
+
+
+                    dt.AcceptChanges();
+                    return true;
+                }
+                else return false;
+            }
+            return true;
+        }
 
         private void btEdit_Click(object sender, EventArgs e)
         {
@@ -43,7 +96,8 @@ namespace RetailTrade
 
                 if (DialogResult.OK == dform.ShowDialog(this))
                 {
-                    MessageBox.Show("DialogResult.OK");
+                    this.productBindingSource.EndEdit();
+                    this.btSave.Enabled = true;
                 }
                 else
                 {
@@ -62,7 +116,8 @@ namespace RetailTrade
 
             if (DialogResult.OK == dform.ShowDialog(this))
             {
-                this.productBindingSource.EndEdit();
+                this.productBindingSource.EndEdit(); 
+                this.btSave.Enabled = true;
             }
             else
             {
@@ -112,6 +167,56 @@ namespace RetailTrade
                         this.btSave.Enabled = true;
                     }
             }
+        }
+
+        private void btSave_Click(object sender, EventArgs e)
+        {
+          this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
+
+            if (this.gridView.HasColumnErrors) return;
+
+            this.btEdit.Enabled = true;
+            this.btSave.Enabled = false;
+            this.gridView.OptionsBehavior.Editable = false;
+           
+
+
+            this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
+        
+            if (this.SaveChange())
+
+            {      
+                     this.btSave.Enabled = false;
+
+                 }
+                 else
+                 {
+                  
+                     this.btSave.Enabled = true;
+                    
+                 }
+
+        }
+
+        private void btClose_Click(object sender, EventArgs e)
+        {
+            this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
+
+            if (this.gridView.HasColumnErrors)
+            {
+                this.productBindingSource.CancelEdit();
+            }
+            else if (this.SaveChange())
+            {
+                if ((this.ParentForm as MainForm) != null)
+                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+
+            }
+        }
+
+        private void btField_Click(object sender, EventArgs e)
+        {
+            this.gridView.ColumnsCustomization();
         }
     }
 }

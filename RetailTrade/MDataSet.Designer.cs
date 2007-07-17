@@ -63,13 +63,13 @@ namespace RetailTrade {
         
         private System.Data.DataRelation relationReceiptMaster_ReceiptDetail;
         
-        private System.Data.DataRelation relationFK_Manufacturer_Product;
-        
-        private System.Data.DataRelation relationFK_Substance_Product;
+        private System.Data.DataRelation relationFK_FarmGroupLevel2_Product;
         
         private System.Data.DataRelation relationFK_Unit_Product;
         
-        private System.Data.DataRelation relationFK_FarmGroupLevel2_Product;
+        private System.Data.DataRelation relationFK_Substance_Product;
+        
+        private System.Data.DataRelation relationFK_Manufacturer_Product;
         
         private System.Data.DataRelation relationFK_Country_Manufacturer;
         
@@ -637,10 +637,10 @@ namespace RetailTrade {
                 }
             }
             this.relationReceiptMaster_ReceiptDetail = this.Relations["ReceiptMaster_ReceiptDetail"];
-            this.relationFK_Manufacturer_Product = this.Relations["FK_Manufacturer_Product"];
-            this.relationFK_Substance_Product = this.Relations["FK_Substance_Product"];
-            this.relationFK_Unit_Product = this.Relations["FK_Unit_Product"];
             this.relationFK_FarmGroupLevel2_Product = this.Relations["FK_FarmGroupLevel2_Product"];
+            this.relationFK_Unit_Product = this.Relations["FK_Unit_Product"];
+            this.relationFK_Substance_Product = this.Relations["FK_Substance_Product"];
+            this.relationFK_Manufacturer_Product = this.Relations["FK_Manufacturer_Product"];
             this.relationFK_Country_Manufacturer = this.Relations["FK_Country_Manufacturer"];
             this.relationFK_FarmGroup_FarmGroupLevel2 = this.Relations["FK_FarmGroup_FarmGroupLevel2"];
             this.relationFK_InvoiceDetail_InvoiceMaster = this.Relations["FK_InvoiceDetail_InvoiceMaster"];
@@ -689,7 +689,7 @@ namespace RetailTrade {
             base.Tables.Add(this.tableReceiptDetail);
             this.tableStorageCondition = new StorageConditionDataTable(false);
             base.Tables.Add(this.tableStorageCondition);
-            this.tableProduct = new ProductDataTable();
+            this.tableProduct = new ProductDataTable(false);
             base.Tables.Add(this.tableProduct);
             this.tableFarmGroup = new FarmGroupDataTable(false);
             base.Tables.Add(this.tableFarmGroup);
@@ -711,16 +711,9 @@ namespace RetailTrade {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.Cascade;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_Manufacturer_Product", new System.Data.DataColumn[] {
-                        this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.ManufacturerRefColumn});
-            this.tableProduct.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = System.Data.Rule.None;
-            fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_Substance_Product", new System.Data.DataColumn[] {
-                        this.tableSubstance.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.SubstanceRefColumn});
+            fkc = new System.Data.ForeignKeyConstraint("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
+                        this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.FarmGrouplevel2RefColumn});
             this.tableProduct.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
@@ -732,9 +725,16 @@ namespace RetailTrade {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
-                        this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.FarmGrouplevel2RefColumn});
+            fkc = new System.Data.ForeignKeyConstraint("FK_Substance_Product", new System.Data.DataColumn[] {
+                        this.tableSubstance.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.SubstanceRefColumn});
+            this.tableProduct.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = System.Data.Rule.None;
+            fkc.UpdateRule = System.Data.Rule.Cascade;
+            fkc = new System.Data.ForeignKeyConstraint("FK_Manufacturer_Product", new System.Data.DataColumn[] {
+                        this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.ManufacturerRefColumn});
             this.tableProduct.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
@@ -757,22 +757,22 @@ namespace RetailTrade {
                         this.tableReceiptMaster.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptDetail.ReceiptMasterRefColumn}, false);
             this.Relations.Add(this.relationReceiptMaster_ReceiptDetail);
-            this.relationFK_Manufacturer_Product = new System.Data.DataRelation("FK_Manufacturer_Product", new System.Data.DataColumn[] {
-                        this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.ManufacturerRefColumn}, false);
-            this.Relations.Add(this.relationFK_Manufacturer_Product);
-            this.relationFK_Substance_Product = new System.Data.DataRelation("FK_Substance_Product", new System.Data.DataColumn[] {
-                        this.tableSubstance.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.SubstanceRefColumn}, false);
-            this.Relations.Add(this.relationFK_Substance_Product);
-            this.relationFK_Unit_Product = new System.Data.DataRelation("FK_Unit_Product", new System.Data.DataColumn[] {
-                        this.tableUnit.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.UnitRefColumn}, false);
-            this.Relations.Add(this.relationFK_Unit_Product);
             this.relationFK_FarmGroupLevel2_Product = new System.Data.DataRelation("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
                         this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
                         this.tableProduct.FarmGrouplevel2RefColumn}, false);
             this.Relations.Add(this.relationFK_FarmGroupLevel2_Product);
+            this.relationFK_Unit_Product = new System.Data.DataRelation("FK_Unit_Product", new System.Data.DataColumn[] {
+                        this.tableUnit.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.UnitRefColumn}, false);
+            this.Relations.Add(this.relationFK_Unit_Product);
+            this.relationFK_Substance_Product = new System.Data.DataRelation("FK_Substance_Product", new System.Data.DataColumn[] {
+                        this.tableSubstance.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.SubstanceRefColumn}, false);
+            this.Relations.Add(this.relationFK_Substance_Product);
+            this.relationFK_Manufacturer_Product = new System.Data.DataRelation("FK_Manufacturer_Product", new System.Data.DataColumn[] {
+                        this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.ManufacturerRefColumn}, false);
+            this.Relations.Add(this.relationFK_Manufacturer_Product);
             this.relationFK_Country_Manufacturer = new System.Data.DataRelation("FK_Country_Manufacturer", new System.Data.DataColumn[] {
                         this.tableCountry.IDColumn}, new System.Data.DataColumn[] {
                         this.tableManufacturer.CounrtyRefColumn}, false);
@@ -955,6 +955,7 @@ namespace RetailTrade {
             this.Country.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.Organization.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.StorageCondition.DateUpdateColumn.Expression = "Max(DateLastModif)";
+            this.Product.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.FarmGroup.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.Packing.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.Substance.DateUpdateColumn.Expression = "Max(DateLastModif)";
@@ -5761,11 +5762,21 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnSubstanceName;
             
+            private System.Data.DataColumn columnDateUpdate;
+            
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ProductDataTable() {
+            public ProductDataTable() : 
+                    this(false) {
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal ProductDataTable(bool initExpressions) {
                 this.TableName = "Product";
                 this.BeginInit();
                 this.InitClass();
+                if ((initExpressions == true)) {
+                    this.InitExpressions();
+                }
                 this.EndInit();
             }
             
@@ -6016,6 +6027,13 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateUpdateColumn {
+                get {
+                    return this.columnDateUpdate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -6075,7 +6093,8 @@ namespace RetailTrade {
                         string ManufacturerName, 
                         string FarmGroupLevel2, 
                         string UnitName, 
-                        string SubstanceName) {
+                        string SubstanceName, 
+                        System.DateTime DateUpdate) {
                 ProductRow rowProductRow = ((ProductRow)(this.NewRow()));
                 rowProductRow.ItemArray = new object[] {
                         null,
@@ -6109,7 +6128,8 @@ namespace RetailTrade {
                         ManufacturerName,
                         FarmGroupLevel2,
                         UnitName,
-                        SubstanceName};
+                        SubstanceName,
+                        DateUpdate};
                 this.Rows.Add(rowProductRow);
                 return rowProductRow;
             }
@@ -6171,6 +6191,7 @@ namespace RetailTrade {
                 this.columnFarmGroupLevel2 = base.Columns["FarmGroupLevel2"];
                 this.columnUnitName = base.Columns["UnitName"];
                 this.columnSubstanceName = base.Columns["SubstanceName"];
+                this.columnDateUpdate = base.Columns["DateUpdate"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6239,16 +6260,38 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnUnitName);
                 this.columnSubstanceName = new System.Data.DataColumn("SubstanceName", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSubstanceName);
+                this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateUpdate);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
+                this.columnID.AutoIncrementSeed = -1;
+                this.columnID.AutoIncrementStep = -1;
                 this.columnID.AllowDBNull = false;
                 this.columnID.ReadOnly = true;
                 this.columnID.Unique = true;
+                this.columnName.DefaultValue = ((string)("\'\'"));
                 this.columnName.MaxLength = 255;
+                this.columnSmallName.DefaultValue = ((string)("\'\'"));
                 this.columnSmallName.MaxLength = 25;
+                this.columnPriceManufact.DefaultValue = ((decimal)(0m));
+                this.columnUnitRef.DefaultValue = ((int)(0));
+                this.columnPackingRef.DefaultValue = ((int)(0));
+                this.columnStorageConditionRef.DefaultValue = ((int)(0));
+                this.columnSubstanceRef.DefaultValue = ((int)(0));
+                this.columnFarmGrouplevel2Ref.DefaultValue = ((int)(0));
+                this.columnManufacturerRef.DefaultValue = ((int)(0));
+                this.columnIsRecept.DefaultValue = ((bool)(false));
+                this.columnIsOneRecept.DefaultValue = ((bool)(false));
+                this.columnIsHide.DefaultValue = ((string)("0"));
                 this.columnIsHide.MaxLength = 10;
+                this.columnMinDivisor.DefaultValue = ((short)(1));
+                this.columnIsNDS.DefaultValue = ((bool)(false));
+                this.columnOldKol.DefaultValue = ((int)(1));
+                this.columnOldKod.DefaultValue = ((int)(0));
+                this.columnOldName.DefaultValue = ((string)("\'\'"));
                 this.columnOldName.MaxLength = 100;
+                this.columnNote.DefaultValue = ((string)(" "));
                 this.columnNote.MaxLength = 50;
                 this.columnAuthorCreate.MaxLength = 50;
                 this.columnAuthorLastModif.MaxLength = 50;
@@ -6261,6 +6304,7 @@ namespace RetailTrade {
                 this.columnFarmGroupLevel2.MaxLength = 50;
                 this.columnUnitName.MaxLength = 10;
                 this.columnSubstanceName.MaxLength = 50;
+                this.columnDateUpdate.ReadOnly = true;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6276,6 +6320,11 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Type GetRowType() {
                 return typeof(ProductRow);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitExpressions() {
+                this.DateUpdateColumn.Expression = "Max(DateLastModif)";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11401,22 +11450,27 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ManufacturerRow ManufacturerRow {
+            public System.DateTime DateUpdate {
                 get {
-                    return ((ManufacturerRow)(this.GetParentRow(this.Table.ParentRelations["FK_Manufacturer_Product"])));
+                    try {
+                        return ((System.DateTime)(this[this.tableProduct.DateUpdateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'DateUpdate\' in table \'Product\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Manufacturer_Product"]);
+                    this[this.tableProduct.DateUpdateColumn] = value;
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public SubstanceRow SubstanceRow {
+            public FarmGroupLevel2Row FarmGroupLevel2Row {
                 get {
-                    return ((SubstanceRow)(this.GetParentRow(this.Table.ParentRelations["FK_Substance_Product"])));
+                    return ((FarmGroupLevel2Row)(this.GetParentRow(this.Table.ParentRelations["FK_FarmGroupLevel2_Product"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Substance_Product"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_FarmGroupLevel2_Product"]);
                 }
             }
             
@@ -11431,12 +11485,22 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FarmGroupLevel2Row FarmGroupLevel2Row {
+            public SubstanceRow SubstanceRow {
                 get {
-                    return ((FarmGroupLevel2Row)(this.GetParentRow(this.Table.ParentRelations["FK_FarmGroupLevel2_Product"])));
+                    return ((SubstanceRow)(this.GetParentRow(this.Table.ParentRelations["FK_Substance_Product"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_FarmGroupLevel2_Product"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Substance_Product"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ManufacturerRow ManufacturerRow {
+                get {
+                    return ((ManufacturerRow)(this.GetParentRow(this.Table.ParentRelations["FK_Manufacturer_Product"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Manufacturer_Product"]);
                 }
             }
             
@@ -11768,6 +11832,16 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetSubstanceNameNull() {
                 this[this.tableProduct.SubstanceNameColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateUpdateNull() {
+                return this.IsNull(this.tableProduct.DateUpdateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateUpdateNull() {
+                this[this.tableProduct.DateUpdateColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -17350,10 +17424,6 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OldKod", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "OldKod", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OldName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, 0, 0, "OldName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Note", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Note", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastModif", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "dbo.ProductUpdateCommand";
@@ -17372,15 +17442,8 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IsOneRecept", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, 1, 0, "IsOneRecept", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IsHide", System.Data.SqlDbType.Char, 10, System.Data.ParameterDirection.Input, 0, 0, "IsHide", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@MinDivisor", System.Data.SqlDbType.SmallInt, 2, System.Data.ParameterDirection.Input, 5, 0, "MinDivisor", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IsNDS", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, 1, 0, "IsNDS", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OldKol", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "OldKol", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OldKod", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "OldKod", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OldName", System.Data.SqlDbType.NVarChar, 100, System.Data.ParameterDirection.Input, 0, 0, "OldName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Note", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Note", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastModif", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -17394,12 +17457,18 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "dbo.ProductSelectCommand";
             this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "dbo.ProductSelectNewCommand";
+            this._commandCollection[1].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -17419,6 +17488,40 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual MDataSet.ProductDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            MDataSet.ProductDataTable dataTable = new MDataSet.ProductDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillNew(MDataSet.ProductDataTable dataTable, System.Nullable<System.DateTime> DateLastUpdate) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((DateLastUpdate.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual MDataSet.ProductDataTable GetDataNew(System.Nullable<System.DateTime> DateLastUpdate) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((DateLastUpdate.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
             MDataSet.ProductDataTable dataTable = new MDataSet.ProductDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -17502,11 +17605,7 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
                     System.Nullable<int> OldKol, 
                     System.Nullable<int> OldKod, 
                     string OldName, 
-                    string Note, 
-                    string AuthorCreate, 
-                    string AuthorLastModif, 
-                    System.Nullable<System.DateTime> DateLastModif, 
-                    System.Nullable<System.DateTime> DateCreate) {
+                    string Note) {
             if ((Name == null)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = System.DBNull.Value;
             }
@@ -17615,30 +17714,6 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
             else {
                 this.Adapter.InsertCommand.Parameters[18].Value = ((string)(Note));
             }
-            if ((AuthorCreate == null)) {
-                this.Adapter.InsertCommand.Parameters[19].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[19].Value = ((string)(AuthorCreate));
-            }
-            if ((AuthorLastModif == null)) {
-                this.Adapter.InsertCommand.Parameters[20].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[20].Value = ((string)(AuthorLastModif));
-            }
-            if ((DateLastModif.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[21].Value = ((System.DateTime)(DateLastModif.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[21].Value = System.DBNull.Value;
-            }
-            if ((DateCreate.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[22].Value = ((System.DateTime)(DateCreate.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[22].Value = System.DBNull.Value;
-            }
             System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
                         != System.Data.ConnectionState.Open)) {
@@ -17672,15 +17747,8 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
                     System.Nullable<bool> IsOneRecept, 
                     string IsHide, 
                     System.Nullable<short> MinDivisor, 
-                    System.Nullable<bool> IsNDS, 
                     System.Nullable<int> OldKol, 
-                    System.Nullable<int> OldKod, 
-                    string OldName, 
                     string Note, 
-                    string AuthorCreate, 
-                    string AuthorLastModif, 
-                    System.Nullable<System.DateTime> DateLastModif, 
-                    System.Nullable<System.DateTime> DateCreate, 
                     System.Nullable<int> Original_ID, 
                     byte[] Original_RowVersion, 
                     System.Nullable<int> ID) {
@@ -17762,77 +17830,35 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
             else {
                 this.Adapter.UpdateCommand.Parameters[13].Value = System.DBNull.Value;
             }
-            if ((IsNDS.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((bool)(IsNDS.Value));
+            if ((OldKol.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((int)(OldKol.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[14].Value = System.DBNull.Value;
             }
-            if ((OldKol.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(OldKol.Value));
-            }
-            else {
+            if ((Note == null)) {
                 this.Adapter.UpdateCommand.Parameters[15].Value = System.DBNull.Value;
             }
-            if ((OldKod.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((int)(OldKod.Value));
+            else {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((string)(Note));
+            }
+            if ((Original_ID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((int)(Original_ID.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[16].Value = System.DBNull.Value;
             }
-            if ((OldName == null)) {
+            if ((Original_RowVersion == null)) {
                 this.Adapter.UpdateCommand.Parameters[17].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((string)(OldName));
-            }
-            if ((Note == null)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((string)(Note));
-            }
-            if ((AuthorCreate == null)) {
-                this.Adapter.UpdateCommand.Parameters[19].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((string)(AuthorCreate));
-            }
-            if ((AuthorLastModif == null)) {
-                this.Adapter.UpdateCommand.Parameters[20].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((string)(AuthorLastModif));
-            }
-            if ((DateLastModif.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[21].Value = ((System.DateTime)(DateLastModif.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[21].Value = System.DBNull.Value;
-            }
-            if ((DateCreate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((System.DateTime)(DateCreate.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[22].Value = System.DBNull.Value;
-            }
-            if ((Original_ID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((int)(Original_ID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[23].Value = System.DBNull.Value;
-            }
-            if ((Original_RowVersion == null)) {
-                this.Adapter.UpdateCommand.Parameters[24].Value = System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((byte[])(Original_RowVersion));
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((byte[])(Original_RowVersion));
             }
             if ((ID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((int)(ID.Value));
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((int)(ID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[25].Value = System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[18].Value = System.DBNull.Value;
             }
             System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
