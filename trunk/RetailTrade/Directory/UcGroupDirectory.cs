@@ -11,6 +11,7 @@ namespace RetailTrade
 {
     public partial class UcGroupDirectory : UserControl
     {
+       
 
         public UcGroupDirectory()
         {
@@ -22,10 +23,18 @@ namespace RetailTrade
 
             this.bindingSource.DataSource = source;
             this.grid.DataSource = this.bindingSource;
-           this.colGroupRef.FieldName =source.Columns[2].ColumnName;
+            this.colGroupRef.FieldName =source.Columns[2].ColumnName;
             if  (source.ParentRelations.Count>0)
               
            this.LookUpEdit.DataSource=source.ParentRelations[0].ParentTable;
+        }
+
+        private MainForm FindMainForm(Form sender)
+        { 
+             if ((sender as MainForm)!=null)
+            return (sender as MainForm);
+            else 
+               return  FindMainForm (sender.Owner); 
         }
 
         private bool SaveChange()
@@ -63,14 +72,14 @@ namespace RetailTrade
                 {
 
                     /*сохранить удаление*/
-                    (this.ParentForm as MainForm).SaveToBaseDirectoryDeleted(dt.Select(null, null, DataViewRowState.Deleted));
+                   FindMainForm(this.ParentForm).SaveToBaseDirectoryDeleted(dt.Select(null, null, DataViewRowState.Deleted));
 
                     /*сохранить изменения*/
 
-                    (this.ParentForm as MainForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.ModifiedCurrent));
+                   FindMainForm(this.ParentForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.ModifiedCurrent));
                     DataTable tbChahges1 = dt.GetChanges(DataRowState.Modified);
                     /*сохранить добавления*/
-                    (this.ParentForm as MainForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.Added));
+                    FindMainForm(this.ParentForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.Added));
 
                     (this.bindingSource.DataSource as DataTable).AcceptChanges();  
 
@@ -185,6 +194,31 @@ namespace RetailTrade
                 this.gridView.OptionsBehavior.Editable = true;
             }
 
+        }
+
+        private void UcGroupDirectory_Validated(object sender, EventArgs e)
+        {
+            if (!this.SaveChange())
+                MessageBox.Show("Ошибка сохранения!!!");
+        }
+
+        private void btViewDict_Click(object sender, EventArgs e)
+        {
+            FormDialog dform = new FormDialog();
+
+            /* Имя родительского справочника */
+        //    dform.Text = this.toolTip1.GetToolTip((sender as Control)).ToString();
+
+            UCSimpleDirectory ucSimpleDirectory = new UCSimpleDirectory((this.bindingSource.DataSource as DataTable).ParentRelations[0].ParentTable );
+          //  ucSimpleDirectory.errorProvider1.DataSource = this.mDataSet;
+            dform.panel.Controls.Add(ucSimpleDirectory);
+
+                        
+            if (DialogResult.OK == dform.ShowDialog(this))
+            {
+                  MessageBox.Show(ucSimpleDirectory.gridView.GetDataRow(ucSimpleDirectory.gridView.GetSelectedRows()[0])["ID"].ToString());
+              //  (this.Controls.Find((sender as Button).Tag.ToString() + "lookUpEdit", true)[0] as DevExpress.XtraEditors.LookUpEdit).EditValue = ucSimpleDirectory.gridView.GetDataRow(ucSimpleDirectory.gridView.GetSelectedRows()[0])["ID"];
+            }
         }
 
     }

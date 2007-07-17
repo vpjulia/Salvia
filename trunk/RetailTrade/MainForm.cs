@@ -262,7 +262,7 @@ namespace RetailTrade
            return true;
        }
 
-        public bool SaveToBaseDirectoryDeleted(DataRow[] dataRows)
+       public bool SaveToBaseDirectoryDeleted(DataRow[] dataRows)
         {
             if (dataRows.Length == 0) return false;
             Type tp = this.components.Components[dataRows[0].Table.TableName + "TableAdapter"].GetType();

@@ -376,7 +376,6 @@ namespace RetailTrade
             this.Name = "UCSimpleDirectory";
             this.Size = new System.Drawing.Size(578, 464);
             this.Validated += new System.EventHandler(this.UCSimpleDirectory_Validated);
-            this.Validating += new System.ComponentModel.CancelEventHandler(this.UCSimpleDirectory_Validating);
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit)).EndInit();

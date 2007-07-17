@@ -180,6 +180,7 @@ namespace RetailTrade
             this.btViewDict.Name = "btViewDict";
             this.btViewDict.Size = new System.Drawing.Size(145, 22);
             this.btViewDict.Text = "Добавить группу";
+            this.btViewDict.Click += new System.EventHandler(this.btViewDict_Click);
             // 
             // grid
             // 
@@ -322,6 +323,7 @@ namespace RetailTrade
             this.Controls.Add(this.bindingNavigator1);
             this.Name = "UcGroupDirectory";
             this.Size = new System.Drawing.Size(596, 446);
+            this.Validated += new System.EventHandler(this.UcGroupDirectory_Validated);
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
             this.bindingNavigator1.ResumeLayout(false);
             this.bindingNavigator1.PerformLayout();

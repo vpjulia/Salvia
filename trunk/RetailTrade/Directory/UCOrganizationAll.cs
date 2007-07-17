@@ -98,7 +98,7 @@ namespace RetailTrade
                 {
                     this.organizationBindingSource.EndEdit();
 
-                    this.btEdit.Enabled = false;
+                 
                     this.btSave.Enabled = true;
 
                 }
@@ -122,7 +122,7 @@ namespace RetailTrade
             if (DialogResult.OK == dform.ShowDialog(this))
             {
                 this.organizationBindingSource.EndEdit();
-                this.btEdit.Enabled = false;
+           
                 this.btSave.Enabled = true;
 
             }
@@ -148,13 +148,13 @@ namespace RetailTrade
 
             if (this.SaveChange())
             {
-                this.btEdit.Enabled = true;
+              
                 this.btSave.Enabled = false;
 
             }
             else
             {
-                this.btEdit.Enabled = false;
+               
                 this.btSave.Enabled = true;
                 this.gridView.OptionsBehavior.Editable = true;
             }
