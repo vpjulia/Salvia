@@ -43,11 +43,17 @@ namespace RetailTrade
             this.components.Add(this.tradePutletTableAdapter, "tradePutletTableAdapter");
             this.components.Add(this.stockTableAdapter, "stockTableAdapter");
             this.components.Add(this.receiptMasterNewTableAdapter, "receiptMasterNewTableAdapter");
+            this.components.Add(this.receiptMasterTableAdapter, "receiptMasterTableAdapter");
+            this.components.Add(this.receiptDetailTableAdapter, "receiptDetailTableAdapter");
+            this.components.Add(this.documentTypeTableAdapter, "documentTypeTableAdapter");
+            
             FillTable("Product");
             FillTable("Organization");
            // FillTable("TradePuplet");
             FillTable("Stock");
             FillTable("ReceiptMasterNew");
+            FillTable("ReceiptDetail");
+
             //this.productTableAdapter.Fill(this.mDataSet.Product);
         }
        
@@ -64,15 +70,7 @@ namespace RetailTrade
 
         private void Form1_Load(object sender, EventArgs e)
         {
-          /*  Properties.Settings settings = Properties.Settings.Default;
-            settings["RetailTradeConnectionString"]="новая строка";
-            settings.Save();
-            */
-          /*  this.receiptMasterTableAdapter.Fill(this.mDataSet.ReceiptMaster);
-      
-           */ // TODO: This line of code loads data into the 'mDataSet.ReceiptDetail' table. You can move, or remove it, as needed.
-           /* this.receiptDetailTableAdapter.Fill(this.mDataSet.ReceiptDetail);
-          */ 
+             
 
 // TODO: This line of code loads data into the 'mDataSet.ReceiptMaster' table. You can move, or remove it, as needed.
             // TODO: This line of code loads data into the 'mDataSet.ReceiptMasterNew' table. You can move, or remove it, as needed.
@@ -182,14 +180,25 @@ namespace RetailTrade
 
         public void FillTable(string NameTable)
         {
-            Type tp = this.components.Components[NameTable+"TableAdapter"].GetType();
-            Object[] args = new Object[1];
-            args[0]=this.mDataSet.Tables[NameTable];
-            foreach (DataRelation relation in this.mDataSet.Tables[NameTable].ParentRelations)
+            if (this.mDataSet.Tables[NameTable].Rows.Count==0)
+            {
+                Type tp = this.components.Components[NameTable + "TableAdapter"].GetType();
+                Object[] args = new Object[1];
+                args[0] = this.mDataSet.Tables[NameTable];
+                foreach (DataRelation relation in this.mDataSet.Tables[NameTable].ParentRelations)
                     FillTable(relation.ParentTable.ToString());
-            tp.GetMethod("Fill").Invoke(this.components.Components[NameTable+"TableAdapter"],args);
-            
-       }
+                tp.GetMethod("Fill").Invoke(this.components.Components[NameTable + "TableAdapter"], args);
+            }
+          /*  else
+
+            Type tp = this.components.Components[NameTable + "TableAdapter"].GetType();
+            Object[] args = new Object[1];
+            args[0] = this.mDataSet.Tables[NameTable];
+            foreach (DataRelation relation in this.mDataSet.Tables[NameTable].ParentRelations)
+                FillTable(relation.ParentTable.ToString());
+            tp.GetMethod("FillNew").Invoke(this.components.Components[NameTable + "TableAdapter"], args);
+      */
+        }
 
         /******************Модификация справочников ******************/
 

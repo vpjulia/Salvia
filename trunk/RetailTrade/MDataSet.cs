@@ -3,6 +3,10 @@
 
     partial class MDataSet
     {
+        partial class ProductDataTable
+        {
+        }
+    
         partial class FarmGroupLevel2DataTable
         {
         }

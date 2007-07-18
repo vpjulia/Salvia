@@ -129,7 +129,7 @@ namespace RetailTrade
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.48276F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.51724F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 54F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel1.Controls.Add(this.textEdit2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
@@ -156,9 +156,9 @@ namespace RetailTrade
             this.textEdit2.EnterMoveNextControl = true;
             this.textEdit2.Location = new System.Drawing.Point(169, 3);
             this.textEdit2.Name = "textEdit2";
-            this.textEdit2.Properties.MaxLength = 25;
+            this.textEdit2.Properties.MaxLength = 255;
             this.textEdit2.Properties.ValidateOnEnterKey = true;
-            this.textEdit2.Size = new System.Drawing.Size(310, 22);
+            this.textEdit2.Size = new System.Drawing.Size(309, 22);
             this.textEdit2.TabIndex = 0;
             this.textEdit2.Tag = "";
             // 
@@ -219,9 +219,9 @@ namespace RetailTrade
             this.textEdit1.EnterMoveNextControl = true;
             this.textEdit1.Location = new System.Drawing.Point(169, 36);
             this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Properties.MaxLength = 25;
+            this.textEdit1.Properties.MaxLength = 70;
             this.textEdit1.Properties.ValidateOnEnterKey = true;
-            this.textEdit1.Size = new System.Drawing.Size(100, 22);
+            this.textEdit1.Size = new System.Drawing.Size(309, 22);
             this.textEdit1.TabIndex = 2;
             this.textEdit1.Tag = "";
             // 
@@ -233,7 +233,7 @@ namespace RetailTrade
             this.textEdit3.Name = "textEdit3";
             this.textEdit3.Properties.EditFormat.FormatString = "000000";
             this.textEdit3.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.textEdit3.Properties.MaxLength = 11;
+            this.textEdit3.Properties.MaxLength = 10;
             this.textEdit3.Properties.ValidateOnEnterKey = true;
             this.textEdit3.Size = new System.Drawing.Size(100, 22);
             this.textEdit3.TabIndex = 3;
@@ -245,7 +245,7 @@ namespace RetailTrade
             this.textEdit4.EnterMoveNextControl = true;
             this.textEdit4.Location = new System.Drawing.Point(169, 94);
             this.textEdit4.Name = "textEdit4";
-            this.textEdit4.Properties.MaxLength = 25;
+            this.textEdit4.Properties.MaxLength = 50;
             this.textEdit4.Properties.ValidateOnEnterKey = true;
             this.textEdit4.Size = new System.Drawing.Size(100, 22);
             this.textEdit4.TabIndex = 4;
@@ -307,10 +307,11 @@ namespace RetailTrade
             // 
             this.textEdit5.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.organizationBindingSource, "BankMFO", true));
             this.textEdit5.Dock = System.Windows.Forms.DockStyle.Left;
+            this.textEdit5.EditValue = "";
             this.textEdit5.EnterMoveNextControl = true;
             this.textEdit5.Location = new System.Drawing.Point(3, 31);
             this.textEdit5.Name = "textEdit5";
-            this.textEdit5.Properties.MaxLength = 25;
+            this.textEdit5.Properties.MaxLength = 6;
             this.textEdit5.Properties.ValidateOnEnterKey = true;
             this.textEdit5.Size = new System.Drawing.Size(100, 22);
             this.textEdit5.TabIndex = 5;
@@ -330,12 +331,13 @@ namespace RetailTrade
             // 
             this.textEdit6.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.organizationBindingSource, "BankRS", true));
             this.textEdit6.Dock = System.Windows.Forms.DockStyle.Left;
+            this.textEdit6.EditValue = "";
             this.textEdit6.EnterMoveNextControl = true;
             this.textEdit6.Location = new System.Drawing.Point(168, 31);
             this.textEdit6.Name = "textEdit6";
-            this.textEdit6.Properties.MaxLength = 25;
+            this.textEdit6.Properties.MaxLength = 15;
             this.textEdit6.Properties.ValidateOnEnterKey = true;
-            this.textEdit6.Size = new System.Drawing.Size(198, 22);
+            this.textEdit6.Size = new System.Drawing.Size(113, 22);
             this.textEdit6.TabIndex = 6;
             this.textEdit6.Tag = "";
             // 
@@ -346,7 +348,7 @@ namespace RetailTrade
             this.textEdit7.EnterMoveNextControl = true;
             this.textEdit7.Location = new System.Drawing.Point(168, 59);
             this.textEdit7.Name = "textEdit7";
-            this.textEdit7.Properties.MaxLength = 25;
+            this.textEdit7.Properties.MaxLength = 70;
             this.textEdit7.Properties.ValidateOnEnterKey = true;
             this.textEdit7.Size = new System.Drawing.Size(360, 22);
             this.textEdit7.TabIndex = 1;
@@ -408,7 +410,7 @@ namespace RetailTrade
             this.textEdit8.EnterMoveNextControl = true;
             this.textEdit8.Location = new System.Drawing.Point(161, 3);
             this.textEdit8.Name = "textEdit8";
-            this.textEdit8.Properties.MaxLength = 25;
+            this.textEdit8.Properties.MaxLength = 12;
             this.textEdit8.Properties.ValidateOnEnterKey = true;
             this.textEdit8.Size = new System.Drawing.Size(100, 22);
             this.textEdit8.TabIndex = 0;
@@ -421,7 +423,7 @@ namespace RetailTrade
             this.textEdit9.EnterMoveNextControl = true;
             this.textEdit9.Location = new System.Drawing.Point(161, 66);
             this.textEdit9.Name = "textEdit9";
-            this.textEdit9.Properties.MaxLength = 25;
+            this.textEdit9.Properties.MaxLength = 15;
             this.textEdit9.Properties.ValidateOnEnterKey = true;
             this.textEdit9.Size = new System.Drawing.Size(100, 22);
             this.textEdit9.TabIndex = 1;
@@ -504,24 +506,26 @@ namespace RetailTrade
             // textEdit10
             // 
             this.textEdit10.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.organizationBindingSource, "Adress", true));
+            this.textEdit10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textEdit10.EnterMoveNextControl = true;
             this.textEdit10.Location = new System.Drawing.Point(165, 3);
             this.textEdit10.Name = "textEdit10";
-            this.textEdit10.Properties.MaxLength = 25;
+            this.textEdit10.Properties.MaxLength = 70;
             this.textEdit10.Properties.ValidateOnEnterKey = true;
-            this.textEdit10.Size = new System.Drawing.Size(100, 22);
+            this.textEdit10.Size = new System.Drawing.Size(355, 22);
             this.textEdit10.TabIndex = 10;
             this.textEdit10.Tag = "";
             // 
             // textEdit11
             // 
             this.textEdit11.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.organizationBindingSource, "Address_jur", true));
+            this.textEdit11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textEdit11.EnterMoveNextControl = true;
             this.textEdit11.Location = new System.Drawing.Point(165, 49);
             this.textEdit11.Name = "textEdit11";
-            this.textEdit11.Properties.MaxLength = 25;
+            this.textEdit11.Properties.MaxLength = 70;
             this.textEdit11.Properties.ValidateOnEnterKey = true;
-            this.textEdit11.Size = new System.Drawing.Size(100, 22);
+            this.textEdit11.Size = new System.Drawing.Size(355, 22);
             this.textEdit11.TabIndex = 11;
             this.textEdit11.Tag = "";
             // 
@@ -591,7 +595,7 @@ namespace RetailTrade
             this.textEdit12.EnterMoveNextControl = true;
             this.textEdit12.Location = new System.Drawing.Point(165, 3);
             this.textEdit12.Name = "textEdit12";
-            this.textEdit12.Properties.MaxLength = 25;
+            this.textEdit12.Properties.MaxLength = 15;
             this.textEdit12.Properties.ValidateOnEnterKey = true;
             this.textEdit12.Size = new System.Drawing.Size(100, 22);
             this.textEdit12.TabIndex = 12;
@@ -603,7 +607,7 @@ namespace RetailTrade
             this.textEdit13.EnterMoveNextControl = true;
             this.textEdit13.Location = new System.Drawing.Point(165, 66);
             this.textEdit13.Name = "textEdit13";
-            this.textEdit13.Properties.MaxLength = 25;
+            this.textEdit13.Properties.MaxLength = 50;
             this.textEdit13.Properties.ValidateOnEnterKey = true;
             this.textEdit13.Size = new System.Drawing.Size(100, 22);
             this.textEdit13.TabIndex = 13;
@@ -677,7 +681,7 @@ namespace RetailTrade
             this.textEdit14.EnterMoveNextControl = true;
             this.textEdit14.Location = new System.Drawing.Point(163, 3);
             this.textEdit14.Name = "textEdit14";
-            this.textEdit14.Properties.MaxLength = 25;
+            this.textEdit14.Properties.MaxLength = 40;
             this.textEdit14.Properties.ValidateOnEnterKey = true;
             this.textEdit14.Size = new System.Drawing.Size(100, 22);
             this.textEdit14.TabIndex = 14;
@@ -689,7 +693,7 @@ namespace RetailTrade
             this.textEdit15.EnterMoveNextControl = true;
             this.textEdit15.Location = new System.Drawing.Point(163, 53);
             this.textEdit15.Name = "textEdit15";
-            this.textEdit15.Properties.MaxLength = 25;
+            this.textEdit15.Properties.MaxLength = 50;
             this.textEdit15.Properties.ValidateOnEnterKey = true;
             this.textEdit15.Size = new System.Drawing.Size(100, 22);
             this.textEdit15.TabIndex = 15;
@@ -701,7 +705,7 @@ namespace RetailTrade
             this.textEdit16.EnterMoveNextControl = true;
             this.textEdit16.Location = new System.Drawing.Point(163, 103);
             this.textEdit16.Name = "textEdit16";
-            this.textEdit16.Properties.MaxLength = 25;
+            this.textEdit16.Properties.MaxLength = 50;
             this.textEdit16.Properties.ValidateOnEnterKey = true;
             this.textEdit16.Size = new System.Drawing.Size(100, 22);
             this.textEdit16.TabIndex = 16;

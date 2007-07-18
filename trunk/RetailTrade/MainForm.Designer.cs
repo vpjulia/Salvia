@@ -31,21 +31,21 @@ namespace RetailTrade
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Новые");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("К отправке");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Отправленные");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Возвратные");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Накладные", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4});
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Новые");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("На складе");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Приходные", new System.Windows.Forms.TreeNode[] {
-            treeNode6,
-            treeNode7});
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Заявки");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Новые");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("К отправке");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Отправленные");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Возвратные");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Накладные", new System.Windows.Forms.TreeNode[] {
+            treeNode10,
+            treeNode11,
+            treeNode12,
+            treeNode13});
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Новые");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("На складе");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Приходные", new System.Windows.Forms.TreeNode[] {
+            treeNode15,
+            treeNode16});
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Заявки");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -129,6 +129,8 @@ namespace RetailTrade
             this.receiptMasterNewTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptMasterNewTableAdapter();
             this.receiptMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptMasterTableAdapter();
             this.receiptDetailTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptDetailTableAdapter();
+            this.documentTypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.documentTypeTableAdapter = new RetailTrade.MDataSetTableAdapters.DocumentTypeTableAdapter();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -157,6 +159,7 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.farmGroupLevel2BindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.documentTypeBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -244,31 +247,31 @@ namespace RetailTrade
             this.treeView1.ImageList = this.imageList1;
             this.treeView1.Location = new System.Drawing.Point(3, 3);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "NodeRecieptNew";
-            treeNode1.Text = "Новые";
-            treeNode2.Name = "Node6";
-            treeNode2.Text = "К отправке";
-            treeNode3.Name = "Node7";
-            treeNode3.Text = "Отправленные";
-            treeNode4.Name = "Node8";
-            treeNode4.Text = "Возвратные";
-            treeNode5.Name = "NodeReciept";
-            treeNode5.Tag = "";
-            treeNode5.Text = "Накладные";
-            treeNode6.Name = "Node10";
-            treeNode6.Tag = "ReceiptMasterNewAll";
-            treeNode6.Text = "Новые";
-            treeNode6.ToolTipText = "Новые приходные акты";
-            treeNode7.Name = "Node11";
-            treeNode7.Text = "На складе";
-            treeNode8.Name = "Node9";
-            treeNode8.Text = "Приходные";
-            treeNode9.Name = "Node12";
-            treeNode9.Text = "Заявки";
+            treeNode10.Name = "NodeRecieptNew";
+            treeNode10.Text = "Новые";
+            treeNode11.Name = "Node6";
+            treeNode11.Text = "К отправке";
+            treeNode12.Name = "Node7";
+            treeNode12.Text = "Отправленные";
+            treeNode13.Name = "Node8";
+            treeNode13.Text = "Возвратные";
+            treeNode14.Name = "NodeReciept";
+            treeNode14.Tag = "";
+            treeNode14.Text = "Накладные";
+            treeNode15.Name = "Node10";
+            treeNode15.Tag = "ReceiptMasterNewAll";
+            treeNode15.Text = "Новые";
+            treeNode15.ToolTipText = "Новые приходные акты";
+            treeNode16.Name = "Node11";
+            treeNode16.Text = "На складе";
+            treeNode17.Name = "Node9";
+            treeNode17.Text = "Приходные";
+            treeNode18.Name = "Node12";
+            treeNode18.Text = "Заявки";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode5,
-            treeNode8,
-            treeNode9});
+            treeNode14,
+            treeNode17,
+            treeNode18});
             this.treeView1.SelectedImageIndex = 0;
             this.treeView1.Size = new System.Drawing.Size(204, 376);
             this.treeView1.TabIndex = 0;
@@ -318,7 +321,7 @@ namespace RetailTrade
             // 
             // gridControl2
             // 
-            this.gridControl2.DataSource = this.storageConditionBindingSource;
+            this.gridControl2.DataSource = this.documentTypeBindingSource;
             // 
             // 
             // 
@@ -825,6 +828,15 @@ namespace RetailTrade
             // 
             this.receiptDetailTableAdapter.ClearBeforeFill = true;
             // 
+            // documentTypeBindingSource
+            // 
+            this.documentTypeBindingSource.DataMember = "DocumentType";
+            this.documentTypeBindingSource.DataSource = this.mDataSet;
+            // 
+            // documentTypeTableAdapter
+            // 
+            this.documentTypeTableAdapter.ClearBeforeFill = true;
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(837, 684);
@@ -865,6 +877,7 @@ namespace RetailTrade
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.farmGroupLevel2BindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.documentTypeBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -954,6 +967,8 @@ namespace RetailTrade
         private Microsoft.Reporting.WinForms.ReportViewer mainReportViewer;
         public System.Windows.Forms.BindingSource receiptMasterNewBindingSource;
         public System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.BindingSource documentTypeBindingSource;
+        private RetailTrade.MDataSetTableAdapters.DocumentTypeTableAdapter documentTypeTableAdapter;
     }
 }
 

@@ -127,9 +127,9 @@ namespace RetailTrade
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CountLabel,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 421);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 464);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(528, 23);
+            this.statusStrip1.Size = new System.Drawing.Size(624, 23);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -154,7 +154,7 @@ namespace RetailTrade
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(528, 421);
+            this.tabControl1.Size = new System.Drawing.Size(624, 464);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -166,7 +166,7 @@ namespace RetailTrade
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(520, 392);
+            this.tabPage1.Size = new System.Drawing.Size(616, 435);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Документ";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -175,11 +175,14 @@ namespace RetailTrade
             // 
             this.gridControl1.DataSource = this.receiptDetailBindingSource;
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
             this.gridControl1.EmbeddedNavigator.Name = "";
             this.gridControl1.Location = new System.Drawing.Point(3, 141);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(514, 248);
+            this.gridControl1.Size = new System.Drawing.Size(610, 291);
             this.gridControl1.TabIndex = 1;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -374,7 +377,7 @@ namespace RetailTrade
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(3, 38);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(514, 103);
+            this.groupBox1.Size = new System.Drawing.Size(610, 103);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -396,7 +399,7 @@ namespace RetailTrade
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(508, 90);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(604, 90);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label3
@@ -478,7 +481,7 @@ namespace RetailTrade
             this.textEdit3.Name = "textEdit3";
             this.textEdit3.Properties.MaxLength = 25;
             this.textEdit3.Properties.ValidateOnEnterKey = true;
-            this.textEdit3.Size = new System.Drawing.Size(410, 22);
+            this.textEdit3.Size = new System.Drawing.Size(506, 22);
             this.textEdit3.TabIndex = 3;
             this.textEdit3.Tag = "";
             this.textEdit3.EditValueChanged += new System.EventHandler(this.textEdit3_EditValueChanged);
@@ -495,7 +498,7 @@ namespace RetailTrade
             this.panelNumber.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelNumber.Location = new System.Drawing.Point(3, 3);
             this.panelNumber.Name = "panelNumber";
-            this.panelNumber.Size = new System.Drawing.Size(514, 35);
+            this.panelNumber.Size = new System.Drawing.Size(610, 35);
             this.panelNumber.TabIndex = 3;
             this.panelNumber.Paint += new System.Windows.Forms.PaintEventHandler(this.panelNumber_Paint);
             // 
@@ -571,7 +574,7 @@ namespace RetailTrade
             this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(528, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(624, 25);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -665,7 +668,7 @@ namespace RetailTrade
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.Name = "ReceiptRowOrganization";
-            this.Size = new System.Drawing.Size(528, 444);
+            this.Size = new System.Drawing.Size(624, 487);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);

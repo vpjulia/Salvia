@@ -51,7 +51,6 @@ namespace RetailTrade
             this.colIsRecept = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsNDS = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsOneRecept = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colIsVisible = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colMinDivisor = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAuthorCreate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAuthorLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -71,6 +70,7 @@ namespace RetailTrade
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.btField = new System.Windows.Forms.ToolStripButton();
+            this.colIsHide = new DevExpress.XtraGrid.Columns.GridColumn();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
@@ -155,9 +155,6 @@ namespace RetailTrade
             // 
             this.grid.DataSource = this.productBindingSource;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
             this.grid.EmbeddedNavigator.Name = "";
             this.errorProvider1.SetError(this.grid, "jj");
             this.grid.Location = new System.Drawing.Point(0, 25);
@@ -187,13 +184,13 @@ namespace RetailTrade
             this.colIsRecept,
             this.colIsNDS,
             this.colIsOneRecept,
-            this.colIsVisible,
             this.colMinDivisor,
             this.colAuthorCreate,
             this.colAuthorLastModif,
             this.colDateCreate,
             this.colOldKod,
-            this.colOldName});
+            this.colOldName,
+            this.colIsHide});
             this.gridView.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.gridView.GridControl = this.grid;
             this.gridView.Name = "gridView";
@@ -281,13 +278,6 @@ namespace RetailTrade
             this.colIsOneRecept.FieldName = "IsOneRecept";
             this.colIsOneRecept.Name = "colIsOneRecept";
             this.colIsOneRecept.Width = 36;
-            // 
-            // colIsVisible
-            // 
-            this.colIsVisible.Caption = "Видимость";
-            this.colIsVisible.FieldName = "IsVisible";
-            this.colIsVisible.Name = "colIsVisible";
-            this.colIsVisible.Width = 36;
             // 
             // colMinDivisor
             // 
@@ -456,6 +446,14 @@ namespace RetailTrade
             this.btField.Text = "toolStripButton1";
             this.btField.Click += new System.EventHandler(this.btField_Click);
             // 
+            // colIsHide
+            // 
+            this.colIsHide.Caption = "Видимость";
+            this.colIsHide.FieldName = "IsHide";
+            this.colIsHide.Name = "colIsHide";
+            this.colIsHide.Visible = true;
+            this.colIsHide.VisibleIndex = 8;
+            // 
             // UCProductAll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -495,7 +493,6 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Columns.GridColumn colManufacturerRef;
         private DevExpress.XtraGrid.Columns.GridColumn colIsRecept;
         private DevExpress.XtraGrid.Columns.GridColumn colIsOneRecept;
-        private DevExpress.XtraGrid.Columns.GridColumn colIsVisible;
         private DevExpress.XtraGrid.Columns.GridColumn colMinDivisor;
         private DevExpress.XtraGrid.Columns.GridColumn colIsNDS;
         private DevExpress.XtraGrid.Columns.GridColumn colAuthorCreate;
@@ -524,5 +521,6 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Columns.GridColumn colOldName;
         private DevExpress.XtraGrid.Columns.GridColumn colManufacturerName;
         private DevExpress.XtraGrid.Columns.GridColumn colUnitName;
+        private DevExpress.XtraGrid.Columns.GridColumn colIsHide;
     }
 }
