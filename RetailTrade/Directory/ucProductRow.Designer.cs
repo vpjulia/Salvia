@@ -40,8 +40,8 @@ namespace RetailTrade
             this.ManufacturerlookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.manufacturerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btManufacturer = new System.Windows.Forms.Button();
-            this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
-            this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
+            this.NametextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.SamallNametextEdit = new DevExpress.XtraEditors.TextEdit();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -91,8 +91,8 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ManufacturerlookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.manufacturerBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NametextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SamallNametextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PackinglookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.packingBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UnitlookUpEdit.Properties)).BeginInit();
@@ -147,8 +147,8 @@ namespace RetailTrade
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.ManufacturerlookUpEdit, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.btManufacturer, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.textEdit1, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.textEdit2, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.NametextEdit, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.SamallNametextEdit, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 7);
@@ -277,30 +277,32 @@ namespace RetailTrade
             this.btManufacturer.UseVisualStyleBackColor = true;
             this.btManufacturer.Click += new System.EventHandler(this.btUcGroupDirectory_Click);
             // 
-            // textEdit1
+            // NametextEdit
             // 
-            this.textEdit1.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "Name", true));
-            this.textEdit1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "Name", true));
-            this.textEdit1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textEdit1.EnterMoveNextControl = true;
-            this.textEdit1.Location = new System.Drawing.Point(216, 3);
-            this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Size = new System.Drawing.Size(264, 22);
-            this.textEdit1.TabIndex = 0;
-            this.textEdit1.Tag = "";
+            this.NametextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "Name", true));
+            this.NametextEdit.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "Name", true));
+            this.NametextEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.NametextEdit.EnterMoveNextControl = true;
+            this.NametextEdit.Location = new System.Drawing.Point(216, 3);
+            this.NametextEdit.Name = "NametextEdit";
+            this.NametextEdit.Properties.MaxLength = 255;
+            this.NametextEdit.Size = new System.Drawing.Size(264, 22);
+            this.NametextEdit.TabIndex = 0;
+            this.NametextEdit.Tag = "";
+            this.NametextEdit.TextChanged += new System.EventHandler(this.NametextEdit_TextChanged);
             // 
-            // textEdit2
+            // SamallNametextEdit
             // 
-            this.textEdit2.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "SmallName", true));
-            this.textEdit2.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "SmallName", true));
-            this.textEdit2.EnterMoveNextControl = true;
-            this.textEdit2.Location = new System.Drawing.Point(216, 31);
-            this.textEdit2.Name = "textEdit2";
-            this.textEdit2.Properties.MaxLength = 25;
-            this.textEdit2.Properties.ValidateOnEnterKey = true;
-            this.textEdit2.Size = new System.Drawing.Size(100, 22);
-            this.textEdit2.TabIndex = 1;
-            this.textEdit2.Tag = "";
+            this.SamallNametextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "SmallName", true));
+            this.SamallNametextEdit.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "SmallName", true));
+            this.SamallNametextEdit.EnterMoveNextControl = true;
+            this.SamallNametextEdit.Location = new System.Drawing.Point(216, 31);
+            this.SamallNametextEdit.Name = "SamallNametextEdit";
+            this.SamallNametextEdit.Properties.MaxLength = 25;
+            this.SamallNametextEdit.Properties.ValidateOnEnterKey = true;
+            this.SamallNametextEdit.Size = new System.Drawing.Size(100, 22);
+            this.SamallNametextEdit.TabIndex = 1;
+            this.SamallNametextEdit.Tag = "";
             // 
             // label7
             // 
@@ -704,8 +706,8 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ManufacturerlookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.manufacturerBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NametextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SamallNametextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PackinglookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.packingBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UnitlookUpEdit.Properties)).EndInit();
@@ -745,8 +747,8 @@ namespace RetailTrade
         private System.Windows.Forms.Button btManufacturer;
         private System.Windows.Forms.BindingSource manufacturerBindingSource;
         private RetailTrade.MDataSetTableAdapters.ManufacturerTableAdapter manufacturerTableAdapter;
-        private DevExpress.XtraEditors.TextEdit textEdit1;
-        private DevExpress.XtraEditors.TextEdit textEdit2;
+        private DevExpress.XtraEditors.TextEdit NametextEdit;
+        private DevExpress.XtraEditors.TextEdit SamallNametextEdit;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;

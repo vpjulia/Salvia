@@ -32,5 +32,15 @@ namespace RetailTrade.Properties {
                 return ((string)(this["RetailTradeConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=|DataDirectory|\\db2.mdb")]
+        public string db2ConnectionString {
+            get {
+                return ((string)(this["db2ConnectionString"]));
+            }
+        }
     }
 }

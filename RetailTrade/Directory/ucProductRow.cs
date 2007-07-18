@@ -110,20 +110,22 @@ namespace RetailTrade
 
         private void ucProductRow_Validating(object sender, CancelEventArgs e)
         {
+           (this.productBindingSource.DataSource as MDataSet.ProductRow).Name = this.NametextEdit.Text.Trim();
+           (this.productBindingSource.DataSource as MDataSet.ProductRow).SmallName = this.NametextEdit.Text.Trim();
             this.productBindingSource.CurrencyManager.EndCurrentEdit();
         }
 
+        private void NametextEdit_TextChanged(object sender, EventArgs e)
+        {
+           if (this.SamallNametextEdit.Text.Trim().Length<3)
+
+            {
+                this.SamallNametextEdit.Text = this.NametextEdit.Text;
+            }
+        }
+
+       
         
-       
-
-       
-
-        
-
-       
-
-       
-
-       
+      
     }
 }
