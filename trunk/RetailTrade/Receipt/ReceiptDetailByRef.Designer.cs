@@ -132,7 +132,7 @@ namespace RetailTrade
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+
             // 
             // tabControl1
             // 
@@ -177,6 +177,9 @@ namespace RetailTrade
             // 
             this.gridProduct.DataSource = this.productBindingSource;
             this.gridProduct.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
             this.gridProduct.EmbeddedNavigator.Name = "";
             this.gridProduct.Location = new System.Drawing.Point(0, 0);
             this.gridProduct.MainView = this.gridViewProduct;
@@ -405,6 +408,9 @@ namespace RetailTrade
             // 
             this.gridControl2.DataSource = this.receiptDetailBindingSource;
             this.gridControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
             this.gridControl2.EmbeddedNavigator.Name = "";
             this.gridControl2.Location = new System.Drawing.Point(0, 0);
             this.gridControl2.MainView = this.gridView2;
@@ -454,6 +460,7 @@ namespace RetailTrade
             this.colID2.OptionsColumn.ReadOnly = true;
             this.colID2.Visible = true;
             this.colID2.VisibleIndex = 0;
+            this.colID2.Width = 51;
             // 
             // colReceiptMaterRef
             // 
@@ -461,7 +468,8 @@ namespace RetailTrade
             this.colReceiptMaterRef.FieldName = "ReceiptMaterRef";
             this.colReceiptMaterRef.Name = "colReceiptMaterRef";
             this.colReceiptMaterRef.Visible = true;
-            this.colReceiptMaterRef.VisibleIndex = 4;
+            this.colReceiptMaterRef.VisibleIndex = 5;
+            this.colReceiptMaterRef.Width = 47;
             // 
             // colProductRef
             // 
@@ -469,7 +477,8 @@ namespace RetailTrade
             this.colProductRef.FieldName = "ProductRef";
             this.colProductRef.Name = "colProductRef";
             this.colProductRef.Visible = true;
-            this.colProductRef.VisibleIndex = 3;
+            this.colProductRef.VisibleIndex = 4;
+            this.colProductRef.Width = 45;
             // 
             // colSeries
             // 
@@ -477,7 +486,8 @@ namespace RetailTrade
             this.colSeries.FieldName = "Series";
             this.colSeries.Name = "colSeries";
             this.colSeries.Visible = true;
-            this.colSeries.VisibleIndex = 2;
+            this.colSeries.VisibleIndex = 3;
+            this.colSeries.Width = 45;
             // 
             // colUseByDate
             // 
@@ -492,12 +502,16 @@ namespace RetailTrade
             this.colQuantity.Name = "colQuantity";
             this.colQuantity.Visible = true;
             this.colQuantity.VisibleIndex = 1;
+            this.colQuantity.Width = 51;
             // 
             // colPricePurchase
             // 
             this.colPricePurchase.Caption = "PricePurchase";
             this.colPricePurchase.FieldName = "PricePurchase";
             this.colPricePurchase.Name = "colPricePurchase";
+            this.colPricePurchase.Visible = true;
+            this.colPricePurchase.VisibleIndex = 2;
+            this.colPricePurchase.Width = 67;
             // 
             // colPurchaseNDS
             // 

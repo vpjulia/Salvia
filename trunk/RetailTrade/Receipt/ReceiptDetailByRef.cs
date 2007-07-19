@@ -42,12 +42,8 @@ namespace RetailTrade
 
            this.receiptDetailBindingSource.DataSource = this.receiptMasterBindingSourceView;
            this.receiptDetailBindingSource.DataMember = "ReceiptMaster_ReceiptDetail";
-
-            this.receiptDetailBindingSource.ResetBindings(true);
-             
-           
-           
-            this.tabPage1.Text = this.receiptMasterBindingSource.CurrencyManager.Position.ToString();
+           this.receiptDetailBindingSource.ResetBindings(true);
+           this.tabPage1.Text = this.receiptMasterBindingSource.CurrencyManager.Position.ToString();
            
         }
 
@@ -65,18 +61,10 @@ namespace RetailTrade
                 FormDialog _formDialog = new FormDialog();
                 _formDialog.AcceptButton = null;
 
-                
-
-
                  MDataSet.ReceiptDetailRow sourceRow =((this.receiptDetailBindingSource.AddNew() as DataRowView).Row  as MDataSet.ReceiptDetailRow) ;
-
-                // this.receiptDetailBindingSource.EndEdit();
-
                  ReceiptDetailRowAdd _receiptDetailRowAdd = new ReceiptDetailRowAdd(sourceRow, (MDataSet.ProductRow)this.gridViewProduct.GetDataRow(this.gridViewProduct.FocusedRowHandle));
-           
-                _formDialog.panel.Controls.Add(_receiptDetailRowAdd);
-               
-              
+                 _formDialog.panel.Controls.Add(_receiptDetailRowAdd);
+      
                 if (DialogResult.OK == _formDialog.ShowDialog(this))
                 {
                     this.receiptDetailBindingSource.EndEdit();
@@ -88,11 +76,7 @@ namespace RetailTrade
            }
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            this.tabPage1.Text = this.receiptMasterBindingSource.CurrencyManager.Position.ToString();
-        ///  MessageBox.Show( this.receiptMasterBindingSourceView.Find("ID", source.ID).ToString());
-        }
+       
 
        
         private void ReceiptDetailByRef_Load(object sender, EventArgs e)

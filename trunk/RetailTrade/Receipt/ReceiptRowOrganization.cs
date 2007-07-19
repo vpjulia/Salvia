@@ -73,33 +73,36 @@ namespace RetailTrade
 
         }
 
-        
-
-        private void btSaveReciept_Click(object sender, EventArgs e)
+        private bool SaveChange()
         {
-            this.receiptMasterBindingSource.CurrencyManager.EndCurrentEdit();
 
-            if ((this.ParentForm as MainForm).SaveToBase(this.receiptMasterBindingSource.DataSource as MDataSet.ReceiptMasterRow))
+            this.receiptMasterBindingSource.CurrencyManager.EndCurrentEdit();
+            this.receiptDetailBindingSource.CurrencyManager.EndCurrentEdit();
+
+
+           if (this.gridView.HasColumnErrors)
+           {
+               this.receiptMasterBindingSource.CancelEdit();
+               return false;
+           }
+
+
+              if ((this.ParentForm as MainForm).SaveToBase(this.receiptMasterBindingSource.DataSource as MDataSet.ReceiptMasterRow))
             {
                 this.receiptMasterBindingSource.ResetCurrentItem();
                 this.Parent.Tag = "ReceiptRowOrganization" + (this.receiptMasterBindingSource.Current as MDataSet.ReceiptMasterRow).ID.ToString();
                 this.Parent.Text = "¹" + (this.receiptMasterBindingSource.Current as MDataSet.ReceiptMasterRow).Number.ToString() + " " + (this.receiptMasterBindingSource.Current as MDataSet.ReceiptMasterRow).OrganizationRow.ShortName.ToString();
                 this.panelNumber.Enabled = true;
             }
-        
-
+            return true;
         }
 
-        private void panelNumber_Paint(object sender, PaintEventArgs e)
+        private void btSaveReciept_Click(object sender, EventArgs e)
         {
-
+            this.SaveChange();
         }
 
-        private void textEdit3_EditValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
+       
         private void gridView1_InvalidValueException(object sender, DevExpress.XtraEditors.Controls.InvalidValueExceptionEventArgs e)
         {
             MessageBox.Show(e.ErrorText);
@@ -107,8 +110,28 @@ namespace RetailTrade
 
         private void gridView1_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
         {
-            this.gridView1.SetColumnError(this.gridView1.Columns[1], e.ErrorText.ToString());
+            this.gridView.SetColumnError(this.gridView.Columns[1], e.ErrorText.ToString());
             e.ExceptionMode = DevExpress.XtraEditors.Controls.ExceptionMode.NoAction;
+
+        }
+
+        private void btClose_Click(object sender, EventArgs e)
+        {
+            //
+         //   this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
+
+            if (this.gridView.HasColumnErrors)
+            {
+                this.receiptDetailBindingSource.CancelEdit();
+            }
+            else if (this.SaveChange())
+            {
+                if ((this.ParentForm as MainForm) != null)
+                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+
+            }
+           
+
 
         }
 
