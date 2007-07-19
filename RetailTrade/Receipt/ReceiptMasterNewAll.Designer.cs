@@ -189,8 +189,8 @@ namespace RetailTrade
             this.colNote.FieldName = "Note";
             this.colNote.Name = "colNote";
             this.colNote.Visible = true;
-            this.colNote.VisibleIndex = 2;
-            this.colNote.Width = 59;
+            this.colNote.VisibleIndex = 4;
+            this.colNote.Width = 54;
             // 
             // colOrganizationName
             // 
@@ -198,8 +198,8 @@ namespace RetailTrade
             this.colOrganizationName.FieldName = "OrganizationName";
             this.colOrganizationName.Name = "colOrganizationName";
             this.colOrganizationName.Visible = true;
-            this.colOrganizationName.VisibleIndex = 3;
-            this.colOrganizationName.Width = 59;
+            this.colOrganizationName.VisibleIndex = 5;
+            this.colOrganizationName.Width = 54;
             // 
             // colStockName
             // 
@@ -207,8 +207,8 @@ namespace RetailTrade
             this.colStockName.FieldName = "StockName";
             this.colStockName.Name = "colStockName";
             this.colStockName.Visible = true;
-            this.colStockName.VisibleIndex = 4;
-            this.colStockName.Width = 59;
+            this.colStockName.VisibleIndex = 6;
+            this.colStockName.Width = 54;
             // 
             // colDocumentTypeName
             // 
@@ -216,8 +216,8 @@ namespace RetailTrade
             this.colDocumentTypeName.FieldName = "DocumentTypeName";
             this.colDocumentTypeName.Name = "colDocumentTypeName";
             this.colDocumentTypeName.Visible = true;
-            this.colDocumentTypeName.VisibleIndex = 5;
-            this.colDocumentTypeName.Width = 59;
+            this.colDocumentTypeName.VisibleIndex = 7;
+            this.colDocumentTypeName.Width = 54;
             // 
             // colIsNDS
             // 
@@ -225,8 +225,8 @@ namespace RetailTrade
             this.colIsNDS.FieldName = "IsNDS";
             this.colIsNDS.Name = "colIsNDS";
             this.colIsNDS.Visible = true;
-            this.colIsNDS.VisibleIndex = 6;
-            this.colIsNDS.Width = 59;
+            this.colIsNDS.VisibleIndex = 8;
+            this.colIsNDS.Width = 54;
             // 
             // colTradePutletName
             // 
@@ -234,8 +234,8 @@ namespace RetailTrade
             this.colTradePutletName.FieldName = "TradePutletName";
             this.colTradePutletName.Name = "colTradePutletName";
             this.colTradePutletName.Visible = true;
-            this.colTradePutletName.VisibleIndex = 7;
-            this.colTradePutletName.Width = 59;
+            this.colTradePutletName.VisibleIndex = 9;
+            this.colTradePutletName.Width = 54;
             // 
             // colFullAuthorModif
             // 
@@ -243,8 +243,8 @@ namespace RetailTrade
             this.colFullAuthorModif.FieldName = "FullAuthorModif";
             this.colFullAuthorModif.Name = "colFullAuthorModif";
             this.colFullAuthorModif.Visible = true;
-            this.colFullAuthorModif.VisibleIndex = 8;
-            this.colFullAuthorModif.Width = 59;
+            this.colFullAuthorModif.VisibleIndex = 10;
+            this.colFullAuthorModif.Width = 54;
             // 
             // colFullAuthorCreate
             // 
@@ -252,7 +252,7 @@ namespace RetailTrade
             this.colFullAuthorCreate.FieldName = "FullAuthorCreate";
             this.colFullAuthorCreate.Name = "colFullAuthorCreate";
             this.colFullAuthorCreate.Visible = true;
-            this.colFullAuthorCreate.VisibleIndex = 9;
+            this.colFullAuthorCreate.VisibleIndex = 11;
             this.colFullAuthorCreate.Width = 59;
             // 
             // colPurchSum
@@ -261,8 +261,8 @@ namespace RetailTrade
             this.colPurchSum.FieldName = "PurchSum";
             this.colPurchSum.Name = "colPurchSum";
             this.colPurchSum.Visible = true;
-            this.colPurchSum.VisibleIndex = 10;
-            this.colPurchSum.Width = 59;
+            this.colPurchSum.VisibleIndex = 2;
+            this.colPurchSum.Width = 99;
             // 
             // colPurchNDS
             // 
@@ -270,8 +270,8 @@ namespace RetailTrade
             this.colPurchNDS.FieldName = "PurchNDS";
             this.colPurchNDS.Name = "colPurchNDS";
             this.colPurchNDS.Visible = true;
-            this.colPurchNDS.VisibleIndex = 11;
-            this.colPurchNDS.Width = 60;
+            this.colPurchNDS.VisibleIndex = 3;
+            this.colPurchNDS.Width = 55;
             // 
             // receiptMasterNewTableAdapter
             // 

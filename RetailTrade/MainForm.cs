@@ -301,25 +301,29 @@ namespace RetailTrade
         }
        public bool SaveToBase(MDataSet.ReceiptMasterRow sourceRow)
         {
-          try
+             DataRow[] dr = sourceRow.GetReceiptDetailRows();
+           try
             {
                this.receiptMasterTableAdapter.Update(sourceRow);
 
-               DataRow[] dr = sourceRow.GetReceiptDetailRows();
+            
 
                 this.receiptDetailTableAdapter.Update(dr);
                 
             }
-              catch 
+              catch
             {
-                
+                  MessageBox.Show(this.mDataSet.ReceiptDetail.HasErrors.ToString());
+                 
+                  MessageBox.Show("Ошибка обновления!");
                   return false;
 
             }
            finally
             {
                 this.receiptMasterNewTableAdapter.Fill(this.mDataSet.ReceiptMasterNew);
-                
+                sourceRow.Table.Merge(this.mDataSet.ReceiptMasterNew);
+              
             } 
             return true;        
         }

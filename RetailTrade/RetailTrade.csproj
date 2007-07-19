@@ -64,6 +64,11 @@
     <Compile Include="Directory\UCTradePuplet.Designer.cs">
       <DependentUpon>UCTradePuplet.cs</DependentUpon>
     </Compile>
+    <Compile Include="IBDataset.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IBDataset.xsd</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -240,7 +245,23 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="IBDataset.xsc">
+      <DependentUpon>IBDataset.xsd</DependentUpon>
+    </None>
+    <None Include="IBDataset.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>IBDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="IBDataset.xss">
+      <DependentUpon>IBDataset.xsd</DependentUpon>
+    </None>
     <None Include="Resources\images.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="db2.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Invoice\" />

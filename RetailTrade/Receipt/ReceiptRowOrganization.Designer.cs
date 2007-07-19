@@ -40,7 +40,7 @@ namespace RetailTrade
             this.receiptDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.receiptMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mDataSet = new RetailTrade.MDataSet();
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colReceiptMasterRef = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colProductRef = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -81,7 +81,7 @@ namespace RetailTrade
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.ÔËıÓ‰Ì˚È¿ÍÚToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btSaveReciept = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.btClose = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.receiptDetailTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptDetailTableAdapter();
             this.receiptMasterNewTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptMasterNewTableAdapter();
@@ -98,7 +98,7 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OrganisationlookUpEdit.Properties)).BeginInit();
@@ -175,17 +175,14 @@ namespace RetailTrade
             // 
             this.gridControl1.DataSource = this.receiptDetailBindingSource;
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
             this.gridControl1.EmbeddedNavigator.Name = "";
             this.gridControl1.Location = new System.Drawing.Point(3, 141);
-            this.gridControl1.MainView = this.gridView1;
+            this.gridControl1.MainView = this.gridView;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.Size = new System.Drawing.Size(610, 291);
             this.gridControl1.TabIndex = 1;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView1});
+            this.gridView});
             // 
             // receiptDetailBindingSource
             // 
@@ -202,9 +199,9 @@ namespace RetailTrade
             this.mDataSet.DataSetName = "MDataSet";
             this.mDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // gridView1
+            // gridView
             // 
-            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colID,
             this.colReceiptMasterRef,
             this.colProductRef,
@@ -222,12 +219,12 @@ namespace RetailTrade
             this.colAuthorLastModif,
             this.colDateCreate,
             this.colRowVersion});
-            this.gridView1.GridControl = this.gridControl1;
-            this.gridView1.Name = "gridView1";
-            this.gridView1.OptionsBehavior.AllowIncrementalSearch = true;
-            this.gridView1.OptionsView.ShowGroupPanel = false;
-            this.gridView1.InvalidValueException += new DevExpress.XtraEditors.Controls.InvalidValueExceptionEventHandler(this.gridView1_InvalidValueException);
-            this.gridView1.InvalidRowException += new DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventHandler(this.gridView1_InvalidRowException);
+            this.gridView.GridControl = this.gridControl1;
+            this.gridView.Name = "gridView";
+            this.gridView.OptionsBehavior.AllowIncrementalSearch = true;
+            this.gridView.OptionsView.ShowGroupPanel = false;
+            this.gridView.InvalidValueException += new DevExpress.XtraEditors.Controls.InvalidValueExceptionEventHandler(this.gridView1_InvalidValueException);
+            this.gridView.InvalidRowException += new DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventHandler(this.gridView1_InvalidRowException);
             // 
             // colID
             // 
@@ -385,7 +382,7 @@ namespace RetailTrade
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 92F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 416F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 512F));
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.OrganisationlookUpEdit, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 1);
@@ -484,7 +481,6 @@ namespace RetailTrade
             this.textEdit3.Size = new System.Drawing.Size(506, 22);
             this.textEdit3.TabIndex = 3;
             this.textEdit3.Tag = "";
-            this.textEdit3.EditValueChanged += new System.EventHandler(this.textEdit3_EditValueChanged);
             // 
             // panelNumber
             // 
@@ -500,7 +496,6 @@ namespace RetailTrade
             this.panelNumber.Name = "panelNumber";
             this.panelNumber.Size = new System.Drawing.Size(610, 35);
             this.panelNumber.TabIndex = 3;
-            this.panelNumber.Paint += new System.Windows.Forms.PaintEventHandler(this.panelNumber_Paint);
             // 
             // label6
             // 
@@ -554,7 +549,7 @@ namespace RetailTrade
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(520, 392);
+            this.tabPage2.Size = new System.Drawing.Size(616, 435);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -570,7 +565,7 @@ namespace RetailTrade
             this.btEdit,
             this.toolStripSplitButton1,
             this.btSaveReciept,
-            this.toolStripButton2,
+            this.btClose,
             this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -612,15 +607,16 @@ namespace RetailTrade
             this.btSaveReciept.Text = "SaveToBase";
             this.btSaveReciept.Click += new System.EventHandler(this.btSaveReciept_Click);
             // 
-            // toolStripButton2
+            // btClose
             // 
-            this.toolStripButton2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton2.Text = "x";
+            this.btClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btClose.Image = ((System.Drawing.Image)(resources.GetObject("btClose.Image")));
+            this.btClose.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btClose.Name = "btClose";
+            this.btClose.Size = new System.Drawing.Size(23, 22);
+            this.btClose.Text = "x";
+            this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
             // toolStripButton1
             // 
@@ -677,7 +673,7 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -718,12 +714,12 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripButton btEdit;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private System.Windows.Forms.BindingSource receiptDetailBindingSource;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView;
         private RetailTrade.MDataSetTableAdapters.ReceiptDetailTableAdapter receiptDetailTableAdapter;
         private System.Windows.Forms.BindingSource receiptMasterNewBindingSource;
         private RetailTrade.MDataSetTableAdapters.ReceiptMasterNewTableAdapter receiptMasterNewTableAdapter;
         private System.Windows.Forms.ToolStripButton btSaveReciept;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton btClose;
         private System.Windows.Forms.ToolStripStatusLabel CountLabel;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.BindingSource organizationBindingSource;
