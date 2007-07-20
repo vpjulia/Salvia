@@ -30,16 +30,6 @@ namespace RetailTrade
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCSimpleDirectory));
-            this.grid = new DevExpress.XtraGrid.GridControl();
-            this.gridView = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDateLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAuthorCreate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAuthorLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDateCreate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDateUpdate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemTextEdit = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
@@ -60,123 +50,26 @@ namespace RetailTrade
             this.btDelete = new System.Windows.Forms.ToolStripButton();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btClose = new System.Windows.Forms.ToolStripButton();
-            ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit)).BeginInit();
+            this.grid = new DevExpress.XtraGrid.GridControl();
+            this.gridView = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAuthorCreate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAuthorLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDateCreate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colRowVersion = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDateLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDateUpdate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             this.SuspendLayout();
-            // 
-            // grid
-            // 
-            this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grid.EmbeddedNavigator.Name = "";
-            this.grid.Location = new System.Drawing.Point(0, 25);
-            this.grid.MainView = this.gridView;
-            this.grid.Name = "grid";
-            this.grid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemTextEdit});
-            this.grid.Size = new System.Drawing.Size(578, 414);
-            this.grid.TabIndex = 1;
-            this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView});
-            this.grid.Validating += new System.ComponentModel.CancelEventHandler(this.grid_Validating);
-            this.grid.EditorKeyDown += new System.Windows.Forms.KeyEventHandler(this.grid_EditorKeyDown);
-            this.grid.DoubleClick += new System.EventHandler(this.grid_DoubleClick);
-            // 
-            // gridView
-            // 
-            this.gridView.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
-            this.gridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colID,
-            this.colName,
-            this.colDateLastModif,
-            this.colAuthorCreate,
-            this.colAuthorLastModif,
-            this.colDateCreate,
-            this.colDateUpdate});
-            this.gridView.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            this.gridView.GridControl = this.grid;
-            this.gridView.Name = "gridView";
-            this.gridView.NewItemRowText = "Новая запись";
-            this.gridView.OptionsBehavior.AllowIncrementalSearch = true;
-            this.gridView.OptionsBehavior.Editable = false;
-            this.gridView.OptionsCustomization.AllowFilter = false;
-            this.gridView.OptionsCustomization.AllowGroup = false;
-            this.gridView.OptionsNavigation.AutoFocusNewRow = true;
-            this.gridView.OptionsSelection.UseIndicatorForSelection = false;
-            this.gridView.OptionsView.ShowAutoFilterRow = true;
-            this.gridView.OptionsView.ShowDetailButtons = false;
-            this.gridView.OptionsView.ShowFilterPanel = false;
-            this.gridView.OptionsView.ShowGroupPanel = false;
-            this.gridView.InvalidRowException += new DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventHandler(this.gridView_InvalidRowException);
-            // 
-            // colID
-            // 
-            this.colID.Caption = "Код";
-            this.colID.FieldName = "ID";
-            this.colID.Name = "colID";
-            this.colID.OptionsColumn.AllowFocus = false;
-            this.colID.OptionsColumn.ReadOnly = true;
-            this.colID.Visible = true;
-            this.colID.VisibleIndex = 0;
-            this.colID.Width = 78;
-            // 
-            // colName
-            // 
-            this.colName.Caption = "Наименование";
-            this.colName.FieldName = "Name";
-            this.colName.Name = "colName";
-            this.colName.Visible = true;
-            this.colName.VisibleIndex = 1;
-            this.colName.Width = 424;
-            // 
-            // colDateLastModif
-            // 
-            this.colDateLastModif.Caption = "Дата последнего изменения";
-            this.colDateLastModif.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.colDateLastModif.FieldName = "DateLastModif";
-            this.colDateLastModif.Name = "colDateLastModif";
-            this.colDateLastModif.OptionsColumn.AllowEdit = false;
-            // 
-            // colAuthorCreate
-            // 
-            this.colAuthorCreate.Caption = "Автор";
-            this.colAuthorCreate.FieldName = "AuthorCreate";
-            this.colAuthorCreate.Name = "colAuthorCreate";
-            this.colAuthorCreate.OptionsColumn.AllowEdit = false;
-            // 
-            // colAuthorLastModif
-            // 
-            this.colAuthorLastModif.Caption = "Автор изменений";
-            this.colAuthorLastModif.FieldName = "AuthorLastModif";
-            this.colAuthorLastModif.Name = "colAuthorLastModif";
-            this.colAuthorLastModif.OptionsColumn.AllowEdit = false;
-            // 
-            // colDateCreate
-            // 
-            this.colDateCreate.Caption = "Дата создания";
-            this.colDateCreate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.colDateCreate.FieldName = "DateCreate";
-            this.colDateCreate.Name = "colDateCreate";
-            this.colDateCreate.OptionsColumn.AllowEdit = false;
-            // 
-            // colDateUpdate
-            // 
-            this.colDateUpdate.Caption = "Дата обновления";
-            this.colDateUpdate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.colDateUpdate.FieldName = "DateUpdate";
-            this.colDateUpdate.Name = "colDateUpdate";
-            this.colDateUpdate.OptionsColumn.AllowEdit = false;
-            // 
-            // repositoryItemTextEdit
-            // 
-            this.repositoryItemTextEdit.AutoHeight = false;
-            this.repositoryItemTextEdit.Name = "repositoryItemTextEdit";
-            this.repositoryItemTextEdit.ValidateOnEnterKey = true;
             // 
             // errorProvider1
             // 
@@ -366,6 +259,165 @@ namespace RetailTrade
             this.btClose.Text = "Х";
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
+            // grid
+            // 
+            this.grid.DataSource = this.bindingSource;
+            this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
+            this.grid.EmbeddedNavigator.Name = "";
+            this.grid.Location = new System.Drawing.Point(0, 25);
+            this.grid.MainView = this.gridView;
+            this.grid.Name = "grid";
+            this.grid.Size = new System.Drawing.Size(578, 414);
+            this.grid.TabIndex = 3;
+            this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView,
+            this.gridView2});
+            this.grid.Validating += new System.ComponentModel.CancelEventHandler(this.grid_Validating);
+            this.grid.EditorKeyDown += new System.Windows.Forms.KeyEventHandler(this.grid_EditorKeyDown);
+            // 
+            // gridView
+            // 
+            this.gridView.Appearance.ColumnFilterButtonActive.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold);
+            this.gridView.Appearance.ColumnFilterButtonActive.Options.UseFont = true;
+            this.gridView.Appearance.FilterPanel.BackColor = System.Drawing.SystemColors.Info;
+            this.gridView.Appearance.FilterPanel.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Italic);
+            this.gridView.Appearance.FilterPanel.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.gridView.Appearance.FilterPanel.Options.UseBackColor = true;
+            this.gridView.Appearance.FilterPanel.Options.UseFont = true;
+            this.gridView.Appearance.FilterPanel.Options.UseForeColor = true;
+            this.gridView.Appearance.FilterPanel.Options.UseTextOptions = true;
+            this.gridView.Appearance.FilterPanel.TextOptions.Trimming = DevExpress.Utils.Trimming.Word;
+            this.gridView.Appearance.FocusedCell.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold);
+            this.gridView.Appearance.FocusedCell.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.gridView.Appearance.FocusedCell.Options.UseFont = true;
+            this.gridView.Appearance.FocusedCell.Options.UseForeColor = true;
+            this.gridView.Appearance.FocusedRow.BackColor2 = System.Drawing.SystemColors.ActiveBorder;
+            this.gridView.Appearance.FocusedRow.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold);
+            this.gridView.Appearance.FocusedRow.Options.UseFont = true;
+            this.gridView.Appearance.SelectedRow.BackColor2 = System.Drawing.SystemColors.ActiveBorder;
+            this.gridView.Appearance.SelectedRow.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold);
+            this.gridView.Appearance.SelectedRow.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.BackwardDiagonal;
+            this.gridView.Appearance.SelectedRow.Options.UseBackColor = true;
+            this.gridView.Appearance.SelectedRow.Options.UseBorderColor = true;
+            this.gridView.Appearance.SelectedRow.Options.UseFont = true;
+            this.gridView.Appearance.SelectedRow.Options.UseTextOptions = true;
+            this.gridView.Appearance.SelectedRow.TextOptions.Trimming = DevExpress.Utils.Trimming.Word;
+            this.gridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colID,
+            this.colName,
+            this.colAuthorCreate,
+            this.colAuthorLastModif,
+            this.colDateCreate,
+            this.colRowVersion,
+            this.colDateLastModif,
+            this.colDateUpdate});
+            this.gridView.GridControl = this.grid;
+            this.gridView.Name = "gridView";
+            this.gridView.OptionsBehavior.AllowIncrementalSearch = true;
+            this.gridView.OptionsBehavior.Editable = false;
+            this.gridView.OptionsDetail.EnableMasterViewMode = false;
+            this.gridView.OptionsView.ShowAutoFilterRow = true;
+            this.gridView.DoubleClick += new System.EventHandler(this.gridView_DoubleClick);
+            // 
+            // colID
+            // 
+            this.colID.Caption = "Код";
+            this.colID.FieldName = "ID";
+            this.colID.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.colID.Name = "colID";
+            this.colID.OptionsColumn.AllowEdit = false;
+            this.colID.OptionsColumn.AllowFocus = false;
+            this.colID.OptionsColumn.AllowGroup = DevExpress.Utils.DefaultBoolean.False;
+            this.colID.OptionsColumn.AllowSize = false;
+            this.colID.OptionsColumn.ReadOnly = true;
+            this.colID.OptionsFilter.AllowAutoFilter = false;
+            this.colID.OptionsFilter.AllowFilter = false;
+            this.colID.Visible = true;
+            this.colID.VisibleIndex = 0;
+            this.colID.Width = 83;
+            // 
+            // colName
+            // 
+            this.colName.Caption = "Наименование";
+            this.colName.FieldName = "Name";
+            this.colName.FilterMode = DevExpress.XtraGrid.ColumnFilterMode.DisplayText;
+            this.colName.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.colName.Name = "colName";
+            this.colName.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Like;
+            this.colName.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            this.colName.Visible = true;
+            this.colName.VisibleIndex = 1;
+            this.colName.Width = 481;
+            // 
+            // colAuthorCreate
+            // 
+            this.colAuthorCreate.Caption = "Создатель";
+            this.colAuthorCreate.FieldName = "AuthorCreate";
+            this.colAuthorCreate.Name = "colAuthorCreate";
+            this.colAuthorCreate.OptionsColumn.AllowEdit = false;
+            this.colAuthorCreate.OptionsColumn.ReadOnly = true;
+            this.colAuthorCreate.OptionsFilter.AllowAutoFilter = false;
+            this.colAuthorCreate.OptionsFilter.AllowFilter = false;
+            // 
+            // colAuthorLastModif
+            // 
+            this.colAuthorLastModif.Caption = "Редактор";
+            this.colAuthorLastModif.FieldName = "AuthorLastModif";
+            this.colAuthorLastModif.Name = "colAuthorLastModif";
+            this.colAuthorLastModif.OptionsColumn.AllowEdit = false;
+            this.colAuthorLastModif.OptionsColumn.ReadOnly = true;
+            this.colAuthorLastModif.OptionsFilter.AllowAutoFilter = false;
+            this.colAuthorLastModif.OptionsFilter.AllowFilter = false;
+            // 
+            // colDateCreate
+            // 
+            this.colDateCreate.Caption = "Дата создания";
+            this.colDateCreate.FieldName = "DateCreate";
+            this.colDateCreate.Name = "colDateCreate";
+            this.colDateCreate.OptionsColumn.AllowEdit = false;
+            this.colDateCreate.OptionsColumn.ReadOnly = true;
+            this.colDateCreate.OptionsFilter.AllowAutoFilter = false;
+            this.colDateCreate.OptionsFilter.AllowFilter = false;
+            // 
+            // colRowVersion
+            // 
+            this.colRowVersion.Caption = "RowVersion";
+            this.colRowVersion.FieldName = "RowVersion";
+            this.colRowVersion.Name = "colRowVersion";
+            this.colRowVersion.OptionsColumn.AllowEdit = false;
+            this.colRowVersion.OptionsColumn.ReadOnly = true;
+            this.colRowVersion.OptionsColumn.ShowInCustomizationForm = false;
+            this.colRowVersion.OptionsFilter.AllowAutoFilter = false;
+            this.colRowVersion.OptionsFilter.AllowFilter = false;
+            // 
+            // colDateLastModif
+            // 
+            this.colDateLastModif.Caption = "Дата обновления";
+            this.colDateLastModif.FieldName = "DateLastModif";
+            this.colDateLastModif.Name = "colDateLastModif";
+            this.colDateLastModif.OptionsColumn.AllowEdit = false;
+            this.colDateLastModif.OptionsColumn.ReadOnly = true;
+            this.colDateLastModif.OptionsFilter.AllowAutoFilter = false;
+            this.colDateLastModif.OptionsFilter.AllowFilter = false;
+            // 
+            // colDateUpdate
+            // 
+            this.colDateUpdate.Caption = "Последнее обновление";
+            this.colDateUpdate.FieldName = "DateUpdate";
+            this.colDateUpdate.Name = "colDateUpdate";
+            this.colDateUpdate.OptionsColumn.ReadOnly = true;
+            this.colDateUpdate.OptionsColumn.ShowInCustomizationForm = false;
+            this.colDateUpdate.OptionsFilter.AllowAutoFilter = false;
+            this.colDateUpdate.OptionsFilter.AllowFilter = false;
+            // 
+            // gridView2
+            // 
+            this.gridView2.GridControl = this.grid;
+            this.gridView2.Name = "gridView2";
+            // 
             // UCSimpleDirectory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -376,9 +428,7 @@ namespace RetailTrade
             this.Name = "UCSimpleDirectory";
             this.Size = new System.Drawing.Size(578, 464);
             this.Validated += new System.EventHandler(this.UCSimpleDirectory_Validated);
-            ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit)).EndInit();
+            this.Validating += new System.ComponentModel.CancelEventHandler(this.UCSimpleDirectory_Validating);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
@@ -386,6 +436,9 @@ namespace RetailTrade
             this.bindingNavigator1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -393,10 +446,6 @@ namespace RetailTrade
 
         #endregion
 
-        private DevExpress.XtraGrid.Columns.GridColumn colID;
-        private DevExpress.XtraGrid.Columns.GridColumn colName;
-        public DevExpress.XtraGrid.GridControl grid;
-        public DevExpress.XtraGrid.Views.Grid.GridView gridView;
         public System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.BindingNavigator bindingNavigator1;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
@@ -409,7 +458,6 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.BindingSource bindingSource;
-        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit;
         private System.Windows.Forms.ToolStripButton btRefresh;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btAdd;
@@ -418,10 +466,16 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripButton btSave;
         private System.Windows.Forms.ToolStripButton btClose;
         private System.Windows.Forms.ToolStripButton btGridField;
-        private DevExpress.XtraGrid.Columns.GridColumn colDateLastModif;
+        private DevExpress.XtraGrid.Columns.GridColumn colID;
+        private DevExpress.XtraGrid.Columns.GridColumn colName;
         private DevExpress.XtraGrid.Columns.GridColumn colAuthorCreate;
         private DevExpress.XtraGrid.Columns.GridColumn colAuthorLastModif;
         private DevExpress.XtraGrid.Columns.GridColumn colDateCreate;
+        private DevExpress.XtraGrid.Columns.GridColumn colRowVersion;
+        private DevExpress.XtraGrid.Columns.GridColumn colDateLastModif;
         private DevExpress.XtraGrid.Columns.GridColumn colDateUpdate;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
+        public DevExpress.XtraGrid.GridControl grid;
+        public DevExpress.XtraGrid.Views.Grid.GridView gridView;
     }
 }

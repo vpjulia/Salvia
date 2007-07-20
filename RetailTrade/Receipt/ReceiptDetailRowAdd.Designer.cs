@@ -64,7 +64,7 @@ namespace RetailTrade.Receipt
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 28);
+            this.label1.Size = new System.Drawing.Size(105, 28);
             this.label1.TabIndex = 0;
             this.label1.Text = "Количество";
             // 
@@ -115,7 +115,7 @@ namespace RetailTrade.Receipt
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.21683F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.78317F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 47F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
@@ -149,7 +149,7 @@ namespace RetailTrade.Receipt
             // 
             this.QuantityEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.receiptDetailBindingSource, "Quantity", true));
             this.QuantityEdit.EnterMoveNextControl = true;
-            this.QuantityEdit.Location = new System.Drawing.Point(115, 3);
+            this.QuantityEdit.Location = new System.Drawing.Point(114, 3);
             this.QuantityEdit.Name = "QuantityEdit";
             this.QuantityEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.QuantityEdit.Properties.HideSelection = false;
@@ -166,7 +166,7 @@ namespace RetailTrade.Receipt
             // 
             this.textEdit1.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.receiptDetailBindingSource, "Series", true));
             this.textEdit1.EnterMoveNextControl = true;
-            this.textEdit1.Location = new System.Drawing.Point(115, 59);
+            this.textEdit1.Location = new System.Drawing.Point(114, 59);
             this.textEdit1.Name = "textEdit1";
             this.textEdit1.Properties.HideSelection = false;
             this.textEdit1.Properties.ValidateOnEnterKey = true;
@@ -177,7 +177,7 @@ namespace RetailTrade.Receipt
             // 
             this.textEdit3.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.receiptDetailBindingSource, "UseByDate", true));
             this.textEdit3.EnterMoveNextControl = true;
-            this.textEdit3.Location = new System.Drawing.Point(115, 87);
+            this.textEdit3.Location = new System.Drawing.Point(114, 87);
             this.textEdit3.Name = "textEdit3";
             this.textEdit3.Properties.DisplayFormat.FormatString = "d";
             this.textEdit3.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
@@ -194,7 +194,7 @@ namespace RetailTrade.Receipt
             this.PriceEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.receiptDetailBindingSource, "PricePurchase", true));
             this.PriceEdit.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.receiptDetailBindingSource, "PricePurchase", true));
             this.PriceEdit.EnterMoveNextControl = true;
-            this.PriceEdit.Location = new System.Drawing.Point(115, 31);
+            this.PriceEdit.Location = new System.Drawing.Point(114, 31);
             this.PriceEdit.Name = "PriceEdit";
             this.PriceEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.PriceEdit.Properties.HideSelection = false;

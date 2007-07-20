@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Columns;
 
 namespace RetailTrade
 {
@@ -33,7 +34,16 @@ namespace RetailTrade
         }
 
         private bool SaveChange ()
-        { 
+        {
+           
+
+            if (this.gridView.HasColumnErrors)
+            
+            this.bindingSource.CancelEdit();
+            else
+
+             this.bindingSource.EndEdit();
+
              DataTable dt = (this.bindingSource.DataSource as DataTable);
 
             if (dt.GetChanges()!= null)
@@ -175,17 +185,13 @@ namespace RetailTrade
         private void btClose_Click(object sender, EventArgs e)
         {
             this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
-         
-            if (this.gridView.HasColumnErrors)
-            {
-                this.bindingSource.CancelEdit();
-            }
-            else if (this.SaveChange())
+          if (this.Validate())
             {
                 if ((this.ParentForm as MainForm)!=null)
                 (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
 
             }
+         
            
 
         }
@@ -217,10 +223,10 @@ namespace RetailTrade
 
                if (countChild != 0)
 
-                   MessageBox.Show("Невозможно удалить запись, ссылок на нее :  " + countChild.ToString());
+                   MessageBox.Show("Невозможно удалить запись, ссылок на нее :  " + countChild.ToString(),"Ошибка удаления");
                else
 
-                   if (MessageBox.Show(" Удалить запись? " + this.gridView.GetFocusedRowCellDisplayText(this.gridView.Columns[1]), "Удаление карточки",
+                   if (MessageBox.Show(" Удалить запись? ", "Удаление карточки",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                         == DialogResult.Yes)
                    {
@@ -232,19 +238,7 @@ namespace RetailTrade
 
         private void UCSimpleDirectory_Validated(object sender, EventArgs e)
         {
-             if (this.SaveChange())
-
-            {        this.btEdit.Enabled = true;
-                     this.btSave.Enabled = false;
-
-                 }
-                 else
-                 {
-                     this.btEdit.Enabled = false;
-                     this.btSave.Enabled = true;
-                     this.gridView.OptionsBehavior.Editable = true;
-                 }
-
+             
         }
 
        
@@ -259,6 +253,33 @@ namespace RetailTrade
             this.gridView.ColumnsCustomization();
         }
 
+        
+
+        private void gridView_DoubleClick(object sender, EventArgs e)
+        {
+            this.btEdit.PerformClick();
+        }
+
+        private void UCSimpleDirectory_Validating(object sender, CancelEventArgs e)
+        {
+            if (this.SaveChange())
+            {
+                this.btEdit.Enabled = true;
+                this.btSave.Enabled = false;
+
+            }
+            else
+            {
+                this.btEdit.Enabled = false;
+                this.btSave.Enabled = true;
+                this.gridView.OptionsBehavior.Editable = true;
+                e.Cancel = true;
+            }
+
+
+        }
+
+       
         }
     }
 
