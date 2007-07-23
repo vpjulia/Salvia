@@ -57,6 +57,7 @@ namespace RetailTrade
            
             UCSimpleDirectory ucSimpleDirectory = new UCSimpleDirectory(this.mDataSet.Tables[(sender as Button).Tag.ToString()]);
             ucSimpleDirectory.errorProvider1.DataSource = this.mDataSet;
+            ucSimpleDirectory.btClose.Visible = false;
             dform.panel.Controls.Add(ucSimpleDirectory);
 
          
@@ -87,6 +88,7 @@ namespace RetailTrade
 
             UcGroupDirectory ucGroupDirectory = new UcGroupDirectory(this.mDataSet.Tables[(sender as Button).Tag.ToString()]);
             ucGroupDirectory.errorProvider1.DataSource = this.mDataSet;
+            ucGroupDirectory.btClose.Visible = false;
             dform.panel.Controls.Add(ucGroupDirectory);
 
 

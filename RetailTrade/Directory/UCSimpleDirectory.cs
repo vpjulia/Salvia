@@ -35,8 +35,6 @@ namespace RetailTrade
 
         private bool SaveChange ()
         {
-           
-
             if (this.gridView.HasColumnErrors)
             
             this.bindingSource.CancelEdit();
@@ -46,52 +44,42 @@ namespace RetailTrade
 
              DataTable dt = (this.bindingSource.DataSource as DataTable);
 
-            if (dt.GetChanges()!= null)
-            {
-               FormDialog fInf = new FormDialog();
-               Information infcontr = new Information();
-               infcontr.Dock = DockStyle.Fill;
-
-              DataTable tbChahgesAdd = dt.GetChanges(DataRowState.Added);
-              if (tbChahgesAdd != null)
-                  foreach (DataRow frRow in tbChahgesAdd.Rows)
-                      infcontr.listBoxInf.Items.Add("Добавить " + "'" + frRow[1, DataRowVersion.Current].ToString()+ "'");
-          
-
-               DataTable tbChahges = dt.GetChanges(DataRowState.Modified);
-               if (tbChahges!=null)
-                  foreach(DataRow frRow in tbChahges.Rows)
-                      infcontr.listBoxInf.Items.Add("Изменить   " + "'" + frRow[1, DataRowVersion.Original].ToString() + "' на " + " '" + frRow[1, DataRowVersion.Current].ToString() + "'");
+             if (dt.GetChanges() != null)
+             {
+                 DialogResult result;
 
 
-              DataTable tbChahgesDel = dt.GetChanges(DataRowState.Deleted);
-              if (tbChahgesDel != null)
-                  foreach (DataRow frRow in tbChahgesDel.Rows)
-                      infcontr.listBoxInf.Items.Add("Удалить   " + "'" + frRow[1, DataRowVersion.Original].ToString() + "'");
+                 result = MessageBox.Show(this, "Сохранить изменения?",this.Tag.ToString(), MessageBoxButtons.YesNoCancel,
 
-                fInf.Size = new System.Drawing.Size((Screen.PrimaryScreen.WorkingArea.Width / 3), (Screen.PrimaryScreen.WorkingArea.Height/2));
-              
-                 fInf.panel.Controls.Add(infcontr);
+                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
-                 if (DialogResult.OK == fInf.ShowDialog(this.ParentForm))
+                 if (result == DialogResult.Yes)
                  {  /*сохранить удаление*/
 
                      MainForm _mainForm = FindMainForm(this.ParentForm);
                      _mainForm.SaveToBaseDirectoryDeleted(dt.Select(null, null, DataViewRowState.Deleted));
-                  
+
                      /*сохранить изменения*/
 
                      _mainForm.SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.ModifiedCurrent));
-                      
-                       /*сохранить добавления*/
+
+                     /*сохранить добавления*/
                      _mainForm.SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.Added));
-                             
+
                      dt.AcceptChanges();
 
-                 }
-                 else return false;
-        }
+                     return true;
 
+                 }
+                 else
+                     if (result == DialogResult.No)
+                     {
+                         dt.RejectChanges();
+                         return true;
+                     }
+                     else return false;
+
+             }
         return true;
         }
 
@@ -130,17 +118,14 @@ namespace RetailTrade
             this.btEdit.Enabled = true;
             this.btSave.Enabled = false;
             this.gridView.OptionsBehavior.Editable = false;
-           
-
-
             this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
         
             if (this.SaveChange())
+            { 
+                this.btEdit.Enabled = true;
+                this.btSave.Enabled = false;
 
-            {        this.btEdit.Enabled = true;
-                     this.btSave.Enabled = false;
-
-                 }
+            }
                  else
                  {
                      this.btEdit.Enabled = false;
@@ -223,10 +208,10 @@ namespace RetailTrade
 
                if (countChild != 0)
 
-                   MessageBox.Show("Невозможно удалить запись, ссылок на нее :  " + countChild.ToString(),"Ошибка удаления");
+                   MessageBox.Show("Невозможно удалить запись, ссылок на нее :  " + countChild.ToString(),this.Tag.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                else
 
-                   if (MessageBox.Show(" Удалить запись? ", "Удаление карточки",
+                   if (MessageBox.Show(" Удалить запись? ", this.Tag.ToString(),
                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                         == DialogResult.Yes)
                    {
@@ -276,6 +261,11 @@ namespace RetailTrade
                 e.Cancel = true;
             }
 
+
+        }
+
+        private void UCSimpleDirectory_Load(object sender, EventArgs e)
+        {
 
         }
 

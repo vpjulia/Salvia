@@ -351,6 +351,7 @@ namespace RetailTrade
                      
                        usControl = new UCProductAll(this.mDataSet);
                        usControl.Dock = DockStyle.Fill;
+                       usControl.Tag = "Справочник товаров";
                       //  (uc as UCSPR).NameWorkTable = _NameTable;
                         //  uc.Tag = _NameTable;  
                      break;
@@ -362,7 +363,8 @@ namespace RetailTrade
 
                      (usControl as UcGroupDirectory).gridView.FocusedRowHandle = DevExpress.XtraGrid.GridControl.AutoFilterRowHandle;
                      (usControl as UcGroupDirectory).gridView.FocusedColumn = (usControl as UcGroupDirectory).gridView.Columns["Name"];
-                     (usControl as UcGroupDirectory).Dock = DockStyle.Fill;
+                     (usControl as UcGroupDirectory).Tag = "Справочник изготовителей";
+                        (usControl as UcGroupDirectory).Dock = DockStyle.Fill;
                        
                         break;
                     case "FarmGroupLevel2":
@@ -371,6 +373,7 @@ namespace RetailTrade
 
                         (usControl as UcGroupDirectory).gridView.FocusedRowHandle = DevExpress.XtraGrid.GridControl.AutoFilterRowHandle;
                         (usControl as UcGroupDirectory).gridView.FocusedColumn = (usControl as UcGroupDirectory).gridView.Columns["Name"];
+                        (usControl as UcGroupDirectory).Tag = Title;
                         (usControl as UcGroupDirectory).Dock = DockStyle.Fill;
                      
 
@@ -383,7 +386,8 @@ namespace RetailTrade
 
                          (usControl as UCOrganizationAll).gridView.FocusedRowHandle = DevExpress.XtraGrid.GridControl.AutoFilterRowHandle;
                          (usControl as UCOrganizationAll).gridView.FocusedColumn = (usControl as UCOrganizationAll).gridView.Columns["Name"];
-                         (usControl as UCOrganizationAll).Dock = DockStyle.Fill;
+                         (usControl as UCOrganizationAll).Tag = Title;
+                        (usControl as UCOrganizationAll).Dock = DockStyle.Fill;
     
                         break;
 
@@ -392,18 +396,20 @@ namespace RetailTrade
                         (usControl as UCTradePuplet).gridView.FocusedRowHandle = DevExpress.XtraGrid.GridControl.AutoFilterRowHandle;
                         (usControl as UCTradePuplet).gridView.FocusedColumn = (usControl as UCTradePuplet).gridView.Columns["Name"];
                         (usControl as UCTradePuplet).Dock = DockStyle.Fill;
-
+                        (usControl as UCOrganizationAll).Tag = Title;
                         break;
 
                     case "ReceiptMasterNewAll":
 
                         usControl = new ReceiptMasterNewAll(this.mDataSet);
                        (usControl as ReceiptMasterNewAll).Dock = DockStyle.Fill;
+                       (usControl as UCOrganizationAll).Tag = Title;
                         break;
                     case "ReceiptRowOrganization":
 
                         if ((list[0] as MDataSet.ReceiptMasterRow) != null)
                         {
+                            (usControl as UCOrganizationAll).Tag = Title;
                             TagControl += (list[0] as MDataSet.ReceiptMasterRow).ID.ToString();
                             if (!FindOpenedTabs(TagControl))
                             {
@@ -448,7 +454,7 @@ namespace RetailTrade
             ucSimpleDirectory.gridView.FocusedRowHandle = DevExpress.XtraGrid.GridControl.AutoFilterRowHandle;
             ucSimpleDirectory.gridView.FocusedColumn = ucSimpleDirectory.gridView.Columns["Name"];
             ucSimpleDirectory.Dock = DockStyle.Fill;
-
+            ucSimpleDirectory.Tag = Title;
             TabPage newTab = new TabPage(Title);
             newTab.Controls.Add(ucSimpleDirectory);
             tabControl.TabPages.Add(newTab);

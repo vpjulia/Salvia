@@ -152,7 +152,7 @@ namespace RetailTrade
 
                 if (countChild != 0)
 
-                    MessageBox.Show("Невозможно удалить запись, ссылок на нее :  " + countChild.ToString());
+                    MessageBox.Show(this,"Невозможно удалить запись, ссылок на нее :  " + countChild.ToString(),this.Tag.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else
 
                     if (MessageBox.Show(" Удалить запись? " + this.gridView.GetFocusedRowCellDisplayText(this.gridView.Columns[1]), "Удаление карточки",
@@ -217,6 +217,11 @@ namespace RetailTrade
         private void btField_Click(object sender, EventArgs e)
         {
             this.gridView.ColumnsCustomization();
+        }
+
+        private void gridView_DoubleClick(object sender, EventArgs e)
+        {
+            this.btEdit.PerformClick();
         }
     }
 }
