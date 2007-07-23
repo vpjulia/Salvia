@@ -39,56 +39,51 @@ namespace RetailTrade
 
         private bool SaveChange()
         {
+
+
             DataTable dt = (this.bindingSource.DataSource as DataTable);
 
             if (dt.GetChanges() != null)
             {
-                FormDialog fInf = new FormDialog();
-                Information infcontr = new Information();
-                infcontr.Dock = DockStyle.Fill;
-
-                DataTable tbChahgesAdd = dt.GetChanges(DataRowState.Added);
-                if (tbChahgesAdd != null)
-                    foreach (DataRow frRow in tbChahgesAdd.Rows)
-                        infcontr.listBoxInf.Items.Add("Добавить " + "'" + frRow[1, DataRowVersion.Current].ToString() + "'");
+               DialogResult result;
 
 
-                DataTable tbChahges = dt.GetChanges(DataRowState.Modified);
-                if (tbChahges != null)
-                    foreach (DataRow frRow in tbChahges.Rows)
-                        infcontr.listBoxInf.Items.Add("Изменить   " + "'" + frRow[1, DataRowVersion.Original].ToString() + "' на " + " '" + frRow[1, DataRowVersion.Current].ToString() + "'");
+               result = MessageBox.Show(this, "Сохранить изменения?",this.Tag.ToString(), MessageBoxButtons.YesNoCancel,
+               
+                   MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
 
-                DataTable tbChahgesDel = dt.GetChanges(DataRowState.Deleted);
-                if (tbChahgesDel != null)
-                    foreach (DataRow frRow in tbChahgesDel.Rows)
-                        infcontr.listBoxInf.Items.Add("Удалить   " + "'" + frRow[1, DataRowVersion.Original].ToString() + "'");
 
-                fInf.Size = new System.Drawing.Size((Screen.PrimaryScreen.WorkingArea.Width / 3), (Screen.PrimaryScreen.WorkingArea.Height / 2));
+               if (result == DialogResult.Yes)
+               {
 
-                fInf.panel.Controls.Add(infcontr);
-
-                if (DialogResult.OK == fInf.ShowDialog(this.ParentForm))
-                {
-
-                    /*сохранить удаление*/
+                   /*сохранить удаление*/
                    FindMainForm(this.ParentForm).SaveToBaseDirectoryDeleted(dt.Select(null, null, DataViewRowState.Deleted));
 
-                    /*сохранить изменения*/
+                   /*сохранить изменения*/
 
                    FindMainForm(this.ParentForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.ModifiedCurrent));
-                    DataTable tbChahges1 = dt.GetChanges(DataRowState.Modified);
-                    /*сохранить добавления*/
-                    FindMainForm(this.ParentForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.Added));
+                   DataTable tbChahges1 = dt.GetChanges(DataRowState.Modified);
+                   /*сохранить добавления*/
+                   FindMainForm(this.ParentForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.Added));
 
-                    (this.bindingSource.DataSource as DataTable).AcceptChanges();  
+                   (this.bindingSource.DataSource as DataTable).AcceptChanges();
+                  
+                   dt.AcceptChanges();
+                   return true;
 
-
-                }
-                else return false;
+               }
+               else
+                   if (result == DialogResult.No)
+                   {
+                       dt.RejectChanges();
+                       return true;
+                   }
+                   else return false;
             }
 
             return true;
+            
         }
 
         private void gridView_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
@@ -139,10 +134,10 @@ namespace RetailTrade
 
                 if (countChild != 0)
 
-                    MessageBox.Show("Невозможно удалить запись, ссылок на нее :  " + countChild.ToString());
+                    MessageBox.Show("Невозможно удалить запись, ссылок на нее :  " + countChild.ToString(),this.Tag.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else
 
-                    if (MessageBox.Show(" Удалить запись? " + this.gridView.GetFocusedRowCellDisplayText(this.gridView.Columns[1]), "Удаление карточки",
+                    if (MessageBox.Show(" Удалить запись? " , this.Tag.ToString(),
                          MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                          == DialogResult.Yes)
                     {
@@ -158,16 +153,11 @@ namespace RetailTrade
         {
             this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
 
-            if (this.gridView.HasColumnErrors)
-            {
-                this.bindingSource.CancelEdit();
-            }
-            else if (this.SaveChange())
+            if (this.SaveChange())
             {
                 if ((this.ParentForm as MainForm) != null)
                     (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
-
-            }
+           }
         }
 
         private void btSave_Click(object sender, EventArgs e)
@@ -205,12 +195,10 @@ namespace RetailTrade
         private void btViewDict_Click(object sender, EventArgs e)
         {
             FormDialog dform = new FormDialog();
-
-            /* Имя родительского справочника */
-        //    dform.Text = this.toolTip1.GetToolTip((sender as Control)).ToString();
-
+            dform.Text =this.Tag.ToString()+" : группы" ;
+            
             UCSimpleDirectory ucSimpleDirectory = new UCSimpleDirectory((this.bindingSource.DataSource as DataTable).ParentRelations[0].ParentTable );
-          //  ucSimpleDirectory.errorProvider1.DataSource = this.mDataSet;
+         
             dform.panel.Controls.Add(ucSimpleDirectory);
 
                         
@@ -219,6 +207,16 @@ namespace RetailTrade
                   MessageBox.Show(ucSimpleDirectory.gridView.GetDataRow(ucSimpleDirectory.gridView.GetSelectedRows()[0])["ID"].ToString());
               //  (this.Controls.Find((sender as Button).Tag.ToString() + "lookUpEdit", true)[0] as DevExpress.XtraEditors.LookUpEdit).EditValue = ucSimpleDirectory.gridView.GetDataRow(ucSimpleDirectory.gridView.GetSelectedRows()[0])["ID"];
             }
+        }
+
+        private void gridView_DoubleClick(object sender, EventArgs e)
+        {
+            this.btEdit.PerformClick();
+        }
+
+        private void btField_Click(object sender, EventArgs e)
+        {
+            this.gridView.ColumnsCustomization();
         }
 
     }

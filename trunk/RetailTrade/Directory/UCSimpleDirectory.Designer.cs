@@ -42,14 +42,15 @@ namespace RetailTrade
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btRefresh = new System.Windows.Forms.ToolStripButton();
-            this.btGridField = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btAdd = new System.Windows.Forms.ToolStripButton();
             this.btEdit = new System.Windows.Forms.ToolStripButton();
             this.btDelete = new System.Windows.Forms.ToolStripButton();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btClose = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
+            this.btField = new System.Windows.Forms.ToolStripMenuItem();
+            this.btRefresh = new System.Windows.Forms.ToolStripMenuItem();
             this.grid = new DevExpress.XtraGrid.GridControl();
             this.gridView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -88,6 +89,7 @@ namespace RetailTrade
             this.bindingNavigator1.CountItemFormat = "из {0}";
             this.bindingNavigator1.DeleteItem = null;
             this.bindingNavigator1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bindingNavigator1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.bindingNavigator1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bindingNavigatorMoveFirstItem,
             this.bindingNavigatorMovePreviousItem,
@@ -97,9 +99,7 @@ namespace RetailTrade
             this.bindingNavigatorSeparator1,
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
-            this.bindingNavigatorSeparator2,
-            this.btRefresh,
-            this.btGridField});
+            this.bindingNavigatorSeparator2});
             this.bindingNavigator1.Location = new System.Drawing.Point(0, 439);
             this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -178,33 +178,16 @@ namespace RetailTrade
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // btRefresh
-            // 
-            this.btRefresh.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btRefresh.Name = "btRefresh";
-            this.btRefresh.Size = new System.Drawing.Size(79, 22);
-            this.btRefresh.Text = "Обновить";
-            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
-            // 
-            // btGridField
-            // 
-            this.btGridField.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btGridField.Image = ((System.Drawing.Image)(resources.GetObject("btGridField.Image")));
-            this.btGridField.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btGridField.Name = "btGridField";
-            this.btGridField.Size = new System.Drawing.Size(46, 22);
-            this.btGridField.Text = "Поля";
-            this.btGridField.Click += new System.EventHandler(this.btGridField_Click);
-            // 
             // toolStrip1
             // 
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btAdd,
             this.btEdit,
             this.btDelete,
             this.btSave,
-            this.btClose});
+            this.btClose,
+            this.toolStripSplitButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(578, 25);
@@ -258,6 +241,32 @@ namespace RetailTrade
             this.btClose.Size = new System.Drawing.Size(23, 22);
             this.btClose.Text = "Х";
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
+            // 
+            // toolStripSplitButton1
+            // 
+            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btField,
+            this.btRefresh});
+            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(16, 22);
+            this.toolStripSplitButton1.Text = "toolStripSplitButton1";
+            // 
+            // btField
+            // 
+            this.btField.Name = "btField";
+            this.btField.Size = new System.Drawing.Size(213, 22);
+            this.btField.Text = "Настройка полей";
+            this.btField.Click += new System.EventHandler(this.btGridField_Click);
+            // 
+            // btRefresh
+            // 
+            this.btRefresh.Name = "btRefresh";
+            this.btRefresh.Size = new System.Drawing.Size(213, 22);
+            this.btRefresh.Text = "Обновить данные";
+            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
             // 
             // grid
             // 
@@ -427,6 +436,7 @@ namespace RetailTrade
             this.Controls.Add(this.bindingNavigator1);
             this.Name = "UCSimpleDirectory";
             this.Size = new System.Drawing.Size(578, 464);
+            this.Load += new System.EventHandler(this.UCSimpleDirectory_Load);
             this.Validated += new System.EventHandler(this.UCSimpleDirectory_Validated);
             this.Validating += new System.ComponentModel.CancelEventHandler(this.UCSimpleDirectory_Validating);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
@@ -458,14 +468,11 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.BindingSource bindingSource;
-        private System.Windows.Forms.ToolStripButton btRefresh;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btAdd;
         private System.Windows.Forms.ToolStripButton btEdit;
         private System.Windows.Forms.ToolStripButton btDelete;
         private System.Windows.Forms.ToolStripButton btSave;
-        private System.Windows.Forms.ToolStripButton btClose;
-        private System.Windows.Forms.ToolStripButton btGridField;
         private DevExpress.XtraGrid.Columns.GridColumn colID;
         private DevExpress.XtraGrid.Columns.GridColumn colName;
         private DevExpress.XtraGrid.Columns.GridColumn colAuthorCreate;
@@ -477,5 +484,9 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         public DevExpress.XtraGrid.GridControl grid;
         public DevExpress.XtraGrid.Views.Grid.GridView gridView;
+        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
+        private System.Windows.Forms.ToolStripMenuItem btField;
+        private System.Windows.Forms.ToolStripMenuItem btRefresh;
+        public System.Windows.Forms.ToolStripButton btClose;
     }
 }

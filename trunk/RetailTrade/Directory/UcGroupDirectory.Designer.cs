@@ -41,8 +41,6 @@ namespace RetailTrade
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btRefresh = new System.Windows.Forms.ToolStripButton();
-            this.btViewDict = new System.Windows.Forms.ToolStripButton();
             this.grid = new DevExpress.XtraGrid.GridControl();
             this.gridView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -56,6 +54,10 @@ namespace RetailTrade
             this.btDel = new System.Windows.Forms.ToolStripButton();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btClose = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
+            this.btViewDict = new System.Windows.Forms.ToolStripMenuItem();
+            this.btField = new System.Windows.Forms.ToolStripMenuItem();
+            this.btRefresh = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
@@ -74,6 +76,7 @@ namespace RetailTrade
             this.bindingNavigator1.CountItemFormat = "из {0}";
             this.bindingNavigator1.DeleteItem = null;
             this.bindingNavigator1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bindingNavigator1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.bindingNavigator1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bindingNavigatorMoveFirstItem,
             this.bindingNavigatorMovePreviousItem,
@@ -83,9 +86,7 @@ namespace RetailTrade
             this.bindingNavigatorSeparator1,
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
-            this.bindingNavigatorSeparator2,
-            this.btRefresh,
-            this.btViewDict});
+            this.bindingNavigatorSeparator2});
             this.bindingNavigator1.Location = new System.Drawing.Point(0, 421);
             this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -164,24 +165,6 @@ namespace RetailTrade
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // btRefresh
-            // 
-            this.btRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btRefresh.Image")));
-            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btRefresh.Name = "btRefresh";
-            this.btRefresh.Size = new System.Drawing.Size(95, 22);
-            this.btRefresh.Text = "Обновить";
-            // 
-            // btViewDict
-            // 
-            this.btViewDict.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btViewDict.Image = ((System.Drawing.Image)(resources.GetObject("btViewDict.Image")));
-            this.btViewDict.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btViewDict.Name = "btViewDict";
-            this.btViewDict.Size = new System.Drawing.Size(145, 22);
-            this.btViewDict.Text = "Добавить группу";
-            this.btViewDict.Click += new System.EventHandler(this.btViewDict_Click);
-            // 
             // grid
             // 
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -191,6 +174,7 @@ namespace RetailTrade
             this.grid.Name = "grid";
             this.grid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.LookUpEdit});
+            this.grid.ShowOnlyPredefinedDetails = true;
             this.grid.Size = new System.Drawing.Size(596, 396);
             this.grid.TabIndex = 1;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -198,13 +182,29 @@ namespace RetailTrade
             // 
             // gridView
             // 
+            this.gridView.Appearance.FilterPanel.BackColor = System.Drawing.SystemColors.Info;
+            this.gridView.Appearance.FilterPanel.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Italic);
+            this.gridView.Appearance.FilterPanel.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.gridView.Appearance.FilterPanel.Options.UseBackColor = true;
+            this.gridView.Appearance.FilterPanel.Options.UseFont = true;
+            this.gridView.Appearance.FilterPanel.Options.UseForeColor = true;
+            this.gridView.Appearance.FocusedCell.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold);
+            this.gridView.Appearance.FocusedCell.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.gridView.Appearance.FocusedCell.Options.UseFont = true;
+            this.gridView.Appearance.FocusedCell.Options.UseForeColor = true;
             this.gridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colID,
             this.colName,
             this.colGroupRef});
             this.gridView.GridControl = this.grid;
             this.gridView.Name = "gridView";
+            this.gridView.OptionsBehavior.AllowIncrementalSearch = true;
             this.gridView.OptionsBehavior.Editable = false;
+            this.gridView.OptionsDetail.EnableMasterViewMode = false;
+            this.gridView.OptionsDetail.ShowDetailTabs = false;
+            this.gridView.OptionsView.ShowAutoFilterRow = true;
+            this.gridView.OptionsView.ShowDetailButtons = false;
+            this.gridView.DoubleClick += new System.EventHandler(this.gridView_DoubleClick);
             this.gridView.InvalidRowException += new DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventHandler(this.gridView_InvalidRowException);
             // 
             // colID
@@ -212,6 +212,8 @@ namespace RetailTrade
             this.colID.Caption = "Код";
             this.colID.FieldName = "ID";
             this.colID.Name = "colID";
+            this.colID.OptionsColumn.AllowEdit = false;
+            this.colID.OptionsColumn.AllowFocus = false;
             this.colID.OptionsColumn.ReadOnly = true;
             this.colID.Visible = true;
             this.colID.VisibleIndex = 0;
@@ -222,6 +224,7 @@ namespace RetailTrade
             this.colName.Caption = "Наименование";
             this.colName.FieldName = "Name";
             this.colName.Name = "colName";
+            this.colName.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Like;
             this.colName.Visible = true;
             this.colName.VisibleIndex = 1;
             this.colName.Width = 169;
@@ -254,12 +257,14 @@ namespace RetailTrade
             // 
             // toolStrip1
             // 
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btAdd,
             this.btEdit,
             this.btDel,
             this.btSave,
-            this.btClose});
+            this.btClose,
+            this.toolStripSplitButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(596, 25);
@@ -314,6 +319,39 @@ namespace RetailTrade
             this.btClose.Text = "X";
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
+            // toolStripSplitButton1
+            // 
+            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btViewDict,
+            this.btField,
+            this.btRefresh});
+            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(32, 22);
+            this.toolStripSplitButton1.Text = "toolStripSplitButton1";
+            // 
+            // btViewDict
+            // 
+            this.btViewDict.Name = "btViewDict";
+            this.btViewDict.Size = new System.Drawing.Size(208, 22);
+            this.btViewDict.Text = "Добавить группу";
+            this.btViewDict.Click += new System.EventHandler(this.btViewDict_Click);
+            // 
+            // btField
+            // 
+            this.btField.Name = "btField";
+            this.btField.Size = new System.Drawing.Size(208, 22);
+            this.btField.Text = "Настройка полей";
+            this.btField.Click += new System.EventHandler(this.btField_Click);
+            // 
+            // btRefresh
+            // 
+            this.btRefresh.Name = "btRefresh";
+            this.btRefresh.Size = new System.Drawing.Size(208, 22);
+            this.btRefresh.Text = "Обновить";
+            // 
             // UcGroupDirectory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -359,13 +397,15 @@ namespace RetailTrade
         public DevExpress.XtraGrid.GridControl grid;
         public DevExpress.XtraGrid.Views.Grid.GridView gridView;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
-        private System.Windows.Forms.ToolStripButton btRefresh;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btAdd;
         private System.Windows.Forms.ToolStripButton btEdit;
         private System.Windows.Forms.ToolStripButton btDel;
         private System.Windows.Forms.ToolStripButton btSave;
-        private System.Windows.Forms.ToolStripButton btClose;
-        private System.Windows.Forms.ToolStripButton btViewDict;
+        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
+        private System.Windows.Forms.ToolStripMenuItem btViewDict;
+        private System.Windows.Forms.ToolStripMenuItem btField;
+        private System.Windows.Forms.ToolStripMenuItem btRefresh;
+        public System.Windows.Forms.ToolStripButton btClose;
     }
 }

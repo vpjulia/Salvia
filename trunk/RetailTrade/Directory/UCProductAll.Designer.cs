@@ -36,6 +36,9 @@ namespace RetailTrade
             this.btDel = new System.Windows.Forms.ToolStripButton();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btClose = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
+            this.mField = new System.Windows.Forms.ToolStripMenuItem();
+            this.обновитьДанныеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mDataSet = new RetailTrade.MDataSet();
             this.productTableAdapter = new RetailTrade.MDataSetTableAdapters.ProductTableAdapter();
             this.grid = new DevExpress.XtraGrid.GridControl();
@@ -53,10 +56,19 @@ namespace RetailTrade
             this.colIsOneRecept = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colMinDivisor = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAuthorCreate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDateLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAuthorLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDateCreate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOldKod = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOldName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colIsHide = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colNote = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCountryName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFarmGroupName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPackingName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colStorageConditionName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFarmGroupLevel2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSubstanceName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -68,9 +80,6 @@ namespace RetailTrade
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btRefresh = new System.Windows.Forms.ToolStripButton();
-            this.btField = new System.Windows.Forms.ToolStripButton();
-            this.colIsHide = new DevExpress.XtraGrid.Columns.GridColumn();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
@@ -83,12 +92,14 @@ namespace RetailTrade
             // 
             // toolStrip1
             // 
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btAdd,
             this.btEdit,
             this.btDel,
             this.btSave,
-            this.btClose});
+            this.btClose,
+            this.toolStripSplitButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(732, 25);
@@ -142,6 +153,31 @@ namespace RetailTrade
             this.btClose.Text = "X";
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
+            // toolStripSplitButton1
+            // 
+            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mField,
+            this.обновитьДанныеToolStripMenuItem});
+            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(16, 22);
+            this.toolStripSplitButton1.Text = "toolStripSplitButton1";
+            // 
+            // mField
+            // 
+            this.mField.Name = "mField";
+            this.mField.Size = new System.Drawing.Size(213, 22);
+            this.mField.Text = "Настройка полей";
+            this.mField.Click += new System.EventHandler(this.btField_Click);
+            // 
+            // обновитьДанныеToolStripMenuItem
+            // 
+            this.обновитьДанныеToolStripMenuItem.Name = "обновитьДанныеToolStripMenuItem";
+            this.обновитьДанныеToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.обновитьДанныеToolStripMenuItem.Text = "Обновить данные";
+            // 
             // mDataSet
             // 
             this.mDataSet.DataSetName = "MDataSet";
@@ -186,20 +222,36 @@ namespace RetailTrade
             this.colIsOneRecept,
             this.colMinDivisor,
             this.colAuthorCreate,
+            this.colDateLastModif,
             this.colAuthorLastModif,
             this.colDateCreate,
             this.colOldKod,
             this.colOldName,
-            this.colIsHide});
+            this.colIsHide,
+            this.colNote,
+            this.colCountryName,
+            this.colFarmGroupName,
+            this.colPackingName,
+            this.colStorageConditionName,
+            this.colFarmGroupLevel2,
+            this.colSubstanceName});
             this.gridView.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.gridView.GridControl = this.grid;
             this.gridView.Name = "gridView";
             this.gridView.OptionsBehavior.AllowIncrementalSearch = true;
+            this.gridView.OptionsBehavior.Editable = false;
+            this.gridView.OptionsDetail.EnableMasterViewMode = false;
+            this.gridView.OptionsDetail.ShowDetailTabs = false;
+            this.gridView.OptionsNavigation.EnterMoveNextColumn = true;
+            this.gridView.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridView.OptionsSelection.UseIndicatorForSelection = false;
             this.gridView.OptionsView.ShowAutoFilterRow = true;
+            this.gridView.OptionsView.ShowDetailButtons = false;
+            this.gridView.DoubleClick += new System.EventHandler(this.gridView_DoubleClick);
             // 
             // colID
             // 
-            this.colID.Caption = "ID";
+            this.colID.Caption = "Код";
             this.colID.FieldName = "ID";
             this.colID.Name = "colID";
             this.colID.OptionsColumn.AllowEdit = false;
@@ -239,7 +291,7 @@ namespace RetailTrade
             this.colUnitName.FieldName = "UnitName";
             this.colUnitName.Name = "colUnitName";
             this.colUnitName.Visible = true;
-            this.colUnitName.VisibleIndex = 6;
+            this.colUnitName.VisibleIndex = 5;
             this.colUnitName.Width = 58;
             // 
             // colPriceManufact
@@ -294,6 +346,12 @@ namespace RetailTrade
             this.colAuthorCreate.FieldName = "AuthorCreate";
             this.colAuthorCreate.Name = "colAuthorCreate";
             // 
+            // colDateLastModif
+            // 
+            this.colDateLastModif.Caption = "Изменен";
+            this.colDateLastModif.FieldName = "DateLastModif";
+            this.colDateLastModif.Name = "colDateLastModif";
+            // 
             // colAuthorLastModif
             // 
             this.colAuthorLastModif.Caption = "Редактор";
@@ -322,8 +380,56 @@ namespace RetailTrade
             this.colOldName.FieldName = "OldName";
             this.colOldName.Name = "colOldName";
             this.colOldName.Visible = true;
-            this.colOldName.VisibleIndex = 5;
+            this.colOldName.VisibleIndex = 6;
             this.colOldName.Width = 70;
+            // 
+            // colIsHide
+            // 
+            this.colIsHide.Caption = "Видимость";
+            this.colIsHide.FieldName = "IsHide";
+            this.colIsHide.Name = "colIsHide";
+            // 
+            // colNote
+            // 
+            this.colNote.Caption = "Примечание";
+            this.colNote.FieldName = "Note";
+            this.colNote.Name = "colNote";
+            // 
+            // colCountryName
+            // 
+            this.colCountryName.Caption = "Страна";
+            this.colCountryName.FieldName = "CountryName";
+            this.colCountryName.Name = "colCountryName";
+            // 
+            // colFarmGroupName
+            // 
+            this.colFarmGroupName.Caption = "Фармгруппа";
+            this.colFarmGroupName.FieldName = "FarmGroupName";
+            this.colFarmGroupName.Name = "colFarmGroupName";
+            // 
+            // colPackingName
+            // 
+            this.colPackingName.Caption = "Форма выпуска";
+            this.colPackingName.FieldName = "PackingName";
+            this.colPackingName.Name = "colPackingName";
+            // 
+            // colStorageConditionName
+            // 
+            this.colStorageConditionName.Caption = "Место хранения";
+            this.colStorageConditionName.FieldName = "StorageConditionName";
+            this.colStorageConditionName.Name = "colStorageConditionName";
+            // 
+            // colFarmGroupLevel2
+            // 
+            this.colFarmGroupLevel2.Caption = "Фармгруппа";
+            this.colFarmGroupLevel2.FieldName = "FarmGroupLevel2";
+            this.colFarmGroupLevel2.Name = "colFarmGroupLevel2";
+            // 
+            // colSubstanceName
+            // 
+            this.colSubstanceName.Caption = "Действующее вещество";
+            this.colSubstanceName.FieldName = "SubstanceName";
+            this.colSubstanceName.Name = "colSubstanceName";
             // 
             // errorProvider1
             // 
@@ -333,9 +439,11 @@ namespace RetailTrade
             // bindingNavigator1
             // 
             this.bindingNavigator1.AddNewItem = null;
+            this.bindingNavigator1.BindingSource = this.productBindingSource;
             this.bindingNavigator1.CountItem = this.bindingNavigatorCountItem;
             this.bindingNavigator1.DeleteItem = null;
             this.bindingNavigator1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bindingNavigator1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.bindingNavigator1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bindingNavigatorMoveFirstItem,
             this.bindingNavigatorMovePreviousItem,
@@ -345,9 +453,7 @@ namespace RetailTrade
             this.bindingNavigatorSeparator1,
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
-            this.bindingNavigatorSeparator2,
-            this.btRefresh,
-            this.btField});
+            this.bindingNavigatorSeparator2});
             this.bindingNavigator1.Location = new System.Drawing.Point(0, 555);
             this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -426,34 +532,6 @@ namespace RetailTrade
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // btRefresh
-            // 
-            this.btRefresh.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btRefresh.Image")));
-            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btRefresh.Name = "btRefresh";
-            this.btRefresh.Size = new System.Drawing.Size(23, 22);
-            this.btRefresh.Text = "Обновить";
-            // 
-            // btField
-            // 
-            this.btField.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btField.Image = ((System.Drawing.Image)(resources.GetObject("btField.Image")));
-            this.btField.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btField.Name = "btField";
-            this.btField.Size = new System.Drawing.Size(114, 22);
-            this.btField.Text = "toolStripButton1";
-            this.btField.Click += new System.EventHandler(this.btField_Click);
-            // 
-            // colIsHide
-            // 
-            this.colIsHide.Caption = "Видимость";
-            this.colIsHide.FieldName = "IsHide";
-            this.colIsHide.Name = "colIsHide";
-            this.colIsHide.Visible = true;
-            this.colIsHide.VisibleIndex = 8;
-            // 
             // UCProductAll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -515,12 +593,21 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-        private System.Windows.Forms.ToolStripButton btRefresh;
-        private System.Windows.Forms.ToolStripButton btField;
         private DevExpress.XtraGrid.Columns.GridColumn colOldKod;
         private DevExpress.XtraGrid.Columns.GridColumn colOldName;
         private DevExpress.XtraGrid.Columns.GridColumn colManufacturerName;
         private DevExpress.XtraGrid.Columns.GridColumn colUnitName;
         private DevExpress.XtraGrid.Columns.GridColumn colIsHide;
+        private DevExpress.XtraGrid.Columns.GridColumn colDateLastModif;
+        private DevExpress.XtraGrid.Columns.GridColumn colNote;
+        private DevExpress.XtraGrid.Columns.GridColumn colCountryName;
+        private DevExpress.XtraGrid.Columns.GridColumn colFarmGroupName;
+        private DevExpress.XtraGrid.Columns.GridColumn colPackingName;
+        private DevExpress.XtraGrid.Columns.GridColumn colStorageConditionName;
+        private DevExpress.XtraGrid.Columns.GridColumn colFarmGroupLevel2;
+        private DevExpress.XtraGrid.Columns.GridColumn colSubstanceName;
+        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
+        private System.Windows.Forms.ToolStripMenuItem mField;
+        private System.Windows.Forms.ToolStripMenuItem обновитьДанныеToolStripMenuItem;
     }
 }
