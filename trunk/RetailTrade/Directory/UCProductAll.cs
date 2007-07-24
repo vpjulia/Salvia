@@ -91,7 +91,7 @@ namespace RetailTrade
                 MDataSet.ProductRow pr = ((this.productBindingSource.CurrencyManager.Current as DataRowView).Row as MDataSet.ProductRow);
 
                 FormDialog dform = new FormDialog();
-
+                dform.Text = "Карточка товара";
                 dform.panel.Controls.Add(new ucProductRow(pr, MainForm.ActionDialog.Edit));
 
                 if (DialogResult.OK == dform.ShowDialog(this))

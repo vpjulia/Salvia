@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+using DevExpress.XtraGrid.Views.Grid;
 
 namespace RetailTrade
 {
@@ -20,7 +21,7 @@ namespace RetailTrade
             this.mDataSet = source;
             this.receiptMasterBindingSource.DataSource = this.mDataSet.ReceiptMaster;
             this.receiptMasterBindingSource.ResetBindings(false);
-            
+            this.productBindingSource.DataSource = this.mDataSet.Product;
            
         }
 
@@ -45,7 +46,7 @@ namespace RetailTrade
         {
             this.receiptMasterNewBindingSource = (this.ParentForm as MainForm).receiptMasterNewBindingSource;
             this.receiptMasterNewBindingSource.ResetBindings(false);
-            this.gridControl1.DataSource = this.receiptMasterNewBindingSource;
+            this.grid.DataSource = this.receiptMasterNewBindingSource;
         }
 
         private void btAdd_Click(object sender, EventArgs e)
@@ -66,6 +67,16 @@ namespace RetailTrade
                 }
 
 
+        }
+
+        private void gridView1_DoubleClick(object sender, EventArgs e)
+        {
+            this.btEdit.PerformClick();
+        }
+
+        private void btField_Click(object sender, EventArgs e)
+        {
+            (this.grid.FocusedView as GridView).ColumnsCustomization();
         }
     }
 }

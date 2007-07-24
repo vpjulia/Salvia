@@ -30,7 +30,7 @@ namespace RetailTrade
            this.organizationBindingSource.ResetBindings(false);
 
            this.stockBindingSource.DataSource = this.mDataSet.Stock.Select("TradePupletRef=0");
-
+           this.productBindingSource.DataSource = this.mDataSet.Product;
 
            this.receiptMasterNewBindingSource.DataSource = source.Table;
          //   this.receiptMasterNewBindingSource.DataMember = "ReceiptMaster";
@@ -133,6 +133,11 @@ namespace RetailTrade
            
 
 
+        }
+
+        private void gridView_DoubleClick(object sender, EventArgs e)
+        {
+            this.btEdit.PerformClick();
         }
 
     }

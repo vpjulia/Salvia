@@ -80,10 +80,12 @@ namespace RetailTrade
             // 
             // FormDialog
             // 
+            this.AcceptButton = this.btOk;
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Dialog;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.CancelButton = this.btCancel;
             this.ClientSize = new System.Drawing.Size(331, 177);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.flowLayoutPanel1);
