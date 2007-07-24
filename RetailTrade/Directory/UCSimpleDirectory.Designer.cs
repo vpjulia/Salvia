@@ -100,7 +100,7 @@ namespace RetailTrade
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.bindingNavigator1.Location = new System.Drawing.Point(0, 439);
+            this.bindingNavigator1.Location = new System.Drawing.Point(0, 478);
             this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.bindingNavigator1.MoveNextItem = this.bindingNavigatorMoveNextItem;
@@ -279,7 +279,7 @@ namespace RetailTrade
             this.grid.Location = new System.Drawing.Point(0, 25);
             this.grid.MainView = this.gridView;
             this.grid.Name = "grid";
-            this.grid.Size = new System.Drawing.Size(578, 414);
+            this.grid.Size = new System.Drawing.Size(578, 453);
             this.grid.TabIndex = 3;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView,
@@ -435,9 +435,8 @@ namespace RetailTrade
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.bindingNavigator1);
             this.Name = "UCSimpleDirectory";
-            this.Size = new System.Drawing.Size(578, 464);
+            this.Size = new System.Drawing.Size(578, 503);
             this.Load += new System.EventHandler(this.UCSimpleDirectory_Load);
-            this.Validated += new System.EventHandler(this.UCSimpleDirectory_Validated);
             this.Validating += new System.ComponentModel.CancelEventHandler(this.UCSimpleDirectory_Validating);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();

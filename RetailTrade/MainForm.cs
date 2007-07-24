@@ -396,20 +396,20 @@ namespace RetailTrade
                         (usControl as UCTradePuplet).gridView.FocusedRowHandle = DevExpress.XtraGrid.GridControl.AutoFilterRowHandle;
                         (usControl as UCTradePuplet).gridView.FocusedColumn = (usControl as UCTradePuplet).gridView.Columns["Name"];
                         (usControl as UCTradePuplet).Dock = DockStyle.Fill;
-                        (usControl as UCOrganizationAll).Tag = Title;
+                        (usControl as UCTradePuplet).Tag = Title;
                         break;
 
                     case "ReceiptMasterNewAll":
 
                         usControl = new ReceiptMasterNewAll(this.mDataSet);
                        (usControl as ReceiptMasterNewAll).Dock = DockStyle.Fill;
-                       (usControl as UCOrganizationAll).Tag = Title;
+                       (usControl as ReceiptMasterNewAll).Tag = Title;
                         break;
                     case "ReceiptRowOrganization":
 
                         if ((list[0] as MDataSet.ReceiptMasterRow) != null)
                         {
-                            (usControl as UCOrganizationAll).Tag = Title;
+                           
                             TagControl += (list[0] as MDataSet.ReceiptMasterRow).ID.ToString();
                             if (!FindOpenedTabs(TagControl))
                             {
@@ -417,7 +417,7 @@ namespace RetailTrade
 
 
                                 usControl = new ReceiptRowOrganization((list[0] as MDataSet.ReceiptMasterRow), (list[0] as MDataSet.ReceiptMasterRow).ID);
-
+                                (usControl as ReceiptRowOrganization).Tag = Title;
                                 (usControl as ReceiptRowOrganization).Dock = DockStyle.Fill;
                             }
                             else

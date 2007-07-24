@@ -78,7 +78,7 @@ namespace RetailTrade.Receipt
 
         private void ReceiptDetailRowAdd_Load(object sender, EventArgs e)
         {
-            this.QuantityEdit.EditValue = 0;
+          // this.QuantityEdit.EditValue = 0;
            
             _receiptDetailRow.ProductRef = _productRow.ID;
         }

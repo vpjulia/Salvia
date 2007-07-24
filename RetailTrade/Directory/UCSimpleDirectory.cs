@@ -85,7 +85,7 @@ namespace RetailTrade
 
         private void grid_Validating(object sender, CancelEventArgs e)
         {
-           if (this.gridView.FocusedRowHandle == DevExpress.XtraGrid.GridControl.AutoFilterRowHandle)
+        if (this.gridView.FocusedRowHandle == DevExpress.XtraGrid.GridControl.AutoFilterRowHandle)
             {
                 this.gridView.FocusedRowHandle = 0;
                 e.Cancel = true;
@@ -169,7 +169,7 @@ namespace RetailTrade
 
         private void btClose_Click(object sender, EventArgs e)
         {
-            this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
+          this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
           if (this.Validate())
             {
                 if ((this.ParentForm as MainForm)!=null)
@@ -221,11 +221,7 @@ namespace RetailTrade
            }
            }
 
-        private void UCSimpleDirectory_Validated(object sender, EventArgs e)
-        {
-             
-        }
-
+       
        
 
         private void btRefresh_Click(object sender, EventArgs e)

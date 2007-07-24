@@ -44,6 +44,8 @@ namespace RetailTrade
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colReceiptMasterRef = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colProductRef = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.ProductLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.colSeries = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colUseByDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQuantity = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -57,7 +59,6 @@ namespace RetailTrade
             this.colAuthorCreate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAuthorLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDateCreate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colRowVersion = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
@@ -69,8 +70,6 @@ namespace RetailTrade
             this.stockBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.textEdit3 = new DevExpress.XtraEditors.TextEdit();
             this.panelNumber = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.numberTextBox = new System.Windows.Forms.TextBox();
@@ -78,17 +77,15 @@ namespace RetailTrade
             this.receiptMasterNewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btEdit = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
-            this.ÔËıÓ‰Ì˚È¿ÍÚToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btSaveReciept = new System.Windows.Forms.ToolStripButton();
             this.btClose = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
+            this.ÔËıÓ‰Ì˚È¿ÍÚToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSplitButton2 = new System.Windows.Forms.ToolStripSplitButton();
             this.receiptDetailTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptDetailTableAdapter();
-            this.receiptMasterNewTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptMasterNewTableAdapter();
             this.organizationTableAdapter = new RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter();
-            this.stockTableAdapter = new RetailTrade.MDataSetTableAdapters.StockTableAdapter();
             this.receiptMasterReceiptDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.productTableAdapter = new RetailTrade.MDataSetTableAdapters.ProductTableAdapter();
             numberLabel = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
@@ -99,6 +96,8 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProductLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OrganisationlookUpEdit.Properties)).BeginInit();
@@ -110,7 +109,6 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterNewBindingSource)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterReceiptDetailBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // numberLabel
@@ -127,9 +125,9 @@ namespace RetailTrade
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CountLabel,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 464);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 565);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(624, 23);
+            this.statusStrip1.Size = new System.Drawing.Size(779, 23);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -151,10 +149,10 @@ namespace RetailTrade
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Location = new System.Drawing.Point(0, 25);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(624, 464);
+            this.tabControl1.Size = new System.Drawing.Size(779, 540);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -166,7 +164,7 @@ namespace RetailTrade
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(616, 435);
+            this.tabPage1.Size = new System.Drawing.Size(771, 511);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "ƒÓÍÛÏÂÌÚ";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -176,10 +174,12 @@ namespace RetailTrade
             this.gridControl1.DataSource = this.receiptDetailBindingSource;
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridControl1.EmbeddedNavigator.Name = "";
-            this.gridControl1.Location = new System.Drawing.Point(3, 141);
+            this.gridControl1.Location = new System.Drawing.Point(3, 156);
             this.gridControl1.MainView = this.gridView;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(610, 291);
+            this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.ProductLookUpEdit});
+            this.gridControl1.Size = new System.Drawing.Size(765, 352);
             this.gridControl1.TabIndex = 1;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView});
@@ -201,6 +201,10 @@ namespace RetailTrade
             // 
             // gridView
             // 
+            this.gridView.Appearance.FooterPanel.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
+            this.gridView.Appearance.FooterPanel.Options.UseFont = true;
+            this.gridView.Appearance.GroupFooter.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
+            this.gridView.Appearance.GroupFooter.Options.UseFont = true;
             this.gridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colID,
             this.colReceiptMasterRef,
@@ -217,24 +221,28 @@ namespace RetailTrade
             this.colInvoiceDetailRef,
             this.colAuthorCreate,
             this.colAuthorLastModif,
-            this.colDateCreate,
-            this.colRowVersion});
+            this.colDateCreate});
             this.gridView.GridControl = this.gridControl1;
+            this.gridView.GroupSummary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PurchSum", this.colPurchSum, ""),
+            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PurchNDS", null, "")});
             this.gridView.Name = "gridView";
             this.gridView.OptionsBehavior.AllowIncrementalSearch = true;
+            this.gridView.OptionsView.ShowFooter = true;
+            this.gridView.OptionsView.ShowGroupedColumns = true;
             this.gridView.OptionsView.ShowGroupPanel = false;
+            this.gridView.DoubleClick += new System.EventHandler(this.gridView_DoubleClick);
             this.gridView.InvalidValueException += new DevExpress.XtraEditors.Controls.InvalidValueExceptionEventHandler(this.gridView1_InvalidValueException);
             this.gridView.InvalidRowException += new DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventHandler(this.gridView1_InvalidRowException);
             // 
             // colID
             // 
-            this.colID.Caption = "ID";
+            this.colID.Caption = " Ó‰";
             this.colID.FieldName = "ID";
             this.colID.Name = "colID";
             this.colID.OptionsColumn.AllowEdit = false;
             this.colID.OptionsColumn.AllowFocus = false;
             this.colID.OptionsColumn.ReadOnly = true;
-            this.colID.OptionsColumn.ShowInCustomizationForm = false;
             // 
             // colReceiptMasterRef
             // 
@@ -243,17 +251,37 @@ namespace RetailTrade
             this.colReceiptMasterRef.Name = "colReceiptMasterRef";
             this.colReceiptMasterRef.OptionsColumn.AllowEdit = false;
             this.colReceiptMasterRef.OptionsColumn.AllowFocus = false;
+            this.colReceiptMasterRef.OptionsColumn.ReadOnly = true;
             this.colReceiptMasterRef.OptionsColumn.ShowInCustomizationForm = false;
             // 
             // colProductRef
             // 
-            this.colProductRef.Caption = "ProductRef";
+            this.colProductRef.Caption = "Õ‡ËÏÂÌÓ‚‡ÌËÂ";
+            this.colProductRef.ColumnEdit = this.ProductLookUpEdit;
             this.colProductRef.FieldName = "ProductRef";
             this.colProductRef.Name = "colProductRef";
             this.colProductRef.OptionsColumn.AllowEdit = false;
             this.colProductRef.OptionsColumn.AllowFocus = false;
+            this.colProductRef.OptionsColumn.ReadOnly = true;
             this.colProductRef.Visible = true;
             this.colProductRef.VisibleIndex = 0;
+            // 
+            // ProductLookUpEdit
+            // 
+            this.ProductLookUpEdit.AutoHeight = false;
+            this.ProductLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.ProductLookUpEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name", 39, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near)});
+            this.ProductLookUpEdit.DataSource = this.productBindingSource;
+            this.ProductLookUpEdit.DisplayMember = "Name";
+            this.ProductLookUpEdit.Name = "ProductLookUpEdit";
+            this.ProductLookUpEdit.ValueMember = "ID";
+            // 
+            // productBindingSource
+            // 
+            this.productBindingSource.DataMember = "Product";
+            this.productBindingSource.DataSource = this.mDataSet;
             // 
             // colSeries
             // 
@@ -294,6 +322,8 @@ namespace RetailTrade
             this.colPurchSum.Name = "colPurchSum";
             this.colPurchSum.OptionsColumn.AllowEdit = false;
             this.colPurchSum.OptionsColumn.AllowFocus = false;
+            this.colPurchSum.OptionsColumn.ReadOnly = true;
+            this.colPurchSum.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
             this.colPurchSum.Visible = true;
             this.colPurchSum.VisibleIndex = 5;
             // 
@@ -304,6 +334,8 @@ namespace RetailTrade
             this.colPurchNDS.Name = "colPurchNDS";
             this.colPurchNDS.OptionsColumn.AllowEdit = false;
             this.colPurchNDS.OptionsColumn.AllowFocus = false;
+            this.colPurchNDS.OptionsColumn.ReadOnly = true;
+            this.colPurchNDS.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
             this.colPurchNDS.Visible = true;
             this.colPurchNDS.VisibleIndex = 6;
             // 
@@ -314,6 +346,7 @@ namespace RetailTrade
             this.colSalesNDS.Name = "colSalesNDS";
             this.colSalesNDS.OptionsColumn.AllowEdit = false;
             this.colSalesNDS.OptionsColumn.AllowFocus = false;
+            this.colSalesNDS.OptionsColumn.ReadOnly = true;
             this.colSalesNDS.OptionsColumn.ShowInCustomizationForm = false;
             // 
             // colSalesPrice
@@ -323,6 +356,7 @@ namespace RetailTrade
             this.colSalesPrice.Name = "colSalesPrice";
             this.colSalesPrice.OptionsColumn.AllowEdit = false;
             this.colSalesPrice.OptionsColumn.AllowFocus = false;
+            this.colSalesPrice.OptionsColumn.ReadOnly = true;
             this.colSalesPrice.OptionsColumn.ShowInCustomizationForm = false;
             // 
             // colSalesSum
@@ -330,6 +364,7 @@ namespace RetailTrade
             this.colSalesSum.Caption = "SalesSum";
             this.colSalesSum.FieldName = "SalesSum";
             this.colSalesSum.Name = "colSalesSum";
+            this.colSalesSum.OptionsColumn.ReadOnly = true;
             this.colSalesSum.OptionsColumn.ShowInCustomizationForm = false;
             // 
             // colInvoiceDetailRef
@@ -337,36 +372,32 @@ namespace RetailTrade
             this.colInvoiceDetailRef.Caption = "InvoiceDetailRef";
             this.colInvoiceDetailRef.FieldName = "InvoiceDetailRef";
             this.colInvoiceDetailRef.Name = "colInvoiceDetailRef";
+            this.colInvoiceDetailRef.OptionsColumn.ReadOnly = true;
             this.colInvoiceDetailRef.OptionsColumn.ShowInCustomizationForm = false;
             // 
             // colAuthorCreate
             // 
-            this.colAuthorCreate.Caption = "AuthorCreate";
+            this.colAuthorCreate.Caption = "¿‚ÚÓ";
             this.colAuthorCreate.FieldName = "AuthorCreate";
             this.colAuthorCreate.Name = "colAuthorCreate";
+            this.colAuthorCreate.OptionsColumn.ReadOnly = true;
             this.colAuthorCreate.OptionsColumn.ShowInCustomizationForm = false;
             // 
             // colAuthorLastModif
             // 
-            this.colAuthorLastModif.Caption = "AuthorLastModif";
+            this.colAuthorLastModif.Caption = "–Â‰‡ÍÚÓ";
             this.colAuthorLastModif.FieldName = "AuthorLastModif";
             this.colAuthorLastModif.Name = "colAuthorLastModif";
+            this.colAuthorLastModif.OptionsColumn.ReadOnly = true;
             this.colAuthorLastModif.OptionsColumn.ShowInCustomizationForm = false;
             // 
             // colDateCreate
             // 
-            this.colDateCreate.Caption = "DateCreate";
+            this.colDateCreate.Caption = "—ÓÁ‰‡Ì";
             this.colDateCreate.FieldName = "DateCreate";
             this.colDateCreate.Name = "colDateCreate";
+            this.colDateCreate.OptionsColumn.ReadOnly = true;
             this.colDateCreate.OptionsColumn.ShowInCustomizationForm = false;
-            // 
-            // colRowVersion
-            // 
-            this.colRowVersion.Caption = "RowVersion";
-            this.colRowVersion.FieldName = "RowVersion";
-            this.colRowVersion.Name = "colRowVersion";
-            this.colRowVersion.OptionsColumn.ReadOnly = true;
-            this.colRowVersion.OptionsColumn.ShowInCustomizationForm = false;
             // 
             // groupBox1
             // 
@@ -374,7 +405,7 @@ namespace RetailTrade
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(3, 38);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(610, 103);
+            this.groupBox1.Size = new System.Drawing.Size(765, 118);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -382,7 +413,7 @@ namespace RetailTrade
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 92F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 512F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 667F));
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.OrganisationlookUpEdit, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 1);
@@ -396,7 +427,7 @@ namespace RetailTrade
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(604, 90);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(759, 92);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label3
@@ -478,15 +509,13 @@ namespace RetailTrade
             this.textEdit3.Name = "textEdit3";
             this.textEdit3.Properties.MaxLength = 25;
             this.textEdit3.Properties.ValidateOnEnterKey = true;
-            this.textEdit3.Size = new System.Drawing.Size(506, 22);
+            this.textEdit3.Size = new System.Drawing.Size(661, 22);
             this.textEdit3.TabIndex = 3;
             this.textEdit3.Tag = "";
             // 
             // panelNumber
             // 
             this.panelNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelNumber.Controls.Add(this.label6);
-            this.panelNumber.Controls.Add(this.label8);
             this.panelNumber.Controls.Add(this.dateTimePicker1);
             this.panelNumber.Controls.Add(this.label1);
             this.panelNumber.Controls.Add(numberLabel);
@@ -494,29 +523,8 @@ namespace RetailTrade
             this.panelNumber.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelNumber.Location = new System.Drawing.Point(3, 3);
             this.panelNumber.Name = "panelNumber";
-            this.panelNumber.Size = new System.Drawing.Size(610, 35);
+            this.panelNumber.Size = new System.Drawing.Size(765, 35);
             this.panelNumber.TabIndex = 3;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.receiptMasterBindingSource, "PurchSum", true));
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(344, 8);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(59, 20);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "label6";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.receiptMasterBindingSource, "PurchNDS", true));
-            this.label8.Location = new System.Drawing.Point(447, 8);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(46, 17);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "label8";
             // 
             // dateTimePicker1
             // 
@@ -549,9 +557,9 @@ namespace RetailTrade
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(616, 435);
+            this.tabPage2.Size = new System.Drawing.Size(771, 511);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "«‡ˇ‚ÍË";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // receiptMasterNewBindingSource
@@ -563,13 +571,14 @@ namespace RetailTrade
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btEdit,
-            this.toolStripSplitButton1,
             this.btSaveReciept,
             this.btClose,
-            this.toolStripButton1});
+            this.toolStripButton1,
+            this.toolStripSplitButton1,
+            this.toolStripSplitButton2});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(624, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(779, 25);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -578,33 +587,17 @@ namespace RetailTrade
             this.btEdit.Image = ((System.Drawing.Image)(resources.GetObject("btEdit.Image")));
             this.btEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btEdit.Name = "btEdit";
-            this.btEdit.Size = new System.Drawing.Size(51, 22);
-            this.btEdit.Text = "Edit";
+            this.btEdit.Size = new System.Drawing.Size(95, 22);
+            this.btEdit.Text = "»ÁÏÂÌËÚ¸";
             this.btEdit.Click += new System.EventHandler(this.btEdit_Click);
-            // 
-            // toolStripSplitButton1
-            // 
-            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ÔËıÓ‰Ì˚È¿ÍÚToolStripMenuItem});
-            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
-            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(90, 22);
-            this.toolStripSplitButton1.Text = "œÂ˜‡Ú¸";
-            // 
-            // ÔËıÓ‰Ì˚È¿ÍÚToolStripMenuItem
-            // 
-            this.ÔËıÓ‰Ì˚È¿ÍÚToolStripMenuItem.Name = "ÔËıÓ‰Ì˚È¿ÍÚToolStripMenuItem";
-            this.ÔËıÓ‰Ì˚È¿ÍÚToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
-            this.ÔËıÓ‰Ì˚È¿ÍÚToolStripMenuItem.Text = "œËıÓ‰Ì˚È ‡ÍÚ";
             // 
             // btSaveReciept
             // 
             this.btSaveReciept.Image = ((System.Drawing.Image)(resources.GetObject("btSaveReciept.Image")));
             this.btSaveReciept.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSaveReciept.Name = "btSaveReciept";
-            this.btSaveReciept.Size = new System.Drawing.Size(110, 22);
-            this.btSaveReciept.Text = "SaveToBase";
+            this.btSaveReciept.Size = new System.Drawing.Size(101, 22);
+            this.btSaveReciept.Text = "—Óı‡ÌËÚ¸";
             this.btSaveReciept.Click += new System.EventHandler(this.btSaveReciept_Click);
             // 
             // btClose
@@ -623,34 +616,46 @@ namespace RetailTrade
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(109, 22);
-            this.toolStripButton1.Text = "Õ‡ ÒÍÎ‡‰ ...";
+            this.toolStripButton1.Size = new System.Drawing.Size(134, 22);
+            this.toolStripButton1.Text = "œÂÂÏÂÒÚËÚ¸...";
+            // 
+            // toolStripSplitButton1
+            // 
+            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ÔËıÓ‰Ì˚È¿ÍÚToolStripMenuItem});
+            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(90, 22);
+            this.toolStripSplitButton1.Text = "œÂ˜‡Ú¸";
+            // 
+            // ÔËıÓ‰Ì˚È¿ÍÚToolStripMenuItem
+            // 
+            this.ÔËıÓ‰Ì˚È¿ÍÚToolStripMenuItem.Name = "ÔËıÓ‰Ì˚È¿ÍÚToolStripMenuItem";
+            this.ÔËıÓ‰Ì˚È¿ÍÚToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.ÔËıÓ‰Ì˚È¿ÍÚToolStripMenuItem.Text = "œËıÓ‰Ì˚È ‡ÍÚ";
+            // 
+            // toolStripSplitButton2
+            // 
+            this.toolStripSplitButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripSplitButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton2.Image")));
+            this.toolStripSplitButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButton2.Name = "toolStripSplitButton2";
+            this.toolStripSplitButton2.Size = new System.Drawing.Size(32, 22);
+            this.toolStripSplitButton2.Text = "toolStripSplitButton2";
             // 
             // receiptDetailTableAdapter
             // 
             this.receiptDetailTableAdapter.ClearBeforeFill = true;
             // 
-            // receiptMasterNewTableAdapter
-            // 
-            this.receiptMasterNewTableAdapter.ClearBeforeFill = true;
-            // 
             // organizationTableAdapter
             // 
             this.organizationTableAdapter.ClearBeforeFill = true;
-            // 
-            // stockTableAdapter
-            // 
-            this.stockTableAdapter.ClearBeforeFill = true;
             // 
             // receiptMasterReceiptDetailBindingSource
             // 
             this.receiptMasterReceiptDetailBindingSource.DataMember = "ReceiptMaster_ReceiptDetail";
             this.receiptMasterReceiptDetailBindingSource.DataSource = this.receiptDetailBindingSource;
-            // 
-            // productBindingSource
-            // 
-            this.productBindingSource.DataMember = "Product";
-            this.productBindingSource.DataSource = this.mDataSet;
             // 
             // productTableAdapter
             // 
@@ -660,11 +665,11 @@ namespace RetailTrade
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.toolStrip1);
             this.Name = "ReceiptRowOrganization";
-            this.Size = new System.Drawing.Size(624, 487);
+            this.Size = new System.Drawing.Size(779, 588);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -674,6 +679,8 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProductLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -688,7 +695,6 @@ namespace RetailTrade
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterReceiptDetailBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -717,7 +723,6 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Views.Grid.GridView gridView;
         private RetailTrade.MDataSetTableAdapters.ReceiptDetailTableAdapter receiptDetailTableAdapter;
         private System.Windows.Forms.BindingSource receiptMasterNewBindingSource;
-        private RetailTrade.MDataSetTableAdapters.ReceiptMasterNewTableAdapter receiptMasterNewTableAdapter;
         private System.Windows.Forms.ToolStripButton btSaveReciept;
         private System.Windows.Forms.ToolStripButton btClose;
         private System.Windows.Forms.ToolStripStatusLabel CountLabel;
@@ -725,13 +730,10 @@ namespace RetailTrade
         private System.Windows.Forms.BindingSource organizationBindingSource;
         private RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter organizationTableAdapter;
         private System.Windows.Forms.BindingSource stockBindingSource;
-        private RetailTrade.MDataSetTableAdapters.StockTableAdapter stockTableAdapter;
         private System.Windows.Forms.Label label3;
         private DevExpress.XtraEditors.LookUpEdit OrganisationlookUpEdit;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
         private System.Windows.Forms.ToolStripMenuItem ÔËıÓ‰Ì˚È¿ÍÚToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
@@ -751,9 +753,10 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Columns.GridColumn colAuthorCreate;
         private DevExpress.XtraGrid.Columns.GridColumn colAuthorLastModif;
         private DevExpress.XtraGrid.Columns.GridColumn colDateCreate;
-        private DevExpress.XtraGrid.Columns.GridColumn colRowVersion;
         private System.Windows.Forms.BindingSource receiptMasterReceiptDetailBindingSource;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit ProductLookUpEdit;
         private System.Windows.Forms.BindingSource productBindingSource;
         private RetailTrade.MDataSetTableAdapters.ProductTableAdapter productTableAdapter;
+        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton2;
     }
 }

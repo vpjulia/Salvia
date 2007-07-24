@@ -83,5 +83,35 @@ namespace RetailTrade
         {
            
         }
+
+        private void gridProduct_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode == Keys.Enter) & (this.gridViewProduct.IsValidRowHandle(this.gridViewProduct.FocusedRowHandle)))
+                this.gridViewProduct_Click(sender,e);
+    
+        }
+
+        private void gridViewReceiptDetail_Click(object sender, EventArgs e)
+        {
+            if (this.gridViewReceiptDetail.IsValidRowHandle(this.gridViewReceiptDetail.FocusedRowHandle))
+            {
+
+                FormDialog _formDialog = new FormDialog();
+                _formDialog.AcceptButton = null;
+
+                MDataSet.ReceiptDetailRow sourceRow = ((this.receiptDetailBindingSource.CurrencyManager.Current as DataRowView).Row as MDataSet.ReceiptDetailRow);
+                ReceiptDetailRowAdd _receiptDetailRowAdd = new ReceiptDetailRowAdd(sourceRow, (this.productBindingSource.DataSource as MDataSet.ProductDataTable).FindByID(sourceRow.ProductRef));
+                _formDialog.panel.Controls.Add(_receiptDetailRowAdd);
+
+                if (DialogResult.OK == _formDialog.ShowDialog(this))
+                {
+                    this.receiptDetailBindingSource.EndEdit();
+                }
+                else
+                {
+                    this.receiptDetailBindingSource.CancelEdit();
+                }
+            }
+        }
     }
 }

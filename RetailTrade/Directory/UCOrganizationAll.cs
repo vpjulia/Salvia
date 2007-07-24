@@ -216,6 +216,11 @@ namespace RetailTrade
 
             }
         }
+
+        private void gridView_DoubleClick(object sender, EventArgs e)
+        {
+            this.btEdit.PerformClick();
+        }
         
     }
 }

@@ -31,8 +31,8 @@ namespace RetailTrade
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCOrganizationAll));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.btEdit = new System.Windows.Forms.ToolStripButton();
             this.btAdd = new System.Windows.Forms.ToolStripButton();
+            this.btEdit = new System.Windows.Forms.ToolStripButton();
             this.btDel = new System.Windows.Forms.ToolStripButton();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btClose = new System.Windows.Forms.ToolStripButton();
@@ -43,8 +43,8 @@ namespace RetailTrade
             this.mDataSet = new RetailTrade.MDataSet();
             this.gridView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colShortName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDirector = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAdress = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAddress_jur = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -60,6 +60,8 @@ namespace RetailTrade
             this.colNote = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAuthorCreate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAuthorLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDateCreate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDateLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
             this.organizationTableAdapter = new RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolStrip1.SuspendLayout();
@@ -73,8 +75,8 @@ namespace RetailTrade
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btEdit,
             this.btAdd,
+            this.btEdit,
             this.btDel,
             this.btSave,
             this.btClose,
@@ -85,15 +87,6 @@ namespace RetailTrade
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // btEdit
-            // 
-            this.btEdit.Image = ((System.Drawing.Image)(resources.GetObject("btEdit.Image")));
-            this.btEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btEdit.Name = "btEdit";
-            this.btEdit.Size = new System.Drawing.Size(95, 22);
-            this.btEdit.Text = "Изменить";
-            this.btEdit.Click += new System.EventHandler(this.btEdit_Click);
-            // 
             // btAdd
             // 
             this.btAdd.Image = ((System.Drawing.Image)(resources.GetObject("btAdd.Image")));
@@ -102,6 +95,15 @@ namespace RetailTrade
             this.btAdd.Size = new System.Drawing.Size(94, 22);
             this.btAdd.Text = "Добавить";
             this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
+            // 
+            // btEdit
+            // 
+            this.btEdit.Image = ((System.Drawing.Image)(resources.GetObject("btEdit.Image")));
+            this.btEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btEdit.Name = "btEdit";
+            this.btEdit.Size = new System.Drawing.Size(95, 22);
+            this.btEdit.Text = "Изменить";
+            this.btEdit.Click += new System.EventHandler(this.btEdit_Click);
             // 
             // btDel
             // 
@@ -180,10 +182,12 @@ namespace RetailTrade
             // 
             // gridView
             // 
+            this.gridView.Appearance.FocusedRow.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold);
+            this.gridView.Appearance.FocusedRow.Options.UseFont = true;
             this.gridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colID,
-            this.colName,
             this.colShortName,
+            this.colName,
             this.colDirector,
             this.colAdress,
             this.colAddress_jur,
@@ -198,151 +202,148 @@ namespace RetailTrade
             this.colLicense,
             this.colNote,
             this.colAuthorCreate,
-            this.colAuthorLastModif});
+            this.colAuthorLastModif,
+            this.colDateCreate,
+            this.colDateLastModif});
             this.gridView.GridControl = this.grid;
             this.gridView.Name = "gridView";
+            this.gridView.OptionsBehavior.AllowIncrementalSearch = true;
             this.gridView.OptionsBehavior.Editable = false;
+            this.gridView.OptionsDetail.EnableMasterViewMode = false;
+            this.gridView.DoubleClick += new System.EventHandler(this.gridView_DoubleClick);
             // 
             // colID
             // 
-            this.colID.Caption = "ID";
+            this.colID.Caption = "Код";
             this.colID.FieldName = "ID";
             this.colID.Name = "colID";
             this.colID.OptionsColumn.ReadOnly = true;
             this.colID.Visible = true;
             this.colID.VisibleIndex = 0;
-            // 
-            // colName
-            // 
-            this.colName.Caption = "Name";
-            this.colName.FieldName = "Name";
-            this.colName.Name = "colName";
-            this.colName.Visible = true;
-            this.colName.VisibleIndex = 1;
+            this.colID.Width = 69;
             // 
             // colShortName
             // 
-            this.colShortName.Caption = "ShortName";
+            this.colShortName.Caption = "Краткое";
             this.colShortName.FieldName = "ShortName";
             this.colShortName.Name = "colShortName";
             this.colShortName.Visible = true;
             this.colShortName.VisibleIndex = 2;
+            this.colShortName.Width = 154;
+            // 
+            // colName
+            // 
+            this.colName.Caption = "Наименование";
+            this.colName.FieldName = "Name";
+            this.colName.Name = "colName";
+            this.colName.Visible = true;
+            this.colName.VisibleIndex = 1;
+            this.colName.Width = 154;
             // 
             // colDirector
             // 
-            this.colDirector.Caption = "Director";
+            this.colDirector.Caption = "Директор";
             this.colDirector.FieldName = "Director";
             this.colDirector.Name = "colDirector";
-            this.colDirector.Visible = true;
-            this.colDirector.VisibleIndex = 3;
             // 
             // colAdress
             // 
-            this.colAdress.Caption = "Adress";
+            this.colAdress.Caption = "Адрес";
             this.colAdress.FieldName = "Adress";
             this.colAdress.Name = "colAdress";
-            this.colAdress.Visible = true;
-            this.colAdress.VisibleIndex = 4;
             // 
             // colAddress_jur
             // 
-            this.colAddress_jur.Caption = "Address_jur";
+            this.colAddress_jur.Caption = "Юридический адрес";
             this.colAddress_jur.FieldName = "Address_jur";
             this.colAddress_jur.Name = "colAddress_jur";
-            this.colAddress_jur.Visible = true;
-            this.colAddress_jur.VisibleIndex = 5;
             // 
             // colOKPO
             // 
-            this.colOKPO.Caption = "OKPO";
+            this.colOKPO.Caption = "ОКПО";
             this.colOKPO.FieldName = "OKPO";
             this.colOKPO.Name = "colOKPO";
-            this.colOKPO.Visible = true;
-            this.colOKPO.VisibleIndex = 6;
             // 
             // colBankName
             // 
-            this.colBankName.Caption = "BankName";
+            this.colBankName.Caption = "Банк";
             this.colBankName.FieldName = "BankName";
             this.colBankName.Name = "colBankName";
-            this.colBankName.Visible = true;
-            this.colBankName.VisibleIndex = 7;
             // 
             // colBankMFO
             // 
-            this.colBankMFO.Caption = "BankMFO";
+            this.colBankMFO.Caption = "МФО";
             this.colBankMFO.FieldName = "BankMFO";
             this.colBankMFO.Name = "colBankMFO";
-            this.colBankMFO.Visible = true;
-            this.colBankMFO.VisibleIndex = 8;
             // 
             // colINN
             // 
-            this.colINN.Caption = "INN";
+            this.colINN.Caption = "ИИН";
             this.colINN.FieldName = "INN";
             this.colINN.Name = "colINN";
-            this.colINN.Visible = true;
-            this.colINN.VisibleIndex = 9;
             // 
             // colNumSvid
             // 
-            this.colNumSvid.Caption = "NumSvid";
+            this.colNumSvid.Caption = "№свидетельства";
             this.colNumSvid.FieldName = "NumSvid";
             this.colNumSvid.Name = "colNumSvid";
-            this.colNumSvid.Visible = true;
-            this.colNumSvid.VisibleIndex = 10;
             // 
             // colNumSvidChp
             // 
-            this.colNumSvidChp.Caption = "NumSvidChp";
+            this.colNumSvidChp.Caption = "ЧП,Свидельство";
             this.colNumSvidChp.FieldName = "NumSvidChp";
             this.colNumSvidChp.Name = "colNumSvidChp";
-            this.colNumSvidChp.Visible = true;
-            this.colNumSvidChp.VisibleIndex = 11;
             // 
             // colPassChp
             // 
-            this.colPassChp.Caption = "PassChp";
+            this.colPassChp.Caption = "ЧП,паспорт";
             this.colPassChp.FieldName = "PassChp";
             this.colPassChp.Name = "colPassChp";
-            this.colPassChp.Visible = true;
-            this.colPassChp.VisibleIndex = 12;
             // 
             // colPhone
             // 
-            this.colPhone.Caption = "Phone";
+            this.colPhone.Caption = "Телефон";
             this.colPhone.FieldName = "Phone";
             this.colPhone.Name = "colPhone";
             this.colPhone.Visible = true;
-            this.colPhone.VisibleIndex = 13;
+            this.colPhone.VisibleIndex = 3;
+            this.colPhone.Width = 157;
             // 
             // colLicense
             // 
-            this.colLicense.Caption = "License";
+            this.colLicense.Caption = "Лицензия";
             this.colLicense.FieldName = "License";
             this.colLicense.Name = "colLicense";
-            this.colLicense.Visible = true;
-            this.colLicense.VisibleIndex = 14;
             // 
             // colNote
             // 
-            this.colNote.Caption = "Note";
+            this.colNote.Caption = "Примечание";
             this.colNote.FieldName = "Note";
             this.colNote.Name = "colNote";
-            this.colNote.Visible = true;
-            this.colNote.VisibleIndex = 15;
             // 
             // colAuthorCreate
             // 
-            this.colAuthorCreate.Caption = "AuthorCreate";
+            this.colAuthorCreate.Caption = "Автор";
             this.colAuthorCreate.FieldName = "AuthorCreate";
             this.colAuthorCreate.Name = "colAuthorCreate";
             // 
             // colAuthorLastModif
             // 
-            this.colAuthorLastModif.Caption = "AuthorLastModif";
+            this.colAuthorLastModif.Caption = "Редактор";
             this.colAuthorLastModif.FieldName = "AuthorLastModif";
             this.colAuthorLastModif.Name = "colAuthorLastModif";
+            // 
+            // colDateCreate
+            // 
+            this.colDateCreate.Caption = "Создан";
+            this.colDateCreate.FieldName = "DateCreate";
+            this.colDateCreate.Name = "colDateCreate";
+            // 
+            // colDateLastModif
+            // 
+            this.colDateLastModif.Caption = "Изменен";
+            this.colDateLastModif.FieldName = "DateLastModif";
+            this.colDateLastModif.Name = "colDateLastModif";
             // 
             // organizationTableAdapter
             // 
@@ -407,5 +408,7 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripButton btSave;
         private System.Windows.Forms.ToolStripButton btClose;
         private System.Windows.Forms.ToolStripButton btRefresh;
+        private DevExpress.XtraGrid.Columns.GridColumn colDateCreate;
+        private DevExpress.XtraGrid.Columns.GridColumn colDateLastModif;
     }
 }
