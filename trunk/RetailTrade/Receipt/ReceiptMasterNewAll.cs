@@ -19,7 +19,7 @@ namespace RetailTrade
         {
             InitializeComponent();
             this.mDataSet = source;
-            this.receiptMasterBindingSource.DataSource = this.mDataSet.ReceiptMaster;
+            this.receiptMasterBindingSource.DataSource = new DataView(this.mDataSet.ReceiptMaster,"DocumentTypeRef=0",null,DataViewRowState.CurrentRows) ;
             this.receiptMasterBindingSource.ResetBindings(false);
             this.productBindingSource.DataSource = this.mDataSet.Product;
            
@@ -44,7 +44,7 @@ namespace RetailTrade
 
         private void ReceiptMasterNew_Load(object sender, EventArgs e)
         {
-            this.receiptMasterNewBindingSource = (this.ParentForm as MainForm).receiptMasterNewBindingSource;
+            this.receiptMasterNewBindingSource.DataSource = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0",null,DataViewRowState.CurrentRows);
             this.receiptMasterNewBindingSource.ResetBindings(false);
             this.grid.DataSource = this.receiptMasterNewBindingSource;
         }
