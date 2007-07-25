@@ -67,8 +67,7 @@ namespace RetailTrade
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.btField = new System.Windows.Forms.ToolStripMenuItem();
             this.Ó·ÌÓ‚ËÚ¸ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.receiptMasterNewTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptMasterNewTableAdapter();
-            this.receiptMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
+             this.receiptMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.receiptMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptMasterTableAdapter();
             this.productTableAdapter = new RetailTrade.MDataSetTableAdapters.ProductTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewReceiptDetail)).BeginInit();
@@ -97,6 +96,7 @@ namespace RetailTrade
             this.gridViewReceiptDetail.Name = "gridViewReceiptDetail";
             this.gridViewReceiptDetail.OptionsBehavior.AllowIncrementalSearch = true;
             this.gridViewReceiptDetail.OptionsBehavior.Editable = false;
+            this.gridViewReceiptDetail.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridViewReceiptDetail.OptionsView.ShowGroupPanel = false;
             // 
             // colProductRef
@@ -210,7 +210,7 @@ namespace RetailTrade
             // 
             // receiptMasterNewBindingSource
             // 
-            this.receiptMasterNewBindingSource.DataMember = "ReceiptMasterNew";
+            this.receiptMasterNewBindingSource.DataMember = "ReceiptMaster";
             this.receiptMasterNewBindingSource.DataSource = this.mDataSet;
             // 
             // gridView1
@@ -232,6 +232,7 @@ namespace RetailTrade
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.AllowIncrementalSearch = true;
             this.gridView1.OptionsBehavior.Editable = false;
+            this.gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridView1.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
             // 
             // colNumber
@@ -425,9 +426,7 @@ namespace RetailTrade
             this.Ó·ÌÓ‚ËÚ¸ToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.Ó·ÌÓ‚ËÚ¸ToolStripMenuItem.Text = "Œ·ÌÓ‚ËÚ¸";
             // 
-            // receiptMasterNewTableAdapter
-            // 
-            this.receiptMasterNewTableAdapter.ClearBeforeFill = true;
+            
             // 
             // receiptMasterBindingSource
             // 
@@ -475,7 +474,6 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private System.Windows.Forms.BindingSource receiptMasterNewBindingSource;
         private MDataSet mDataSet;
-        private RetailTrade.MDataSetTableAdapters.ReceiptMasterNewTableAdapter receiptMasterNewTableAdapter;
         private System.Windows.Forms.ToolStripButton btEdit;
         private System.Windows.Forms.ToolStripButton btAdd;
         private System.Windows.Forms.BindingSource receiptMasterBindingSource;

@@ -67,6 +67,10 @@ namespace RetailTrade
             this.colUnitName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSubstanceName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridReceiptDetail = new DevExpress.XtraGrid.GridControl();
+            this.contextMenuReceiptDetail = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.DeleteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fieldMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.receiptDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.receiptMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridViewReceiptDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -88,6 +92,7 @@ namespace RetailTrade
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.receiptMasterBindingSourceView = new System.Windows.Forms.BindingSource(this.components);
             this.receiptMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptMasterTableAdapter();
+            this.colCalcPurchSum = new DevExpress.XtraGrid.Columns.GridColumn();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -99,6 +104,7 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewProduct)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridReceiptDetail)).BeginInit();
+            this.contextMenuReceiptDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewReceiptDetail)).BeginInit();
@@ -169,9 +175,6 @@ namespace RetailTrade
             // 
             this.gridProduct.DataSource = this.productBindingSource;
             this.gridProduct.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
             this.gridProduct.EmbeddedNavigator.Name = "";
             this.gridProduct.Location = new System.Drawing.Point(0, 0);
             this.gridProduct.MainView = this.gridViewProduct;
@@ -226,6 +229,7 @@ namespace RetailTrade
             this.gridViewProduct.Name = "gridViewProduct";
             this.gridViewProduct.OptionsBehavior.AllowIncrementalSearch = true;
             this.gridViewProduct.OptionsBehavior.Editable = false;
+            this.gridViewProduct.OptionsDetail.EnableMasterViewMode = false;
             this.gridViewProduct.OptionsView.ShowAutoFilterRow = true;
             this.gridViewProduct.OptionsView.ShowGroupPanel = false;
             this.gridViewProduct.Click += new System.EventHandler(this.gridViewProduct_Click);
@@ -402,11 +406,9 @@ namespace RetailTrade
             // 
             // gridReceiptDetail
             // 
+            this.gridReceiptDetail.ContextMenuStrip = this.contextMenuReceiptDetail;
             this.gridReceiptDetail.DataSource = this.receiptDetailBindingSource;
             this.gridReceiptDetail.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
             this.gridReceiptDetail.EmbeddedNavigator.Name = "";
             this.gridReceiptDetail.Location = new System.Drawing.Point(0, 0);
             this.gridReceiptDetail.MainView = this.gridViewReceiptDetail;
@@ -417,6 +419,36 @@ namespace RetailTrade
             this.gridReceiptDetail.TabIndex = 0;
             this.gridReceiptDetail.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewReceiptDetail});
+            // 
+            // contextMenuReceiptDetail
+            // 
+            this.contextMenuReceiptDetail.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DeleteMenuItem,
+            this.editMenuItem,
+            this.fieldMenuItem});
+            this.contextMenuReceiptDetail.Name = "contextMenuReceiptDetail";
+            this.contextMenuReceiptDetail.Size = new System.Drawing.Size(210, 70);
+            // 
+            // DeleteMenuItem
+            // 
+            this.DeleteMenuItem.Name = "DeleteMenuItem";
+            this.DeleteMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.DeleteMenuItem.Text = "Удалить строку";
+            this.DeleteMenuItem.Click += new System.EventHandler(this.DeleteMenuItem_Click);
+            // 
+            // editMenuItem
+            // 
+            this.editMenuItem.Name = "editMenuItem";
+            this.editMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.editMenuItem.Text = "Изменить строку";
+            this.editMenuItem.Click += new System.EventHandler(this.gridViewReceiptDetail_Click);
+            // 
+            // fieldMenuItem
+            // 
+            this.fieldMenuItem.Name = "fieldMenuItem";
+            this.fieldMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.fieldMenuItem.Text = "Настройка полей";
+            this.fieldMenuItem.Click += new System.EventHandler(this.fieldMenuItem_Click);
             // 
             // receiptDetailBindingSource
             // 
@@ -445,10 +477,12 @@ namespace RetailTrade
             this.colInvoiceDetailRef,
             this.colAuthorCreate2,
             this.colAuthorLastModif2,
-            this.colDateCreate2});
+            this.colDateCreate2,
+            this.colCalcPurchSum});
             this.gridViewReceiptDetail.GridControl = this.gridReceiptDetail;
             this.gridViewReceiptDetail.Name = "gridViewReceiptDetail";
-            this.gridViewReceiptDetail.Click += new System.EventHandler(this.gridViewReceiptDetail_Click);
+            this.gridViewReceiptDetail.OptionsDetail.EnableMasterViewMode = false;
+            this.gridViewReceiptDetail.DoubleClick += new System.EventHandler(this.gridViewReceiptDetail_Click);
             // 
             // colID2
             // 
@@ -456,9 +490,7 @@ namespace RetailTrade
             this.colID2.FieldName = "ID";
             this.colID2.Name = "colID2";
             this.colID2.OptionsColumn.ReadOnly = true;
-            this.colID2.Visible = true;
-            this.colID2.VisibleIndex = 5;
-            this.colID2.Width = 51;
+            this.colID2.Width = 72;
             // 
             // colReceiptMaterRef
             // 
@@ -473,10 +505,11 @@ namespace RetailTrade
             this.colProductRef.ColumnEdit = this.productLookUpEdit;
             this.colProductRef.FieldName = "ProductRef";
             this.colProductRef.Name = "colProductRef";
+            this.colProductRef.OptionsColumn.AllowFocus = false;
             this.colProductRef.OptionsColumn.ReadOnly = true;
             this.colProductRef.Visible = true;
             this.colProductRef.VisibleIndex = 0;
-            this.colProductRef.Width = 179;
+            this.colProductRef.Width = 216;
             // 
             // productLookUpEdit
             // 
@@ -497,7 +530,7 @@ namespace RetailTrade
             this.colSeries.Name = "colSeries";
             this.colSeries.Visible = true;
             this.colSeries.VisibleIndex = 3;
-            this.colSeries.Width = 45;
+            this.colSeries.Width = 59;
             // 
             // colUseByDate
             // 
@@ -506,7 +539,7 @@ namespace RetailTrade
             this.colUseByDate.Name = "colUseByDate";
             this.colUseByDate.Visible = true;
             this.colUseByDate.VisibleIndex = 4;
-            this.colUseByDate.Width = 79;
+            this.colUseByDate.Width = 104;
             // 
             // colQuantity
             // 
@@ -515,7 +548,7 @@ namespace RetailTrade
             this.colQuantity.Name = "colQuantity";
             this.colQuantity.Visible = true;
             this.colQuantity.VisibleIndex = 1;
-            this.colQuantity.Width = 51;
+            this.colQuantity.Width = 67;
             // 
             // colPricePurchase
             // 
@@ -524,7 +557,7 @@ namespace RetailTrade
             this.colPricePurchase.Name = "colPricePurchase";
             this.colPricePurchase.Visible = true;
             this.colPricePurchase.VisibleIndex = 2;
-            this.colPricePurchase.Width = 67;
+            this.colPricePurchase.Width = 89;
             // 
             // colPurchaseNDS
             // 
@@ -594,6 +627,14 @@ namespace RetailTrade
             // 
             this.receiptMasterTableAdapter.ClearBeforeFill = true;
             // 
+            // colCalcPurchSum
+            // 
+            this.colCalcPurchSum.Caption = "Сумма без НДС";
+            this.colCalcPurchSum.FieldName = "CalcPurchSum";
+            this.colCalcPurchSum.Name = "colCalcPurchSum";
+            this.colCalcPurchSum.Visible = true;
+            this.colCalcPurchSum.VisibleIndex = 5;
+            // 
             // ReceiptDetailByRef
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -615,6 +656,7 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewProduct)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridReceiptDetail)).EndInit();
+            this.contextMenuReceiptDetail.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewReceiptDetail)).EndInit();
@@ -685,5 +727,10 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.BindingSource receiptMasterBindingSourceView;
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit productLookUpEdit;
+        private System.Windows.Forms.ContextMenuStrip contextMenuReceiptDetail;
+        private System.Windows.Forms.ToolStripMenuItem DeleteMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fieldMenuItem;
+        private DevExpress.XtraGrid.Columns.GridColumn colCalcPurchSum;
     }
 }

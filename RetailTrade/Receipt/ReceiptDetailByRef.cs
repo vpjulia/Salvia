@@ -6,6 +6,8 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using RetailTrade.Receipt;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid.Views.Base;
 
 namespace RetailTrade
 {
@@ -55,25 +57,28 @@ namespace RetailTrade
             /*создать новую строку, указатель на нее в ReceiptDetailRowAdd дл€ редактировани€*/
        
         {
-            if (this.gridViewProduct.IsValidRowHandle(this.gridViewProduct.FocusedRowHandle))
+            if (this.gridViewProduct.IsValidRowHandle(this.gridViewProduct.FocusedRowHandle) & this.gridViewProduct.State == GridState.Normal & !this.gridViewProduct.IsFilterRow(this.gridViewProduct.FocusedRowHandle))
             {
-
                 FormDialog _formDialog = new FormDialog();
                 _formDialog.AcceptButton = null;
 
-                 MDataSet.ReceiptDetailRow sourceRow =((this.receiptDetailBindingSource.AddNew() as DataRowView).Row  as MDataSet.ReceiptDetailRow) ;
-                 ReceiptDetailRowAdd _receiptDetailRowAdd = new ReceiptDetailRowAdd(sourceRow, (MDataSet.ProductRow)this.gridViewProduct.GetDataRow(this.gridViewProduct.FocusedRowHandle));
-                 _formDialog.panel.Controls.Add(_receiptDetailRowAdd);
-      
-                if (DialogResult.OK == _formDialog.ShowDialog(this))
+               MDataSet.ReceiptDetailRow sourceRow = ((this.receiptDetailBindingSource.AddNew() as DataRowView).Row as MDataSet.ReceiptDetailRow);
+               MDataSet.ProductRow productRow =(MDataSet.ProductRow)this.gridViewProduct.GetDataRow(this.gridViewProduct.FocusedRowHandle);
+                if ((sourceRow != null)&(productRow!=null))
                 {
-                    this.receiptDetailBindingSource.EndEdit();
+                    ReceiptDetailRowAdd _receiptDetailRowAdd = new ReceiptDetailRowAdd(sourceRow, productRow);
+                    _formDialog.panel.Controls.Add(_receiptDetailRowAdd);
+
+                    if (DialogResult.OK == _formDialog.ShowDialog(this))
+                    {
+                        this.receiptDetailBindingSource.EndEdit();
+                    }
+                    else
+                    {
+                        this.receiptDetailBindingSource.CancelEdit();
+                    }
                 }
-                else
-                {
-                    this.receiptDetailBindingSource.CancelEdit();
-               }
-           }
+            }
         }
 
        
@@ -112,6 +117,53 @@ namespace RetailTrade
                     this.receiptDetailBindingSource.CancelEdit();
                 }
             }
+        }
+
+        private void fieldMenuItem_Click(object sender, EventArgs e)
+        {
+            this.gridViewReceiptDetail.ColumnsCustomization();
+            this.gridViewReceiptDetail.CustomizationForm.TopMost = true;
+          //  this.gridViewReceiptDetail.CustomizationForm.Opacity = 0.7;
+          //  this.gridViewReceiptDetail.CustomizationForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+
+        }
+
+        private void DeleteMenuItem_Click(object sender, EventArgs e)
+        {
+            int hendl = (this.gridReceiptDetail.FocusedView as ColumnView).FocusedRowHandle;
+
+            if (this.gridViewReceiptDetail.IsValidRowHandle(hendl) & hendl != DevExpress.XtraGrid.GridControl.AutoFilterRowHandle)
+            {
+                int countChild = 0;
+
+
+                DataRow[] arrRows;
+               DataRow mrow = (this.gridReceiptDetail.FocusedView as ColumnView).GetDataRow(hendl);
+
+                foreach (DataRelation relation in mrow.Table.ChildRelations)
+                {
+
+                    if (mrow.GetChildRows(relation) != null)
+                    {
+                        arrRows = mrow.GetChildRows(relation);
+
+                        countChild += arrRows.Length;
+                    }
+
+                }
+
+                if (countChild != 0)
+
+                    MessageBox.Show("Ќевозможно удалить запись, ссылок на нее :  " + countChild.ToString(), this.Tag.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+
+                    if (MessageBox.Show(" ”далить запись? ","–едактирование приходного акта",
+                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                         == DialogResult.Yes)
+                 
+                        this.gridReceiptDetail.EmbeddedNavigator.Buttons.Remove.DoClick();
+                       
+                 }
         }
     }
 }

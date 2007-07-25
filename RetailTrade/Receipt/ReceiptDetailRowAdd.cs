@@ -34,28 +34,24 @@ namespace RetailTrade.Receipt
 
             _receiptDetailRow.ProductRef = _productRow.ID;
 
-            /*   if (_productRow.MinDivisor == 1)
-                   this.QuantityEdit.Properties.Mask.EditMask = "D";
-               else
-              */
+            
             _receiptDetailRow.ProductRef = _productRow.ID;
-        //    this.QuantityEdit.Properties.Mask.EditMask = "#####0.000";
+    
 
-       //     source.BeginEdit();
-
+            this.errorProvider1.DataSource = this.receiptDetailBindingSource;
+            this.errorProvider1.UpdateBinding();
         }
 
 
         
 
         private void ReceiptDetailRowAdd_Validating(object sender, CancelEventArgs e)
-        { 
-         
+        {
+            
+          //  this.receiptDetailBindingSource.CurrencyManager.EndCurrentEdit();
           if (this.ValidateChildren())
             {
-                this.receiptDetailBindingSource.EndEdit();
-
-                foreach (Control ctrl in this.tableLayoutPanel1.Controls)
+              foreach (Control ctrl in this.tableLayoutPanel1.Controls)
                 {
                     ctrl.Focus();
                     if (errorProvider1.GetError(ctrl) != "")
@@ -68,13 +64,7 @@ namespace RetailTrade.Receipt
             }
         }
 
-        private void textEdit1_Validating(object sender, CancelEventArgs e)
-        {
-            
-       //  if (this.QuantityEdit.Properties.Mask.ToString()!= "D")
-
-            
-        }
+        
 
         private void ReceiptDetailRowAdd_Load(object sender, EventArgs e)
         {
@@ -86,6 +76,12 @@ namespace RetailTrade.Receipt
         private void button1_Click(object sender, EventArgs e)
         {
             this.receiptDetailBindingSource.CurrencyManager.EndCurrentEdit();
+         
+        }
+
+        private void productBindingSource_DataError(object sender, BindingManagerDataErrorEventArgs e)
+        {
+            MessageBox.Show("DataError");
         }
 
        

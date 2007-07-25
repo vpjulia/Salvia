@@ -67,6 +67,7 @@ namespace RetailTrade
             this.btOk.TabIndex = 0;
             this.btOk.Text = "Œ ";
             this.btOk.UseVisualStyleBackColor = true;
+            this.btOk.Click += new System.EventHandler(this.btOk_Click);
             // 
             // panel
             // 
@@ -97,7 +98,6 @@ namespace RetailTrade
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormDialog";
             this.TopMost = true;
-            this.Load += new System.EventHandler(this.FormDialog_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

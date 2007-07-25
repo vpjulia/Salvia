@@ -24,25 +24,11 @@ namespace RetailTrade
 
         }
 
-        private void textBox_Validated(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.OK;
-               
-        }
+       
 
-        private void textBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-                this.ValidateChildren();
-            
-        }
+        
 
-        private void FormDialog_Load(object sender, EventArgs e)
-        {
-           
-
-        }
-
+       
        
        
     }

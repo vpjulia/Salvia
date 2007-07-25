@@ -42,7 +42,7 @@ namespace RetailTrade
             this.components.Add(this.organizationTableAdapter, "organizationTableAdapter");
             this.components.Add(this.tradePutletTableAdapter, "tradePutletTableAdapter");
             this.components.Add(this.stockTableAdapter, "stockTableAdapter");
-            this.components.Add(this.receiptMasterNewTableAdapter, "receiptMasterNewTableAdapter");
+
             this.components.Add(this.receiptMasterTableAdapter, "receiptMasterTableAdapter");
             this.components.Add(this.receiptDetailTableAdapter, "receiptDetailTableAdapter");
             this.components.Add(this.documentTypeTableAdapter, "documentTypeTableAdapter");
@@ -51,7 +51,7 @@ namespace RetailTrade
             FillTable("Organization");
            // FillTable("TradePuplet");
             FillTable("Stock");
-            FillTable("ReceiptMasterNew");
+         
             FillTable("ReceiptDetail");
 
             //this.productTableAdapter.Fill(this.mDataSet.Product);
@@ -90,7 +90,6 @@ namespace RetailTrade
               thread.Abort();
             Thread.Sleep(30);
 
-            this.receiptMasterNewBindingSource.PositionChanged += new System.EventHandler(this.receiptMasterNewBindingSource_PositionChanged);
            
 
           //  System.Configuration.AppSettingsReader app = new System.Configuration.AppSettingsReader();
@@ -301,15 +300,28 @@ namespace RetailTrade
         }
        public bool SaveToBase(MDataSet.ReceiptMasterRow sourceRow)
         {
-             DataRow[] dr = sourceRow.GetReceiptDetailRows();
+
+            DataRow[] datarowDeleted = this.mDataSet.ReceiptDetail.Select("ReceiptMasterRef=" + sourceRow.ID.ToString(), null, DataViewRowState.Deleted);
+
            try
-            {
+           {
+
+               this.receiptDetailTableAdapter.Update(datarowDeleted);
                this.receiptMasterTableAdapter.Update(sourceRow);
 
-            
+           }
+           catch
+           {
+               MessageBox.Show("Ошибка удаления!");
 
-                this.receiptDetailTableAdapter.Update(dr);
-                
+           }
+
+           DataRow[] dr = sourceRow.GetReceiptDetailRows();
+        
+           try
+            {
+                this.receiptDetailTableAdapter.Update(dr); 
+                this.receiptMasterTableAdapter.Update(sourceRow);
             }
               catch
             {
@@ -321,8 +333,10 @@ namespace RetailTrade
             }
            finally
             {
-                this.receiptMasterNewTableAdapter.Fill(this.mDataSet.ReceiptMasterNew);
-                sourceRow.Table.Merge(this.mDataSet.ReceiptMasterNew);
+               /*Как-то проапдейтить таблицу опять*/
+
+               // this.receiptMasterNewTableAdapter.Fill(this.mDataSet.ReceiptMasterNew);
+             //   sourceRow.Table.Merge(this.mDataSet.ReceiptMasterNew);
               
             } 
             return true;        
