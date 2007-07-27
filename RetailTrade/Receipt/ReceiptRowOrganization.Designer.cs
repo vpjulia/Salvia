@@ -176,6 +176,9 @@ namespace RetailTrade
             // 
             this.gridControl1.DataSource = this.receiptMasterReceiptDetailBindingSource1;
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
             this.gridControl1.EmbeddedNavigator.Name = "";
             this.gridControl1.Location = new System.Drawing.Point(3, 156);
             this.gridControl1.MainView = this.gridView;
@@ -249,36 +252,38 @@ namespace RetailTrade
             // 
             // colID
             // 
-            this.colID.Caption = "ID";
+            this.colID.Caption = "Код";
             this.colID.FieldName = "ID";
             this.colID.Name = "colID";
             this.colID.OptionsColumn.ReadOnly = true;
             this.colID.Visible = true;
             this.colID.VisibleIndex = 0;
+            this.colID.Width = 83;
             // 
             // colReceiptMasterRef
             // 
             this.colReceiptMasterRef.Caption = "ReceiptMasterRef";
             this.colReceiptMasterRef.FieldName = "ReceiptMasterRef";
             this.colReceiptMasterRef.Name = "colReceiptMasterRef";
-            this.colReceiptMasterRef.Visible = true;
-            this.colReceiptMasterRef.VisibleIndex = 1;
+            this.colReceiptMasterRef.OptionsColumn.ShowInCustomizationForm = false;
             // 
             // colProductRef
             // 
-            this.colProductRef.Caption = "ProductRef";
+            this.colProductRef.Caption = "Наименование";
             this.colProductRef.FieldName = "ProductRef";
             this.colProductRef.Name = "colProductRef";
             this.colProductRef.Visible = true;
-            this.colProductRef.VisibleIndex = 2;
+            this.colProductRef.VisibleIndex = 1;
+            this.colProductRef.Width = 83;
             // 
             // colSeries
             // 
-            this.colSeries.Caption = "Series";
+            this.colSeries.Caption = "Серия";
             this.colSeries.FieldName = "Series";
             this.colSeries.Name = "colSeries";
             this.colSeries.Visible = true;
-            this.colSeries.VisibleIndex = 3;
+            this.colSeries.VisibleIndex = 2;
+            this.colSeries.Width = 83;
             // 
             // colUseByDate
             // 
@@ -286,95 +291,87 @@ namespace RetailTrade
             this.colUseByDate.FieldName = "UseByDate";
             this.colUseByDate.Name = "colUseByDate";
             this.colUseByDate.Visible = true;
-            this.colUseByDate.VisibleIndex = 4;
+            this.colUseByDate.VisibleIndex = 3;
+            this.colUseByDate.Width = 113;
             // 
             // colQuantity
             // 
-            this.colQuantity.Caption = "Quantity";
+            this.colQuantity.Caption = "Количество";
             this.colQuantity.FieldName = "Quantity";
             this.colQuantity.Name = "colQuantity";
             this.colQuantity.Visible = true;
-            this.colQuantity.VisibleIndex = 5;
+            this.colQuantity.VisibleIndex = 4;
+            this.colQuantity.Width = 77;
             // 
             // colPricePurchase
             // 
-            this.colPricePurchase.Caption = "PricePurchase";
+            this.colPricePurchase.Caption = "Цена";
             this.colPricePurchase.FieldName = "PricePurchase";
             this.colPricePurchase.Name = "colPricePurchase";
             this.colPricePurchase.Visible = true;
-            this.colPricePurchase.VisibleIndex = 6;
+            this.colPricePurchase.VisibleIndex = 5;
+            this.colPricePurchase.Width = 77;
             // 
             // colPurchSum
             // 
-            this.colPurchSum.Caption = "PurchSum";
+            this.colPurchSum.Caption = "Сумма";
             this.colPurchSum.FieldName = "PurchSum";
             this.colPurchSum.Name = "colPurchSum";
+            this.colPurchSum.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
             this.colPurchSum.Visible = true;
-            this.colPurchSum.VisibleIndex = 7;
+            this.colPurchSum.VisibleIndex = 6;
+            this.colPurchSum.Width = 77;
             // 
             // colPurchNDS
             // 
-            this.colPurchNDS.Caption = "PurchNDS";
+            this.colPurchNDS.Caption = "НДС";
             this.colPurchNDS.FieldName = "PurchNDS";
             this.colPurchNDS.Name = "colPurchNDS";
             this.colPurchNDS.Visible = true;
-            this.colPurchNDS.VisibleIndex = 8;
+            this.colPurchNDS.VisibleIndex = 7;
+            this.colPurchNDS.Width = 77;
             // 
             // colSalesNDS
             // 
             this.colSalesNDS.Caption = "SalesNDS";
             this.colSalesNDS.FieldName = "SalesNDS";
             this.colSalesNDS.Name = "colSalesNDS";
-            this.colSalesNDS.Visible = true;
-            this.colSalesNDS.VisibleIndex = 9;
             // 
             // colSalesPrice
             // 
             this.colSalesPrice.Caption = "SalesPrice";
             this.colSalesPrice.FieldName = "SalesPrice";
             this.colSalesPrice.Name = "colSalesPrice";
-            this.colSalesPrice.Visible = true;
-            this.colSalesPrice.VisibleIndex = 10;
             // 
             // colSalesSum
             // 
             this.colSalesSum.Caption = "SalesSum";
             this.colSalesSum.FieldName = "SalesSum";
             this.colSalesSum.Name = "colSalesSum";
-            this.colSalesSum.Visible = true;
-            this.colSalesSum.VisibleIndex = 11;
             // 
             // colInvoiceDetailRef
             // 
             this.colInvoiceDetailRef.Caption = "InvoiceDetailRef";
             this.colInvoiceDetailRef.FieldName = "InvoiceDetailRef";
             this.colInvoiceDetailRef.Name = "colInvoiceDetailRef";
-            this.colInvoiceDetailRef.Visible = true;
-            this.colInvoiceDetailRef.VisibleIndex = 12;
             // 
             // colAuthorCreate
             // 
             this.colAuthorCreate.Caption = "AuthorCreate";
             this.colAuthorCreate.FieldName = "AuthorCreate";
             this.colAuthorCreate.Name = "colAuthorCreate";
-            this.colAuthorCreate.Visible = true;
-            this.colAuthorCreate.VisibleIndex = 13;
             // 
             // colAuthorLastModif
             // 
             this.colAuthorLastModif.Caption = "AuthorLastModif";
             this.colAuthorLastModif.FieldName = "AuthorLastModif";
             this.colAuthorLastModif.Name = "colAuthorLastModif";
-            this.colAuthorLastModif.Visible = true;
-            this.colAuthorLastModif.VisibleIndex = 14;
             // 
             // colDateCreate
             // 
             this.colDateCreate.Caption = "DateCreate";
             this.colDateCreate.FieldName = "DateCreate";
             this.colDateCreate.Name = "colDateCreate";
-            this.colDateCreate.Visible = true;
-            this.colDateCreate.VisibleIndex = 15;
             // 
             // colRowVersion
             // 
@@ -382,33 +379,29 @@ namespace RetailTrade
             this.colRowVersion.FieldName = "RowVersion";
             this.colRowVersion.Name = "colRowVersion";
             this.colRowVersion.OptionsColumn.ReadOnly = true;
-            this.colRowVersion.Visible = true;
-            this.colRowVersion.VisibleIndex = 16;
             // 
             // colNote
             // 
             this.colNote.Caption = "Note";
             this.colNote.FieldName = "Note";
             this.colNote.Name = "colNote";
-            this.colNote.Visible = true;
-            this.colNote.VisibleIndex = 17;
             // 
             // colDateLastModif
             // 
             this.colDateLastModif.Caption = "DateLastModif";
             this.colDateLastModif.FieldName = "DateLastModif";
             this.colDateLastModif.Name = "colDateLastModif";
-            this.colDateLastModif.Visible = true;
-            this.colDateLastModif.VisibleIndex = 18;
             // 
             // colCalcPurchSum
             // 
-            this.colCalcPurchSum.Caption = "CalcPurchSum";
+            this.colCalcPurchSum.Caption = "Расчетная";
             this.colCalcPurchSum.FieldName = "CalcPurchSum";
             this.colCalcPurchSum.Name = "colCalcPurchSum";
             this.colCalcPurchSum.OptionsColumn.ReadOnly = true;
+            this.colCalcPurchSum.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
             this.colCalcPurchSum.Visible = true;
-            this.colCalcPurchSum.VisibleIndex = 19;
+            this.colCalcPurchSum.VisibleIndex = 8;
+            this.colCalcPurchSum.Width = 81;
             // 
             // ProductLookUpEdit
             // 
