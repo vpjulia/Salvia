@@ -300,6 +300,14 @@ namespace RetailTrade
         }
        public bool SaveToBase(MDataSet.ReceiptMasterRow sourceRow)
         {
+            try
+            {
+                this.receiptMasterTableAdapter.Update(sourceRow);
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка ReceipMaster!");
+            }
 
             DataRow[] datarowDeleted = this.mDataSet.ReceiptDetail.Select("ReceiptMasterRef=" + sourceRow.ID.ToString(), null, DataViewRowState.Deleted);
 
@@ -307,7 +315,7 @@ namespace RetailTrade
            {
 
                this.receiptDetailTableAdapter.Update(datarowDeleted);
-               this.receiptMasterTableAdapter.Update(sourceRow);
+             
 
            }
            catch
@@ -321,24 +329,27 @@ namespace RetailTrade
            try
             {
                 this.receiptDetailTableAdapter.Update(dr); 
-                this.receiptMasterTableAdapter.Update(sourceRow);
+               
             }
               catch
             {
                   MessageBox.Show(this.mDataSet.ReceiptDetail.HasErrors.ToString());
-                 
-                  MessageBox.Show("Ошибка обновления!");
+
+                  MessageBox.Show("Ошибка обновления ReceiptDetail!");
                   return false;
 
             }
            finally
-            {
+            { 
                /*Как-то проапдейтить таблицу опять*/
 
-               // this.receiptMasterNewTableAdapter.Fill(this.mDataSet.ReceiptMasterNew);
-             //   sourceRow.Table.Merge(this.mDataSet.ReceiptMasterNew);
+                MDataSet.ReceiptMasterDataTable tmpReceiptMaster = new MDataSet.ReceiptMasterDataTable();
+
+                this.receiptMasterTableAdapter.Fill(tmpReceiptMaster);
+                sourceRow.Table.Merge(tmpReceiptMaster);
               
             } 
+
             return true;        
         }
 

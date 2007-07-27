@@ -774,49 +774,6 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
             <Sources>
             </Sources>
           </TableAdapter>
-          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ReceiptMasterNewTableAdapter" GeneratorDataComponentClassName="ReceiptMasterNewTableAdapter" Name="ReceiptMasterNew" UserDataComponentName="ReceiptMasterNewTableAdapter">
-            <MainSource>
-              <DbSource ConnectionRef="RetailTradeConnectionString (Settings)" DbObjectName="RetailTrade.dbo.ReceiptMasterNew" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="False" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="False" UserGetMethodName="GetData" UserSourceName="Fill">
-                <SelectCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="True">
-                    <CommandText>SELECT ReceiptMasterNew.*
-FROM  ReceiptMasterNew</CommandText>
-                    <Parameters>
-                    </Parameters>
-                  </DbCommand>
-                </SelectCommand>
-              </DbSource>
-            </MainSource>
-            <Mappings>
-              <Mapping SourceColumn="ID" DataSetColumn="ID" />
-              <Mapping SourceColumn="Number" DataSetColumn="Number" />
-              <Mapping SourceColumn="Note" DataSetColumn="Note" />
-              <Mapping SourceColumn="DocDate" DataSetColumn="DocDate" />
-              <Mapping SourceColumn="DocumentTypeRef" DataSetColumn="DocumentTypeRef" />
-              <Mapping SourceColumn="OrganizationRef" DataSetColumn="OrganizationRef" />
-              <Mapping SourceColumn="MainStockRef" DataSetColumn="MainStockRef" />
-              <Mapping SourceColumn="SenderStockRef" DataSetColumn="SenderStockRef" />
-              <Mapping SourceColumn="SenderInvoiceRef" DataSetColumn="SenderInvoiceRef" />
-              <Mapping SourceColumn="PurchSum" DataSetColumn="PurchSum" />
-              <Mapping SourceColumn="IsReadOnly" DataSetColumn="IsReadOnly" />
-              <Mapping SourceColumn="AuthorCreate" DataSetColumn="AuthorCreate" />
-              <Mapping SourceColumn="AuthorLastModif" DataSetColumn="AuthorLastModif" />
-              <Mapping SourceColumn="DateCreate" DataSetColumn="DateCreate" />
-              <Mapping SourceColumn="RowVersion" DataSetColumn="RowVersion" />
-              <Mapping SourceColumn="DocumentTypeName" DataSetColumn="DocumentTypeName" />
-              <Mapping SourceColumn="StockName" DataSetColumn="StockName" />
-              <Mapping SourceColumn="IsNDS" DataSetColumn="IsNDS" />
-              <Mapping SourceColumn="TradePutletName" DataSetColumn="TradePutletName" />
-              <Mapping SourceColumn="OrganizationName" DataSetColumn="OrganizationName" />
-              <Mapping SourceColumn="FullAuthorModif" DataSetColumn="FullAuthorModif" />
-              <Mapping SourceColumn="FullAuthorCreate" DataSetColumn="FullAuthorCreate" />
-              <Mapping SourceColumn="SalesSum" DataSetColumn="SalesSum" />
-              <Mapping SourceColumn="PurchNDS" DataSetColumn="PurchNDS" />
-              <Mapping SourceColumn="SalesNDS" DataSetColumn="SalesNDS" />
-            </Mappings>
-            <Sources>
-            </Sources>
-          </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ReceiptMasterTableAdapter" GeneratorDataComponentClassName="ReceiptMasterTableAdapter" Name="ReceiptMaster" UserDataComponentName="ReceiptMasterTableAdapter">
             <MainSource>
               <DbSource ConnectionRef="RetailTradeConnectionString (Settings)" DbObjectName="RetailTrade.dbo.ReceiptMaster" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="False" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="True" UserGetMethodName="GetData" UserSourceName="Fill">
@@ -931,7 +888,7 @@ FROM  ReceiptMasterNew</CommandText>
                   </DbCommand>
                 </DeleteCommand>
                 <InsertCommand>
-                  <DbCommand CommandType="StoredProcedure" ModifiedByUser="True">
+                  <DbCommand CommandType="StoredProcedure" ModifiedByUser="False">
                     <CommandText>dbo.ReceiptDetailInsertCommand</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="True" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="ReturnValue" ParameterName="@RETURN_VALUE" Precision="10" ProviderType="Int" Scale="0" Size="4" SourceColumnNullMapping="False" SourceVersion="Current">
@@ -1015,6 +972,8 @@ FROM  ReceiptMasterNew</CommandText>
               <Mapping SourceColumn="AuthorLastModif" DataSetColumn="AuthorLastModif" />
               <Mapping SourceColumn="DateCreate" DataSetColumn="DateCreate" />
               <Mapping SourceColumn="RowVersion" DataSetColumn="RowVersion" />
+              <Mapping SourceColumn="Note" DataSetColumn="Note" />
+              <Mapping SourceColumn="DateLastModif" DataSetColumn="DateLastModif" />
             </Mappings>
             <Sources>
             </Sources>
@@ -2131,79 +2090,6 @@ FROM  ReceiptMasterNew</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="ReceiptMasterNew" msprop:Generator_UserTableName="ReceiptMasterNew" msprop:Generator_RowDeletedName="ReceiptMasterNewRowDeleted" msprop:Generator_RowChangedName="ReceiptMasterNewRowChanged" msprop:Generator_RowClassName="ReceiptMasterNewRow" msprop:Generator_RowChangingName="ReceiptMasterNewRowChanging" msprop:Generator_RowEvArgName="ReceiptMasterNewRowChangeEvent" msprop:Generator_RowEvHandlerName="ReceiptMasterNewRowChangeEventHandler" msprop:Generator_TableClassName="ReceiptMasterNewDataTable" msprop:Generator_TableVarName="tableReceiptMasterNew" msprop:Generator_RowDeletingName="ReceiptMasterNewRowDeleting" msprop:Generator_TablePropName="ReceiptMasterNew">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="ID" msprop:Generator_UserColumnName="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" type="xs:int" />
-              <xs:element name="Number" msprop:Generator_UserColumnName="Number" msprop:Generator_ColumnVarNameInTable="columnNumber" msprop:Generator_ColumnPropNameInRow="Number" msprop:Generator_ColumnPropNameInTable="NumberColumn" type="xs:int" />
-              <xs:element name="Note" msprop:Generator_UserColumnName="Note" msprop:Generator_ColumnVarNameInTable="columnNote" msprop:Generator_ColumnPropNameInRow="Note" msprop:Generator_ColumnPropNameInTable="NoteColumn">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="DocDate" msprop:Generator_UserColumnName="DocDate" msprop:Generator_ColumnVarNameInTable="columnDocDate" msprop:Generator_ColumnPropNameInRow="DocDate" msprop:Generator_ColumnPropNameInTable="DocDateColumn" type="xs:dateTime" />
-              <xs:element name="DocumentTypeRef" msprop:Generator_UserColumnName="DocumentTypeRef" msprop:Generator_ColumnVarNameInTable="columnDocumentTypeRef" msprop:Generator_ColumnPropNameInRow="DocumentTypeRef" msprop:Generator_ColumnPropNameInTable="DocumentTypeRefColumn" type="xs:int" />
-              <xs:element name="OrganizationRef" msprop:Generator_UserColumnName="OrganizationRef" msprop:Generator_ColumnVarNameInTable="columnOrganizationRef" msprop:Generator_ColumnPropNameInRow="OrganizationRef" msprop:Generator_ColumnPropNameInTable="OrganizationRefColumn" type="xs:int" />
-              <xs:element name="MainStockRef" msprop:Generator_UserColumnName="MainStockRef" msprop:Generator_ColumnVarNameInTable="columnMainStockRef" msprop:Generator_ColumnPropNameInRow="MainStockRef" msprop:Generator_ColumnPropNameInTable="MainStockRefColumn" type="xs:int" />
-              <xs:element name="SenderStockRef" msprop:Generator_UserColumnName="SenderStockRef" msprop:Generator_ColumnVarNameInTable="columnSenderStockRef" msprop:Generator_ColumnPropNameInRow="SenderStockRef" msprop:Generator_ColumnPropNameInTable="SenderStockRefColumn" type="xs:int" />
-              <xs:element name="SenderInvoiceRef" msprop:Generator_UserColumnName="SenderInvoiceRef" msprop:Generator_ColumnVarNameInTable="columnSenderInvoiceRef" msprop:Generator_ColumnPropNameInRow="SenderInvoiceRef" msprop:Generator_ColumnPropNameInTable="SenderInvoiceRefColumn" type="xs:int" />
-              <xs:element name="PurchSum" msprop:Generator_UserColumnName="PurchSum" msprop:Generator_ColumnVarNameInTable="columnPurchSum" msprop:Generator_ColumnPropNameInRow="PurchSum" msprop:Generator_ColumnPropNameInTable="PurchSumColumn" type="xs:decimal" />
-              <xs:element name="IsReadOnly" msprop:Generator_UserColumnName="IsReadOnly" msprop:Generator_ColumnVarNameInTable="columnIsReadOnly" msprop:Generator_ColumnPropNameInRow="IsReadOnly" msprop:Generator_ColumnPropNameInTable="IsReadOnlyColumn" type="xs:boolean" />
-              <xs:element name="AuthorCreate" msprop:Generator_UserColumnName="AuthorCreate" msprop:Generator_ColumnVarNameInTable="columnAuthorCreate" msprop:Generator_ColumnPropNameInRow="AuthorCreate" msprop:Generator_ColumnPropNameInTable="AuthorCreateColumn">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="AuthorLastModif" msprop:Generator_UserColumnName="AuthorLastModif" msprop:Generator_ColumnVarNameInTable="columnAuthorLastModif" msprop:Generator_ColumnPropNameInRow="AuthorLastModif" msprop:Generator_ColumnPropNameInTable="AuthorLastModifColumn">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="DateCreate" msprop:Generator_UserColumnName="DateCreate" msprop:Generator_ColumnVarNameInTable="columnDateCreate" msprop:Generator_ColumnPropNameInRow="DateCreate" msprop:Generator_ColumnPropNameInTable="DateCreateColumn" type="xs:dateTime" />
-              <xs:element name="RowVersion" msdata:ReadOnly="true" msprop:Generator_UserColumnName="RowVersion" msprop:Generator_ColumnVarNameInTable="columnRowVersion" msprop:Generator_ColumnPropNameInRow="RowVersion" msprop:Generator_ColumnPropNameInTable="RowVersionColumn" type="xs:base64Binary" minOccurs="0" />
-              <xs:element name="DocumentTypeName" msprop:Generator_UserColumnName="DocumentTypeName" msprop:Generator_ColumnVarNameInTable="columnDocumentTypeName" msprop:Generator_ColumnPropNameInRow="DocumentTypeName" msprop:Generator_ColumnPropNameInTable="DocumentTypeNameColumn">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="StockName" msprop:Generator_UserColumnName="StockName" msprop:Generator_ColumnVarNameInTable="columnStockName" msprop:Generator_ColumnPropNameInRow="StockName" msprop:Generator_ColumnPropNameInTable="StockNameColumn">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="IsNDS" msprop:Generator_UserColumnName="IsNDS" msprop:Generator_ColumnVarNameInTable="columnIsNDS" msprop:Generator_ColumnPropNameInRow="IsNDS" msprop:Generator_ColumnPropNameInTable="IsNDSColumn" type="xs:boolean" />
-              <xs:element name="TradePutletName" msprop:Generator_UserColumnName="TradePutletName" msprop:Generator_ColumnVarNameInTable="columnTradePutletName" msprop:Generator_ColumnPropNameInRow="TradePutletName" msprop:Generator_ColumnPropNameInTable="TradePutletNameColumn">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="OrganizationName" msprop:Generator_UserColumnName="OrganizationName" msprop:Generator_ColumnVarNameInTable="columnOrganizationName" msprop:Generator_ColumnPropNameInRow="OrganizationName" msprop:Generator_ColumnPropNameInTable="OrganizationNameColumn">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="FullAuthorModif" msprop:Generator_UserColumnName="FullAuthorModif" msprop:Generator_ColumnPropNameInRow="FullAuthorModif" msprop:Generator_ColumnVarNameInTable="columnFullAuthorModif" msprop:Generator_ColumnPropNameInTable="FullAuthorModifColumn" type="xs:anyType" minOccurs="0" />
-              <xs:element name="FullAuthorCreate" msprop:Generator_UserColumnName="FullAuthorCreate" msprop:Generator_ColumnPropNameInRow="FullAuthorCreate" msprop:Generator_ColumnVarNameInTable="columnFullAuthorCreate" msprop:Generator_ColumnPropNameInTable="FullAuthorCreateColumn" type="xs:anyType" minOccurs="0" />
-              <xs:element name="SalesSum" msprop:Generator_UserColumnName="SalesSum" msprop:Generator_ColumnVarNameInTable="columnSalesSum" msprop:Generator_ColumnPropNameInRow="SalesSum" msprop:Generator_ColumnPropNameInTable="SalesSumColumn" type="xs:decimal" />
-              <xs:element name="PurchNDS" msprop:Generator_UserColumnName="PurchNDS" msprop:Generator_ColumnVarNameInTable="columnPurchNDS" msprop:Generator_ColumnPropNameInRow="PurchNDS" msprop:Generator_ColumnPropNameInTable="PurchNDSColumn" type="xs:decimal" />
-              <xs:element name="SalesNDS" msprop:Generator_UserColumnName="SalesNDS" msprop:Generator_ColumnVarNameInTable="columnSalesNDS" msprop:Generator_ColumnPropNameInRow="SalesNDS" msprop:Generator_ColumnPropNameInTable="SalesNDSColumn" type="xs:decimal" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="ReceiptMaster" msprop:Generator_UserTableName="ReceiptMaster" msprop:Generator_RowDeletedName="ReceiptMasterRowDeleted" msprop:Generator_RowChangedName="ReceiptMasterRowChanged" msprop:Generator_RowClassName="ReceiptMasterRow" msprop:Generator_RowChangingName="ReceiptMasterRowChanging" msprop:Generator_RowEvArgName="ReceiptMasterRowChangeEvent" msprop:Generator_RowEvHandlerName="ReceiptMasterRowChangeEventHandler" msprop:Generator_TableClassName="ReceiptMasterDataTable" msprop:Generator_TableVarName="tableReceiptMaster" msprop:Generator_RowDeletingName="ReceiptMasterRowDeleting" msprop:Generator_TablePropName="ReceiptMaster">
           <xs:complexType>
             <xs:sequence>
@@ -2263,12 +2149,12 @@ FROM  ReceiptMasterNew</CommandText>
               <xs:element name="UseByDate" msprop:Generator_UserColumnName="UseByDate" msprop:Generator_ColumnVarNameInTable="columnUseByDate" msprop:Generator_ColumnPropNameInRow="UseByDate" msprop:Generator_ColumnPropNameInTable="UseByDateColumn" type="xs:dateTime" />
               <xs:element name="Quantity" msprop:Generator_UserColumnName="Quantity" msprop:Generator_ColumnVarNameInTable="columnQuantity" msprop:Generator_ColumnPropNameInRow="Quantity" msprop:Generator_ColumnPropNameInTable="QuantityColumn" type="xs:decimal" default="0" />
               <xs:element name="PricePurchase" msprop:Generator_UserColumnName="PricePurchase" msprop:Generator_ColumnVarNameInTable="columnPricePurchase" msprop:Generator_ColumnPropNameInRow="PricePurchase" msprop:Generator_ColumnPropNameInTable="PricePurchaseColumn" type="xs:decimal" default="0" />
-              <xs:element name="PurchSum" msprop:Generator_UserColumnName="PurchSum" msprop:Generator_ColumnVarNameInTable="columnPurchSum" msprop:Generator_ColumnPropNameInRow="PurchSum" msprop:Generator_ColumnPropNameInTable="PurchSumColumn" type="xs:decimal" default="0" />
-              <xs:element name="PurchNDS" msprop:Generator_UserColumnName="PurchNDS" msprop:Generator_ColumnVarNameInTable="columnPurchNDS" msprop:Generator_ColumnPropNameInRow="PurchNDS" msprop:Generator_ColumnPropNameInTable="PurchNDSColumn" type="xs:decimal" default="0" />
-              <xs:element name="SalesNDS" msprop:Generator_UserColumnName="SalesNDS" msprop:Generator_ColumnVarNameInTable="columnSalesNDS" msprop:Generator_ColumnPropNameInRow="SalesNDS" msprop:Generator_ColumnPropNameInTable="SalesNDSColumn" type="xs:decimal" default="0" />
-              <xs:element name="SalesPrice" msprop:Generator_UserColumnName="SalesPrice" msprop:Generator_ColumnVarNameInTable="columnSalesPrice" msprop:Generator_ColumnPropNameInRow="SalesPrice" msprop:Generator_ColumnPropNameInTable="SalesPriceColumn" type="xs:decimal" default="0" />
-              <xs:element name="SalesSum" msprop:Generator_UserColumnName="SalesSum" msprop:Generator_ColumnVarNameInTable="columnSalesSum" msprop:Generator_ColumnPropNameInRow="SalesSum" msprop:Generator_ColumnPropNameInTable="SalesSumColumn" type="xs:decimal" default="0" />
-              <xs:element name="InvoiceDetailRef" msprop:Generator_UserColumnName="InvoiceDetailRef" msprop:Generator_ColumnVarNameInTable="columnInvoiceDetailRef" msprop:Generator_ColumnPropNameInRow="InvoiceDetailRef" msprop:Generator_ColumnPropNameInTable="InvoiceDetailRefColumn" type="xs:int" default="0" />
+              <xs:element name="PurchSum" msprop:Generator_UserColumnName="PurchSum" msprop:Generator_ColumnVarNameInTable="columnPurchSum" msprop:Generator_ColumnPropNameInRow="PurchSum" msprop:Generator_ColumnPropNameInTable="PurchSumColumn" type="xs:decimal" default="0" minOccurs="0" />
+              <xs:element name="PurchNDS" msprop:Generator_UserColumnName="PurchNDS" msprop:Generator_ColumnVarNameInTable="columnPurchNDS" msprop:Generator_ColumnPropNameInRow="PurchNDS" msprop:Generator_ColumnPropNameInTable="PurchNDSColumn" type="xs:decimal" default="0" minOccurs="0" />
+              <xs:element name="SalesNDS" msprop:Generator_UserColumnName="SalesNDS" msprop:Generator_ColumnVarNameInTable="columnSalesNDS" msprop:Generator_ColumnPropNameInRow="SalesNDS" msprop:Generator_ColumnPropNameInTable="SalesNDSColumn" type="xs:decimal" default="0" minOccurs="0" />
+              <xs:element name="SalesPrice" msprop:Generator_UserColumnName="SalesPrice" msprop:Generator_ColumnVarNameInTable="columnSalesPrice" msprop:Generator_ColumnPropNameInRow="SalesPrice" msprop:Generator_ColumnPropNameInTable="SalesPriceColumn" type="xs:decimal" default="0" minOccurs="0" />
+              <xs:element name="SalesSum" msprop:Generator_UserColumnName="SalesSum" msprop:Generator_ColumnVarNameInTable="columnSalesSum" msprop:Generator_ColumnPropNameInRow="SalesSum" msprop:Generator_ColumnPropNameInTable="SalesSumColumn" type="xs:decimal" default="0" minOccurs="0" />
+              <xs:element name="InvoiceDetailRef" msprop:Generator_UserColumnName="InvoiceDetailRef" msprop:Generator_ColumnVarNameInTable="columnInvoiceDetailRef" msprop:Generator_ColumnPropNameInRow="InvoiceDetailRef" msprop:Generator_ColumnPropNameInTable="InvoiceDetailRefColumn" type="xs:int" default="0" minOccurs="0" />
               <xs:element name="AuthorCreate" msprop:Generator_UserColumnName="AuthorCreate" msprop:Generator_ColumnVarNameInTable="columnAuthorCreate" msprop:Generator_ColumnPropNameInRow="AuthorCreate" msprop:Generator_ColumnPropNameInTable="AuthorCreateColumn" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -2285,6 +2171,15 @@ FROM  ReceiptMasterNew</CommandText>
               </xs:element>
               <xs:element name="DateCreate" msprop:Generator_UserColumnName="DateCreate" msprop:Generator_ColumnVarNameInTable="columnDateCreate" msprop:Generator_ColumnPropNameInRow="DateCreate" msprop:Generator_ColumnPropNameInTable="DateCreateColumn" type="xs:dateTime" minOccurs="0" />
               <xs:element name="RowVersion" msdata:ReadOnly="true" msprop:Generator_UserColumnName="RowVersion" msprop:Generator_ColumnVarNameInTable="columnRowVersion" msprop:Generator_ColumnPropNameInRow="RowVersion" msprop:Generator_ColumnPropNameInTable="RowVersionColumn" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="Note" msprop:Generator_UserColumnName="Note" msprop:Generator_ColumnPropNameInRow="Note" msprop:Generator_ColumnVarNameInTable="columnNote" msprop:Generator_ColumnPropNameInTable="NoteColumn" default=" " minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DateLastModif" msprop:Generator_UserColumnName="DateLastModif" msprop:Generator_ColumnPropNameInRow="DateLastModif" msprop:Generator_ColumnVarNameInTable="columnDateLastModif" msprop:Generator_ColumnPropNameInTable="DateLastModifColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CalcPurchSum" msdata:ReadOnly="true" msdata:Expression="Quantity*PricePurchase" msprop:Generator_UserColumnName="CalcPurchSum" msprop:Generator_ColumnPropNameInRow="CalcPurchSum" msprop:Generator_ColumnVarNameInTable="columnCalcPurchSum" msprop:Generator_ColumnPropNameInTable="CalcPurchSumColumn" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -2671,10 +2566,6 @@ FROM  ReceiptMasterNew</CommandText>
       <xs:selector xpath=".//mstns:TradePutlet" />
       <xs:field xpath="mstns:ID" />
     </xs:unique>
-    <xs:unique name="ReceiptMasterNew_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:ReceiptMasterNew" />
-      <xs:field xpath="mstns:ID" />
-    </xs:unique>
     <xs:unique name="ReceiptMaster_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:ReceiptMaster" />
       <xs:field xpath="mstns:ID" />
@@ -2739,7 +2630,7 @@ FROM  ReceiptMasterNew</CommandText>
       <xs:selector xpath=".//mstns:Product" />
       <xs:field xpath="mstns:ManufacturerRef" />
     </xs:keyref>
-    <xs:keyref name="ReceiptMaster_ReceiptDetail" refer="ReceiptMaster_Constraint1" msprop:rel_Generator_UserRelationName="ReceiptMaster_ReceiptDetail" msprop:rel_Generator_RelationVarName="relationReceiptMaster_ReceiptDetail" msprop:rel_Generator_UserChildTable="ReceiptDetail" msprop:rel_Generator_UserParentTable="ReceiptMaster" msprop:rel_Generator_ParentPropName="ReceiptMasterRow" msprop:rel_Generator_ChildPropName="GetReceiptDetailRows">
+    <xs:keyref name="ReceiptMaster_ReceiptDetail" refer="ReceiptMaster_Constraint1" msprop:rel_Generator_UserRelationName="ReceiptMaster_ReceiptDetail" msprop:rel_Generator_RelationVarName="relationReceiptMaster_ReceiptDetail" msprop:rel_Generator_UserChildTable="ReceiptDetail" msprop:rel_Generator_UserParentTable="ReceiptMaster" msprop:rel_Generator_ParentPropName="ReceiptMasterRow" msprop:rel_Generator_ChildPropName="GetReceiptDetailRows" msdata:DeleteRule="None">
       <xs:selector xpath=".//mstns:ReceiptDetail" />
       <xs:field xpath="mstns:ReceiptMasterRef" />
     </xs:keyref>
@@ -2758,7 +2649,6 @@ FROM  ReceiptMasterNew</CommandText>
       <msdata:Relationship name="FK_ReceiptMaster_Organization" msdata:parent="Organization" msdata:child="ReceiptMaster" msdata:parentkey="ID" msdata:childkey="OrganizationRef" msprop:Generator_UserRelationName="FK_ReceiptMaster_Organization" msprop:Generator_RelationVarName="relationFK_ReceiptMaster_Organization" msprop:Generator_UserChildTable="ReceiptMaster" msprop:Generator_UserParentTable="Organization" msprop:Generator_ParentPropName="OrganizationRow" msprop:Generator_ChildPropName="GetReceiptMasterRows" />
       <msdata:Relationship name="FK_ReceiptMaster_Stock" msdata:parent="Stock" msdata:child="ReceiptMaster" msdata:parentkey="ID" msdata:childkey="MainStockRef" msprop:Generator_UserRelationName="FK_ReceiptMaster_Stock" msprop:Generator_RelationVarName="relationFK_ReceiptMaster_Stock" msprop:Generator_UserChildTable="ReceiptMaster" msprop:Generator_UserParentTable="Stock" msprop:Generator_ParentPropName="StockRowByFK_ReceiptMaster_Stock" msprop:Generator_ChildPropName="GetReceiptMasterRowsByFK_ReceiptMaster_Stock" />
       <msdata:Relationship name="FK_ReceiptMaster_Stock1" msdata:parent="Stock" msdata:child="ReceiptMaster" msdata:parentkey="ID" msdata:childkey="SenderStockRef" msprop:Generator_UserRelationName="FK_ReceiptMaster_Stock1" msprop:Generator_RelationVarName="relationFK_ReceiptMaster_Stock1" msprop:Generator_UserChildTable="ReceiptMaster" msprop:Generator_UserParentTable="Stock" msprop:Generator_ParentPropName="StockRowByFK_ReceiptMaster_Stock1" msprop:Generator_ChildPropName="GetReceiptMasterRowsByFK_ReceiptMaster_Stock1" />
-      <msdata:Relationship name="ReceiptMasterNew_ReceiptDetail" msdata:parent="ReceiptMasterNew" msdata:child="ReceiptDetail" msdata:parentkey="ID" msdata:childkey="ReceiptMasterRef" msprop:Generator_UserRelationName="ReceiptMasterNew_ReceiptDetail" msprop:Generator_RelationVarName="relationReceiptMasterNew_ReceiptDetail" msprop:Generator_UserChildTable="ReceiptDetail" msprop:Generator_UserParentTable="ReceiptMasterNew" msprop:Generator_ParentPropName="ReceiptMasterNewRow" msprop:Generator_ChildPropName="GetReceiptDetailRows" />
       <msdata:Relationship name="Product_ReceiptDetail" msdata:parent="Product" msdata:child="ReceiptDetail" msdata:parentkey="ID" msdata:childkey="ProductRef" msprop:Generator_UserRelationName="Product_ReceiptDetail" msprop:Generator_RelationVarName="relationProduct_ReceiptDetail" msprop:Generator_UserChildTable="ReceiptDetail" msprop:Generator_UserParentTable="Product" msprop:Generator_ParentPropName="ProductRow" msprop:Generator_ChildPropName="GetReceiptDetailRows" />
       <msdata:Relationship name="StorageCondition_Product" msdata:parent="StorageCondition" msdata:child="Product" msdata:parentkey="ID" msdata:childkey="StorageConditionRef" msprop:Generator_UserRelationName="StorageCondition_Product" msprop:Generator_RelationVarName="relationStorageCondition_Product" msprop:Generator_UserChildTable="Product" msprop:Generator_UserParentTable="StorageCondition" msprop:Generator_ParentPropName="StorageConditionRow" msprop:Generator_ChildPropName="GetProductRows" />
       <msdata:Relationship name="FK_Packing_Product" msdata:parent="Packing" msdata:child="Product" msdata:parentkey="ID" msdata:childkey="PackingRef" msprop:Generator_UserRelationName="FK_Packing_Product" msprop:Generator_RelationVarName="relationFK_Packing_Product" msprop:Generator_UserChildTable="Product" msprop:Generator_UserParentTable="Packing" msprop:Generator_ParentPropName="PackingRow" msprop:Generator_ChildPropName="GetProductRows" />
