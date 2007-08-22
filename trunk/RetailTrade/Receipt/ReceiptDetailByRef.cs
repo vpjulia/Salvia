@@ -30,7 +30,7 @@ namespace RetailTrade
 
             this.mDataSet = source.Table.DataSet as MDataSet;
 
-            this.productBindingSource.DataSource = this.mDataSet.Product;
+            this.productBindingSource.DataSource = this.mDataSet.Product.Select("IsNds=" + source.StockRowByFK_ReceiptMaster_Stock.IsNDS.ToString() );
             
 
             this.receiptMasterBindingSource.DataSource = source;
@@ -63,7 +63,8 @@ namespace RetailTrade
                 _formDialog.AcceptButton = null;
 
                MDataSet.ReceiptDetailRow sourceRow = ((this.receiptDetailBindingSource.AddNew() as DataRowView).Row as MDataSet.ReceiptDetailRow);
-               MDataSet.ProductRow productRow =(MDataSet.ProductRow)this.gridViewProduct.GetDataRow(this.gridViewProduct.FocusedRowHandle);
+               MDataSet.ProductRow productRow =(this.productBindingSource.CurrencyManager.Current as MDataSet.ProductRow) ;
+                
                 if ((sourceRow != null)&(productRow!=null))
                 {
                     ReceiptDetailRowAdd _receiptDetailRowAdd = new ReceiptDetailRowAdd(sourceRow, productRow);

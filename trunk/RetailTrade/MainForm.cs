@@ -12,6 +12,7 @@ using Microsoft.Reporting.WinForms;
 
 using System.Threading;
 using System.Data.SqlClient;
+using RetailTrade.Invoice;
 
 
 
@@ -46,14 +47,18 @@ namespace RetailTrade
             this.components.Add(this.receiptMasterTableAdapter, "receiptMasterTableAdapter");
             this.components.Add(this.receiptDetailTableAdapter, "receiptDetailTableAdapter");
             this.components.Add(this.documentTypeTableAdapter, "documentTypeTableAdapter");
+            this.components.Add(this.OrdersTableAdapter, "OrdersTableAdapter");
+       //     this.components.Add(this.invoiceDetailTableAdapter, "invoiceDetailTableAdapter");
+            this.components.Add(this.invoiceMasterTableAdapter, "invoiceMasterTableAdapter");
             
-            FillTable("Product");
+          /*  FillTable("Product");
             FillTable("Organization");
-           // FillTable("TradePuplet");
+        */
             FillTable("Stock");
          
             FillTable("ReceiptDetail");
-
+            FillTable("Orders");
+            FillTable("InvoiceMaster");
             //this.productTableAdapter.Fill(this.mDataSet.Product);
         }
        
@@ -70,23 +75,18 @@ namespace RetailTrade
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'mDataSet.InvoiceMaster' table. You can move, or remove it, as needed.
+            // TODO: This line of code loads data into the 'mDataSet.InvoiceDetail' table. You can move, or remove it, as needed.
+            // TODO: This line of code loads data into the 'mDataSet.vwOrders' table. You can move, or remove it, as needed.
+            
              
 
-// TODO: This line of code loads data into the 'mDataSet.ReceiptMaster' table. You can move, or remove it, as needed.
-            // TODO: This line of code loads data into the 'mDataSet.ReceiptMasterNew' table. You can move, or remove it, as needed.
-           
-     /**  this.receiptMasterNewTableAdapter.Fill(this.mDataSet.ReceiptMasterNew);
-         */     // TODO: This line of code loads data into the 'mDataSet.Stock' table. You can move, or remove it, as needed.
-         /*   this.stockTableAdapter.Fill(this.mDataSet.Stock);
-       */
+
             SanseeGridLocalizer gLocalizer = new SanseeGridLocalizer();
             GridLocalizer.Active = gLocalizer;
          
             
-            ReportParameter p = new   ReportParameter("ID", "0");
-
-            this.mainReportViewer.ServerReport.SetParameters(new ReportParameter[] {p});
-            this.mainReportViewer.RefreshReport();
+         
               thread.Abort();
             Thread.Sleep(30);
 
@@ -95,8 +95,9 @@ namespace RetailTrade
           //  System.Configuration.AppSettingsReader app = new System.Configuration.AppSettingsReader();
 
          //   MessageBox.Show(app.GetValue("RetailTradeConnectionString", System.Type.GetType("System.String")).ToString());
-          
-        
+
+
+            this.mainReportViewer.RefreshReport();
         }
       
         
@@ -302,7 +303,8 @@ namespace RetailTrade
         {
             try
             {
-                this.receiptMasterTableAdapter.Update(sourceRow);
+              int res=this.receiptMasterTableAdapter.Update(sourceRow);
+              MessageBox.Show("Результат апдейта:" + res.ToString());
             }
             catch
             {
@@ -314,8 +316,8 @@ namespace RetailTrade
            try
            {
 
-               this.receiptDetailTableAdapter.Update(datarowDeleted);
-             
+             int res=this.receiptDetailTableAdapter.Update(datarowDeleted);
+             MessageBox.Show("Результат апдейта:" + res.ToString());
 
            }
            catch
@@ -328,8 +330,8 @@ namespace RetailTrade
         
            try
             {
-                this.receiptDetailTableAdapter.Update(dr); 
-               
+                int res=this.receiptDetailTableAdapter.Update(dr);
+                MessageBox.Show("Результат апдейта:" + res.ToString());
             }
               catch
             {
@@ -439,18 +441,20 @@ namespace RetailTrade
                             if (!FindOpenedTabs(TagControl))
                             {
                                 Title = "№" + (list[0] as MDataSet.ReceiptMasterRow).Number.ToString() + " " + (list[0] as MDataSet.ReceiptMasterRow).OrganizationRow.ShortName.ToString();
-
-
-                                usControl = new ReceiptRowOrganization((list[0] as MDataSet.ReceiptMasterRow), (list[0] as MDataSet.ReceiptMasterRow).ID);
+                                 usControl = new ReceiptRowOrganization((list[0] as MDataSet.ReceiptMasterRow), (list[0] as MDataSet.ReceiptMasterRow).ID);
                                 (usControl as ReceiptRowOrganization).Tag = Title;
                                 (usControl as ReceiptRowOrganization).Dock = DockStyle.Fill;
                             }
                             else
                                 return  false;
                         }
-
-
                         break;
+                    case "InvoiceMasterNew":
+                       usControl = new InvoiceMasterNewAll(this.mDataSet);
+                       (usControl as InvoiceMasterNewAll).Dock = DockStyle.Fill;
+                       (usControl as InvoiceMasterNewAll).Tag = Title;
+                     
+                     break;
                     default:
                         {
                             return false;
@@ -503,7 +507,7 @@ namespace RetailTrade
         private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (e.Node.Tag!=null)
-            ShowNewDataTab(e.Node.Tag.ToString(),e.Node.ToolTipText.ToString());
+             ShowNewDataTab(e.Node.Tag.ToString(),e.Node.ToolTipText.ToString());
         }
 
         
