@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraGrid.Views.Grid;
+using System.IO;
 
 namespace RetailTrade
 {
@@ -29,9 +30,9 @@ namespace RetailTrade
         {
             if ((this.ParentForm as MainForm) != null)
         
-                if (this.gridView1.IsValidRowHandle(this.gridView1.FocusedRowHandle))
+                if (this.gridViewMain.IsValidRowHandle(this.gridViewMain.FocusedRowHandle))
                 {
-                    int data = Convert.ToInt32(this.gridView1.GetDataRow(this.gridView1.FocusedRowHandle)["ID"].ToString());
+                    int data = Convert.ToInt32(this.gridViewMain.GetDataRow(this.gridViewMain.FocusedRowHandle)["ID"].ToString());
 
                     Object[] paramtrs = new Object[1] { this.mDataSet.ReceiptMaster.FindByID(data) };
                     (this.ParentForm as MainForm).ShowNewDataTab("ReceiptRowOrganization", "ReceiptRowOrganization.cs", paramtrs);
@@ -43,7 +44,21 @@ namespace RetailTrade
         }
 
         private void ReceiptMasterNew_Load(object sender, EventArgs e)
-        {
+        { 
+            foreach (GridView view in this.grid.ViewCollection)
+            {
+
+
+            string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\"+  view.Name.ToString()+".xml";
+
+
+          if (File.Exists(fileName))
+
+                view.RestoreLayoutFromXml(fileName);
+            
+            }
+
+
             this.receiptMasterNewBindingSource.DataSource = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0",null,DataViewRowState.CurrentRows);
             this.receiptMasterNewBindingSource.ResetBindings(false);
             this.grid.DataSource = this.receiptMasterNewBindingSource;
@@ -78,5 +93,17 @@ namespace RetailTrade
         {
             (this.grid.FocusedView as GridView).ColumnsCustomization();
         }
+
+        private void BtClose_Click(object sender, EventArgs e)
+        {
+            foreach (GridView view in this.grid.ViewCollection)
+            {
+                string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
+                    view.SaveLayoutToXml(fileName);
+            }
+
+        }
+
+       
     }
 }

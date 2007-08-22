@@ -31,21 +31,21 @@ namespace RetailTrade
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Новые");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("К отправке");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Отправленные");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Возвратные");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Накладные", new System.Windows.Forms.TreeNode[] {
-            treeNode10,
-            treeNode11,
-            treeNode12,
-            treeNode13});
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Новые");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("На складе");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Приходные", new System.Windows.Forms.TreeNode[] {
-            treeNode15,
-            treeNode16});
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Заявки");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Новые");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("К отправке");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Отправленные");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Возвратные");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Накладные", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4});
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Новые");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("На складе");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Приходные", new System.Windows.Forms.TreeNode[] {
+            treeNode6,
+            treeNode7});
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Заявки");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -58,29 +58,13 @@ namespace RetailTrade
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.mainReportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
-            this.gridControl2 = new DevExpress.XtraGrid.GridControl();
+            this.documentTypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.mDataSet = new RetailTrade.MDataSet();
             this.storageConditionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.mDataSet = new RetailTrade.MDataSet();
-            this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colID1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colReceiptMaterRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colProductRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colSeries = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colUseByDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colQuantity = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPricePurchase = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPurchaseNDS = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colRetailNDS = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPriceRetailNDS = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colInvoiceDetailRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAuthorCreate1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAuthorLastModif1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDateCreate1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colRowVersion1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.receiptMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.receiptDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
-             this.stockBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.stockBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tradePutletBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.organizationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.countryBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -127,8 +111,27 @@ namespace RetailTrade
             this.stockTableAdapter = new RetailTrade.MDataSetTableAdapters.StockTableAdapter();
             this.receiptMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptMasterTableAdapter();
             this.receiptDetailTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptDetailTableAdapter();
-            this.documentTypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.documentTypeTableAdapter = new RetailTrade.MDataSetTableAdapters.DocumentTypeTableAdapter();
+            this.OrdersTableAdapter = new RetailTrade.MDataSetTableAdapters.OrdersTableAdapter();
+            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
+            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+          
+            this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colInvoiceMaterRef = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colQuantity = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPricePurchase = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPurchaseNDS = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPriceRetail = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colRetailNDS = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPriceRetailNDS = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colLocalReceipDetailRef = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colRemoteInvoiceDetailRef = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAuthorCreate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAuthorLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDateCreate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colRowVersion = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.invoiceMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.invoiceMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.InvoiceMasterTableAdapter();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -137,11 +140,10 @@ namespace RetailTrade
             this.splitContainer2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.documentTypeBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.storageConditionBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSetBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stockBindingSource)).BeginInit();
@@ -156,7 +158,10 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.farmGroupLevel2BindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.documentTypeBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+       
+            ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -190,11 +195,11 @@ namespace RetailTrade
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
+            this.splitContainer1.Panel2.Controls.Add(this.gridControl1);
             this.splitContainer1.Panel2.Controls.Add(this.mainReportViewer);
-            this.splitContainer1.Panel2.Controls.Add(this.gridControl2);
             this.splitContainer1.Panel2MinSize = 50;
             this.splitContainer1.Size = new System.Drawing.Size(837, 611);
-            this.splitContainer1.SplitterDistance = 411;
+            this.splitContainer1.SplitterDistance = 557;
             this.splitContainer1.TabIndex = 3;
             // 
             // splitContainer2
@@ -210,7 +215,7 @@ namespace RetailTrade
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tabControl);
-            this.splitContainer2.Size = new System.Drawing.Size(837, 411);
+            this.splitContainer2.Size = new System.Drawing.Size(837, 557);
             this.splitContainer2.SplitterDistance = 218;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -223,7 +228,7 @@ namespace RetailTrade
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(218, 411);
+            this.tabControl1.Size = new System.Drawing.Size(218, 557);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -232,7 +237,7 @@ namespace RetailTrade
             this.tabPage1.Location = new System.Drawing.Point(4, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(210, 382);
+            this.tabPage1.Size = new System.Drawing.Size(210, 528);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "новые";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -244,33 +249,35 @@ namespace RetailTrade
             this.treeView1.ImageList = this.imageList1;
             this.treeView1.Location = new System.Drawing.Point(3, 3);
             this.treeView1.Name = "treeView1";
-            treeNode10.Name = "NodeRecieptNew";
-            treeNode10.Text = "Новые";
-            treeNode11.Name = "Node6";
-            treeNode11.Text = "К отправке";
-            treeNode12.Name = "Node7";
-            treeNode12.Text = "Отправленные";
-            treeNode13.Name = "Node8";
-            treeNode13.Text = "Возвратные";
-            treeNode14.Name = "NodeReciept";
-            treeNode14.Tag = "";
-            treeNode14.Text = "Накладные";
-            treeNode15.Name = "Node10";
-            treeNode15.Tag = "ReceiptMasterNewAll";
-            treeNode15.Text = "Новые";
-            treeNode15.ToolTipText = "Новые приходные акты";
-            treeNode16.Name = "Node11";
-            treeNode16.Text = "На складе";
-            treeNode17.Name = "Node9";
-            treeNode17.Text = "Приходные";
-            treeNode18.Name = "Node12";
-            treeNode18.Text = "Заявки";
+            treeNode1.Name = "NodeRecieptNew";
+            treeNode1.Tag = "InvoiceMasterNew";
+            treeNode1.Text = "Новые";
+            treeNode1.ToolTipText = "Новые накладные";
+            treeNode2.Name = "Node6";
+            treeNode2.Text = "К отправке";
+            treeNode3.Name = "Node7";
+            treeNode3.Text = "Отправленные";
+            treeNode4.Name = "Node8";
+            treeNode4.Text = "Возвратные";
+            treeNode5.Name = "NodeReciept";
+            treeNode5.Tag = "";
+            treeNode5.Text = "Накладные";
+            treeNode6.Name = "Node10";
+            treeNode6.Tag = "ReceiptMasterNewAll";
+            treeNode6.Text = "Новые";
+            treeNode6.ToolTipText = "Новые приходные акты";
+            treeNode7.Name = "Node11";
+            treeNode7.Text = "На складе";
+            treeNode8.Name = "Node9";
+            treeNode8.Text = "Приходные";
+            treeNode9.Name = "Node12";
+            treeNode9.Text = "Заявки";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode14,
-            treeNode17,
-            treeNode18});
+            treeNode5,
+            treeNode8,
+            treeNode9});
             this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(204, 376);
+            this.treeView1.Size = new System.Drawing.Size(204, 522);
             this.treeView1.TabIndex = 0;
             this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
             // 
@@ -285,7 +292,7 @@ namespace RetailTrade
             this.tabPage2.Location = new System.Drawing.Point(4, 4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(210, 382);
+            this.tabPage2.Size = new System.Drawing.Size(210, 528);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "все";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -297,39 +304,26 @@ namespace RetailTrade
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(615, 411);
+            this.tabControl.Size = new System.Drawing.Size(615, 557);
             this.tabControl.TabIndex = 0;
             // 
             // mainReportViewer
             // 
-            this.mainReportViewer.AutoScroll = true;
-            this.mainReportViewer.Dock = System.Windows.Forms.DockStyle.Right;
-            this.mainReportViewer.Location = new System.Drawing.Point(356, 0);
+            this.mainReportViewer.Location = new System.Drawing.Point(28, 4);
             this.mainReportViewer.Name = "mainReportViewer";
-            this.mainReportViewer.ProcessingMode = Microsoft.Reporting.WinForms.ProcessingMode.Remote;
-            this.mainReportViewer.ServerReport.ReportPath = "/ReportRatailTrade/ReceiptMasterByID";
-            this.mainReportViewer.ServerReport.ReportServerUrl = new System.Uri("http://server/reportserver", System.UriKind.Absolute);
-            this.mainReportViewer.ShowCredentialPrompts = false;
-            this.mainReportViewer.ShowParameterPrompts = false;
-            this.mainReportViewer.Size = new System.Drawing.Size(481, 196);
-            this.mainReportViewer.TabIndex = 1;
-            this.mainReportViewer.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.PageWidth;
-            this.mainReportViewer.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.mainReportViewer_MouseDoubleClick);
+            this.mainReportViewer.Size = new System.Drawing.Size(400, 250);
+            this.mainReportViewer.TabIndex = 0;
+            this.mainReportViewer.Visible = false;
             // 
-            // gridControl2
+            // documentTypeBindingSource
             // 
-            this.gridControl2.DataSource = this.documentTypeBindingSource;
+            this.documentTypeBindingSource.DataMember = "DocumentType";
+            this.documentTypeBindingSource.DataSource = this.mDataSet;
             // 
+            // mDataSet
             // 
-            // 
-            this.gridControl2.EmbeddedNavigator.Name = "";
-            this.gridControl2.Location = new System.Drawing.Point(0, 0);
-            this.gridControl2.MainView = this.gridView2;
-            this.gridControl2.Name = "gridControl2";
-            this.gridControl2.Size = new System.Drawing.Size(350, 182);
-            this.gridControl2.TabIndex = 0;
-            this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView2});
+            this.mDataSet.DataSetName = "MDataSet";
+            this.mDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // storageConditionBindingSource
             // 
@@ -341,175 +335,11 @@ namespace RetailTrade
             this.mDataSetBindingSource.DataSource = this.mDataSet;
             this.mDataSetBindingSource.Position = 0;
             // 
-            // mDataSet
-            // 
-            this.mDataSet.DataSetName = "MDataSet";
-            this.mDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // gridView2
-            // 
-            this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colID1,
-            this.colReceiptMaterRef,
-            this.colProductRef,
-            this.colSeries,
-            this.colUseByDate,
-            this.colQuantity,
-            this.colPricePurchase,
-            this.colPurchaseNDS,
-            this.colRetailNDS,
-            this.colPriceRetailNDS,
-            this.colInvoiceDetailRef,
-            this.colAuthorCreate1,
-            this.colAuthorLastModif1,
-            this.colDateCreate1,
-            this.colRowVersion1});
-            this.gridView2.GridControl = this.gridControl2;
-            this.gridView2.Name = "gridView2";
-            // 
-            // colID1
-            // 
-            this.colID1.Caption = "ID";
-            this.colID1.FieldName = "ID";
-            this.colID1.Name = "colID1";
-            this.colID1.OptionsColumn.ReadOnly = true;
-            this.colID1.Visible = true;
-            this.colID1.VisibleIndex = 0;
-            this.colID1.Width = 46;
-            // 
-            // colReceiptMaterRef
-            // 
-            this.colReceiptMaterRef.Caption = "ReceiptMaterRef";
-            this.colReceiptMaterRef.FieldName = "ReceiptMaterRef";
-            this.colReceiptMaterRef.Name = "colReceiptMaterRef";
-            this.colReceiptMaterRef.Visible = true;
-            this.colReceiptMaterRef.VisibleIndex = 1;
-            this.colReceiptMaterRef.Width = 150;
-            // 
-            // colProductRef
-            // 
-            this.colProductRef.Caption = "ProductRef";
-            this.colProductRef.FieldName = "ProductRef";
-            this.colProductRef.Name = "colProductRef";
-            this.colProductRef.Visible = true;
-            this.colProductRef.VisibleIndex = 2;
-            this.colProductRef.Width = 38;
-            // 
-            // colSeries
-            // 
-            this.colSeries.Caption = "Series";
-            this.colSeries.FieldName = "Series";
-            this.colSeries.Name = "colSeries";
-            this.colSeries.Visible = true;
-            this.colSeries.VisibleIndex = 3;
-            this.colSeries.Width = 38;
-            // 
-            // colUseByDate
-            // 
-            this.colUseByDate.Caption = "UseByDate";
-            this.colUseByDate.FieldName = "UseByDate";
-            this.colUseByDate.Name = "colUseByDate";
-            this.colUseByDate.Visible = true;
-            this.colUseByDate.VisibleIndex = 4;
-            this.colUseByDate.Width = 38;
-            // 
-            // colQuantity
-            // 
-            this.colQuantity.Caption = "Quantity";
-            this.colQuantity.FieldName = "Quantity";
-            this.colQuantity.Name = "colQuantity";
-            this.colQuantity.Visible = true;
-            this.colQuantity.VisibleIndex = 5;
-            this.colQuantity.Width = 38;
-            // 
-            // colPricePurchase
-            // 
-            this.colPricePurchase.Caption = "PricePurchase";
-            this.colPricePurchase.FieldName = "PricePurchase";
-            this.colPricePurchase.Name = "colPricePurchase";
-            this.colPricePurchase.Visible = true;
-            this.colPricePurchase.VisibleIndex = 6;
-            this.colPricePurchase.Width = 38;
-            // 
-            // colPurchaseNDS
-            // 
-            this.colPurchaseNDS.Caption = "PurchaseNDS";
-            this.colPurchaseNDS.FieldName = "PurchaseNDS";
-            this.colPurchaseNDS.Name = "colPurchaseNDS";
-            this.colPurchaseNDS.Visible = true;
-            this.colPurchaseNDS.VisibleIndex = 7;
-            this.colPurchaseNDS.Width = 38;
-            // 
-            // colRetailNDS
-            // 
-            this.colRetailNDS.Caption = "RetailNDS";
-            this.colRetailNDS.FieldName = "RetailNDS";
-            this.colRetailNDS.Name = "colRetailNDS";
-            this.colRetailNDS.Visible = true;
-            this.colRetailNDS.VisibleIndex = 8;
-            this.colRetailNDS.Width = 38;
-            // 
-            // colPriceRetailNDS
-            // 
-            this.colPriceRetailNDS.Caption = "PriceRetailNDS";
-            this.colPriceRetailNDS.FieldName = "PriceRetailNDS";
-            this.colPriceRetailNDS.Name = "colPriceRetailNDS";
-            this.colPriceRetailNDS.Visible = true;
-            this.colPriceRetailNDS.VisibleIndex = 9;
-            this.colPriceRetailNDS.Width = 38;
-            // 
-            // colInvoiceDetailRef
-            // 
-            this.colInvoiceDetailRef.Caption = "InvoiceDetailRef";
-            this.colInvoiceDetailRef.FieldName = "InvoiceDetailRef";
-            this.colInvoiceDetailRef.Name = "colInvoiceDetailRef";
-            this.colInvoiceDetailRef.Visible = true;
-            this.colInvoiceDetailRef.VisibleIndex = 10;
-            this.colInvoiceDetailRef.Width = 38;
-            // 
-            // colAuthorCreate1
-            // 
-            this.colAuthorCreate1.Caption = "AuthorCreate";
-            this.colAuthorCreate1.FieldName = "AuthorCreate";
-            this.colAuthorCreate1.Name = "colAuthorCreate1";
-            this.colAuthorCreate1.Visible = true;
-            this.colAuthorCreate1.VisibleIndex = 11;
-            this.colAuthorCreate1.Width = 38;
-            // 
-            // colAuthorLastModif1
-            // 
-            this.colAuthorLastModif1.Caption = "AuthorLastModif";
-            this.colAuthorLastModif1.FieldName = "AuthorLastModif";
-            this.colAuthorLastModif1.Name = "colAuthorLastModif1";
-            this.colAuthorLastModif1.Visible = true;
-            this.colAuthorLastModif1.VisibleIndex = 12;
-            this.colAuthorLastModif1.Width = 38;
-            // 
-            // colDateCreate1
-            // 
-            this.colDateCreate1.Caption = "DateCreate";
-            this.colDateCreate1.FieldName = "DateCreate";
-            this.colDateCreate1.Name = "colDateCreate1";
-            this.colDateCreate1.Visible = true;
-            this.colDateCreate1.VisibleIndex = 13;
-            this.colDateCreate1.Width = 38;
-            // 
-            // colRowVersion1
-            // 
-            this.colRowVersion1.Caption = "RowVersion";
-            this.colRowVersion1.FieldName = "RowVersion";
-            this.colRowVersion1.Name = "colRowVersion1";
-            this.colRowVersion1.OptionsColumn.ReadOnly = true;
-            this.colRowVersion1.Visible = true;
-            this.colRowVersion1.VisibleIndex = 14;
-            this.colRowVersion1.Width = 43;
-            // 
             // receiptMasterBindingSource
             // 
             this.receiptMasterBindingSource.DataMember = "ReceiptMaster";
             this.receiptMasterBindingSource.DataSource = this.mDataSet;
             // 
-             // 
             // stockBindingSource
             // 
             this.stockBindingSource.DataMember = "Stock";
@@ -803,8 +633,6 @@ namespace RetailTrade
             // 
             this.stockTableAdapter.ClearBeforeFill = true;
             // 
-          
-            // 
             // receiptMasterTableAdapter
             // 
             this.receiptMasterTableAdapter.ClearBeforeFill = true;
@@ -813,14 +641,176 @@ namespace RetailTrade
             // 
             this.receiptDetailTableAdapter.ClearBeforeFill = true;
             // 
-            // documentTypeBindingSource
-            // 
-            this.documentTypeBindingSource.DataMember = "DocumentType";
-            this.documentTypeBindingSource.DataSource = this.mDataSet;
-            // 
             // documentTypeTableAdapter
             // 
             this.documentTypeTableAdapter.ClearBeforeFill = true;
+            // 
+            // OrdersTableAdapter
+            // 
+            this.OrdersTableAdapter.ClearBeforeFill = true;
+            // 
+            // gridControl1
+            // 
+            this.gridControl1.DataSource = this.invoiceMasterBindingSource;
+            // 
+            // 
+            // 
+            this.gridControl1.EmbeddedNavigator.Name = "";
+            this.gridControl1.Location = new System.Drawing.Point(464, 13);
+            this.gridControl1.MainView = this.gridView1;
+            this.gridControl1.Name = "gridControl1";
+            this.gridControl1.Size = new System.Drawing.Size(400, 200);
+            this.gridControl1.TabIndex = 1;
+            this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView1});
+            // 
+            // gridView1
+            // 
+            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colID,
+            this.colInvoiceMaterRef,
+            this.colQuantity,
+            this.colPricePurchase,
+            this.colPurchaseNDS,
+            this.colPriceRetail,
+            this.colRetailNDS,
+            this.colPriceRetailNDS,
+            this.colLocalReceipDetailRef,
+            this.colRemoteInvoiceDetailRef,
+            this.colAuthorCreate,
+            this.colAuthorLastModif,
+            this.colDateCreate,
+            this.colRowVersion});
+            this.gridView1.GridControl = this.gridControl1;
+            this.gridView1.Name = "gridView1";
+            // 
+            // invoiceDetailBindingSource
+         // 
+            // invoiceDetailTableAdapter
+            // 
+         
+            // colID
+            // 
+            this.colID.Caption = "ID";
+            this.colID.FieldName = "ID";
+            this.colID.Name = "colID";
+            this.colID.OptionsColumn.ReadOnly = true;
+            this.colID.Visible = true;
+            this.colID.VisibleIndex = 0;
+            // 
+            // colInvoiceMaterRef
+            // 
+            this.colInvoiceMaterRef.Caption = "InvoiceMaterRef";
+            this.colInvoiceMaterRef.FieldName = "InvoiceMaterRef";
+            this.colInvoiceMaterRef.Name = "colInvoiceMaterRef";
+            this.colInvoiceMaterRef.Visible = true;
+            this.colInvoiceMaterRef.VisibleIndex = 1;
+            // 
+            // colQuantity
+            // 
+            this.colQuantity.Caption = "Quantity";
+            this.colQuantity.FieldName = "Quantity";
+            this.colQuantity.Name = "colQuantity";
+            this.colQuantity.Visible = true;
+            this.colQuantity.VisibleIndex = 2;
+            // 
+            // colPricePurchase
+            // 
+            this.colPricePurchase.Caption = "PricePurchase";
+            this.colPricePurchase.FieldName = "PricePurchase";
+            this.colPricePurchase.Name = "colPricePurchase";
+            this.colPricePurchase.Visible = true;
+            this.colPricePurchase.VisibleIndex = 3;
+            // 
+            // colPurchaseNDS
+            // 
+            this.colPurchaseNDS.Caption = "PurchaseNDS";
+            this.colPurchaseNDS.FieldName = "PurchaseNDS";
+            this.colPurchaseNDS.Name = "colPurchaseNDS";
+            this.colPurchaseNDS.Visible = true;
+            this.colPurchaseNDS.VisibleIndex = 4;
+            // 
+            // colPriceRetail
+            // 
+            this.colPriceRetail.Caption = "PriceRetail";
+            this.colPriceRetail.FieldName = "PriceRetail";
+            this.colPriceRetail.Name = "colPriceRetail";
+            this.colPriceRetail.Visible = true;
+            this.colPriceRetail.VisibleIndex = 5;
+            // 
+            // colRetailNDS
+            // 
+            this.colRetailNDS.Caption = "RetailNDS";
+            this.colRetailNDS.FieldName = "RetailNDS";
+            this.colRetailNDS.Name = "colRetailNDS";
+            this.colRetailNDS.Visible = true;
+            this.colRetailNDS.VisibleIndex = 6;
+            // 
+            // colPriceRetailNDS
+            // 
+            this.colPriceRetailNDS.Caption = "PriceRetailNDS";
+            this.colPriceRetailNDS.FieldName = "PriceRetailNDS";
+            this.colPriceRetailNDS.Name = "colPriceRetailNDS";
+            this.colPriceRetailNDS.Visible = true;
+            this.colPriceRetailNDS.VisibleIndex = 7;
+            // 
+            // colLocalReceipDetailRef
+            // 
+            this.colLocalReceipDetailRef.Caption = "LocalReceipDetailRef";
+            this.colLocalReceipDetailRef.FieldName = "LocalReceipDetailRef";
+            this.colLocalReceipDetailRef.Name = "colLocalReceipDetailRef";
+            this.colLocalReceipDetailRef.Visible = true;
+            this.colLocalReceipDetailRef.VisibleIndex = 8;
+            // 
+            // colRemoteInvoiceDetailRef
+            // 
+            this.colRemoteInvoiceDetailRef.Caption = "RemoteInvoiceDetailRef";
+            this.colRemoteInvoiceDetailRef.FieldName = "RemoteInvoiceDetailRef";
+            this.colRemoteInvoiceDetailRef.Name = "colRemoteInvoiceDetailRef";
+            this.colRemoteInvoiceDetailRef.Visible = true;
+            this.colRemoteInvoiceDetailRef.VisibleIndex = 9;
+            // 
+            // colAuthorCreate
+            // 
+            this.colAuthorCreate.Caption = "AuthorCreate";
+            this.colAuthorCreate.FieldName = "AuthorCreate";
+            this.colAuthorCreate.Name = "colAuthorCreate";
+            this.colAuthorCreate.Visible = true;
+            this.colAuthorCreate.VisibleIndex = 10;
+            // 
+            // colAuthorLastModif
+            // 
+            this.colAuthorLastModif.Caption = "AuthorLastModif";
+            this.colAuthorLastModif.FieldName = "AuthorLastModif";
+            this.colAuthorLastModif.Name = "colAuthorLastModif";
+            this.colAuthorLastModif.Visible = true;
+            this.colAuthorLastModif.VisibleIndex = 11;
+            // 
+            // colDateCreate
+            // 
+            this.colDateCreate.Caption = "DateCreate";
+            this.colDateCreate.FieldName = "DateCreate";
+            this.colDateCreate.Name = "colDateCreate";
+            this.colDateCreate.Visible = true;
+            this.colDateCreate.VisibleIndex = 12;
+            // 
+            // colRowVersion
+            // 
+            this.colRowVersion.Caption = "RowVersion";
+            this.colRowVersion.FieldName = "RowVersion";
+            this.colRowVersion.Name = "colRowVersion";
+            this.colRowVersion.OptionsColumn.ReadOnly = true;
+            this.colRowVersion.Visible = true;
+            this.colRowVersion.VisibleIndex = 13;
+            // 
+            // invoiceMasterBindingSource
+            // 
+            this.invoiceMasterBindingSource.DataMember = "InvoiceMaster";
+            this.invoiceMasterBindingSource.DataSource = this.mDataSet;
+            // 
+            // invoiceMasterTableAdapter
+            // 
+            this.invoiceMasterTableAdapter.ClearBeforeFill = true;
             // 
             // MainForm
             // 
@@ -841,14 +831,12 @@ namespace RetailTrade
             this.splitContainer2.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.documentTypeBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.storageConditionBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSetBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).EndInit();
-         
             ((System.ComponentModel.ISupportInitialize)(this.stockBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tradePutletBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).EndInit();
@@ -862,7 +850,10 @@ namespace RetailTrade
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.farmGroupLevel2BindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.documentTypeBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+           // ((System.ComponentModel.ISupportInitialize)(this.invoiceDetailBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -927,32 +918,37 @@ namespace RetailTrade
         private RetailTrade.MDataSetTableAdapters.StockTableAdapter stockTableAdapter;
         private System.Windows.Forms.ToolStripMenuItem CreateAktToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ReceiptMasterNewToolStripMenuItem;
-         private RetailTrade.MDataSetTableAdapters.ReceiptMasterTableAdapter receiptMasterTableAdapter;
-        private DevExpress.XtraGrid.GridControl gridControl2;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
+        private RetailTrade.MDataSetTableAdapters.ReceiptMasterTableAdapter receiptMasterTableAdapter;
         private RetailTrade.MDataSetTableAdapters.ReceiptDetailTableAdapter receiptDetailTableAdapter;
-        private DevExpress.XtraGrid.Columns.GridColumn colID1;
-        private DevExpress.XtraGrid.Columns.GridColumn colReceiptMaterRef;
-        private DevExpress.XtraGrid.Columns.GridColumn colProductRef;
-        private DevExpress.XtraGrid.Columns.GridColumn colSeries;
-        private DevExpress.XtraGrid.Columns.GridColumn colUseByDate;
-        private DevExpress.XtraGrid.Columns.GridColumn colQuantity;
-        private DevExpress.XtraGrid.Columns.GridColumn colPricePurchase;
-        private DevExpress.XtraGrid.Columns.GridColumn colPurchaseNDS;
-        private DevExpress.XtraGrid.Columns.GridColumn colRetailNDS;
-        private DevExpress.XtraGrid.Columns.GridColumn colPriceRetailNDS;
-        private DevExpress.XtraGrid.Columns.GridColumn colInvoiceDetailRef;
-        private DevExpress.XtraGrid.Columns.GridColumn colAuthorCreate1;
-        private DevExpress.XtraGrid.Columns.GridColumn colAuthorLastModif1;
-        private DevExpress.XtraGrid.Columns.GridColumn colDateCreate1;
-        private DevExpress.XtraGrid.Columns.GridColumn colRowVersion1;
         public System.Windows.Forms.BindingSource receiptDetailBindingSource;
         public System.Windows.Forms.BindingSource receiptMasterBindingSource;
-        private Microsoft.Reporting.WinForms.ReportViewer mainReportViewer;
     
         public System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.BindingSource documentTypeBindingSource;
         private RetailTrade.MDataSetTableAdapters.DocumentTypeTableAdapter documentTypeTableAdapter;
+       
+        private RetailTrade.MDataSetTableAdapters.OrdersTableAdapter OrdersTableAdapter;
+        private Microsoft.Reporting.WinForms.ReportViewer mainReportViewer;
+        private DevExpress.XtraGrid.GridControl gridControl1;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+
+   
+        private DevExpress.XtraGrid.Columns.GridColumn colID;
+        private DevExpress.XtraGrid.Columns.GridColumn colInvoiceMaterRef;
+        private DevExpress.XtraGrid.Columns.GridColumn colQuantity;
+        private DevExpress.XtraGrid.Columns.GridColumn colPricePurchase;
+        private DevExpress.XtraGrid.Columns.GridColumn colPurchaseNDS;
+        private DevExpress.XtraGrid.Columns.GridColumn colPriceRetail;
+        private DevExpress.XtraGrid.Columns.GridColumn colRetailNDS;
+        private DevExpress.XtraGrid.Columns.GridColumn colPriceRetailNDS;
+        private DevExpress.XtraGrid.Columns.GridColumn colLocalReceipDetailRef;
+        private DevExpress.XtraGrid.Columns.GridColumn colRemoteInvoiceDetailRef;
+        private DevExpress.XtraGrid.Columns.GridColumn colAuthorCreate;
+        private DevExpress.XtraGrid.Columns.GridColumn colAuthorLastModif;
+        private DevExpress.XtraGrid.Columns.GridColumn colDateCreate;
+        private DevExpress.XtraGrid.Columns.GridColumn colRowVersion;
+        private System.Windows.Forms.BindingSource invoiceMasterBindingSource;
+        private RetailTrade.MDataSetTableAdapters.InvoiceMasterTableAdapter invoiceMasterTableAdapter;
     }
 }
 

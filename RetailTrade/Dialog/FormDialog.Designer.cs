@@ -108,8 +108,8 @@ namespace RetailTrade
 
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         public System.Windows.Forms.Button btCancel;
-        private System.Windows.Forms.Button btOk;
         public System.Windows.Forms.FlowLayoutPanel panel;
+        public System.Windows.Forms.Button btOk;
 
     }
 }
