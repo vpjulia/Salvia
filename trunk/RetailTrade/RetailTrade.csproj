@@ -58,6 +58,12 @@
     <Compile Include="Dialog\Information.Designer.cs">
       <DependentUpon>Information.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialog\printingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dialog\printingControl.Designer.cs">
+      <DependentUpon>printingControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Directory\UCTradePuplet.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -68,6 +74,30 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IBDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceDetailEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceDetailEdit.Designer.cs">
+      <DependentUpon>InvoiceDetailEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceDetailRowAdd.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceDetailRowAdd.Designer.cs">
+      <DependentUpon>InvoiceDetailRowAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceMasterNewAll.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceMasterNewAll.Designer.cs">
+      <DependentUpon>InvoiceMasterNewAll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceRow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceRow.Designer.cs">
+      <DependentUpon>InvoiceRow.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -93,9 +123,29 @@
       <SubType>Designer</SubType>
       <DependentUpon>Information.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialog\printingControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>printingControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Directory\UCTradePuplet.resx">
       <SubType>Designer</SubType>
       <DependentUpon>UCTradePuplet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\InvoiceDetailEdit.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InvoiceDetailEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\InvoiceDetailRowAdd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InvoiceDetailRowAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\InvoiceMasterNewAll.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InvoiceMasterNewAll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\InvoiceRow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InvoiceRow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <SubType>Designer</SubType>
@@ -138,6 +188,10 @@
     <EmbeddedResource Include="Receipt\ReceiptMasterNewAll.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ReceiptMasterNewAll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receipt\ReceiptMasterStock.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ReceiptMasterStock.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Receipt\ReceiptRowOrganization.resx">
       <SubType>Designer</SubType>
@@ -225,6 +279,12 @@
     <Compile Include="Receipt\ReceiptMasterNewAll.Designer.cs">
       <DependentUpon>ReceiptMasterNewAll.cs</DependentUpon>
     </Compile>
+    <Compile Include="Receipt\ReceiptMasterStock.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Receipt\ReceiptMasterStock.Designer.cs">
+      <DependentUpon>ReceiptMasterStock.cs</DependentUpon>
+    </Compile>
     <Compile Include="Receipt\ReceiptRowOrganization.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -262,9 +322,6 @@
     <Content Include="db2.mdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Invoice\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
