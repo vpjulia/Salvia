@@ -199,6 +199,20 @@ namespace RetailTrade
 
         }
 
+        private void btMove_Click(object sender, EventArgs e)
+        {
+           /* try
+            {*/
+                (this.ParentForm as MainForm).receiptMasterTableAdapter.ReceiptMasterMove(((this.receiptMasterBindingSource.CurrencyManager.Current as DataRowView).Row as MDataSet.ReceiptMasterRow).ID);
+          /*  }
+            catch
+            { MessageBox.Show("Ошибка внутреннего перемещения!"); }
+
+            finally
+            { }*/
+
+        }
+
        
 
     }

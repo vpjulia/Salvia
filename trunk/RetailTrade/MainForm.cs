@@ -13,6 +13,7 @@ using Microsoft.Reporting.WinForms;
 using System.Threading;
 using System.Data.SqlClient;
 using RetailTrade.Invoice;
+using RetailTrade.Receipt;
 
 
 
@@ -48,8 +49,9 @@ namespace RetailTrade
             this.components.Add(this.receiptDetailTableAdapter, "receiptDetailTableAdapter");
             this.components.Add(this.documentTypeTableAdapter, "documentTypeTableAdapter");
             this.components.Add(this.OrdersTableAdapter, "OrdersTableAdapter");
-       //     this.components.Add(this.invoiceDetailTableAdapter, "invoiceDetailTableAdapter");
+            this.components.Add(this.invoiceDetailTableAdapter, "invoiceDetailTableAdapter");
             this.components.Add(this.invoiceMasterTableAdapter, "invoiceMasterTableAdapter");
+            this.components.Add(this.vwRemainsTableAdapter, "vwRemainsTableAdapter");
             
           /*  FillTable("Product");
             FillTable("Organization");
@@ -58,7 +60,8 @@ namespace RetailTrade
          
             FillTable("ReceiptDetail");
             FillTable("Orders");
-            FillTable("InvoiceMaster");
+            FillTable("InvoiceDetail");
+
             //this.productTableAdapter.Fill(this.mDataSet.Product);
         }
        
@@ -75,10 +78,9 @@ namespace RetailTrade
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'mDataSet.InvoiceMaster' table. You can move, or remove it, as needed.
-            // TODO: This line of code loads data into the 'mDataSet.InvoiceDetail' table. You can move, or remove it, as needed.
-            // TODO: This line of code loads data into the 'mDataSet.vwOrders' table. You can move, or remove it, as needed.
-            
+            // TODO: This line of code loads data into the 'mDataSet.vwRemains' table. You can move, or remove it, as needed.
+            this.vwRemainsTableAdapter.Fill(this.mDataSet.vwRemains);
+           
              
 
 
@@ -354,6 +356,62 @@ namespace RetailTrade
 
             return true;        
         }
+        public bool SaveToBase(MDataSet.InvoiceMasterRow sourceRow)
+        {
+            try
+            {
+                int res = this.invoiceMasterTableAdapter.Update(sourceRow);
+                MessageBox.Show("Результат апдейта:" + res.ToString());
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка InvoiceMaster!");
+            }
+
+            DataRow[] datarowDeleted = this.mDataSet.InvoiceDetail.Select("InvoiceMasterRef=" + sourceRow.ID.ToString(), null, DataViewRowState.Deleted);
+
+            try
+            {
+
+                int res = this.invoiceDetailTableAdapter.Update(datarowDeleted);
+                MessageBox.Show("Результат апдейта:" + res.ToString());
+
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка удаления!");
+
+            }
+
+            DataRow[] dr = sourceRow.GetInvoiceDetailRows();
+
+            try
+            {
+                int res = this.invoiceDetailTableAdapter.Update(dr);
+                MessageBox.Show("Результат апдейта:" + res.ToString());
+            }
+            catch
+            {
+                MessageBox.Show(this.mDataSet.InvoiceDetail.HasErrors.ToString());
+
+                MessageBox.Show("Ошибка обновления InvoiceDetail!");
+                return false;
+
+            }
+            finally
+            {
+                /*Как-то проапдейтить таблицу опять*/
+
+                MDataSet.InvoiceMasterDataTable tmpInvoiceMaster = new MDataSet.InvoiceMasterDataTable();
+
+                this.invoiceMasterTableAdapter.Fill(tmpInvoiceMaster);
+                sourceRow.Table.Merge(tmpInvoiceMaster);
+
+            }
+
+            return true;
+        }
+
 
         private bool FindOpenedTabs(String TagControl)
         {
@@ -432,6 +490,16 @@ namespace RetailTrade
                        (usControl as ReceiptMasterNewAll).Dock = DockStyle.Fill;
                        (usControl as ReceiptMasterNewAll).Tag = Title;
                         break;
+
+                    case "ReceiptMasterStock":
+
+                        usControl = new ReceiptMasterStock(this.mDataSet);
+                        (usControl as ReceiptMasterStock).Dock = DockStyle.Fill;
+                        (usControl as ReceiptMasterStock).Tag = Title;
+                        break;
+
+
+
                     case "ReceiptRowOrganization":
 
                         if ((list[0] as MDataSet.ReceiptMasterRow) != null)
@@ -455,6 +523,28 @@ namespace RetailTrade
                        (usControl as InvoiceMasterNewAll).Tag = Title;
                      
                      break;
+
+                 case "InvoiceRow":
+                    
+
+                    if ((list[0] as MDataSet.InvoiceMasterRow) != null)
+                        {
+                           
+                            TagControl += (list[0] as MDataSet.InvoiceMasterRow).ID.ToString();
+                            if (!FindOpenedTabs(TagControl))
+                            {
+                              //  Title = "№" + (list[0] as MDataSet.InvoiceMasterRow).Number.ToString() + " " + (list[0] as MDataSet.InvoiceMasterRow).OrganizationRow.ShortName.ToString();
+                                 usControl = new InvoiceRow((list[0] as MDataSet.InvoiceMasterRow), (list[0] as MDataSet.InvoiceMasterRow).ID);
+                                (usControl as InvoiceRow).Tag = Title;
+                                (usControl as InvoiceRow).Dock = DockStyle.Fill;
+                            }
+                            else
+                                return  false;
+                   }
+                       break;
+
+
+
                     default:
                         {
                             return false;
