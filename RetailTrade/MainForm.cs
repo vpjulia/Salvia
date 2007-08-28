@@ -14,6 +14,7 @@ using System.Threading;
 using System.Data.SqlClient;
 using RetailTrade.Invoice;
 using RetailTrade.Receipt;
+using RetailTrade.Orders;
 
 
 
@@ -542,7 +543,12 @@ namespace RetailTrade
                                 return  false;
                    }
                        break;
+                   case "OrdersAll":
+                       usControl = new OrdersAll(this.mDataSet.Orders);
+                       (usControl as OrdersAll).Dock = DockStyle.Fill;
+                       (usControl as OrdersAll).Tag = Title;
 
+                       break;
 
 
                     default:

@@ -279,6 +279,7 @@ namespace RetailTrade
             treeNode8.Name = "Node9";
             treeNode8.Text = "Приходные";
             treeNode9.Name = "Node12";
+            treeNode9.Tag = "OrdersAll";
             treeNode9.Text = "Заявки";
             treeNode10.Name = "Node1";
             treeNode10.Text = "Центральный склад";
@@ -323,9 +324,6 @@ namespace RetailTrade
             // gridControl1
             // 
             this.gridControl1.DataSource = this.vwRemainsBindingSource;
-            // 
-            // 
-            // 
             this.gridControl1.EmbeddedNavigator.Name = "";
             this.gridControl1.Location = new System.Drawing.Point(464, 13);
             this.gridControl1.MainView = this.gridView1;
