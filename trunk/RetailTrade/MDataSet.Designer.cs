@@ -107,6 +107,10 @@ namespace RetailTrade {
         
         private System.Data.DataRelation relationProduct_vwRemains;
         
+        private System.Data.DataRelation relationProduct_Orders;
+        
+        private System.Data.DataRelation relationTradePutlet_Orders;
+        
         private System.Data.SchemaSerializationMode _schemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -685,6 +689,8 @@ namespace RetailTrade {
             this.relationReceiptDetail_Orders = this.Relations["ReceiptDetail_Orders"];
             this.relationvwRemains_InvoiceDetail = this.Relations["vwRemains_InvoiceDetail"];
             this.relationProduct_vwRemains = this.Relations["Product_vwRemains"];
+            this.relationProduct_Orders = this.Relations["Product_Orders"];
+            this.relationTradePutlet_Orders = this.Relations["TradePutlet_Orders"];
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -879,6 +885,14 @@ namespace RetailTrade {
                         this.tableProduct.IDColumn}, new System.Data.DataColumn[] {
                         this.tablevwRemains.ProductRefColumn}, false);
             this.Relations.Add(this.relationProduct_vwRemains);
+            this.relationProduct_Orders = new System.Data.DataRelation("Product_Orders", new System.Data.DataColumn[] {
+                        this.tableProduct.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableOrders.ProductRefColumn}, false);
+            this.Relations.Add(this.relationProduct_Orders);
+            this.relationTradePutlet_Orders = new System.Data.DataRelation("TradePutlet_Orders", new System.Data.DataColumn[] {
+                        this.tableTradePutlet.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableOrders.TradePupletRefColumn}, false);
+            this.Relations.Add(this.relationTradePutlet_Orders);
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4419,6 +4433,7 @@ namespace RetailTrade {
                 this.columnID.ReadOnly = true;
                 this.columnID.Unique = true;
                 this.columnNumber.AutoIncrement = true;
+                this.columnNumber.AutoIncrementSeed = -1;
                 this.columnNumber.AutoIncrementStep = -1;
                 this.columnNumber.AllowDBNull = false;
                 this.columnNote.AllowDBNull = false;
@@ -8197,11 +8212,11 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public OrdersRow AddOrdersRow(int TradePupletRef, ReceiptDetailRow parentReceiptDetailRowByReceiptDetail_Orders, System.DateTime DateOrder, decimal Quantity, decimal Price, decimal Reserved, decimal QuantityNow, bool isClose, string Note, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, System.DateTime DateLastModif, byte[] RowVersion) {
+            public OrdersRow AddOrdersRow(TradePutletRow parentTradePutletRowByTradePutlet_Orders, ReceiptDetailRow parentReceiptDetailRowByReceiptDetail_Orders, System.DateTime DateOrder, decimal Quantity, decimal Price, decimal Reserved, decimal QuantityNow, bool isClose, string Note, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, System.DateTime DateLastModif, byte[] RowVersion) {
                 OrdersRow rowOrdersRow = ((OrdersRow)(this.NewRow()));
                 rowOrdersRow.ItemArray = new object[] {
                         null,
-                        TradePupletRef,
+                        parentTradePutletRowByTradePutlet_Orders[0],
                         parentReceiptDetailRowByReceiptDetail_Orders[2],
                         DateOrder,
                         Quantity,
@@ -10439,6 +10454,11 @@ namespace RetailTrade {
             public StockRow[] GetStockRows() {
                 return ((StockRow[])(base.GetChildRows(this.Table.ChildRelations["TradePutlet_Stock"])));
             }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public OrdersRow[] GetOrdersRows() {
+                return ((OrdersRow[])(base.GetChildRows(this.Table.ChildRelations["TradePutlet_Orders"])));
+            }
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
@@ -10595,11 +10615,11 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string AuthorCreate {
                 get {
-                    try {
-                        return ((string)(this[this.tableReceiptMaster.AuthorCreateColumn]));
+                    if (this.IsAuthorCreateNull()) {
+                        return string.Empty;
                     }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'AuthorCreate\' in table \'ReceiptMaster\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableReceiptMaster.AuthorCreateColumn]));
                     }
                 }
                 set {
@@ -12022,6 +12042,11 @@ namespace RetailTrade {
             public vwRemainsRow[] GetvwRemainsRows() {
                 return ((vwRemainsRow[])(base.GetChildRows(this.Table.ChildRelations["Product_vwRemains"])));
             }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public OrdersRow[] GetOrdersRows() {
+                return ((OrdersRow[])(base.GetChildRows(this.Table.ChildRelations["Product_Orders"])));
+            }
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
@@ -13359,6 +13384,26 @@ namespace RetailTrade {
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["ReceiptDetail_Orders"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ProductRow ProductRow {
+                get {
+                    return ((ProductRow)(this.GetParentRow(this.Table.ParentRelations["Product_Orders"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["Product_Orders"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public TradePutletRow TradePutletRow {
+                get {
+                    return ((TradePutletRow)(this.GetParentRow(this.Table.ParentRelations["TradePutlet_Orders"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["TradePutlet_Orders"]);
                 }
             }
             
