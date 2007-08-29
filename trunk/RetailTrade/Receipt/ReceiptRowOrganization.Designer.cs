@@ -672,6 +672,9 @@ namespace RetailTrade
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("ShortName", "ShortName", 70, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near)});
             this.OrganisationlookUpEdit.Properties.DataSource = this.organizationBindingSource;
             this.OrganisationlookUpEdit.Properties.DisplayMember = "ShortName";
+            this.OrganisationlookUpEdit.Properties.ShowFooter = false;
+            this.OrganisationlookUpEdit.Properties.ShowHeader = false;
+            this.OrganisationlookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
             this.OrganisationlookUpEdit.Properties.ValueMember = "ID";
             this.OrganisationlookUpEdit.Size = new System.Drawing.Size(220, 22);
             this.OrganisationlookUpEdit.TabIndex = 1;
@@ -711,6 +714,9 @@ namespace RetailTrade
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name", 39, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near)});
             this.StockEdit.Properties.DataSource = this.stockBindingSource;
             this.StockEdit.Properties.DisplayMember = "Name";
+            this.StockEdit.Properties.ShowFooter = false;
+            this.StockEdit.Properties.ShowHeader = false;
+            this.StockEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
             this.StockEdit.Properties.ValueMember = "ID";
             this.StockEdit.Size = new System.Drawing.Size(220, 22);
             this.StockEdit.TabIndex = 2;
