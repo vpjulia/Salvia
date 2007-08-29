@@ -46,9 +46,6 @@ namespace RetailTrade
                 this.panelNumber.Enabled = false;
             }
 
-            this.CountLabel.Text ="Строк : "+this.receiptDetailBindingSource.Count.ToString();
-            
-            this.sumLabel.Text = "на сумму :" + ((this.receiptMasterBindingSource.CurrencyManager.Current as DataRowView).Row as MDataSet.ReceiptMasterRow).PurchSum.ToString();
             this.AuthorLabel.Text = "Автор :" + ((this.receiptMasterBindingSource.CurrencyManager.Current as DataRowView).Row as MDataSet.ReceiptMasterRow).AuthorCreate.ToString();
 
         }
@@ -59,7 +56,7 @@ namespace RetailTrade
            
 
             FormDialog _formDialog = new FormDialog();
-            _formDialog.Text = this.Tag.ToString();
+            _formDialog.Text="№ "+((this.receiptMasterBindingSource.Current as DataRowView).Row as MDataSet.ReceiptMasterRow).Number.ToString()+"  "+((this.receiptMasterBindingSource.Current as DataRowView).Row as MDataSet.ReceiptMasterRow).OrganizationRow.ShortName.ToString();
             _formDialog.AcceptButton = null;
             ReceiptDetailByRef _peceiptDetail = new ReceiptDetailByRef(( this.receiptMasterBindingSource.Current as DataRowView).Row as MDataSet.ReceiptMasterRow);
       

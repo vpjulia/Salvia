@@ -1866,6 +1866,27 @@ FROM  vwRemains</CommandText>
             <Sources>
             </Sources>
           </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="PricesPurchaseTableAdapter" GeneratorDataComponentClassName="PricesPurchaseTableAdapter" Name="PricesPurchase" UserDataComponentName="PricesPurchaseTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="RetailTradeConnectionString (Settings)" DbObjectName="RetailTrade.dbo.PricesPurchase" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="False" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="True" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="False">
+                    <CommandText>SELECT OrganizationRef, ProductRef, PricePurchase, Date FROM dbo.PricesPurchase</CommandText>
+                    <Parameters>
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="OrganizationRef" DataSetColumn="OrganizationRef" />
+              <Mapping SourceColumn="ProductRef" DataSetColumn="ProductRef" />
+              <Mapping SourceColumn="PricePurchase" DataSetColumn="PricePurchase" />
+              <Mapping SourceColumn="Date" DataSetColumn="Date" />
+            </Mappings>
+            <Sources>
+            </Sources>
+          </TableAdapter>
         </Tables>
         <Sources>
         </Sources>
@@ -2349,7 +2370,10 @@ FROM  vwRemains</CommandText>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="DateLastModif" msprop:Generator_UserColumnName="DateLastModif" msprop:Generator_ColumnPropNameInRow="DateLastModif" msprop:Generator_ColumnVarNameInTable="columnDateLastModif" msprop:Generator_ColumnPropNameInTable="DateLastModifColumn" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="CalcPurchSum" msdata:ReadOnly="true" msdata:Expression="Quantity*PricePurchase" msprop:Generator_UserColumnName="CalcPurchSum" msprop:Generator_ColumnPropNameInRow="CalcPurchSum" msprop:Generator_ColumnVarNameInTable="columnCalcPurchSum" msprop:Generator_ColumnPropNameInTable="CalcPurchSumColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="CalcPurchSum" msdata:ReadOnly="true" msdata:Expression="Quantity*PricePurchase" msprop:Generator_UserColumnName="CalcPurchSum" msprop:Generator_ColumnPropNameInRow="CalcPurchSum" msprop:Generator_ColumnVarNameInTable="columnCalcPurchSum" msprop:Generator_ColumnPropNameInTable="CalcPurchSumColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="OrganisationRef" msdata:ReadOnly="true" msdata:Expression="Parent(ReceiptMaster_ReceiptDetail).OrganizationRef" msprop:Generator_UserColumnName="OrganisationRef" msprop:Generator_ColumnVarNameInTable="columnOrganisationRef" msprop:Generator_ColumnPropNameInRow="OrganisationRef" msprop:Generator_ColumnPropNameInTable="OrganisationRefColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="ProductName" msdata:ReadOnly="true" msdata:Expression="Parent(Product_ReceiptDetail).Name" msprop:Generator_UserColumnName="ProductName" msprop:Generator_ColumnPropNameInRow="ProductName" msprop:Generator_ColumnVarNameInTable="columnProductName" msprop:Generator_ColumnPropNameInTable="ProductNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="ManufacturerName" msdata:ReadOnly="true" msdata:Expression="Parent(Product_ReceiptDetail).ManufacturerName" msprop:Generator_UserColumnName="ManufacturerName" msprop:Generator_ColumnPropNameInRow="ManufacturerName" msprop:Generator_ColumnVarNameInTable="columnManufacturerName" msprop:Generator_ColumnPropNameInTable="ManufacturerNameColumn" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -2738,6 +2762,8 @@ FROM  vwRemains</CommandText>
               <xs:element name="DateCreate" msprop:Generator_UserColumnName="DateCreate" msprop:Generator_ColumnVarNameInTable="columnDateCreate" msprop:Generator_ColumnPropNameInRow="DateCreate" msprop:Generator_ColumnPropNameInTable="DateCreateColumn" type="xs:dateTime" />
               <xs:element name="DateLastModif" msprop:Generator_UserColumnName="DateLastModif" msprop:Generator_ColumnVarNameInTable="columnDateLastModif" msprop:Generator_ColumnPropNameInRow="DateLastModif" msprop:Generator_ColumnPropNameInTable="DateLastModifColumn" type="xs:dateTime" />
               <xs:element name="RowVersion" msdata:ReadOnly="true" msprop:Generator_UserColumnName="RowVersion" msprop:Generator_ColumnVarNameInTable="columnRowVersion" msprop:Generator_ColumnPropNameInRow="RowVersion" msprop:Generator_ColumnPropNameInTable="RowVersionColumn" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="TradePupletName" msdata:ReadOnly="true" msdata:Expression="Parent(TradePutlet_Orders).Name" msprop:Generator_UserColumnName="TradePupletName" msprop:Generator_ColumnPropNameInRow="TradePupletName" msprop:Generator_ColumnVarNameInTable="columnTradePupletName" msprop:Generator_ColumnPropNameInTable="TradePupletNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="ProductName" msdata:ReadOnly="true" msdata:Expression="Parent(Product_Orders).Name" msprop:Generator_UserColumnName="ProductName" msprop:Generator_ColumnPropNameInRow="ProductName" msprop:Generator_ColumnVarNameInTable="columnProductName" msprop:Generator_ColumnPropNameInTable="ProductNameColumn" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -2758,6 +2784,17 @@ FROM  vwRemains</CommandText>
               <xs:element name="QuantityRemains" msprop:Generator_UserColumnName="QuantityRemains" msprop:Generator_ColumnPropNameInRow="QuantityRemains" msprop:Generator_ColumnVarNameInTable="columnQuantityRemains" msprop:Generator_ColumnPropNameInTable="QuantityRemainsColumn" type="xs:decimal" />
               <xs:element name="MainStockRef" msprop:Generator_UserColumnName="MainStockRef" msprop:Generator_ColumnPropNameInRow="MainStockRef" msprop:Generator_ColumnVarNameInTable="columnMainStockRef" msprop:Generator_ColumnPropNameInTable="MainStockRefColumn" type="xs:int" />
               <xs:element name="ReceiptDetailRef" msprop:Generator_UserColumnName="ReceiptDetailRef" msprop:Generator_ColumnPropNameInRow="ReceiptDetailRef" msprop:Generator_ColumnVarNameInTable="columnReceiptDetailRef" msprop:Generator_ColumnPropNameInTable="ReceiptDetailRefColumn" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PricesPurchase" msprop:Generator_UserTableName="PricesPurchase" msprop:Generator_RowDeletedName="PricesPurchaseRowDeleted" msprop:Generator_RowChangedName="PricesPurchaseRowChanged" msprop:Generator_RowClassName="PricesPurchaseRow" msprop:Generator_RowChangingName="PricesPurchaseRowChanging" msprop:Generator_RowEvArgName="PricesPurchaseRowChangeEvent" msprop:Generator_RowEvHandlerName="PricesPurchaseRowChangeEventHandler" msprop:Generator_TableClassName="PricesPurchaseDataTable" msprop:Generator_TableVarName="tablePricesPurchase" msprop:Generator_RowDeletingName="PricesPurchaseRowDeleting" msprop:Generator_TablePropName="PricesPurchase">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="OrganizationRef" msprop:Generator_UserColumnName="OrganizationRef" msprop:Generator_ColumnVarNameInTable="columnOrganizationRef" msprop:Generator_ColumnPropNameInRow="OrganizationRef" msprop:Generator_ColumnPropNameInTable="OrganizationRefColumn" type="xs:int" />
+              <xs:element name="ProductRef" msprop:Generator_UserColumnName="ProductRef" msprop:Generator_ColumnVarNameInTable="columnProductRef" msprop:Generator_ColumnPropNameInRow="ProductRef" msprop:Generator_ColumnPropNameInTable="ProductRefColumn" type="xs:int" />
+              <xs:element name="PricePurchase" msprop:Generator_UserColumnName="PricePurchase" msprop:Generator_ColumnVarNameInTable="columnPricePurchase" msprop:Generator_ColumnPropNameInRow="PricePurchase" msprop:Generator_ColumnPropNameInTable="PricePurchaseColumn" type="xs:decimal" />
+              <xs:element name="Date" msprop:Generator_UserColumnName="Date" msprop:Generator_ColumnVarNameInTable="columnDate" msprop:Generator_ColumnPropNameInRow="Date" msprop:Generator_ColumnPropNameInTable="DateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OrganizationName" msdata:ReadOnly="true" msdata:Expression="Parent(Organization_PricesPurchase).ShortNAme" msprop:Generator_UserColumnName="OrganizationName" msprop:Generator_ColumnPropNameInRow="OrganizationName" msprop:Generator_ColumnVarNameInTable="columnOrganizationName" msprop:Generator_ColumnPropNameInTable="OrganizationNameColumn" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -2894,6 +2931,9 @@ FROM  vwRemains</CommandText>
       <msdata:Relationship name="Product_vwRemains" msdata:parent="Product" msdata:child="vwRemains" msdata:parentkey="ID" msdata:childkey="ProductRef" msprop:Generator_UserRelationName="Product_vwRemains" msprop:Generator_RelationVarName="relationProduct_vwRemains" msprop:Generator_UserChildTable="vwRemains" msprop:Generator_UserParentTable="Product" msprop:Generator_ParentPropName="ProductRow" msprop:Generator_ChildPropName="GetvwRemainsRows" />
       <msdata:Relationship name="Product_Orders" msdata:parent="Product" msdata:child="Orders" msdata:parentkey="ID" msdata:childkey="ProductRef" msprop:Generator_UserRelationName="Product_Orders" msprop:Generator_RelationVarName="relationProduct_Orders" msprop:Generator_UserChildTable="Orders" msprop:Generator_UserParentTable="Product" msprop:Generator_ParentPropName="ProductRow" msprop:Generator_ChildPropName="GetOrdersRows" />
       <msdata:Relationship name="TradePutlet_Orders" msdata:parent="TradePutlet" msdata:child="Orders" msdata:parentkey="ID" msdata:childkey="TradePupletRef" msprop:Generator_UserRelationName="TradePutlet_Orders" msprop:Generator_RelationVarName="relationTradePutlet_Orders" msprop:Generator_UserChildTable="Orders" msprop:Generator_UserParentTable="TradePutlet" msprop:Generator_ParentPropName="TradePutletRow" msprop:Generator_ChildPropName="GetOrdersRows" />
+      <msdata:Relationship name="Organization_PricesPurchase" msdata:parent="Organization" msdata:child="PricesPurchase" msdata:parentkey="ID" msdata:childkey="OrganizationRef" msprop:Generator_UserRelationName="Organization_PricesPurchase" msprop:Generator_RelationVarName="relationOrganization_PricesPurchase" msprop:Generator_UserChildTable="PricesPurchase" msprop:Generator_UserParentTable="Organization" msprop:Generator_ParentPropName="OrganizationRow" msprop:Generator_ChildPropName="GetPricesPurchaseRows" />
+      <msdata:Relationship name="Product_PricesPurchase" msdata:parent="Product" msdata:child="PricesPurchase" msdata:parentkey="ID" msdata:childkey="ProductRef" msprop:Generator_UserRelationName="Product_PricesPurchase" msprop:Generator_RelationVarName="relationProduct_PricesPurchase" msprop:Generator_UserChildTable="PricesPurchase" msprop:Generator_UserParentTable="Product" msprop:Generator_ParentPropName="ProductRow" msprop:Generator_ChildPropName="GetPricesPurchaseRows" />
+      <msdata:Relationship name="ReceiptDetail_PricesPurchase" msdata:parent="ReceiptDetail" msdata:child="PricesPurchase" msdata:parentkey="ProductRef" msdata:childkey="ProductRef" msprop:Generator_UserRelationName="ReceiptDetail_PricesPurchase" msprop:Generator_RelationVarName="relationReceiptDetail_PricesPurchase" msprop:Generator_UserChildTable="PricesPurchase" msprop:Generator_UserParentTable="ReceiptDetail" msprop:Generator_ParentPropName="ReceiptDetailRow" msprop:Generator_ChildPropName="GetPricesPurchaseRows" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

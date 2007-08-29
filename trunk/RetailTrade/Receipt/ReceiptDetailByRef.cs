@@ -45,7 +45,7 @@ namespace RetailTrade
            this.receiptDetailBindingSource.DataSource = this.receiptMasterBindingSourceView;
            this.receiptDetailBindingSource.DataMember = "ReceiptMaster_ReceiptDetail";
            this.receiptDetailBindingSource.ResetBindings(true);
-           this.tabPage1.Text = this.receiptMasterBindingSource.CurrencyManager.Position.ToString();
+           
            
         }
 
@@ -61,7 +61,7 @@ namespace RetailTrade
             {
                 FormDialog _formDialog = new FormDialog();
                 _formDialog.AcceptButton = null;
-
+                _formDialog.Text = "Добавить стоку";
                MDataSet.ReceiptDetailRow sourceRow = ((this.receiptDetailBindingSource.AddNew() as DataRowView).Row as MDataSet.ReceiptDetailRow);
                MDataSet.ProductRow productRow =(this.productBindingSource.CurrencyManager.Current as MDataSet.ProductRow) ;
                 
@@ -99,14 +99,13 @@ namespace RetailTrade
 
         private void gridViewReceiptDetail_Click(object sender, EventArgs e)
         {
-            if (this.gridViewReceiptDetail.IsValidRowHandle(this.gridViewReceiptDetail.FocusedRowHandle))
+            if (this.gridViewReceiptDetail.IsValidRowHandle(this.gridViewReceiptDetail.FocusedRowHandle) & this.gridViewReceiptDetail.State == GridState.Normal & !this.gridViewReceiptDetail.IsFilterRow(this.gridViewReceiptDetail.FocusedRowHandle))
             {
-
                 FormDialog _formDialog = new FormDialog();
                 _formDialog.AcceptButton = null;
-
+                _formDialog.Text = "Изменить стоку";
                 MDataSet.ReceiptDetailRow sourceRow = ((this.receiptDetailBindingSource.CurrencyManager.Current as DataRowView).Row as MDataSet.ReceiptDetailRow);
-                ReceiptDetailRowAdd _receiptDetailRowAdd = new ReceiptDetailRowAdd(sourceRow, (this.productBindingSource.DataSource as MDataSet.ProductDataTable).FindByID(sourceRow.ProductRef));
+                ReceiptDetailRowAdd _receiptDetailRowAdd = new ReceiptDetailRowAdd(sourceRow, (sourceRow.GetParentRow("Product_ReceiptDetail") as MDataSet.ProductRow));
                 _formDialog.panel.Controls.Add(_receiptDetailRowAdd);
 
                 if (DialogResult.OK == _formDialog.ShowDialog(this))
