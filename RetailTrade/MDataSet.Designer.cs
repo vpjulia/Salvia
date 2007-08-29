@@ -63,6 +63,8 @@ namespace RetailTrade {
         
         private vwRemainsDataTable tablevwRemains;
         
+        private PricesPurchaseDataTable tablePricesPurchase;
+        
         private System.Data.DataRelation relationFK_ReceiptRemains_ReceiptDetail;
         
         private System.Data.DataRelation relationReceiptMaster_ReceiptDetail;
@@ -110,6 +112,12 @@ namespace RetailTrade {
         private System.Data.DataRelation relationProduct_Orders;
         
         private System.Data.DataRelation relationTradePutlet_Orders;
+        
+        private System.Data.DataRelation relationOrganization_PricesPurchase;
+        
+        private System.Data.DataRelation relationProduct_PricesPurchase;
+        
+        private System.Data.DataRelation relationReceiptDetail_PricesPurchase;
         
         private System.Data.SchemaSerializationMode _schemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -197,6 +205,9 @@ namespace RetailTrade {
                 }
                 if ((ds.Tables["vwRemains"] != null)) {
                     base.Tables.Add(new vwRemainsDataTable(ds.Tables["vwRemains"]));
+                }
+                if ((ds.Tables["PricesPurchase"] != null)) {
+                    base.Tables.Add(new PricesPurchaseDataTable(ds.Tables["PricesPurchase"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -398,6 +409,15 @@ namespace RetailTrade {
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Browsable(false)]
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public PricesPurchaseDataTable PricesPurchase {
+            get {
+                return this.tablePricesPurchase;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.BrowsableAttribute(true)]
         [System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -516,6 +536,9 @@ namespace RetailTrade {
                 }
                 if ((ds.Tables["vwRemains"] != null)) {
                     base.Tables.Add(new vwRemainsDataTable(ds.Tables["vwRemains"]));
+                }
+                if ((ds.Tables["PricesPurchase"] != null)) {
+                    base.Tables.Add(new PricesPurchaseDataTable(ds.Tables["PricesPurchase"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -667,6 +690,12 @@ namespace RetailTrade {
                     this.tablevwRemains.InitVars();
                 }
             }
+            this.tablePricesPurchase = ((PricesPurchaseDataTable)(base.Tables["PricesPurchase"]));
+            if ((initTable == true)) {
+                if ((this.tablePricesPurchase != null)) {
+                    this.tablePricesPurchase.InitVars();
+                }
+            }
             this.relationFK_ReceiptRemains_ReceiptDetail = this.Relations["FK_ReceiptRemains_ReceiptDetail"];
             this.relationReceiptMaster_ReceiptDetail = this.Relations["ReceiptMaster_ReceiptDetail"];
             this.relationFK_FarmGroupLevel2_Product = this.Relations["FK_FarmGroupLevel2_Product"];
@@ -691,6 +720,9 @@ namespace RetailTrade {
             this.relationProduct_vwRemains = this.Relations["Product_vwRemains"];
             this.relationProduct_Orders = this.Relations["Product_Orders"];
             this.relationTradePutlet_Orders = this.Relations["TradePutlet_Orders"];
+            this.relationOrganization_PricesPurchase = this.Relations["Organization_PricesPurchase"];
+            this.relationProduct_PricesPurchase = this.Relations["Product_PricesPurchase"];
+            this.relationReceiptDetail_PricesPurchase = this.Relations["ReceiptDetail_PricesPurchase"];
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -736,10 +768,12 @@ namespace RetailTrade {
             base.Tables.Add(this.tableManufacturer);
             this.tableFarmGroupLevel2 = new FarmGroupLevel2DataTable(false);
             base.Tables.Add(this.tableFarmGroupLevel2);
-            this.tableOrders = new OrdersDataTable();
+            this.tableOrders = new OrdersDataTable(false);
             base.Tables.Add(this.tableOrders);
             this.tablevwRemains = new vwRemainsDataTable();
             base.Tables.Add(this.tablevwRemains);
+            this.tablePricesPurchase = new PricesPurchaseDataTable(false);
+            base.Tables.Add(this.tablePricesPurchase);
             System.Data.ForeignKeyConstraint fkc;
             fkc = new System.Data.ForeignKeyConstraint("FK_ReceiptRemains_ReceiptDetail", new System.Data.DataColumn[] {
                         this.tableReceiptDetail.IDColumn}, new System.Data.DataColumn[] {
@@ -893,6 +927,18 @@ namespace RetailTrade {
                         this.tableTradePutlet.IDColumn}, new System.Data.DataColumn[] {
                         this.tableOrders.TradePupletRefColumn}, false);
             this.Relations.Add(this.relationTradePutlet_Orders);
+            this.relationOrganization_PricesPurchase = new System.Data.DataRelation("Organization_PricesPurchase", new System.Data.DataColumn[] {
+                        this.tableOrganization.IDColumn}, new System.Data.DataColumn[] {
+                        this.tablePricesPurchase.OrganizationRefColumn}, false);
+            this.Relations.Add(this.relationOrganization_PricesPurchase);
+            this.relationProduct_PricesPurchase = new System.Data.DataRelation("Product_PricesPurchase", new System.Data.DataColumn[] {
+                        this.tableProduct.IDColumn}, new System.Data.DataColumn[] {
+                        this.tablePricesPurchase.ProductRefColumn}, false);
+            this.Relations.Add(this.relationProduct_PricesPurchase);
+            this.relationReceiptDetail_PricesPurchase = new System.Data.DataRelation("ReceiptDetail_PricesPurchase", new System.Data.DataColumn[] {
+                        this.tableReceiptDetail.ProductRefColumn}, new System.Data.DataColumn[] {
+                        this.tablePricesPurchase.ProductRefColumn}, false);
+            this.Relations.Add(this.relationReceiptDetail_PricesPurchase);
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -996,6 +1042,11 @@ namespace RetailTrade {
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializePricesPurchase() {
+            return false;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void SchemaChanged(object sender, System.ComponentModel.CollectionChangeEventArgs e) {
             if ((e.Action == System.ComponentModel.CollectionChangeAction.Remove)) {
                 this.InitVars();
@@ -1020,6 +1071,9 @@ namespace RetailTrade {
             this.Country.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.Organization.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.ReceiptDetail.CalcPurchSumColumn.Expression = "Quantity*PricePurchase";
+            this.ReceiptDetail.OrganisationRefColumn.Expression = "Parent(ReceiptMaster_ReceiptDetail).OrganizationRef";
+            this.ReceiptDetail.ProductNameColumn.Expression = "Parent(Product_ReceiptDetail).Name";
+            this.ReceiptDetail.ManufacturerNameColumn.Expression = "Parent(Product_ReceiptDetail).ManufacturerName";
             this.StorageCondition.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.Product.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.FarmGroup.DateUpdateColumn.Expression = "Max(DateLastModif)";
@@ -1028,6 +1082,9 @@ namespace RetailTrade {
             this.Unit.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.Manufacturer.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.FarmGroupLevel2.DateUpdateColumn.Expression = "Max(DateLastModif)";
+            this.Orders.TradePupletNameColumn.Expression = "Parent(TradePutlet_Orders).Name";
+            this.Orders.ProductNameColumn.Expression = "Parent(Product_Orders).Name";
+            this.PricesPurchase.OrganizationNameColumn.Expression = "Parent(Organization_PricesPurchase).ShortNAme";
         }
         
         public delegate void CountryRowChangeEventHandler(object sender, CountryRowChangeEvent e);
@@ -1069,6 +1126,8 @@ namespace RetailTrade {
         public delegate void OrdersRowChangeEventHandler(object sender, OrdersRowChangeEvent e);
         
         public delegate void vwRemainsRowChangeEventHandler(object sender, vwRemainsRowChangeEvent e);
+        
+        public delegate void PricesPurchaseRowChangeEventHandler(object sender, PricesPurchaseRowChangeEvent e);
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [System.Serializable()]
@@ -4602,6 +4661,12 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnCalcPurchSum;
             
+            private System.Data.DataColumn columnOrganisationRef;
+            
+            private System.Data.DataColumn columnProductName;
+            
+            private System.Data.DataColumn columnManufacturerName;
+            
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public ReceiptDetailDataTable() : 
                     this(false) {
@@ -4781,6 +4846,27 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn OrganisationRefColumn {
+                get {
+                    return this.columnOrganisationRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ProductNameColumn {
+                get {
+                    return this.columnProductName;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ManufacturerNameColumn {
+                get {
+                    return this.columnManufacturerName;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -4828,7 +4914,10 @@ namespace RetailTrade {
                         byte[] RowVersion, 
                         string Note, 
                         System.DateTime DateLastModif, 
-                        string CalcPurchSum) {
+                        decimal CalcPurchSum, 
+                        int OrganisationRef, 
+                        string ProductName, 
+                        string ManufacturerName) {
                 ReceiptDetailRow rowReceiptDetailRow = ((ReceiptDetailRow)(this.NewRow()));
                 rowReceiptDetailRow.ItemArray = new object[] {
                         null,
@@ -4850,7 +4939,10 @@ namespace RetailTrade {
                         RowVersion,
                         Note,
                         DateLastModif,
-                        CalcPurchSum};
+                        CalcPurchSum,
+                        OrganisationRef,
+                        ProductName,
+                        ManufacturerName};
                 this.Rows.Add(rowReceiptDetailRow);
                 return rowReceiptDetailRow;
             }
@@ -4900,6 +4992,9 @@ namespace RetailTrade {
                 this.columnNote = base.Columns["Note"];
                 this.columnDateLastModif = base.Columns["DateLastModif"];
                 this.columnCalcPurchSum = base.Columns["CalcPurchSum"];
+                this.columnOrganisationRef = base.Columns["OrganisationRef"];
+                this.columnProductName = base.Columns["ProductName"];
+                this.columnManufacturerName = base.Columns["ManufacturerName"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4942,8 +5037,14 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnNote);
                 this.columnDateLastModif = new System.Data.DataColumn("DateLastModif", typeof(System.DateTime), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDateLastModif);
-                this.columnCalcPurchSum = new System.Data.DataColumn("CalcPurchSum", typeof(string), null, System.Data.MappingType.Element);
+                this.columnCalcPurchSum = new System.Data.DataColumn("CalcPurchSum", typeof(decimal), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCalcPurchSum);
+                this.columnOrganisationRef = new System.Data.DataColumn("OrganisationRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOrganisationRef);
+                this.columnProductName = new System.Data.DataColumn("ProductName", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnProductName);
+                this.columnManufacturerName = new System.Data.DataColumn("ManufacturerName", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnManufacturerName);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -4973,6 +5074,9 @@ namespace RetailTrade {
                 this.columnNote.DefaultValue = ((string)(" "));
                 this.columnNote.MaxLength = 50;
                 this.columnCalcPurchSum.ReadOnly = true;
+                this.columnOrganisationRef.ReadOnly = true;
+                this.columnProductName.ReadOnly = true;
+                this.columnManufacturerName.ReadOnly = true;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4993,6 +5097,9 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             private void InitExpressions() {
                 this.CalcPurchSumColumn.Expression = "Quantity*PricePurchase";
+                this.OrganisationRefColumn.Expression = "Parent(ReceiptMaster_ReceiptDetail).OrganizationRef";
+                this.ProductNameColumn.Expression = "Parent(Product_ReceiptDetail).Name";
+                this.ManufacturerNameColumn.Expression = "Parent(Product_ReceiptDetail).ManufacturerName";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8048,11 +8155,23 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnRowVersion;
             
+            private System.Data.DataColumn columnTradePupletName;
+            
+            private System.Data.DataColumn columnProductName;
+            
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public OrdersDataTable() {
+            public OrdersDataTable() : 
+                    this(false) {
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal OrdersDataTable(bool initExpressions) {
                 this.TableName = "Orders";
                 this.BeginInit();
                 this.InitClass();
+                if ((initExpressions == true)) {
+                    this.InitExpressions();
+                }
                 this.EndInit();
             }
             
@@ -8184,6 +8303,20 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn TradePupletNameColumn {
+                get {
+                    return this.columnTradePupletName;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ProductNameColumn {
+                get {
+                    return this.columnProductName;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -8212,7 +8345,23 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public OrdersRow AddOrdersRow(TradePutletRow parentTradePutletRowByTradePutlet_Orders, ReceiptDetailRow parentReceiptDetailRowByReceiptDetail_Orders, System.DateTime DateOrder, decimal Quantity, decimal Price, decimal Reserved, decimal QuantityNow, bool isClose, string Note, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, System.DateTime DateLastModif, byte[] RowVersion) {
+            public OrdersRow AddOrdersRow(
+                        TradePutletRow parentTradePutletRowByTradePutlet_Orders, 
+                        ReceiptDetailRow parentReceiptDetailRowByReceiptDetail_Orders, 
+                        System.DateTime DateOrder, 
+                        decimal Quantity, 
+                        decimal Price, 
+                        decimal Reserved, 
+                        decimal QuantityNow, 
+                        bool isClose, 
+                        string Note, 
+                        string AuthorCreate, 
+                        string AuthorLastModif, 
+                        System.DateTime DateCreate, 
+                        System.DateTime DateLastModif, 
+                        byte[] RowVersion, 
+                        string TradePupletName, 
+                        string ProductName) {
                 OrdersRow rowOrdersRow = ((OrdersRow)(this.NewRow()));
                 rowOrdersRow.ItemArray = new object[] {
                         null,
@@ -8229,7 +8378,9 @@ namespace RetailTrade {
                         AuthorLastModif,
                         DateCreate,
                         DateLastModif,
-                        RowVersion};
+                        RowVersion,
+                        TradePupletName,
+                        ProductName};
                 this.Rows.Add(rowOrdersRow);
                 return rowOrdersRow;
             }
@@ -8274,6 +8425,8 @@ namespace RetailTrade {
                 this.columnDateCreate = base.Columns["DateCreate"];
                 this.columnDateLastModif = base.Columns["DateLastModif"];
                 this.columnRowVersion = base.Columns["RowVersion"];
+                this.columnTradePupletName = base.Columns["TradePupletName"];
+                this.columnProductName = base.Columns["ProductName"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8308,6 +8461,10 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnDateLastModif);
                 this.columnRowVersion = new System.Data.DataColumn("RowVersion", typeof(byte[]), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRowVersion);
+                this.columnTradePupletName = new System.Data.DataColumn("TradePupletName", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTradePupletName);
+                this.columnProductName = new System.Data.DataColumn("ProductName", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnProductName);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -8331,6 +8488,8 @@ namespace RetailTrade {
                 this.columnDateCreate.AllowDBNull = false;
                 this.columnDateLastModif.AllowDBNull = false;
                 this.columnRowVersion.ReadOnly = true;
+                this.columnTradePupletName.ReadOnly = true;
+                this.columnProductName.ReadOnly = true;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8346,6 +8505,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Type GetRowType() {
                 return typeof(OrdersRow);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitExpressions() {
+                this.TradePupletNameColumn.Expression = "Parent(TradePutlet_Orders).Name";
+                this.ProductNameColumn.Expression = "Parent(Product_Orders).Name";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8709,6 +8874,266 @@ namespace RetailTrade {
                 System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "vwRemainsDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                return type;
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [System.Serializable()]
+        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class PricesPurchaseDataTable : System.Data.DataTable, System.Collections.IEnumerable {
+            
+            private System.Data.DataColumn columnOrganizationRef;
+            
+            private System.Data.DataColumn columnProductRef;
+            
+            private System.Data.DataColumn columnPricePurchase;
+            
+            private System.Data.DataColumn columnDate;
+            
+            private System.Data.DataColumn columnOrganizationName;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public PricesPurchaseDataTable() : 
+                    this(false) {
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal PricesPurchaseDataTable(bool initExpressions) {
+                this.TableName = "PricesPurchase";
+                this.BeginInit();
+                this.InitClass();
+                if ((initExpressions == true)) {
+                    this.InitExpressions();
+                }
+                this.EndInit();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal PricesPurchaseDataTable(System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected PricesPurchaseDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn OrganizationRefColumn {
+                get {
+                    return this.columnOrganizationRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ProductRefColumn {
+                get {
+                    return this.columnProductRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn PricePurchaseColumn {
+                get {
+                    return this.columnPricePurchase;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateColumn {
+                get {
+                    return this.columnDate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn OrganizationNameColumn {
+                get {
+                    return this.columnOrganizationName;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public PricesPurchaseRow this[int index] {
+                get {
+                    return ((PricesPurchaseRow)(this.Rows[index]));
+                }
+            }
+            
+            public event PricesPurchaseRowChangeEventHandler PricesPurchaseRowChanging;
+            
+            public event PricesPurchaseRowChangeEventHandler PricesPurchaseRowChanged;
+            
+            public event PricesPurchaseRowChangeEventHandler PricesPurchaseRowDeleting;
+            
+            public event PricesPurchaseRowChangeEventHandler PricesPurchaseRowDeleted;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddPricesPurchaseRow(PricesPurchaseRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public PricesPurchaseRow AddPricesPurchaseRow(OrganizationRow parentOrganizationRowByOrganization_PricesPurchase, ProductRow parentProductRowByProduct_PricesPurchase, decimal PricePurchase, System.DateTime Date, string OrganizationName) {
+                PricesPurchaseRow rowPricesPurchaseRow = ((PricesPurchaseRow)(this.NewRow()));
+                rowPricesPurchaseRow.ItemArray = new object[] {
+                        parentOrganizationRowByOrganization_PricesPurchase[0],
+                        parentProductRowByProduct_PricesPurchase[0],
+                        PricePurchase,
+                        Date,
+                        OrganizationName};
+                this.Rows.Add(rowPricesPurchaseRow);
+                return rowPricesPurchaseRow;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public virtual System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override System.Data.DataTable Clone() {
+                PricesPurchaseDataTable cln = ((PricesPurchaseDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataTable CreateInstance() {
+                return new PricesPurchaseDataTable();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars() {
+                this.columnOrganizationRef = base.Columns["OrganizationRef"];
+                this.columnProductRef = base.Columns["ProductRef"];
+                this.columnPricePurchase = base.Columns["PricePurchase"];
+                this.columnDate = base.Columns["Date"];
+                this.columnOrganizationName = base.Columns["OrganizationName"];
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass() {
+                this.columnOrganizationRef = new System.Data.DataColumn("OrganizationRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOrganizationRef);
+                this.columnProductRef = new System.Data.DataColumn("ProductRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnProductRef);
+                this.columnPricePurchase = new System.Data.DataColumn("PricePurchase", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPricePurchase);
+                this.columnDate = new System.Data.DataColumn("Date", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDate);
+                this.columnOrganizationName = new System.Data.DataColumn("OrganizationName", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOrganizationName);
+                this.columnOrganizationRef.AllowDBNull = false;
+                this.columnProductRef.AllowDBNull = false;
+                this.columnPricePurchase.AllowDBNull = false;
+                this.columnOrganizationName.ReadOnly = true;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public PricesPurchaseRow NewPricesPurchaseRow() {
+                return ((PricesPurchaseRow)(this.NewRow()));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
+                return new PricesPurchaseRow(builder);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Type GetRowType() {
+                return typeof(PricesPurchaseRow);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitExpressions() {
+                this.OrganizationNameColumn.Expression = "Parent(Organization_PricesPurchase).ShortNAme";
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.PricesPurchaseRowChanged != null)) {
+                    this.PricesPurchaseRowChanged(this, new PricesPurchaseRowChangeEvent(((PricesPurchaseRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.PricesPurchaseRowChanging != null)) {
+                    this.PricesPurchaseRowChanging(this, new PricesPurchaseRowChangeEvent(((PricesPurchaseRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.PricesPurchaseRowDeleted != null)) {
+                    this.PricesPurchaseRowDeleted(this, new PricesPurchaseRowChangeEvent(((PricesPurchaseRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.PricesPurchaseRowDeleting != null)) {
+                    this.PricesPurchaseRowDeleting(this, new PricesPurchaseRowChangeEvent(((PricesPurchaseRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemovePricesPurchaseRow(PricesPurchaseRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
+                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
+                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
+                MDataSet ds = new MDataSet();
+                xs.Add(ds.GetSchemaSerializable());
+                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "PricesPurchaseDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 return type;
@@ -10093,6 +10518,11 @@ namespace RetailTrade {
             public ReceiptMasterRow[] GetReceiptMasterRows() {
                 return ((ReceiptMasterRow[])(base.GetChildRows(this.Table.ChildRelations["FK_ReceiptMaster_Organization"])));
             }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public PricesPurchaseRow[] GetPricesPurchaseRows() {
+                return ((PricesPurchaseRow[])(base.GetChildRows(this.Table.ChildRelations["Organization_PricesPurchase"])));
+            }
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
@@ -11030,10 +11460,10 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string CalcPurchSum {
+            public decimal CalcPurchSum {
                 get {
                     try {
-                        return ((string)(this[this.tableReceiptDetail.CalcPurchSumColumn]));
+                        return ((decimal)(this[this.tableReceiptDetail.CalcPurchSumColumn]));
                     }
                     catch (System.InvalidCastException e) {
                         throw new System.Data.StrongTypingException("The value for column \'CalcPurchSum\' in table \'ReceiptDetail\' is DBNull.", e);
@@ -11041,6 +11471,51 @@ namespace RetailTrade {
                 }
                 set {
                     this[this.tableReceiptDetail.CalcPurchSumColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int OrganisationRef {
+                get {
+                    try {
+                        return ((int)(this[this.tableReceiptDetail.OrganisationRefColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'OrganisationRef\' in table \'ReceiptDetail\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReceiptDetail.OrganisationRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string ProductName {
+                get {
+                    try {
+                        return ((string)(this[this.tableReceiptDetail.ProductNameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'ProductName\' in table \'ReceiptDetail\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReceiptDetail.ProductNameColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string ManufacturerName {
+                get {
+                    try {
+                        return ((string)(this[this.tableReceiptDetail.ManufacturerNameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'ManufacturerName\' in table \'ReceiptDetail\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReceiptDetail.ManufacturerNameColumn] = value;
                 }
             }
             
@@ -11195,6 +11670,36 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsOrganisationRefNull() {
+                return this.IsNull(this.tableReceiptDetail.OrganisationRefColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetOrganisationRefNull() {
+                this[this.tableReceiptDetail.OrganisationRefColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsProductNameNull() {
+                return this.IsNull(this.tableReceiptDetail.ProductNameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetProductNameNull() {
+                this[this.tableReceiptDetail.ProductNameColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsManufacturerNameNull() {
+                return this.IsNull(this.tableReceiptDetail.ManufacturerNameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetManufacturerNameNull() {
+                this[this.tableReceiptDetail.ManufacturerNameColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public ReceiptRemainsRow[] GetReceiptRemainsRows() {
                 return ((ReceiptRemainsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_ReceiptRemains_ReceiptDetail"])));
             }
@@ -11202,6 +11707,11 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public OrdersRow[] GetOrdersRows() {
                 return ((OrdersRow[])(base.GetChildRows(this.Table.ChildRelations["ReceiptDetail_Orders"])));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public PricesPurchaseRow[] GetPricesPurchaseRows() {
+                return ((PricesPurchaseRow[])(base.GetChildRows(this.Table.ChildRelations["ReceiptDetail_PricesPurchase"])));
             }
         }
         
@@ -12046,6 +12556,11 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public OrdersRow[] GetOrdersRows() {
                 return ((OrdersRow[])(base.GetChildRows(this.Table.ChildRelations["Product_Orders"])));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public PricesPurchaseRow[] GetPricesPurchaseRows() {
+                return ((PricesPurchaseRow[])(base.GetChildRows(this.Table.ChildRelations["Product_PricesPurchase"])));
             }
         }
         
@@ -13378,6 +13893,36 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string TradePupletName {
+                get {
+                    try {
+                        return ((string)(this[this.tableOrders.TradePupletNameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'TradePupletName\' in table \'Orders\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableOrders.TradePupletNameColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string ProductName {
+                get {
+                    try {
+                        return ((string)(this[this.tableOrders.ProductNameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'ProductName\' in table \'Orders\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableOrders.ProductNameColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public ReceiptDetailRow ReceiptDetailRow {
                 get {
                     return ((ReceiptDetailRow)(this.GetParentRow(this.Table.ParentRelations["ReceiptDetail_Orders"])));
@@ -13415,6 +13960,26 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetRowVersionNull() {
                 this[this.tableOrders.RowVersionColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsTradePupletNameNull() {
+                return this.IsNull(this.tableOrders.TradePupletNameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetTradePupletNameNull() {
+                this[this.tableOrders.TradePupletNameColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsProductNameNull() {
+                return this.IsNull(this.tableOrders.ProductNameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetProductNameNull() {
+                this[this.tableOrders.ProductNameColumn] = System.Convert.DBNull;
             }
         }
         
@@ -13522,6 +14087,128 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public InvoiceDetailRow[] GetInvoiceDetailRows() {
                 return ((InvoiceDetailRow[])(base.GetChildRows(this.Table.ChildRelations["vwRemains_InvoiceDetail"])));
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class PricesPurchaseRow : System.Data.DataRow {
+            
+            private PricesPurchaseDataTable tablePricesPurchase;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal PricesPurchaseRow(System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tablePricesPurchase = ((PricesPurchaseDataTable)(this.Table));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int OrganizationRef {
+                get {
+                    return ((int)(this[this.tablePricesPurchase.OrganizationRefColumn]));
+                }
+                set {
+                    this[this.tablePricesPurchase.OrganizationRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ProductRef {
+                get {
+                    return ((int)(this[this.tablePricesPurchase.ProductRefColumn]));
+                }
+                set {
+                    this[this.tablePricesPurchase.ProductRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal PricePurchase {
+                get {
+                    return ((decimal)(this[this.tablePricesPurchase.PricePurchaseColumn]));
+                }
+                set {
+                    this[this.tablePricesPurchase.PricePurchaseColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime Date {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tablePricesPurchase.DateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Date\' in table \'PricesPurchase\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePricesPurchase.DateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string OrganizationName {
+                get {
+                    try {
+                        return ((string)(this[this.tablePricesPurchase.OrganizationNameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'OrganizationName\' in table \'PricesPurchase\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePricesPurchase.OrganizationNameColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public OrganizationRow OrganizationRow {
+                get {
+                    return ((OrganizationRow)(this.GetParentRow(this.Table.ParentRelations["Organization_PricesPurchase"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["Organization_PricesPurchase"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ProductRow ProductRow {
+                get {
+                    return ((ProductRow)(this.GetParentRow(this.Table.ParentRelations["Product_PricesPurchase"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["Product_PricesPurchase"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ReceiptDetailRow ReceiptDetailRow {
+                get {
+                    return ((ReceiptDetailRow)(this.GetParentRow(this.Table.ParentRelations["ReceiptDetail_PricesPurchase"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["ReceiptDetail_PricesPurchase"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateNull() {
+                return this.IsNull(this.tablePricesPurchase.DateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateNull() {
+                this[this.tablePricesPurchase.DateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsOrganizationNameNull() {
+                return this.IsNull(this.tablePricesPurchase.OrganizationNameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetOrganizationNameNull() {
+                this[this.tablePricesPurchase.OrganizationNameColumn] = System.Convert.DBNull;
             }
         }
         
@@ -14072,6 +14759,34 @@ namespace RetailTrade {
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public vwRemainsRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class PricesPurchaseRowChangeEvent : System.EventArgs {
+            
+            private PricesPurchaseRow eventRow;
+            
+            private System.Data.DataRowAction eventAction;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public PricesPurchaseRowChangeEvent(PricesPurchaseRow row, System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public PricesPurchaseRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -19983,6 +20698,136 @@ SELECT ID, TradePupletRef, ProductRef, DateOrder, Quantity, Price, Reserved, Qua
         public virtual MDataSet.vwRemainsDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             MDataSet.vwRemainsDataTable dataTable = new MDataSet.vwRemainsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.ComponentModel.ToolboxItem(true)]
+    [System.ComponentModel.DataObjectAttribute(true)]
+    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class PricesPurchaseTableAdapter : System.ComponentModel.Component {
+        
+        private System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private System.Data.SqlClient.SqlConnection _connection;
+        
+        private System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public PricesPurchaseTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        internal System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitAdapter() {
+            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
+            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "PricesPurchase";
+            tableMapping.ColumnMappings.Add("OrganizationRef", "OrganizationRef");
+            tableMapping.ColumnMappings.Add("ProductRef", "ProductRef");
+            tableMapping.ColumnMappings.Add("PricePurchase", "PricePurchase");
+            tableMapping.ColumnMappings.Add("Date", "Date");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitConnection() {
+            this._connection = new System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::RetailTrade.Properties.Settings.Default.RetailTradeConnectionString;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitCommandCollection() {
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT OrganizationRef, ProductRef, PricePurchase, Date FROM dbo.PricesPurchase";
+            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(MDataSet.PricesPurchaseDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual MDataSet.PricesPurchaseDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            MDataSet.PricesPurchaseDataTable dataTable = new MDataSet.PricesPurchaseDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }

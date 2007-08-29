@@ -74,25 +74,17 @@ namespace RetailTrade
             this.receiptDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.receiptMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridViewReceiptDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colID2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colReceiptMaterRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colProductRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.productLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.colProductName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colManufacturerName1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSeries = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colUseByDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQuantity = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPricePurchase = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPurchaseNDS = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colRetailNDS = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPriceRetailNDS = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colInvoiceDetailRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAuthorCreate2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAuthorLastModif2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDateCreate2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCalcPurchSum = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.productLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.receiptMasterBindingSourceView = new System.Windows.Forms.BindingSource(this.components);
             this.receiptMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptMasterTableAdapter();
-            this.colCalcPurchSum = new DevExpress.XtraGrid.Columns.GridColumn();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -464,52 +456,97 @@ namespace RetailTrade
             // gridViewReceiptDetail
             // 
             this.gridViewReceiptDetail.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colID2,
-            this.colReceiptMaterRef,
-            this.colProductRef,
+            this.colProductName,
+            this.colManufacturerName1,
             this.colSeries,
             this.colUseByDate,
             this.colQuantity,
             this.colPricePurchase,
-            this.colPurchaseNDS,
-            this.colRetailNDS,
-            this.colPriceRetailNDS,
-            this.colInvoiceDetailRef,
-            this.colAuthorCreate2,
-            this.colAuthorLastModif2,
-            this.colDateCreate2,
             this.colCalcPurchSum});
             this.gridViewReceiptDetail.GridControl = this.gridReceiptDetail;
+            this.gridViewReceiptDetail.GroupSummary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "CalcPurchSum", this.colCalcPurchSum, "#.##")});
             this.gridViewReceiptDetail.Name = "gridViewReceiptDetail";
             this.gridViewReceiptDetail.OptionsDetail.EnableMasterViewMode = false;
+            this.gridViewReceiptDetail.OptionsView.ShowFooter = true;
             this.gridViewReceiptDetail.DoubleClick += new System.EventHandler(this.gridViewReceiptDetail_Click);
             // 
-            // colID2
+            // colProductName
             // 
-            this.colID2.Caption = "ID";
-            this.colID2.FieldName = "ID";
-            this.colID2.Name = "colID2";
-            this.colID2.OptionsColumn.ReadOnly = true;
-            this.colID2.Width = 72;
+            this.colProductName.Caption = "Товар";
+            this.colProductName.FieldName = "ProductName";
+            this.colProductName.Name = "colProductName";
+            this.colProductName.OptionsColumn.AllowEdit = false;
+            this.colProductName.OptionsColumn.AllowFocus = false;
+            this.colProductName.OptionsColumn.ReadOnly = true;
+            this.colProductName.Visible = true;
+            this.colProductName.VisibleIndex = 5;
             // 
-            // colReceiptMaterRef
+            // colManufacturerName1
             // 
-            this.colReceiptMaterRef.Caption = "ReceiptMaterRef";
-            this.colReceiptMaterRef.FieldName = "ReceiptMaterRef";
-            this.colReceiptMaterRef.Name = "colReceiptMaterRef";
-            this.colReceiptMaterRef.Width = 47;
+            this.colManufacturerName1.Caption = "Изготовитель";
+            this.colManufacturerName1.FieldName = "ManufacturerName";
+            this.colManufacturerName1.Name = "colManufacturerName1";
+            this.colManufacturerName1.OptionsColumn.AllowEdit = false;
+            this.colManufacturerName1.OptionsColumn.AllowFocus = false;
+            this.colManufacturerName1.OptionsColumn.ReadOnly = true;
+            this.colManufacturerName1.Visible = true;
+            this.colManufacturerName1.VisibleIndex = 6;
             // 
-            // colProductRef
+            // colSeries
             // 
-            this.colProductRef.Caption = "Наименование";
-            this.colProductRef.ColumnEdit = this.productLookUpEdit;
-            this.colProductRef.FieldName = "ProductRef";
-            this.colProductRef.Name = "colProductRef";
-            this.colProductRef.OptionsColumn.AllowFocus = false;
-            this.colProductRef.OptionsColumn.ReadOnly = true;
-            this.colProductRef.Visible = true;
-            this.colProductRef.VisibleIndex = 0;
-            this.colProductRef.Width = 216;
+            this.colSeries.Caption = "Серия";
+            this.colSeries.FieldName = "Series";
+            this.colSeries.Name = "colSeries";
+            this.colSeries.Visible = true;
+            this.colSeries.VisibleIndex = 2;
+            this.colSeries.Width = 59;
+            // 
+            // colUseByDate
+            // 
+            this.colUseByDate.Caption = "Срок";
+            this.colUseByDate.FieldName = "UseByDate";
+            this.colUseByDate.Name = "colUseByDate";
+            this.colUseByDate.Visible = true;
+            this.colUseByDate.VisibleIndex = 3;
+            this.colUseByDate.Width = 104;
+            // 
+            // colQuantity
+            // 
+            this.colQuantity.Caption = "Количество";
+            this.colQuantity.DisplayFormat.FormatString = "#.###";
+            this.colQuantity.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colQuantity.FieldName = "Quantity";
+            this.colQuantity.Name = "colQuantity";
+            this.colQuantity.Visible = true;
+            this.colQuantity.VisibleIndex = 0;
+            this.colQuantity.Width = 67;
+            // 
+            // colPricePurchase
+            // 
+            this.colPricePurchase.Caption = "Цена без НДС";
+            this.colPricePurchase.DisplayFormat.FormatString = "#.#####";
+            this.colPricePurchase.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colPricePurchase.FieldName = "PricePurchase";
+            this.colPricePurchase.Name = "colPricePurchase";
+            this.colPricePurchase.Visible = true;
+            this.colPricePurchase.VisibleIndex = 1;
+            this.colPricePurchase.Width = 89;
+            // 
+            // colCalcPurchSum
+            // 
+            this.colCalcPurchSum.Caption = "Сумма без НДС";
+            this.colCalcPurchSum.DisplayFormat.FormatString = "#0.00";
+            this.colCalcPurchSum.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colCalcPurchSum.FieldName = "CalcPurchSum";
+            this.colCalcPurchSum.Name = "colCalcPurchSum";
+            this.colCalcPurchSum.OptionsColumn.AllowEdit = false;
+            this.colCalcPurchSum.OptionsColumn.AllowFocus = false;
+            this.colCalcPurchSum.OptionsColumn.ReadOnly = true;
+            this.colCalcPurchSum.SummaryItem.DisplayFormat = "{0:#0.00}";
+            this.colCalcPurchSum.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
+            this.colCalcPurchSum.Visible = true;
+            this.colCalcPurchSum.VisibleIndex = 4;
             // 
             // productLookUpEdit
             // 
@@ -522,91 +559,6 @@ namespace RetailTrade
             this.productLookUpEdit.DisplayMember = "Name";
             this.productLookUpEdit.Name = "productLookUpEdit";
             this.productLookUpEdit.ValueMember = "ID";
-            // 
-            // colSeries
-            // 
-            this.colSeries.Caption = "Серия";
-            this.colSeries.FieldName = "Series";
-            this.colSeries.Name = "colSeries";
-            this.colSeries.Visible = true;
-            this.colSeries.VisibleIndex = 3;
-            this.colSeries.Width = 59;
-            // 
-            // colUseByDate
-            // 
-            this.colUseByDate.Caption = "Срок";
-            this.colUseByDate.FieldName = "UseByDate";
-            this.colUseByDate.Name = "colUseByDate";
-            this.colUseByDate.Visible = true;
-            this.colUseByDate.VisibleIndex = 4;
-            this.colUseByDate.Width = 104;
-            // 
-            // colQuantity
-            // 
-            this.colQuantity.Caption = "Количество";
-            this.colQuantity.FieldName = "Quantity";
-            this.colQuantity.Name = "colQuantity";
-            this.colQuantity.Visible = true;
-            this.colQuantity.VisibleIndex = 1;
-            this.colQuantity.Width = 67;
-            // 
-            // colPricePurchase
-            // 
-            this.colPricePurchase.Caption = "Цена без НДС";
-            this.colPricePurchase.FieldName = "PricePurchase";
-            this.colPricePurchase.Name = "colPricePurchase";
-            this.colPricePurchase.Visible = true;
-            this.colPricePurchase.VisibleIndex = 2;
-            this.colPricePurchase.Width = 89;
-            // 
-            // colPurchaseNDS
-            // 
-            this.colPurchaseNDS.Caption = "НДС";
-            this.colPurchaseNDS.FieldName = "PurchaseNDS";
-            this.colPurchaseNDS.Name = "colPurchaseNDS";
-            // 
-            // colRetailNDS
-            // 
-            this.colRetailNDS.Caption = "НДС";
-            this.colRetailNDS.FieldName = "RetailNDS";
-            this.colRetailNDS.Name = "colRetailNDS";
-            this.colRetailNDS.OptionsColumn.ReadOnly = true;
-            // 
-            // colPriceRetailNDS
-            // 
-            this.colPriceRetailNDS.Caption = "Цена розничная";
-            this.colPriceRetailNDS.FieldName = "PriceRetailNDS";
-            this.colPriceRetailNDS.Name = "colPriceRetailNDS";
-            this.colPriceRetailNDS.OptionsColumn.ReadOnly = true;
-            // 
-            // colInvoiceDetailRef
-            // 
-            this.colInvoiceDetailRef.Caption = "InvoiceDetailRef";
-            this.colInvoiceDetailRef.FieldName = "InvoiceDetailRef";
-            this.colInvoiceDetailRef.Name = "colInvoiceDetailRef";
-            this.colInvoiceDetailRef.OptionsColumn.ReadOnly = true;
-            this.colInvoiceDetailRef.OptionsColumn.ShowInCustomizationForm = false;
-            // 
-            // colAuthorCreate2
-            // 
-            this.colAuthorCreate2.Caption = "Автор";
-            this.colAuthorCreate2.FieldName = "AuthorCreate";
-            this.colAuthorCreate2.Name = "colAuthorCreate2";
-            this.colAuthorCreate2.OptionsColumn.ReadOnly = true;
-            // 
-            // colAuthorLastModif2
-            // 
-            this.colAuthorLastModif2.Caption = "Редактор";
-            this.colAuthorLastModif2.FieldName = "AuthorLastModif";
-            this.colAuthorLastModif2.Name = "colAuthorLastModif2";
-            this.colAuthorLastModif2.OptionsColumn.ReadOnly = true;
-            // 
-            // colDateCreate2
-            // 
-            this.colDateCreate2.Caption = "Создан";
-            this.colDateCreate2.FieldName = "DateCreate";
-            this.colDateCreate2.Name = "colDateCreate2";
-            this.colDateCreate2.OptionsColumn.ReadOnly = true;
             // 
             // tabPage2
             // 
@@ -626,14 +578,6 @@ namespace RetailTrade
             // receiptMasterTableAdapter
             // 
             this.receiptMasterTableAdapter.ClearBeforeFill = true;
-            // 
-            // colCalcPurchSum
-            // 
-            this.colCalcPurchSum.Caption = "Сумма без НДС";
-            this.colCalcPurchSum.FieldName = "CalcPurchSum";
-            this.colCalcPurchSum.Name = "colCalcPurchSum";
-            this.colCalcPurchSum.Visible = true;
-            this.colCalcPurchSum.VisibleIndex = 5;
             // 
             // ReceiptDetailByRef
             // 
@@ -710,20 +654,10 @@ namespace RetailTrade
         public System.Windows.Forms.BindingSource receiptMasterBindingSource;
         private DevExpress.XtraGrid.GridControl gridReceiptDetail;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewReceiptDetail;
-        private DevExpress.XtraGrid.Columns.GridColumn colID2;
-        private DevExpress.XtraGrid.Columns.GridColumn colReceiptMaterRef;
-        private DevExpress.XtraGrid.Columns.GridColumn colProductRef;
         private DevExpress.XtraGrid.Columns.GridColumn colSeries;
         private DevExpress.XtraGrid.Columns.GridColumn colUseByDate;
         private DevExpress.XtraGrid.Columns.GridColumn colQuantity;
         private DevExpress.XtraGrid.Columns.GridColumn colPricePurchase;
-        private DevExpress.XtraGrid.Columns.GridColumn colPurchaseNDS;
-        private DevExpress.XtraGrid.Columns.GridColumn colRetailNDS;
-        private DevExpress.XtraGrid.Columns.GridColumn colPriceRetailNDS;
-        private DevExpress.XtraGrid.Columns.GridColumn colInvoiceDetailRef;
-        private DevExpress.XtraGrid.Columns.GridColumn colAuthorCreate2;
-        private DevExpress.XtraGrid.Columns.GridColumn colAuthorLastModif2;
-        private DevExpress.XtraGrid.Columns.GridColumn colDateCreate2;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.BindingSource receiptMasterBindingSourceView;
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit productLookUpEdit;
@@ -732,5 +666,7 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripMenuItem editMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fieldMenuItem;
         private DevExpress.XtraGrid.Columns.GridColumn colCalcPurchSum;
+        private DevExpress.XtraGrid.Columns.GridColumn colProductName;
+        private DevExpress.XtraGrid.Columns.GridColumn colManufacturerName1;
     }
 }

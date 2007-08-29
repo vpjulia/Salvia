@@ -53,7 +53,8 @@ namespace RetailTrade
             this.components.Add(this.invoiceDetailTableAdapter, "invoiceDetailTableAdapter");
             this.components.Add(this.invoiceMasterTableAdapter, "invoiceMasterTableAdapter");
             this.components.Add(this.vwRemainsTableAdapter, "vwRemainsTableAdapter");
-            
+            this.components.Add(this.pricesPurchaseTableAdapter, "pricesPurchaseTableAdapter");
+
           /*  FillTable("Product");
             FillTable("Organization");
         */
@@ -62,6 +63,7 @@ namespace RetailTrade
             FillTable("ReceiptDetail");
             FillTable("Orders");
             FillTable("InvoiceDetail");
+            FillTable("PricesPurchase");
 
             //this.productTableAdapter.Fill(this.mDataSet.Product);
         }
@@ -79,10 +81,7 @@ namespace RetailTrade
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'mDataSet.vwRemains' table. You can move, or remove it, as needed.
-            this.vwRemainsTableAdapter.Fill(this.mDataSet.vwRemains);
            
-             
 
 
             SanseeGridLocalizer gLocalizer = new SanseeGridLocalizer();
@@ -100,7 +99,7 @@ namespace RetailTrade
          //   MessageBox.Show(app.GetValue("RetailTradeConnectionString", System.Type.GetType("System.String")).ToString());
 
 
-            this.mainReportViewer.RefreshReport();
+            
         }
       
         
@@ -329,8 +328,21 @@ namespace RetailTrade
 
            }
 
-           DataRow[] dr = sourceRow.GetReceiptDetailRows();
-        
+           MDataSet.ReceiptDetailRow[] dr = sourceRow.GetReceiptDetailRows();
+
+
+           foreach (MDataSet.ReceiptDetailRow detailRow in dr)
+           {
+               try
+               {
+                   this.OrdersTableAdapter.Update(detailRow.GetOrdersRows());
+               }
+               catch
+               {
+                   MessageBox.Show("Ошибка обновления заявок!");
+               }
+           }
+
            try
             {
                 int res=this.receiptDetailTableAdapter.Update(dr);
@@ -344,10 +356,10 @@ namespace RetailTrade
                   return false;
 
             }
+               
+
            finally
             { 
-               /*Как-то проапдейтить таблицу опять*/
-
                 MDataSet.ReceiptMasterDataTable tmpReceiptMaster = new MDataSet.ReceiptMasterDataTable();
 
                 this.receiptMasterTableAdapter.Fill(tmpReceiptMaster);

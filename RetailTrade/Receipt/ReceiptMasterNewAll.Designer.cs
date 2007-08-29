@@ -31,6 +31,7 @@ namespace RetailTrade
             this.components = new System.ComponentModel.Container();
             DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode3 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReceiptMasterNewAll));
             this.gridViewRecDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colProductRef1 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -45,11 +46,14 @@ namespace RetailTrade
             this.colManufacturerName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.grid = new DevExpress.XtraGrid.GridControl();
             this.receiptMasterNewBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridViewMain = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colNumber = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDocDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNote = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOrganizationName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.OrganizationLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.organizationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.colStockName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDocumentTypeName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsNDS = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -85,13 +89,17 @@ namespace RetailTrade
             this.receiptMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.receiptMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptMasterTableAdapter();
             this.productTableAdapter = new RetailTrade.MDataSetTableAdapters.ProductTableAdapter();
+            this.organizationTableAdapter = new RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRecDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterNewBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewMain)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OrganizationLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOrders)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).BeginInit();
@@ -201,16 +209,22 @@ namespace RetailTrade
             gridLevelNode1.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
             gridLevelNode2});
             gridLevelNode1.RelationName = "ReceiptMaster_ReceiptDetail";
+            gridLevelNode3.LevelTemplate = this.gridView1;
+            gridLevelNode3.RelationName = "ReceiptDetail_PricesPurchase";
             this.grid.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode1});
+            gridLevelNode1,
+            gridLevelNode3});
             this.grid.Location = new System.Drawing.Point(0, 25);
             this.grid.MainView = this.gridViewMain;
             this.grid.Name = "grid";
             this.grid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.productLookUpEdit});
+            this.productLookUpEdit,
+            this.OrganizationLookUpEdit});
+            this.grid.ShowOnlyPredefinedDetails = true;
             this.grid.Size = new System.Drawing.Size(740, 376);
             this.grid.TabIndex = 2;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView1,
             this.gridViewMain,
             this.gridViewOrders,
             this.gridViewRecDetail});
@@ -219,6 +233,13 @@ namespace RetailTrade
             // 
             this.receiptMasterNewBindingSource.DataMember = "ReceiptMaster";
             this.receiptMasterNewBindingSource.DataSource = this.mDataSet;
+            // 
+            // gridView1
+            // 
+            this.gridView1.GridControl = this.grid;
+            this.gridView1.Name = "gridView1";
+            this.gridView1.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Never;
+            this.gridView1.ViewCaption = "Цены";
             // 
             // gridViewMain
             // 
@@ -239,7 +260,9 @@ namespace RetailTrade
             this.gridViewMain.Name = "gridViewMain";
             this.gridViewMain.OptionsBehavior.AllowIncrementalSearch = true;
             this.gridViewMain.OptionsBehavior.Editable = false;
+            this.gridViewMain.OptionsDetail.AutoZoomDetail = true;
             this.gridViewMain.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridViewMain.OptionsView.ShowChildrenInGroupPanel = true;
             this.gridViewMain.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
             // 
             // colNumber
@@ -272,11 +295,31 @@ namespace RetailTrade
             // colOrganizationName
             // 
             this.colOrganizationName.Caption = "Поставщик";
+            this.colOrganizationName.ColumnEdit = this.OrganizationLookUpEdit;
             this.colOrganizationName.FieldName = "OrganizationName";
             this.colOrganizationName.Name = "colOrganizationName";
             this.colOrganizationName.Visible = true;
             this.colOrganizationName.VisibleIndex = 5;
             this.colOrganizationName.Width = 58;
+            // 
+            // OrganizationLookUpEdit
+            // 
+            this.OrganizationLookUpEdit.AutoHeight = false;
+            this.OrganizationLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.OrganizationLookUpEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("ShortName", "ShortName", 70, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near)});
+            this.OrganizationLookUpEdit.DataSource = this.organizationBindingSource;
+            this.OrganizationLookUpEdit.DisplayMember = "ShortName";
+            this.OrganizationLookUpEdit.Name = "OrganizationLookUpEdit";
+            this.OrganizationLookUpEdit.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.OrganizationLookUpEdit.ValidateOnEnterKey = true;
+            this.OrganizationLookUpEdit.ValueMember = "ID";
+            // 
+            // organizationBindingSource
+            // 
+            this.organizationBindingSource.DataMember = "Organization";
+            this.organizationBindingSource.DataSource = this.mDataSet;
             // 
             // colStockName
             // 
@@ -362,6 +405,7 @@ namespace RetailTrade
             this.gridViewOrders.GridControl = this.grid;
             this.gridViewOrders.Name = "gridViewOrders";
             this.gridViewOrders.OptionsView.ShowGroupPanel = false;
+            this.gridViewOrders.ViewCaption = "Заказы";
             // 
             // colTradePupletRef
             // 
@@ -582,6 +626,10 @@ namespace RetailTrade
             // 
             this.productTableAdapter.ClearBeforeFill = true;
             // 
+            // organizationTableAdapter
+            // 
+            this.organizationTableAdapter.ClearBeforeFill = true;
+            // 
             // ReceiptMasterNewAll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -598,7 +646,10 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterNewBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewMain)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OrganizationLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOrders)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
@@ -664,5 +715,9 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Columns.GridColumn colPricePurchase1;
         private DevExpress.XtraGrid.Columns.GridColumn colCalcPurchSum;
         private DevExpress.XtraGrid.Columns.GridColumn colManufacturerName;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit OrganizationLookUpEdit;
+        private System.Windows.Forms.BindingSource organizationBindingSource;
+        private RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter organizationTableAdapter;
     }
 }
