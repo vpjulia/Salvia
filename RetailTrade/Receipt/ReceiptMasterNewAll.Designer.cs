@@ -50,10 +50,8 @@ namespace RetailTrade
             this.gridViewMain = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colNumber = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDocDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colNote = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOrganizationName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.OrganizationLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
-            this.organizationBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.colNote = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDocumentTypeName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsNDS = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -62,8 +60,9 @@ namespace RetailTrade
             this.colFullAuthorCreate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPurchSum = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPurchNDS = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.OrganizationLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.organizationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridViewOrders = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colTradePupletRef = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDateOrder = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQuantityNow = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -90,6 +89,7 @@ namespace RetailTrade
             this.receiptMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptMasterTableAdapter();
             this.productTableAdapter = new RetailTrade.MDataSetTableAdapters.ProductTableAdapter();
             this.organizationTableAdapter = new RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter();
+            this.colTradePupletName = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRecDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
@@ -125,6 +125,9 @@ namespace RetailTrade
             this.colProductRef1.ColumnEdit = this.productLookUpEdit;
             this.colProductRef1.FieldName = "ProductRef";
             this.colProductRef1.Name = "colProductRef1";
+            this.colProductRef1.OptionsColumn.AllowEdit = false;
+            this.colProductRef1.OptionsColumn.AllowFocus = false;
+            this.colProductRef1.OptionsColumn.ReadOnly = true;
             this.colProductRef1.Visible = true;
             this.colProductRef1.VisibleIndex = 0;
             // 
@@ -179,6 +182,7 @@ namespace RetailTrade
             this.colPricePurchase1.Caption = "Цена";
             this.colPricePurchase1.FieldName = "PricePurchase";
             this.colPricePurchase1.Name = "colPricePurchase1";
+            this.colPricePurchase1.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.colPricePurchase1.Visible = true;
             this.colPricePurchase1.VisibleIndex = 4;
             // 
@@ -187,6 +191,12 @@ namespace RetailTrade
             this.colCalcPurchSum.Caption = "Сумма";
             this.colCalcPurchSum.FieldName = "CalcPurchSum";
             this.colCalcPurchSum.Name = "colCalcPurchSum";
+            this.colCalcPurchSum.OptionsColumn.AllowEdit = false;
+            this.colCalcPurchSum.OptionsColumn.AllowFocus = false;
+            this.colCalcPurchSum.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.colCalcPurchSum.OptionsColumn.ReadOnly = true;
+            this.colCalcPurchSum.OptionsFilter.AllowAutoFilter = false;
+            this.colCalcPurchSum.OptionsFilter.AllowFilter = false;
             this.colCalcPurchSum.Visible = true;
             this.colCalcPurchSum.VisibleIndex = 5;
             // 
@@ -195,6 +205,12 @@ namespace RetailTrade
             this.colManufacturerName.Caption = "Изготовитель";
             this.colManufacturerName.FieldName = "ManufacturerName";
             this.colManufacturerName.Name = "colManufacturerName";
+            this.colManufacturerName.OptionsColumn.AllowEdit = false;
+            this.colManufacturerName.OptionsColumn.AllowFocus = false;
+            this.colManufacturerName.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.colManufacturerName.OptionsColumn.ReadOnly = true;
+            this.colManufacturerName.OptionsFilter.AllowAutoFilter = false;
+            this.colManufacturerName.OptionsFilter.AllowFilter = false;
             this.colManufacturerName.Visible = true;
             this.colManufacturerName.VisibleIndex = 6;
             // 
@@ -238,6 +254,7 @@ namespace RetailTrade
             // 
             this.gridView1.GridControl = this.grid;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Never;
             this.gridView1.ViewCaption = "Цены";
             // 
@@ -246,8 +263,8 @@ namespace RetailTrade
             this.gridViewMain.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colNumber,
             this.colDocDate,
-            this.colNote,
             this.colOrganizationName,
+            this.colNote,
             this.colStockName,
             this.colDocumentTypeName,
             this.colIsNDS,
@@ -260,9 +277,10 @@ namespace RetailTrade
             this.gridViewMain.Name = "gridViewMain";
             this.gridViewMain.OptionsBehavior.AllowIncrementalSearch = true;
             this.gridViewMain.OptionsBehavior.Editable = false;
-            this.gridViewMain.OptionsDetail.AutoZoomDetail = true;
             this.gridViewMain.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridViewMain.OptionsView.ShowChildrenInGroupPanel = true;
+            this.gridViewMain.OptionsView.ShowFooter = true;
+            this.gridViewMain.OptionsView.ShowGroupedColumns = true;
             this.gridViewMain.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
             // 
             // colNumber
@@ -272,7 +290,7 @@ namespace RetailTrade
             this.colNumber.Name = "colNumber";
             this.colNumber.Visible = true;
             this.colNumber.VisibleIndex = 0;
-            this.colNumber.Width = 69;
+            this.colNumber.Width = 67;
             // 
             // colDocDate
             // 
@@ -281,7 +299,18 @@ namespace RetailTrade
             this.colDocDate.Name = "colDocDate";
             this.colDocDate.Visible = true;
             this.colDocDate.VisibleIndex = 1;
-            this.colDocDate.Width = 98;
+            this.colDocDate.Width = 95;
+            // 
+            // colOrganizationName
+            // 
+            this.colOrganizationName.Caption = "Поставщик";
+            this.colOrganizationName.FieldName = "OrganizationName";
+            this.colOrganizationName.Name = "colOrganizationName";
+            this.colOrganizationName.SummaryItem.DisplayFormat = "(Документов: {0})";
+            this.colOrganizationName.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Count;
+            this.colOrganizationName.Visible = true;
+            this.colOrganizationName.VisibleIndex = 2;
+            this.colOrganizationName.Width = 104;
             // 
             // colNote
             // 
@@ -289,18 +318,107 @@ namespace RetailTrade
             this.colNote.FieldName = "Note";
             this.colNote.Name = "colNote";
             this.colNote.Visible = true;
-            this.colNote.VisibleIndex = 4;
-            this.colNote.Width = 69;
+            this.colNote.VisibleIndex = 5;
+            this.colNote.Width = 62;
             // 
-            // colOrganizationName
+            // colStockName
             // 
-            this.colOrganizationName.Caption = "Поставщик";
-            this.colOrganizationName.ColumnEdit = this.OrganizationLookUpEdit;
-            this.colOrganizationName.FieldName = "OrganizationName";
-            this.colOrganizationName.Name = "colOrganizationName";
-            this.colOrganizationName.Visible = true;
-            this.colOrganizationName.VisibleIndex = 5;
-            this.colOrganizationName.Width = 58;
+            this.colStockName.Caption = "Склад";
+            this.colStockName.FieldName = "StockName";
+            this.colStockName.Name = "colStockName";
+            this.colStockName.OptionsColumn.AllowEdit = false;
+            this.colStockName.OptionsColumn.AllowFocus = false;
+            this.colStockName.OptionsColumn.ReadOnly = true;
+            this.colStockName.Visible = true;
+            this.colStockName.VisibleIndex = 6;
+            this.colStockName.Width = 60;
+            // 
+            // colDocumentTypeName
+            // 
+            this.colDocumentTypeName.Caption = "Тип документа";
+            this.colDocumentTypeName.FieldName = "DocumentTypeName";
+            this.colDocumentTypeName.Name = "colDocumentTypeName";
+            this.colDocumentTypeName.OptionsColumn.AllowEdit = false;
+            this.colDocumentTypeName.OptionsColumn.AllowFocus = false;
+            this.colDocumentTypeName.OptionsColumn.ReadOnly = true;
+            this.colDocumentTypeName.Visible = true;
+            this.colDocumentTypeName.VisibleIndex = 7;
+            this.colDocumentTypeName.Width = 56;
+            // 
+            // colIsNDS
+            // 
+            this.colIsNDS.Caption = "НДС";
+            this.colIsNDS.FieldName = "IsNDS";
+            this.colIsNDS.Name = "colIsNDS";
+            this.colIsNDS.OptionsColumn.AllowEdit = false;
+            this.colIsNDS.OptionsColumn.AllowFocus = false;
+            this.colIsNDS.OptionsColumn.ReadOnly = true;
+            this.colIsNDS.Visible = true;
+            this.colIsNDS.VisibleIndex = 8;
+            this.colIsNDS.Width = 29;
+            // 
+            // colTradePutletName
+            // 
+            this.colTradePutletName.Caption = "Торговая точка";
+            this.colTradePutletName.FieldName = "TradePutletName";
+            this.colTradePutletName.Name = "colTradePutletName";
+            this.colTradePutletName.OptionsColumn.AllowEdit = false;
+            this.colTradePutletName.OptionsColumn.AllowFocus = false;
+            this.colTradePutletName.OptionsColumn.ReadOnly = true;
+            this.colTradePutletName.Visible = true;
+            this.colTradePutletName.VisibleIndex = 9;
+            this.colTradePutletName.Width = 29;
+            // 
+            // colFullAuthorModif
+            // 
+            this.colFullAuthorModif.Caption = "Изменен";
+            this.colFullAuthorModif.FieldName = "FullAuthorModif";
+            this.colFullAuthorModif.Name = "colFullAuthorModif";
+            this.colFullAuthorModif.OptionsColumn.AllowEdit = false;
+            this.colFullAuthorModif.OptionsColumn.AllowFocus = false;
+            this.colFullAuthorModif.Visible = true;
+            this.colFullAuthorModif.VisibleIndex = 10;
+            this.colFullAuthorModif.Width = 29;
+            // 
+            // colFullAuthorCreate
+            // 
+            this.colFullAuthorCreate.Caption = "Создан";
+            this.colFullAuthorCreate.FieldName = "FullAuthorCreate";
+            this.colFullAuthorCreate.Name = "colFullAuthorCreate";
+            this.colFullAuthorCreate.OptionsColumn.AllowEdit = false;
+            this.colFullAuthorCreate.OptionsColumn.AllowFocus = false;
+            this.colFullAuthorCreate.OptionsColumn.ReadOnly = true;
+            this.colFullAuthorCreate.Visible = true;
+            this.colFullAuthorCreate.VisibleIndex = 11;
+            this.colFullAuthorCreate.Width = 69;
+            // 
+            // colPurchSum
+            // 
+            this.colPurchSum.Caption = "Сумма без НДС";
+            this.colPurchSum.FieldName = "PurchSum";
+            this.colPurchSum.Name = "colPurchSum";
+            this.colPurchSum.OptionsColumn.AllowEdit = false;
+            this.colPurchSum.OptionsColumn.AllowFocus = false;
+            this.colPurchSum.OptionsColumn.ReadOnly = true;
+            this.colPurchSum.SummaryItem.DisplayFormat = "{0:#0.00}";
+            this.colPurchSum.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
+            this.colPurchSum.Visible = true;
+            this.colPurchSum.VisibleIndex = 3;
+            this.colPurchSum.Width = 82;
+            // 
+            // colPurchNDS
+            // 
+            this.colPurchNDS.Caption = "НДС";
+            this.colPurchNDS.FieldName = "PurchNDS";
+            this.colPurchNDS.Name = "colPurchNDS";
+            this.colPurchNDS.OptionsColumn.AllowEdit = false;
+            this.colPurchNDS.OptionsColumn.AllowFocus = false;
+            this.colPurchNDS.OptionsColumn.ReadOnly = true;
+            this.colPurchNDS.SummaryItem.DisplayFormat = "{0:#0.00}";
+            this.colPurchNDS.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
+            this.colPurchNDS.Visible = true;
+            this.colPurchNDS.VisibleIndex = 4;
+            this.colPurchNDS.Width = 44;
             // 
             // OrganizationLookUpEdit
             // 
@@ -321,82 +439,10 @@ namespace RetailTrade
             this.organizationBindingSource.DataMember = "Organization";
             this.organizationBindingSource.DataSource = this.mDataSet;
             // 
-            // colStockName
-            // 
-            this.colStockName.Caption = "Склад";
-            this.colStockName.FieldName = "StockName";
-            this.colStockName.Name = "colStockName";
-            this.colStockName.Visible = true;
-            this.colStockName.VisibleIndex = 6;
-            this.colStockName.Width = 67;
-            // 
-            // colDocumentTypeName
-            // 
-            this.colDocumentTypeName.Caption = "Тип документа";
-            this.colDocumentTypeName.FieldName = "DocumentTypeName";
-            this.colDocumentTypeName.Name = "colDocumentTypeName";
-            this.colDocumentTypeName.Visible = true;
-            this.colDocumentTypeName.VisibleIndex = 7;
-            this.colDocumentTypeName.Width = 62;
-            // 
-            // colIsNDS
-            // 
-            this.colIsNDS.Caption = "НДС";
-            this.colIsNDS.FieldName = "IsNDS";
-            this.colIsNDS.Name = "colIsNDS";
-            this.colIsNDS.Visible = true;
-            this.colIsNDS.VisibleIndex = 8;
-            this.colIsNDS.Width = 32;
-            // 
-            // colTradePutletName
-            // 
-            this.colTradePutletName.Caption = "Торговая точка";
-            this.colTradePutletName.FieldName = "TradePutletName";
-            this.colTradePutletName.Name = "colTradePutletName";
-            this.colTradePutletName.Visible = true;
-            this.colTradePutletName.VisibleIndex = 9;
-            this.colTradePutletName.Width = 32;
-            // 
-            // colFullAuthorModif
-            // 
-            this.colFullAuthorModif.Caption = "Изменен";
-            this.colFullAuthorModif.FieldName = "FullAuthorModif";
-            this.colFullAuthorModif.Name = "colFullAuthorModif";
-            this.colFullAuthorModif.Visible = true;
-            this.colFullAuthorModif.VisibleIndex = 10;
-            this.colFullAuthorModif.Width = 32;
-            // 
-            // colFullAuthorCreate
-            // 
-            this.colFullAuthorCreate.Caption = "Создан";
-            this.colFullAuthorCreate.FieldName = "FullAuthorCreate";
-            this.colFullAuthorCreate.Name = "colFullAuthorCreate";
-            this.colFullAuthorCreate.Visible = true;
-            this.colFullAuthorCreate.VisibleIndex = 11;
-            this.colFullAuthorCreate.Width = 66;
-            // 
-            // colPurchSum
-            // 
-            this.colPurchSum.Caption = "Сумма без НДС";
-            this.colPurchSum.FieldName = "PurchSum";
-            this.colPurchSum.Name = "colPurchSum";
-            this.colPurchSum.Visible = true;
-            this.colPurchSum.VisibleIndex = 2;
-            this.colPurchSum.Width = 91;
-            // 
-            // colPurchNDS
-            // 
-            this.colPurchNDS.Caption = "НДС";
-            this.colPurchNDS.FieldName = "PurchNDS";
-            this.colPurchNDS.Name = "colPurchNDS";
-            this.colPurchNDS.Visible = true;
-            this.colPurchNDS.VisibleIndex = 3;
-            this.colPurchNDS.Width = 50;
-            // 
             // gridViewOrders
             // 
             this.gridViewOrders.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colTradePupletRef,
+            this.colTradePupletName,
             this.colDateOrder,
             this.colPrice,
             this.colQuantityNow,
@@ -407,23 +453,16 @@ namespace RetailTrade
             this.gridViewOrders.OptionsView.ShowGroupPanel = false;
             this.gridViewOrders.ViewCaption = "Заказы";
             // 
-            // colTradePupletRef
-            // 
-            this.colTradePupletRef.Caption = "Торговая точка";
-            this.colTradePupletRef.FieldName = "TradePupletRef";
-            this.colTradePupletRef.Name = "colTradePupletRef";
-            this.colTradePupletRef.OptionsColumn.AllowEdit = false;
-            this.colTradePupletRef.Visible = true;
-            this.colTradePupletRef.VisibleIndex = 0;
-            // 
             // colDateOrder
             // 
             this.colDateOrder.Caption = "Дата";
             this.colDateOrder.FieldName = "DateOrder";
             this.colDateOrder.Name = "colDateOrder";
             this.colDateOrder.OptionsColumn.AllowEdit = false;
+            this.colDateOrder.OptionsColumn.AllowFocus = false;
+            this.colDateOrder.OptionsColumn.ReadOnly = true;
             this.colDateOrder.Visible = true;
-            this.colDateOrder.VisibleIndex = 1;
+            this.colDateOrder.VisibleIndex = 0;
             // 
             // colPrice
             // 
@@ -431,8 +470,12 @@ namespace RetailTrade
             this.colPrice.FieldName = "Price";
             this.colPrice.Name = "colPrice";
             this.colPrice.OptionsColumn.AllowEdit = false;
+            this.colPrice.OptionsColumn.AllowFocus = false;
+            this.colPrice.OptionsColumn.AllowGroup = DevExpress.Utils.DefaultBoolean.False;
+            this.colPrice.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.colPrice.OptionsColumn.ReadOnly = true;
             this.colPrice.Visible = true;
-            this.colPrice.VisibleIndex = 2;
+            this.colPrice.VisibleIndex = 1;
             // 
             // colQuantityNow
             // 
@@ -440,17 +483,19 @@ namespace RetailTrade
             this.colQuantityNow.FieldName = "QuantityNow";
             this.colQuantityNow.Name = "colQuantityNow";
             this.colQuantityNow.OptionsColumn.AllowEdit = false;
+            this.colQuantityNow.OptionsColumn.AllowFocus = false;
+            this.colQuantityNow.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.colQuantityNow.OptionsColumn.ReadOnly = true;
             this.colQuantityNow.Visible = true;
-            this.colQuantityNow.VisibleIndex = 4;
+            this.colQuantityNow.VisibleIndex = 3;
             // 
             // colNote1
             // 
             this.colNote1.Caption = "Примечание";
             this.colNote1.FieldName = "Note";
             this.colNote1.Name = "colNote1";
-            this.colNote1.OptionsColumn.AllowEdit = false;
             this.colNote1.Visible = true;
-            this.colNote1.VisibleIndex = 5;
+            this.colNote1.VisibleIndex = 4;
             // 
             // colReserved
             // 
@@ -460,7 +505,7 @@ namespace RetailTrade
             this.colReserved.FieldName = "Reserved";
             this.colReserved.Name = "colReserved";
             this.colReserved.Visible = true;
-            this.colReserved.VisibleIndex = 3;
+            this.colReserved.VisibleIndex = 2;
             // 
             // colProductRef
             // 
@@ -630,6 +675,14 @@ namespace RetailTrade
             // 
             this.organizationTableAdapter.ClearBeforeFill = true;
             // 
+            // colTradePupletName
+            // 
+            this.colTradePupletName.Caption = "Торговая точка";
+            this.colTradePupletName.FieldName = "TradePupletName";
+            this.colTradePupletName.Name = "colTradePupletName";
+            this.colTradePupletName.Visible = true;
+            this.colTradePupletName.VisibleIndex = 5;
+            // 
             // ReceiptMasterNewAll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -674,7 +727,6 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Columns.GridColumn colNumber;
         private DevExpress.XtraGrid.Columns.GridColumn colDocDate;
         private DevExpress.XtraGrid.Columns.GridColumn colNote;
-        private DevExpress.XtraGrid.Columns.GridColumn colOrganizationName;
         private DevExpress.XtraGrid.Columns.GridColumn colStockName;
         private DevExpress.XtraGrid.Columns.GridColumn colDocumentTypeName;
         private DevExpress.XtraGrid.Columns.GridColumn colIsNDS;
@@ -702,7 +754,6 @@ namespace RetailTrade
         
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewRecDetail;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewOrders;
-        private DevExpress.XtraGrid.Columns.GridColumn colTradePupletRef;
         private DevExpress.XtraGrid.Columns.GridColumn colDateOrder;
         private DevExpress.XtraGrid.Columns.GridColumn colPrice;
         private DevExpress.XtraGrid.Columns.GridColumn colReserved;
@@ -719,5 +770,7 @@ namespace RetailTrade
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit OrganizationLookUpEdit;
         private System.Windows.Forms.BindingSource organizationBindingSource;
         private RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter organizationTableAdapter;
+        private DevExpress.XtraGrid.Columns.GridColumn colOrganizationName;
+        private DevExpress.XtraGrid.Columns.GridColumn colTradePupletName;
     }
 }
