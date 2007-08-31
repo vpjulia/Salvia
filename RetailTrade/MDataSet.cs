@@ -3,6 +3,14 @@
 
     partial class MDataSet
     {
+        partial class InvoiceMasterDataTable
+        {
+        }
+    
+        partial class InvoiceDetailDataTable
+        {
+        }
+    
         partial class ProductDataTable
         {
         }

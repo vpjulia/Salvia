@@ -547,7 +547,7 @@ namespace RetailTrade
                             if (!FindOpenedTabs(TagControl))
                             {
                               //  Title = "¹" + (list[0] as MDataSet.InvoiceMasterRow).Number.ToString() + " " + (list[0] as MDataSet.InvoiceMasterRow).OrganizationRow.ShortName.ToString();
-                                 usControl = new InvoiceRow((list[0] as MDataSet.InvoiceMasterRow), (list[0] as MDataSet.InvoiceMasterRow).ID);
+                                 usControl = new InvoiceRow((list[0] as MDataSet.InvoiceMasterRow));
                                 (usControl as InvoiceRow).Tag = Title;
                                 (usControl as InvoiceRow).Dock = DockStyle.Fill;
                             }
@@ -620,17 +620,7 @@ namespace RetailTrade
 
         
 
-        private void receiptMasterNewBindingSource_PositionChanged(object sender, EventArgs e)
-        {
-          
-           
-         /*  ReportParameter p = new ReportParameter("ID", ((this.receiptMasterNewBindingSource.CurrencyManager.Current as DataRowView).Row as MDataSet.ReceiptMasterNewRow).ID.ToString());
-            this.reportViewer1.ServerReport.SetParameters(new ReportParameter[] { p });
-            this.reportViewer1.RefreshReport();
-       
-        */
-        }
-
+      
         private void mainReportViewer_MouseDoubleClick(object sender, MouseEventArgs e)
         {
 

@@ -63,6 +63,7 @@ namespace RetailTrade
             this.OrganizationLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.organizationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridViewOrders = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colTradePupletName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDateOrder = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQuantityNow = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -89,7 +90,6 @@ namespace RetailTrade
             this.receiptMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptMasterTableAdapter();
             this.productTableAdapter = new RetailTrade.MDataSetTableAdapters.ProductTableAdapter();
             this.organizationTableAdapter = new RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter();
-            this.colTradePupletName = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRecDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
@@ -117,6 +117,7 @@ namespace RetailTrade
             this.colManufacturerName});
             this.gridViewRecDetail.GridControl = this.grid;
             this.gridViewRecDetail.Name = "gridViewRecDetail";
+            this.gridViewRecDetail.OptionsView.ShowChildrenInGroupPanel = true;
             this.gridViewRecDetail.OptionsView.ShowGroupPanel = false;
             // 
             // colProductRef1
@@ -277,6 +278,7 @@ namespace RetailTrade
             this.gridViewMain.Name = "gridViewMain";
             this.gridViewMain.OptionsBehavior.AllowIncrementalSearch = true;
             this.gridViewMain.OptionsBehavior.Editable = false;
+            this.gridViewMain.OptionsDetail.AllowOnlyOneMasterRowExpanded = true;
             this.gridViewMain.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridViewMain.OptionsView.ShowChildrenInGroupPanel = true;
             this.gridViewMain.OptionsView.ShowFooter = true;
@@ -452,6 +454,14 @@ namespace RetailTrade
             this.gridViewOrders.Name = "gridViewOrders";
             this.gridViewOrders.OptionsView.ShowGroupPanel = false;
             this.gridViewOrders.ViewCaption = "Заказы";
+            // 
+            // colTradePupletName
+            // 
+            this.colTradePupletName.Caption = "Торговая точка";
+            this.colTradePupletName.FieldName = "TradePupletName";
+            this.colTradePupletName.Name = "colTradePupletName";
+            this.colTradePupletName.Visible = true;
+            this.colTradePupletName.VisibleIndex = 5;
             // 
             // colDateOrder
             // 
@@ -674,14 +684,6 @@ namespace RetailTrade
             // organizationTableAdapter
             // 
             this.organizationTableAdapter.ClearBeforeFill = true;
-            // 
-            // colTradePupletName
-            // 
-            this.colTradePupletName.Caption = "Торговая точка";
-            this.colTradePupletName.FieldName = "TradePupletName";
-            this.colTradePupletName.Name = "colTradePupletName";
-            this.colTradePupletName.Visible = true;
-            this.colTradePupletName.VisibleIndex = 5;
             // 
             // ReceiptMasterNewAll
             // 
