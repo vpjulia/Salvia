@@ -1,0 +1,558 @@
+namespace RetailTrade.Invoice
+{
+    partial class InvoiceDetailEdit
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Component Designer generated code
+
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.gridRemains = new DevExpress.XtraGrid.GridControl();
+            this.vwRemainsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.mDataSet = new RetailTrade.MDataSet();
+            this.gridViewRemainsInvDetEdt = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colProductRef = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colProductName1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colManufacturerName1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSeries = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colUseByDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPricePurchase = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colQuantityRemains = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colReceiptDetailRef = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDocDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridControl2 = new DevExpress.XtraGrid.GridControl();
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.invoiceDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.gridViewinvDet = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colProductName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colManufacturerName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPricePurchase1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colQuantity = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPriceRetailNDS = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colNote = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAuthorCreate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAuthorLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDateCreate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDateLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colLocalReceiptDetailRef = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.invoiceMasterBindingSourceView = new System.Windows.Forms.BindingSource(this.components);
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.actionLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.invoiceMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridRemains)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vwRemainsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewRemainsInvDetEdt)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
+            this.contextMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.invoiceDetailBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewinvDet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSourceView)).BeginInit();
+            this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSource)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(680, 535);
+            this.tabControl1.TabIndex = 1;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.splitContainer1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(672, 506);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Накладная";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.gridRemains);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.gridControl2);
+            this.splitContainer1.Size = new System.Drawing.Size(666, 500);
+            this.splitContainer1.SplitterDistance = 274;
+            this.splitContainer1.TabIndex = 0;
+            // 
+            // gridRemains
+            // 
+            this.gridRemains.DataSource = this.vwRemainsBindingSource;
+            this.gridRemains.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
+            this.gridRemains.EmbeddedNavigator.Name = "";
+            this.gridRemains.Location = new System.Drawing.Point(0, 0);
+            this.gridRemains.MainView = this.gridViewRemainsInvDetEdt;
+            this.gridRemains.Name = "gridRemains";
+            this.gridRemains.Size = new System.Drawing.Size(666, 274);
+            this.gridRemains.TabIndex = 0;
+            this.gridRemains.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewRemainsInvDetEdt});
+            this.gridRemains.DoubleClick += new System.EventHandler(this.btAdd_Click);
+            this.gridRemains.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridRemains_KeyDown);
+            // 
+            // vwRemainsBindingSource
+            // 
+            this.vwRemainsBindingSource.DataMember = "vwRemains";
+            this.vwRemainsBindingSource.DataSource = this.mDataSet;
+            // 
+            // mDataSet
+            // 
+            this.mDataSet.DataSetName = "MDataSet";
+            this.mDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // gridViewRemainsInvDetEdt
+            // 
+            this.gridViewRemainsInvDetEdt.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colProductRef,
+            this.colProductName1,
+            this.colManufacturerName1,
+            this.colSeries,
+            this.colUseByDate,
+            this.colPricePurchase,
+            this.colQuantityRemains,
+            this.colReceiptDetailRef,
+            this.colDocDate});
+            this.gridViewRemainsInvDetEdt.GridControl = this.gridRemains;
+            this.gridViewRemainsInvDetEdt.Name = "gridViewRemainsInvDetEdt";
+            this.gridViewRemainsInvDetEdt.OptionsBehavior.AllowIncrementalSearch = true;
+            this.gridViewRemainsInvDetEdt.OptionsBehavior.Editable = false;
+            this.gridViewRemainsInvDetEdt.OptionsFilter.UseNewCustomFilterDialog = true;
+            this.gridViewRemainsInvDetEdt.OptionsSelection.EnableAppearanceFocusedCell = false;
+            // 
+            // colProductRef
+            // 
+            this.colProductRef.Caption = "Код";
+            this.colProductRef.FieldName = "ProductRef";
+            this.colProductRef.Name = "colProductRef";
+            this.colProductRef.OptionsColumn.AllowEdit = false;
+            this.colProductRef.OptionsColumn.ReadOnly = true;
+            this.colProductRef.OptionsFilter.AllowFilter = false;
+            this.colProductRef.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Like;
+            this.colProductRef.Visible = true;
+            this.colProductRef.VisibleIndex = 0;
+            this.colProductRef.Width = 73;
+            // 
+            // colProductName1
+            // 
+            this.colProductName1.Caption = "Наименование";
+            this.colProductName1.FieldName = "ProductName";
+            this.colProductName1.Name = "colProductName1";
+            this.colProductName1.OptionsFilter.AllowFilter = false;
+            this.colProductName1.Visible = true;
+            this.colProductName1.VisibleIndex = 1;
+            this.colProductName1.Width = 135;
+            // 
+            // colManufacturerName1
+            // 
+            this.colManufacturerName1.Caption = "Изготовитель";
+            this.colManufacturerName1.FieldName = "ManufacturerName";
+            this.colManufacturerName1.Name = "colManufacturerName1";
+            this.colManufacturerName1.Visible = true;
+            this.colManufacturerName1.VisibleIndex = 2;
+            this.colManufacturerName1.Width = 132;
+            // 
+            // colSeries
+            // 
+            this.colSeries.Caption = "Серия";
+            this.colSeries.FieldName = "Series";
+            this.colSeries.Name = "colSeries";
+            this.colSeries.OptionsFilter.AllowFilter = false;
+            this.colSeries.Visible = true;
+            this.colSeries.VisibleIndex = 3;
+            this.colSeries.Width = 62;
+            // 
+            // colUseByDate
+            // 
+            this.colUseByDate.Caption = "Срок";
+            this.colUseByDate.DisplayFormat.FormatString = "MMM.yyyy";
+            this.colUseByDate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.colUseByDate.FieldName = "UseByDate";
+            this.colUseByDate.Name = "colUseByDate";
+            this.colUseByDate.OptionsFilter.AllowFilter = false;
+            this.colUseByDate.Visible = true;
+            this.colUseByDate.VisibleIndex = 4;
+            this.colUseByDate.Width = 62;
+            // 
+            // colPricePurchase
+            // 
+            this.colPricePurchase.Caption = "Цена закупочная";
+            this.colPricePurchase.DisplayFormat.FormatString = "##.#####";
+            this.colPricePurchase.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colPricePurchase.FieldName = "PricePurchase";
+            this.colPricePurchase.Name = "colPricePurchase";
+            this.colPricePurchase.OptionsColumn.AllowEdit = false;
+            this.colPricePurchase.OptionsColumn.ReadOnly = true;
+            this.colPricePurchase.OptionsFilter.AllowFilter = false;
+            this.colPricePurchase.Visible = true;
+            this.colPricePurchase.VisibleIndex = 5;
+            this.colPricePurchase.Width = 62;
+            // 
+            // colQuantityRemains
+            // 
+            this.colQuantityRemains.Caption = "Остаток";
+            this.colQuantityRemains.DisplayFormat.FormatString = "#.###";
+            this.colQuantityRemains.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colQuantityRemains.FieldName = "QuantityRemains";
+            this.colQuantityRemains.Name = "colQuantityRemains";
+            this.colQuantityRemains.OptionsColumn.AllowEdit = false;
+            this.colQuantityRemains.OptionsFilter.AllowFilter = false;
+            this.colQuantityRemains.Visible = true;
+            this.colQuantityRemains.VisibleIndex = 6;
+            this.colQuantityRemains.Width = 62;
+            // 
+            // colReceiptDetailRef
+            // 
+            this.colReceiptDetailRef.Caption = "ReceiptDetailRef";
+            this.colReceiptDetailRef.FieldName = "ReceiptDetailRef";
+            this.colReceiptDetailRef.Name = "colReceiptDetailRef";
+            this.colReceiptDetailRef.OptionsColumn.ShowInCustomizationForm = false;
+            this.colReceiptDetailRef.Width = 97;
+            // 
+            // colDocDate
+            // 
+            this.colDocDate.Caption = "Дата прихода";
+            this.colDocDate.FieldName = "DocDate";
+            this.colDocDate.Name = "colDocDate";
+            this.colDocDate.Visible = true;
+            this.colDocDate.VisibleIndex = 7;
+            this.colDocDate.Width = 82;
+            // 
+            // gridControl2
+            // 
+            this.gridControl2.ContextMenuStrip = this.contextMenuStrip;
+            this.gridControl2.DataSource = this.invoiceDetailBindingSource;
+            this.gridControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
+            this.gridControl2.EmbeddedNavigator.Name = "";
+            this.gridControl2.Location = new System.Drawing.Point(0, 0);
+            this.gridControl2.MainView = this.gridViewinvDet;
+            this.gridControl2.Name = "gridControl2";
+            this.gridControl2.Size = new System.Drawing.Size(666, 222);
+            this.gridControl2.TabIndex = 0;
+            this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewinvDet});
+            // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btDelete});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(200, 26);
+            // 
+            // btDelete
+            // 
+            this.btDelete.Name = "btDelete";
+            this.btDelete.Size = new System.Drawing.Size(199, 22);
+            this.btDelete.Text = "Удалить строку";
+            this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
+            // 
+            // invoiceDetailBindingSource
+            // 
+            this.invoiceDetailBindingSource.DataMember = "InvoiceDetail";
+            this.invoiceDetailBindingSource.DataSource = this.mDataSet;
+
+
+            // 
+            // gridViewinvDet
+            // 
+            this.gridViewinvDet.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colProductName,
+            this.colManufacturerName,
+            this.colPricePurchase1,
+            this.colQuantity,
+            this.colPriceRetailNDS,
+            this.colNote,
+            this.colAuthorCreate,
+            this.colAuthorLastModif,
+            this.colDateCreate,
+            this.colDateLastModif,
+            this.colLocalReceiptDetailRef});
+            this.gridViewinvDet.GridControl = this.gridControl2;
+            this.gridViewinvDet.Name = "gridViewinvDet";
+            this.gridViewinvDet.DoubleClick += new System.EventHandler(this.gridViewinvDet_DoubleClick);
+            this.gridViewinvDet.InvalidValueException += new DevExpress.XtraEditors.Controls.InvalidValueExceptionEventHandler(this.gridViewinvDet_InvalidValueException);
+            this.gridViewinvDet.InvalidRowException += new DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventHandler(this.gridViewinvDet_InvalidRowException);
+            // 
+            // colProductName
+            // 
+            this.colProductName.Caption = "Наименование";
+            this.colProductName.FieldName = "ProductName";
+            this.colProductName.Name = "colProductName";
+            this.colProductName.Visible = true;
+            this.colProductName.VisibleIndex = 2;
+            // 
+            // colManufacturerName
+            // 
+            this.colManufacturerName.Caption = "Изготовитель";
+            this.colManufacturerName.FieldName = "ManufacturerName";
+            this.colManufacturerName.Name = "colManufacturerName";
+            this.colManufacturerName.OptionsFilter.AllowFilter = false;
+            this.colManufacturerName.Visible = true;
+            this.colManufacturerName.VisibleIndex = 0;
+            this.colManufacturerName.Width = 114;
+            // 
+            // colPricePurchase1
+            // 
+            this.colPricePurchase1.Caption = "Закупочная";
+            this.colPricePurchase1.FieldName = "PricePurchase";
+            this.colPricePurchase1.Name = "colPricePurchase1";
+            this.colPricePurchase1.OptionsColumn.AllowEdit = false;
+            this.colPricePurchase1.OptionsColumn.AllowFocus = false;
+            this.colPricePurchase1.OptionsColumn.ReadOnly = true;
+            this.colPricePurchase1.OptionsFilter.AllowAutoFilter = false;
+            this.colPricePurchase1.OptionsFilter.AllowFilter = false;
+            this.colPricePurchase1.Visible = true;
+            this.colPricePurchase1.VisibleIndex = 1;
+            // 
+            // colQuantity
+            // 
+            this.colQuantity.Caption = "Кол-во";
+            this.colQuantity.FieldName = "Quantity";
+            this.colQuantity.Name = "colQuantity";
+            this.colQuantity.OptionsFilter.AllowFilter = false;
+            this.colQuantity.Visible = true;
+            this.colQuantity.VisibleIndex = 3;
+            this.colQuantity.Width = 114;
+            // 
+            // colPriceRetailNDS
+            // 
+            this.colPriceRetailNDS.Caption = "Цена";
+            this.colPriceRetailNDS.FieldName = "PriceRetailNDS";
+            this.colPriceRetailNDS.Name = "colPriceRetailNDS";
+            this.colPriceRetailNDS.OptionsFilter.AllowFilter = false;
+            this.colPriceRetailNDS.Visible = true;
+            this.colPriceRetailNDS.VisibleIndex = 4;
+            this.colPriceRetailNDS.Width = 118;
+            // 
+            // colNote
+            // 
+            this.colNote.Caption = "Примечание";
+            this.colNote.FieldName = "Note";
+            this.colNote.Name = "colNote";
+            // 
+            // colAuthorCreate
+            // 
+            this.colAuthorCreate.Caption = "Автор";
+            this.colAuthorCreate.FieldName = "AuthorCreate";
+            this.colAuthorCreate.Name = "colAuthorCreate";
+            this.colAuthorCreate.OptionsColumn.AllowEdit = false;
+            this.colAuthorCreate.OptionsColumn.AllowFocus = false;
+            this.colAuthorCreate.OptionsColumn.ReadOnly = true;
+            this.colAuthorCreate.OptionsFilter.AllowAutoFilter = false;
+            this.colAuthorCreate.OptionsFilter.AllowFilter = false;
+            // 
+            // colAuthorLastModif
+            // 
+            this.colAuthorLastModif.Caption = "Редактор";
+            this.colAuthorLastModif.FieldName = "AuthorLastModif";
+            this.colAuthorLastModif.Name = "colAuthorLastModif";
+            this.colAuthorLastModif.OptionsColumn.AllowEdit = false;
+            this.colAuthorLastModif.OptionsColumn.AllowFocus = false;
+            this.colAuthorLastModif.OptionsColumn.ReadOnly = true;
+            this.colAuthorLastModif.OptionsFilter.AllowAutoFilter = false;
+            this.colAuthorLastModif.OptionsFilter.AllowFilter = false;
+            // 
+            // colDateCreate
+            // 
+            this.colDateCreate.Caption = "Создан";
+            this.colDateCreate.FieldName = "DateCreate";
+            this.colDateCreate.Name = "colDateCreate";
+            this.colDateCreate.OptionsColumn.AllowEdit = false;
+            this.colDateCreate.OptionsColumn.AllowFocus = false;
+            this.colDateCreate.OptionsColumn.ReadOnly = true;
+            // 
+            // colDateLastModif
+            // 
+            this.colDateLastModif.Caption = "Изменен";
+            this.colDateLastModif.FieldName = "DateLastModif";
+            this.colDateLastModif.Name = "colDateLastModif";
+            this.colDateLastModif.OptionsColumn.AllowEdit = false;
+            this.colDateLastModif.OptionsColumn.AllowFocus = false;
+            this.colDateLastModif.OptionsColumn.ReadOnly = true;
+            this.colDateLastModif.OptionsFilter.AllowAutoFilter = false;
+            this.colDateLastModif.OptionsFilter.AllowFilter = false;
+            // 
+            // colLocalReceiptDetailRef
+            // 
+            this.colLocalReceiptDetailRef.Caption = "LocalReceiptDetailRef";
+            this.colLocalReceiptDetailRef.FieldName = "LocalReceiptDetailRef";
+            this.colLocalReceiptDetailRef.Name = "colLocalReceiptDetailRef";
+            this.colLocalReceiptDetailRef.OptionsColumn.ShowInCustomizationForm = false;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(672, 506);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Цены";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(672, 506);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Заказы";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // invoiceMasterBindingSourceView
+            // 
+            this.invoiceMasterBindingSourceView.DataMember = "InvoiceMaster";
+            this.invoiceMasterBindingSourceView.DataSource = this.mDataSet;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.actionLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 512);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(680, 23);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // actionLabel
+            // 
+            this.actionLabel.Name = "actionLabel";
+            this.actionLabel.Size = new System.Drawing.Size(141, 18);
+            this.actionLabel.Text = "toolStripStatusLabel1";
+            // 
+            // invoiceMasterBindingSource
+            // 
+            this.invoiceMasterBindingSource.DataMember = "InvoiceMaster";
+            this.invoiceMasterBindingSource.DataSource = this.mDataSet;
+            // 
+            // InvoiceDetailEdit
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.tabControl1);
+            this.Name = "InvoiceDetailEdit";
+            this.Size = new System.Drawing.Size(680, 535);
+            this.Load += new System.EventHandler(this.InvoiceDetailEdit_Load);
+            this.Validating += new System.ComponentModel.CancelEventHandler(this.InvoiceDetailEdit_Validating);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridRemains)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vwRemainsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewRemainsInvDetEdt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
+            this.contextMenuStrip.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.invoiceDetailBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewinvDet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSourceView)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSource)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private DevExpress.XtraGrid.GridControl gridRemains;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewRemainsInvDetEdt;
+        private DevExpress.XtraGrid.GridControl gridControl2;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewinvDet;
+        private System.Windows.Forms.BindingSource vwRemainsBindingSource;
+        private MDataSet mDataSet;
+        private DevExpress.XtraGrid.Columns.GridColumn colProductRef;
+        private DevExpress.XtraGrid.Columns.GridColumn colSeries;
+        private DevExpress.XtraGrid.Columns.GridColumn colUseByDate;
+        private DevExpress.XtraGrid.Columns.GridColumn colPricePurchase;
+        private DevExpress.XtraGrid.Columns.GridColumn colQuantityRemains;
+        private DevExpress.XtraGrid.Columns.GridColumn colReceiptDetailRef;
+        private System.Windows.Forms.BindingSource invoiceDetailBindingSource;
+        private DevExpress.XtraGrid.Columns.GridColumn colQuantity;
+        private DevExpress.XtraGrid.Columns.GridColumn colPricePurchase1;
+        private DevExpress.XtraGrid.Columns.GridColumn colPriceRetailNDS;
+        private DevExpress.XtraGrid.Columns.GridColumn colAuthorCreate;
+        private DevExpress.XtraGrid.Columns.GridColumn colAuthorLastModif;
+        private DevExpress.XtraGrid.Columns.GridColumn colDateCreate;
+        private DevExpress.XtraGrid.Columns.GridColumn colNote;
+        private DevExpress.XtraGrid.Columns.GridColumn colDateLastModif;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.BindingSource invoiceMasterBindingSourceView;
+        private System.Windows.Forms.BindingSource invoiceMasterBindingSource;
+        private DevExpress.XtraGrid.Columns.GridColumn colLocalReceiptDetailRef;
+        private DevExpress.XtraGrid.Columns.GridColumn colProductName;
+        private DevExpress.XtraGrid.Columns.GridColumn colManufacturerName;
+        private DevExpress.XtraGrid.Columns.GridColumn colProductName1;
+        private DevExpress.XtraGrid.Columns.GridColumn colManufacturerName1;
+        private DevExpress.XtraGrid.Columns.GridColumn colDocDate;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem btDelete;
+        private System.Windows.Forms.ToolStripStatusLabel actionLabel;
+    }
+}
