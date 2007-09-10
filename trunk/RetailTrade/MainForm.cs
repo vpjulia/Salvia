@@ -93,7 +93,10 @@ namespace RetailTrade
             this.mDataSet.ReceiptDetail.ColumnChanging += new DataColumnChangeEventHandler(onReceiptDetailColumn_Changing);
             this.mDataSet.InvoiceMaster.ColumnChanged += new  DataColumnChangeEventHandler (onInvoiceMasterColumn_Changed);
             this.mDataSet.InvoiceDetail.ColumnChanging += new DataColumnChangeEventHandler(onInvoiceDetailColumn_Changing);
-            this.mDataSet.InvoiceDetail.RowChanging += new DataRowChangeEventHandler(onInvoiceDetailDataRow_Changing);
+            this.mDataSet.InvoiceDetail.ColumnChanged += new DataColumnChangeEventHandler(onInvoiceDetailColumn_Changed);
+          
+ 
+
             this.mDataSet.InvoiceDetail.RowDeleting+=new DataRowChangeEventHandler(InvoiceDetail_RowDeleting);
             this.mDataSet.InvoiceDetail.RowChanged+=new DataRowChangeEventHandler(InvoiceDetail_RowChanged);
 

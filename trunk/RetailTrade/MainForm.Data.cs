@@ -40,7 +40,7 @@ namespace RetailTrade
             if (e.Column == mDataSet.InvoiceMaster.RemoteStockRefColumn)
                 if ((int)e.ProposedValue != (e.Row as MDataSet.InvoiceMasterRow).RemoteStockRef)
                 {
-                    DataRow[] ardr = (this.mDataSet.Stock.Select(" IsLocal=1 and IsNds=" + (e.Row as MDataSet.InvoiceMasterRow).StockRow.IsNDS.ToString()));
+                    DataRow[] ardr = (this.mDataSet.Stock.Select(" IsLocal=1 and IsNds=" + (e.Row as MDataSet.InvoiceMasterRow).StockRowByFK_Stock_InvoiceMaster.IsNDS.ToString()));
                     int id = (ardr[0] as MDataSet.StockRow).ID;
                     (e.Row as MDataSet.InvoiceMasterRow).MainStockRef = id;
                     MessageBox.Show((e.Row as MDataSet.InvoiceMasterRow).MainStockRef.ToString());
@@ -50,6 +50,7 @@ namespace RetailTrade
 
         private void onInvoiceDetailColumn_Changing(object sender, DataColumnChangeEventArgs e)
         {
+           
             //проверить кол-во и цену, 
             if (e.Column == mDataSet.InvoiceDetail.QuantityColumn)
                 if ((decimal)e.ProposedValue != (e.Row as MDataSet.InvoiceDetailRow).Quantity)
@@ -66,16 +67,14 @@ namespace RetailTrade
                         else
                             (e.Row as MDataSet.InvoiceDetailRow).vwRemainsRow.QuantityRemains -= (decimal)e.ProposedValue - (e.Row as MDataSet.InvoiceDetailRow).Quantity;
                 }
+
+            
         }
 
-        private void onInvoiceDetailDataRow_Changing(object sender, DataRowChangeEventArgs e)
-        {
-
-
-            MessageBox.Show("nInvoiceDetailDataRow_Changing");
-
+        private void onInvoiceDetailColumn_Changed(object sender, DataColumnChangeEventArgs e)
+        { 
+          /**/
         }
-
 
         private void InvoiceDetail_RowDeleting(object sender, DataRowChangeEventArgs e)
         {
@@ -84,9 +83,19 @@ namespace RetailTrade
 
         private void InvoiceDetail_RowChanged(object sender, DataRowChangeEventArgs e)
         {
-            SaveToBase(e.Row as MDataSet.InvoiceDetailRow);
+
+            if (e.Row.HasVersion(DataRowVersion.Original)&e.Row.RowState==DataRowState.Modified)
+            {
+                if (e.Row["ID", DataRowVersion.Original] != e.Row["ID", DataRowVersion.Current])
+                    e.Row.AcceptChanges();
+            }
+            else
 
 
+                if ((e.Row.RowState != DataRowState.Unchanged) & (!e.Row.HasErrors))
+                    SaveToBase(e.Row as MDataSet.InvoiceDetailRow);
+  
+          
         }
 
         /******************Модификация справочников ******************/
@@ -280,7 +289,7 @@ namespace RetailTrade
             try
             {
                 int res = this.invoiceMasterTableAdapter.Update(sourceRow);
-                MessageBox.Show("Результат апдейта:" + res.ToString());
+               
             }
 
             catch (DBConcurrencyException dbcx)
@@ -294,45 +303,10 @@ namespace RetailTrade
                 MessageBox.Show("Ошибка InvoiceMaster!");
             }
 
-            DataRow[] datarowDeleted = this.mDataSet.InvoiceDetail.Select("InvoiceMasterRef=" + sourceRow.ID.ToString(), null, DataViewRowState.Deleted);
-
-            try
-            {
-
-                int res = this.invoiceDetailTableAdapter.Update(datarowDeleted);
-                MessageBox.Show("Результат апдейта:" + res.ToString());
-
-            }
-            catch
-            {
-                MessageBox.Show("Ошибка удаления!");
-
-            }
-
-            DataRow[] dr = sourceRow.GetInvoiceDetailRows();
-
-            try
-            {
-                int res = this.invoiceDetailTableAdapter.Update(dr);
-                MessageBox.Show("Результат апдейта:" + res.ToString());
-            }
-            catch
-            {
-                MessageBox.Show(this.mDataSet.InvoiceDetail.HasErrors.ToString());
-
-                MessageBox.Show("Ошибка обновления InvoiceDetail!");
-                return false;
-
-            }
+           
             finally
             {
-                /*Как-то проапдейтить таблицу опять*/
-
-                MDataSet.InvoiceMasterDataTable tmpInvoiceMaster = new MDataSet.InvoiceMasterDataTable();
-
-                this.invoiceMasterTableAdapter.Fill(tmpInvoiceMaster);
-                sourceRow.Table.Merge(tmpInvoiceMaster);
-
+                RefreshData(sourceRow);
             }
 
             return true;
@@ -342,7 +316,7 @@ namespace RetailTrade
             try
             {
                 int res = this.invoiceDetailTableAdapter.Update(sourceRow);
-             //   this.actionStatusLabel.Text = "Успешно обновлена строка";
+                this.actionStatusLabel.Text = "Успешно обновлена строка";
             }
 
             catch (DBConcurrencyException dbcx)
@@ -371,9 +345,9 @@ namespace RetailTrade
         }
         public bool RefreshData(MDataSet.InvoiceMasterRow sourceRow) 
         {
-          /*   MDataSet.InvoiceMasterDataTable _invoiceMasterDataTable=new MDataSet.InvoiceMasterDataTable();
-           
-                try
+           MDataSet.InvoiceMasterDataTable _invoiceMasterDataTable=new MDataSet.InvoiceMasterDataTable();
+          
+          try
              {
                this.invoiceMasterTableAdapter.FillNew(_invoiceMasterDataTable,sourceRow.DateUpdate);
              }
@@ -386,36 +360,29 @@ namespace RetailTrade
              { 
                   this.mDataSet.InvoiceMaster.Merge(_invoiceMasterDataTable,true);
              }
-            return true;*/
-         
-            string NameTable = sourceRow.Table.TableName;
-
-            if (this.mDataSet.Tables[NameTable].Rows.Count != 0)
-             {
-                 Type tp = this.components.Components[NameTable + "TableAdapter"].GetType();
-                 Object[] args = new Object[2];
-                 args[0] = this.mDataSet.Tables[NameTable].Clone();
-              //   args[1] = sourceRow.DateUpdate;  
-                     //this.mDataSet.Tables[NameTable];
+            return true;
                
-
-              /*   foreach (DataRelation relation in this.mDataSet.Tables[NameTable].ParentRelations)
-                     FillTable(relation.ParentTable.ToString());
-               */
-                 try
-                 {
-                     tp.GetMethod("FillNew").Invoke(this.components.Components[NameTable + "TableAdapter"], args);
-                 }
-                 catch (Exception err)
-                 {
-                     MessageBox.Show(err.Message);
-                 }
-
-             }
-             return true;
-          
         }
+        public bool RefreshData(MDataSet.InvoiceDetailRow sourceRow)
+        {
+            MDataSet.InvoiceDetailDataTable  _invoiceDetailDataTable = new MDataSet.InvoiceDetailDataTable();
 
+            try
+            {
+                this.invoiceDetailTableAdapter.FillNew(_invoiceDetailDataTable, sourceRow.DateUpdate);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+                return false;
+            }
+            finally
+            {
+                this.mDataSet.InvoiceDetail.Merge(_invoiceDetailDataTable, true);
+            }
+            return true;
+               
+        }
 
         private void createMessage(DBConcurrencyException dbcx)
         {
