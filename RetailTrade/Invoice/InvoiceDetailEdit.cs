@@ -65,7 +65,7 @@ namespace RetailTrade.Invoice
                         if (DialogResult.OK == _formDialog.ShowDialog(this))
                         {
                             this.invoiceDetailBindingSource.EndEdit();
-                          //  this.SaveChange();
+                         
                         }
                         else
                         {
@@ -152,9 +152,9 @@ namespace RetailTrade.Invoice
 
                 MessageBox.Show("Ошибка в данных!");
 
-            else
+           /* else
                 this.SaveChange();
-
+            */
         }
 
         private void gridViewinvDet_InvalidValueException(object sender, DevExpress.XtraEditors.Controls.InvalidValueExceptionEventArgs e)

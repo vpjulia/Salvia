@@ -140,6 +140,8 @@ namespace RetailTrade
             this.invoiceDetailTableAdapter = new RetailTrade.MDataSetTableAdapters.InvoiceDetailTableAdapter();
             this.vwRemainsTableAdapter = new RetailTrade.MDataSetTableAdapters.vwRemainsTableAdapter();
             this.pricesPurchaseTableAdapter = new RetailTrade.MDataSetTableAdapters.PricesPurchaseTableAdapter();
+            this.actionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -176,9 +178,11 @@ namespace RetailTrade
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 662);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.actionStatusLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 661);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(837, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(837, 23);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -208,8 +212,8 @@ namespace RetailTrade
             this.splitContainer1.Panel2.Controls.Add(this.gridControl1);
             this.splitContainer1.Panel2.Controls.Add(this.mainReportViewer);
             this.splitContainer1.Panel2MinSize = 50;
-            this.splitContainer1.Size = new System.Drawing.Size(837, 611);
-            this.splitContainer1.SplitterDistance = 557;
+            this.splitContainer1.Size = new System.Drawing.Size(837, 610);
+            this.splitContainer1.SplitterDistance = 556;
             this.splitContainer1.TabIndex = 3;
             // 
             // splitContainer2
@@ -225,7 +229,7 @@ namespace RetailTrade
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tabControl);
-            this.splitContainer2.Size = new System.Drawing.Size(837, 557);
+            this.splitContainer2.Size = new System.Drawing.Size(837, 556);
             this.splitContainer2.SplitterDistance = 218;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -238,7 +242,7 @@ namespace RetailTrade
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(218, 557);
+            this.tabControl1.Size = new System.Drawing.Size(218, 556);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -247,7 +251,7 @@ namespace RetailTrade
             this.tabPage1.Location = new System.Drawing.Point(4, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(210, 528);
+            this.tabPage1.Size = new System.Drawing.Size(210, 527);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "новые";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -295,7 +299,7 @@ namespace RetailTrade
             treeNode10,
             treeNode11});
             this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(204, 522);
+            this.treeView1.Size = new System.Drawing.Size(204, 521);
             this.treeView1.TabIndex = 0;
             this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
             // 
@@ -322,12 +326,15 @@ namespace RetailTrade
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(615, 557);
+            this.tabControl.Size = new System.Drawing.Size(615, 556);
             this.tabControl.TabIndex = 0;
             // 
             // gridControl1
             // 
             this.gridControl1.DataSource = this.pricesPurchaseBindingSource;
+            // 
+            // 
+            // 
             this.gridControl1.EmbeddedNavigator.Name = "";
             this.gridControl1.Location = new System.Drawing.Point(464, 13);
             this.gridControl1.MainView = this.gridView1;
@@ -849,6 +856,12 @@ namespace RetailTrade
             // 
             this.pricesPurchaseTableAdapter.ClearBeforeFill = true;
             // 
+            // actionStatusLabel
+            // 
+            this.actionStatusLabel.Name = "actionStatusLabel";
+            this.actionStatusLabel.Size = new System.Drawing.Size(141, 18);
+            this.actionStatusLabel.Text = "toolStripStatusLabel1";
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(837, 684);
@@ -860,6 +873,8 @@ namespace RetailTrade
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
@@ -994,6 +1009,7 @@ namespace RetailTrade
         private RetailTrade.MDataSetTableAdapters.vwRemainsTableAdapter vwRemainsTableAdapter;
         private System.Windows.Forms.BindingSource pricesPurchaseBindingSource;
         private RetailTrade.MDataSetTableAdapters.PricesPurchaseTableAdapter pricesPurchaseTableAdapter;
+        private System.Windows.Forms.ToolStripStatusLabel actionStatusLabel;
     }
 }
 
