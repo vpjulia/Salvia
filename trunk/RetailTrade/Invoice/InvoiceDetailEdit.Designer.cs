@@ -61,11 +61,10 @@ namespace RetailTrade.Invoice
             this.colDateCreate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDateLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colLocalReceiptDetailRef = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCalcSum = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.invoiceMasterBindingSourceView = new System.Windows.Forms.BindingSource(this.components);
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.actionLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.invoiceMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -81,7 +80,6 @@ namespace RetailTrade.Invoice
             ((System.ComponentModel.ISupportInitialize)(this.invoiceDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewinvDet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSourceView)).BeginInit();
-            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -94,7 +92,7 @@ namespace RetailTrade.Invoice
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(680, 512);
+            this.tabControl1.Size = new System.Drawing.Size(680, 535);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -103,7 +101,7 @@ namespace RetailTrade.Invoice
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(672, 483);
+            this.tabPage1.Size = new System.Drawing.Size(672, 506);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Накладная";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -122,22 +120,19 @@ namespace RetailTrade.Invoice
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.gridControl2);
-            this.splitContainer1.Size = new System.Drawing.Size(666, 477);
-            this.splitContainer1.SplitterDistance = 261;
+            this.splitContainer1.Size = new System.Drawing.Size(666, 500);
+            this.splitContainer1.SplitterDistance = 273;
             this.splitContainer1.TabIndex = 0;
             // 
             // gridRemains
             // 
             this.gridRemains.DataSource = this.vwRemainsBindingSource;
             this.gridRemains.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
             this.gridRemains.EmbeddedNavigator.Name = "";
             this.gridRemains.Location = new System.Drawing.Point(0, 0);
             this.gridRemains.MainView = this.gridViewRemainsInvDetEdt;
             this.gridRemains.Name = "gridRemains";
-            this.gridRemains.Size = new System.Drawing.Size(666, 261);
+            this.gridRemains.Size = new System.Drawing.Size(666, 273);
             this.gridRemains.TabIndex = 0;
             this.gridRemains.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewRemainsInvDetEdt});
@@ -276,14 +271,11 @@ namespace RetailTrade.Invoice
             this.gridControl2.ContextMenuStrip = this.contextMenuStrip;
             this.gridControl2.DataSource = this.invoiceDetailBindingSource;
             this.gridControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
             this.gridControl2.EmbeddedNavigator.Name = "";
             this.gridControl2.Location = new System.Drawing.Point(0, 0);
             this.gridControl2.MainView = this.gridViewinvDet;
             this.gridControl2.Name = "gridControl2";
-            this.gridControl2.Size = new System.Drawing.Size(666, 212);
+            this.gridControl2.Size = new System.Drawing.Size(666, 223);
             this.gridControl2.TabIndex = 0;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewinvDet});
@@ -320,9 +312,13 @@ namespace RetailTrade.Invoice
             this.colAuthorLastModif,
             this.colDateCreate,
             this.colDateLastModif,
-            this.colLocalReceiptDetailRef});
+            this.colLocalReceiptDetailRef,
+            this.colCalcSum});
             this.gridViewinvDet.GridControl = this.gridControl2;
             this.gridViewinvDet.Name = "gridViewinvDet";
+            this.gridViewinvDet.OptionsDetail.EnableMasterViewMode = false;
+            this.gridViewinvDet.OptionsView.ShowDetailButtons = false;
+            this.gridViewinvDet.OptionsView.ShowFooter = true;
             this.gridViewinvDet.DoubleClick += new System.EventHandler(this.gridViewinvDet_DoubleClick);
             this.gridViewinvDet.InvalidValueException += new DevExpress.XtraEditors.Controls.InvalidValueExceptionEventHandler(this.gridViewinvDet_InvalidValueException);
             this.gridViewinvDet.InvalidRowException += new DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventHandler(this.gridViewinvDet_InvalidRowException);
@@ -332,18 +328,23 @@ namespace RetailTrade.Invoice
             this.colProductName.Caption = "Наименование";
             this.colProductName.FieldName = "ProductName";
             this.colProductName.Name = "colProductName";
+            this.colProductName.SummaryItem.DisplayFormat = "{Строк :{0}}";
+            this.colProductName.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Count;
             this.colProductName.Visible = true;
-            this.colProductName.VisibleIndex = 2;
+            this.colProductName.VisibleIndex = 0;
+            this.colProductName.Width = 139;
             // 
             // colManufacturerName
             // 
             this.colManufacturerName.Caption = "Изготовитель";
             this.colManufacturerName.FieldName = "ManufacturerName";
             this.colManufacturerName.Name = "colManufacturerName";
+            this.colManufacturerName.OptionsColumn.AllowEdit = false;
+            this.colManufacturerName.OptionsColumn.AllowFocus = false;
             this.colManufacturerName.OptionsFilter.AllowFilter = false;
             this.colManufacturerName.Visible = true;
-            this.colManufacturerName.VisibleIndex = 0;
-            this.colManufacturerName.Width = 114;
+            this.colManufacturerName.VisibleIndex = 1;
+            this.colManufacturerName.Width = 137;
             // 
             // colPricePurchase1
             // 
@@ -356,7 +357,8 @@ namespace RetailTrade.Invoice
             this.colPricePurchase1.OptionsFilter.AllowAutoFilter = false;
             this.colPricePurchase1.OptionsFilter.AllowFilter = false;
             this.colPricePurchase1.Visible = true;
-            this.colPricePurchase1.VisibleIndex = 1;
+            this.colPricePurchase1.VisibleIndex = 2;
+            this.colPricePurchase1.Width = 90;
             // 
             // colQuantity
             // 
@@ -366,7 +368,7 @@ namespace RetailTrade.Invoice
             this.colQuantity.OptionsFilter.AllowFilter = false;
             this.colQuantity.Visible = true;
             this.colQuantity.VisibleIndex = 3;
-            this.colQuantity.Width = 114;
+            this.colQuantity.Width = 137;
             // 
             // colPriceRetailNDS
             // 
@@ -376,7 +378,7 @@ namespace RetailTrade.Invoice
             this.colPriceRetailNDS.OptionsFilter.AllowFilter = false;
             this.colPriceRetailNDS.Visible = true;
             this.colPriceRetailNDS.VisibleIndex = 4;
-            this.colPriceRetailNDS.Width = 118;
+            this.colPriceRetailNDS.Width = 149;
             // 
             // colNote
             // 
@@ -431,7 +433,23 @@ namespace RetailTrade.Invoice
             this.colLocalReceiptDetailRef.Caption = "LocalReceiptDetailRef";
             this.colLocalReceiptDetailRef.FieldName = "LocalReceiptDetailRef";
             this.colLocalReceiptDetailRef.Name = "colLocalReceiptDetailRef";
+            this.colLocalReceiptDetailRef.OptionsColumn.AllowEdit = false;
+            this.colLocalReceiptDetailRef.OptionsColumn.AllowFocus = false;
             this.colLocalReceiptDetailRef.OptionsColumn.ShowInCustomizationForm = false;
+            // 
+            // colCalcSum
+            // 
+            this.colCalcSum.Caption = "Cумма";
+            this.colCalcSum.FieldName = "CalcSum";
+            this.colCalcSum.Name = "colCalcSum";
+            this.colCalcSum.OptionsColumn.AllowEdit = false;
+            this.colCalcSum.OptionsColumn.AllowFocus = false;
+            this.colCalcSum.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.colCalcSum.OptionsFilter.AllowFilter = false;
+            this.colCalcSum.SummaryItem.DisplayFormat = "{0:#0.00}";
+            this.colCalcSum.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
+            this.colCalcSum.Visible = true;
+            this.colCalcSum.VisibleIndex = 5;
             // 
             // tabPage2
             // 
@@ -458,22 +476,6 @@ namespace RetailTrade.Invoice
             this.invoiceMasterBindingSourceView.DataMember = "InvoiceMaster";
             this.invoiceMasterBindingSourceView.DataSource = this.mDataSet;
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.actionLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 512);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(680, 23);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // actionLabel
-            // 
-            this.actionLabel.Name = "actionLabel";
-            this.actionLabel.Size = new System.Drawing.Size(141, 18);
-            this.actionLabel.Text = "toolStripStatusLabel1";
-            // 
             // invoiceMasterBindingSource
             // 
             this.invoiceMasterBindingSource.DataMember = "InvoiceMaster";
@@ -485,7 +487,6 @@ namespace RetailTrade.Invoice
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.statusStrip1);
             this.Name = "InvoiceDetailEdit";
             this.Size = new System.Drawing.Size(680, 535);
             this.Load += new System.EventHandler(this.InvoiceDetailEdit_Load);
@@ -504,11 +505,8 @@ namespace RetailTrade.Invoice
             ((System.ComponentModel.ISupportInitialize)(this.invoiceDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewinvDet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSourceView)).EndInit();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSource)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -518,7 +516,6 @@ namespace RetailTrade.Invoice
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.StatusStrip statusStrip1;
         private DevExpress.XtraGrid.GridControl gridRemains;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewRemainsInvDetEdt;
         private DevExpress.XtraGrid.GridControl gridControl2;
@@ -551,6 +548,6 @@ namespace RetailTrade.Invoice
         private DevExpress.XtraGrid.Columns.GridColumn colDocDate;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem btDelete;
-        private System.Windows.Forms.ToolStripStatusLabel actionLabel;
+        private DevExpress.XtraGrid.Columns.GridColumn colCalcSum;
     }
 }
