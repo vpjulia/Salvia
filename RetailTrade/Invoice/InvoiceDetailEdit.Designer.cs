@@ -94,7 +94,7 @@ namespace RetailTrade.Invoice
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(680, 535);
+            this.tabControl1.Size = new System.Drawing.Size(680, 512);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -103,7 +103,7 @@ namespace RetailTrade.Invoice
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(672, 506);
+            this.tabPage1.Size = new System.Drawing.Size(672, 483);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Накладная";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -122,8 +122,8 @@ namespace RetailTrade.Invoice
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.gridControl2);
-            this.splitContainer1.Size = new System.Drawing.Size(666, 500);
-            this.splitContainer1.SplitterDistance = 274;
+            this.splitContainer1.Size = new System.Drawing.Size(666, 477);
+            this.splitContainer1.SplitterDistance = 261;
             this.splitContainer1.TabIndex = 0;
             // 
             // gridRemains
@@ -137,7 +137,7 @@ namespace RetailTrade.Invoice
             this.gridRemains.Location = new System.Drawing.Point(0, 0);
             this.gridRemains.MainView = this.gridViewRemainsInvDetEdt;
             this.gridRemains.Name = "gridRemains";
-            this.gridRemains.Size = new System.Drawing.Size(666, 274);
+            this.gridRemains.Size = new System.Drawing.Size(666, 261);
             this.gridRemains.TabIndex = 0;
             this.gridRemains.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewRemainsInvDetEdt});
@@ -283,7 +283,7 @@ namespace RetailTrade.Invoice
             this.gridControl2.Location = new System.Drawing.Point(0, 0);
             this.gridControl2.MainView = this.gridViewinvDet;
             this.gridControl2.Name = "gridControl2";
-            this.gridControl2.Size = new System.Drawing.Size(666, 222);
+            this.gridControl2.Size = new System.Drawing.Size(666, 212);
             this.gridControl2.TabIndex = 0;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewinvDet});
@@ -306,8 +306,6 @@ namespace RetailTrade.Invoice
             // 
             this.invoiceDetailBindingSource.DataMember = "InvoiceDetail";
             this.invoiceDetailBindingSource.DataSource = this.mDataSet;
-
-
             // 
             // gridViewinvDet
             // 
@@ -486,8 +484,8 @@ namespace RetailTrade.Invoice
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.statusStrip1);
             this.Name = "InvoiceDetailEdit";
             this.Size = new System.Drawing.Size(680, 535);
             this.Load += new System.EventHandler(this.InvoiceDetailEdit_Load);

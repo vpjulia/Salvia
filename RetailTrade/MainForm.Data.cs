@@ -78,22 +78,26 @@ namespace RetailTrade
 
         private void InvoiceDetail_RowDeleting(object sender, DataRowChangeEventArgs e)
         {
-            MessageBox.Show("onInvoiceDetail_RowDeleting");
+          //  MessageBox.Show("onInvoiceDetail_RowDeleting");
+        }
+
+        private void InvoiceDetail_RowDeleted(object sender, DataRowChangeEventArgs e)
+        {
+            if (e.Row.HasVersion(DataRowVersion.Original))
+            /*сохранить*/
+            {
+                SaveToBase(e.Row as MDataSet.InvoiceDetailRow);
+
+            }
+            else
+                MessageBox.Show((e.Row as MDataSet.InvoiceDetailRow)["LocalReceiptDetailRef", DataRowVersion.Current].ToString());
+
         }
 
         private void InvoiceDetail_RowChanged(object sender, DataRowChangeEventArgs e)
         {
-
-            if (e.Row.HasVersion(DataRowVersion.Original)&e.Row.RowState==DataRowState.Modified)
-            {
-                if (e.Row["ID", DataRowVersion.Original] != e.Row["ID", DataRowVersion.Current])
-                    e.Row.AcceptChanges();
-            }
-            else
-
-
-                if ((e.Row.RowState != DataRowState.Unchanged) & (!e.Row.HasErrors))
-                    SaveToBase(e.Row as MDataSet.InvoiceDetailRow);
+            if ((e.Action==DataRowAction.Change) | (e.Action==DataRowAction.Add))
+           SaveToBase(e.Row as MDataSet.InvoiceDetailRow);
   
           
         }
@@ -313,9 +317,49 @@ namespace RetailTrade
         }
         public bool SaveToBase(MDataSet.InvoiceDetailRow sourceRow)
         {
+
+            if (sourceRow.HasErrors) 
+                return false;
+            if ((sourceRow.RowState == DataRowState.Detached)|(sourceRow.RowState==DataRowState.Unchanged))
+
+                return true;
+
+
+
+            MDataSet.InvoiceMasterRow _invoiceMasterRow;
+
+ 
+            
+            _invoiceMasterRow = sourceRow.InvoiceMasterRow;
+           if (sourceRow.RowState == DataRowState.Modified)
+            
+                if (sourceRow["ID", DataRowVersion.Original] != sourceRow["ID", DataRowVersion.Current])
+                {
+                  //  sourceRow.AcceptChanges();
+                    return true;
+            } 
+           
+            //*Если добавление*//
+
+
+            if (sourceRow.RowState == DataRowState.Added)
+
+            {
+              
+            
+            }
+
+            if (sourceRow.RowState==DataRowState.Deleted)
+            {
+              _invoiceMasterRow = this.mDataSet.InvoiceMaster.FindByID(Convert.ToInt32((sourceRow as MDataSet.InvoiceDetailRow)["InvoiceMasterRef", DataRowVersion.Original])); 
+
+            }
+      
             try
             {
+              //  sourceRow.BeginEdit();
                 int res = this.invoiceDetailTableAdapter.Update(sourceRow);
+              //  sourceRow.EndEdit();
                 this.actionStatusLabel.Text = "Успешно обновлена строка";
             }
 
@@ -325,28 +369,24 @@ namespace RetailTrade
                 return false;
             }
 
-            catch
+            catch (Exception err)
             {
-                MessageBox.Show("Ошибка InvoiceDetail!");
+                MessageBox.Show(err.Message);
+                return false;
             }
-
             finally
             {
-
-
                 this.vwRemainsTableAdapter.Fill(this.mDataSet.vwRemains);
-
-                this.RefreshData(sourceRow.InvoiceMasterRow);
-
-
+                RefreshData(_invoiceMasterRow);
             }
-            return false;
 
+
+            return true;
         }
         public bool RefreshData(MDataSet.InvoiceMasterRow sourceRow) 
         {
            MDataSet.InvoiceMasterDataTable _invoiceMasterDataTable=new MDataSet.InvoiceMasterDataTable();
-          
+       
           try
              {
                this.invoiceMasterTableAdapter.FillNew(_invoiceMasterDataTable,sourceRow.DateUpdate);
@@ -361,7 +401,7 @@ namespace RetailTrade
                   this.mDataSet.InvoiceMaster.Merge(_invoiceMasterDataTable,true);
              }
             return true;
-               
+            
         }
         public bool RefreshData(MDataSet.InvoiceDetailRow sourceRow)
         {
@@ -381,7 +421,7 @@ namespace RetailTrade
                 this.mDataSet.InvoiceDetail.Merge(_invoiceDetailDataTable, true);
             }
             return true;
-               
+             
         }
 
         private void createMessage(DBConcurrencyException dbcx)
