@@ -23,9 +23,9 @@ namespace RetailTrade.Invoice
 
             this.mDataSet = source.Table.DataSet as MDataSet;
 
-            this.vwRemainsBindingSource.DataSource = new DataView(this.mDataSet.vwRemains, "MainStockRef=" + source.MainStockRef.ToString(), null, DataViewRowState.CurrentRows);
+        //    this.vwRemainsBindingSource.DataSource = new DataView(this.mDataSet.vwRemains, "MainStockRef=" + source.MainStockRef.ToString(), null, DataViewRowState.CurrentRows);
            
-           // this.vwRemainsBindingSource.DataSource = new DataView(this.mDataSet.vwRemains, "Quantityremains<>0 and MainStockRef=" + source.MainStockRef.ToString(), null, DataViewRowState.CurrentRows);
+            this.vwRemainsBindingSource.DataSource = new DataView(this.mDataSet.vwRemains, "Quantityremains<>0 and MainStockRef=" + source.MainStockRef.ToString(), null, DataViewRowState.CurrentRows);
             this.vwRemainsBindingSource.ResetBindings(true);
 
             this.invoiceMasterBindingSource.DataSource = source;
@@ -63,14 +63,15 @@ namespace RetailTrade.Invoice
                         _formDialog.panel.Controls.Add(_invoiceDetailRowAdd);
 
                         if (DialogResult.OK == _formDialog.ShowDialog(this))
-                        {
+                        {  
+                            remainsRow.AcceptChanges();
                             this.invoiceDetailBindingSource.EndEdit();
-                         
+                          
                         }
                         else
                         {
                             this.invoiceDetailBindingSource.CancelEdit();
-                            remainsRow.CancelEdit();
+                            remainsRow.RejectChanges();
                         }
                     }
                 }
@@ -129,32 +130,22 @@ namespace RetailTrade.Invoice
         private bool SaveChange()
         {
 
-            this.invoiceMasterBindingSource.CurrencyManager.EndCurrentEdit();
-
-            this.invoiceDetailBindingSource.CurrencyManager.EndCurrentEdit();
-
-            (this.invoiceMasterBindingSource.Current as MDataSet.InvoiceMasterRow).SetModified();
-
-            if (FindMainForm(this.ParentForm).SaveToBase((this.invoiceMasterBindingSource.Current as MDataSet.InvoiceMasterRow)))
-            {
                 this.invoiceMasterBindingSource.ResetCurrentItem();
                 this.Parent.Tag = "InvoiceRow" + (this.invoiceMasterBindingSource.Current  as MDataSet.InvoiceMasterRow).ID.ToString();
                 this.Parent.Text = "№" /*+ ((this.receiptMasterBindingSource.Current as DataRowView).Row as MDataSet.InvoiceMasterRow).Number.ToString() + " " + ((this.invoiceMasterBindingSource.Current as DataRowView).Row as MDataSet.InvoiceMasterRow).OrganizationRow.ShortName.ToString()*/;
               //  this.panelNumber.Enabled = true;
-                actionLabel.Text = "сохранена строка";
+
                 return true;
-            }
-            return false;
+           
         }
         private void InvoiceDetailEdit_Validating(object sender, CancelEventArgs e)
         {
             if (!this.ValidateChildren())
-
+            {
                 MessageBox.Show("Ошибка в данных!");
-
-           /* else
-                this.SaveChange();
-            */
+                e.Cancel = true;
+            }
+           
         }
 
         private void gridViewinvDet_InvalidValueException(object sender, DevExpress.XtraEditors.Controls.InvalidValueExceptionEventArgs e)
@@ -172,25 +163,25 @@ namespace RetailTrade.Invoice
         {
           //  if ((this.mDataSet.InvoiceDetail.Select("InvoiceMasterRef=" + (this.invoiceMasterBindingSource.Current as MDataSet.InvoiceMasterRow).ID,null,DataViewRowState.Deleted).Length > 0)
                 
-            {
+            
                     
-                    DialogResult dlg= MessageBox.Show("Сохранить изменения?", "Изменение накладной", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+             /*   {    DialogResult dlg= MessageBox.Show("Сохранить изменения?", "Изменение накладной", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                          
                     if(dlg==DialogResult.Cancel)
                         e.Cancel = true;
 
                     if (dlg == DialogResult.Yes)
-                        if (! this./*ParentForm.*/Validate())
+                        if (! this.Validate())
                            e.Cancel = true;
-                 
+              
                     if (dlg == DialogResult.No)
 
                         foreach (MDataSet.InvoiceDetailRow invDetailCanc in this.mDataSet.InvoiceDetail.Select("InvoiceMasterRef=" + (this.invoiceMasterBindingSource.Current as MDataSet.InvoiceMasterRow).ID, null, DataViewRowState.Deleted))
                 
                           invDetailCanc.RejectChanges();
-                
+             
                    
-                }
+                }*/
 
         }
 

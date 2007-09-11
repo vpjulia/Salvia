@@ -52,7 +52,7 @@ namespace RetailTrade
         {
            
             //проверить кол-во и цену, 
-            if (e.Column == mDataSet.InvoiceDetail.QuantityColumn)
+                    if (e.Column == mDataSet.InvoiceDetail.QuantityColumn)
                 if ((decimal)e.ProposedValue != (e.Row as MDataSet.InvoiceDetailRow).Quantity)
                 {
 
@@ -298,7 +298,7 @@ namespace RetailTrade
 
             catch (DBConcurrencyException dbcx)
             {
-                this.createMessage(dbcx);
+              //  this.createMessage(dbcx);
                 return false;
             }
 
@@ -321,51 +321,35 @@ namespace RetailTrade
             if (sourceRow.HasErrors) 
                 return false;
             if ((sourceRow.RowState == DataRowState.Detached)|(sourceRow.RowState==DataRowState.Unchanged))
-
                 return true;
 
 
 
             MDataSet.InvoiceMasterRow _invoiceMasterRow;
-
- 
-            
             _invoiceMasterRow = sourceRow.InvoiceMasterRow;
-           if (sourceRow.RowState == DataRowState.Modified)
-            
-                if (sourceRow["ID", DataRowVersion.Original] != sourceRow["ID", DataRowVersion.Current])
-                {
-                  //  sourceRow.AcceptChanges();
-                    return true;
-            } 
+            /*если  после Update полей на сервере*/
            
-            //*Если добавление*//
+            /*   Пиздец какой-то ???????????????????*/
 
-
-            if (sourceRow.RowState == DataRowState.Added)
-
+            if ((sourceRow.RowState == DataRowState.Modified)&sourceRow.HasVersion(DataRowVersion.Current))
             {
-              
-            
+               if (Convert.ToInt32(sourceRow["ID", DataRowVersion.Original]) != Convert.ToInt32(sourceRow["ID", DataRowVersion.Current]))
+                    return true;
             }
-
+            //*Если удаление *//
             if (sourceRow.RowState==DataRowState.Deleted)
-            {
               _invoiceMasterRow = this.mDataSet.InvoiceMaster.FindByID(Convert.ToInt32((sourceRow as MDataSet.InvoiceDetailRow)["InvoiceMasterRef", DataRowVersion.Original])); 
-
-            }
-      
+   
             try
             {
-              //  sourceRow.BeginEdit();
                 int res = this.invoiceDetailTableAdapter.Update(sourceRow);
-              //  sourceRow.EndEdit();
                 this.actionStatusLabel.Text = "Успешно обновлена строка";
+                sourceRow.AcceptChanges();
             }
 
             catch (DBConcurrencyException dbcx)
             {
-                this.createMessage(dbcx);
+                this.createMessageInvoiceDetail(dbcx);
                 return false;
             }
 
@@ -380,8 +364,8 @@ namespace RetailTrade
                 RefreshData(_invoiceMasterRow);
             }
 
-
             return true;
+
         }
         public bool RefreshData(MDataSet.InvoiceMasterRow sourceRow) 
         {
@@ -424,44 +408,49 @@ namespace RetailTrade
              
         }
 
-        private void createMessage(DBConcurrencyException dbcx)
+
+        private void createMessageInvoiceDetail(DBConcurrencyException dbcx)
         {
-
-            // Declare variables to hold the row versions for display 
-            // in the message box.
-            string strInDs = "Original record in dsAuthors1:\n";
-            string strInDB = "Current record in database:\n";
-            string strProposed = "Proposed change:\n";
-            string strPromptText = "Do you want to overwrite the current " +
-              "record in the database with the proposed change?\n";
-            string strMessage;
-            System.Windows.Forms.DialogResult response;
+            MDataSet.InvoiceDetailRow _invoiceDetailRow = dbcx.Row as MDataSet.InvoiceDetailRow;
 
 
-            MDataSet.InvoiceMasterDataTable _invoiceMasterDataTable = new MDataSet.InvoiceMasterDataTable();
+            MDataSet.InvoiceDetailDataTable _invoiceDetailDataTable = new MDataSet.InvoiceDetailDataTable();
 
-         //   this.invoiceMasterTableAdapter.FillByID(_invoiceMasterDataTable, (dbcx.Row as MDataSet.InvoiceMasterRow).ID);
+            this.invoiceDetailTableAdapter.FillById(_invoiceDetailDataTable, (dbcx.Row as MDataSet.InvoiceDetailRow).ID);
 
-            MDataSet.InvoiceMasterRow rowInDB = (_invoiceMasterDataTable.Rows[0] as MDataSet.InvoiceMasterRow);
+            MDataSet.InvoiceDetailRow rowInDB = (_invoiceDetailDataTable.Rows[0] as MDataSet.InvoiceDetailRow);
 
+            /*Сравнить изменения*/
 
-            //   strInDs += dbcx.Row[i, DataRowVersion.Original] + "\n";
-            strInDB += rowInDB[rowInDB.ID, DataRowVersion.Current] + "\n";
-            //   strProposed += dbcx.Row[i, DataRowVersion.Current] + "\n";
+            if (( Convert.ToDecimal(_invoiceDetailRow["Quantity", DataRowVersion.Original] )!= rowInDB.Quantity) |
+                (Convert.ToDecimal(_invoiceDetailRow["PriceRetailNDS", DataRowVersion.Original]) != rowInDB.PriceRetailNDS))
+            {
+                /*** Отменить **/
+                string strInDB = "Запись была изменена: \n";
 
+                string strMessage;
 
-            // Create the message box text string.
-            strMessage = /*strInDs + "\n" + */strInDB + "\n" + strProposed + "\n"
-                + strPromptText;
+                strInDB += rowInDB.AuthorLastModif.ToString() + "\n";
 
-            // Display the message box.
-            response = MessageBox.Show(strMessage, "Update Failed",
-               MessageBoxButtons.YesNo);
-            processResponse(response, _invoiceMasterDataTable);
+                strMessage = strInDB + "\n";
 
+                System.Windows.Forms.DialogResult response;
+
+                response = MessageBox.Show(strMessage + "Изменения отменены ", "Ошибка совмесного доступа",
+                MessageBoxButtons.OK);
+                this.mDataSet.InvoiceDetail.Merge(_invoiceDetailDataTable);
+                //   processResponse(response, _invoiceDetailDataTable);
+            }
+
+            else
+            {   _invoiceDetailRow.ClearErrors();
+                this.mDataSet.InvoiceDetail.Merge(_invoiceDetailDataTable, true);
+               
+            }
         }
 
-        private void processResponse(System.Windows.Forms.DialogResult response, MDataSet.InvoiceMasterDataTable newTable)
+
+        private void processResponse(System.Windows.Forms.DialogResult response, DataTable newTable)
         {
             // Execute the appropriate code depending on the button selected 
             // in the message box.

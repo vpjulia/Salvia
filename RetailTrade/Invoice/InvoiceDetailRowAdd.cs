@@ -21,23 +21,20 @@ namespace RetailTrade.Invoice
         public InvoiceDetailRowAdd(MDataSet.InvoiceDetailRow source, MDataSet.vwRemainsRow remain)
         {
             InitializeComponent();
-           // _receiptDetailRow = source;
-          //  _productRow = remain;
-
+          
             this.invoiceDetailBindingSource.DataSource = source;
+
          //   this.productBindingSource.DataSource = remain;
+            // this.productBindingSource.ResetBindings(false); 
+            
             source.LocalReceiptDetailRef = remain.ReceiptDetailRef;
             source.Quantity = remain.QuantityRemains;
             _quantytiStock = remain.QuantityRemains;
             
-            // this.productBindingSource.ResetBindings(false);
+          
             this.invoiceDetailBindingSource.ResetBindings(true);
 
-           // _receiptDetailRow.ProductRef = _productRow.ID;
-
-            
-            //_receiptDetailRow.ProductRef = _productRow.ID;
-    
+           
 
             this.errorProvider1.DataSource = this.invoiceDetailBindingSource;
             this.errorProvider1.UpdateBinding();
@@ -48,21 +45,13 @@ namespace RetailTrade.Invoice
         private void quantityEdit_Validated(object sender, EventArgs e)
         {
             if (Decimal.Parse(this.quantityEdit.Text)<=0)
-            {   errorProvider1.SetError((sender as Control), "Неверное количество");
-               // this.quantityEdit.ErrorText("Остаток товара меньше!");
+            { 
+                errorProvider1.SetError((sender as Control), "Неверное количество");
+             
                 this.quantityEdit.SelectAll();
             } 
            
-          /* else 
-  if (Decimal.Parse(this.quantityEdit.Text) > _quantytiStock)
-            {
-                errorProvider1.SetError((sender as Control), "Остаток товара меньше!");
-               // this.quantityEdit.ErrorText("Остаток товара меньше!");
-                this.quantityEdit.SelectAll();
-                
-            }
-           */
-        }
+       }
 
         private void InvoiceDetailRowAdd_Validating(object sender, CancelEventArgs e)
         {
@@ -83,7 +72,7 @@ namespace RetailTrade.Invoice
             if (this.priceEdit.Text.Length == 0)
             { 
              errorProvider1.SetError((sender as Control), "Введите цену!");
-                // this.quantityEdit.ErrorText("Остаток товара меньше!");
+            
                 this.quantityEdit.SelectAll();
             }
             else
@@ -91,7 +80,6 @@ namespace RetailTrade.Invoice
             if (Decimal.Parse(this.priceEdit.Text) <= 0)
             {
                 errorProvider1.SetError((sender as Control), "Введите нормальную цену!");
-                // this.quantityEdit.ErrorText("Остаток товара меньше!");
                 this.quantityEdit.SelectAll();
            
             } 
