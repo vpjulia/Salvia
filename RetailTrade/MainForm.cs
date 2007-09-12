@@ -52,7 +52,7 @@ namespace RetailTrade
             this.components.Add(this.OrdersTableAdapter, "OrdersTableAdapter");
             this.components.Add(this.invoiceDetailTableAdapter, "invoiceDetailTableAdapter");
             this.components.Add(this.invoiceMasterTableAdapter, "invoiceMasterTableAdapter");
-            this.components.Add(this.vwRemainsTableAdapter, "vwRemainsTableAdapter");
+            this.components.Add(this.RemainsTableAdapter, "RemainsTableAdapter");
             this.components.Add(this.pricesPurchaseTableAdapter, "pricesPurchaseTableAdapter");
 
           /*  FillTable("Product");
@@ -97,7 +97,7 @@ namespace RetailTrade
 
 
             this.mDataSet.InvoiceDetail.RowDeleting += new DataRowChangeEventHandler(InvoiceDetail_RowDeleting);
-          
+            this.mDataSet.InvoiceDetail.TableNewRow+=new DataTableNewRowEventHandler(InvoiceDetail_TableNewRow);
             this.mDataSet.InvoiceDetail.RowDeleted+=new DataRowChangeEventHandler(InvoiceDetail_RowDeleted);
             this.mDataSet.InvoiceDetail.RowChanged+=new DataRowChangeEventHandler(InvoiceDetail_RowChanged);
 

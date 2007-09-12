@@ -20,7 +20,7 @@ namespace RetailTrade
         {
             if (e.Column == mDataSet.ReceiptDetail.QuantityColumn)
 
-                foreach (MDataSet.vwRemainsRow remainsRow in (e.Row as MDataSet.ReceiptDetailRow).GetvwRemainsRows())
+                foreach (MDataSet.RemainsRow remainsRow in (e.Row as MDataSet.ReceiptDetailRow).GetRemainsRows())
 
                     if (((e.Row as MDataSet.ReceiptDetailRow).Quantity - remainsRow.QuantityRemains) > ((decimal)e.ProposedValue))
                     {
@@ -32,8 +32,6 @@ namespace RetailTrade
                         remainsRow.QuantityRemains += (decimal)e.ProposedValue - (e.Row as MDataSet.ReceiptDetailRow).Quantity;
 
         }
-
-     
 
         private void onInvoiceMasterColumn_Changed(object sender, DataColumnChangeEventArgs e)
         {
@@ -48,15 +46,22 @@ namespace RetailTrade
 
         }
 
+        private void InvoiceDetail_TableNewRow(object sender, DataTableNewRowEventArgs e)
+        {
+      //
+        }
+
         private void onInvoiceDetailColumn_Changing(object sender, DataColumnChangeEventArgs e)
         {
-           
+        
+
             //проверить кол-во и цену, 
-                    if (e.Column == mDataSet.InvoiceDetail.QuantityColumn)
-                if ((decimal)e.ProposedValue != (e.Row as MDataSet.InvoiceDetailRow).Quantity)
+          if (e.Column == mDataSet.InvoiceDetail.QuantityColumn)
+            {
+              if ((decimal)e.ProposedValue != (e.Row as MDataSet.InvoiceDetailRow).Quantity)
                 {
 
-                    decimal _newQuantityRemains = (e.Row as MDataSet.InvoiceDetailRow).vwRemainsRow.QuantityRemains + (e.Row as MDataSet.InvoiceDetailRow).Quantity;
+                    decimal _newQuantityRemains = (e.Row as MDataSet.InvoiceDetailRow).RemainsRow.QuantityRemains + (e.Row as MDataSet.InvoiceDetailRow).Quantity;
 
                     if ((decimal)e.ProposedValue <= 0)
                         throw new ArgumentException("Количество не может быть нулевым!");
@@ -65,15 +70,27 @@ namespace RetailTrade
 
                             throw new ArgumentException("Остаток на складе меньше!");
                         else
-                            (e.Row as MDataSet.InvoiceDetailRow).vwRemainsRow.QuantityRemains -= (decimal)e.ProposedValue - (e.Row as MDataSet.InvoiceDetailRow).Quantity;
+                            (e.Row as MDataSet.InvoiceDetailRow).RemainsRow.QuantityRemains -= (decimal)e.ProposedValue - (e.Row as MDataSet.InvoiceDetailRow).Quantity;
                 }
+            }
 
+
+          
             
         }
 
         private void onInvoiceDetailColumn_Changed(object sender, DataColumnChangeEventArgs e)
         { 
-          /**/
+            /*при добавлении проставить кол-во == остатку на сервере*/
+
+           if ((e.Column == mDataSet.InvoiceDetail.LocalReceiptDetailRefColumn)
+               &(!e.Row.HasVersion(DataRowVersion.Original)))
+            {
+                this.RefreshData((e.Row as MDataSet.InvoiceDetailRow).RemainsRow);
+                (e.Row as MDataSet.InvoiceDetailRow).Quantity = (e.Row as MDataSet.InvoiceDetailRow).RemainsRow.QuantityRemains;
+
+            }
+
         }
 
         private void InvoiceDetail_RowDeleting(object sender, DataRowChangeEventArgs e)
@@ -89,9 +106,7 @@ namespace RetailTrade
                 SaveToBase(e.Row as MDataSet.InvoiceDetailRow);
 
             }
-            else
-                MessageBox.Show((e.Row as MDataSet.InvoiceDetailRow)["LocalReceiptDetailRef", DataRowVersion.Current].ToString());
-
+           
         }
 
         private void InvoiceDetail_RowChanged(object sender, DataRowChangeEventArgs e)
@@ -342,9 +357,10 @@ namespace RetailTrade
    
             try
             {
+                
                 int res = this.invoiceDetailTableAdapter.Update(sourceRow);
                 this.actionStatusLabel.Text = "Успешно обновлена строка";
-                sourceRow.AcceptChanges();
+                
             }
 
             catch (DBConcurrencyException dbcx)
@@ -360,20 +376,26 @@ namespace RetailTrade
             }
             finally
             {
-                this.vwRemainsTableAdapter.Fill(this.mDataSet.vwRemains);
+                this.RemainsTableAdapter.Fill(this.mDataSet.Remains);
                 RefreshData(_invoiceMasterRow);
             }
 
             return true;
 
         }
+
+        
         public bool RefreshData(MDataSet.InvoiceMasterRow sourceRow) 
         {
            MDataSet.InvoiceMasterDataTable _invoiceMasterDataTable=new MDataSet.InvoiceMasterDataTable();
-       
-          try
+           MDataSet.InvoiceDetailDataTable _invoiceDetailDataTable = new MDataSet.InvoiceDetailDataTable();
+         
+            try
              {
                this.invoiceMasterTableAdapter.FillNew(_invoiceMasterDataTable,sourceRow.DateUpdate);
+               this.invoiceDetailTableAdapter.FillByInvoiceMasterRef(_invoiceDetailDataTable,sourceRow.ID);
+
+              
              }
              catch (Exception err)
              {
@@ -383,6 +405,7 @@ namespace RetailTrade
              finally
              { 
                   this.mDataSet.InvoiceMaster.Merge(_invoiceMasterDataTable,true);
+                  this.mDataSet.InvoiceDetail.Merge(_invoiceDetailDataTable); 
              }
             return true;
             
@@ -408,7 +431,26 @@ namespace RetailTrade
              
         }
 
+        public bool RefreshData(MDataSet.RemainsRow sourceRow)
+        {
+            MDataSet.RemainsDataTable _RemainsDataTable = new MDataSet.RemainsDataTable();
 
+            try
+            {
+                this.RemainsTableAdapter.FillByReceiptDetailRef(_RemainsDataTable, sourceRow.ReceiptDetailRef);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+                return false;
+            }
+            finally
+            {
+                this.mDataSet.Remains.Merge(_RemainsDataTable);
+            }
+            return true;
+
+        }
         private void createMessageInvoiceDetail(DBConcurrencyException dbcx)
         {
             MDataSet.InvoiceDetailRow _invoiceDetailRow = dbcx.Row as MDataSet.InvoiceDetailRow;
@@ -426,26 +468,21 @@ namespace RetailTrade
                 (Convert.ToDecimal(_invoiceDetailRow["PriceRetailNDS", DataRowVersion.Original]) != rowInDB.PriceRetailNDS))
             {
                 /*** Отменить **/
-                string strInDB = "Запись была изменена: \n";
+                string strInDB = "Запись была изменена пользователем: \n";
 
                 string strMessage;
 
                 strInDB += rowInDB.AuthorLastModif.ToString() + "\n";
 
                 strMessage = strInDB + "\n";
-
-                System.Windows.Forms.DialogResult response;
-
-                response = MessageBox.Show(strMessage + "Изменения отменены ", "Ошибка совмесного доступа",
-                MessageBoxButtons.OK);
+                MessageBox.Show(strMessage + "Изменения отменены ", "Ошибка совмесного доступа",
+                MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 this.mDataSet.InvoiceDetail.Merge(_invoiceDetailDataTable);
-                //   processResponse(response, _invoiceDetailDataTable);
             }
-
             else
             {   _invoiceDetailRow.ClearErrors();
                 this.mDataSet.InvoiceDetail.Merge(_invoiceDetailDataTable, true);
-               
+          
             }
         }
 

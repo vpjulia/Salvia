@@ -33,7 +33,7 @@ namespace RetailTrade.Invoice
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.gridRemains = new DevExpress.XtraGrid.GridControl();
-            this.vwRemainsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.RemainsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mDataSet = new RetailTrade.MDataSet();
             this.gridViewRemainsInvDetEdt = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colProductRef = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -72,7 +72,7 @@ namespace RetailTrade.Invoice
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridRemains)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vwRemainsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RemainsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRemainsInvDetEdt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
@@ -126,7 +126,7 @@ namespace RetailTrade.Invoice
             // 
             // gridRemains
             // 
-            this.gridRemains.DataSource = this.vwRemainsBindingSource;
+            this.gridRemains.DataSource = this.RemainsBindingSource;
             this.gridRemains.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridRemains.EmbeddedNavigator.Name = "";
             this.gridRemains.Location = new System.Drawing.Point(0, 0);
@@ -139,10 +139,10 @@ namespace RetailTrade.Invoice
             this.gridRemains.DoubleClick += new System.EventHandler(this.btAdd_Click);
             this.gridRemains.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridRemains_KeyDown);
             // 
-            // vwRemainsBindingSource
+            // RemainsBindingSource
             // 
-            this.vwRemainsBindingSource.DataMember = "vwRemains";
-            this.vwRemainsBindingSource.DataSource = this.mDataSet;
+            this.RemainsBindingSource.DataMember = "Remains";
+            this.RemainsBindingSource.DataSource = this.mDataSet;
             // 
             // mDataSet
             // 
@@ -497,7 +497,7 @@ namespace RetailTrade.Invoice
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridRemains)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vwRemainsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RemainsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRemainsInvDetEdt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
@@ -520,7 +520,7 @@ namespace RetailTrade.Invoice
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewRemainsInvDetEdt;
         private DevExpress.XtraGrid.GridControl gridControl2;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewinvDet;
-        private System.Windows.Forms.BindingSource vwRemainsBindingSource;
+        private System.Windows.Forms.BindingSource RemainsBindingSource;
         private MDataSet mDataSet;
         private DevExpress.XtraGrid.Columns.GridColumn colProductRef;
         private DevExpress.XtraGrid.Columns.GridColumn colSeries;

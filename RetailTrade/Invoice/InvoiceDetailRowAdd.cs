@@ -18,7 +18,7 @@ namespace RetailTrade.Invoice
             InitializeComponent();
         }
 
-        public InvoiceDetailRowAdd(MDataSet.InvoiceDetailRow source, MDataSet.vwRemainsRow remain)
+        public InvoiceDetailRowAdd(MDataSet.InvoiceDetailRow source, MDataSet.RemainsRow remain)
         {
             InitializeComponent();
           
@@ -28,7 +28,7 @@ namespace RetailTrade.Invoice
             // this.productBindingSource.ResetBindings(false); 
             
             source.LocalReceiptDetailRef = remain.ReceiptDetailRef;
-            source.Quantity = remain.QuantityRemains;
+        //    source.Quantity = remain.QuantityRemains;
             _quantytiStock = remain.QuantityRemains;
             
           
