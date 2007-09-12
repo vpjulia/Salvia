@@ -53,11 +53,12 @@ namespace RetailTrade
 
         private void onInvoiceDetailColumn_Changing(object sender, DataColumnChangeEventArgs e)
         {
-        
-
-            //проверить кол-во и цену, 
+             //проверить кол-во и цену, 
           if (e.Column == mDataSet.InvoiceDetail.QuantityColumn)
             {
+
+             this.RefreshData((e.Row as MDataSet.InvoiceDetailRow).RemainsRow);
+             
               if ((decimal)e.ProposedValue != (e.Row as MDataSet.InvoiceDetailRow).Quantity)
                 {
 
@@ -73,10 +74,7 @@ namespace RetailTrade
                             (e.Row as MDataSet.InvoiceDetailRow).RemainsRow.QuantityRemains -= (decimal)e.ProposedValue - (e.Row as MDataSet.InvoiceDetailRow).Quantity;
                 }
             }
-
-
-          
-            
+           
         }
 
         private void onInvoiceDetailColumn_Changed(object sender, DataColumnChangeEventArgs e)
@@ -344,8 +342,6 @@ namespace RetailTrade
             _invoiceMasterRow = sourceRow.InvoiceMasterRow;
             /*если  после Update полей на сервере*/
            
-            /*   Пиздец какой-то ???????????????????*/
-
             if ((sourceRow.RowState == DataRowState.Modified)&sourceRow.HasVersion(DataRowVersion.Current))
             {
                if (Convert.ToInt32(sourceRow["ID", DataRowVersion.Original]) != Convert.ToInt32(sourceRow["ID", DataRowVersion.Current]))
@@ -353,27 +349,39 @@ namespace RetailTrade
             }
             //*Если удаление *//
             if (sourceRow.RowState==DataRowState.Deleted)
-              _invoiceMasterRow = this.mDataSet.InvoiceMaster.FindByID(Convert.ToInt32((sourceRow as MDataSet.InvoiceDetailRow)["InvoiceMasterRef", DataRowVersion.Original])); 
-   
-            try
-            {
-                
-                int res = this.invoiceDetailTableAdapter.Update(sourceRow);
-                this.actionStatusLabel.Text = "Успешно обновлена строка";
-                
-            }
+              _invoiceMasterRow = this.mDataSet.InvoiceMaster.FindByID(Convert.ToInt32((sourceRow as MDataSet.InvoiceDetailRow)["InvoiceMasterRef", DataRowVersion.Original]));
 
-            catch (DBConcurrencyException dbcx)
-            {
-                this.createMessageInvoiceDetail(dbcx);
-                return false;
-            }
+          try
+          {
 
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message);
-                return false;
-            }
+              int res = this.invoiceDetailTableAdapter.Update(sourceRow);
+              this.actionStatusLabel.Text = "Успешно обновлена строка";
+
+          }
+
+          catch (DBConcurrencyException dbcx)
+          {
+              this.createMessageInvoiceDetail(dbcx);
+              return false;
+          }
+
+          catch (SqlException sqlerr)
+          {
+
+             if (sqlerr.Class < 17)
+             {
+                 OnInvoiceDetailError(sqlerr,sourceRow);
+             }
+             else
+                caughtGlobalError(sqlerr);
+               return false;
+
+          }
+          catch (Exception err)
+          {
+              MessageBox.Show(err.Message);
+              return false;
+          }
             finally
             {
                 this.RemainsTableAdapter.Fill(this.mDataSet.Remains);
@@ -382,6 +390,45 @@ namespace RetailTrade
 
             return true;
 
+        }
+
+        private bool OnInvoiceDetailError(SqlException sqlerr,MDataSet.InvoiceDetailRow row)
+        {
+            decimal _oldQnt = row.Quantity;
+
+            RefreshData(row.RemainsRow);
+
+            if (row.RemainsRow.QuantityRemains == 0)
+            {
+                MessageBox.Show("Уже нет товара на складе!");
+                row.RejectChanges();
+                return true;
+            }
+            else
+            { /*уменьшить до кол-ва остатка и снова сохранить*/
+                try
+                {
+                 row.ClearErrors();
+                 row.Quantity = row.RemainsRow.QuantityRemains;
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return false;
+                }
+                finally
+                {
+                    decimal ed = _oldQnt - row.Quantity;
+                    MessageBox.Show("Не удалось выписать: "+ed.ToString());
+                }
+                return true;
+            }
+        }
+
+        private void caughtGlobalError(SqlException sqlerr)
+        {
+
+            MessageBox.Show("ОШИБКА соединения с базой!", "Розничная торговля", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         
@@ -489,8 +536,6 @@ namespace RetailTrade
 
         private void processResponse(System.Windows.Forms.DialogResult response, DataTable newTable)
         {
-            // Execute the appropriate code depending on the button selected 
-            // in the message box.
             switch (response)
             {
                 case System.Windows.Forms.DialogResult.Yes:
