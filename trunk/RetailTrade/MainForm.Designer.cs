@@ -79,7 +79,7 @@ namespace RetailTrade
             this.colDateCreate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colRowVersion = new DevExpress.XtraGrid.Columns.GridColumn();
             this.mainReportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
-            this.vwRemainsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.RemainsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.invoiceDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.invoiceMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.documentTypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -138,7 +138,7 @@ namespace RetailTrade
             this.OrdersTableAdapter = new RetailTrade.MDataSetTableAdapters.OrdersTableAdapter();
             this.invoiceMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.InvoiceMasterTableAdapter();
             this.invoiceDetailTableAdapter = new RetailTrade.MDataSetTableAdapters.InvoiceDetailTableAdapter();
-            this.vwRemainsTableAdapter = new RetailTrade.MDataSetTableAdapters.vwRemainsTableAdapter();
+            this.RemainsTableAdapter = new RetailTrade.MDataSetTableAdapters.RemainsTableAdapter();
             this.pricesPurchaseTableAdapter = new RetailTrade.MDataSetTableAdapters.PricesPurchaseTableAdapter();
             this.actionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
@@ -154,7 +154,7 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.pricesPurchaseBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vwRemainsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RemainsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentTypeBindingSource)).BeginInit();
@@ -496,10 +496,10 @@ namespace RetailTrade
             this.mainReportViewer.TabIndex = 0;
             this.mainReportViewer.Visible = false;
             // 
-            // vwRemainsBindingSource
+            // RemainsBindingSource
             // 
-            this.vwRemainsBindingSource.DataMember = "vwRemains";
-            this.vwRemainsBindingSource.DataSource = this.mDataSet;
+            this.RemainsBindingSource.DataMember = "Remains";
+            this.RemainsBindingSource.DataSource = this.mDataSet;
             // 
             // invoiceDetailBindingSource
             // 
@@ -848,9 +848,9 @@ namespace RetailTrade
             // 
             this.invoiceDetailTableAdapter.ClearBeforeFill = true;
             // 
-            // vwRemainsTableAdapter
+            // RemainsTableAdapter
             // 
-            this.vwRemainsTableAdapter.ClearBeforeFill = true;
+            this.RemainsTableAdapter.ClearBeforeFill = true;
             // 
             // pricesPurchaseTableAdapter
             // 
@@ -887,7 +887,7 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.pricesPurchaseBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vwRemainsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RemainsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentTypeBindingSource)).EndInit();
@@ -1005,8 +1005,8 @@ namespace RetailTrade
         private System.Windows.Forms.BindingSource invoiceDetailBindingSource;
         private RetailTrade.MDataSetTableAdapters.InvoiceDetailTableAdapter invoiceDetailTableAdapter;
         public RetailTrade.MDataSetTableAdapters.ReceiptMasterTableAdapter receiptMasterTableAdapter;
-        private System.Windows.Forms.BindingSource vwRemainsBindingSource;
-        private RetailTrade.MDataSetTableAdapters.vwRemainsTableAdapter vwRemainsTableAdapter;
+        private System.Windows.Forms.BindingSource RemainsBindingSource;
+        private RetailTrade.MDataSetTableAdapters.RemainsTableAdapter RemainsTableAdapter;
         private System.Windows.Forms.BindingSource pricesPurchaseBindingSource;
         private RetailTrade.MDataSetTableAdapters.PricesPurchaseTableAdapter pricesPurchaseTableAdapter;
         private System.Windows.Forms.ToolStripStatusLabel actionStatusLabel;

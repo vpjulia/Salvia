@@ -23,10 +23,10 @@ namespace RetailTrade.Invoice
 
             this.mDataSet = source.Table.DataSet as MDataSet;
 
-        //    this.vwRemainsBindingSource.DataSource = new DataView(this.mDataSet.vwRemains, "MainStockRef=" + source.MainStockRef.ToString(), null, DataViewRowState.CurrentRows);
+        //    this.RemainsBindingSource.DataSource = new DataView(this.mDataSet.Remains, "MainStockRef=" + source.MainStockRef.ToString(), null, DataViewRowState.CurrentRows);
            
-            this.vwRemainsBindingSource.DataSource = new DataView(this.mDataSet.vwRemains, "Quantityremains<>0 and MainStockRef=" + source.MainStockRef.ToString(), null, DataViewRowState.CurrentRows);
-            this.vwRemainsBindingSource.ResetBindings(true);
+            this.RemainsBindingSource.DataSource = new DataView(this.mDataSet.Remains, "Quantityremains<>0 and MainStockRef=" + source.MainStockRef.ToString(), null, DataViewRowState.CurrentRows);
+            this.RemainsBindingSource.ResetBindings(true);
 
             this.invoiceMasterBindingSource.DataSource = source;
             this.invoiceMasterBindingSource.ResetBindings(true);
@@ -55,7 +55,7 @@ namespace RetailTrade.Invoice
                     _formDialog.Text = "Добавить строку";
 
                     MDataSet.InvoiceDetailRow sourceRow = ((this.invoiceDetailBindingSource.AddNew() as DataRowView).Row as MDataSet.InvoiceDetailRow);
-                    MDataSet.vwRemainsRow remainsRow = ((this.vwRemainsBindingSource.CurrencyManager.Current as DataRowView).Row as  MDataSet.vwRemainsRow);
+                    MDataSet.RemainsRow remainsRow = ((this.RemainsBindingSource.CurrencyManager.Current as DataRowView).Row as  MDataSet.RemainsRow);
 
                     if ((sourceRow != null) & (remainsRow != null))
                     {
@@ -98,7 +98,7 @@ namespace RetailTrade.Invoice
                
                 if ((sourceRow != null) )
                 {
-                    InvoiceDetailRowAdd _invoiceDetailRowAdd = new InvoiceDetailRowAdd(sourceRow, sourceRow.vwRemainsRow);
+                    InvoiceDetailRowAdd _invoiceDetailRowAdd = new InvoiceDetailRowAdd(sourceRow, sourceRow.RemainsRow);
                     _formDialog.panel.Controls.Add(_invoiceDetailRowAdd);
 
                     if (DialogResult.OK == _formDialog.ShowDialog(this))
