@@ -26,8 +26,10 @@ namespace RetailTrade.Invoice
 
          //   this.productBindingSource.DataSource = remain;
             // this.productBindingSource.ResetBindings(false); 
-            
-            source.LocalReceiptDetailRef = remain.ReceiptDetailRef;
+            if (source.LocalReceiptDetailRef==0 )  
+               source.LocalReceiptDetailRef = remain.ReceiptDetailRef;
+
+
         //    source.Quantity = remain.QuantityRemains;
             _quantytiStock = remain.QuantityRemains;
             

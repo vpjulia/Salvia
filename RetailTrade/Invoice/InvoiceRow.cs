@@ -167,6 +167,11 @@ namespace RetailTrade.Invoice
                 MessageBox.Show("Ошибка данных!");
         }
 
+        private void btSave_Click(object sender, EventArgs e)
+        {
+            (this.ParentForm as MainForm).SaveToBase((this.invoiceMasterBindingSource.Current as DataRowView).Row as MDataSet.InvoiceMasterRow);
+        }
+
        
     }
 }
