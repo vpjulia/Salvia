@@ -200,8 +200,15 @@ namespace RetailTrade.Invoice
         private void btField_Click(object sender, EventArgs e)
         {
             (this.gridInvoiceDetail.FocusedView as GridView).ColumnsCustomization();
-            this.gridInvoiceDetail.CustomizationForm.TopMost = true;
-          
+            (this.gridInvoiceDetail.FocusedView as GridView).CustomizationForm.TopMost = true;
+           
+        }
+
+        private void btFieldRem_Click(object sender, EventArgs e)
+        {
+            (this.gridRemains.FocusedView as GridView).ColumnsCustomization();
+            (this.gridRemains.FocusedView as GridView).CustomizationForm.TopMost = true;
+           
         }
         
     }

@@ -67,10 +67,10 @@
     <Compile Include="MainForm.Data.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Orders\Directory\UCTradePuplet.cs">
+    <Compile Include="Directory\UCTradePuplet.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Orders\Directory\UCTradePuplet.Designer.cs">
+    <Compile Include="Directory\UCTradePuplet.Designer.cs">
       <DependentUpon>UCTradePuplet.cs</DependentUpon>
     </Compile>
     <Compile Include="IBDataset.Designer.cs">
@@ -136,7 +136,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>printingControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Orders\Directory\UCTradePuplet.resx">
+    <EmbeddedResource Include="Directory\UCTradePuplet.resx">
       <SubType>Designer</SubType>
       <DependentUpon>UCTradePuplet.cs</DependentUpon>
     </EmbeddedResource>
@@ -170,27 +170,27 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Orders\Directory\UcGroupDirectory.resx">
+    <EmbeddedResource Include="Directory\UcGroupDirectory.resx">
       <SubType>Designer</SubType>
       <DependentUpon>UcGroupDirectory.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Orders\Directory\UCProductAll.resx">
+    <EmbeddedResource Include="Directory\UCProductAll.resx">
       <SubType>Designer</SubType>
       <DependentUpon>UCProductAll.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Orders\Directory\ucProductRow.resx">
+    <EmbeddedResource Include="Directory\ucProductRow.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ucProductRow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Orders\Directory\UCSimpleDirectory.resx">
+    <EmbeddedResource Include="Directory\UCSimpleDirectory.resx">
       <SubType>Designer</SubType>
       <DependentUpon>UCSimpleDirectory.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Orders\Directory\UCOrganizationAll.resx">
+    <EmbeddedResource Include="Directory\UCOrganizationAll.resx">
       <SubType>Designer</SubType>
       <DependentUpon>UCOrganizationAll.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Orders\Directory\UCOrganizationRow.resx">
+    <EmbeddedResource Include="Directory\UCOrganizationRow.resx">
       <SubType>Designer</SubType>
       <DependentUpon>UCOrganizationRow.cs</DependentUpon>
     </EmbeddedResource>
@@ -244,40 +244,40 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Orders\Directory\UcGroupDirectory.cs">
+    <Compile Include="Directory\UcGroupDirectory.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Orders\Directory\UcGroupDirectory.Designer.cs">
+    <Compile Include="Directory\UcGroupDirectory.Designer.cs">
       <DependentUpon>UcGroupDirectory.cs</DependentUpon>
     </Compile>
-    <Compile Include="Orders\Directory\UCProductAll.cs">
+    <Compile Include="Directory\UCProductAll.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Orders\Directory\UCProductAll.Designer.cs">
+    <Compile Include="Directory\UCProductAll.Designer.cs">
       <DependentUpon>UCProductAll.cs</DependentUpon>
     </Compile>
-    <Compile Include="Orders\Directory\ucProductRow.cs">
+    <Compile Include="Directory\ucProductRow.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Orders\Directory\ucProductRow.Designer.cs">
+    <Compile Include="Directory\ucProductRow.Designer.cs">
       <DependentUpon>ucProductRow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Orders\Directory\UCSimpleDirectory.cs">
+    <Compile Include="Directory\UCSimpleDirectory.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Orders\Directory\UCSimpleDirectory.Designer.cs">
+    <Compile Include="Directory\UCSimpleDirectory.Designer.cs">
       <DependentUpon>UCSimpleDirectory.cs</DependentUpon>
     </Compile>
-    <Compile Include="Orders\Directory\UCOrganizationAll.cs">
+    <Compile Include="Directory\UCOrganizationAll.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Orders\Directory\UCOrganizationAll.Designer.cs">
+    <Compile Include="Directory\UCOrganizationAll.Designer.cs">
       <DependentUpon>UCOrganizationAll.cs</DependentUpon>
     </Compile>
-    <Compile Include="Orders\Directory\UCOrganizationRow.cs">
+    <Compile Include="Directory\UCOrganizationRow.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Orders\Directory\UCOrganizationRow.Designer.cs">
+    <Compile Include="Directory\UCOrganizationRow.Designer.cs">
       <DependentUpon>UCOrganizationRow.cs</DependentUpon>
     </Compile>
     <Compile Include="Receipt\ReceiptDetailByRef.cs">
