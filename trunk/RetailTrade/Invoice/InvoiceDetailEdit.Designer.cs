@@ -45,7 +45,7 @@ namespace RetailTrade.Invoice
             this.colQuantityRemains = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colReceiptDetailRef = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDocDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridControl2 = new DevExpress.XtraGrid.GridControl();
+            this.gridInvoiceDetail = new DevExpress.XtraGrid.GridControl();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.btDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.invoiceDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -66,6 +66,10 @@ namespace RetailTrade.Invoice
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.invoiceMasterBindingSourceView = new System.Windows.Forms.BindingSource(this.components);
             this.invoiceMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.colDateLastModif1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAuthorLastModif1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.btField = new System.Windows.Forms.ToolStripMenuItem();
+            this.btEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -75,7 +79,7 @@ namespace RetailTrade.Invoice
             ((System.ComponentModel.ISupportInitialize)(this.RemainsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRemainsInvDetEdt)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridInvoiceDetail)).BeginInit();
             this.contextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewinvDet)).BeginInit();
@@ -119,7 +123,7 @@ namespace RetailTrade.Invoice
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.gridControl2);
+            this.splitContainer1.Panel2.Controls.Add(this.gridInvoiceDetail);
             this.splitContainer1.Size = new System.Drawing.Size(666, 500);
             this.splitContainer1.SplitterDistance = 273;
             this.splitContainer1.TabIndex = 0;
@@ -128,6 +132,9 @@ namespace RetailTrade.Invoice
             // 
             this.gridRemains.DataSource = this.RemainsBindingSource;
             this.gridRemains.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
             this.gridRemains.EmbeddedNavigator.Name = "";
             this.gridRemains.Location = new System.Drawing.Point(0, 0);
             this.gridRemains.MainView = this.gridViewRemainsInvDetEdt;
@@ -160,7 +167,9 @@ namespace RetailTrade.Invoice
             this.colPricePurchase,
             this.colQuantityRemains,
             this.colReceiptDetailRef,
-            this.colDocDate});
+            this.colDocDate,
+            this.colDateLastModif1,
+            this.colAuthorLastModif1});
             this.gridViewRemainsInvDetEdt.GridControl = this.gridRemains;
             this.gridViewRemainsInvDetEdt.Name = "gridViewRemainsInvDetEdt";
             this.gridViewRemainsInvDetEdt.OptionsBehavior.AllowIncrementalSearch = true;
@@ -266,31 +275,36 @@ namespace RetailTrade.Invoice
             this.colDocDate.VisibleIndex = 7;
             this.colDocDate.Width = 82;
             // 
-            // gridControl2
+            // gridInvoiceDetail
             // 
-            this.gridControl2.ContextMenuStrip = this.contextMenuStrip;
-            this.gridControl2.DataSource = this.invoiceDetailBindingSource;
-            this.gridControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControl2.EmbeddedNavigator.Name = "";
-            this.gridControl2.Location = new System.Drawing.Point(0, 0);
-            this.gridControl2.MainView = this.gridViewinvDet;
-            this.gridControl2.Name = "gridControl2";
-            this.gridControl2.Size = new System.Drawing.Size(666, 223);
-            this.gridControl2.TabIndex = 0;
-            this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridInvoiceDetail.ContextMenuStrip = this.contextMenuStrip;
+            this.gridInvoiceDetail.DataSource = this.invoiceDetailBindingSource;
+            this.gridInvoiceDetail.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
+            this.gridInvoiceDetail.EmbeddedNavigator.Name = "";
+            this.gridInvoiceDetail.Location = new System.Drawing.Point(0, 0);
+            this.gridInvoiceDetail.MainView = this.gridViewinvDet;
+            this.gridInvoiceDetail.Name = "gridInvoiceDetail";
+            this.gridInvoiceDetail.Size = new System.Drawing.Size(666, 223);
+            this.gridInvoiceDetail.TabIndex = 0;
+            this.gridInvoiceDetail.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewinvDet});
             // 
             // contextMenuStrip
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btDelete});
+            this.btEdit,
+            this.btDelete,
+            this.btField});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(200, 26);
+            this.contextMenuStrip.Size = new System.Drawing.Size(209, 70);
             // 
             // btDelete
             // 
             this.btDelete.Name = "btDelete";
-            this.btDelete.Size = new System.Drawing.Size(199, 22);
+            this.btDelete.Size = new System.Drawing.Size(208, 22);
             this.btDelete.Text = "Удалить строку";
             this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
             // 
@@ -314,7 +328,7 @@ namespace RetailTrade.Invoice
             this.colDateLastModif,
             this.colLocalReceiptDetailRef,
             this.colCalcSum});
-            this.gridViewinvDet.GridControl = this.gridControl2;
+            this.gridViewinvDet.GridControl = this.gridInvoiceDetail;
             this.gridViewinvDet.Name = "gridViewinvDet";
             this.gridViewinvDet.OptionsDetail.EnableMasterViewMode = false;
             this.gridViewinvDet.OptionsView.ShowDetailButtons = false;
@@ -481,6 +495,35 @@ namespace RetailTrade.Invoice
             this.invoiceMasterBindingSource.DataMember = "InvoiceMaster";
             this.invoiceMasterBindingSource.DataSource = this.mDataSet;
             // 
+            // colDateLastModif1
+            // 
+            this.colDateLastModif1.Caption = "Изменен";
+            this.colDateLastModif1.FieldName = "DateLastModif";
+            this.colDateLastModif1.Name = "colDateLastModif1";
+            this.colDateLastModif1.OptionsColumn.ReadOnly = true;
+            // 
+            // colAuthorLastModif1
+            // 
+            this.colAuthorLastModif1.Caption = "Редактор";
+            this.colAuthorLastModif1.FieldName = "AuthorLastModif";
+            this.colAuthorLastModif1.Name = "colAuthorLastModif1";
+            this.colAuthorLastModif1.OptionsColumn.AllowEdit = false;
+            this.colAuthorLastModif1.OptionsColumn.ReadOnly = true;
+            // 
+            // btField
+            // 
+            this.btField.Name = "btField";
+            this.btField.Size = new System.Drawing.Size(208, 22);
+            this.btField.Text = "Настройка полей";
+            this.btField.Click += new System.EventHandler(this.btField_Click);
+            // 
+            // btEdit
+            // 
+            this.btEdit.Name = "btEdit";
+            this.btEdit.Size = new System.Drawing.Size(208, 22);
+            this.btEdit.Text = "Изменить";
+            this.btEdit.Click += new System.EventHandler(this.gridViewinvDet_DoubleClick);
+            // 
             // InvoiceDetailEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -500,7 +543,7 @@ namespace RetailTrade.Invoice
             ((System.ComponentModel.ISupportInitialize)(this.RemainsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRemainsInvDetEdt)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridInvoiceDetail)).EndInit();
             this.contextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.invoiceDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewinvDet)).EndInit();
@@ -518,7 +561,7 @@ namespace RetailTrade.Invoice
         private System.Windows.Forms.TabPage tabPage2;
         private DevExpress.XtraGrid.GridControl gridRemains;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewRemainsInvDetEdt;
-        private DevExpress.XtraGrid.GridControl gridControl2;
+        private DevExpress.XtraGrid.GridControl gridInvoiceDetail;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewinvDet;
         private System.Windows.Forms.BindingSource RemainsBindingSource;
         private MDataSet mDataSet;
@@ -549,5 +592,9 @@ namespace RetailTrade.Invoice
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem btDelete;
         private DevExpress.XtraGrid.Columns.GridColumn colCalcSum;
+        private DevExpress.XtraGrid.Columns.GridColumn colDateLastModif1;
+        private DevExpress.XtraGrid.Columns.GridColumn colAuthorLastModif1;
+        private System.Windows.Forms.ToolStripMenuItem btEdit;
+        private System.Windows.Forms.ToolStripMenuItem btField;
     }
 }

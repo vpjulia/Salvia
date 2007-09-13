@@ -33,7 +33,7 @@ namespace RetailTrade.Invoice
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvoiceRow));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.btEdit = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.btSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.btField = new System.Windows.Forms.ToolStripMenuItem();
             this.btRefresh = new System.Windows.Forms.ToolStripMenuItem();
@@ -109,7 +109,7 @@ namespace RetailTrade.Invoice
             // 
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btEdit,
-            this.toolStripButton1,
+            this.btSave,
             this.toolStripSplitButton1,
             this.btClose});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
@@ -127,13 +127,14 @@ namespace RetailTrade.Invoice
             this.btEdit.Text = "Изменить";
             this.btEdit.Click += new System.EventHandler(this.btEdit_Click);
             // 
-            // toolStripButton1
+            // btSave
             // 
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(101, 22);
-            this.toolStripButton1.Text = "Сохранить";
+            this.btSave.Image = ((System.Drawing.Image)(resources.GetObject("btSave.Image")));
+            this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btSave.Name = "btSave";
+            this.btSave.Size = new System.Drawing.Size(101, 22);
+            this.btSave.Text = "Сохранить";
+            this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
             // toolStripSplitButton1
             // 
@@ -603,7 +604,7 @@ namespace RetailTrade.Invoice
         private System.Windows.Forms.BindingSource invoiceDetailBindingSource;
         private RetailTrade.MDataSetTableAdapters.InvoiceDetailTableAdapter invoiceDetailTableAdapter;
         private System.Windows.Forms.ToolStripButton btEdit;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton btSave;
         private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
         private System.Windows.Forms.ToolStripMenuItem btField;
         private System.Windows.Forms.ToolStripMenuItem btRefresh;

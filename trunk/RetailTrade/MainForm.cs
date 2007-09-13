@@ -90,10 +90,10 @@ namespace RetailTrade
 
          //   MessageBox.Show(app.GetValue("RetailTradeConnectionString", System.Type.GetType("System.String")).ToString());
 
-            this.mDataSet.ReceiptDetail.ColumnChanging += new DataColumnChangeEventHandler(onReceiptDetailColumn_Changing);
-            this.mDataSet.InvoiceMaster.ColumnChanged += new  DataColumnChangeEventHandler (onInvoiceMasterColumn_Changed);
-            this.mDataSet.InvoiceDetail.ColumnChanging += new DataColumnChangeEventHandler(onInvoiceDetailColumn_Changing);
-            this.mDataSet.InvoiceDetail.ColumnChanged += new DataColumnChangeEventHandler(onInvoiceDetailColumn_Changed);
+            this.mDataSet.ReceiptDetail.ColumnChanging += new DataColumnChangeEventHandler(ReceiptDetailColumn_Changing);
+            this.mDataSet.InvoiceMaster.ColumnChanged += new  DataColumnChangeEventHandler (InvoiceMasterColumn_Changed);
+            this.mDataSet.InvoiceDetail.ColumnChanging += new DataColumnChangeEventHandler(InvoiceDetailColumn_Changing);
+            this.mDataSet.InvoiceDetail.ColumnChanged += new DataColumnChangeEventHandler(InvoiceDetailColumn_Changed);
 
 
             this.mDataSet.InvoiceDetail.RowDeleting += new DataRowChangeEventHandler(InvoiceDetail_RowDeleting);
