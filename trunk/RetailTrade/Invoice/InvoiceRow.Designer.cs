@@ -33,7 +33,6 @@ namespace RetailTrade.Invoice
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvoiceRow));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.btEdit = new System.Windows.Forms.ToolStripButton();
-            this.btSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.btField = new System.Windows.Forms.ToolStripMenuItem();
             this.btRefresh = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,16 +42,18 @@ namespace RetailTrade.Invoice
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.StockEdit = new DevExpress.XtraEditors.LookUpEdit();
+            this.label2 = new System.Windows.Forms.Label();
             this.invoiceMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mDataSet = new RetailTrade.MDataSet();
-            this.stockBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.MainStocklookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.mainStocklookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.MainStockBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.StockEdit = new DevExpress.XtraEditors.LookUpEdit();
+            this.stockBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.panelNumber = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.numberTextBox = new System.Windows.Forms.TextBox();
@@ -83,13 +84,13 @@ namespace RetailTrade.Invoice
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.StockEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.stockBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MainStocklookUpEdit.Properties)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mainStocklookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MainStockBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StockEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stockBindingSource)).BeginInit();
             this.panelNumber.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceDetailBindingSource)).BeginInit();
@@ -109,7 +110,6 @@ namespace RetailTrade.Invoice
             // 
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btEdit,
-            this.btSave,
             this.toolStripSplitButton1,
             this.btClose});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
@@ -127,15 +127,6 @@ namespace RetailTrade.Invoice
             this.btEdit.Text = "Изменить";
             this.btEdit.Click += new System.EventHandler(this.btEdit_Click);
             // 
-            // btSave
-            // 
-            this.btSave.Image = ((System.Drawing.Image)(resources.GetObject("btSave.Image")));
-            this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(101, 22);
-            this.btSave.Text = "Сохранить";
-            this.btSave.Click += new System.EventHandler(this.btSave_Click);
-            // 
             // toolStripSplitButton1
             // 
             this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -147,6 +138,7 @@ namespace RetailTrade.Invoice
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
             this.toolStripSplitButton1.Size = new System.Drawing.Size(32, 22);
             this.toolStripSplitButton1.Text = "toolStripSplitButton1";
+            this.toolStripSplitButton1.ButtonClick += new System.EventHandler(this.toolStripSplitButton1_ButtonClick);
             // 
             // btField
             // 
@@ -190,6 +182,7 @@ namespace RetailTrade.Invoice
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(797, 516);
             this.tabControl.TabIndex = 2;
+            this.tabControl.Validating += new System.ComponentModel.CancelEventHandler(this.tabControl_Validating);
             // 
             // tabPage1
             // 
@@ -223,6 +216,7 @@ namespace RetailTrade.Invoice
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.tableLayoutPanel1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 40);
@@ -231,13 +225,33 @@ namespace RetailTrade.Invoice
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.invoiceMasterBindingSource, "MainStockRef", true));
+            this.label2.Location = new System.Drawing.Point(163, 99);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(46, 17);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "label2";
+            // 
+            // invoiceMasterBindingSource
+            // 
+            this.invoiceMasterBindingSource.DataMember = "InvoiceMaster";
+            this.invoiceMasterBindingSource.DataSource = this.mDataSet;
+            // 
+            // mDataSet
+            // 
+            this.mDataSet.DataSetName = "MDataSet";
+            this.mDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 617F));
+            this.tableLayoutPanel1.Controls.Add(this.mainStocklookUpEdit, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.StockEdit, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.MainStocklookUpEdit, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -250,6 +264,31 @@ namespace RetailTrade.Invoice
             this.tableLayoutPanel1.Size = new System.Drawing.Size(777, 76);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // mainStocklookUpEdit
+            // 
+            this.mainStocklookUpEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.mainStocklookUpEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.invoiceMasterBindingSource, "MainStockRef", true));
+            this.mainStocklookUpEdit.EnterMoveNextControl = true;
+            this.mainStocklookUpEdit.Location = new System.Drawing.Point(163, 31);
+            this.mainStocklookUpEdit.Name = "mainStocklookUpEdit";
+            this.mainStocklookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.mainStocklookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name", 50, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("TradePupletName", "TradePupletName", 30, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near)});
+            this.mainStocklookUpEdit.Properties.DataSource = this.MainStockBindingSource;
+            this.mainStocklookUpEdit.Properties.DisplayMember = "Name";
+            this.mainStocklookUpEdit.Properties.ShowHeader = false;
+            this.mainStocklookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.mainStocklookUpEdit.Properties.ValueMember = "ID";
+            this.mainStocklookUpEdit.Size = new System.Drawing.Size(220, 22);
+            this.mainStocklookUpEdit.TabIndex = 4;
+            // 
+            // MainStockBindingSource
+            // 
+            this.MainStockBindingSource.DataMember = "Stock";
+            this.MainStockBindingSource.DataSource = this.mDataSet;
+            // 
             // StockEdit
             // 
             this.StockEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
@@ -257,6 +296,7 @@ namespace RetailTrade.Invoice
             this.StockEdit.EnterMoveNextControl = true;
             this.StockEdit.Location = new System.Drawing.Point(163, 3);
             this.StockEdit.Name = "StockEdit";
+            this.StockEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.StockEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.StockEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
@@ -264,51 +304,22 @@ namespace RetailTrade.Invoice
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("TradePupletName", "TradePupletName", 30, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near)});
             this.StockEdit.Properties.DataSource = this.stockBindingSource;
             this.StockEdit.Properties.DisplayMember = "Name";
+            this.StockEdit.Properties.HideSelection = false;
             this.StockEdit.Properties.ShowHeader = false;
             this.StockEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.StockEdit.Properties.UseCtrlScroll = true;
+            this.StockEdit.Properties.ValidateOnEnterKey = true;
             this.StockEdit.Properties.ValueMember = "ID";
             this.StockEdit.Size = new System.Drawing.Size(220, 22);
             this.StockEdit.TabIndex = 2;
+           
             this.StockEdit.EditValueChanged += new System.EventHandler(this.StockEdit_EditValueChanged);
-            // 
-            // invoiceMasterBindingSource
-            // 
-            this.invoiceMasterBindingSource.DataMember = "InvoiceMaster";
-            this.invoiceMasterBindingSource.DataSource = this.mDataSet;
-            // 
-            // mDataSet
-            // 
-            this.mDataSet.DataSetName = "MDataSet";
-            this.mDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
+            this.StockEdit.Validated += new System.EventHandler(this.StockEdit_Validated);
+             // 
             // stockBindingSource
             // 
             this.stockBindingSource.DataMember = "Stock";
             this.stockBindingSource.DataSource = this.mDataSet;
-            // 
-            // MainStocklookUpEdit
-            // 
-            this.MainStocklookUpEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.MainStocklookUpEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.invoiceMasterBindingSource, "MainStockRef", true));
-            this.MainStocklookUpEdit.Location = new System.Drawing.Point(163, 31);
-            this.MainStocklookUpEdit.Name = "MainStocklookUpEdit";
-            this.MainStocklookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.MainStocklookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name", 39, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("IsNDS", "IsNDS", 40, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near)});
-            this.MainStocklookUpEdit.Properties.DataSource = this.MainStockBindingSource;
-            this.MainStocklookUpEdit.Properties.DisplayMember = "Name";
-            this.MainStocklookUpEdit.Properties.ShowHeader = false;
-            this.MainStocklookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.MainStocklookUpEdit.Properties.ValueMember = "ID";
-            this.MainStocklookUpEdit.Size = new System.Drawing.Size(220, 22);
-            this.MainStocklookUpEdit.TabIndex = 1;
-            // 
-            // MainStockBindingSource
-            // 
-            this.MainStockBindingSource.DataMember = "Stock";
-            this.MainStockBindingSource.DataSource = this.mDataSet;
             // 
             // label3
             // 
@@ -331,6 +342,7 @@ namespace RetailTrade.Invoice
             // panelNumber
             // 
             this.panelNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelNumber.Controls.Add(this.label5);
             this.panelNumber.Controls.Add(this.dateTimePicker1);
             this.panelNumber.Controls.Add(this.label1);
             this.panelNumber.Controls.Add(numberLabel);
@@ -340,6 +352,16 @@ namespace RetailTrade.Invoice
             this.panelNumber.Name = "panelNumber";
             this.panelNumber.Size = new System.Drawing.Size(783, 40);
             this.panelNumber.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.invoiceMasterBindingSource, "RemoteStockRef", true));
+            this.label5.Location = new System.Drawing.Point(338, 11);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(46, 17);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "label5";
             // 
             // dateTimePicker1
             // 
@@ -552,14 +574,15 @@ namespace RetailTrade.Invoice
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.StockEdit.Properties)).EndInit();
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.stockBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MainStocklookUpEdit.Properties)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mainStocklookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MainStockBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StockEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stockBindingSource)).EndInit();
             this.panelNumber.ResumeLayout(false);
             this.panelNumber.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
@@ -604,7 +627,6 @@ namespace RetailTrade.Invoice
         private System.Windows.Forms.BindingSource invoiceDetailBindingSource;
         private RetailTrade.MDataSetTableAdapters.InvoiceDetailTableAdapter invoiceDetailTableAdapter;
         private System.Windows.Forms.ToolStripButton btEdit;
-        private System.Windows.Forms.ToolStripButton btSave;
         private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
         private System.Windows.Forms.ToolStripMenuItem btField;
         private System.Windows.Forms.ToolStripMenuItem btRefresh;
@@ -615,8 +637,10 @@ namespace RetailTrade.Invoice
         private DevExpress.XtraGrid.Columns.GridColumn colManufacturerName;
         private System.Windows.Forms.BindingSource stockBindingSource;
         private RetailTrade.MDataSetTableAdapters.StockTableAdapter stockTableAdapter;
-        private DevExpress.XtraEditors.LookUpEdit MainStocklookUpEdit;
         private System.Windows.Forms.BindingSource MainStockBindingSource;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label5;
+        private DevExpress.XtraEditors.LookUpEdit mainStocklookUpEdit;
        
     }
 }

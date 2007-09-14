@@ -11,14 +11,10 @@ namespace RetailTrade
     {
         private void DoSplash()
         {
-
             SplashScreen sp = new SplashScreen();
             sp.label.Text = System.Environment.UserDomainName;
             sp.ShowDialog();
-
         }
-
-
         //  --------  event
 
         private void ReceiptDetailColumn_Changing(object sender, DataColumnChangeEventArgs e)
@@ -38,17 +34,26 @@ namespace RetailTrade
 
         }
 
+         private void InvoiceMasterColumn_Changing(object sender, DataColumnChangeEventArgs e)
+        {
+            //
+        }
+
         private void InvoiceMasterColumn_Changed(object sender, DataColumnChangeEventArgs e)
         {
             if (e.Column == mDataSet.InvoiceMaster.RemoteStockRefColumn)
-                if ((int)e.ProposedValue != (e.Row as MDataSet.InvoiceMasterRow).RemoteStockRef)
+            {
+                bool _isnds = this.mDataSet.Stock.FindByID(Convert.ToInt32(e.ProposedValue)).IsNDS;
+
+                if ( _isnds!=(e.Row as MDataSet.InvoiceMasterRow).IsNDSMain)
                 {
-                    DataRow[] ardr = (this.mDataSet.Stock.Select(" IsLocal=1 and IsNds=" + (e.Row as MDataSet.InvoiceMasterRow).StockRowByFK_Stock_InvoiceMaster.IsNDS.ToString()));
+                    DataRow[] ardr = (this.mDataSet.Stock.Select(" IsLocal=1 and IsNds=" + _isnds.ToString()));
                     int id = (ardr[0] as MDataSet.StockRow).ID;
                     (e.Row as MDataSet.InvoiceMasterRow).MainStockRef = id;
-                    MessageBox.Show((e.Row as MDataSet.InvoiceMasterRow).MainStockRef.ToString());
+                 
                 }
-
+            }
+          //
         }
 
 
@@ -380,7 +385,7 @@ namespace RetailTrade
              }
              finally
              { 
-                  this.mDataSet.InvoiceMaster.Merge(_invoiceMasterDataTable,true);
+                  this.mDataSet.InvoiceMaster.Merge(_invoiceMasterDataTable);
                   this.mDataSet.InvoiceDetail.Merge(_invoiceDetailDataTable); 
              }
             return true;
@@ -563,7 +568,9 @@ namespace RetailTrade
         }
         private void onInvoiceMasterDBCError(DBConcurrencyException dbcx)
         {
-            throw new Exception("The method or operation is not implemented.");
+            if (this.RefreshData(dbcx.Row as MDataSet.InvoiceMasterRow))
+                MessageBox.Show("Запись была изменена пользователем :" + (dbcx.Row as MDataSet.InvoiceMasterRow).AuthorLastModif,"Ошибка совмесного доступа",MessageBoxButtons.OK,MessageBoxIcon.Asterisk);
+
         }
  
    
@@ -573,8 +580,7 @@ namespace RetailTrade
 
             MessageBox.Show("ОШИБКА соединения с базой!", "Розничная торговля", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-
-       
+            
         private void processResponse(System.Windows.Forms.DialogResult response, DataTable newTable)
         {
             switch (response)
