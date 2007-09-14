@@ -1111,8 +1111,9 @@ namespace RetailTrade {
             this.InvoiceDetail.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.InvoiceDetail.CalcSumColumn.Expression = "PriceRetailNDS*Quantity";
             this.InvoiceMaster.TradePupletNameColumn.Expression = "Parent(FK_Stock_InvoiceMaster).TradePupletName";
-            this.InvoiceMaster.IdNDSColumn.Expression = "Parent(FK_Stock_InvoiceMaster).IsNDS";
+            this.InvoiceMaster.IsNDSColumn.Expression = "Parent(FK_Stock_InvoiceMaster).IsNDS";
             this.InvoiceMaster.DateUpdateColumn.Expression = "Max(DateLastModif)";
+            this.InvoiceMaster.IsNDSMainColumn.Expression = "Parent(FK_InvoiceMaster_StockMain).IsNDS";
             this.Organization.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.Stock.TradePupletNameColumn.Expression = "Parent(TradePutlet_Stock).Name";
             this.ReceiptMaster.OrganizationNameColumn.Expression = "Parent(FK_ReceiptMaster_Organization).ShortName";
@@ -2388,9 +2389,11 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnTradePupletName;
             
-            private System.Data.DataColumn columnIdNDS;
+            private System.Data.DataColumn columnIsNDS;
             
             private System.Data.DataColumn columnDateUpdate;
+            
+            private System.Data.DataColumn columnIsNDSMain;
             
             private static System.DateTime columnDate_defaultValue = System.DateTime.Parse("01/01/2001 00:00:00");
             
@@ -2573,9 +2576,9 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn IdNDSColumn {
+            public System.Data.DataColumn IsNDSColumn {
                 get {
-                    return this.columnIdNDS;
+                    return this.columnIsNDS;
                 }
             }
             
@@ -2583,6 +2586,13 @@ namespace RetailTrade {
             public System.Data.DataColumn DateUpdateColumn {
                 get {
                     return this.columnDateUpdate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn IsNDSMainColumn {
+                get {
+                    return this.columnIsNDSMain;
                 }
             }
             
@@ -2634,8 +2644,9 @@ namespace RetailTrade {
                         StockRow parentStockRowByFK_InvoiceMaster_StockMain, 
                         bool RecalcSum, 
                         string TradePupletName, 
-                        string IdNDS, 
-                        System.DateTime DateUpdate) {
+                        bool IsNDS, 
+                        System.DateTime DateUpdate, 
+                        bool IsNDSMain) {
                 InvoiceMasterRow rowInvoiceMasterRow = ((InvoiceMasterRow)(this.NewRow()));
                 rowInvoiceMasterRow.ItemArray = new object[] {
                         null,
@@ -2658,8 +2669,9 @@ namespace RetailTrade {
                         parentStockRowByFK_InvoiceMaster_StockMain[0],
                         RecalcSum,
                         TradePupletName,
-                        IdNDS,
-                        DateUpdate};
+                        IsNDS,
+                        DateUpdate,
+                        IsNDSMain};
                 this.Rows.Add(rowInvoiceMasterRow);
                 return rowInvoiceMasterRow;
             }
@@ -2709,8 +2721,9 @@ namespace RetailTrade {
                 this.columnMainStockRef = base.Columns["MainStockRef"];
                 this.columnRecalcSum = base.Columns["RecalcSum"];
                 this.columnTradePupletName = base.Columns["TradePupletName"];
-                this.columnIdNDS = base.Columns["IdNDS"];
+                this.columnIsNDS = base.Columns["IsNDS"];
                 this.columnDateUpdate = base.Columns["DateUpdate"];
+                this.columnIsNDSMain = base.Columns["IsNDSMain"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2755,10 +2768,12 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnRecalcSum);
                 this.columnTradePupletName = new System.Data.DataColumn("TradePupletName", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTradePupletName);
-                this.columnIdNDS = new System.Data.DataColumn("IdNDS", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnIdNDS);
+                this.columnIsNDS = new System.Data.DataColumn("IsNDS", typeof(bool), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsNDS);
                 this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(System.DateTime), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDateUpdate);
+                this.columnIsNDSMain = new System.Data.DataColumn("IsNDSMain", typeof(bool), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsNDSMain);
                 this.Constraints.Add(new System.Data.UniqueConstraint("InvoiceMasterKey1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -2798,8 +2813,9 @@ namespace RetailTrade {
                 this.columnMainStockRef.AllowDBNull = false;
                 this.columnMainStockRef.DefaultValue = ((int)(0));
                 this.columnTradePupletName.ReadOnly = true;
-                this.columnIdNDS.ReadOnly = true;
+                this.columnIsNDS.ReadOnly = true;
                 this.columnDateUpdate.ReadOnly = true;
+                this.columnIsNDSMain.ReadOnly = true;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2820,8 +2836,9 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             private void InitExpressions() {
                 this.TradePupletNameColumn.Expression = "Parent(FK_Stock_InvoiceMaster).TradePupletName";
-                this.IdNDSColumn.Expression = "Parent(FK_Stock_InvoiceMaster).IsNDS";
+                this.IsNDSColumn.Expression = "Parent(FK_Stock_InvoiceMaster).IsNDS";
                 this.DateUpdateColumn.Expression = "Max(DateLastModif)";
+                this.IsNDSMainColumn.Expression = "Parent(FK_InvoiceMaster_StockMain).IsNDS";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10476,11 +10493,11 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string TradePupletName {
                 get {
-                    try {
-                        return ((string)(this[this.tableInvoiceMaster.TradePupletNameColumn]));
+                    if (this.IsTradePupletNameNull()) {
+                        return string.Empty;
                     }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'TradePupletName\' in table \'InvoiceMaster\' is DBNull.", e);
+                    else {
+                        return ((string)(this[this.tableInvoiceMaster.TradePupletNameColumn]));
                     }
                 }
                 set {
@@ -10489,17 +10506,17 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string IdNDS {
+            public bool IsNDS {
                 get {
                     try {
-                        return ((string)(this[this.tableInvoiceMaster.IdNDSColumn]));
+                        return ((bool)(this[this.tableInvoiceMaster.IsNDSColumn]));
                     }
                     catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'IdNDS\' in table \'InvoiceMaster\' is DBNull.", e);
+                        throw new System.Data.StrongTypingException("The value for column \'IsNDS\' in table \'InvoiceMaster\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableInvoiceMaster.IdNDSColumn] = value;
+                    this[this.tableInvoiceMaster.IsNDSColumn] = value;
                 }
             }
             
@@ -10515,6 +10532,21 @@ namespace RetailTrade {
                 }
                 set {
                     this[this.tableInvoiceMaster.DateUpdateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsNDSMain {
+                get {
+                    try {
+                        return ((bool)(this[this.tableInvoiceMaster.IsNDSMainColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'IsNDSMain\' in table \'InvoiceMaster\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableInvoiceMaster.IsNDSMainColumn] = value;
                 }
             }
             
@@ -10619,13 +10651,13 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsIdNDSNull() {
-                return this.IsNull(this.tableInvoiceMaster.IdNDSColumn);
+            public bool IsIsNDSNull() {
+                return this.IsNull(this.tableInvoiceMaster.IsNDSColumn);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetIdNDSNull() {
-                this[this.tableInvoiceMaster.IdNDSColumn] = System.Convert.DBNull;
+            public void SetIsNDSNull() {
+                this[this.tableInvoiceMaster.IsNDSColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10636,6 +10668,16 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetDateUpdateNull() {
                 this[this.tableInvoiceMaster.DateUpdateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsIsNDSMainNull() {
+                return this.IsNull(this.tableInvoiceMaster.IsNDSMainColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetIsNDSMainNull() {
+                this[this.tableInvoiceMaster.IsNDSMainColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
