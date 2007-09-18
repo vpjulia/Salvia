@@ -470,6 +470,7 @@ namespace RetailTrade
             this.gridViewReceiptDetail.OptionsDetail.EnableMasterViewMode = false;
             this.gridViewReceiptDetail.OptionsView.ShowFooter = true;
             this.gridViewReceiptDetail.DoubleClick += new System.EventHandler(this.gridViewReceiptDetail_Click);
+            this.gridViewReceiptDetail.InvalidRowException += new DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventHandler(this.gridViewReceiptDetail_InvalidRowException);
             // 
             // colProductName
             // 

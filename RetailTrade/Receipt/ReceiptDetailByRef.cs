@@ -30,8 +30,8 @@ namespace RetailTrade
 
             this.mDataSet = source.Table.DataSet as MDataSet;
 
-          /*  !!!!!  this.productBindingSource.DataSource = this.mDataSet.Product.Select("IsNds=" + source.StockRow.IsNDS.ToString() );
-            */
+            this.productBindingSource.DataSource = this.mDataSet.Product.Select("IsNds=" + source.StockRowByFK_ReceiptMaster_Stock.IsNDS.ToString() );
+            
 
             this.receiptMasterBindingSource.DataSource = source;
             this.receiptMasterBindingSource.ResetBindings(true);
@@ -162,8 +162,14 @@ namespace RetailTrade
                          == DialogResult.Yes)
                  
                         this.gridReceiptDetail.EmbeddedNavigator.Buttons.Remove.DoClick();
-                       
                  }
+        }
+
+        private void gridViewReceiptDetail_InvalidRowException(object sender, InvalidRowExceptionEventArgs e)
+        {
+            this.gridViewReceiptDetail.SetColumnError(this.gridViewReceiptDetail.Columns[1], e.ErrorText.ToString());
+            e.ExceptionMode = DevExpress.XtraEditors.Controls.ExceptionMode.NoAction;
+      
         }
     }
 }

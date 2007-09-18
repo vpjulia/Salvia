@@ -237,10 +237,8 @@ namespace RetailTrade
           finally
             {
                 MDataSet.ReceiptMasterDataTable tmpReceiptMaster = new MDataSet.ReceiptMasterDataTable();
-
                 this.receiptMasterTableAdapter.Fill(tmpReceiptMaster);
                 sourceRow.Table.Merge(tmpReceiptMaster);
-
             }
 
             return true;
@@ -282,9 +280,6 @@ namespace RetailTrade
             }
             return true;
         }
-
-       
-       
         public bool SaveToBase(MDataSet.InvoiceDetailRow sourceRow)
         {
 
@@ -349,9 +344,9 @@ namespace RetailTrade
             return true;
 
         }
-
-       // ---------  Refresh 
-
+     
+        // ---------  Refresh 
+        
         public void FillTable(string NameTable)
         {
             if (this.mDataSet.Tables[NameTable].Rows.Count == 0)
@@ -363,8 +358,6 @@ namespace RetailTrade
                     FillTable(relation.ParentTable.ToString());
                 tp.GetMethod("Fill").Invoke(this.components.Components[NameTable + "TableAdapter"], args);
             }
-           
-             
         }
         public bool RefreshData(MDataSet.InvoiceMasterRow sourceRow) 
         {
@@ -572,8 +565,6 @@ namespace RetailTrade
                 MessageBox.Show("Запись была изменена пользователем :" + (dbcx.Row as MDataSet.InvoiceMasterRow).AuthorLastModif,"Ошибка совмесного доступа",MessageBoxButtons.OK,MessageBoxIcon.Asterisk);
 
         }
- 
-   
        
         private void caughtGlobalError(SqlException sqlerr)
         {

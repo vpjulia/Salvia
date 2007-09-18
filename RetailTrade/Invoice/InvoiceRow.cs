@@ -157,7 +157,7 @@ namespace RetailTrade.Invoice
 
         private void StockEdit_EditValueChanged(object sender, EventArgs e)
         {
-         //   
+            this.StockEdit.DoValidate();
             
        }
 
