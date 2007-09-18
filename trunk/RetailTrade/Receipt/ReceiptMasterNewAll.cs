@@ -20,7 +20,7 @@ namespace RetailTrade
         {
             InitializeComponent();
             this.mDataSet = source;
-            this.receiptMasterBindingSource.DataSource = new DataView(this.mDataSet.ReceiptMaster,"DocumentTypeRef=0",null,DataViewRowState.CurrentRows) ;
+            this.receiptMasterBindingSource.DataSource = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0", null, DataViewRowState.CurrentRows);
             this.receiptMasterBindingSource.ResetBindings(false);
             this.productBindingSource.DataSource = this.mDataSet.Product;
             this.organizationBindingSource.DataSource = this.mDataSet.Organization;
@@ -29,7 +29,7 @@ namespace RetailTrade
         private void btEdit_Click(object sender, EventArgs e)
         {
             if ((this.ParentForm as MainForm) != null)
-        
+
                 if (this.gridViewMain.IsValidRowHandle(this.gridViewMain.FocusedRowHandle))
                 {
                     int data = Convert.ToInt32(this.gridViewMain.GetDataRow(this.gridViewMain.FocusedRowHandle)["ID"].ToString());
@@ -38,30 +38,29 @@ namespace RetailTrade
                     (this.ParentForm as MainForm).ShowNewDataTab("ReceiptRowOrganization", "ReceiptRowOrganization.cs", paramtrs);
 
                 }
-
-    
-
         }
 
         private void ReceiptMasterNew_Load(object sender, EventArgs e)
-        { 
+        {
             foreach (GridView view in this.grid.ViewCollection)
             {
 
 
-            string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\"+  view.Name.ToString()+".xml";
+                string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
 
 
-          if (File.Exists(fileName))
+                if (File.Exists(fileName))
 
-                view.RestoreLayoutFromXml(fileName);
-            
+                    view.RestoreLayoutFromXml(fileName);
+
             }
 
 
-            this.receiptMasterNewBindingSource.DataSource = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0",null,DataViewRowState.CurrentRows);
+            this.receiptMasterNewBindingSource.DataSource = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0", null, DataViewRowState.CurrentRows);
             this.receiptMasterNewBindingSource.ResetBindings(false);
             this.grid.DataSource = this.receiptMasterNewBindingSource;
+            this.ParentForm.FormClosing += new FormClosingEventHandler(ParentForm_FormClosing);
+      
         }
 
         private void btAdd_Click(object sender, EventArgs e)
@@ -69,19 +68,16 @@ namespace RetailTrade
 
 
             if ((this.ParentForm as MainForm) != null)
-              {
-                 this.receiptMasterBindingSource.CurrencyManager.EndCurrentEdit();
+            {
+                this.receiptMasterBindingSource.CurrencyManager.EndCurrentEdit();
 
-                 MDataSet.ReceiptMasterRow sourceRow =(this.receiptMasterBindingSource.AddNew() as DataRowView).Row as MDataSet.ReceiptMasterRow;
-                 this.receiptMasterBindingSource.CurrencyManager.EndCurrentEdit(); 
-               
-                 Object[] paramtrs = new Object[1] { (this.receiptMasterBindingSource.CurrencyManager.Current as DataRowView).Row };
-                  
+                MDataSet.ReceiptMasterRow sourceRow = (this.receiptMasterBindingSource.AddNew() as DataRowView).Row as MDataSet.ReceiptMasterRow;
+                this.receiptMasterBindingSource.CurrencyManager.EndCurrentEdit();
+
+                Object[] paramtrs = new Object[1] { (this.receiptMasterBindingSource.CurrencyManager.Current as DataRowView).Row };
+
                 (this.ParentForm as MainForm).ShowNewDataTab("ReceiptRowOrganization", "ReceiptRowOrganization.cs", paramtrs);
-
-                }
-
-
+            }
         }
 
         private void gridView1_DoubleClick(object sender, EventArgs e)
@@ -96,14 +92,68 @@ namespace RetailTrade
 
         private void BtClose_Click(object sender, EventArgs e)
         {
+            this.Validate(true);
+            
+
             foreach (GridView view in this.grid.ViewCollection)
             {
                 string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
-                    view.SaveLayoutToXml(fileName);
+                view.SaveLayoutToXml(fileName);
             }
+                // сохранить изменения
+
+                this.receiptMasterBindingSource.EndEdit();
+                MDataSet.ReceiptMasterRow _receiptMasterRow = (this.receiptMasterBindingSource.Current as DataRowView).Row as MDataSet.ReceiptMasterRow;
+                if (this.SaveChanges(_receiptMasterRow))
+                {
+                    if ((this.ParentForm as MainForm) != null)
+                        (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+
+
+
+                }
+        }
+
+        private bool SaveChanges(MDataSet.ReceiptMasterRow soureceRow)
+        {
+            bool _res = (this.ParentForm as MainForm).SaveToBase(soureceRow);
+            MessageBox.Show("SaveChanges вернул" + _res.ToString());
+            return _res;
+        }
+
+        private void ReceiptMasterNewAll_Validating(object sender, CancelEventArgs e)
+        {
+            if (!this.ValidateChildren())
+            {
+                MessageBox.Show("Ошибка в данных!");
+                e.Cancel = true;
+            }
+                  
+        }
+
+        private void gridViewMain_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
+        {
+            this.gridViewMain.SetColumnError(this.gridViewMain.Columns[1], e.ErrorText.ToString());
+            e.ExceptionMode = DevExpress.XtraEditors.Controls.ExceptionMode.NoAction;
 
         }
 
-       
+        private void btSave_Click(object sender, EventArgs e)
+        {
+            if (this.Validate(true))
+            {
+                this.receiptMasterBindingSource.EndEdit();
+                MDataSet.ReceiptMasterRow _receiptMasterRow = (this.receiptMasterBindingSource.Current as DataRowView).Row as MDataSet.ReceiptMasterRow;
+                this.SaveChanges(_receiptMasterRow);
+            }
+        }
+
+        private void ParentForm_FormClosing(object sender ,FormClosingEventArgs e)
+        {
+            //DataView _data
+
+            //e.Cancel = true;
+        }
+
     }
 }

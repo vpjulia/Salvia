@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid;
 
 namespace RetailTrade.Invoice
 {
@@ -206,7 +207,7 @@ namespace RetailTrade.Invoice
 
         private void btFieldRem_Click(object sender, EventArgs e)
         {
-            (this.gridRemains.FocusedView as GridView).ColumnsCustomization();
+                   (this.gridRemains.FocusedView as GridView).ColumnsCustomization();
             (this.gridRemains.FocusedView as GridView).CustomizationForm.TopMost = true;
            
         }

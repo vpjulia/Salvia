@@ -133,6 +133,7 @@ namespace RetailTrade.Invoice
             // 
             // gridRemains
             // 
+            this.gridRemains.ContextMenuStrip = this.contextMenuStripRemains;
             this.gridRemains.DataSource = this.RemainsBindingSource;
             this.gridRemains.Dock = System.Windows.Forms.DockStyle.Fill;
             // 

@@ -33,10 +33,10 @@ namespace RetailTrade
            this.organizationBindingSource.DataSource = this.mDataSet.Organization;
            this.organizationBindingSource.ResetBindings(false);
 
-           this.stockBindingSource.DataSource = this.mDataSet.Stock.Select("TradePupletRef=0");
+           this.stockBindingSource.DataSource = this.mDataSet.Stock.Select("IsLocal=true");
            this.productBindingSource.DataSource = this.mDataSet.Product;
 
-          this.receiptDetailBindingSource.DataSource = this.receiptMasterBindingSource;
+           this.receiptDetailBindingSource.DataSource = this.receiptMasterBindingSource;
                 this.receiptDetailBindingSource.DataMember = "ReceiptMaster_ReceiptDetail";
                 this.receiptDetailBindingSource.ResetBindings(true);
          
@@ -94,6 +94,7 @@ namespace RetailTrade
             return true;
         }
 
+
         private void btSaveReciept_Click(object sender, EventArgs e)
         {
             this.SaveChange();
@@ -114,12 +115,13 @@ namespace RetailTrade
 
         private void btClose_Click(object sender, EventArgs e)
         {
-            //
+            this.receiptDetailBindingSource.EndEdit();
          //   this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
 
             if (this.gridViewReceiptRowMain.HasColumnErrors)
             {
-                this.receiptDetailBindingSource.CancelEdit();
+                MessageBox.Show("HasColumnErrors == true");
+                //   this.receiptDetailBindingSource.CancelEdit();
             }
             else if (this.SaveChange())
             {
