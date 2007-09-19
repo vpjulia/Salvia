@@ -18,6 +18,7 @@ namespace RetailTrade
         }
         public ReceiptMasterNewAll(MDataSet source)
         {
+         
             InitializeComponent();
             this.mDataSet = source;
             this.receiptMasterBindingSource.DataSource = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0", null, DataViewRowState.CurrentRows);
@@ -44,17 +45,10 @@ namespace RetailTrade
         {
             foreach (GridView view in this.grid.ViewCollection)
             {
-
-
                 string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
-
-
                 if (File.Exists(fileName))
-
                     view.RestoreLayoutFromXml(fileName);
-
             }
-
 
             this.receiptMasterNewBindingSource.DataSource = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0", null, DataViewRowState.CurrentRows);
             this.receiptMasterNewBindingSource.ResetBindings(false);
@@ -92,33 +86,45 @@ namespace RetailTrade
 
         private void BtClose_Click(object sender, EventArgs e)
         {
-            this.Validate(true);
-            
-
-            foreach (GridView view in this.grid.ViewCollection)
+            if (this.Validate(true))
             {
-                string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
-                view.SaveLayoutToXml(fileName);
-            }
+                foreach (GridView view in this.grid.ViewCollection)
+                {
+                    string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
+                    view.SaveLayoutToXml(fileName);
+                }
                 // сохранить изменения
 
-                this.receiptMasterBindingSource.EndEdit();
-                MDataSet.ReceiptMasterRow _receiptMasterRow = (this.receiptMasterBindingSource.Current as DataRowView).Row as MDataSet.ReceiptMasterRow;
-                if (this.SaveChanges(_receiptMasterRow))
+
+                DataView _dataview = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0", null, DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted);
+                if (_dataview.Count >= 0)
                 {
-                    if ((this.ParentForm as MainForm) != null)
-                        (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                    DialogResult _result;
 
+                    _result = MessageBox.Show("Сохранить изменения? ", "Сохранение приходных документов ", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
-
+                    switch (_result)
+                    {
+                        case DialogResult.Yes:
+                            if (this.SaveChanges())
+                                if ((this.ParentForm as MainForm) != null)
+                                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                            break;
+                        case DialogResult.No:
+                            if ((this.ParentForm as MainForm) != null)
+                                (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                    }
                 }
-        }
+            } 
+       }
 
-        private bool SaveChanges(MDataSet.ReceiptMasterRow soureceRow)
+        private bool SaveChanges()
         {
-            bool _res = (this.ParentForm as MainForm).SaveToBase(soureceRow);
-            MessageBox.Show("SaveChanges вернул" + _res.ToString());
-            return _res;
+            MessageBox.Show("Вызов сохранения");
+            return true;
         }
 
         private void ReceiptMasterNewAll_Validating(object sender, CancelEventArgs e)
@@ -142,17 +148,44 @@ namespace RetailTrade
         {
             if (this.Validate(true))
             {
-                this.receiptMasterBindingSource.EndEdit();
-                MDataSet.ReceiptMasterRow _receiptMasterRow = (this.receiptMasterBindingSource.Current as DataRowView).Row as MDataSet.ReceiptMasterRow;
-                this.SaveChanges(_receiptMasterRow);
+                this.SaveChanges();   
+             
             }
         }
 
         private void ParentForm_FormClosing(object sender ,FormClosingEventArgs e)
         {
-            //DataView _data
+            DataView _dataview = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0", null, DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted);
+            if (_dataview.Count >= 0)
+            {
+                DialogResult _result;
 
-            //e.Cancel = true;
+                _result = MessageBox.Show("Сохранить изменения? ", "Сохранение документа ", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                switch (_result)
+                {
+                    case DialogResult.Yes:
+                        if (this.SaveChanges())
+                        {
+                            if ((this.ParentForm as MainForm) != null)
+                                (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                        }
+                        else
+                        {
+                            e.Cancel = true;
+                        }
+                        break;
+                    case DialogResult.No:
+                        if ((this.ParentForm as MainForm) != null)
+                            (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                        break;
+                    case DialogResult.Cancel:
+                       e.Cancel = true;
+                        break;
+                }
+            }
+             
+            
         }
 
     }

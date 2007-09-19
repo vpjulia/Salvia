@@ -94,6 +94,7 @@ namespace RetailTrade
             this.btEdit = new System.Windows.Forms.ToolStripButton();
             this.btSaveReciept = new System.Windows.Forms.ToolStripButton();
             this.btClose = new System.Windows.Forms.ToolStripButton();
+            this.btCancel = new System.Windows.Forms.ToolStripButton();
             this.btMove = new System.Windows.Forms.ToolStripButton();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.btPrintAkt = new System.Windows.Forms.ToolStripMenuItem();
@@ -720,6 +721,7 @@ namespace RetailTrade
             this.StockEdit.Properties.ValueMember = "ID";
             this.StockEdit.Size = new System.Drawing.Size(220, 22);
             this.StockEdit.TabIndex = 2;
+            this.StockEdit.EditValueChanged += new System.EventHandler(this.StockEdit_EditValueChanged);
             this.StockEdit.QueryPopUp += new System.ComponentModel.CancelEventHandler(this.StockEdit_QueryPopUp);
             // 
             // stockBindingSource
@@ -795,6 +797,7 @@ namespace RetailTrade
             this.btEdit,
             this.btSaveReciept,
             this.btClose,
+            this.btCancel,
             this.btMove,
             this.toolStripSplitButton1,
             this.toolStripSplitButton2});
@@ -815,6 +818,7 @@ namespace RetailTrade
             // 
             // btSaveReciept
             // 
+            this.btSaveReciept.Enabled = false;
             this.btSaveReciept.Image = ((System.Drawing.Image)(resources.GetObject("btSaveReciept.Image")));
             this.btSaveReciept.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSaveReciept.Name = "btSaveReciept";
@@ -832,6 +836,17 @@ namespace RetailTrade
             this.btClose.Size = new System.Drawing.Size(23, 22);
             this.btClose.Text = "x";
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
+            // 
+            // btCancel
+            // 
+            this.btCancel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btCancel.Image = ((System.Drawing.Image)(resources.GetObject("btCancel.Image")));
+            this.btCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btCancel.Name = "btCancel";
+            this.btCancel.Size = new System.Drawing.Size(97, 22);
+            this.btCancel.Text = "Отменить";
+            this.btCancel.Visible = false;
+            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
             // btMove
             // 
@@ -994,5 +1009,6 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Columns.GridColumn colDate;
         private DevExpress.XtraGrid.Columns.GridColumn colProductName1;
         private DevExpress.XtraGrid.Columns.GridColumn colManufacturerName;
+        private System.Windows.Forms.ToolStripButton btCancel;
     }
 }
