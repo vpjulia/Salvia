@@ -137,19 +137,20 @@ namespace RetailTrade
                 int countChild = 0;
 
 
-                DataRow[] arrRows;
+               DataRow[] arrRows;
                DataRow mrow = (this.gridReceiptDetail.FocusedView as ColumnView).GetDataRow(hendl);
 
-                foreach (DataRelation relation in mrow.Table.ChildRelations)
+               foreach (DataRelation relation in mrow.Table.ChildRelations)
                 {
-
-                    if (mrow.GetChildRows(relation) != null)
+                    if (relation.ChildKeyConstraint != null)//если  внешний ключ
                     {
-                        arrRows = mrow.GetChildRows(relation);
+                        if (mrow.GetChildRows(relation) != null)
+                        {
+                            arrRows = mrow.GetChildRows(relation);
 
-                        countChild += arrRows.Length;
+                            countChild += arrRows.Length;
+                        }
                     }
-
                 }
 
                 if (countChild != 0)

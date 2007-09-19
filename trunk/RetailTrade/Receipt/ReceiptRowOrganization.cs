@@ -14,65 +14,89 @@ namespace RetailTrade
 {
     public partial class ReceiptRowOrganization : UserControl
     {
+        
+        MDataSet.ReceiptMasterRow _curentReceiptMasterRow;
+        DataView _viewChangesReceiptDetail;
+       
+        public MDataSet.ReceiptMasterRow CurentReceiptMasterRow
+        {
+            get { return _curentReceiptMasterRow; }
+            set { _curentReceiptMasterRow = value; }
+        }           
+
+        public DataView ViewChangesReceiptDetail
+{
+  get { return _viewChangesReceiptDetail; }
+  set { _viewChangesReceiptDetail = value; }
+}
+
+
+         // constructor
         public ReceiptRowOrganization()
         {
             InitializeComponent();
         }
-
         public ReceiptRowOrganization(MDataSet.ReceiptMasterRow source, int currentID)
         {
 
+            
             //** receiptMasterBindingSource - таблица  *//
+          
             InitializeComponent();
 
-            this.mDataSet = source.Table.DataSet as MDataSet;
+           _curentReceiptMasterRow = source;
 
-           this.receiptMasterBindingSource.DataSource = source.Table;
+           this.mDataSet = source.Table.DataSet as MDataSet;
+
+           this.receiptMasterBindingSource.DataSource =new DataView(source.Table,"ID="+_curentReceiptMasterRow.ID.ToString(),null,DataViewRowState.CurrentRows);
+
            this.receiptMasterBindingSource.ResetBindings(false);
-           this.receiptMasterBindingSource.CurrencyManager.Position = this.receiptMasterBindingSource.Find("ID", currentID);
+
+ 
+            _viewChangesReceiptDetail = new DataView(this.mDataSet.ReceiptDetail, "ReceiptMasterRef=" + _curentReceiptMasterRow.ID.ToString(), null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
+         
+            _viewChangesReceiptDetail.ListChanged+=new ListChangedEventHandler(_viewChangesReceiptDetail_ListChanged);
+            (this.receiptMasterBindingSource.DataSource as DataView).ListChanged += new ListChangedEventHandler(_viewChangesReceiptDetail_ListChanged);
+
            this.organizationBindingSource.DataSource = this.mDataSet.Organization;
            this.organizationBindingSource.ResetBindings(false);
 
-           this.stockBindingSource.DataSource = this.mDataSet.Stock.Select("IsLocal=true");
+           this.stockBindingSource.DataSource = this.mDataSet.Stock;
+          
            this.productBindingSource.DataSource = this.mDataSet.Product;
 
            this.receiptDetailBindingSource.DataSource = this.receiptMasterBindingSource;
-                this.receiptDetailBindingSource.DataMember = "ReceiptMaster_ReceiptDetail";
-                this.receiptDetailBindingSource.ResetBindings(true);
+           this.receiptDetailBindingSource.DataMember = "ReceiptMaster_ReceiptDetail";
+           this.receiptDetailBindingSource.ResetBindings(true);
          
+           
+          
 
             if (source.ID < 0)
             {
                 this.panelNumber.Enabled = false;
             }
 
-            this.AuthorLabel.Text = "Автор :" + ((this.receiptMasterBindingSource.CurrencyManager.Current as DataRowView).Row as MDataSet.ReceiptMasterRow).AuthorCreate.ToString();
+            this.AuthorLabel.Text = "Автор :" + _curentReceiptMasterRow.AuthorCreate.ToString();
 
         }
-       
-        private void btEdit_Click(object sender, EventArgs e)
+        private void ReceiptRowOrganization_Load(object sender, EventArgs e)
         {
-            this.receiptMasterBindingSource.EndEdit();
-           
-
-            FormDialog _formDialog = new FormDialog();
-            _formDialog.Text="№ "+((this.receiptMasterBindingSource.Current as DataRowView).Row as MDataSet.ReceiptMasterRow).Number.ToString()+"  "+((this.receiptMasterBindingSource.Current as DataRowView).Row as MDataSet.ReceiptMasterRow).OrganizationRow.ShortName.ToString();
-            _formDialog.AcceptButton = null;
-            ReceiptDetailByRef _peceiptDetail = new ReceiptDetailByRef(( this.receiptMasterBindingSource.Current as DataRowView).Row as MDataSet.ReceiptMasterRow);
-      
-            _formDialog.panel.Controls.Add(_peceiptDetail);
-
-            if (DialogResult.OK == _formDialog.ShowDialog(this))
+            foreach (GridView view in this.grid.ViewCollection)
             {
-                MessageBox.Show("btEdit_Click");
+                string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
+                if (File.Exists(fileName))
+                    view.RestoreLayoutFromXml(fileName);
             }
 
+            this.ParentForm.FormClosing += new FormClosingEventHandler(ParentForm_FormClosing);
+
 
         }
-
-        private bool SaveChange()
+     
+        //
+        private bool SaveChanges()
         {
-
             this.receiptMasterBindingSource.CurrencyManager.EndCurrentEdit();
             this.receiptDetailBindingSource.CurrencyManager.EndCurrentEdit();
 
@@ -84,23 +108,53 @@ namespace RetailTrade
            }
 
 
-              if ((this.ParentForm as MainForm).SaveToBase((this.receiptMasterBindingSource.Current as DataRowView ).Row as MDataSet.ReceiptMasterRow))
+              if ((this.ParentForm as MainForm).SaveToBase(_curentReceiptMasterRow))
             {
                 this.receiptMasterBindingSource.ResetCurrentItem();
-                this.Parent.Tag = "ReceiptRowOrganization" + ((this.receiptMasterBindingSource.Current as DataRowView).Row as MDataSet.ReceiptMasterRow).ID.ToString();
-                this.Parent.Text = "№" + ((this.receiptMasterBindingSource.Current as DataRowView).Row as MDataSet.ReceiptMasterRow).Number.ToString() + " " + ((this.receiptMasterBindingSource.Current as DataRowView).Row  as MDataSet.ReceiptMasterRow).OrganizationRow.ShortName.ToString();
+                this.Parent.Tag = "ReceiptRowOrganization" + _curentReceiptMasterRow.ID.ToString();
+                this.Parent.Text = "№" + _curentReceiptMasterRow.Number.ToString() + " " + _curentReceiptMasterRow.OrganizationRow.ShortName.ToString();
                 this.panelNumber.Enabled = true;
             }
             return true;
         }
 
+      
+        private bool CancelChanges()
+        { 
+            this.receiptDetailBindingSource.CancelEdit();
+            this.receiptMasterBindingSource.CancelEdit();
+            foreach (DataRowView _datarow in _viewChangesReceiptDetail)
+            {
+                _datarow.Row.RejectChanges();
 
-        private void btSaveReciept_Click(object sender, EventArgs e)
+            }
+
+            _curentReceiptMasterRow.RejectChanges();
+
+            return true;
+        }
+  //
+
+        private void _viewChangesReceiptDetail_ListChanged(object sender, ListChangedEventArgs e) 
         {
-            this.SaveChange();
+            
+            if (_viewChangesReceiptDetail.Count > 0)
+            {
+                this.btCancel.Visible = true;
+                this.btSaveReciept.Enabled = true;
+            }
+            else
+            {
+                this.btCancel.Visible =false;
+                this.btSaveReciept.Enabled = false;
+            
+            }
+ 
+
         }
 
-       
+        //
+
         private void gridView1_InvalidValueException(object sender, DevExpress.XtraEditors.Controls.InvalidValueExceptionEventArgs e)
         {
             MessageBox.Show(e.ErrorText);
@@ -112,40 +166,31 @@ namespace RetailTrade
             e.ExceptionMode = DevExpress.XtraEditors.Controls.ExceptionMode.NoAction;
 
         }
-
-        private void btClose_Click(object sender, EventArgs e)
+        //
+       
+        private void btEdit_Click(object sender, EventArgs e)
         {
-            this.receiptDetailBindingSource.EndEdit();
-         //   this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
+            this.receiptMasterBindingSource.EndEdit();
+           
+            FormDialog _formDialog = new FormDialog();
+            _formDialog.Text = "№ " + _curentReceiptMasterRow.Number.ToString() + "  " + _curentReceiptMasterRow.OrganizationRow.ShortName.ToString();
+            _formDialog.AcceptButton = null;
+            ReceiptDetailByRef _peceiptDetail = new ReceiptDetailByRef(_curentReceiptMasterRow);
+      
+            _formDialog.panel.Controls.Add(_peceiptDetail);
 
-            if (this.gridViewReceiptRowMain.HasColumnErrors)
+            if (DialogResult.Cancel == _formDialog.ShowDialog(this))
             {
-                MessageBox.Show("HasColumnErrors == true");
-                //   this.receiptDetailBindingSource.CancelEdit();
+              //
+
             }
-            else if (this.SaveChange())
-            {
-                if ((this.ParentForm as MainForm) != null)
-                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
-              
-                
-                foreach (GridView view in this.grid.ViewCollection)
-                {
+        }
 
-                    string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
 
-                    try
-                    {
-                        view.SaveLayoutToXml(fileName);
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Не удалось сохранить настройки");
-                    }
 
-                }
-            }
- 
+        private void btSaveReciept_Click(object sender, EventArgs e)
+        {
+            this.SaveChanges();
         }
 
         private void gridView_DoubleClick(object sender, EventArgs e)
@@ -153,29 +198,10 @@ namespace RetailTrade
             this.btEdit.PerformClick();
         }
 
-        private void ReceiptRowOrganization_Load(object sender, EventArgs e)
-        {
-            foreach (GridView view in this.grid.ViewCollection)
-            {
-                string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
-                if (File.Exists(fileName))
-                    view.RestoreLayoutFromXml(fileName);
-            }
-
-            
-
-        }
-
         private void btField_Click(object sender, EventArgs e)
         {
             (this.grid.FocusedView as GridView).ColumnsCustomization();
       
-        }
-
-        private void StockEdit_QueryPopUp(object sender, CancelEventArgs e)
-        {
-            if (this.receiptDetailBindingSource.Count != 0)
-                e.Cancel = true;
         }
 
         private void btPrintAkt_Click(object sender, EventArgs e)
@@ -197,12 +223,26 @@ namespace RetailTrade
 
 
         }
+ 
+        private void StockEdit_QueryPopUp(object sender, CancelEventArgs e)
+        {
+            if (this.receiptDetailBindingSource.Count != 0)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+
+                this.stockBindingSource.Filter = "IsLocal=true";
+            }
+
+        }
 
         private void btMove_Click(object sender, EventArgs e)
         {
            /* try
             {*/
-                (this.ParentForm as MainForm).receiptMasterTableAdapter.ReceiptMasterMove(((this.receiptMasterBindingSource.CurrencyManager.Current as DataRowView).Row as MDataSet.ReceiptMasterRow).ID);
+            (this.ParentForm as MainForm).receiptMasterTableAdapter.ReceiptMasterMove(_curentReceiptMasterRow.ID);
           /*  }
             catch
             { MessageBox.Show("Ошибка внутреннего перемещения!"); }
@@ -211,8 +251,93 @@ namespace RetailTrade
             { }*/
 
         }
-
        
+        private void btClose_Click(object sender, EventArgs e)
+        {
+            foreach (GridView view in this.grid.ViewCollection)
+                {
+                   string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
+                    try
+                    {
+                        view.SaveLayoutToXml(fileName);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Не удалось сохранить настройки");
+                    }
+                }
+
+            this.receiptMasterBindingSource.EndEdit();
+            this.receiptDetailBindingSource.EndEdit();
+
+
+            if (this.gridViewReceiptRowMain.HasColumnErrors)
+            {
+                MessageBox.Show("Ошибка в данных!");
+
+            }
+            else
+            {
+
+                if ((_viewChangesReceiptDetail.Count > 0)|(_curentReceiptMasterRow.RowState!=DataRowState.Unchanged)) 
+                {
+                    DialogResult _result;
+
+                    _result = MessageBox.Show("Сохранить изменения? ", "Сохранение приходного акта ", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                    switch (_result)
+                    {
+                        case DialogResult.Yes:
+                            if (this.SaveChanges())
+                            {
+                                if ((this.ParentForm as MainForm) != null)
+                                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                            }
+                           break;
+                        case DialogResult.No:
+                           this.CancelChanges(); 
+                             if ((this.ParentForm as MainForm) != null)
+                                (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                            break;
+                        case DialogResult.Cancel:
+        
+                            break;
+                    } 
+
+                }
+                else
+                    if ((this.ParentForm as MainForm) != null)
+                        (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                }
+ 
+        }
+
+        private void ParentForm_FormClosing(object sender, FormClosingEventArgs e) 
+        {
+
+            MessageBox.Show("Закрытие формы "+this.ToString());
+
+
+        }
+
+        private void StockEdit_EditValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btCancel_Click(object sender, EventArgs e)
+        {
+            if ((_curentReceiptMasterRow.RowState == (DataRowState.Detached | DataRowState.Added)))
+            {
+                this.CancelChanges();
+                this.btClose_Click(sender, e);
+            }
+            else
+            {
+                this.CancelChanges();
+            
+            }
+        }
 
     }
 }
