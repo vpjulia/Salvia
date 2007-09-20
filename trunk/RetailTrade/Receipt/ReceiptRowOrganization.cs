@@ -38,7 +38,6 @@ namespace RetailTrade
         }
         public ReceiptRowOrganization(MDataSet.ReceiptMasterRow source, int currentID)
         {
-
             
             //** receiptMasterBindingSource - таблица  *//
           
@@ -110,7 +109,11 @@ namespace RetailTrade
 
               if ((this.ParentForm as MainForm).SaveToBase(_curentReceiptMasterRow))
             {
-                this.receiptMasterBindingSource.ResetCurrentItem();
+                this.receiptMasterBindingSource.DataSource = new DataView(_curentReceiptMasterRow.Table, "ID=" + _curentReceiptMasterRow.ID.ToString(), null, DataViewRowState.CurrentRows);
+
+                this.receiptMasterBindingSource.ResetBindings(false);
+                this.receiptDetailBindingSource.ResetBindings(true);
+              
                 this.Parent.Tag = "ReceiptRowOrganization" + _curentReceiptMasterRow.ID.ToString();
                 this.Parent.Text = "№" + _curentReceiptMasterRow.Number.ToString() + " " + _curentReceiptMasterRow.OrganizationRow.ShortName.ToString();
                 this.panelNumber.Enabled = true;
@@ -131,9 +134,18 @@ namespace RetailTrade
 
             _curentReceiptMasterRow.RejectChanges();
 
+            if ((_curentReceiptMasterRow.RowState == (DataRowState.Detached) | (_curentReceiptMasterRow.RowState == DataRowState.Added)))
+            {
+                if ((this.ParentForm as MainForm) != null)
+                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                        
+                
+            }
+            
             return true;
         }
-  //
+         
+        //
 
         private void _viewChangesReceiptDetail_ListChanged(object sender, ListChangedEventArgs e) 
         {
@@ -181,8 +193,7 @@ namespace RetailTrade
 
             if (DialogResult.Cancel == _formDialog.ShowDialog(this))
             {
-              //
-
+                this.receiptDetailBindingSource.CancelEdit();
             }
         }
 
@@ -327,16 +338,9 @@ namespace RetailTrade
 
         private void btCancel_Click(object sender, EventArgs e)
         {
-            if ((_curentReceiptMasterRow.RowState == (DataRowState.Detached | DataRowState.Added)))
-            {
-                this.CancelChanges();
-                this.btClose_Click(sender, e);
-            }
-            else
-            {
-                this.CancelChanges();
-            
-            }
+            this.CancelChanges(); 
+          
+
         }
 
     }

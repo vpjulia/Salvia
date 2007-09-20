@@ -65,21 +65,21 @@ namespace RetailTrade {
         
         private PricesPurchaseDataTable tablePricesPurchase;
         
-        private System.Data.DataRelation relationFK_InvoiceMaster_StockMain;
-        
         private System.Data.DataRelation relationFK_Stock_InvoiceMaster;
+        
+        private System.Data.DataRelation relationFK_InvoiceMaster_StockMain;
         
         private System.Data.DataRelation relationFK_ReceiptRemains_ReceiptDetail;
         
         private System.Data.DataRelation relationReceiptMaster_ReceiptDetail;
         
-        private System.Data.DataRelation relationFK_Manufacturer_Product;
-        
-        private System.Data.DataRelation relationFK_Substance_Product;
+        private System.Data.DataRelation relationFK_FarmGroupLevel2_Product;
         
         private System.Data.DataRelation relationFK_Unit_Product;
         
-        private System.Data.DataRelation relationFK_FarmGroupLevel2_Product;
+        private System.Data.DataRelation relationFK_Substance_Product;
+        
+        private System.Data.DataRelation relationFK_Manufacturer_Product;
         
         private System.Data.DataRelation relationFK_Country_Manufacturer;
         
@@ -700,14 +700,14 @@ namespace RetailTrade {
                     this.tablePricesPurchase.InitVars();
                 }
             }
-            this.relationFK_InvoiceMaster_StockMain = this.Relations["FK_InvoiceMaster_StockMain"];
             this.relationFK_Stock_InvoiceMaster = this.Relations["FK_Stock_InvoiceMaster"];
+            this.relationFK_InvoiceMaster_StockMain = this.Relations["FK_InvoiceMaster_StockMain"];
             this.relationFK_ReceiptRemains_ReceiptDetail = this.Relations["FK_ReceiptRemains_ReceiptDetail"];
             this.relationReceiptMaster_ReceiptDetail = this.Relations["ReceiptMaster_ReceiptDetail"];
-            this.relationFK_Manufacturer_Product = this.Relations["FK_Manufacturer_Product"];
-            this.relationFK_Substance_Product = this.Relations["FK_Substance_Product"];
-            this.relationFK_Unit_Product = this.Relations["FK_Unit_Product"];
             this.relationFK_FarmGroupLevel2_Product = this.Relations["FK_FarmGroupLevel2_Product"];
+            this.relationFK_Unit_Product = this.Relations["FK_Unit_Product"];
+            this.relationFK_Substance_Product = this.Relations["FK_Substance_Product"];
+            this.relationFK_Manufacturer_Product = this.Relations["FK_Manufacturer_Product"];
             this.relationFK_Country_Manufacturer = this.Relations["FK_Country_Manufacturer"];
             this.relationFK_FarmGroup_FarmGroupLevel2 = this.Relations["FK_FarmGroup_FarmGroupLevel2"];
             this.relationReceiptDetail_Remains = this.Relations["ReceiptDetail_Remains"];
@@ -781,16 +781,16 @@ namespace RetailTrade {
             this.tablePricesPurchase = new PricesPurchaseDataTable(false);
             base.Tables.Add(this.tablePricesPurchase);
             System.Data.ForeignKeyConstraint fkc;
-            fkc = new System.Data.ForeignKeyConstraint("FK_InvoiceMaster_StockMain", new System.Data.DataColumn[] {
+            fkc = new System.Data.ForeignKeyConstraint("FK_Stock_InvoiceMaster", new System.Data.DataColumn[] {
                         this.tableStock.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableInvoiceMaster.MainStockRefColumn});
+                        this.tableInvoiceMaster.RemoteStockRefColumn});
             this.tableInvoiceMaster.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_Stock_InvoiceMaster", new System.Data.DataColumn[] {
+            fkc = new System.Data.ForeignKeyConstraint("FK_InvoiceMaster_StockMain", new System.Data.DataColumn[] {
                         this.tableStock.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableInvoiceMaster.RemoteStockRefColumn});
+                        this.tableInvoiceMaster.MainStockRefColumn});
             this.tableInvoiceMaster.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
@@ -809,16 +809,9 @@ namespace RetailTrade {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_Manufacturer_Product", new System.Data.DataColumn[] {
-                        this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.ManufacturerRefColumn});
-            this.tableProduct.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = System.Data.Rule.None;
-            fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_Substance_Product", new System.Data.DataColumn[] {
-                        this.tableSubstance.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.SubstanceRefColumn});
+            fkc = new System.Data.ForeignKeyConstraint("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
+                        this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.FarmGrouplevel2RefColumn});
             this.tableProduct.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
@@ -830,9 +823,16 @@ namespace RetailTrade {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
-                        this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.FarmGrouplevel2RefColumn});
+            fkc = new System.Data.ForeignKeyConstraint("FK_Substance_Product", new System.Data.DataColumn[] {
+                        this.tableSubstance.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.SubstanceRefColumn});
+            this.tableProduct.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = System.Data.Rule.None;
+            fkc.UpdateRule = System.Data.Rule.Cascade;
+            fkc = new System.Data.ForeignKeyConstraint("FK_Manufacturer_Product", new System.Data.DataColumn[] {
+                        this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.ManufacturerRefColumn});
             this.tableProduct.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
@@ -858,14 +858,14 @@ namespace RetailTrade {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            this.relationFK_InvoiceMaster_StockMain = new System.Data.DataRelation("FK_InvoiceMaster_StockMain", new System.Data.DataColumn[] {
-                        this.tableStock.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableInvoiceMaster.MainStockRefColumn}, false);
-            this.Relations.Add(this.relationFK_InvoiceMaster_StockMain);
             this.relationFK_Stock_InvoiceMaster = new System.Data.DataRelation("FK_Stock_InvoiceMaster", new System.Data.DataColumn[] {
                         this.tableStock.IDColumn}, new System.Data.DataColumn[] {
                         this.tableInvoiceMaster.RemoteStockRefColumn}, false);
             this.Relations.Add(this.relationFK_Stock_InvoiceMaster);
+            this.relationFK_InvoiceMaster_StockMain = new System.Data.DataRelation("FK_InvoiceMaster_StockMain", new System.Data.DataColumn[] {
+                        this.tableStock.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableInvoiceMaster.MainStockRefColumn}, false);
+            this.Relations.Add(this.relationFK_InvoiceMaster_StockMain);
             this.relationFK_ReceiptRemains_ReceiptDetail = new System.Data.DataRelation("FK_ReceiptRemains_ReceiptDetail", new System.Data.DataColumn[] {
                         this.tableReceiptDetail.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptRemains.ReceiptDetailRefColumn}, false);
@@ -874,22 +874,22 @@ namespace RetailTrade {
                         this.tableReceiptMaster.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptDetail.ReceiptMasterRefColumn}, false);
             this.Relations.Add(this.relationReceiptMaster_ReceiptDetail);
-            this.relationFK_Manufacturer_Product = new System.Data.DataRelation("FK_Manufacturer_Product", new System.Data.DataColumn[] {
-                        this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.ManufacturerRefColumn}, false);
-            this.Relations.Add(this.relationFK_Manufacturer_Product);
-            this.relationFK_Substance_Product = new System.Data.DataRelation("FK_Substance_Product", new System.Data.DataColumn[] {
-                        this.tableSubstance.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.SubstanceRefColumn}, false);
-            this.Relations.Add(this.relationFK_Substance_Product);
-            this.relationFK_Unit_Product = new System.Data.DataRelation("FK_Unit_Product", new System.Data.DataColumn[] {
-                        this.tableUnit.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.UnitRefColumn}, false);
-            this.Relations.Add(this.relationFK_Unit_Product);
             this.relationFK_FarmGroupLevel2_Product = new System.Data.DataRelation("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
                         this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
                         this.tableProduct.FarmGrouplevel2RefColumn}, false);
             this.Relations.Add(this.relationFK_FarmGroupLevel2_Product);
+            this.relationFK_Unit_Product = new System.Data.DataRelation("FK_Unit_Product", new System.Data.DataColumn[] {
+                        this.tableUnit.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.UnitRefColumn}, false);
+            this.Relations.Add(this.relationFK_Unit_Product);
+            this.relationFK_Substance_Product = new System.Data.DataRelation("FK_Substance_Product", new System.Data.DataColumn[] {
+                        this.tableSubstance.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.SubstanceRefColumn}, false);
+            this.Relations.Add(this.relationFK_Substance_Product);
+            this.relationFK_Manufacturer_Product = new System.Data.DataRelation("FK_Manufacturer_Product", new System.Data.DataColumn[] {
+                        this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.ManufacturerRefColumn}, false);
+            this.Relations.Add(this.relationFK_Manufacturer_Product);
             this.relationFK_Country_Manufacturer = new System.Data.DataRelation("FK_Country_Manufacturer", new System.Data.DataColumn[] {
                         this.tableCountry.IDColumn}, new System.Data.DataColumn[] {
                         this.tableManufacturer.CounrtyRefColumn}, false);
@@ -1119,6 +1119,8 @@ namespace RetailTrade {
             this.ReceiptMaster.OrganizationNameColumn.Expression = "Parent(FK_ReceiptMaster_Organization).ShortName";
             this.ReceiptMaster.CalcPurchSumColumn.Expression = "sum(Child(ReceiptMaster_ReceiptDetail).CalcPurchSum)";
             this.ReceiptMaster.IsNDSColumn.Expression = "Parent(FK_ReceiptMaster_Stock).IsNDS";
+            this.ReceiptMaster.DateUpdateDetailColumn.Expression = "Max(Child(ReceiptMaster_ReceiptDetail).DateLastModif)";
+            this.ReceiptMaster.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.ReceiptDetail.CalcPurchSumColumn.Expression = "Quantity*PricePurchase";
             this.ReceiptDetail.OrganisationRefColumn.Expression = "Parent(ReceiptMaster_ReceiptDetail).OrganizationRef";
             this.ReceiptDetail.ProductNameColumn.Expression = "Parent(Product_ReceiptDetail).Name";
@@ -4456,6 +4458,12 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnIsNDS;
             
+            private System.Data.DataColumn columnDateUpdateDetail;
+            
+            private System.Data.DataColumn columnDateUpdate;
+            
+            private System.Data.DataColumn columnDateLastModif;
+            
             private static System.DateTime columnDocDate_defaultValue = System.DateTime.Parse("01/01/2007 00:00:00");
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4651,6 +4659,27 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateUpdateDetailColumn {
+                get {
+                    return this.columnDateUpdateDetail;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateUpdateColumn {
+                get {
+                    return this.columnDateUpdate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateLastModifColumn {
+                get {
+                    return this.columnDateLastModif;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -4699,7 +4728,10 @@ namespace RetailTrade {
                         bool RecalcSum, 
                         string OrganizationName, 
                         decimal CalcPurchSum, 
-                        string IsNDS) {
+                        string IsNDS, 
+                        System.DateTime DateUpdateDetail, 
+                        System.DateTime DateUpdate, 
+                        System.DateTime DateLastModif) {
                 ReceiptMasterRow rowReceiptMasterRow = ((ReceiptMasterRow)(this.NewRow()));
                 rowReceiptMasterRow.ItemArray = new object[] {
                         null,
@@ -4723,7 +4755,10 @@ namespace RetailTrade {
                         RecalcSum,
                         OrganizationName,
                         CalcPurchSum,
-                        IsNDS};
+                        IsNDS,
+                        DateUpdateDetail,
+                        DateUpdate,
+                        DateLastModif};
                 this.Rows.Add(rowReceiptMasterRow);
                 return rowReceiptMasterRow;
             }
@@ -4775,6 +4810,9 @@ namespace RetailTrade {
                 this.columnOrganizationName = base.Columns["OrganizationName"];
                 this.columnCalcPurchSum = base.Columns["CalcPurchSum"];
                 this.columnIsNDS = base.Columns["IsNDS"];
+                this.columnDateUpdateDetail = base.Columns["DateUpdateDetail"];
+                this.columnDateUpdate = base.Columns["DateUpdate"];
+                this.columnDateLastModif = base.Columns["DateLastModif"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4823,6 +4861,12 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnCalcPurchSum);
                 this.columnIsNDS = new System.Data.DataColumn("IsNDS", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsNDS);
+                this.columnDateUpdateDetail = new System.Data.DataColumn("DateUpdateDetail", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateUpdateDetail);
+                this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateUpdate);
+                this.columnDateLastModif = new System.Data.DataColumn("DateLastModif", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateLastModif);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -4875,6 +4919,9 @@ namespace RetailTrade {
                 this.columnOrganizationName.ReadOnly = true;
                 this.columnCalcPurchSum.ReadOnly = true;
                 this.columnIsNDS.ReadOnly = true;
+                this.columnDateUpdateDetail.ReadOnly = true;
+                this.columnDateUpdate.ReadOnly = true;
+                this.columnDateLastModif.ReadOnly = true;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4897,6 +4944,8 @@ namespace RetailTrade {
                 this.OrganizationNameColumn.Expression = "Parent(FK_ReceiptMaster_Organization).ShortName";
                 this.CalcPurchSumColumn.Expression = "sum(Child(ReceiptMaster_ReceiptDetail).CalcPurchSum)";
                 this.IsNDSColumn.Expression = "Parent(FK_ReceiptMaster_Stock).IsNDS";
+                this.DateUpdateDetailColumn.Expression = "Max(Child(ReceiptMaster_ReceiptDetail).DateLastModif)";
+                this.DateUpdateColumn.Expression = "Max(DateLastModif)";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10551,22 +10600,22 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public StockRow StockRowByFK_InvoiceMaster_StockMain {
-                get {
-                    return ((StockRow)(this.GetParentRow(this.Table.ParentRelations["FK_InvoiceMaster_StockMain"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_InvoiceMaster_StockMain"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public StockRow StockRowByFK_Stock_InvoiceMaster {
                 get {
                     return ((StockRow)(this.GetParentRow(this.Table.ParentRelations["FK_Stock_InvoiceMaster"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_Stock_InvoiceMaster"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public StockRow StockRowByFK_InvoiceMaster_StockMain {
+                get {
+                    return ((StockRow)(this.GetParentRow(this.Table.ParentRelations["FK_InvoiceMaster_StockMain"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_InvoiceMaster_StockMain"]);
                 }
             }
             
@@ -11547,13 +11596,13 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public InvoiceMasterRow[] GetInvoiceMasterRowsByFK_InvoiceMaster_StockMain() {
-                return ((InvoiceMasterRow[])(base.GetChildRows(this.Table.ChildRelations["FK_InvoiceMaster_StockMain"])));
+            public InvoiceMasterRow[] GetInvoiceMasterRowsByFK_Stock_InvoiceMaster() {
+                return ((InvoiceMasterRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Stock_InvoiceMaster"])));
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public InvoiceMasterRow[] GetInvoiceMasterRowsByFK_Stock_InvoiceMaster() {
-                return ((InvoiceMasterRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Stock_InvoiceMaster"])));
+            public InvoiceMasterRow[] GetInvoiceMasterRowsByFK_InvoiceMaster_StockMain() {
+                return ((InvoiceMasterRow[])(base.GetChildRows(this.Table.ChildRelations["FK_InvoiceMaster_StockMain"])));
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11946,6 +11995,51 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime DateUpdateDetail {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableReceiptMaster.DateUpdateDetailColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'DateUpdateDetail\' in table \'ReceiptMaster\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReceiptMaster.DateUpdateDetailColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime DateUpdate {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableReceiptMaster.DateUpdateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'DateUpdate\' in table \'ReceiptMaster\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReceiptMaster.DateUpdateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime DateLastModif {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableReceiptMaster.DateLastModifColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'DateLastModif\' in table \'ReceiptMaster\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReceiptMaster.DateLastModifColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public DocumentTypeRow DocumentTypeRow {
                 get {
                     return ((DocumentTypeRow)(this.GetParentRow(this.Table.ParentRelations["FK_ReceiptMaster_DocumentType"])));
@@ -12043,6 +12137,36 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetIsNDSNull() {
                 this[this.tableReceiptMaster.IsNDSColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateUpdateDetailNull() {
+                return this.IsNull(this.tableReceiptMaster.DateUpdateDetailColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateUpdateDetailNull() {
+                this[this.tableReceiptMaster.DateUpdateDetailColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateUpdateNull() {
+                return this.IsNull(this.tableReceiptMaster.DateUpdateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateUpdateNull() {
+                this[this.tableReceiptMaster.DateUpdateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDateLastModifNull() {
+                return this.IsNull(this.tableReceiptMaster.DateLastModifColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDateLastModifNull() {
+                this[this.tableReceiptMaster.DateLastModifColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13187,22 +13311,12 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ManufacturerRow ManufacturerRow {
+            public FarmGroupLevel2Row FarmGroupLevel2Row {
                 get {
-                    return ((ManufacturerRow)(this.GetParentRow(this.Table.ParentRelations["FK_Manufacturer_Product"])));
+                    return ((FarmGroupLevel2Row)(this.GetParentRow(this.Table.ParentRelations["FK_FarmGroupLevel2_Product"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Manufacturer_Product"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public SubstanceRow SubstanceRow {
-                get {
-                    return ((SubstanceRow)(this.GetParentRow(this.Table.ParentRelations["FK_Substance_Product"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Substance_Product"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_FarmGroupLevel2_Product"]);
                 }
             }
             
@@ -13217,12 +13331,22 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FarmGroupLevel2Row FarmGroupLevel2Row {
+            public SubstanceRow SubstanceRow {
                 get {
-                    return ((FarmGroupLevel2Row)(this.GetParentRow(this.Table.ParentRelations["FK_FarmGroupLevel2_Product"])));
+                    return ((SubstanceRow)(this.GetParentRow(this.Table.ParentRelations["FK_Substance_Product"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_FarmGroupLevel2_Product"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Substance_Product"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ManufacturerRow ManufacturerRow {
+                get {
+                    return ((ManufacturerRow)(this.GetParentRow(this.Table.ParentRelations["FK_Manufacturer_Product"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Manufacturer_Product"]);
                 }
             }
             
@@ -18611,6 +18735,7 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
             tableMapping.ColumnMappings.Add("DateCreate", "DateCreate");
             tableMapping.ColumnMappings.Add("RowVersion", "RowVersion");
             tableMapping.ColumnMappings.Add("RecalcSum", "RecalcSum");
+            tableMapping.ColumnMappings.Add("DateLastModif", "DateLastModif");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -18653,7 +18778,7 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[2];
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[3];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "dbo.ReceiptMasterSelectCommand";
@@ -18661,10 +18786,16 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
             this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "dbo.ReceiptMasterMove";
+            this._commandCollection[1].CommandText = "dbo.ReceiptMasterSelectNewCommand";
             this._commandCollection[1].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@receiptmasterId", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "dbo.ReceiptMasterMove";
+            this._commandCollection[2].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@receiptmasterId", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18684,6 +18815,40 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual MDataSet.ReceiptMasterDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            MDataSet.ReceiptMasterDataTable dataTable = new MDataSet.ReceiptMasterDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillNew(MDataSet.ReceiptMasterDataTable dataTable, System.Nullable<System.DateTime> DateLastUpdate) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((DateLastUpdate.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual MDataSet.ReceiptMasterDataTable GetDataNew(System.Nullable<System.DateTime> DateLastUpdate) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((DateLastUpdate.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
             MDataSet.ReceiptMasterDataTable dataTable = new MDataSet.ReceiptMasterDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -18717,7 +18882,7 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual int ReceiptMasterMove(System.Nullable<int> receiptmasterId) {
-            System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
+            System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
             if ((receiptmasterId.HasValue == true)) {
                 command.Parameters[1].Value = ((int)(receiptmasterId.Value));
             }
@@ -18893,12 +19058,18 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "dbo.ReceiptDetailSelectCommand";
             this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "dbo.ReceiptDetailSelectByReceiptMasterRefCommand";
+            this._commandCollection[1].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ReceiptMasterRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18918,6 +19089,40 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual MDataSet.ReceiptDetailDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            MDataSet.ReceiptDetailDataTable dataTable = new MDataSet.ReceiptDetailDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByReceiptMasterRef(MDataSet.ReceiptDetailDataTable dataTable, System.Nullable<int> ReceiptMasterRef) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((ReceiptMasterRef.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(ReceiptMasterRef.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual MDataSet.ReceiptDetailDataTable GetDataByReceiptMasterRef(System.Nullable<int> ReceiptMasterRef) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((ReceiptMasterRef.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(ReceiptMasterRef.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
             MDataSet.ReceiptDetailDataTable dataTable = new MDataSet.ReceiptDetailDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;

@@ -97,7 +97,7 @@ namespace RetailTrade
 
 
                 DataView _dataview = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0", null, DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted);
-                if (_dataview.Count >= 0)
+                if (_dataview.Count > 0)
                 {
                     DialogResult _result;
 
@@ -149,7 +149,6 @@ namespace RetailTrade
             if (this.Validate(true))
             {
                 this.SaveChanges();   
-             
             }
         }
 
