@@ -128,6 +128,11 @@ namespace RetailTrade
           
         }
 
+        private void ReceiptDetail_TableNewRow(object sender, DataTableNewRowEventArgs e)
+        {
+            (e.Row as MDataSet.ReceiptDetailRow).DateLastModif = DateTime.Now;
+        
+        }
         //---------SAVE 
       
 
@@ -226,23 +231,134 @@ namespace RetailTrade
             return true;
         }
 
+        public bool SaveToBaseDeletedDetails(MDataSet.ReceiptMasterRow sourceRow)
+        {
+
+         //   DataView _receiptDeleted = new DataView(this.mDataSet.ReceiptDetail, "ReceiptMasterRef=" + sourceRow.ID.ToString(), DataViewRowState.Deleted);
+
+          DataRow[] _rows = this.mDataSet.ReceiptDetail.GetChanges(DataRowState.Deleted).Select("ReceiptMasterRef=" + sourceRow.ID.ToString());
+         
+            try 
+             {
+                 this.receiptDetailTableAdapter.Update(_rows);
+             }
+
+            catch (DBConcurrencyException dbcx)
+            {
+                this.onReceiptDetailDBCError(dbcx);
+                return false;
+            }
+
+            catch (SqlException sqlerr)
+            {
+                if (sqlerr.Class < 17)
+                {
+                    OnReceiptDetailSQLError(sqlerr, sourceRow);
+                }
+                else
+
+                    caughtGlobalError(sqlerr);
+                return false;
+
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+                return false;
+            }
+
+          finally
+            {
+
+               
+            }
+            return true;
+            
+        
+        }
 
         public bool SaveToBase(MDataSet.ReceiptMasterRow sourceRow)
         {
             try
             {
                 int res = this.receiptMasterTableAdapter.Update(sourceRow);
-                this.actionStatusLabel.Text = "Сохранена накладная";
+
+                this.actionStatusLabel.Text = "Сохранен приходный акт №"+ sourceRow.Number.ToString();
             }
-          finally
+        
+            catch (DBConcurrencyException dbcx)
             {
-                MDataSet.ReceiptMasterDataTable tmpReceiptMaster = new MDataSet.ReceiptMasterDataTable();
-                this.receiptMasterTableAdapter.Fill(tmpReceiptMaster);
-                sourceRow.Table.Merge(tmpReceiptMaster);
+                this.onReceiptMasterDBCError(dbcx);
+                return false;
             }
 
+            catch (SqlException sqlerr)
+            {
+                if (sqlerr.Class < 17)
+                {
+                    OnReceiptMasterSQLError(sqlerr, sourceRow);
+                }
+                else
+
+                    caughtGlobalError(sqlerr);
+                return false;
+
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+                return false;
+            }
+
+          finally
+            {
+
+               
+            }
+
+        
+
+   
+            try
+            {
+                int res = this.receiptDetailTableAdapter.Update(this.mDataSet.ReceiptDetail.Select("ReceiptMasterRef=" + sourceRow.ID.ToString(), null,DataViewRowState.Deleted));
+             }
+            catch (DBConcurrencyException dbcx)
+            {
+                this.onReceiptDetailDBCError(dbcx);
+                return false;
+            }
+
+            catch (SqlException sqlerr)
+            {
+                if (sqlerr.Class < 17)
+                {
+                    OnReceiptDetailSQLError(sqlerr, sourceRow);
+                }
+                else
+
+                    caughtGlobalError(sqlerr);
+                return false;
+
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+                return false;
+            }
+
+            finally
+            {
+                this.RefreshData(sourceRow);
+            }
+            
             return true;
         }
+
+      
         public bool SaveToBase(MDataSet.InvoiceMasterRow sourceRow)
         {
             try
@@ -359,6 +475,53 @@ namespace RetailTrade
                 tp.GetMethod("Fill").Invoke(this.components.Components[NameTable + "TableAdapter"], args);
             }
         }
+
+        public bool RefreshData(MDataSet.ReceiptMasterRow sourceRow) 
+        {
+
+
+            MDataSet.ReceiptMasterDataTable _ReceiptMasterDataTable = new MDataSet.ReceiptMasterDataTable();
+            MDataSet.ReceiptDetailDataTable _ReceiptDetailDataTable = new MDataSet.ReceiptDetailDataTable();
+
+            DateTime _dateparam;
+
+            if (!sourceRow.IsDateUpdateDetailNull())
+            {
+                _dateparam = sourceRow.DateUpdateDetail;
+            }
+            else
+                if (!sourceRow.IsDateUpdateNull())
+                {
+                    _dateparam = sourceRow.DateUpdate;
+                }
+                else
+                {
+                    _dateparam = DateTime.Now;
+                }
+            try
+            {
+                this.receiptMasterTableAdapter.FillNew(_ReceiptMasterDataTable, sourceRow.DateUpdate);
+
+                this.receiptDetailTableAdapter.FillByReceiptMasterRef(_ReceiptDetailDataTable, sourceRow.ID);
+
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+                return false;
+            }
+            finally
+            {
+                this.mDataSet.ReceiptMaster.Merge(_ReceiptMasterDataTable);
+                this.mDataSet.ReceiptDetail.Merge(_ReceiptDetailDataTable,true);
+            }
+            return true;
+
+
+        }
+
+
         public bool RefreshData(MDataSet.InvoiceMasterRow sourceRow) 
         {
            MDataSet.InvoiceMasterDataTable _invoiceMasterDataTable=new MDataSet.InvoiceMasterDataTable();
@@ -406,7 +569,10 @@ namespace RetailTrade
             
             Object[] args = new Object[2];
           
+           
+            
             args[1] = source.Rows[0]["DateUpdate"];
+          
 
             try
             {
@@ -486,6 +652,25 @@ namespace RetailTrade
         }
 
         //----------  Error   
+        private void OnReceiptDetailSQLError(SqlException sqlerr, MDataSet.ReceiptMasterRow sourceRow)
+        {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        private void onReceiptDetailDBCError(DBConcurrencyException dbcx)
+        {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        private void onReceiptMasterDBCError(DBConcurrencyException dbcx)
+        {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        private void OnReceiptMasterSQLError(SqlException sqlerr, MDataSet.ReceiptMasterRow sourceRow)
+        {
+            throw new Exception("The method or operation is not implemented.");
+        }
 
         private bool OnInvoiceDetailSQLError(SqlException sqlerr,MDataSet.InvoiceDetailRow row)
         {
@@ -565,13 +750,12 @@ namespace RetailTrade
                 MessageBox.Show("Запись была изменена пользователем :" + (dbcx.Row as MDataSet.InvoiceMasterRow).AuthorLastModif,"Ошибка совмесного доступа",MessageBoxButtons.OK,MessageBoxIcon.Asterisk);
 
         }
-       
         private void caughtGlobalError(SqlException sqlerr)
         {
 
             MessageBox.Show("ОШИБКА соединения с базой!", "Розничная торговля", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-            
+        
         private void processResponse(System.Windows.Forms.DialogResult response, DataTable newTable)
         {
             switch (response)
