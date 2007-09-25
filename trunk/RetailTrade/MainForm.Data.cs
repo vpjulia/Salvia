@@ -34,7 +34,7 @@ namespace RetailTrade
 
         }
 
-         private void InvoiceMasterColumn_Changing(object sender, DataColumnChangeEventArgs e)
+        private void InvoiceMasterColumn_Changing(object sender, DataColumnChangeEventArgs e)
         {
             //
         }
@@ -314,14 +314,12 @@ namespace RetailTrade
 
           finally
             {
-
+                sourceRow.AcceptChanges();
                
             }
 
-        
-
-   
-            try
+            /*Сохранить удаления*/
+           try
             {
                 int res = this.receiptDetailTableAdapter.Update(this.mDataSet.ReceiptDetail.Select("ReceiptMasterRef=" + sourceRow.ID.ToString(), null,DataViewRowState.Deleted));
              }
@@ -352,10 +350,84 @@ namespace RetailTrade
 
             finally
             {
+               // this.RefreshData(sourceRow);
+            }
+            // добавления 
+            try
+            {
+                int res = this.receiptDetailTableAdapter.Update(this.mDataSet.ReceiptDetail.Select("ReceiptMasterRef=" + sourceRow.ID.ToString(), null, DataViewRowState.Added));
+            }
+            catch (DBConcurrencyException dbcx)
+            {
+                this.onReceiptDetailDBCError(dbcx);
+                return false;
+            }
+
+            catch (SqlException sqlerr)
+            {
+                if (sqlerr.Class < 17)
+                {
+                    OnReceiptDetailSQLError(sqlerr, sourceRow);
+                }
+                else
+
+                    caughtGlobalError(sqlerr);
+                return false;
+
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+                return false;
+            }
+
+            finally
+            {
+                // this.RefreshData(sourceRow);
+            }
+            /*Изменения*/
+            try
+            {
+                int res = this.receiptDetailTableAdapter.Update(this.mDataSet.ReceiptDetail.Select("ReceiptMasterRef=" + sourceRow.ID.ToString(), null, DataViewRowState.ModifiedCurrent));
+            }
+            catch (DBConcurrencyException dbcx)
+            {
+                this.onReceiptDetailDBCError(dbcx);
+                return false;
+            }
+
+            catch (SqlException sqlerr)
+            {
+                if (sqlerr.Class < 17)
+                {
+                    OnReceiptDetailSQLError(sqlerr, sourceRow);
+                }
+                else
+
+                    caughtGlobalError(sqlerr);
+                return false;
+
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+                return false;
+            }
+
+            finally
+            {
                 this.RefreshData(sourceRow);
             }
-            
-            return true;
+
+            foreach (DataRow _dr in sourceRow.GetReceiptDetailRows())
+            {
+                _dr.AcceptChanges();
+            }
+
+          return true;
+
         }
 
       

@@ -12,6 +12,25 @@ namespace RetailTrade
 {
     public partial class ReceiptMasterNewAll : UserControl
     {
+
+        DataView _changesMaster;
+
+        DataView _viewChangesReceiptDetail;
+
+        public DataView ChangesReceiptDetail
+        {
+            get { return _viewChangesReceiptDetail; }
+            set { _viewChangesReceiptDetail = value; }
+        }
+
+
+        public DataView ChangesMaster
+    
+        {  get { return _changesMaster; }
+           set { _changesMaster = value; }
+        }
+
+
         public ReceiptMasterNewAll()
         {
             InitializeComponent();
@@ -25,6 +44,21 @@ namespace RetailTrade
             this.receiptMasterBindingSource.ResetBindings(false);
             this.productBindingSource.DataSource = this.mDataSet.Product;
             this.organizationBindingSource.DataSource = this.mDataSet.Organization;
+
+
+          
+        //    _viewChangesReceiptDetail.ListChanged += new ListChangedEventHandler(_viewChangesReceiptDetail_ListChanged);
+
+            _changesMaster = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0", null,  DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
+          
+            _viewChangesReceiptDetail = new DataView(this.mDataSet.ReceiptDetail, null, null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
+
+           
+
+
+          //  (this.receiptMasterBindingSource.DataSource as DataView).ListChanged += new ListChangedEventHandler(_viewChangesReceiptDetail_ListChanged);
+
+
         }
 
         private void btEdit_Click(object sender, EventArgs e)
@@ -86,6 +120,8 @@ namespace RetailTrade
 
         private void BtClose_Click(object sender, EventArgs e)
         {
+            this.receiptMasterBindingSource.EndEdit();
+            
             if (this.Validate(true))
             {
                 foreach (GridView view in this.grid.ViewCollection)
@@ -96,12 +132,11 @@ namespace RetailTrade
                 // сохранить изменения
 
 
-                DataView _dataview = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0", null, DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted);
-                if (_dataview.Count > 0)
+                if ((_changesMaster.Count > 0) | (_viewChangesReceiptDetail.Count > 0))
                 {
                     DialogResult _result;
 
-                    _result = MessageBox.Show("Сохранить изменения? ", "Сохранение приходных документов ", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                    _result = MessageBox.Show("Сохранить изменения? ", "Сохранение приходных документов "+this.ToString(), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
                     switch (_result)
                     {
@@ -111,19 +146,116 @@ namespace RetailTrade
                                     (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
                             break;
                         case DialogResult.No:
-                            if ((this.ParentForm as MainForm) != null)
-                                (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                            {
+                                if (this.CancelChages())
+                                    if ((this.ParentForm as MainForm) != null)
+                                        (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                            }
                             break;
                         case DialogResult.Cancel:
                             break;
                     }
                 }
+                else
+                {
+                    if ((this.ParentForm as MainForm) != null)
+                        (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+        
+                }
             } 
        }
 
+        private bool CancelChages()
+        {
+            if (this._changesMaster.Count > 0)
+            {
+                foreach (DataRowView _drMaster in _changesMaster)
+                {
+                    string _tag = "ReceiptRowOrganization" + (_drMaster.Row as MDataSet.ReceiptMasterRow).ID.ToString();
+
+                    if (!(this.ParentForm as MainForm).FindOpenedTabs(_tag))
+                    {
+                        _drMaster.Row.RejectChanges();
+                        
+                    }
+                    else
+                    {
+                        MessageBox.Show("Завершите работу с документом", "Отмена изменений", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        return false;
+                    }
+                }
+            }
+           
+         
+            if (_viewChangesReceiptDetail.Count > 0)
+            {
+                foreach (DataRowView _drDetail in _viewChangesReceiptDetail)
+                {
+                    string _tag = "ReceiptRowOrganization"+(_drDetail.Row as MDataSet.ReceiptDetailRow).ReceiptMasterRef.ToString();
+
+                    if (!(this.ParentForm as MainForm).FindOpenedTabs(_tag))
+                    {
+                         _drDetail.Row.RejectChanges();
+                        
+                    }
+                    else
+                    {
+                        MessageBox.Show("Завершите работу с документом ", "Отмена изменений", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        return false;
+                    }
+         
+                    
+                }
+            }
+           
+             return true;
+        }
+
         private bool SaveChanges()
         {
-            MessageBox.Show("Вызов сохранения");
+
+            if (this._changesMaster.Count > 0)
+            {
+                foreach (DataRowView _drMaster in _changesMaster)
+                {
+                    string _tag = "ReceiptRowOrganization" + (_drMaster.Row as MDataSet.ReceiptMasterRow).ID.ToString();
+
+                    if (!(this.ParentForm as MainForm).FindOpenedTabs(_tag))
+                    {
+                        (this.ParentForm as MainForm).SaveToBase(_drMaster.Row as RetailTrade.MDataSet.ReceiptMasterRow );
+                        
+                    }
+                    else
+                    {
+                        MessageBox.Show("Завершите работу с документом", "Сохранение изменений", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        return false;
+                    }
+                }
+            }
+
+
+            if (_viewChangesReceiptDetail.Count > 0)
+            {
+                foreach (DataRowView _drDetail in _viewChangesReceiptDetail)
+                {
+                    
+                    string _tag = "ReceiptRowOrganization" + (_drDetail.Row as MDataSet.ReceiptDetailRow).ReceiptMasterRef.ToString();
+
+                    if (!(this.ParentForm as MainForm).FindOpenedTabs(_tag))
+                    {
+                        MDataSet.ReceiptMasterRow _rwMaster = (_drDetail.Row as RetailTrade.MDataSet.ReceiptDetailRow).ReceiptMasterRow;
+                       (this.ParentForm as MainForm).SaveToBase(_rwMaster);
+                    
+                    }
+                    else
+                    {
+                        MessageBox.Show("Завершите работу с документом ", "Сохранение изменений", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        return false;
+                    }
+                }
+            }
+
+
             return true;
         }
 
@@ -154,12 +286,13 @@ namespace RetailTrade
 
         private void ParentForm_FormClosing(object sender ,FormClosingEventArgs e)
         {
-            DataView _dataview = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0", null, DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted);
-            if (_dataview.Count >= 0)
+            if ((_changesMaster.Count > 0) | (_viewChangesReceiptDetail.Count > 0))
+            
+           
             {
                 DialogResult _result;
 
-                _result = MessageBox.Show("Сохранить изменения? ", "Сохранение документа ", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                _result = MessageBox.Show("Сохранить изменения? ParentForm_FormClosing", "Сохранение документа " + this.ToString(), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
                 switch (_result)
                 {
@@ -174,7 +307,8 @@ namespace RetailTrade
                             e.Cancel = true;
                         }
                         break;
-                    case DialogResult.No:
+                    case DialogResult.No: 
+                        if (this.CancelChages())
                         if ((this.ParentForm as MainForm) != null)
                             (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
                         break;
@@ -185,6 +319,20 @@ namespace RetailTrade
             }
              
             
+        }
+
+        private void gridViewMain_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
+        {
+           
+        }
+
+        private void gridViewMain_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        {
+            if (gridViewMain.GetDataRow(e.RowHandle).RowState != DataRowState.Unchanged)
+            {
+                if (e.Column.Name == "colDocDate")
+                    e.Appearance.Font = e.Cache.GetFont(e.Appearance.Font, FontStyle.Bold);
+            }
         }
 
     }

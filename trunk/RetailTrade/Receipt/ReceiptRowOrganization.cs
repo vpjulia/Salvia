@@ -57,6 +57,7 @@ namespace RetailTrade
             _viewChangesReceiptDetail.ListChanged+=new ListChangedEventHandler(_viewChangesReceiptDetail_ListChanged);
             (this.receiptMasterBindingSource.DataSource as DataView).ListChanged += new ListChangedEventHandler(_viewChangesReceiptDetail_ListChanged);
 
+        
            this.organizationBindingSource.DataSource = this.mDataSet.Organization;
            this.organizationBindingSource.ResetBindings(false);
 
@@ -77,7 +78,9 @@ namespace RetailTrade
             }
 
             this.AuthorLabel.Text = "Автор :" + _curentReceiptMasterRow.AuthorCreate.ToString();
-
+      
+            this.receiptMasterBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.receiptMasterBindingSource_ListChanged);
+       
         }
         private void ReceiptRowOrganization_Load(object sender, EventArgs e)
         {
@@ -128,6 +131,8 @@ namespace RetailTrade
             this.receiptMasterBindingSource.CancelEdit();
             foreach (DataRowView _datarow in _viewChangesReceiptDetail)
             {
+              
+                         
                 _datarow.Row.RejectChanges();
 
             }
@@ -294,7 +299,7 @@ namespace RetailTrade
                 {
                     DialogResult _result;
 
-                    _result = MessageBox.Show("Сохранить изменения? ", "Сохранение приходного акта ", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                    _result = MessageBox.Show("Сохранить изменения? ", "Сохранение приходного акта "+this.ToString(), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
                     switch (_result)
                     {
@@ -341,6 +346,17 @@ namespace RetailTrade
             this.CancelChanges(); 
           
 
+        }
+
+        private void receiptMasterBindingSource_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            MessageBox.Show("receiptMasterBindingSource_ListChanged"+e.ListChangedType.ToString() );
+        }
+
+        private void ReceiptRowOrganization_Validating(object sender, CancelEventArgs e)
+        {
+            this.receiptMasterBindingSource.EndEdit();
+            this.receiptDetailBindingSource.EndEdit();
         }
 
     }

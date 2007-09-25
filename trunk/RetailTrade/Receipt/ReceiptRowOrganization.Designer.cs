@@ -909,6 +909,7 @@ namespace RetailTrade
             this.Name = "ReceiptRowOrganization";
             this.Size = new System.Drawing.Size(782, 588);
             this.Load += new System.EventHandler(this.ReceiptRowOrganization_Load);
+            this.Validating += new System.ComponentModel.CancelEventHandler(this.ReceiptRowOrganization_Validating);
             ((System.ComponentModel.ISupportInitialize)(this.gridViewReceiptDetailOrders)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterReceiptDetailBindingSource)).EndInit();
