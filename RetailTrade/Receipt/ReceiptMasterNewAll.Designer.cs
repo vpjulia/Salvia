@@ -46,7 +46,6 @@ namespace RetailTrade
             this.colManufacturerName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.grid = new DevExpress.XtraGrid.GridControl();
             this.receiptMasterNewBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridViewMain = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colNumber = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDocDate = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -62,6 +61,7 @@ namespace RetailTrade
             this.colPurchNDS = new DevExpress.XtraGrid.Columns.GridColumn();
             this.OrganizationLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.organizationBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridViewOrders = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colTradePupletName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDateOrder = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -97,10 +97,10 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterNewBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OrganizationLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOrders)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).BeginInit();
@@ -242,8 +242,8 @@ namespace RetailTrade
             this.grid.Size = new System.Drawing.Size(740, 376);
             this.grid.TabIndex = 2;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView1,
             this.gridViewMain,
+            this.gridView1,
             this.gridViewOrders,
             this.gridViewRecDetail});
             // 
@@ -251,14 +251,6 @@ namespace RetailTrade
             // 
             this.receiptMasterNewBindingSource.DataMember = "ReceiptMaster";
             this.receiptMasterNewBindingSource.DataSource = this.mDataSet;
-            // 
-            // gridView1
-            // 
-            this.gridView1.GridControl = this.grid;
-            this.gridView1.Name = "gridView1";
-            this.gridView1.OptionsBehavior.Editable = false;
-            this.gridView1.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Never;
-            this.gridView1.ViewCaption = "Цены";
             // 
             // gridViewMain
             // 
@@ -284,7 +276,9 @@ namespace RetailTrade
             this.gridViewMain.OptionsView.ShowChildrenInGroupPanel = true;
             this.gridViewMain.OptionsView.ShowFooter = true;
             this.gridViewMain.OptionsView.ShowGroupedColumns = true;
+            this.gridViewMain.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.gridViewMain_CustomDrawCell);
             this.gridViewMain.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
+            this.gridViewMain.CustomColumnDisplayText += new DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler(this.gridViewMain_CustomColumnDisplayText);
             this.gridViewMain.InvalidRowException += new DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventHandler(this.gridViewMain_InvalidRowException);
             // 
             // colNumber
@@ -442,6 +436,14 @@ namespace RetailTrade
             // 
             this.organizationBindingSource.DataMember = "Organization";
             this.organizationBindingSource.DataSource = this.mDataSet;
+            // 
+            // gridView1
+            // 
+            this.gridView1.GridControl = this.grid;
+            this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
+            this.gridView1.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Never;
+            this.gridView1.ViewCaption = "Цены";
             // 
             // gridViewOrders
             // 
@@ -715,10 +717,10 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterNewBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OrganizationLookUpEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOrders)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

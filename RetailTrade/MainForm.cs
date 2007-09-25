@@ -81,7 +81,7 @@ namespace RetailTrade
          
             
          
-              thread.Abort();
+            thread.Abort();
             Thread.Sleep(30);
 
            
@@ -192,7 +192,7 @@ namespace RetailTrade
 
 
 
-        private bool FindOpenedTabs(String TagControl)
+        public bool FindOpenedTabs(String TagControl)
         {
             for (int i = 0; i < tabControl.TabPages.Count; i++)
        
