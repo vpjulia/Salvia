@@ -256,16 +256,19 @@ namespace RetailTrade
 
         private void btMove_Click(object sender, EventArgs e)
         {
-           /* try
-            {*/
+          try
+          {
             (this.ParentForm as MainForm).receiptMasterTableAdapter.ReceiptMasterMove(_curentReceiptMasterRow.ID);
-          /*  }
+          
+            (this.ParentForm as MainForm).RefreshData(this.mDataSet.ReceiptMaster as DataTable);
+          }
             catch
             { MessageBox.Show("Ошибка внутреннего перемещения!"); }
 
             finally
-            { }*/
-
+            {
+              this.btClose.PerformClick();  
+            }
         }
        
         private void btClose_Click(object sender, EventArgs e)
@@ -350,7 +353,14 @@ namespace RetailTrade
 
         private void receiptMasterBindingSource_ListChanged(object sender, ListChangedEventArgs e)
         {
-            MessageBox.Show("receiptMasterBindingSource_ListChanged"+e.ListChangedType.ToString() );
+           /* if ((_curentReceiptMasterRow.RowState == (DataRowState.Detached) | (_curentReceiptMasterRow.RowState == DataRowState.Added)))
+            {
+                if ((this.ParentForm as MainForm) != null)
+                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+
+
+            }*/
+         MessageBox.Show("receiptMasterBindingSource_ListChanged"+e.ListChangedType.ToString() );
         }
 
         private void ReceiptRowOrganization_Validating(object sender, CancelEventArgs e)

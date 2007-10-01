@@ -34,7 +34,7 @@ namespace RetailTrade.Receipt
 
             _receiptDetailRow.ProductRef = _productRow.ID;
 
-           _receiptDetailRow.ProductRef = _productRow.ID;
+         
     
             this.errorProvider1.DataSource = this.receiptDetailBindingSource;
             this.errorProvider1.UpdateBinding();
@@ -45,6 +45,8 @@ namespace RetailTrade.Receipt
 
         private void ReceiptDetailRowAdd_Validating(object sender, CancelEventArgs e)
         {
+            
+
             if (this.ValidateChildren())
             
               foreach (Control ctrl in this.tableLayoutPanel1.Controls)
@@ -60,20 +62,19 @@ namespace RetailTrade.Receipt
 
         private void ReceiptDetailRowAdd_Load(object sender, EventArgs e)
         {
-          // this.QuantityEdit.EditValue = 0;
+          
            
             _receiptDetailRow.ProductRef = _productRow.ID;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.receiptDetailBindingSource.CurrencyManager.EndCurrentEdit();
-        }
+        
 
         private void productBindingSource_DataError(object sender, BindingManagerDataErrorEventArgs e)
         {
             MessageBox.Show("DataError");
         }
+
+       
 
        
 

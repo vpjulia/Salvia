@@ -50,14 +50,10 @@ namespace RetailTrade
         //    _viewChangesReceiptDetail.ListChanged += new ListChangedEventHandler(_viewChangesReceiptDetail_ListChanged);
 
             _changesMaster = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0", null,  DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
-          
-            _viewChangesReceiptDetail = new DataView(this.mDataSet.ReceiptDetail, null, null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
 
-           
-
+            _viewChangesReceiptDetail = new DataView(this.mDataSet.ReceiptDetail,"DocumentTypeRef=0", null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
 
           //  (this.receiptMasterBindingSource.DataSource as DataView).ListChanged += new ListChangedEventHandler(_viewChangesReceiptDetail_ListChanged);
-
 
         }
 

@@ -23,9 +23,10 @@ namespace RetailTrade.Receipt
             this.mDataSet = source;
             this.receiptMasterBindingSource.DataSource = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=1", null, DataViewRowState.CurrentRows);
             this.receiptMasterBindingSource.ResetBindings(false);
-        //    this.productBindingSource.DataSource = this.mDataSet.Product;
+        //  this.productBindingSource.DataSource = this.mDataSet.Product;
         
         }
+
 
 
     }

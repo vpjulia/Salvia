@@ -17,10 +17,22 @@ namespace RetailTrade
         }
         //  --------  event
 
+        private void ReceiptDetail_TableNewRow(object sender, DataTableNewRowEventArgs e)
+        {
+            (e.Row as MDataSet.ReceiptDetailRow).DateLastModif = DateTime.Now;
+
+        }
+      
+        
         private void ReceiptDetailColumn_Changing(object sender, DataColumnChangeEventArgs e)
         {
+            if (e.Column == mDataSet.ReceiptDetail.PricePurchaseColumn)
+            {
+            //  MessageBox.Show(e.ProposedValue.ToString());
+            }
+           
             if (e.Column == mDataSet.ReceiptDetail.QuantityColumn)
-
+            {
                 foreach (MDataSet.RemainsRow remainsRow in (e.Row as MDataSet.ReceiptDetailRow).GetRemainsRows())
 
                     if (((e.Row as MDataSet.ReceiptDetailRow).Quantity - remainsRow.QuantityRemains) > ((decimal)e.ProposedValue))
@@ -31,8 +43,32 @@ namespace RetailTrade
                     }
                     else
                         remainsRow.QuantityRemains += (decimal)e.ProposedValue - (e.Row as MDataSet.ReceiptDetailRow).Quantity;
-
+            }
         }
+
+        private void ReceiptDetail_RowChanged(object sender, DataRowChangeEventArgs e)
+        {
+            if (e.Row.HasVersion(DataRowVersion.Original))
+            (e.Row as RetailTrade.MDataSet.ReceiptDetailRow).ReceiptMasterRow.RecalcSum = true;
+        }
+
+        private void ReceiptDetail_RowDeleted(object sender, DataRowChangeEventArgs e) 
+        {
+         //  if (e.Row.HasVersion(DataRowVersion.Original))
+          // {
+
+        //       MessageBox.Show((e.Row as RetailTrade.MDataSet.ReceiptDetailRow).ReceiptMasterRef.ToString());
+                 //.ReceiptMasterRow.RecalcSum = true;
+          // }
+        }
+
+        private void ReceiptDetail_RowDeleting(object sender, DataRowChangeEventArgs e)
+        {
+            if (e.Row.HasVersion(DataRowVersion.Original))
+                (e.Row as RetailTrade.MDataSet.ReceiptDetailRow).ReceiptMasterRow.RecalcSum = true;
+        }
+
+        // InvoiceMaster
 
         private void InvoiceMasterColumn_Changing(object sender, DataColumnChangeEventArgs e)
         {
@@ -128,12 +164,9 @@ namespace RetailTrade
           
         }
 
-        private void ReceiptDetail_TableNewRow(object sender, DataTableNewRowEventArgs e)
-        {
-            (e.Row as MDataSet.ReceiptDetailRow).DateLastModif = DateTime.Now;
-        
-        }
-        //---------SAVE 
+
+
+  //---------SAVE 
       
 
         public bool SaveToBaseDirectoryModifed(DataRow[] dataRows)
@@ -426,6 +459,8 @@ namespace RetailTrade
                 _dr.AcceptChanges();
             }
 
+            sourceRow.AcceptChanges();
+
           return true;
 
         }
@@ -550,8 +585,6 @@ namespace RetailTrade
 
         public bool RefreshData(MDataSet.ReceiptMasterRow sourceRow) 
         {
-
-
             MDataSet.ReceiptMasterDataTable _ReceiptMasterDataTable = new MDataSet.ReceiptMasterDataTable();
             MDataSet.ReceiptDetailDataTable _ReceiptDetailDataTable = new MDataSet.ReceiptDetailDataTable();
 
@@ -575,8 +608,6 @@ namespace RetailTrade
                 this.receiptMasterTableAdapter.FillNew(_ReceiptMasterDataTable, sourceRow.DateUpdate);
 
                 this.receiptDetailTableAdapter.FillByReceiptMasterRef(_ReceiptDetailDataTable, sourceRow.ID);
-
-
             }
             catch (Exception err)
             {
@@ -586,14 +617,10 @@ namespace RetailTrade
             finally
             {
                 this.mDataSet.ReceiptMaster.Merge(_ReceiptMasterDataTable);
-                this.mDataSet.ReceiptDetail.Merge(_ReceiptDetailDataTable,true);
+                this.mDataSet.ReceiptDetail.Merge(_ReceiptDetailDataTable);
             }
             return true;
-
-
         }
-
-
         public bool RefreshData(MDataSet.InvoiceMasterRow sourceRow) 
         {
            MDataSet.InvoiceMasterDataTable _invoiceMasterDataTable=new MDataSet.InvoiceMasterDataTable();
@@ -671,7 +698,7 @@ namespace RetailTrade
             { 
                 Type tp = this.components.Components[source.TableName + "TableAdapter"].GetType();
                 tp.GetMethod("FillNew").Invoke(this.components.Components[source.TableName + "TableAdapter"], args);
-                source.Merge(_newTable as DataTable,true);
+                source.Merge(_newTable as DataTable,false);
             }
             catch (Exception err)
             {
@@ -741,7 +768,7 @@ namespace RetailTrade
 
         private void OnReceiptMasterSQLError(SqlException sqlerr, MDataSet.ReceiptMasterRow sourceRow)
         {
-            throw new Exception("The method or operation is not implemented.");
+            MessageBox.Show(sqlerr.Message, "SqlException");
         }
 
         private bool OnInvoiceDetailSQLError(SqlException sqlerr,MDataSet.InvoiceDetailRow row)
@@ -827,7 +854,7 @@ namespace RetailTrade
 
             MessageBox.Show("ОШИБКА соединения с базой!", "Розничная торговля", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        
+  
         private void processResponse(System.Windows.Forms.DialogResult response, DataTable newTable)
         {
             switch (response)
