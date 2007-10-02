@@ -13,6 +13,8 @@ namespace RetailTrade
 {
     public partial class UCSimpleDirectory : UserControl
     {
+        DataView _changes;
+
         public UCSimpleDirectory()
         {
             InitializeComponent();
@@ -24,7 +26,14 @@ namespace RetailTrade
                       
             this.bindingSource.DataSource=source;
             this.grid.DataSource = this.bindingSource;
+
+            _changes = new DataView(source, null, null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
+            _changes.ListChanged+=new ListChangedEventHandler(_changes_ListChanged);
+
+
+            this.Validating+=new CancelEventHandler(UCSimpleDirectory_Validating);
         }
+
         private MainForm FindMainForm(Form sender)
         {
             if ((sender as MainForm) != null)
@@ -33,58 +42,114 @@ namespace RetailTrade
                 return FindMainForm(sender.Owner);
         }
 
+        private void UCSimpleDirectory_Validating(object sender,CancelEventArgs e )
+        {
+            if (this.ValidateChildren())
+            {
+                if ((this.bindingSource.DataSource as DataTable).HasErrors)
+                {
+                    MessageBox.Show("Error");
+                }
+                if (_changes.Count > 0)
+                {
+                    DialogResult result;
+                    result = MessageBox.Show(this, "Сохранить изменения?", "Редактирование справочника", MessageBoxButtons.YesNoCancel,
+                        MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+                    switch (result)
+                    {
+                        case DialogResult.Yes:
+
+                            if (!this.SaveChange())
+                                e.Cancel = true;
+
+                            break;
+                        case DialogResult.No:
+                            if (!this.CancelChanges())
+                                e.Cancel = true;
+                            break;
+                        case DialogResult.Cancel:
+                            e.Cancel = true;
+
+                            break;
+                    }
+                }
+            }
+            else e.Cancel = true;
+
+        }
+
+        private void _changes_ListChanged(object sender, ListChangedEventArgs e )
+        {
+            if ((_changes.Count > 0))
+            {
+                this.btSave.Visible = true;
+                this.btCancel.Visible = true;
+                this.btEdit.Visible = false;
+            }
+            else
+            {
+                this.btSave.Visible = false;
+                this.btCancel.Visible = false;
+                this.btEdit.Visible = true;
+            
+            }
+
+        }
+
         private bool SaveChange ()
         {
-            if (this.gridView.HasColumnErrors)
-            
-            this.bindingSource.CancelEdit();
+            this.bindingSource.EndEdit();
+
+            if (!this.gridView.HasColumnErrors)
+            {
+
+               DataTable dt = (this.bindingSource.DataSource as DataTable);
+
+                if (dt.GetChanges() != null)
+                {
+                         MainForm _mainForm = FindMainForm(this.ParentForm);
+                        _mainForm.SaveToBaseDirectoryDeleted(dt.Select(null, null, DataViewRowState.Deleted));
+
+                        /*сохранить изменения*/
+
+                        _mainForm.SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.ModifiedCurrent));
+
+                        /*сохранить добавления*/
+                        _mainForm.SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.Added));
+
+                        dt.AcceptChanges();
+
+                        return true;
+
+                    }
+           
+            }
             else
+                return false;
 
-             this.bindingSource.EndEdit();
-
-             DataTable dt = (this.bindingSource.DataSource as DataTable);
-
-             if (dt.GetChanges() != null)
-             {
-                 DialogResult result;
-
-
-                 result = MessageBox.Show(this, "Сохранить изменения?",this.Tag.ToString(), MessageBoxButtons.YesNoCancel,
-
-                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-
-                 if (result == DialogResult.Yes)
-                 {  /*сохранить удаление*/
-
-                     MainForm _mainForm = FindMainForm(this.ParentForm);
-                     _mainForm.SaveToBaseDirectoryDeleted(dt.Select(null, null, DataViewRowState.Deleted));
-
-                     /*сохранить изменения*/
-
-                     _mainForm.SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.ModifiedCurrent));
-
-                     /*сохранить добавления*/
-                     _mainForm.SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.Added));
-
-                     dt.AcceptChanges();
-
-                     return true;
-
-                 }
-                 else
-                     if (result == DialogResult.No)
-                     {
-                         dt.RejectChanges();
-                         return true;
-                     }
-                     else return false;
-
-             }
         return true;
+        }
+
+        private bool CancelChanges()
+        {
+            (this.bindingSource.DataSource as DataTable).RejectChanges();
+            return true;
+        }
+        
+        private void gridView_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
+        {
+            this.gridView.SetColumnError(this.gridView.Columns[1], e.ErrorText.ToString());
+            e.ExceptionMode = DevExpress.XtraEditors.Controls.ExceptionMode.NoAction;
+
         }
 
         private void grid_Validating(object sender, CancelEventArgs e)
         {
+            if (this.gridView.HasColumnErrors)
+                e.Cancel = true;
+            else
+
         if (this.gridView.FocusedRowHandle == DevExpress.XtraGrid.GridControl.AutoFilterRowHandle)
             {
                 this.gridView.FocusedRowHandle = 0;
@@ -92,20 +157,23 @@ namespace RetailTrade
             }
         }
 
+        private void btAdd_Click(object sender, EventArgs e)
+        {
+             this.grid.EmbeddedNavigator.Buttons.Append.DoClick();
+             this.btEdit.PerformClick();
+        
+        }
 
         private void btEdit_Click(object sender, EventArgs e)
         {
 
             this.gridView.OptionsBehavior.Editable = true;
             this.grid.EmbeddedNavigator.Buttons.Edit.DoClick();
-            this.btEdit.Enabled = false;
-            this.btSave.Enabled = true;
+            this.btEdit.Visible = false;
+            this.btSave.Visible= true;
+            this.btDelete.Visible = true;
+            this.btAdd.Visible = true;
 
-        }
-
-        private void bindingSource_CurrentChanged(object sender, EventArgs e)
-        {
-          //  this.btEdit.Enabled = true;
         }
 
         private void btSave_Click(object sender, EventArgs e)
@@ -134,53 +202,7 @@ namespace RetailTrade
                  }
 
             }
-
-
-        private void gridView_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
-        {
-            this.gridView.SetColumnError(this.gridView.Columns[1], e.ErrorText.ToString());
-            e.ExceptionMode = DevExpress.XtraEditors.Controls.ExceptionMode.NoAction;
-
-        }
-
-        private void btAdd_Click(object sender, EventArgs e)
-        {
-             this.grid.EmbeddedNavigator.Buttons.Append.DoClick();
-             this.btEdit.PerformClick();
-        
-        }
-
-        private void toolStripButton1_Click_1(object sender, EventArgs e)
-        {
-            this.grid.EmbeddedNavigator.Buttons.Append.DoClick();
-        
-        }
-
-        private void grid_DoubleClick(object sender, EventArgs e)
-        {if  (this.ParentForm.ToString()=="FormDialog")
-            (this.ParentForm as FormDialog).AcceptButton.PerformClick();
-        }
-
-        private void grid_EditorKeyDown(object sender, KeyEventArgs e)
-        {
-            if((e.KeyCode==Keys.Enter)&(this.gridView.State==GridState.Normal)) 
-                (this.ParentForm as FormDialog).AcceptButton.PerformClick();
-        }
-
-        private void btClose_Click(object sender, EventArgs e)
-        {
-          this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
-          if (this.Validate())
-            {
-                if ((this.ParentForm as MainForm)!=null)
-                (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
-
-            }
-         
-           
-
-        }
-
+ 
         private void btDelete_Click(object sender, EventArgs e)
         {
           
@@ -208,10 +230,10 @@ namespace RetailTrade
 
                if (countChild != 0)
 
-                   MessageBox.Show("Невозможно удалить запись, ссылок на нее :  " + countChild.ToString(),this.Tag.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                   MessageBox.Show("Невозможно удалить запись, ссылок на нее :  " + countChild.ToString(),"Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Error);
                else
 
-                   if (MessageBox.Show(" Удалить запись? ", this.Tag.ToString(),
+                   if (MessageBox.Show(" Удалить запись? ", "Удаление записи",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                         == DialogResult.Yes)
                    {
@@ -221,51 +243,91 @@ namespace RetailTrade
            }
            }
 
-       
-       
-
-        private void btRefresh_Click(object sender, EventArgs e)
-        {
-             FindMainForm(this.ParentForm).FillTable((this.bindingSource.DataSource as DataTable).TableName);
-        }
-
         private void btGridField_Click(object sender, EventArgs e)
         {
             this.gridView.ColumnsCustomization();
         }
 
-        
+
+        private void grid_DoubleClick(object sender, EventArgs e)
+        {if  (this.ParentForm.ToString()=="FormDialog")
+            (this.ParentForm as FormDialog).AcceptButton.PerformClick();
+        }
 
         private void gridView_DoubleClick(object sender, EventArgs e)
         {
             this.btEdit.PerformClick();
         }
 
-        private void UCSimpleDirectory_Validating(object sender, CancelEventArgs e)
-        {
-            if (this.SaveChange())
-            {
-                this.btEdit.Enabled = true;
-                this.btSave.Enabled = false;
 
+        private void grid_EditorKeyDown(object sender, KeyEventArgs e)
+        {
+            if((e.KeyCode==Keys.Enter)&(this.gridView.State==GridState.Normal)) 
+                (this.ParentForm as FormDialog).AcceptButton.PerformClick();
+        }
+
+    
+        private void btRefresh_Click(object sender, EventArgs e)
+        {
+             FindMainForm(this.ParentForm).FillTable((this.bindingSource.DataSource as DataTable).TableName);
+        }
+
+           
+        private void btClose_Click(object sender, EventArgs e)
+        {
+            this.bindingSource.EndEdit();
+
+          
+            if (_changes.Count>0)
+            {
+                DialogResult result;
+                result = MessageBox.Show(this, "Сохранить изменения?", "Редактирование справочника", MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+                switch (result)
+                {
+                    case DialogResult.Yes :
+              
+                    if ((this.SaveChange()))
+                    {
+                        if ((this.ParentForm as MainForm) != null)
+                            (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                    }
+                    break;
+                    case DialogResult.No :
+                       if ( this.CancelChanges())
+                            if ((this.ParentForm as MainForm) != null)
+                                (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                        break;
+                    case DialogResult.Cancel:
+                        break;
+
+                }
+             
             }
             else
-            {
-                this.btEdit.Enabled = false;
-                this.btSave.Enabled = true;
-                this.gridView.OptionsBehavior.Editable = true;
-                e.Cancel = true;
-            }
-
-
+                if ((this.ParentForm as MainForm) != null)
+                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                 
         }
 
-        private void UCSimpleDirectory_Load(object sender, EventArgs e)
+        private void btCancel_Click(object sender, EventArgs e)
         {
-
+            this.bindingSource.CancelEdit();
+            this.CancelChanges();
         }
 
-       
+        private void gridView_InvalidValueException(object sender, DevExpress.XtraEditors.Controls.InvalidValueExceptionEventArgs e)
+        {
+            MessageBox.Show("Поймали " + e.ErrorText);
+        }
+
+        private void bindingSource_DataError(object sender, BindingManagerDataErrorEventArgs e)
+        {
+            MessageBox.Show("Поймали bindingSource_DataError");
+        }
+
+   
         }
     }
 
