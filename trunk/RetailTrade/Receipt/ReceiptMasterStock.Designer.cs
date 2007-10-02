@@ -29,11 +29,11 @@ namespace RetailTrade.Receipt
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode3 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode4 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode5 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode6 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReceiptMasterStock));
-            this.gridViewRecieptDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridViewRecieptDetailStock = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colProductName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colManufacturerName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQuantity = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -46,10 +46,10 @@ namespace RetailTrade.Receipt
             this.colAuthorLastModif1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDateCreate1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDateLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
+            this.grid = new DevExpress.XtraGrid.GridControl();
             this.receiptMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mDataSet = new RetailTrade.MDataSet();
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridViewMasterStock = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colNumber = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDocDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOrganizationRef = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -76,12 +76,16 @@ namespace RetailTrade.Receipt
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btClose = new System.Windows.Forms.ToolStripButton();
+            this.btEdit = new System.Windows.Forms.ToolStripButton();
+            this.btSave = new System.Windows.Forms.ToolStripButton();
+            this.btCancel = new System.Windows.Forms.ToolStripButton();
+            this.btDelete = new System.Windows.Forms.ToolStripButton();
             this.organizationTableAdapter = new RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewRecieptDetail)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewRecieptDetailStock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewMasterStock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OrganizationLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRecInvDetail)).BeginInit();
@@ -89,9 +93,9 @@ namespace RetailTrade.Receipt
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // gridViewRecieptDetail
+            // gridViewRecieptDetailStock
             // 
-            this.gridViewRecieptDetail.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridViewRecieptDetailStock.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colProductName,
             this.colManufacturerName,
             this.colQuantity,
@@ -104,11 +108,13 @@ namespace RetailTrade.Receipt
             this.colAuthorLastModif1,
             this.colDateCreate1,
             this.colDateLastModif});
-            this.gridViewRecieptDetail.GridControl = this.gridControl1;
-            this.gridViewRecieptDetail.Name = "gridViewRecieptDetail";
-            this.gridViewRecieptDetail.OptionsDetail.AllowExpandEmptyDetails = true;
-            this.gridViewRecieptDetail.OptionsDetail.AllowOnlyOneMasterRowExpanded = true;
-            this.gridViewRecieptDetail.OptionsDetail.SmartDetailExpandButton = false;
+            this.gridViewRecieptDetailStock.GridControl = this.grid;
+            this.gridViewRecieptDetailStock.Name = "gridViewRecieptDetailStock";
+            this.gridViewRecieptDetailStock.OptionsBehavior.AllowIncrementalSearch = true;
+            this.gridViewRecieptDetailStock.OptionsBehavior.Editable = false;
+            this.gridViewRecieptDetailStock.OptionsDetail.AllowExpandEmptyDetails = true;
+            this.gridViewRecieptDetailStock.OptionsDetail.AllowOnlyOneMasterRowExpanded = true;
+            this.gridViewRecieptDetailStock.OptionsDetail.SmartDetailExpandButton = false;
             // 
             // colProductName
             // 
@@ -232,35 +238,35 @@ namespace RetailTrade.Receipt
             this.colDateLastModif.OptionsFilter.AllowAutoFilter = false;
             this.colDateLastModif.OptionsFilter.AllowFilter = false;
             // 
-            // gridControl1
+            // grid
             // 
-            this.gridControl1.DataSource = this.receiptMasterBindingSource;
-            this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControl1.EmbeddedNavigator.Name = "";
-            gridLevelNode1.LevelTemplate = this.gridViewRecieptDetail;
-            gridLevelNode2.LevelTemplate = this.gridViewRecInvDetail;
-            gridLevelNode2.RelationName = "ReceiptDetail_InvoiceDetail";
-            gridLevelNode3.LevelTemplate = this.gridViewRecDetPrices;
-            gridLevelNode3.RelationName = "ReceiptDetail_PricesPurchase";
-            gridLevelNode1.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode2,
-            gridLevelNode3});
-            gridLevelNode1.RelationName = "ReceiptMaster_ReceiptDetail";
-            this.gridControl1.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode1});
-            this.gridControl1.Location = new System.Drawing.Point(0, 25);
-            this.gridControl1.MainView = this.gridView1;
-            this.gridControl1.Name = "gridControl1";
-            this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.grid.DataSource = this.receiptMasterBindingSource;
+            this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grid.EmbeddedNavigator.Name = "";
+            gridLevelNode4.LevelTemplate = this.gridViewRecieptDetailStock;
+            gridLevelNode5.LevelTemplate = this.gridViewRecInvDetail;
+            gridLevelNode5.RelationName = "ReceiptDetail_InvoiceDetail";
+            gridLevelNode6.LevelTemplate = this.gridViewRecDetPrices;
+            gridLevelNode6.RelationName = "ReceiptDetail_PricesPurchase";
+            gridLevelNode4.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
+            gridLevelNode5,
+            gridLevelNode6});
+            gridLevelNode4.RelationName = "ReceiptMaster_ReceiptDetail";
+            this.grid.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
+            gridLevelNode4});
+            this.grid.Location = new System.Drawing.Point(0, 25);
+            this.grid.MainView = this.gridViewMasterStock;
+            this.grid.Name = "grid";
+            this.grid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.OrganizationLookUpEdit});
-            this.gridControl1.ShowOnlyPredefinedDetails = true;
-            this.gridControl1.Size = new System.Drawing.Size(679, 411);
-            this.gridControl1.TabIndex = 2;
-            this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView1,
+            this.grid.ShowOnlyPredefinedDetails = true;
+            this.grid.Size = new System.Drawing.Size(679, 411);
+            this.grid.TabIndex = 2;
+            this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewMasterStock,
             this.gridViewRecInvDetail,
             this.gridViewRecDetPrices,
-            this.gridViewRecieptDetail});
+            this.gridViewRecieptDetailStock});
             // 
             // receiptMasterBindingSource
             // 
@@ -272,9 +278,9 @@ namespace RetailTrade.Receipt
             this.mDataSet.DataSetName = "MDataSet";
             this.mDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // gridView1
+            // gridViewMasterStock
             // 
-            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridViewMasterStock.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colNumber,
             this.colDocDate,
             this.colOrganizationRef,
@@ -285,10 +291,12 @@ namespace RetailTrade.Receipt
             this.colAuthorCreate,
             this.colAuthorLastModif,
             this.colDateCreate});
-            this.gridView1.GridControl = this.gridControl1;
-            this.gridView1.Name = "gridView1";
-            this.gridView1.OptionsDetail.AllowOnlyOneMasterRowExpanded = true;
-            this.gridView1.OptionsView.ShowFooter = true;
+            this.gridViewMasterStock.GridControl = this.grid;
+            this.gridViewMasterStock.Name = "gridViewMasterStock";
+            this.gridViewMasterStock.OptionsBehavior.AllowIncrementalSearch = true;
+            this.gridViewMasterStock.OptionsBehavior.Editable = false;
+            this.gridViewMasterStock.OptionsDetail.AllowOnlyOneMasterRowExpanded = true;
+            this.gridViewMasterStock.OptionsView.ShowFooter = true;
             // 
             // colNumber
             // 
@@ -405,7 +413,7 @@ namespace RetailTrade.Receipt
             this.colQuantity1,
             this.colPriceRetail,
             this.colNote2});
-            this.gridViewRecInvDetail.GridControl = this.gridControl1;
+            this.gridViewRecInvDetail.GridControl = this.grid;
             this.gridViewRecInvDetail.Name = "gridViewRecInvDetail";
             this.gridViewRecInvDetail.OptionsBehavior.Editable = false;
             this.gridViewRecInvDetail.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -472,7 +480,7 @@ namespace RetailTrade.Receipt
             this.colOrganizationName1,
             this.colDate1,
             this.colPricePurchase1});
-            this.gridViewRecDetPrices.GridControl = this.gridControl1;
+            this.gridViewRecDetPrices.GridControl = this.grid;
             this.gridViewRecDetPrices.Name = "gridViewRecDetPrices";
             this.gridViewRecDetPrices.OptionsBehavior.Editable = false;
             this.gridViewRecDetPrices.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -514,7 +522,11 @@ namespace RetailTrade.Receipt
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btClose});
+            this.btClose,
+            this.btEdit,
+            this.btSave,
+            this.btCancel,
+            this.btDelete});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(679, 25);
@@ -530,6 +542,46 @@ namespace RetailTrade.Receipt
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(23, 22);
             this.btClose.Text = "x";
+            this.btClose.Click += new System.EventHandler(this.btClose_Click);
+            // 
+            // btEdit
+            // 
+            this.btEdit.Image = ((System.Drawing.Image)(resources.GetObject("btEdit.Image")));
+            this.btEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btEdit.Name = "btEdit";
+            this.btEdit.Size = new System.Drawing.Size(95, 22);
+            this.btEdit.Text = "Изменить";
+            this.btEdit.Click += new System.EventHandler(this.btEdit_Click);
+            // 
+            // btSave
+            // 
+            this.btSave.Image = ((System.Drawing.Image)(resources.GetObject("btSave.Image")));
+            this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btSave.Name = "btSave";
+            this.btSave.Size = new System.Drawing.Size(101, 22);
+            this.btSave.Text = "Сохранить";
+            this.btSave.Visible = false;
+            this.btSave.Click += new System.EventHandler(this.btSave_Click);
+            // 
+            // btCancel
+            // 
+            this.btCancel.Image = ((System.Drawing.Image)(resources.GetObject("btCancel.Image")));
+            this.btCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btCancel.Name = "btCancel";
+            this.btCancel.Size = new System.Drawing.Size(97, 22);
+            this.btCancel.Text = "Отменить";
+            this.btCancel.Visible = false;
+            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
+            // 
+            // btDelete
+            // 
+            this.btDelete.Image = ((System.Drawing.Image)(resources.GetObject("btDelete.Image")));
+            this.btDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btDelete.Name = "btDelete";
+            this.btDelete.Size = new System.Drawing.Size(85, 22);
+            this.btDelete.Text = "Удалить";
+            this.btDelete.ToolTipText = "Убрать товар со склада";
+            this.btDelete.Visible = false;
             // 
             // organizationTableAdapter
             // 
@@ -539,16 +591,16 @@ namespace RetailTrade.Receipt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.gridControl1);
+            this.Controls.Add(this.grid);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip);
             this.Name = "ReceiptMasterStock";
             this.Size = new System.Drawing.Size(679, 458);
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewRecieptDetail)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewRecieptDetailStock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewMasterStock)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OrganizationLookUpEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRecInvDetail)).EndInit();
@@ -568,11 +620,11 @@ namespace RetailTrade.Receipt
         private MDataSet mDataSet;
         private System.Windows.Forms.BindingSource organizationBindingSource;
         private RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter organizationTableAdapter;
-        private DevExpress.XtraGrid.GridControl gridControl1;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridViewRecieptDetail;
+        private DevExpress.XtraGrid.GridControl grid;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewRecieptDetailStock;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewRecInvDetail;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewRecDetPrices;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewMasterStock;
         private DevExpress.XtraGrid.Columns.GridColumn colNumber;
         private DevExpress.XtraGrid.Columns.GridColumn colNote;
         private DevExpress.XtraGrid.Columns.GridColumn colDocDate;
@@ -606,5 +658,9 @@ namespace RetailTrade.Receipt
         private DevExpress.XtraGrid.Columns.GridColumn colOrganizationRef;
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit OrganizationLookUpEdit;
         private System.Windows.Forms.ToolStripButton btClose;
+        private System.Windows.Forms.ToolStripButton btSave;
+        private System.Windows.Forms.ToolStripButton btCancel;
+        private System.Windows.Forms.ToolStripButton btDelete;
+        private System.Windows.Forms.ToolStripButton btEdit;
     }
 }

@@ -31,6 +31,8 @@ namespace RetailTrade
         }
 
 
+
+
         public ReceiptMasterNewAll()
         {
             InitializeComponent();
@@ -53,8 +55,25 @@ namespace RetailTrade
 
             _viewChangesReceiptDetail = new DataView(this.mDataSet.ReceiptDetail,"DocumentTypeRef=0", null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
 
-          //  (this.receiptMasterBindingSource.DataSource as DataView).ListChanged += new ListChangedEventHandler(_viewChangesReceiptDetail_ListChanged);
+            _changesMaster.ListChanged+=new ListChangedEventHandler(_changesMaster_ListChanged);
+            _viewChangesReceiptDetail.ListChanged += new ListChangedEventHandler(_changesMaster_ListChanged);
+           
+            //  (this.receiptMasterBindingSource.DataSource as DataView).ListChanged += new ListChangedEventHandler(_viewChangesReceiptDetail_ListChanged);
 
+        }
+        private void _changesMaster_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            if ((sender as DataView).Count > 0)
+            {
+                this.btSave.Visible = true;
+                this.btCancel.Visible = true;
+            }
+            else
+            {
+                this.btSave.Visible = false;
+                this.btCancel.Visible = false;
+            }
+        
         }
 
         private void btEdit_Click(object sender, EventArgs e)
@@ -329,6 +348,11 @@ namespace RetailTrade
                 if (e.Column.Name == "colDocDate")
                     e.Appearance.Font = e.Cache.GetFont(e.Appearance.Font, FontStyle.Bold);
             }
+        }
+
+        private void btCancel_Click(object sender, EventArgs e)
+        {
+            this.CancelChages();
         }
 
     }
