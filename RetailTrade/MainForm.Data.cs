@@ -753,7 +753,8 @@ namespace RetailTrade
         //----------  Error   
         private void OnReceiptDetailSQLError(SqlException sqlerr, MDataSet.ReceiptMasterRow sourceRow)
         {
-            throw new Exception("The method or operation is not implemented.");
+            MessageBox.Show(sqlerr.Message);
+        
         }
 
         private void onReceiptDetailDBCError(DBConcurrencyException dbcx)
