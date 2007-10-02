@@ -48,6 +48,7 @@ namespace RetailTrade
             this.btDelete = new System.Windows.Forms.ToolStripButton();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btClose = new System.Windows.Forms.ToolStripButton();
+            this.btCancel = new System.Windows.Forms.ToolStripButton();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.btField = new System.Windows.Forms.ToolStripMenuItem();
             this.btRefresh = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,6 +56,7 @@ namespace RetailTrade
             this.gridView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemNameEdit = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.colAuthorCreate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAuthorLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDateCreate = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -69,6 +71,7 @@ namespace RetailTrade
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemNameEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,7 +82,7 @@ namespace RetailTrade
             // 
             // bindingSource
             // 
-            this.bindingSource.CurrentChanged += new System.EventHandler(this.bindingSource_CurrentChanged);
+            this.bindingSource.DataError += new System.Windows.Forms.BindingManagerDataErrorEventHandler(this.bindingSource_DataError);
             // 
             // bindingNavigator1
             // 
@@ -107,7 +110,7 @@ namespace RetailTrade
             this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bindingNavigator1.Name = "bindingNavigator1";
             this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingNavigator1.Size = new System.Drawing.Size(578, 25);
+            this.bindingNavigator1.Size = new System.Drawing.Size(715, 25);
             this.bindingNavigator1.TabIndex = 0;
             this.bindingNavigator1.Text = "bindingNavigator";
             // 
@@ -187,10 +190,11 @@ namespace RetailTrade
             this.btDelete,
             this.btSave,
             this.btClose,
+            this.btCancel,
             this.toolStripSplitButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(578, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(715, 25);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -201,6 +205,7 @@ namespace RetailTrade
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(94, 22);
             this.btAdd.Text = "Добавить";
+            this.btAdd.Visible = false;
             this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
             // btEdit
@@ -219,16 +224,17 @@ namespace RetailTrade
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(85, 22);
             this.btDelete.Text = "Удалить";
+            this.btDelete.Visible = false;
             this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
             // 
             // btSave
             // 
-            this.btSave.Enabled = false;
             this.btSave.Image = ((System.Drawing.Image)(resources.GetObject("btSave.Image")));
             this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(101, 22);
             this.btSave.Text = "Сохранить";
+            this.btSave.Visible = false;
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
             // btClose
@@ -241,6 +247,16 @@ namespace RetailTrade
             this.btClose.Size = new System.Drawing.Size(23, 22);
             this.btClose.Text = "Х";
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
+            // 
+            // btCancel
+            // 
+            this.btCancel.Image = ((System.Drawing.Image)(resources.GetObject("btCancel.Image")));
+            this.btCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btCancel.Name = "btCancel";
+            this.btCancel.Size = new System.Drawing.Size(97, 22);
+            this.btCancel.Text = "Отменить";
+            this.btCancel.Visible = false;
+            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
             // toolStripSplitButton1
             // 
@@ -272,14 +288,13 @@ namespace RetailTrade
             // 
             this.grid.DataSource = this.bindingSource;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
             this.grid.EmbeddedNavigator.Name = "";
             this.grid.Location = new System.Drawing.Point(0, 25);
             this.grid.MainView = this.gridView;
             this.grid.Name = "grid";
-            this.grid.Size = new System.Drawing.Size(578, 453);
+            this.grid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemNameEdit});
+            this.grid.Size = new System.Drawing.Size(715, 453);
             this.grid.TabIndex = 3;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView,
@@ -330,6 +345,8 @@ namespace RetailTrade
             this.gridView.OptionsDetail.EnableMasterViewMode = false;
             this.gridView.OptionsView.ShowAutoFilterRow = true;
             this.gridView.DoubleClick += new System.EventHandler(this.gridView_DoubleClick);
+            this.gridView.InvalidValueException += new DevExpress.XtraEditors.Controls.InvalidValueExceptionEventHandler(this.gridView_InvalidValueException);
+            this.gridView.InvalidRowException += new DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventHandler(this.gridView_InvalidRowException);
             // 
             // colID
             // 
@@ -351,6 +368,7 @@ namespace RetailTrade
             // colName
             // 
             this.colName.Caption = "Наименование";
+            this.colName.ColumnEdit = this.repositoryItemNameEdit;
             this.colName.FieldName = "Name";
             this.colName.FilterMode = DevExpress.XtraGrid.ColumnFilterMode.DisplayText;
             this.colName.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
@@ -360,6 +378,14 @@ namespace RetailTrade
             this.colName.Visible = true;
             this.colName.VisibleIndex = 1;
             this.colName.Width = 481;
+            // 
+            // repositoryItemNameEdit
+            // 
+            this.repositoryItemNameEdit.AutoHeight = false;
+            this.repositoryItemNameEdit.Mask.BeepOnError = true;
+            this.repositoryItemNameEdit.MaxLength = 50;
+            this.repositoryItemNameEdit.Name = "repositoryItemNameEdit";
+            this.repositoryItemNameEdit.ValidateOnEnterKey = true;
             // 
             // colAuthorCreate
             // 
@@ -431,13 +457,12 @@ namespace RetailTrade
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.Controls.Add(this.grid);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.bindingNavigator1);
             this.Name = "UCSimpleDirectory";
-            this.Size = new System.Drawing.Size(578, 503);
-            this.Load += new System.EventHandler(this.UCSimpleDirectory_Load);
-            this.Validating += new System.ComponentModel.CancelEventHandler(this.UCSimpleDirectory_Validating);
+            this.Size = new System.Drawing.Size(715, 503);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
@@ -447,6 +472,7 @@ namespace RetailTrade
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemNameEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -487,5 +513,7 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripMenuItem btField;
         private System.Windows.Forms.ToolStripMenuItem btRefresh;
         public System.Windows.Forms.ToolStripButton btClose;
+        private System.Windows.Forms.ToolStripButton btCancel;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemNameEdit;
     }
 }
