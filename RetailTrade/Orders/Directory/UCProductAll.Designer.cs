@@ -36,6 +36,7 @@ namespace RetailTrade
             this.btDel = new System.Windows.Forms.ToolStripButton();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btClose = new System.Windows.Forms.ToolStripButton();
+            this.btCancel = new System.Windows.Forms.ToolStripButton();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.mField = new System.Windows.Forms.ToolStripMenuItem();
             this.Ó·ÌÓ‚ËÚ¸ƒ‡ÌÌ˚ÂToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,6 +100,7 @@ namespace RetailTrade
             this.btDel,
             this.btSave,
             this.btClose,
+            this.btCancel,
             this.toolStripSplitButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -140,6 +142,7 @@ namespace RetailTrade
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(101, 22);
             this.btSave.Text = "—Óı‡ÌËÚ¸";
+            this.btSave.Visible = false;
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
             // btClose
@@ -152,6 +155,16 @@ namespace RetailTrade
             this.btClose.Size = new System.Drawing.Size(23, 22);
             this.btClose.Text = "X";
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
+            // 
+            // btCancel
+            // 
+            this.btCancel.Image = ((System.Drawing.Image)(resources.GetObject("btCancel.Image")));
+            this.btCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btCancel.Name = "btCancel";
+            this.btCancel.Size = new System.Drawing.Size(97, 22);
+            this.btCancel.Text = "ŒÚÏÂÌËÚ¸";
+            this.btCancel.Visible = false;
+            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
             // toolStripSplitButton1
             // 
@@ -191,6 +204,9 @@ namespace RetailTrade
             // 
             this.grid.DataSource = this.productBindingSource;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
             this.grid.EmbeddedNavigator.Name = "";
             this.errorProvider1.SetError(this.grid, "jj");
             this.grid.Location = new System.Drawing.Point(0, 25);
@@ -609,5 +625,6 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
         private System.Windows.Forms.ToolStripMenuItem mField;
         private System.Windows.Forms.ToolStripMenuItem Ó·ÌÓ‚ËÚ¸ƒ‡ÌÌ˚ÂToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton btCancel;
     }
 }

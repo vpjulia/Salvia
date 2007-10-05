@@ -54,25 +54,18 @@ namespace RetailTrade
         {
             FormDialog dform = new FormDialog();
             dform.Text = this.toolTip1.GetToolTip((sender as Control)).ToString();
-           
-            UCSimpleDirectory ucSimpleDirectory = new UCSimpleDirectory(this.mDataSet.Tables[(sender as Button).Tag.ToString()]);
-            ucSimpleDirectory.errorProvider1.DataSource = this.mDataSet;
+
+            int _id =Convert.ToInt32( (this.Controls.Find((sender as Button).Tag.ToString()+"lookUpEdit", true)[0] as  DevExpress.XtraEditors.LookUpEdit).EditValue);
+
+            UCSimpleDirectory ucSimpleDirectory = new UCSimpleDirectory(this.mDataSet.Tables[(sender as Button).Tag.ToString()],_id);
             ucSimpleDirectory.btClose.Visible = false;
             dform.panel.Controls.Add(ucSimpleDirectory);
 
+            ucSimpleDirectory.bindingSource.CurrencyManager.Position = ucSimpleDirectory.bindingSource.Find("ID", _id);
          
-            int rowHandle=ucSimpleDirectory.gridView.LocateByValue(0,ucSimpleDirectory.gridView.Columns["ID"],(this.Controls.Find((sender as Button).Tag.ToString()+"lookUpEdit", true)[0] as  DevExpress.XtraEditors.LookUpEdit).EditValue);
-
-            if (rowHandle != GridControl.InvalidRowHandle)
-              {
-                  ucSimpleDirectory.gridView.FocusedRowHandle = rowHandle;
-                  ucSimpleDirectory.gridView.FocusedColumn = ucSimpleDirectory.gridView.Columns["Name"]; 
-              }
-
-
+           
             if (DialogResult.OK == dform.ShowDialog(this))
             { 
-             //      MessageBox.Show(ucSimpleDirectory.gridView.GetDataRow(ucSimpleDirectory.gridView.GetSelectedRows()[0])["ID"].ToString());
                (this.Controls.Find((sender as Button).Tag.ToString()+"lookUpEdit", true)[0] as  DevExpress.XtraEditors.LookUpEdit).EditValue = ucSimpleDirectory.gridView.GetDataRow(ucSimpleDirectory.gridView.GetSelectedRows()[0])["ID"];
             }
   
@@ -103,7 +96,6 @@ namespace RetailTrade
 
             if (DialogResult.OK == dform.ShowDialog(this))
             {
-                //      MessageBox.Show(ucSimpleDirectory.gridView.GetDataRow(ucSimpleDirectory.gridView.GetSelectedRows()[0])["ID"].ToString());
                 (this.Controls.Find((sender as Button).Tag.ToString() + "lookUpEdit", true)[0] as DevExpress.XtraEditors.LookUpEdit).EditValue = ucGroupDirectory.gridView.GetDataRow(ucGroupDirectory.gridView.GetSelectedRows()[0])["ID"];
 
             }
