@@ -11,6 +11,9 @@ namespace RetailTrade
 {
     public partial class UCProductAll : UserControl
     {
+
+        DataView _changes;
+
         public UCProductAll()
         {
             InitializeComponent();
@@ -18,11 +21,34 @@ namespace RetailTrade
         public UCProductAll(MDataSet source)
         {
             InitializeComponent();
-            productBindingSource.DataSource = source.Product; 
+            productBindingSource.DataSource = source.Product;
+
+            _changes = new DataView(source.Product, null, null, DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted);
+            _changes.ListChanged+=new ListChangedEventHandler(_changes_ListChanged);
+
+
         }
         private void UCProductAll_Load(object sender, EventArgs e)
         {
              
+        }
+
+        private void _changes_ListChanged(object sender,ListChangedEventArgs e ) 
+        {
+            if (_changes.Count > 0)
+            {
+                this.btSave.Visible = true;
+                this.btCancel.Visible = true;
+
+            }
+            else
+            {
+                this.btSave.Visible = false;
+                this.btCancel.Visible =false;
+
+            }
+
+
         }
 
         private bool SaveChange()
@@ -222,6 +248,14 @@ namespace RetailTrade
         private void gridView_DoubleClick(object sender, EventArgs e)
         {
             this.btEdit.PerformClick();
+        }
+
+        private void btCancel_Click(object sender, EventArgs e)
+        {
+            this.productBindingSource.CancelEdit();
+            this.mDataSet.Product.RejectChanges();
+
+
         }
     }
 }

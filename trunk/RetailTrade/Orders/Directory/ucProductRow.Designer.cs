@@ -71,6 +71,7 @@ namespace RetailTrade
             this.label12 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -83,8 +84,7 @@ namespace RetailTrade
             this.substanceTableAdapter = new RetailTrade.MDataSetTableAdapters.SubstanceTableAdapter();
             this.farmGroupLevel2TableAdapter = new RetailTrade.MDataSetTableAdapters.FarmGroupLevel2TableAdapter();
             this.unitTableAdapter = new RetailTrade.MDataSetTableAdapters.UnitTableAdapter();
-            this.label13 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -111,6 +111,7 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.ceISNDS.Properties)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -129,6 +130,7 @@ namespace RetailTrade
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.textEdit1);
             this.tabPage1.Controls.Add(this.tableLayoutPanel1);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
@@ -176,7 +178,6 @@ namespace RetailTrade
             this.tableLayoutPanel1.Controls.Add(this.label3, 1, 18);
             this.tableLayoutPanel1.Controls.Add(this.textBox1, 0, 18);
             this.tableLayoutPanel1.Controls.Add(this.label13, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.textBox2, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -200,6 +201,7 @@ namespace RetailTrade
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(540, 417);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -628,6 +630,16 @@ namespace RetailTrade
             this.textBox1.Size = new System.Drawing.Size(100, 22);
             this.textBox1.TabIndex = 12;
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label13.Location = new System.Drawing.Point(3, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(207, 20);
+            this.label13.TabIndex = 36;
+            this.label13.Text = "Код";
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.label8);
@@ -691,24 +703,20 @@ namespace RetailTrade
             // 
             this.unitTableAdapter.ClearBeforeFill = true;
             // 
-            // label13
+            // textEdit1
             // 
-            this.label13.AutoSize = true;
-            this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label13.Location = new System.Drawing.Point(3, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(207, 20);
-            this.label13.TabIndex = 36;
-            this.label13.Text = "Код";
-            // 
-            // textBox2
-            // 
-            this.textBox2.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "ID", true));
-            this.textBox2.Location = new System.Drawing.Point(216, 3);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(100, 22);
-            this.textBox2.TabIndex = 0;
+            this.textEdit1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "SmallName", true));
+            this.textEdit1.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "ID", true));
+            this.textEdit1.EnterMoveNextControl = true;
+            this.textEdit1.Location = new System.Drawing.Point(219, 0);
+            this.textEdit1.Name = "textEdit1";
+            this.textEdit1.Properties.Appearance.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.textEdit1.Properties.Appearance.Options.UseBackColor = true;
+            this.textEdit1.Properties.MaxLength = 25;
+            this.textEdit1.Properties.ValidateOnEnterKey = true;
+            this.textEdit1.Size = new System.Drawing.Size(133, 22);
+            this.textEdit1.TabIndex = 0;
+            this.textEdit1.Tag = "";
             // 
             // ucProductRow
             // 
@@ -749,6 +757,7 @@ namespace RetailTrade
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -810,6 +819,6 @@ namespace RetailTrade
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox2;
+        private DevExpress.XtraEditors.TextEdit textEdit1;
     }
 }
