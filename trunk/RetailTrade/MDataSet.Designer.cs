@@ -65,21 +65,21 @@ namespace RetailTrade {
         
         private PricesPurchaseDataTable tablePricesPurchase;
         
-        private System.Data.DataRelation relationFK_InvoiceMaster_StockMain;
-        
         private System.Data.DataRelation relationFK_Stock_InvoiceMaster;
+        
+        private System.Data.DataRelation relationFK_InvoiceMaster_StockMain;
         
         private System.Data.DataRelation relationFK_ReceiptRemains_ReceiptDetail;
         
         private System.Data.DataRelation relationReceiptMaster_ReceiptDetail;
         
-        private System.Data.DataRelation relationFK_Manufacturer_Product;
-        
-        private System.Data.DataRelation relationFK_Substance_Product;
+        private System.Data.DataRelation relationFK_FarmGroupLevel2_Product;
         
         private System.Data.DataRelation relationFK_Unit_Product;
         
-        private System.Data.DataRelation relationFK_FarmGroupLevel2_Product;
+        private System.Data.DataRelation relationFK_Substance_Product;
+        
+        private System.Data.DataRelation relationFK_Manufacturer_Product;
         
         private System.Data.DataRelation relationFK_Country_Manufacturer;
         
@@ -700,14 +700,14 @@ namespace RetailTrade {
                     this.tablePricesPurchase.InitVars();
                 }
             }
-            this.relationFK_InvoiceMaster_StockMain = this.Relations["FK_InvoiceMaster_StockMain"];
             this.relationFK_Stock_InvoiceMaster = this.Relations["FK_Stock_InvoiceMaster"];
+            this.relationFK_InvoiceMaster_StockMain = this.Relations["FK_InvoiceMaster_StockMain"];
             this.relationFK_ReceiptRemains_ReceiptDetail = this.Relations["FK_ReceiptRemains_ReceiptDetail"];
             this.relationReceiptMaster_ReceiptDetail = this.Relations["ReceiptMaster_ReceiptDetail"];
-            this.relationFK_Manufacturer_Product = this.Relations["FK_Manufacturer_Product"];
-            this.relationFK_Substance_Product = this.Relations["FK_Substance_Product"];
-            this.relationFK_Unit_Product = this.Relations["FK_Unit_Product"];
             this.relationFK_FarmGroupLevel2_Product = this.Relations["FK_FarmGroupLevel2_Product"];
+            this.relationFK_Unit_Product = this.Relations["FK_Unit_Product"];
+            this.relationFK_Substance_Product = this.Relations["FK_Substance_Product"];
+            this.relationFK_Manufacturer_Product = this.Relations["FK_Manufacturer_Product"];
             this.relationFK_Country_Manufacturer = this.Relations["FK_Country_Manufacturer"];
             this.relationFK_FarmGroup_FarmGroupLevel2 = this.Relations["FK_FarmGroup_FarmGroupLevel2"];
             this.relationReceiptDetail_Remains = this.Relations["ReceiptDetail_Remains"];
@@ -781,16 +781,16 @@ namespace RetailTrade {
             this.tablePricesPurchase = new PricesPurchaseDataTable(false);
             base.Tables.Add(this.tablePricesPurchase);
             System.Data.ForeignKeyConstraint fkc;
-            fkc = new System.Data.ForeignKeyConstraint("FK_InvoiceMaster_StockMain", new System.Data.DataColumn[] {
+            fkc = new System.Data.ForeignKeyConstraint("FK_Stock_InvoiceMaster", new System.Data.DataColumn[] {
                         this.tableStock.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableInvoiceMaster.MainStockRefColumn});
+                        this.tableInvoiceMaster.RemoteStockRefColumn});
             this.tableInvoiceMaster.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_Stock_InvoiceMaster", new System.Data.DataColumn[] {
+            fkc = new System.Data.ForeignKeyConstraint("FK_InvoiceMaster_StockMain", new System.Data.DataColumn[] {
                         this.tableStock.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableInvoiceMaster.RemoteStockRefColumn});
+                        this.tableInvoiceMaster.MainStockRefColumn});
             this.tableInvoiceMaster.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
@@ -809,16 +809,9 @@ namespace RetailTrade {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_Manufacturer_Product", new System.Data.DataColumn[] {
-                        this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.ManufacturerRefColumn});
-            this.tableProduct.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = System.Data.Rule.None;
-            fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_Substance_Product", new System.Data.DataColumn[] {
-                        this.tableSubstance.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.SubstanceRefColumn});
+            fkc = new System.Data.ForeignKeyConstraint("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
+                        this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.FarmGrouplevel2RefColumn});
             this.tableProduct.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
@@ -830,9 +823,16 @@ namespace RetailTrade {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
-                        this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.FarmGrouplevel2RefColumn});
+            fkc = new System.Data.ForeignKeyConstraint("FK_Substance_Product", new System.Data.DataColumn[] {
+                        this.tableSubstance.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.SubstanceRefColumn});
+            this.tableProduct.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = System.Data.Rule.None;
+            fkc.UpdateRule = System.Data.Rule.Cascade;
+            fkc = new System.Data.ForeignKeyConstraint("FK_Manufacturer_Product", new System.Data.DataColumn[] {
+                        this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.ManufacturerRefColumn});
             this.tableProduct.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
@@ -858,14 +858,14 @@ namespace RetailTrade {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            this.relationFK_InvoiceMaster_StockMain = new System.Data.DataRelation("FK_InvoiceMaster_StockMain", new System.Data.DataColumn[] {
-                        this.tableStock.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableInvoiceMaster.MainStockRefColumn}, false);
-            this.Relations.Add(this.relationFK_InvoiceMaster_StockMain);
             this.relationFK_Stock_InvoiceMaster = new System.Data.DataRelation("FK_Stock_InvoiceMaster", new System.Data.DataColumn[] {
                         this.tableStock.IDColumn}, new System.Data.DataColumn[] {
                         this.tableInvoiceMaster.RemoteStockRefColumn}, false);
             this.Relations.Add(this.relationFK_Stock_InvoiceMaster);
+            this.relationFK_InvoiceMaster_StockMain = new System.Data.DataRelation("FK_InvoiceMaster_StockMain", new System.Data.DataColumn[] {
+                        this.tableStock.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableInvoiceMaster.MainStockRefColumn}, false);
+            this.Relations.Add(this.relationFK_InvoiceMaster_StockMain);
             this.relationFK_ReceiptRemains_ReceiptDetail = new System.Data.DataRelation("FK_ReceiptRemains_ReceiptDetail", new System.Data.DataColumn[] {
                         this.tableReceiptDetail.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptRemains.ReceiptDetailRefColumn}, false);
@@ -874,22 +874,22 @@ namespace RetailTrade {
                         this.tableReceiptMaster.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptDetail.ReceiptMasterRefColumn}, false);
             this.Relations.Add(this.relationReceiptMaster_ReceiptDetail);
-            this.relationFK_Manufacturer_Product = new System.Data.DataRelation("FK_Manufacturer_Product", new System.Data.DataColumn[] {
-                        this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.ManufacturerRefColumn}, false);
-            this.Relations.Add(this.relationFK_Manufacturer_Product);
-            this.relationFK_Substance_Product = new System.Data.DataRelation("FK_Substance_Product", new System.Data.DataColumn[] {
-                        this.tableSubstance.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.SubstanceRefColumn}, false);
-            this.Relations.Add(this.relationFK_Substance_Product);
-            this.relationFK_Unit_Product = new System.Data.DataRelation("FK_Unit_Product", new System.Data.DataColumn[] {
-                        this.tableUnit.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.UnitRefColumn}, false);
-            this.Relations.Add(this.relationFK_Unit_Product);
             this.relationFK_FarmGroupLevel2_Product = new System.Data.DataRelation("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
                         this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
                         this.tableProduct.FarmGrouplevel2RefColumn}, false);
             this.Relations.Add(this.relationFK_FarmGroupLevel2_Product);
+            this.relationFK_Unit_Product = new System.Data.DataRelation("FK_Unit_Product", new System.Data.DataColumn[] {
+                        this.tableUnit.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.UnitRefColumn}, false);
+            this.Relations.Add(this.relationFK_Unit_Product);
+            this.relationFK_Substance_Product = new System.Data.DataRelation("FK_Substance_Product", new System.Data.DataColumn[] {
+                        this.tableSubstance.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.SubstanceRefColumn}, false);
+            this.Relations.Add(this.relationFK_Substance_Product);
+            this.relationFK_Manufacturer_Product = new System.Data.DataRelation("FK_Manufacturer_Product", new System.Data.DataColumn[] {
+                        this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.ManufacturerRefColumn}, false);
+            this.Relations.Add(this.relationFK_Manufacturer_Product);
             this.relationFK_Country_Manufacturer = new System.Data.DataRelation("FK_Country_Manufacturer", new System.Data.DataColumn[] {
                         this.tableCountry.IDColumn}, new System.Data.DataColumn[] {
                         this.tableManufacturer.CounrtyRefColumn}, false);
@@ -1127,13 +1127,23 @@ namespace RetailTrade {
             this.ReceiptDetail.ManufacturerNameColumn.Expression = "Parent(Product_ReceiptDetail).ManufacturerName";
             this.ReceiptDetail.DocumentTypeRefColumn.Expression = "Parent(ReceiptMaster_ReceiptDetail).DocumentTypeRef";
             this.StorageCondition.DateUpdateColumn.Expression = "Max(DateLastModif)";
+            this.Product.CountryNameColumn.Expression = "Parent(FK_Manufacturer_Product).CountryName";
+            this.Product.FarmGroupNameColumn.Expression = "Parent(FK_FarmGroupLevel2_Product).FarmGroupName";
+            this.Product.PackingNameColumn.Expression = "Parent(FK_Packing_Product).Name";
+            this.Product.StorageConditionNameColumn.Expression = "Parent(StorageCondition_Product).Name";
+            this.Product.ManufacturerNameColumn.Expression = "Parent(FK_Manufacturer_Product).Name";
+            this.Product.FarmGroupLevel2Column.Expression = "Parent(FK_FarmGroupLevel2_Product).Name";
+            this.Product.UnitNameColumn.Expression = "Parent(FK_Unit_Product).Name";
+            this.Product.SubstanceNameColumn.Expression = "Parent(FK_Substance_Product).Name";
             this.Product.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.FarmGroup.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.Packing.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.Substance.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.Unit.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.Manufacturer.DateUpdateColumn.Expression = "Max(DateLastModif)";
+            this.Manufacturer.CountryNameColumn.Expression = "Parent(FK_Country_Manufacturer).Name";
             this.FarmGroupLevel2.DateUpdateColumn.Expression = "Max(DateLastModif)";
+            this.FarmGroupLevel2.FarmGroupNameColumn.Expression = "Parent(FK_FarmGroup_FarmGroupLevel2).Name";
             this.Orders.TradePupletNameColumn.Expression = "Parent(TradePutlet_Orders).Name";
             this.Orders.ProductNameColumn.Expression = "Parent(Product_Orders).Name";
             this.PricesPurchase.OrganizationNameColumn.Expression = "Parent(Organization_PricesPurchase).ShortNAme";
@@ -6516,13 +6526,21 @@ namespace RetailTrade {
                 this.columnAuthorCreate.MaxLength = 50;
                 this.columnAuthorLastModif.MaxLength = 50;
                 this.columnRowVersion.ReadOnly = true;
+                this.columnCountryName.ReadOnly = true;
                 this.columnCountryName.MaxLength = 50;
+                this.columnFarmGroupName.ReadOnly = true;
                 this.columnFarmGroupName.MaxLength = 50;
+                this.columnPackingName.ReadOnly = true;
                 this.columnPackingName.MaxLength = 50;
+                this.columnStorageConditionName.ReadOnly = true;
                 this.columnStorageConditionName.MaxLength = 50;
+                this.columnManufacturerName.ReadOnly = true;
                 this.columnManufacturerName.MaxLength = 50;
+                this.columnFarmGroupLevel2.ReadOnly = true;
                 this.columnFarmGroupLevel2.MaxLength = 50;
+                this.columnUnitName.ReadOnly = true;
                 this.columnUnitName.MaxLength = 10;
+                this.columnSubstanceName.ReadOnly = true;
                 this.columnSubstanceName.MaxLength = 50;
                 this.columnIsHide.AllowDBNull = false;
                 this.columnIsHide.DefaultValue = ((bool)(false));
@@ -6546,6 +6564,14 @@ namespace RetailTrade {
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             private void InitExpressions() {
+                this.CountryNameColumn.Expression = "Parent(FK_Manufacturer_Product).CountryName";
+                this.FarmGroupNameColumn.Expression = "Parent(FK_FarmGroupLevel2_Product).FarmGroupName";
+                this.PackingNameColumn.Expression = "Parent(FK_Packing_Product).Name";
+                this.StorageConditionNameColumn.Expression = "Parent(StorageCondition_Product).Name";
+                this.ManufacturerNameColumn.Expression = "Parent(FK_Manufacturer_Product).Name";
+                this.FarmGroupLevel2Column.Expression = "Parent(FK_FarmGroupLevel2_Product).Name";
+                this.UnitNameColumn.Expression = "Parent(FK_Unit_Product).Name";
+                this.SubstanceNameColumn.Expression = "Parent(FK_Substance_Product).Name";
                 this.DateUpdateColumn.Expression = "Max(DateLastModif)";
             }
             
@@ -7899,6 +7925,8 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnDateUpdate;
             
+            private System.Data.DataColumn columnCountryName;
+            
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public ManufacturerDataTable() : 
                     this(false) {
@@ -8001,6 +8029,13 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn CountryNameColumn {
+                get {
+                    return this.columnCountryName;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -8029,7 +8064,7 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ManufacturerRow AddManufacturerRow(string Name, CountryRow parentCountryRowByFK_Country_Manufacturer, string AuthorCreate, string AuthorLastModif, System.DateTime DateLastModif, System.DateTime DateCreate, byte[] RowVersion, System.DateTime DateUpdate) {
+            public ManufacturerRow AddManufacturerRow(string Name, CountryRow parentCountryRowByFK_Country_Manufacturer, string AuthorCreate, string AuthorLastModif, System.DateTime DateLastModif, System.DateTime DateCreate, byte[] RowVersion, System.DateTime DateUpdate, string CountryName) {
                 ManufacturerRow rowManufacturerRow = ((ManufacturerRow)(this.NewRow()));
                 rowManufacturerRow.ItemArray = new object[] {
                         null,
@@ -8040,7 +8075,8 @@ namespace RetailTrade {
                         DateLastModif,
                         DateCreate,
                         RowVersion,
-                        DateUpdate};
+                        DateUpdate,
+                        CountryName};
                 this.Rows.Add(rowManufacturerRow);
                 return rowManufacturerRow;
             }
@@ -8079,6 +8115,7 @@ namespace RetailTrade {
                 this.columnDateCreate = base.Columns["DateCreate"];
                 this.columnRowVersion = base.Columns["RowVersion"];
                 this.columnDateUpdate = base.Columns["DateUpdate"];
+                this.columnCountryName = base.Columns["CountryName"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8101,6 +8138,8 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnRowVersion);
                 this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(System.DateTime), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDateUpdate);
+                this.columnCountryName = new System.Data.DataColumn("CountryName", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCountryName);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -8117,6 +8156,7 @@ namespace RetailTrade {
                 this.columnAuthorLastModif.MaxLength = 50;
                 this.columnRowVersion.ReadOnly = true;
                 this.columnDateUpdate.ReadOnly = true;
+                this.columnCountryName.ReadOnly = true;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8137,6 +8177,7 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             private void InitExpressions() {
                 this.DateUpdateColumn.Expression = "Max(DateLastModif)";
+                this.CountryNameColumn.Expression = "Parent(FK_Country_Manufacturer).Name";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8228,6 +8269,8 @@ namespace RetailTrade {
             private System.Data.DataColumn columnRowVersion;
             
             private System.Data.DataColumn columnDateUpdate;
+            
+            private System.Data.DataColumn columnFarmGroupName;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public FarmGroupLevel2DataTable() : 
@@ -8331,6 +8374,13 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn FarmGroupNameColumn {
+                get {
+                    return this.columnFarmGroupName;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -8359,7 +8409,7 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FarmGroupLevel2Row AddFarmGroupLevel2Row(string Name, FarmGroupRow parentFarmGroupRowByFK_FarmGroup_FarmGroupLevel2, string AuthorCreate, string AuthorLastModif, System.DateTime DateLastModif, System.DateTime DateCreate, byte[] RowVersion, System.DateTime DateUpdate) {
+            public FarmGroupLevel2Row AddFarmGroupLevel2Row(string Name, FarmGroupRow parentFarmGroupRowByFK_FarmGroup_FarmGroupLevel2, string AuthorCreate, string AuthorLastModif, System.DateTime DateLastModif, System.DateTime DateCreate, byte[] RowVersion, System.DateTime DateUpdate, string FarmGroupName) {
                 FarmGroupLevel2Row rowFarmGroupLevel2Row = ((FarmGroupLevel2Row)(this.NewRow()));
                 rowFarmGroupLevel2Row.ItemArray = new object[] {
                         null,
@@ -8370,7 +8420,8 @@ namespace RetailTrade {
                         DateLastModif,
                         DateCreate,
                         RowVersion,
-                        DateUpdate};
+                        DateUpdate,
+                        FarmGroupName};
                 this.Rows.Add(rowFarmGroupLevel2Row);
                 return rowFarmGroupLevel2Row;
             }
@@ -8409,6 +8460,7 @@ namespace RetailTrade {
                 this.columnDateCreate = base.Columns["DateCreate"];
                 this.columnRowVersion = base.Columns["RowVersion"];
                 this.columnDateUpdate = base.Columns["DateUpdate"];
+                this.columnFarmGroupName = base.Columns["FarmGroupName"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8431,6 +8483,8 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnRowVersion);
                 this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(System.DateTime), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDateUpdate);
+                this.columnFarmGroupName = new System.Data.DataColumn("FarmGroupName", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFarmGroupName);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -8447,6 +8501,7 @@ namespace RetailTrade {
                 this.columnAuthorLastModif.MaxLength = 50;
                 this.columnRowVersion.ReadOnly = true;
                 this.columnDateUpdate.ReadOnly = true;
+                this.columnFarmGroupName.ReadOnly = true;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8467,6 +8522,7 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             private void InitExpressions() {
                 this.DateUpdateColumn.Expression = "Max(DateLastModif)";
+                this.FarmGroupNameColumn.Expression = "Parent(FK_FarmGroup_FarmGroupLevel2).Name";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10617,22 +10673,22 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public StockRow StockRowByFK_InvoiceMaster_StockMain {
-                get {
-                    return ((StockRow)(this.GetParentRow(this.Table.ParentRelations["FK_InvoiceMaster_StockMain"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_InvoiceMaster_StockMain"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public StockRow StockRowByFK_Stock_InvoiceMaster {
                 get {
                     return ((StockRow)(this.GetParentRow(this.Table.ParentRelations["FK_Stock_InvoiceMaster"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_Stock_InvoiceMaster"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public StockRow StockRowByFK_InvoiceMaster_StockMain {
+                get {
+                    return ((StockRow)(this.GetParentRow(this.Table.ParentRelations["FK_InvoiceMaster_StockMain"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_InvoiceMaster_StockMain"]);
                 }
             }
             
@@ -11613,13 +11669,13 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public InvoiceMasterRow[] GetInvoiceMasterRowsByFK_InvoiceMaster_StockMain() {
-                return ((InvoiceMasterRow[])(base.GetChildRows(this.Table.ChildRelations["FK_InvoiceMaster_StockMain"])));
+            public InvoiceMasterRow[] GetInvoiceMasterRowsByFK_Stock_InvoiceMaster() {
+                return ((InvoiceMasterRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Stock_InvoiceMaster"])));
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public InvoiceMasterRow[] GetInvoiceMasterRowsByFK_Stock_InvoiceMaster() {
-                return ((InvoiceMasterRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Stock_InvoiceMaster"])));
+            public InvoiceMasterRow[] GetInvoiceMasterRowsByFK_InvoiceMaster_StockMain() {
+                return ((InvoiceMasterRow[])(base.GetChildRows(this.Table.ChildRelations["FK_InvoiceMaster_StockMain"])));
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13353,22 +13409,12 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ManufacturerRow ManufacturerRow {
+            public FarmGroupLevel2Row FarmGroupLevel2Row {
                 get {
-                    return ((ManufacturerRow)(this.GetParentRow(this.Table.ParentRelations["FK_Manufacturer_Product"])));
+                    return ((FarmGroupLevel2Row)(this.GetParentRow(this.Table.ParentRelations["FK_FarmGroupLevel2_Product"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Manufacturer_Product"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public SubstanceRow SubstanceRow {
-                get {
-                    return ((SubstanceRow)(this.GetParentRow(this.Table.ParentRelations["FK_Substance_Product"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Substance_Product"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_FarmGroupLevel2_Product"]);
                 }
             }
             
@@ -13383,12 +13429,22 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FarmGroupLevel2Row FarmGroupLevel2Row {
+            public SubstanceRow SubstanceRow {
                 get {
-                    return ((FarmGroupLevel2Row)(this.GetParentRow(this.Table.ParentRelations["FK_FarmGroupLevel2_Product"])));
+                    return ((SubstanceRow)(this.GetParentRow(this.Table.ParentRelations["FK_Substance_Product"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_FarmGroupLevel2_Product"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Substance_Product"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ManufacturerRow ManufacturerRow {
+                get {
+                    return ((ManufacturerRow)(this.GetParentRow(this.Table.ParentRelations["FK_Manufacturer_Product"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Manufacturer_Product"]);
                 }
             }
             
@@ -14473,6 +14529,21 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string CountryName {
+                get {
+                    try {
+                        return ((string)(this[this.tableManufacturer.CountryNameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'CountryName\' in table \'Manufacturer\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableManufacturer.CountryNameColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public CountryRow CountryRow {
                 get {
                     return ((CountryRow)(this.GetParentRow(this.Table.ParentRelations["FK_Country_Manufacturer"])));
@@ -14540,6 +14611,16 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetDateUpdateNull() {
                 this[this.tableManufacturer.DateUpdateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsCountryNameNull() {
+                return this.IsNull(this.tableManufacturer.CountryNameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetCountryNameNull() {
+                this[this.tableManufacturer.CountryNameColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -14680,6 +14761,21 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string FarmGroupName {
+                get {
+                    try {
+                        return ((string)(this[this.tableFarmGroupLevel2.FarmGroupNameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'FarmGroupName\' in table \'FarmGroupLevel2\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFarmGroupLevel2.FarmGroupNameColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public FarmGroupRow FarmGroupRow {
                 get {
                     return ((FarmGroupRow)(this.GetParentRow(this.Table.ParentRelations["FK_FarmGroup_FarmGroupLevel2"])));
@@ -14747,6 +14843,16 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetDateUpdateNull() {
                 this[this.tableFarmGroupLevel2.DateUpdateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsFarmGroupNameNull() {
+                return this.IsNull(this.tableFarmGroupLevel2.FarmGroupNameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetFarmGroupNameNull() {
+                this[this.tableFarmGroupLevel2.FarmGroupNameColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -19711,14 +19817,6 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
             tableMapping.ColumnMappings.Add("DateLastModif", "DateLastModif");
             tableMapping.ColumnMappings.Add("DateCreate", "DateCreate");
             tableMapping.ColumnMappings.Add("RowVersion", "RowVersion");
-            tableMapping.ColumnMappings.Add("CountryName", "CountryName");
-            tableMapping.ColumnMappings.Add("FarmGroupName", "FarmGroupName");
-            tableMapping.ColumnMappings.Add("PackingName", "PackingName");
-            tableMapping.ColumnMappings.Add("StorageConditionName", "StorageConditionName");
-            tableMapping.ColumnMappings.Add("ManufacturerName", "ManufacturerName");
-            tableMapping.ColumnMappings.Add("FarmGroupLevel2", "FarmGroupLevel2");
-            tableMapping.ColumnMappings.Add("UnitName", "UnitName");
-            tableMapping.ColumnMappings.Add("SubstanceName", "SubstanceName");
             tableMapping.ColumnMappings.Add("IsHide", "IsHide");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();

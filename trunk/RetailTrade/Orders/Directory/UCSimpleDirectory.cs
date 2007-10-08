@@ -170,21 +170,19 @@ namespace RetailTrade
             if (!this.gridView.HasColumnErrors)
             {
 
-               DataTable dt = (this.bindingSource.DataSource as DataTable);
-
-                if (dt.GetChanges() != null)
+                 if (_changes.Count>0)
                 {
                          MainForm _mainForm = FindMainForm(this.ParentForm);
-                        _mainForm.SaveToBaseDirectoryDeleted(dt.Select(null, null, DataViewRowState.Deleted));
+                        _mainForm.SaveToBaseDirectoryDeleted(_changes.Table.Select(null, null, DataViewRowState.Deleted));
 
                         /*сохранить изменения*/
 
-                        _mainForm.SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.ModifiedCurrent));
+                        _mainForm.SaveToBaseDirectoryModifed(_changes.Table.Select(null, null, DataViewRowState.ModifiedCurrent));
 
                         /*сохранить добавления*/
-                        _mainForm.SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.Added));
+                        _mainForm.SaveToBaseDirectoryModifed(_changes.Table.Select(null, null, DataViewRowState.Added));
 
-                        dt.AcceptChanges();
+                        _mainForm.RefreshData(_changes.Table);
 
                         return true;
 

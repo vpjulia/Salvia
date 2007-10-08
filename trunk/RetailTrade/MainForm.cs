@@ -187,14 +187,6 @@ namespace RetailTrade
             }
         }
 
-       
-
-
-
-
-
-
-
 
         public bool FindOpenedTabs(String TagControl)
         {
@@ -370,6 +362,7 @@ namespace RetailTrade
             }
             return false;
         }
+     
         private void ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowNewDataTab((sender as ToolStripItem).Tag.ToString(), (sender as ToolStripItem).ToolTipText.ToString());
