@@ -168,6 +168,8 @@ namespace RetailTrade
       
         public bool SaveToBaseDirectoryModifed(DataRow[] dataRows)
         {
+           
+
             if (dataRows.Length == 0) return false;
             Type tp = this.components.Components[dataRows[0].Table.TableName + "TableAdapter"].GetType();
             Object[] _args = new Object[1];
@@ -176,62 +178,48 @@ namespace RetailTrade
             types[0] = dataRows.GetType();
 
             //**Новые данные**//     
-            Object[] _argsFill = new Object[2];
-            _argsFill[0] = dataRows[0].Table.Clone();
-            if (dataRows[0]["DateUpdate"] != DBNull.Value)
-                _argsFill[1] = dataRows[0]["DateUpdate"];
-            else
-                _argsFill[1] = DateTime.Now;
-            tp.GetMethod("FillNew").Invoke(this.components.Components[dataRows[0].Table.TableName + "TableAdapter"], _argsFill);
 
+
+           
             try
             {
 
                 tp.GetMethod("Update", types).Invoke(this.components.Components[dataRows[0].Table.TableName + "TableAdapter"], _args);
             }
-            catch (SqlException SqlErr)
+            catch (DBConcurrencyException dbcx)
             {
-                foreach (DataRow dataRow in dataRows)
-                    if (dataRow.HasErrors)
-                        MessageBox.Show(SqlErr.Message);
+                this.onDirectoryDBCError(dbcx);
+                return false;
+            }
+
+            catch (SqlException sqlerr)
+            {
+                if (sqlerr.Class < 17)
+                {
+                    MessageBox.Show("Не отработана ошибка"+sqlerr.Message);
+                }
+                else
+
+                    caughtGlobalError(sqlerr);
+                return false;
+
+
             }
             catch (Exception err)
             {
-
-                FormDialog formDialog = new FormDialog();
-                formDialog.btCancel.Enabled = false;
-                Information ctlInform = new Information();
-                formDialog.panel.Controls.Add(ctlInform);
-
-                foreach (DataRow dataRow in dataRows)
-
-                    if (dataRow.HasErrors)
-                    {
-                        if ((_argsFill[0] as DataTable).Rows.Find(dataRow["Id"]) != null)
-                        {
-                            ctlInform.labelHeader.Text = "Запись была изменена пользователем: ";
-                            ctlInform.labelAsk.Text = (_argsFill[0] as DataTable).Rows.Find(dataRow["Id"])["AuthorLastModif"].ToString();
-                        }
-                        else
-                        {
-                            ctlInform.labelHeader.Text = "Ошибка совмесного доступа";
-                            ctlInform.labelAsk.Text = "Запись не найдена! Обновление не возможно ";
-                        }
-
-                        if (DialogResult.OK == formDialog.ShowDialog(this.ParentForm))
-
-                            dataRow.RejectChanges();
-                    }
+                MessageBox.Show(err.Message);
+                return false;
             }
+
+           
             finally
             {
-                dataRows[0].Table.Merge(_argsFill[0] as DataTable, true);
-                tp.GetMethod("FillNew").Invoke(this.components.Components[dataRows[0].Table.TableName + "TableAdapter"], _argsFill);
-                dataRows[0].Table.Merge(_argsFill[0] as DataTable, false);
-
+               
             }
             return true;
         }
+
+       
         public bool SaveToBaseDirectoryDeleted(DataRow[] dataRows)
         {
             if (dataRows.Length == 0) return false;
@@ -748,6 +736,12 @@ namespace RetailTrade
         }
 
         //----------  Error   
+
+        private void onDirectoryDBCError(DBConcurrencyException dbcx)
+        {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
         private void OnReceiptDetailSQLError(SqlException sqlerr, MDataSet.ReceiptMasterRow sourceRow)
         {
             MessageBox.Show(sqlerr.Message);

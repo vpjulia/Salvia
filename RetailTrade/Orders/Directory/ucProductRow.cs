@@ -20,7 +20,7 @@ namespace RetailTrade
             InitializeComponent();
         }
 
-        public ucProductRow(MDataSet.ProductRow productRow,MainForm.ActionDialog actionDialog)
+         public ucProductRow(MDataSet.ProductRow productRow,MainForm.ActionDialog actionDialog)
         {
        
             InitializeComponent();
@@ -32,25 +32,20 @@ namespace RetailTrade
             this.substanceBindingSource.DataSource = this.mDataSet.Substance;
             this.farmGroupLevel2BindingSource.DataSource = this.mDataSet.FarmGroupLevel2;
             this.unitBindingSource.DataSource = this.mDataSet.Unit;
+            
             _state = actionDialog;
         }
 
 
-        private void ucProductRow_Load(object sender, EventArgs e)
+         private void ucProductRow_Load(object sender, EventArgs e)
         {
-        //    this.manufacturerBindingSource.DataSource = (this.ParentForm as MainForm).mDataSet.Manufacturer;
-            this.ParentForm.AcceptButton = null;
+           this.ParentForm.AcceptButton = null;
             if (_state == MainForm.ActionDialog.View) 
                this.tabControl.Enabled=false;
          }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-         //   MessageBox.Show(this.tableLayoutPanel1.Controls.Count.ToString());
        
-        }
-
-        private void btSimpleDirectory_Click(object sender, EventArgs e)
+         private void btSimpleDirectory_Click(object sender, EventArgs e)
         {
             FormDialog dform = new FormDialog();
             dform.Text = this.toolTip1.GetToolTip((sender as Control)).ToString();
@@ -71,7 +66,7 @@ namespace RetailTrade
   
         }
 
-        private void btUcGroupDirectory_Click(object sender, EventArgs e)
+         private void btUcGroupDirectory_Click(object sender, EventArgs e)
         {
             /*У сендера имя - имя_таблицы_lookupEdit */
 
@@ -102,22 +97,13 @@ namespace RetailTrade
 
         }
 
-        private void ucProductRow_Validating(object sender, CancelEventArgs e)
+         private void ucProductRow_Validating(object sender, CancelEventArgs e)
         {
-           (this.productBindingSource.DataSource as MDataSet.ProductRow).Name = this.NametextEdit.Text.Trim();
-           (this.productBindingSource.DataSource as MDataSet.ProductRow).SmallName = this.NametextEdit.Text.Trim();
             this.productBindingSource.CurrencyManager.EndCurrentEdit();
+           
         }
 
-        private void NametextEdit_TextChanged(object sender, EventArgs e)
-        {
-           if (this.SamallNametextEdit.Text.Trim().Length<3)
-
-            {
-                this.SamallNametextEdit.Text = this.NametextEdit.Text;
-            }
-        }
-
+        
        
         
       

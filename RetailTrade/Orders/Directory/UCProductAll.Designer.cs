@@ -322,6 +322,8 @@ namespace RetailTrade
             this.colManufacturerRef.Caption = "Код изготовителя";
             this.colManufacturerRef.FieldName = "ManufacturerRef";
             this.colManufacturerRef.Name = "colManufacturerRef";
+            this.colManufacturerRef.Visible = true;
+            this.colManufacturerRef.VisibleIndex = 8;
             this.colManufacturerRef.Width = 36;
             // 
             // colIsRecept
@@ -558,6 +560,7 @@ namespace RetailTrade
             this.Name = "UCProductAll";
             this.Size = new System.Drawing.Size(732, 580);
             this.Load += new System.EventHandler(this.UCProductAll_Load);
+            this.Validating += new System.ComponentModel.CancelEventHandler(this.UCProductAll_Validating);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();

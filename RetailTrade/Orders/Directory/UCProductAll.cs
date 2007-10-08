@@ -6,6 +6,8 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.Grid;
+using System.IO;
 
 namespace RetailTrade
 {
@@ -51,57 +53,35 @@ namespace RetailTrade
 
         }
 
-        private bool SaveChange()
+        private bool SaveChanges()
         {
-           
-
-            DataTable dt = (this.productBindingSource.DataSource as DataTable);
-
-            if (dt.GetChanges() != null)
+           if (_changes.Count>0)
             {
-                FormDialog fInf = new FormDialog();
-                Information infcontr = new Information();
-                infcontr.Dock = DockStyle.Fill;
-
-                DataTable tbChahgesAdd = dt.GetChanges(DataRowState.Added);
-                if (tbChahgesAdd != null)
-                    foreach (DataRow frRow in tbChahgesAdd.Rows)
-                        infcontr.listBoxInf.Items.Add("Добавить " + "'" + frRow[1, DataRowVersion.Current].ToString() + "'");
-
-
-                DataTable tbChahges = dt.GetChanges(DataRowState.Modified);
-                if (tbChahges != null)
-                    foreach (DataRow frRow in tbChahges.Rows)
-                        infcontr.listBoxInf.Items.Add("Изменить   " + "'" + frRow[1, DataRowVersion.Original].ToString() + "' на " + " '" + frRow[1, DataRowVersion.Current].ToString() + "'");
-
-
-                DataTable tbChahgesDel = dt.GetChanges(DataRowState.Deleted);
-                if (tbChahgesDel != null)
-                    foreach (DataRow frRow in tbChahgesDel.Rows)
-                        infcontr.listBoxInf.Items.Add("Удалить   " + "'" + frRow[1, DataRowVersion.Original].ToString() + "'");
-
-                fInf.Size = new System.Drawing.Size((Screen.PrimaryScreen.WorkingArea.Width / 3), (Screen.PrimaryScreen.WorkingArea.Height / 2));
-
-                fInf.panel.Controls.Add(infcontr);
-
-                if (DialogResult.OK == fInf.ShowDialog(this.ParentForm))
-                {  /*сохранить удаление*/
-                    (this.ParentForm as MainForm).SaveToBaseDirectoryDeleted(dt.Select(null, null, DataViewRowState.Deleted));
+                     /*сохранить удаление*/
+                    (this.ParentForm as MainForm).SaveToBaseDirectoryDeleted(_changes.Table.Select(null, null, DataViewRowState.Deleted));
 
                     /*сохранить изменения*/
 
-                    (this.ParentForm as MainForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.ModifiedCurrent));
+                    (this.ParentForm as MainForm).SaveToBaseDirectoryModifed(_changes.Table.Select(null, null, DataViewRowState.ModifiedCurrent));
 
                     /*сохранить добавления*/
-                    (this.ParentForm as MainForm).SaveToBaseDirectoryModifed(dt.Select(null, null, DataViewRowState.Added));
+                    (this.ParentForm as MainForm).SaveToBaseDirectoryModifed(_changes.Table.Select(null, null, DataViewRowState.Added));
+                
+            }
 
+            (this.ParentForm as MainForm).RefreshData(this.mDataSet.Product);
+            return true;
+        }
 
-
-
-                    dt.AcceptChanges();
-                    return true;
+        private bool CancelChages()
+        {
+            if (this._changes.Count > 0)
+            {
+                foreach (DataRowView dr in _changes)
+                {
+                    dr.Row.RejectChanges();
                 }
-                else return false;
+
             }
             return true;
         }
@@ -122,8 +102,9 @@ namespace RetailTrade
 
                 if (DialogResult.OK == dform.ShowDialog(this))
                 {
-                    this.productBindingSource.EndEdit();
-                    this.btSave.Enabled = true;
+                    this.productBindingSource.CurrencyManager.EndCurrentEdit();
+                
+                    
                 }
                 else
                 {
@@ -188,7 +169,7 @@ namespace RetailTrade
                         this.grid.EmbeddedNavigator.Buttons.Remove.DoClick();
 
 
-                        /*Удаление на сервере*/
+                       
 
                         this.btSave.Enabled = true;
                     }
@@ -204,12 +185,10 @@ namespace RetailTrade
             this.btEdit.Enabled = true;
             this.btSave.Enabled = false;
             this.gridView.OptionsBehavior.Editable = false;
-           
-
-
+          
             this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
         
-            if (this.SaveChange())
+            if (this.SaveChanges())
 
             {      
                      this.btSave.Enabled = false;
@@ -226,18 +205,57 @@ namespace RetailTrade
 
         private void btClose_Click(object sender, EventArgs e)
         {
-            this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
 
-            if (this.gridView.HasColumnErrors)
-            {
-                this.productBindingSource.CancelEdit();
-            }
-            else if (this.SaveChange())
-            {
-                if ((this.ParentForm as MainForm) != null)
-                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+            this.productBindingSource.EndEdit();
 
-            }
+        /*    if (this.ValidateChildren())
+            {
+                foreach (GridView view in this.grid.ViewCollection)
+                {
+                    string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
+                    view.SaveLayoutToXml(fileName);
+                }
+                // сохранить изменения
+
+
+                if (_changes.Count > 0) 
+                {
+                    DialogResult _result;
+
+                    _result = MessageBox.Show("Сохранить изменения? ", "Сохранение приходных документов " + this.ToString(), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                    switch (_result)
+                    {
+                        case DialogResult.Yes:
+                            if (this.SaveChanges())
+                                if ((this.ParentForm as MainForm) != null)
+                                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                            break;
+                        case DialogResult.No:
+                            {
+                                if (this.CancelChages())
+                                    if ((this.ParentForm as MainForm) != null)
+                                        (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                            }
+                            break;
+                        case DialogResult.Cancel:
+                            
+                            break;
+                    }
+                }
+                else
+                {
+                    if ((this.ParentForm as MainForm) != null)
+                        (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+
+                }
+            } 
+
+*/
+            if ((this.ParentForm as MainForm) != null)
+                (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+
+
         }
 
         private void btField_Click(object sender, EventArgs e)
@@ -253,8 +271,11 @@ namespace RetailTrade
         private void btCancel_Click(object sender, EventArgs e)
         {
             this.productBindingSource.CancelEdit();
-            this.mDataSet.Product.RejectChanges();
+            this.CancelChages();
+        }
 
+        private void UCProductAll_Validating(object sender, CancelEventArgs e)
+        {
 
         }
     }
