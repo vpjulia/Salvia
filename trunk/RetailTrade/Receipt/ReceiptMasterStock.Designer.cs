@@ -29,9 +29,9 @@ namespace RetailTrade.Receipt
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode4 = new DevExpress.XtraGrid.GridLevelNode();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode5 = new DevExpress.XtraGrid.GridLevelNode();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode6 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode3 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReceiptMasterStock));
             this.gridViewRecieptDetailStock = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colProductName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -80,6 +80,8 @@ namespace RetailTrade.Receipt
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btCancel = new System.Windows.Forms.ToolStripButton();
             this.btDelete = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
+            this.btField = new System.Windows.Forms.ToolStripMenuItem();
             this.organizationTableAdapter = new RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRecieptDetailStock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
@@ -115,6 +117,7 @@ namespace RetailTrade.Receipt
             this.gridViewRecieptDetailStock.OptionsDetail.AllowExpandEmptyDetails = true;
             this.gridViewRecieptDetailStock.OptionsDetail.AllowOnlyOneMasterRowExpanded = true;
             this.gridViewRecieptDetailStock.OptionsDetail.SmartDetailExpandButton = false;
+            this.gridViewRecieptDetailStock.Layout += new System.EventHandler(this.gridViewMasterStock_Layout);
             // 
             // colProductName
             // 
@@ -243,17 +246,17 @@ namespace RetailTrade.Receipt
             this.grid.DataSource = this.receiptMasterBindingSource;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid.EmbeddedNavigator.Name = "";
-            gridLevelNode4.LevelTemplate = this.gridViewRecieptDetailStock;
-            gridLevelNode5.LevelTemplate = this.gridViewRecInvDetail;
-            gridLevelNode5.RelationName = "ReceiptDetail_InvoiceDetail";
-            gridLevelNode6.LevelTemplate = this.gridViewRecDetPrices;
-            gridLevelNode6.RelationName = "ReceiptDetail_PricesPurchase";
-            gridLevelNode4.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode5,
-            gridLevelNode6});
-            gridLevelNode4.RelationName = "ReceiptMaster_ReceiptDetail";
+            gridLevelNode1.LevelTemplate = this.gridViewRecieptDetailStock;
+            gridLevelNode2.LevelTemplate = this.gridViewRecInvDetail;
+            gridLevelNode2.RelationName = "ReceiptDetail_InvoiceDetail";
+            gridLevelNode3.LevelTemplate = this.gridViewRecDetPrices;
+            gridLevelNode3.RelationName = "ReceiptDetail_PricesPurchase";
+            gridLevelNode1.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
+            gridLevelNode2,
+            gridLevelNode3});
+            gridLevelNode1.RelationName = "ReceiptMaster_ReceiptDetail";
             this.grid.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode4});
+            gridLevelNode1});
             this.grid.Location = new System.Drawing.Point(0, 25);
             this.grid.MainView = this.gridViewMasterStock;
             this.grid.Name = "grid";
@@ -297,6 +300,7 @@ namespace RetailTrade.Receipt
             this.gridViewMasterStock.OptionsBehavior.Editable = false;
             this.gridViewMasterStock.OptionsDetail.AllowOnlyOneMasterRowExpanded = true;
             this.gridViewMasterStock.OptionsView.ShowFooter = true;
+            this.gridViewMasterStock.Layout += new System.EventHandler(this.gridViewMasterStock_Layout);
             // 
             // colNumber
             // 
@@ -418,6 +422,7 @@ namespace RetailTrade.Receipt
             this.gridViewRecInvDetail.OptionsBehavior.Editable = false;
             this.gridViewRecInvDetail.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridViewRecInvDetail.ViewCaption = "Продажи";
+            this.gridViewRecInvDetail.Layout += new System.EventHandler(this.gridViewMasterStock_Layout);
             // 
             // colTradePupletName
             // 
@@ -486,6 +491,7 @@ namespace RetailTrade.Receipt
             this.gridViewRecDetPrices.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridViewRecDetPrices.OptionsView.ShowChildrenInGroupPanel = true;
             this.gridViewRecDetPrices.ViewCaption = "Цены";
+            this.gridViewRecDetPrices.Layout += new System.EventHandler(this.gridViewMasterStock_Layout);
             // 
             // colOrganizationName1
             // 
@@ -526,7 +532,8 @@ namespace RetailTrade.Receipt
             this.btEdit,
             this.btSave,
             this.btCancel,
-            this.btDelete});
+            this.btDelete,
+            this.toolStripSplitButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(679, 25);
@@ -583,6 +590,24 @@ namespace RetailTrade.Receipt
             this.btDelete.ToolTipText = "Убрать товар со склада";
             this.btDelete.Visible = false;
             // 
+            // toolStripSplitButton1
+            // 
+            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btField});
+            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(16, 22);
+            this.toolStripSplitButton1.Text = "toolStripSplitButton1";
+            // 
+            // btField
+            // 
+            this.btField.Name = "btField";
+            this.btField.Size = new System.Drawing.Size(208, 22);
+            this.btField.Text = "Настройка полей";
+            this.btField.Click += new System.EventHandler(this.btField_Click);
+            // 
             // organizationTableAdapter
             // 
             this.organizationTableAdapter.ClearBeforeFill = true;
@@ -596,6 +621,7 @@ namespace RetailTrade.Receipt
             this.Controls.Add(this.statusStrip);
             this.Name = "ReceiptMasterStock";
             this.Size = new System.Drawing.Size(679, 458);
+            this.Load += new System.EventHandler(this.ReceiptMasterStock_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRecieptDetailStock)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).EndInit();
@@ -662,5 +688,7 @@ namespace RetailTrade.Receipt
         private System.Windows.Forms.ToolStripButton btCancel;
         private System.Windows.Forms.ToolStripButton btDelete;
         private System.Windows.Forms.ToolStripButton btEdit;
+        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
+        private System.Windows.Forms.ToolStripMenuItem btField;
     }
 }

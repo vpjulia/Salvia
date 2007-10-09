@@ -15,12 +15,12 @@ namespace RetailTrade
 
         DataView _changesMaster;
 
-        DataView _viewChangesReceiptDetail;
+        DataView _changesDetail;
 
         public DataView ChangesReceiptDetail
         {
-            get { return _viewChangesReceiptDetail; }
-            set { _viewChangesReceiptDetail = value; }
+            get { return _changesDetail; }
+            set { _changesDetail = value; }
         }
 
 
@@ -53,14 +53,31 @@ namespace RetailTrade
 
             _changesMaster = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0", null,  DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
 
-            _viewChangesReceiptDetail = new DataView(this.mDataSet.ReceiptDetail,"DocumentTypeRef=0", null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
+            _changesDetail = new DataView(this.mDataSet.ReceiptDetail,"DocumentTypeRef=0", null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
 
             _changesMaster.ListChanged+=new ListChangedEventHandler(_changesMaster_ListChanged);
-            _viewChangesReceiptDetail.ListChanged += new ListChangedEventHandler(_changesMaster_ListChanged);
+            _changesDetail.ListChanged += new ListChangedEventHandler(_changesMaster_ListChanged);
            
             //  (this.receiptMasterBindingSource.DataSource as DataView).ListChanged += new ListChangedEventHandler(_viewChangesReceiptDetail_ListChanged);
 
         }
+  
+        private void ReceiptMasterNew_Load(object sender, EventArgs e)
+        {
+            foreach (GridView view in this.grid.ViewCollection)
+            {
+                string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
+                if (File.Exists(fileName))
+                    view.RestoreLayoutFromXml(fileName);
+            }
+
+            this.receiptMasterNewBindingSource.DataSource = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0", null, DataViewRowState.CurrentRows);
+            this.receiptMasterNewBindingSource.ResetBindings(false);
+            this.grid.DataSource = this.receiptMasterNewBindingSource;
+            this.ParentForm.FormClosing += new FormClosingEventHandler(ParentForm_FormClosing);
+      
+        }
+
         private void _changesMaster_ListChanged(object sender, ListChangedEventArgs e)
         {
             if ((sender as DataView).Count > 0)
@@ -90,22 +107,7 @@ namespace RetailTrade
                 }
         }
 
-        private void ReceiptMasterNew_Load(object sender, EventArgs e)
-        {
-            foreach (GridView view in this.grid.ViewCollection)
-            {
-                string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
-                if (File.Exists(fileName))
-                    view.RestoreLayoutFromXml(fileName);
-            }
-
-            this.receiptMasterNewBindingSource.DataSource = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0", null, DataViewRowState.CurrentRows);
-            this.receiptMasterNewBindingSource.ResetBindings(false);
-            this.grid.DataSource = this.receiptMasterNewBindingSource;
-            this.ParentForm.FormClosing += new FormClosingEventHandler(ParentForm_FormClosing);
-      
-        }
-
+     
         private void btAdd_Click(object sender, EventArgs e)
         {
 
@@ -147,7 +149,7 @@ namespace RetailTrade
                 // сохранить изменения
 
 
-                if ((_changesMaster.Count > 0) | (_viewChangesReceiptDetail.Count > 0))
+                if ((_changesMaster.Count > 0) | (_changesDetail.Count > 0))
                 {
                     DialogResult _result;
 
@@ -158,13 +160,14 @@ namespace RetailTrade
                         case DialogResult.Yes:
                             if (this.SaveChanges())
                                 if ((this.ParentForm as MainForm) != null)
-                                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                                    (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
+                              
                             break;
                         case DialogResult.No:
                             {
                                 if (this.CancelChages())
                                     if ((this.ParentForm as MainForm) != null)
-                                        (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                                        (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
                             }
                             break;
                         case DialogResult.Cancel:
@@ -174,8 +177,7 @@ namespace RetailTrade
                 else
                 {
                     if ((this.ParentForm as MainForm) != null)
-                        (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
-        
+                        (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
                 }
             } 
        }
@@ -202,9 +204,9 @@ namespace RetailTrade
             }
            
          
-            if (_viewChangesReceiptDetail.Count > 0)
+            if (_changesDetail.Count > 0)
             {
-                foreach (DataRowView _drDetail in _viewChangesReceiptDetail)
+                foreach (DataRowView _drDetail in _changesDetail)
                 {
                     string _tag = "ReceiptRowOrganization"+(_drDetail.Row as MDataSet.ReceiptDetailRow).ReceiptMasterRef.ToString();
 
@@ -249,9 +251,9 @@ namespace RetailTrade
             }
 
 
-            if (_viewChangesReceiptDetail.Count > 0)
+            if (_changesDetail.Count > 0)
             {
-                foreach (DataRowView _drDetail in _viewChangesReceiptDetail)
+                foreach (DataRowView _drDetail in _changesDetail)
                 {
                     
                     string _tag = "ReceiptRowOrganization" + (_drDetail.Row as MDataSet.ReceiptDetailRow).ReceiptMasterRef.ToString();
@@ -301,7 +303,7 @@ namespace RetailTrade
 
         private void ParentForm_FormClosing(object sender ,FormClosingEventArgs e)
         {
-            if ((_changesMaster.Count > 0) | (_viewChangesReceiptDetail.Count > 0))
+            if ((_changesMaster.Count > 0) | (_changesDetail.Count > 0))
             
            
             {
@@ -312,21 +314,17 @@ namespace RetailTrade
                 switch (_result)
                 {
                     case DialogResult.Yes:
-                        if (this.SaveChanges())
-                        {
-                            if ((this.ParentForm as MainForm) != null)
-                                (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
-                        }
-                        else
+                        if (!this.SaveChanges())
                         {
                             e.Cancel = true;
+    
                         }
+                      
                         break;
-                    case DialogResult.No: 
-                        if (this.CancelChages())
-                        if ((this.ParentForm as MainForm) != null)
-                            (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
-                        break;
+                    case DialogResult.No:
+                        if (!this.CancelChages())
+                            e.Cancel = true;
+                          break;
                     case DialogResult.Cancel:
                        e.Cancel = true;
                         break;

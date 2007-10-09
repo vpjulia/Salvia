@@ -36,7 +36,7 @@ namespace RetailTrade.Invoice
             this.colManufacturerName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQuantity = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPriceRetail = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridInvoiceMasterNewAll = new DevExpress.XtraGrid.GridControl();
+            this.grid = new DevExpress.XtraGrid.GridControl();
             this.invoiceMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mDataSet = new RetailTrade.MDataSet();
             this.gridViewInvoiceMasterAll = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -65,7 +65,7 @@ namespace RetailTrade.Invoice
             this.invoiceMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.InvoiceMasterTableAdapter();
             this.stockTableAdapter = new RetailTrade.MDataSetTableAdapters.StockTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewInvoiceDetail)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridInvoiceMasterNewAll)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewInvoiceMasterAll)).BeginInit();
@@ -82,7 +82,7 @@ namespace RetailTrade.Invoice
             this.colManufacturerName,
             this.colQuantity,
             this.colPriceRetail});
-            this.gridViewInvoiceDetail.GridControl = this.gridInvoiceMasterNewAll;
+            this.gridViewInvoiceDetail.GridControl = this.grid;
             this.gridViewInvoiceDetail.Name = "gridViewInvoiceDetail";
             // 
             // colProductName
@@ -123,28 +123,28 @@ namespace RetailTrade.Invoice
             this.colPriceRetail.Visible = true;
             this.colPriceRetail.VisibleIndex = 1;
             // 
-            // gridInvoiceMasterNewAll
+            // grid
             // 
-            this.gridInvoiceMasterNewAll.DataSource = this.invoiceMasterBindingSource;
-            this.gridInvoiceMasterNewAll.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridInvoiceMasterNewAll.EmbeddedNavigator.Name = "";
+            this.grid.DataSource = this.invoiceMasterBindingSource;
+            this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grid.EmbeddedNavigator.Name = "";
             gridLevelNode1.LevelTemplate = this.gridViewInvoiceDetail;
             gridLevelNode1.RelationName = "FK_InvoiceDetail_InvoiceMaster";
-            this.gridInvoiceMasterNewAll.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
+            this.grid.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
             gridLevelNode1});
-            this.gridInvoiceMasterNewAll.Location = new System.Drawing.Point(0, 25);
-            this.gridInvoiceMasterNewAll.MainView = this.gridViewInvoiceMasterAll;
-            this.gridInvoiceMasterNewAll.Name = "gridInvoiceMasterNewAll";
-            this.gridInvoiceMasterNewAll.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.grid.Location = new System.Drawing.Point(0, 25);
+            this.grid.MainView = this.gridViewInvoiceMasterAll;
+            this.grid.Name = "grid";
+            this.grid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemDateEdit1,
             this.RemoteStockLookupEdit});
-            this.gridInvoiceMasterNewAll.ShowOnlyPredefinedDetails = true;
-            this.gridInvoiceMasterNewAll.Size = new System.Drawing.Size(794, 431);
-            this.gridInvoiceMasterNewAll.TabIndex = 2;
-            this.gridInvoiceMasterNewAll.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.grid.ShowOnlyPredefinedDetails = true;
+            this.grid.Size = new System.Drawing.Size(794, 431);
+            this.grid.TabIndex = 2;
+            this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewInvoiceMasterAll,
             this.gridViewInvoiceDetail});
-            this.gridInvoiceMasterNewAll.DoubleClick += new System.EventHandler(this.gridInvoiceMasterNewAll_DoubleClick);
+            this.grid.DoubleClick += new System.EventHandler(this.gridInvoiceMasterNewAll_DoubleClick);
             // 
             // invoiceMasterBindingSource
             // 
@@ -169,8 +169,9 @@ namespace RetailTrade.Invoice
             this.colAuthorLastModif,
             this.colDateCreate,
             this.colDateLastModif});
-            this.gridViewInvoiceMasterAll.GridControl = this.gridInvoiceMasterNewAll;
+            this.gridViewInvoiceMasterAll.GridControl = this.grid;
             this.gridViewInvoiceMasterAll.Name = "gridViewInvoiceMasterAll";
+            this.gridViewInvoiceMasterAll.OptionsView.ShowFooter = true;
             // 
             // colNumber
             // 
@@ -230,6 +231,8 @@ namespace RetailTrade.Invoice
             this.colTradePupletName.OptionsColumn.AllowFocus = false;
             this.colTradePupletName.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.True;
             this.colTradePupletName.OptionsColumn.ReadOnly = true;
+            this.colTradePupletName.SummaryItem.DisplayFormat = "(Документов:{0})";
+            this.colTradePupletName.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Count;
             this.colTradePupletName.Visible = true;
             this.colTradePupletName.VisibleIndex = 2;
             this.colTradePupletName.Width = 185;
@@ -242,6 +245,8 @@ namespace RetailTrade.Invoice
             this.colSum.OptionsColumn.AllowEdit = false;
             this.colSum.OptionsColumn.AllowFocus = false;
             this.colSum.OptionsColumn.ReadOnly = true;
+            this.colSum.SummaryItem.DisplayFormat = "{0:##0.00}";
+            this.colSum.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
             this.colSum.Visible = true;
             this.colSum.VisibleIndex = 3;
             this.colSum.Width = 185;
@@ -256,6 +261,8 @@ namespace RetailTrade.Invoice
             this.colNds.OptionsColumn.ReadOnly = true;
             this.colNds.OptionsFilter.AllowAutoFilter = false;
             this.colNds.OptionsFilter.AllowFilter = false;
+            this.colNds.SummaryItem.DisplayFormat = "{0:##0.00}";
+            this.colNds.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
             this.colNds.Visible = true;
             this.colNds.VisibleIndex = 4;
             this.colNds.Width = 189;
@@ -385,6 +392,7 @@ namespace RetailTrade.Invoice
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(23, 22);
             this.btClose.Text = "X";
+            this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
             // invoiceMasterTableAdapter
             // 
@@ -398,13 +406,13 @@ namespace RetailTrade.Invoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.gridInvoiceMasterNewAll);
+            this.Controls.Add(this.grid);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Name = "InvoiceMasterNewAll";
             this.Size = new System.Drawing.Size(794, 478);
             ((System.ComponentModel.ISupportInitialize)(this.gridViewInvoiceDetail)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridInvoiceMasterNewAll)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewInvoiceMasterAll)).EndInit();
@@ -422,7 +430,7 @@ namespace RetailTrade.Invoice
 
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private DevExpress.XtraGrid.GridControl gridInvoiceMasterNewAll;
+        private DevExpress.XtraGrid.GridControl grid;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewInvoiceMasterAll;
         private System.Windows.Forms.BindingSource invoiceMasterBindingSource;
         private MDataSet mDataSet;

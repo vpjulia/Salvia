@@ -250,6 +250,7 @@ namespace RetailTrade
             this.gridView.OptionsView.ShowAutoFilterRow = true;
             this.gridView.DoubleClick += new System.EventHandler(this.gridView_DoubleClick);
             this.gridView.InvalidValueException += new DevExpress.XtraEditors.Controls.InvalidValueExceptionEventHandler(this.gridView_InvalidValueException);
+            this.gridView.Layout += new System.EventHandler(this.gridView_Layout);
             this.gridView.InvalidRowException += new DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventHandler(this.gridView_InvalidRowException);
             // 
             // colID

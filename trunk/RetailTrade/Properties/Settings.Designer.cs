@@ -42,5 +42,53 @@ namespace RetailTrade.Properties {
                 return ((string)(this["db2ConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("218")]
+        public int MainSplitDist {
+            get {
+                return ((int)(this["MainSplitDist"]));
+            }
+            set {
+                this["MainSplitDist"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point MyLoc {
+            get {
+                return ((global::System.Drawing.Point)(this["MyLoc"]));
+            }
+            set {
+                this["MyLoc"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("837, 684")]
+        public global::System.Drawing.Size MySize {
+            get {
+                return ((global::System.Drawing.Size)(this["MySize"]));
+            }
+            set {
+                this["MySize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
+        public global::System.Windows.Forms.FormWindowState MyState {
+            get {
+                return ((global::System.Windows.Forms.FormWindowState)(this["MyState"]));
+            }
+            set {
+                this["MyState"] = value;
+            }
+        }
     }
 }

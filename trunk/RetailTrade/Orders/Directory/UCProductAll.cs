@@ -13,8 +13,9 @@ namespace RetailTrade
 {
     public partial class UCProductAll : UserControl
     {
-
         DataView _changes;
+
+        bool _layoutChanged;
 
         public UCProductAll()
         {
@@ -28,11 +29,18 @@ namespace RetailTrade
             _changes = new DataView(source.Product, null, null, DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted);
             _changes.ListChanged+=new ListChangedEventHandler(_changes_ListChanged);
 
-
+            
         }
         private void UCProductAll_Load(object sender, EventArgs e)
         {
-             
+            foreach (GridView view in this.grid.ViewCollection)
+            {
+                string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
+                if (File.Exists(fileName))
+                    view.RestoreLayoutFromXml(fileName);
+            }
+
+            _layoutChanged = false;
         }
 
         private void _changes_ListChanged(object sender,ListChangedEventArgs e ) 
@@ -91,7 +99,7 @@ namespace RetailTrade
 
             int hendl = (this.grid.FocusedView as ColumnView).FocusedRowHandle;
 
-            if (this.gridView.IsValidRowHandle(hendl) & hendl != DevExpress.XtraGrid.GridControl.AutoFilterRowHandle)
+            if (this.gridViewMainProduct.IsValidRowHandle(hendl) & hendl != DevExpress.XtraGrid.GridControl.AutoFilterRowHandle)
             {
 
                 MDataSet.ProductRow pr = ((this.productBindingSource.CurrencyManager.Current as DataRowView).Row as MDataSet.ProductRow);
@@ -103,7 +111,8 @@ namespace RetailTrade
                 if (DialogResult.OK == dform.ShowDialog(this))
                 {
                     this.productBindingSource.CurrencyManager.EndCurrentEdit();
-                
+                    this.grid.Focus();
+                    this.gridViewMainProduct.FocusedRowHandle = hendl;
                     
                 }
                 else
@@ -137,7 +146,7 @@ namespace RetailTrade
         {
             int hendl = (this.grid.FocusedView as ColumnView).FocusedRowHandle;
 
-            if (this.gridView.IsValidRowHandle(hendl) & hendl != DevExpress.XtraGrid.GridControl.AutoFilterRowHandle)
+            if (this.gridViewMainProduct.IsValidRowHandle(hendl) & hendl != DevExpress.XtraGrid.GridControl.AutoFilterRowHandle)
             {
                 int countChild = 0;
 
@@ -162,7 +171,7 @@ namespace RetailTrade
                     MessageBox.Show(this,"Невозможно удалить запись, ссылок на нее :  " + countChild.ToString(),this.Tag.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else
 
-                    if (MessageBox.Show(" Удалить запись? " + this.gridView.GetFocusedRowCellDisplayText(this.gridView.Columns[1]), "Удаление карточки",
+                    if (MessageBox.Show(" Удалить запись? " + this.gridViewMainProduct.GetFocusedRowCellDisplayText(this.gridViewMainProduct.Columns[1]), "Удаление карточки",
                          MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                          == DialogResult.Yes)
                     {
@@ -180,11 +189,11 @@ namespace RetailTrade
         {
           this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
 
-            if (this.gridView.HasColumnErrors) return;
+            if (this.gridViewMainProduct.HasColumnErrors) return;
 
             this.btEdit.Enabled = true;
             this.btSave.Enabled = false;
-            this.gridView.OptionsBehavior.Editable = false;
+            this.gridViewMainProduct.OptionsBehavior.Editable = false;
           
             this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
         
@@ -192,7 +201,7 @@ namespace RetailTrade
 
             {      
                      this.btSave.Enabled = false;
-
+                     this.gridViewMainProduct.OptionsBehavior.Editable = false;
                  }
                  else
                  {
@@ -208,13 +217,18 @@ namespace RetailTrade
 
             this.productBindingSource.EndEdit();
 
-        /*    if (this.ValidateChildren())
+            if (_layoutChanged)
             {
                 foreach (GridView view in this.grid.ViewCollection)
                 {
                     string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
                     view.SaveLayoutToXml(fileName);
+
                 }
+            }
+           if (this.ValidateChildren())
+            {
+               
                 // сохранить изменения
 
 
@@ -222,20 +236,20 @@ namespace RetailTrade
                 {
                     DialogResult _result;
 
-                    _result = MessageBox.Show("Сохранить изменения? ", "Сохранение приходных документов " + this.ToString(), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                    _result = MessageBox.Show("Сохранить изменения? ", "Сохранение справочника товаров " , MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
                     switch (_result)
                     {
                         case DialogResult.Yes:
                             if (this.SaveChanges())
                                 if ((this.ParentForm as MainForm) != null)
-                                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                                    (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
                             break;
                         case DialogResult.No:
                             {
                                 if (this.CancelChages())
                                     if ((this.ParentForm as MainForm) != null)
-                                        (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                                        (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
                             }
                             break;
                         case DialogResult.Cancel:
@@ -246,21 +260,18 @@ namespace RetailTrade
                 else
                 {
                     if ((this.ParentForm as MainForm) != null)
-                        (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                        (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
 
                 }
             } 
 
-*/
-            if ((this.ParentForm as MainForm) != null)
-                (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
 
 
         }
 
         private void btField_Click(object sender, EventArgs e)
         {
-            this.gridView.ColumnsCustomization();
+            this.gridViewMainProduct.ColumnsCustomization();
         }
 
         private void gridView_DoubleClick(object sender, EventArgs e)
@@ -272,11 +283,51 @@ namespace RetailTrade
         {
             this.productBindingSource.CancelEdit();
             this.CancelChages();
+            this.gridViewMainProduct.OptionsBehavior.Editable = false;
         }
 
         private void UCProductAll_Validating(object sender, CancelEventArgs e)
         {
+            if (_changes.Count > 0)
+            {
+                DialogResult _result;
 
+                _result = MessageBox.Show("Сохранить изменения? ", "Сохранение справочника товаров " , MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                switch (_result)
+                {
+                    case DialogResult.Yes:
+                        if (!this.SaveChanges())
+                            e.Cancel = true;
+                            break;
+                    case DialogResult.No:
+                        {
+                            if (!this.CancelChages())
+                                e.Cancel = true;    
+                            
+                            }
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                }
+            }
         }
+
+        private void btEditGrid_Click(object sender, EventArgs e)
+        {
+            this.gridViewMainProduct.OptionsBehavior.Editable = true;
+        }
+
+        private void gridViewMainProduct_Layout(object sender, EventArgs e)
+        {
+            
+            _layoutChanged = true;
+        
+        }
+
+       
+
+       
     }
 }
