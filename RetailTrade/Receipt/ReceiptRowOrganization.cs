@@ -142,8 +142,7 @@ namespace RetailTrade
             if ((_curentReceiptMasterRow.RowState == (DataRowState.Detached) | (_curentReceiptMasterRow.RowState == DataRowState.Added)))
             {
                 if ((this.ParentForm as MainForm) != null)
-                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
-                        
+                    (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);      
                 
             }
             
@@ -310,13 +309,13 @@ namespace RetailTrade
                             if (this.SaveChanges())
                             {
                                 if ((this.ParentForm as MainForm) != null)
-                                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                                    (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage); 
                             }
                            break;
                         case DialogResult.No:
                            this.CancelChanges(); 
                              if ((this.ParentForm as MainForm) != null)
-                                (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                                 (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage); 
                             break;
                         case DialogResult.Cancel:
         
@@ -326,7 +325,8 @@ namespace RetailTrade
                 }
                 else
                     if ((this.ParentForm as MainForm) != null)
-                        (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                        (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage); 
+
                 }
  
         }
@@ -334,7 +334,7 @@ namespace RetailTrade
         private void ParentForm_FormClosing(object sender, FormClosingEventArgs e) 
         {
 
-            MessageBox.Show("Закрытие формы "+this.ToString());
+           
 
 
         }
@@ -353,14 +353,7 @@ namespace RetailTrade
 
         private void receiptMasterBindingSource_ListChanged(object sender, ListChangedEventArgs e)
         {
-           /* if ((_curentReceiptMasterRow.RowState == (DataRowState.Detached) | (_curentReceiptMasterRow.RowState == DataRowState.Added)))
-            {
-                if ((this.ParentForm as MainForm) != null)
-                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
-
-
-            }*/
-         MessageBox.Show("receiptMasterBindingSource_ListChanged"+e.ListChangedType.ToString() );
+          
         }
 
         private void ReceiptRowOrganization_Validating(object sender, CancelEventArgs e)

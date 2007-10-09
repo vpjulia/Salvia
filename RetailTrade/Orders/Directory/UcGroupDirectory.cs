@@ -267,13 +267,14 @@ namespace RetailTrade
                             if ((this.SaveChange()))
                             {
                                 if ((this.ParentForm as MainForm) != null)
-                                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                                    (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage); 
+                                    
                             }
                             break;
                         case DialogResult.No:
                             if (this.CancelChanges())
                                 if ((this.ParentForm as MainForm) != null)
-                                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                                    (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage); 
                             break;
                         case DialogResult.Cancel:
                             break;
@@ -283,7 +284,7 @@ namespace RetailTrade
                 }
                 else
                     if ((this.ParentForm as MainForm) != null)
-                        (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                        (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage); 
 
             }
         }
@@ -339,16 +340,14 @@ namespace RetailTrade
                     {
                         case DialogResult.Yes:
 
-                            if ((this.SaveChange()))
+                            if (!(this.SaveChange()))
                             {
-                                if ((this.ParentForm as MainForm) != null)
-                                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
-                            }
+                                e.Cancel = true;
+                                     }
                             break;
                         case DialogResult.No:
-                            if (this.CancelChanges())
-                                if ((this.ParentForm as MainForm) != null)
-                                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                            if (!this.CancelChanges())
+                                e.Cancel = true;
                             break;
                         case DialogResult.Cancel:
                             e.Cancel=true;

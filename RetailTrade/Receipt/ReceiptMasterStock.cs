@@ -10,10 +10,12 @@ using System.IO;
 
 namespace RetailTrade.Receipt
 {
-    public partial class ReceiptMasterStock : UserControl
-    {
-        DataView _changesReceiptMaster;
+    
 
+    public partial class ReceiptMasterStock : UserControl
+    { 
+        bool _layoutChanged;
+        DataView _changesReceiptMaster;
 
         DataView _changesReceiptDetail;
 
@@ -54,52 +56,33 @@ namespace RetailTrade.Receipt
 
         }
 
-     
-        private void btClose_Click(object sender, EventArgs e)
+        private void ReceiptMasterStock_Load(object sender, EventArgs e)
         {
-            this.receiptMasterBindingSource.EndEdit();
-
-            if (this.Validate(true))
+            foreach (GridView view in this.grid.ViewCollection)
             {
-                foreach (GridView view in this.grid.ViewCollection)
-                {
-                    string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
-                    view.SaveLayoutToXml(fileName);
-                }
-                // сохранить изменения
+                string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
+                if (File.Exists(fileName))
+                    view.RestoreLayoutFromXml(fileName);
+            }
 
+            _layoutChanged = false;
 
-                if ((_changesReceiptMaster.Count > 0) | (_changesReceiptDetail.Count > 0))
-                {
-                    DialogResult _result;
-
-                    _result = MessageBox.Show("Сохранить изменения? ", "Сохранение приходных документов " + this.ToString(), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-
-                    switch (_result)
-                    {
-                        case DialogResult.Yes:
-                            if (this.SaveChanges())
-                                if ((this.ParentForm as MainForm) != null)
-                                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
-                            break;
-                        case DialogResult.No:
-                            {
-                                if (this.CancelChages())
-                                    if ((this.ParentForm as MainForm) != null)
-                                        (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
-                            }
-                            break;
-                        case DialogResult.Cancel:
-                            break;
-                    }
-                }
-                else
-                {
-                    if ((this.ParentForm as MainForm) != null)
-                        (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
-
-                }
-            } 
+            this.ParentForm.FormClosing += new FormClosingEventHandler(ParentForm_FormClosing);
+        }
+     
+        private void _changes_ListChanged(object sender, ListChangedEventArgs e)
+        {
+          
+            if ( (this._changesReceiptMaster.Count > 0)|(this._changesReceiptDetail.Count > 0))
+            {
+                this.btSave.Visible = true;
+                this.btCancel.Visible = true;
+            }
+            else
+            {
+                this.btSave.Visible = false;
+                this.btCancel.Visible = false;
+            }
         }
 
         private bool CancelChages()
@@ -127,7 +110,6 @@ namespace RetailTrade.Receipt
             }
 
 
-           
 
             return true;
         
@@ -190,27 +172,117 @@ namespace RetailTrade.Receipt
             }
 
         }
-        private void _changes_ListChanged(object sender, ListChangedEventArgs e)
-        {
-          
-            if ( (this._changesReceiptMaster.Count > 0)|(this._changesReceiptDetail.Count > 0))
-            {
-                this.btSave.Visible = true;
-                this.btCancel.Visible = true;
-            }
-            else
-            {
-                this.btSave.Visible = false;
-                this.btCancel.Visible = false;
-            }
-        }
-
+      
         private void btEdit_Click(object sender, EventArgs e)
         {
             this.gridViewMasterStock.OptionsBehavior.Editable = true;
             this.gridViewRecieptDetailStock.OptionsBehavior.Editable = true;
             this.btDelete.Visible = true;
             this.btEdit.Visible = false;
+
+        }
+       
+        private void btField_Click(object sender, EventArgs e)
+        {
+            (this.grid.FocusedView as GridView).ColumnsCustomization();
+        }
+
+        private void gridViewMasterStock_Layout(object sender, EventArgs e)
+        {
+            _layoutChanged = true;
+        }
+ 
+        private void btClose_Click(object sender, EventArgs e)
+        {
+            this.receiptMasterBindingSource.EndEdit();
+            if (_layoutChanged)
+            {
+                foreach (GridView view in this.grid.ViewCollection)
+                {
+                    string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
+                    view.SaveLayoutToXml(fileName);
+
+                }
+            }
+            if (this.Validate(true))
+            {
+                // сохранить изменения
+
+
+                if ((_changesReceiptMaster.Count > 0) | (_changesReceiptDetail.Count > 0))
+                {
+                    DialogResult _result;
+
+                    _result = MessageBox.Show("Сохранить изменения? ", "Сохранение приходных документов " + this.ToString(), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                    switch (_result)
+                    {
+                        case DialogResult.Yes:
+                            if (this.SaveChanges())
+                            {
+                                this.ParentForm.FormClosing -= new FormClosingEventHandler(ParentForm_FormClosing);
+                                (this.ParentForm as MainForm).DeleteDataTab(Parent as TabPage);
+                            }
+
+                            break;
+                        case DialogResult.No:
+                            {
+                                if (this.CancelChages())
+                                {
+                                    this.ParentForm.FormClosing -= new FormClosingEventHandler(ParentForm_FormClosing);
+                   
+                                    (this.ParentForm as MainForm).DeleteDataTab(Parent as TabPage);
+                                }
+                            }
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                    }
+                }
+                else
+                {
+                    this.ParentForm.FormClosing -= new  FormClosingEventHandler(ParentForm_FormClosing);
+                        (this.ParentForm as MainForm).DeleteDataTab(Parent as TabPage); 
+
+                }
+            } 
+        }
+       
+        void ParentForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.receiptMasterBindingSource.EndEdit();
+            if (this.ValidateChildren())
+            {
+                // сохранить изменения
+
+                if ((_changesReceiptMaster.Count > 0) | (_changesReceiptDetail.Count > 0))
+                {
+                    DialogResult _result;
+
+                    _result = MessageBox.Show("Сохранить изменения? ", "Сохранение приходных документов " + this.ToString(), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                    switch (_result)
+                    {
+                        case DialogResult.Yes:
+                            if (!this.SaveChanges())
+                                e.Cancel = true;   
+                                break;
+                        case DialogResult.No:
+                            {
+                                if (!this.CancelChages())
+
+                                    e.Cancel = true;
+                                }
+                            break;
+                        case DialogResult.Cancel:
+                            e.Cancel = true;
+                            break;
+                    }
+                }
+              
+                
+            } 
+
 
         }
 

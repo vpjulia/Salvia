@@ -9,6 +9,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid;
+using System.IO;
 
 namespace RetailTrade
 {
@@ -16,6 +17,7 @@ namespace RetailTrade
     {
         DataView _changes;
         int _currentInParent;
+        bool _layoutChanged;
 
         public UCSimpleDirectory()
         {
@@ -65,12 +67,17 @@ namespace RetailTrade
 
         private void UCSimpleDirectory_Load(object sender, EventArgs e)
         {
+            foreach (GridView view in this.grid.ViewCollection)
+            {
+                string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
+                if (File.Exists(fileName))
+                    view.RestoreLayoutFromXml(fileName);
+            } 
+            _layoutChanged = false;
             this.bindingSource.CurrencyManager.Position = this.bindingSource.Find("ID", _currentInParent);
             this.ParentForm.FormClosing += new FormClosingEventHandler(ParentForm_FormClosing);
         }
 
-
-      
        
         private void _changes_ListChanged(object sender, ListChangedEventArgs e )
         {
@@ -356,8 +363,19 @@ namespace RetailTrade
  
         private void btClose_Click(object sender, EventArgs e)
         {
-
+            
             // this.bindingSource.EndEdit();
+
+
+            if (_layoutChanged)
+            {
+                foreach (GridView view in this.grid.ViewCollection)
+                {
+                    string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
+                    view.SaveLayoutToXml(fileName);
+
+                }
+            }
 
             if (this.ValidateChildren())
             {
@@ -375,13 +393,14 @@ namespace RetailTrade
                             if ((this.SaveChange()))
                             {
                                 if ((this.ParentForm as MainForm) != null)
-                                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                                    (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage); 
+
                             }
                             break;
                         case DialogResult.No:
                             if (this.CancelChanges())
                                 if ((this.ParentForm as MainForm) != null)
-                                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                                    (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage); 
                             break;
                         case DialogResult.Cancel:
                             break;
@@ -391,7 +410,7 @@ namespace RetailTrade
                 }
                 else
                     if ((this.ParentForm as MainForm) != null)
-                        (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                        (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage); 
 
             }
         }
@@ -400,7 +419,15 @@ namespace RetailTrade
         {
 
             this.bindingSource.CurrencyManager.CancelCurrentEdit();
+            if (_layoutChanged)
+            {
+                foreach (GridView view in this.grid.ViewCollection)
+                {
+                    string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
+                    view.SaveLayoutToXml(fileName);
 
+                }
+            }
             if (_changes.Count > 0)
             {
                 DialogResult result;
@@ -411,17 +438,15 @@ namespace RetailTrade
                 {
                     case DialogResult.Yes:
 
-                        if ((this.SaveChange()))
+                        if (!(this.SaveChange()))
                         {
-                            if ((this.ParentForm as MainForm) != null)
-                                (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
-                        }
+                            e.Cancel = true;
+                         }
                         break;
                     case DialogResult.No:
-                        if (this.CancelChanges())
-                            if ((this.ParentForm as MainForm) != null)
-                                (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
-                        break;
+                        if (!this.CancelChanges())
+                            e.Cancel = true;
+                            break;
                     case DialogResult.Cancel:
                         e.Cancel = true;
                         break;
@@ -429,6 +454,11 @@ namespace RetailTrade
                 }
 
             }
+        }
+
+        private void gridView_Layout(object sender, EventArgs e)
+        {
+            _layoutChanged = true;
         }
 
 

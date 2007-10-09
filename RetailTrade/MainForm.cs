@@ -67,11 +67,8 @@ namespace RetailTrade
 
             //this.productTableAdapter.Fill(this.mDataSet.Product);
         }
-       
-        
-        
-
-        private void Form1_Load(object sender, EventArgs e)
+     
+        private void MainForm_Load(object sender, EventArgs e)
         {
            
 
@@ -84,8 +81,14 @@ namespace RetailTrade
             thread.Abort();
             Thread.Sleep(30);
 
-           
+            this.Size = Properties.Settings.Default.MySize;
 
+            this.Location = Properties.Settings.Default.MyLoc;
+
+            this.WindowState = Properties.Settings.Default.MyState;
+
+            
+           
           //  System.Configuration.AppSettingsReader app = new System.Configuration.AppSettingsReader();
 
          //   MessageBox.Show(app.GetValue("RetailTradeConnectionString", System.Type.GetType("System.String")).ToString());
@@ -107,9 +110,8 @@ namespace RetailTrade
             this.mDataSet.ReceiptDetail.RowDeleting+=new DataRowChangeEventHandler(ReceiptDetail_RowDeleting);
                 //+=new DataRowChangeEventHandler(ReceiptDetail_RowDeleting);
         }
-
-      
-        
+           
+       
         public class SanseeGridLocalizer : GridLocalizer
         {
             public override string GetLocalizedString(GridStringId id)
@@ -199,6 +201,7 @@ namespace RetailTrade
                 }
                    return false;
         }
+       
         public bool ShowNewDataTab(string TagControl, string Title,params object[] list)
         {
           if (!FindOpenedTabs(TagControl))
@@ -340,6 +343,14 @@ namespace RetailTrade
             }
             return false;
         }
+
+        public void DeleteDataTab(TabPage tagPage)
+        {
+
+            tabControl.TabPages.Remove(tagPage);
+       
+        }
+        
         private bool ShowNewSimpleDirectotyTab(string TagControl, string Title, params object[] list)
         {
             if (!FindOpenedTabs(TagControl))
@@ -382,7 +393,7 @@ namespace RetailTrade
         private void mainReportViewer_MouseDoubleClick(object sender, MouseEventArgs e)
         {
 
-            FormDialog _fDialog = new FormDialog();
+        /*    FormDialog _fDialog = new FormDialog();
             _fDialog.panel.Controls.Add(this.mainReportViewer);
             
             
@@ -390,8 +401,37 @@ namespace RetailTrade
                 {
                     MessageBox.Show("ok"); 
                 }
-               
+               */
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            Properties.Settings.Default.MyState = this.WindowState;
+
+            if (this.WindowState == FormWindowState.Normal)
+            {
+
+                Properties.Settings.Default.MySize = this.Size;
+
+                Properties.Settings.Default.MyLoc = this.Location;
+
+            }
+
+            else
+            {
+
+                Properties.Settings.Default.MySize = this.RestoreBounds.Size;
+
+                Properties.Settings.Default.MyLoc = this.RestoreBounds.Location;
+
+            }
+  
+            Properties.Settings.Default.Save();
+
+        }
+
+       
 
         
     
