@@ -17,7 +17,7 @@
     <Shape ID="DesignTable:ReceiptMaster" ZOrder="11" X="2080" Y="574" Height="400" Width="294" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="307" />
     <Shape ID="DesignTable:ReceiptDetail" ZOrder="26" X="2086" Y="1027" Height="342" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="269" />
     <Shape ID="DesignTable:StorageCondition" ZOrder="32" X="860" Y="1663" Height="300" Width="302" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="207" />
-    <Shape ID="DesignTable:Product" ZOrder="44" X="1324" Y="1634" Height="340" Width="294" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="267" />
+    <Shape ID="DesignTable:Product" ZOrder="44" X="1324" Y="1634" Height="400" Width="294" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="309" />
     <Shape ID="DesignTable:FarmGroup" ZOrder="43" X="265" Y="2111" Height="260" Width="294" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="187" />
     <Shape ID="DesignTable:Packing" ZOrder="41" X="1643" Y="1636" Height="260" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="187" />
     <Shape ID="DesignTable:Substance" ZOrder="39" X="1362" Y="2075" Height="260" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="187" />
@@ -105,7 +105,7 @@
         </Point>
         <Point>
           <X>1445</X>
-          <Y>1974</Y>
+          <Y>2034</Y>
         </Point>
       </RoutePoints>
     </Connector>
