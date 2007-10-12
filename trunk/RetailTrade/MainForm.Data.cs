@@ -582,7 +582,7 @@ namespace RetailTrade
                     Object[] args = new Object[1];
                     args[0] = this.fullDataSet.Tables[NameTable];
 
-                   if (this.fullDataSet.Tables[NameTable].Rows.Count != 0)
+                   if (this.fullDataSet.Tables[NameTable].Rows.Count == 0)
                   
                     tp.GetMethod("Fill").Invoke(this.components.Components[NameTable + "TableAdapter1"], args);
                 }
