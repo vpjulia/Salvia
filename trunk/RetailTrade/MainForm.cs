@@ -54,23 +54,42 @@ namespace RetailTrade
             this.components.Add(this.invoiceMasterTableAdapter, "invoiceMasterTableAdapter");
             this.components.Add(this.RemainsTableAdapter, "RemainsTableAdapter");
             this.components.Add(this.pricesPurchaseTableAdapter, "pricesPurchaseTableAdapter");
+           /*Fulldataset*/
 
-          /*  FillTable("Product");
+            this.components.Add(this.manufacturerTableAdapter1, "manufacturerTableAdapter1");
+       
+            
+            this.components.Add(this.productTableAdapter1, "productTableAdapter1");
+
+            this.components.Add(this.farmGroupTableAdapter1, "farmGroupTableAdapter1");
+            this.components.Add(this.farmGroupLevel2TableAdapter1, "farmGroupLevel2TableAdapter1");
+            this.components.Add(this.packingTableAdapter1, "packingTableAdapter1");
+            this.components.Add(this.storageConditionTableAdapter1, "storageConditionTableAdapter1");
+            this.components.Add(this.substanceTableAdapter1, "substanceTableAdapter1");
+            this.components.Add(this.unitTableAdapter1, "unitTableAdapter1");
+            this.components.Add(this.countryTableAdapter1, "countryTableAdapter1");
+          
+            
+            /*  FillTable("Product");
             FillTable("Organization");
         */
-            FillTable("Stock");
          
+            
+        }
+     
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'fullDataSet.Substance' table. You can move, or remove it, as needed.
+            this.substanceTableAdapter1.Fill(this.fullDataSet.Substance);
+           
+          
+            FillTable("Stock");
+
             FillTable("ReceiptDetail");
             FillTable("Orders");
             FillTable("InvoiceDetail");
             FillTable("PricesPurchase");
 
-            //this.productTableAdapter.Fill(this.mDataSet.Product);
-        }
-     
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-           
 
 
             SanseeGridLocalizer gLocalizer = new SanseeGridLocalizer();
@@ -211,12 +230,36 @@ namespace RetailTrade
                 switch (TagControl)
                 {
                     case "UCProductAll":
-                     
-                       usControl = new UCProductAll(this.mDataSet);
+
+
+
+                        if (Title.Contains("НДС"))
+                        {
+                            TagControl += "NDS";
+                            if (!FindOpenedTabs(TagControl))
+                            {
+                                usControl = new UCProductAll(this.fullDataSet, true);
+                            }
+                            else
+                                return false;
+
+                        }
+                        else
+                        {
+                            TagControl += "outNDS";
+                            if (!FindOpenedTabs(TagControl))
+                            {
+                                usControl = new UCProductAll(this.fullDataSet, false);
+                            }
+                            else
+                                return false;
+                        
+                        }
                        usControl.Dock = DockStyle.Fill;
-                       usControl.Tag = "Справочник товаров";
-                      //  (uc as UCSPR).NameWorkTable = _NameTable;
-                        //  uc.Tag = _NameTable;  
+
+                       usControl.Tag = Title;
+                      
+                    
                      break;
 
                     case "Manufacturer":

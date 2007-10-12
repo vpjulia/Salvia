@@ -1,3 +1,4 @@
+using System.Data;
 namespace RetailTrade
 {
     partial class ucProductRow
@@ -783,6 +784,8 @@ namespace RetailTrade
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.BindingSource productBindingSource;
         private MDataSet mDataSet;
+        private DataSet dataSet;
+
         private RetailTrade.MDataSetTableAdapters.ProductTableAdapter productTableAdapter;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;

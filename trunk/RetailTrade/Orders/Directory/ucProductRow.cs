@@ -37,11 +37,35 @@ namespace RetailTrade
         }
 
 
+        public ucProductRow(DataRow productRow, MainForm.ActionDialog actionDialog)
+        {
+
+            InitializeComponent();
+
+            this.dataSet = productRow.Table.DataSet;
+
+          //  this.mDataSet = productRow.Table.DataSet as MDataSet;
+            this.productBindingSource.DataSource = productRow ;
+            this.manufacturerBindingSource.DataSource = this.dataSet.Tables["Manufacturer"];
+            this.packingBindingSource.DataSource = this.dataSet.Tables["Packing"];
+            this.storageConditionBindingSource.DataSource = this.dataSet.Tables["StorageCondition"];
+            this.substanceBindingSource.DataSource = this.dataSet.Tables["Substance"];
+            this.farmGroupLevel2BindingSource.DataSource = this.dataSet.Tables["FarmGroupLevel2"];
+            this.unitBindingSource.DataSource = this.dataSet.Tables["Unit"];
+
+            _state = actionDialog;
+        }
+
+
+
          private void ucProductRow_Load(object sender, EventArgs e)
         {
            this.ParentForm.AcceptButton = null;
             if (_state == MainForm.ActionDialog.View) 
                this.tabControl.Enabled=false;
+
+           
+
          }
 
        
@@ -52,7 +76,10 @@ namespace RetailTrade
 
             int _id =Convert.ToInt32( (this.Controls.Find((sender as Button).Tag.ToString()+"lookUpEdit", true)[0] as  DevExpress.XtraEditors.LookUpEdit).EditValue);
 
-            UCSimpleDirectory ucSimpleDirectory = new UCSimpleDirectory(this.mDataSet.Tables[(sender as Button).Tag.ToString()],_id);
+
+            DataTable _table = (this.productBindingSource.DataSource as DataRow).Table.DataSet.Tables[(sender as Button).Tag.ToString()];
+
+            UCSimpleDirectory ucSimpleDirectory = new UCSimpleDirectory(_table,_id);
             ucSimpleDirectory.btClose.Visible = false;
             dform.panel.Controls.Add(ucSimpleDirectory);
 
@@ -74,10 +101,13 @@ namespace RetailTrade
             FormDialog dform = new FormDialog();
             dform.Text = this.toolTip1.GetToolTip((sender as Control)).ToString();
 
-            UcGroupDirectory ucGroupDirectory = new UcGroupDirectory(this.mDataSet.Tables[(sender as Button).Tag.ToString()]);
-            ucGroupDirectory.errorProvider1.DataSource = this.mDataSet;
-            ucGroupDirectory.btClose.Visible = false;
-            dform.panel.Controls.Add(ucGroupDirectory);
+             DataTable _table = (this.productBindingSource.DataSource as DataRow).Table.DataSet.Tables[(sender as Button).Tag.ToString()];
+           
+             UcGroupDirectory ucGroupDirectory = new UcGroupDirectory(_table);
+
+             ucGroupDirectory.errorProvider1.DataSource = (this.productBindingSource.DataSource as DataRow).Table.DataSet;
+             ucGroupDirectory.btClose.Visible = false;
+             dform.panel.Controls.Add(ucGroupDirectory);
 
 
             int rowHandle = ucGroupDirectory.gridView.LocateByValue(0, ucGroupDirectory.gridView.Columns["ID"], (this.Controls.Find((sender as Button).Tag.ToString() + "lookUpEdit", true)[0] as DevExpress.XtraEditors.LookUpEdit).EditValue);

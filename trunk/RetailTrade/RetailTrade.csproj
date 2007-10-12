@@ -64,6 +64,11 @@
     <Compile Include="Dialog\printingControl.Designer.cs">
       <DependentUpon>printingControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="FullDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FullDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.Data.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -320,6 +325,17 @@
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
+    <None Include="FullDataSet.xsc">
+      <DependentUpon>FullDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="FullDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FullDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="FullDataSet.xss">
+      <DependentUpon>FullDataSet.xsd</DependentUpon>
+    </None>
     <None Include="IBDataset.xsc">
       <DependentUpon>IBDataset.xsd</DependentUpon>
     </None>

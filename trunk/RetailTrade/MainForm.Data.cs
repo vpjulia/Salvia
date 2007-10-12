@@ -9,7 +9,7 @@ namespace RetailTrade
     using System.Security; 
     partial class MainForm
     {
-        private void DoSplash()
+        public static void DoSplash()
         {
             SplashScreen sp = new SplashScreen();
             sp.label.Text = System.Environment.UserDomainName;
@@ -23,7 +23,6 @@ namespace RetailTrade
 
         }
       
-        
         private void ReceiptDetailColumn_Changing(object sender, DataColumnChangeEventArgs e)
         {
             if (e.Column == mDataSet.ReceiptDetail.PricePurchaseColumn)
@@ -555,6 +554,7 @@ namespace RetailTrade
      
         // ---------  Refresh 
         
+
         public void FillTable(string NameTable)
         {
             if (this.mDataSet.Tables[NameTable].Rows.Count == 0)
@@ -564,9 +564,93 @@ namespace RetailTrade
                 args[0] = this.mDataSet.Tables[NameTable];
                 foreach (DataRelation relation in this.mDataSet.Tables[NameTable].ParentRelations)
                     FillTable(relation.ParentTable.ToString());
+                        
                 tp.GetMethod("Fill").Invoke(this.components.Components[NameTable + "TableAdapter"], args);
             }
         }
+        public bool FullFillTable(string NameTable, params object[] list)
+        {
+             // заполнить родительские таблицы
+            foreach (DataRelation relation in this.fullDataSet.Tables[NameTable].ParentRelations)
+                        FullFillTable(relation.ParentTable.ToString());
+
+            Type tp = this.components.Components[NameTable + "TableAdapter1"].GetType();
+
+               // если простой запрос              
+                if ((list.Length == 0) )
+                {
+                    Object[] args = new Object[1];
+                    args[0] = this.fullDataSet.Tables[NameTable];
+
+                   if (this.fullDataSet.Tables[NameTable].Rows.Count != 0)
+                  
+                    tp.GetMethod("Fill").Invoke(this.components.Components[NameTable + "TableAdapter1"], args);
+                }
+                // если с параметрами
+                else
+                {
+                    // если пустая
+                    if (this.fullDataSet.Tables[NameTable].Rows.Count == 0)
+                    {
+                        Object[] args = new Object[2];
+                        args[0] = this.fullDataSet.Tables[NameTable];
+                        args[1] = list[0];
+
+                        tp.GetMethod("Fill").Invoke(this.components.Components[NameTable + "TableAdapter1"], args);
+                    }
+                    else
+                    {
+                        //если есть данные 
+
+                        // слияние
+                   Object[] args = new Object[2];
+                       
+                     args[1] = list[0];
+
+                     Object  _newTable;
+                     Object[] parameters = new Object[0];
+                        try
+                        {
+                            // создать пустую таблицу 
+                            Type _typeTable = this.fullDataSet.Tables[NameTable].GetType();
+                            ConstructorInfo constructorInfoObj = _typeTable.GetConstructor(Type.EmptyTypes);
+                            _newTable = constructorInfoObj.Invoke(parameters);
+                            args[0] = _newTable;
+                        }
+
+                        catch (SecurityException e)
+                        {
+                            Console.WriteLine("SecurityException: " + e.Message);
+                            return false;
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("Exception: " + e.Message);
+                            return false;
+                        }
+
+                        // Merge
+                        try
+                        {
+                           
+                            tp.GetMethod("Fill").Invoke(this.components.Components[NameTable + "TableAdapter1"], args);
+                            this.fullDataSet.Tables[NameTable].Merge(_newTable as DataTable, false);
+                        }
+                        catch (Exception err)
+                        {
+                            MessageBox.Show(err.Message);
+                            return false;
+
+                        }
+
+
+
+                    }
+                
+            }
+            return true;
+        }
+
 
         public bool RefreshData(MDataSet.ReceiptMasterRow sourceRow) 
         {
@@ -652,46 +736,55 @@ namespace RetailTrade
             Object _newTable;
             
             Object[] args = new Object[2];
-          
-           
-            
-            args[1] = source.Rows[0]["DateUpdate"];
-          
 
-            try
-            {
-                // создать пустую таблицу 
-               Type _typeTable = source.GetType();
-               ConstructorInfo constructorInfoObj = _typeTable.GetConstructor(Type.EmptyTypes);
-              _newTable=constructorInfoObj.Invoke(parameters);
-               args[0] = _newTable;
-            }
-        
-            catch (SecurityException e)
-            {
-                Console.WriteLine("SecurityException: " + e.Message);
-                return false;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception: " + e.Message);
-                return false;
-            }
 
-            // Merge
-            try
-            { 
-                Type tp = this.components.Components[source.TableName + "TableAdapter"].GetType();
-                tp.GetMethod("FillNew").Invoke(this.components.Components[source.TableName + "TableAdapter"], args);
-                source.Merge(_newTable as DataTable,false);
-            }
-            catch (Exception err)
+            if (source.Columns.Contains("DateUpdate"))
             {
-                MessageBox.Show(err.Message);
+                args[1] = source.Rows[0]["DateUpdate"];
+
+
+                try
+                {
+                    // создать пустую таблицу 
+                    Type _typeTable = source.GetType();
+                    ConstructorInfo constructorInfoObj = _typeTable.GetConstructor(Type.EmptyTypes);
+                    _newTable = constructorInfoObj.Invoke(parameters);
+                    args[0] = _newTable;
+                }
+
+                catch (SecurityException e)
+                {
+                    Console.WriteLine("SecurityException: " + e.Message);
+                    return false;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception: " + e.Message);
+                    return false;
+                }
+
+                // Merge
+                try
+                {
+                    Type tp = this.components.Components[source.TableName + "TableAdapter"].GetType();
+                    tp.GetMethod("FillNew").Invoke(this.components.Components[source.TableName + "TableAdapter"], args);
+                    source.Merge(_newTable as DataTable, false);
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message);
+                    return false;
+
+                }
+            }
+            else
+
+            {
                 return false;
             
+            
             }
-          
+
                 return true;
         }
         public bool RefreshData(MDataSet.InvoiceDetailRow sourceRow)
