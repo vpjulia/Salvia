@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using System.IO;
+using System.Threading;
+using DevExpress.XtraGrid;
 
 namespace RetailTrade
 {
@@ -15,7 +17,11 @@ namespace RetailTrade
     {
         DataView _changes;
 
+        Thread thread;
+
         bool _layoutChanged;
+
+        bool _isnds;
 
         public UCProductAll()
         {
@@ -31,6 +37,28 @@ namespace RetailTrade
 
             
         }
+
+        public UCProductAll(FullDataSet source, bool isNds)
+        {
+            thread = new Thread(new ThreadStart(MainForm.DoSplash));
+            thread.Start();
+            Thread.Sleep(300);
+
+
+            InitializeComponent();
+
+            productBindingSource.DataSource = new DataView(source.Product, "IsNds=" + isNds.ToString(), null, DataViewRowState.CurrentRows|DataViewRowState.Added|DataViewRowState.ModifiedCurrent);
+
+            _isnds = isNds;
+
+            _changes = new DataView(source.Product, null, null, DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted);
+      
+            _changes.ListChanged += new ListChangedEventHandler(_changes_ListChanged);
+
+
+        }
+
+
         private void UCProductAll_Load(object sender, EventArgs e)
         {
             foreach (GridView view in this.grid.ViewCollection)
@@ -41,6 +69,15 @@ namespace RetailTrade
             }
 
             _layoutChanged = false;
+
+
+            if ((this.ParentForm as MainForm) != null)
+                (this.ParentForm as MainForm).FullFillTable("Product",_isnds);
+            else
+                (this.ParentForm as FormDialog).MainForm.FullFillTable("Product",_isnds);
+           
+            thread.Abort();
+            Thread.Sleep(30);
         }
 
         private void _changes_ListChanged(object sender,ListChangedEventArgs e ) 
@@ -102,11 +139,12 @@ namespace RetailTrade
             if (this.gridViewMainProduct.IsValidRowHandle(hendl) & hendl != DevExpress.XtraGrid.GridControl.AutoFilterRowHandle)
             {
 
-                MDataSet.ProductRow pr = ((this.productBindingSource.CurrencyManager.Current as DataRowView).Row as MDataSet.ProductRow);
-
+            //   MDataSet.ProductRow pr = ((this.productBindingSource.CurrencyManager.Current as DataRowView).Row as MDataSet.ProductRow);
+                DataRow pr = ((this.productBindingSource.CurrencyManager.Current as DataRowView).Row );
+              
                 FormDialog dform = new FormDialog();
                 dform.Text = "Карточка товара";
-                dform.panel.Controls.Add(new ucProductRow(pr, MainForm.ActionDialog.Edit));
+                dform.panel.Controls.Add(new ucProductRow((pr as DataRow), MainForm.ActionDialog.Edit));
 
                 if (DialogResult.OK == dform.ShowDialog(this))
                 {
@@ -124,7 +162,9 @@ namespace RetailTrade
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-            MDataSet.ProductRow ProductRow = (productBindingSource.AddNew() as DataRowView).Row as MDataSet.ProductRow;
+
+
+            DataRow ProductRow = (productBindingSource.AddNew() as DataRowView).Row ;
 
             FormDialog dform = new FormDialog();
 
@@ -138,8 +178,11 @@ namespace RetailTrade
             else
             {
                 productBindingSource.CurrencyManager.CancelCurrentEdit();
-               
+  
             }
+
+
+
         }
 
         private void btDel_Click(object sender, EventArgs e)
@@ -323,7 +366,21 @@ namespace RetailTrade
         {
             
             _layoutChanged = true;
+            
         
+        }
+
+        private void gridViewMainProduct_CustomDrawCell(object sender, RowCellCustomDrawEventArgs e)
+        {
+           // if (e.RowHandle == this.grid. FocusedView.FocusedRowHandle) return;
+
+            if( this.gridViewMainProduct.IsValidRowHandle(e.RowHandle)&(e.RowHandle!=GridControl.AutoFilterRowHandle))
+            if (gridViewMainProduct.GetDataRow(e.RowHandle).RowState != DataRowState.Unchanged)
+            {
+                e.Appearance.BackColor = Color.LightGreen;
+                e.Appearance.Font = e.Cache.GetFont(e.Appearance.Font, FontStyle.Bold);
+                
+           }
         }
 
        

@@ -41,6 +41,7 @@ namespace RetailTrade
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.mField = new System.Windows.Forms.ToolStripMenuItem();
             this.Ó·ÌÓ‚ËÚ¸ƒ‡ÌÌ˚ÂToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.mDataSet = new RetailTrade.MDataSet();
             this.productTableAdapter = new RetailTrade.MDataSetTableAdapters.ProductTableAdapter();
             this.grid = new DevExpress.XtraGrid.GridControl();
@@ -82,7 +83,6 @@ namespace RetailTrade
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
@@ -108,7 +108,7 @@ namespace RetailTrade
             this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(732, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(915, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -204,6 +204,15 @@ namespace RetailTrade
             this.Ó·ÌÓ‚ËÚ¸ƒ‡ÌÌ˚ÂToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.Ó·ÌÓ‚ËÚ¸ƒ‡ÌÌ˚ÂToolStripMenuItem.Text = "Œ·ÌÓ‚ËÚ¸ ‰‡ÌÌ˚Â";
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "toolStripButton1";
+            // 
             // mDataSet
             // 
             this.mDataSet.DataSetName = "MDataSet";
@@ -225,7 +234,7 @@ namespace RetailTrade
             this.grid.Location = new System.Drawing.Point(0, 25);
             this.grid.MainView = this.gridViewMainProduct;
             this.grid.Name = "grid";
-            this.grid.Size = new System.Drawing.Size(732, 530);
+            this.grid.Size = new System.Drawing.Size(915, 540);
             this.grid.TabIndex = 1;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewMainProduct});
@@ -276,6 +285,8 @@ namespace RetailTrade
             this.gridViewMainProduct.OptionsSelection.UseIndicatorForSelection = false;
             this.gridViewMainProduct.OptionsView.ShowAutoFilterRow = true;
             this.gridViewMainProduct.OptionsView.ShowDetailButtons = false;
+            this.gridViewMainProduct.OptionsView.ShowFooter = true;
+            this.gridViewMainProduct.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.gridViewMainProduct_CustomDrawCell);
             this.gridViewMainProduct.DoubleClick += new System.EventHandler(this.gridView_DoubleClick);
             this.gridViewMainProduct.Layout += new System.EventHandler(this.gridViewMainProduct_Layout);
             // 
@@ -295,6 +306,9 @@ namespace RetailTrade
             this.colName.Caption = "Õ‡ËÏÂÌÓ‚‡ÌËÂ";
             this.colName.FieldName = "Name";
             this.colName.Name = "colName";
+            this.colName.SummaryItem.DisplayFormat = "(—ÚÓÍ :{0} )";
+            this.colName.SummaryItem.FieldName = "ID";
+            this.colName.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Count;
             this.colName.Visible = true;
             this.colName.VisibleIndex = 1;
             this.colName.Width = 112;
@@ -486,14 +500,14 @@ namespace RetailTrade
             this.bindingNavigatorMoveNextItem,
             this.bindingNavigatorMoveLastItem,
             this.bindingNavigatorSeparator2});
-            this.bindingNavigator1.Location = new System.Drawing.Point(0, 555);
+            this.bindingNavigator1.Location = new System.Drawing.Point(0, 565);
             this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.bindingNavigator1.MoveNextItem = this.bindingNavigatorMoveNextItem;
             this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bindingNavigator1.Name = "bindingNavigator1";
             this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingNavigator1.Size = new System.Drawing.Size(732, 25);
+            this.bindingNavigator1.Size = new System.Drawing.Size(915, 25);
             this.bindingNavigator1.TabIndex = 3;
             this.bindingNavigator1.Text = "Õ‡ÒÚÓÈÍ‡ ÔÓÎÂÈ";
             // 
@@ -564,15 +578,6 @@ namespace RetailTrade
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
-            // 
             // UCProductAll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -581,7 +586,7 @@ namespace RetailTrade
             this.Controls.Add(this.bindingNavigator1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "UCProductAll";
-            this.Size = new System.Drawing.Size(732, 580);
+            this.Size = new System.Drawing.Size(915, 590);
             this.Load += new System.EventHandler(this.UCProductAll_Load);
             this.Validating += new System.ComponentModel.CancelEventHandler(this.UCProductAll_Validating);
             this.toolStrip1.ResumeLayout(false);
