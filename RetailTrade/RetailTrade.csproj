@@ -64,6 +64,9 @@
     <Compile Include="Dialog\printingControl.Designer.cs">
       <DependentUpon>printingControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="FullDataSet.cs">
+      <DependentUpon>FullDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="FullDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
