@@ -41,7 +41,12 @@ namespace RetailTrade
         {
          
             InitializeComponent();
+
+
+
             this.mDataSet = source;
+
+
             this.receiptMasterBindingSource.DataSource = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0", null, DataViewRowState.CurrentRows);
             this.receiptMasterBindingSource.ResetBindings(false);
             this.productBindingSource.DataSource = this.mDataSet.Product;
@@ -64,6 +69,13 @@ namespace RetailTrade
   
         private void ReceiptMasterNew_Load(object sender, EventArgs e)
         {
+
+
+            //вычитать с сервера новые документы
+
+            (this.ParentForm as MainForm).FillTable(_changesDetail.Table.TableName);
+
+
             foreach (GridView view in this.grid.ViewCollection)
             {
                 string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";

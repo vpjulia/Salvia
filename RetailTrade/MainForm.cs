@@ -79,8 +79,6 @@ namespace RetailTrade
      
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'fullDataSet.Substance' table. You can move, or remove it, as needed.
-            this.substanceTableAdapter1.Fill(this.fullDataSet.Substance);
            
           
             FillTable("Stock");
@@ -472,6 +470,46 @@ namespace RetailTrade
   
             Properties.Settings.Default.Save();
 
+        }
+
+
+
+        private void btAddProduct_Click(object sender, EventArgs e)
+        { 
+            DataRow res = this.AddProduct();
+            if( res.RowState== DataRowState.Added)
+            {
+
+            Label _name = new Label();
+            TextBox _id = new TextBox();
+            _id.ReadOnly = true;
+            _id.SelectAll();
+ 
+            _name.AutoSize = true;
+            _name.DataBindings.Add(new Binding ("Text",res,"Name"));
+            
+ 
+            _id.DataBindings.Add(new Binding("Text", res, "Id"));
+            
+   
+           _id.Location = new Point(5,25);
+          
+
+            _name.Location = new Point(5, 5);
+           
+            FormDialog _frmDialog = new FormDialog();
+            _frmDialog.btCancel.Visible = false;
+            _frmDialog.Text = "Добавлен товар ";
+            _frmDialog.panel.Controls.Add(_name);
+           
+
+            _frmDialog.panel.Controls.Add(_id);
+            _frmDialog.ShowDialog(this);
+            
+            }
+
+
+        
         }
 
        

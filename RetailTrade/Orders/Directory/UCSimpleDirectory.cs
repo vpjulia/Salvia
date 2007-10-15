@@ -31,7 +31,7 @@ namespace RetailTrade
             this.bindingSource.DataSource=source;
             this.grid.DataSource = this.bindingSource;
 
-            _changes = new DataView(source, null, null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
+            _changes = new DataView(source, "ID<>0", null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
             _changes.ListChanged+=new ListChangedEventHandler(_changes_ListChanged);
 
 
@@ -191,6 +191,8 @@ namespace RetailTrade
 
                         _mainForm.RefreshData(_changes.Table);
 
+
+                        _mainForm.RefreshData(_mainForm.mDataSet.Tables[_changes.Table.TableName]);
                         return true;
 
                     }

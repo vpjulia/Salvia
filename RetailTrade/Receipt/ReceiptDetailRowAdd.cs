@@ -32,10 +32,6 @@ namespace RetailTrade.Receipt
             this.productBindingSource.ResetBindings(false);
             this.receiptDetailBindingSource.ResetBindings(true);
 
-            _receiptDetailRow.ProductRef = _productRow.ID;
-
-         
-    
             this.errorProvider1.DataSource = this.receiptDetailBindingSource;
             this.errorProvider1.UpdateBinding();
         }
@@ -65,6 +61,9 @@ namespace RetailTrade.Receipt
           
            
             _receiptDetailRow.ProductRef = _productRow.ID;
+
+            this.QuantityEdit.EditValue = 0;
+            this.QuantityEdit.Focus();
         }
 
         

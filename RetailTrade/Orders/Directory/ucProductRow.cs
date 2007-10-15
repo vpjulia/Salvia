@@ -37,7 +37,7 @@ namespace RetailTrade
         }
 
 
-        public ucProductRow(DataRow productRow, MainForm.ActionDialog actionDialog)
+         public ucProductRow(DataRow productRow, MainForm.ActionDialog actionDialog)
         {
 
             InitializeComponent();
