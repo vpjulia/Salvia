@@ -21,7 +21,7 @@ namespace RetailTrade
         {
             InitializeComponent();
 
-            this.bindingSource.DataSource = source;
+            this.bindingSource.DataSource =new DataView(source,"ID<>0",null,DataViewRowState.CurrentRows);
             this.grid.DataSource = this.bindingSource;
             this.colGroupRef.FieldName =source.Columns[2].ColumnName;
             if  (source.ParentRelations.Count>0)
@@ -215,7 +215,7 @@ namespace RetailTrade
                 FormDialog dform = new FormDialog();
                 dform.Text = "Справочник : группы";
 
-                UCSimpleDirectory ucSimpleDirectory = new UCSimpleDirectory((this.bindingSource.DataSource as DataTable).ParentRelations[0].ParentTable);
+                UCSimpleDirectory ucSimpleDirectory = new UCSimpleDirectory((this.bindingSource.DataSource as DataView).Table.ParentRelations[0].ParentTable);
 
                 dform.panel.Controls.Add(ucSimpleDirectory);
 

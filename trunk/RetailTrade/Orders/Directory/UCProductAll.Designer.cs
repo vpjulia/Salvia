@@ -43,15 +43,12 @@ namespace RetailTrade
             this.обновитьДанныеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.mDataSet = new RetailTrade.MDataSet();
-            this.productTableAdapter = new RetailTrade.MDataSetTableAdapters.ProductTableAdapter();
             this.grid = new DevExpress.XtraGrid.GridControl();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridViewMainProduct = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSmallName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colManufacturerName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colUnitName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPriceManufact = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colManufacturerRef = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsRecept = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -66,12 +63,23 @@ namespace RetailTrade
             this.colOldName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsHide = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNote = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCountryName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colFarmGroupName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPackingName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colStorageConditionName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFarmGroupLevel2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colSubstanceName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colUnitRef = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.UnitRefLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.unitBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.fullDataSet = new RetailTrade.FullDataSet();
+            this.colPackingRef = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.PackingRefLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.packingBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.colStorageConditionRef = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.StorageConditionRefLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.storageConditionBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.colSubstanceRef = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.SubstanceRefLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.substanceBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.colFarmGrouplevel2Ref = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.FarmGrouplevel2RefLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.farmGroupLevel2BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -88,6 +96,17 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewMainProduct)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UnitRefLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unitBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fullDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PackingRefLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.packingBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StorageConditionRefLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.storageConditionBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SubstanceRefLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.substanceBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FarmGrouplevel2RefLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.farmGroupLevel2BindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
@@ -218,22 +237,21 @@ namespace RetailTrade
             this.mDataSet.DataSetName = "MDataSet";
             this.mDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // productTableAdapter
-            // 
-            this.productTableAdapter.ClearBeforeFill = true;
-            // 
             // grid
             // 
             this.grid.DataSource = this.productBindingSource;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
             this.grid.EmbeddedNavigator.Name = "";
             this.errorProvider1.SetError(this.grid, "jj");
             this.grid.Location = new System.Drawing.Point(0, 25);
             this.grid.MainView = this.gridViewMainProduct;
             this.grid.Name = "grid";
+            this.grid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.UnitRefLookUpEdit,
+            this.PackingRefLookUpEdit,
+            this.StorageConditionRefLookUpEdit,
+            this.SubstanceRefLookUpEdit,
+            this.FarmGrouplevel2RefLookUpEdit});
             this.grid.Size = new System.Drawing.Size(915, 540);
             this.grid.TabIndex = 1;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -251,8 +269,6 @@ namespace RetailTrade
             this.colID,
             this.colName,
             this.colSmallName,
-            this.colManufacturerName,
-            this.colUnitName,
             this.colPriceManufact,
             this.colManufacturerRef,
             this.colIsRecept,
@@ -267,14 +283,15 @@ namespace RetailTrade
             this.colOldName,
             this.colIsHide,
             this.colNote,
-            this.colCountryName,
-            this.colFarmGroupName,
-            this.colPackingName,
-            this.colStorageConditionName,
             this.colFarmGroupLevel2,
-            this.colSubstanceName});
+            this.colUnitRef,
+            this.colPackingRef,
+            this.colStorageConditionRef,
+            this.colSubstanceRef,
+            this.colFarmGrouplevel2Ref});
             this.gridViewMainProduct.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.gridViewMainProduct.GridControl = this.grid;
+            this.gridViewMainProduct.HorzScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Always;
             this.gridViewMainProduct.Name = "gridViewMainProduct";
             this.gridViewMainProduct.OptionsBehavior.AllowIncrementalSearch = true;
             this.gridViewMainProduct.OptionsBehavior.Editable = false;
@@ -300,9 +317,12 @@ namespace RetailTrade
             this.colID.OptionsColumn.ReadOnly = true;
             this.colID.Visible = true;
             this.colID.VisibleIndex = 0;
+            this.colID.Width = 99;
             // 
             // colName
             // 
+            this.colName.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold);
+            this.colName.AppearanceCell.Options.UseFont = true;
             this.colName.Caption = "Наименование";
             this.colName.FieldName = "Name";
             this.colName.Name = "colName";
@@ -311,7 +331,7 @@ namespace RetailTrade
             this.colName.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Count;
             this.colName.Visible = true;
             this.colName.VisibleIndex = 1;
-            this.colName.Width = 112;
+            this.colName.Width = 224;
             // 
             // colSmallName
             // 
@@ -319,24 +339,6 @@ namespace RetailTrade
             this.colSmallName.FieldName = "SmallName";
             this.colSmallName.Name = "colSmallName";
             this.colSmallName.Width = 135;
-            // 
-            // colManufacturerName
-            // 
-            this.colManufacturerName.Caption = "Изготовитель";
-            this.colManufacturerName.FieldName = "ManufacturerName";
-            this.colManufacturerName.Name = "colManufacturerName";
-            this.colManufacturerName.Visible = true;
-            this.colManufacturerName.VisibleIndex = 2;
-            this.colManufacturerName.Width = 129;
-            // 
-            // colUnitName
-            // 
-            this.colUnitName.Caption = "Ед.изм";
-            this.colUnitName.FieldName = "UnitName";
-            this.colUnitName.Name = "colUnitName";
-            this.colUnitName.Visible = true;
-            this.colUnitName.VisibleIndex = 5;
-            this.colUnitName.Width = 58;
             // 
             // colPriceManufact
             // 
@@ -351,8 +353,8 @@ namespace RetailTrade
             this.colManufacturerRef.FieldName = "ManufacturerRef";
             this.colManufacturerRef.Name = "colManufacturerRef";
             this.colManufacturerRef.Visible = true;
-            this.colManufacturerRef.VisibleIndex = 8;
-            this.colManufacturerRef.Width = 36;
+            this.colManufacturerRef.VisibleIndex = 6;
+            this.colManufacturerRef.Width = 48;
             // 
             // colIsRecept
             // 
@@ -366,9 +368,10 @@ namespace RetailTrade
             this.colIsNDS.Caption = "НДС";
             this.colIsNDS.FieldName = "IsNDS";
             this.colIsNDS.Name = "colIsNDS";
+            this.colIsNDS.OptionsColumn.AllowEdit = false;
             this.colIsNDS.Visible = true;
-            this.colIsNDS.VisibleIndex = 3;
-            this.colIsNDS.Width = 60;
+            this.colIsNDS.VisibleIndex = 2;
+            this.colIsNDS.Width = 69;
             // 
             // colIsOneRecept
             // 
@@ -383,8 +386,8 @@ namespace RetailTrade
             this.colMinDivisor.FieldName = "MinDivisor";
             this.colMinDivisor.Name = "colMinDivisor";
             this.colMinDivisor.Visible = true;
-            this.colMinDivisor.VisibleIndex = 7;
-            this.colMinDivisor.Width = 62;
+            this.colMinDivisor.VisibleIndex = 5;
+            this.colMinDivisor.Width = 71;
             // 
             // colAuthorCreate
             // 
@@ -417,8 +420,8 @@ namespace RetailTrade
             this.colOldKod.FieldName = "OldKod";
             this.colOldKod.Name = "colOldKod";
             this.colOldKod.Visible = true;
-            this.colOldKod.VisibleIndex = 4;
-            this.colOldKod.Width = 79;
+            this.colOldKod.VisibleIndex = 3;
+            this.colOldKod.Width = 91;
             // 
             // colOldName
             // 
@@ -426,8 +429,8 @@ namespace RetailTrade
             this.colOldName.FieldName = "OldName";
             this.colOldName.Name = "colOldName";
             this.colOldName.Visible = true;
-            this.colOldName.VisibleIndex = 6;
-            this.colOldName.Width = 70;
+            this.colOldName.VisibleIndex = 4;
+            this.colOldName.Width = 81;
             // 
             // colIsHide
             // 
@@ -441,41 +444,139 @@ namespace RetailTrade
             this.colNote.FieldName = "Note";
             this.colNote.Name = "colNote";
             // 
-            // colCountryName
-            // 
-            this.colCountryName.Caption = "Страна";
-            this.colCountryName.FieldName = "CountryName";
-            this.colCountryName.Name = "colCountryName";
-            // 
-            // colFarmGroupName
-            // 
-            this.colFarmGroupName.Caption = "Фармгруппа";
-            this.colFarmGroupName.FieldName = "FarmGroupName";
-            this.colFarmGroupName.Name = "colFarmGroupName";
-            // 
-            // colPackingName
-            // 
-            this.colPackingName.Caption = "Форма выпуска";
-            this.colPackingName.FieldName = "PackingName";
-            this.colPackingName.Name = "colPackingName";
-            // 
-            // colStorageConditionName
-            // 
-            this.colStorageConditionName.Caption = "Место хранения";
-            this.colStorageConditionName.FieldName = "StorageConditionName";
-            this.colStorageConditionName.Name = "colStorageConditionName";
-            // 
             // colFarmGroupLevel2
             // 
             this.colFarmGroupLevel2.Caption = "Фармгруппа";
             this.colFarmGroupLevel2.FieldName = "FarmGroupLevel2";
             this.colFarmGroupLevel2.Name = "colFarmGroupLevel2";
             // 
-            // colSubstanceName
+            // colUnitRef
             // 
-            this.colSubstanceName.Caption = "Действующее вещество";
-            this.colSubstanceName.FieldName = "SubstanceName";
-            this.colSubstanceName.Name = "colSubstanceName";
+            this.colUnitRef.Caption = "Ед.изм";
+            this.colUnitRef.ColumnEdit = this.UnitRefLookUpEdit;
+            this.colUnitRef.FieldName = "UnitRef";
+            this.colUnitRef.Name = "colUnitRef";
+            this.colUnitRef.Visible = true;
+            this.colUnitRef.VisibleIndex = 7;
+            // 
+            // UnitRefLookUpEdit
+            // 
+            this.UnitRefLookUpEdit.AutoHeight = false;
+            this.UnitRefLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.UnitRefLookUpEdit.DataSource = this.unitBindingSource;
+            this.UnitRefLookUpEdit.DisplayMember = "Name";
+            this.UnitRefLookUpEdit.Name = "UnitRefLookUpEdit";
+            this.UnitRefLookUpEdit.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.UnitRefLookUpEdit.ValueMember = "ID";
+            // 
+            // unitBindingSource
+            // 
+            this.unitBindingSource.DataMember = "Unit";
+            this.unitBindingSource.DataSource = this.fullDataSet;
+            // 
+            // fullDataSet
+            // 
+            this.fullDataSet.DataSetName = "FullDataSet";
+            this.fullDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // colPackingRef
+            // 
+            this.colPackingRef.Caption = "Форма выпуска";
+            this.colPackingRef.ColumnEdit = this.PackingRefLookUpEdit;
+            this.colPackingRef.FieldName = "PackingRef";
+            this.colPackingRef.Name = "colPackingRef";
+            this.colPackingRef.Visible = true;
+            this.colPackingRef.VisibleIndex = 8;
+            // 
+            // PackingRefLookUpEdit
+            // 
+            this.PackingRefLookUpEdit.AutoHeight = false;
+            this.PackingRefLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.PackingRefLookUpEdit.DataSource = this.packingBindingSource;
+            this.PackingRefLookUpEdit.DisplayMember = "Name";
+            this.PackingRefLookUpEdit.Name = "PackingRefLookUpEdit";
+            this.PackingRefLookUpEdit.ValueMember = "ID";
+            // 
+            // packingBindingSource
+            // 
+            this.packingBindingSource.DataMember = "Packing";
+            this.packingBindingSource.DataSource = this.fullDataSet;
+            // 
+            // colStorageConditionRef
+            // 
+            this.colStorageConditionRef.Caption = "Место хранения";
+            this.colStorageConditionRef.ColumnEdit = this.StorageConditionRefLookUpEdit;
+            this.colStorageConditionRef.FieldName = "StorageConditionRef";
+            this.colStorageConditionRef.Name = "colStorageConditionRef";
+            this.colStorageConditionRef.Visible = true;
+            this.colStorageConditionRef.VisibleIndex = 9;
+            // 
+            // StorageConditionRefLookUpEdit
+            // 
+            this.StorageConditionRefLookUpEdit.AutoHeight = false;
+            this.StorageConditionRefLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.StorageConditionRefLookUpEdit.DataSource = this.storageConditionBindingSource;
+            this.StorageConditionRefLookUpEdit.DisplayMember = "Name";
+            this.StorageConditionRefLookUpEdit.Name = "StorageConditionRefLookUpEdit";
+            this.StorageConditionRefLookUpEdit.ValidateOnEnterKey = true;
+            this.StorageConditionRefLookUpEdit.ValueMember = "ID";
+            // 
+            // storageConditionBindingSource
+            // 
+            this.storageConditionBindingSource.DataMember = "StorageCondition";
+            this.storageConditionBindingSource.DataSource = this.fullDataSet;
+            // 
+            // colSubstanceRef
+            // 
+            this.colSubstanceRef.Caption = "Действующее вещество";
+            this.colSubstanceRef.ColumnEdit = this.SubstanceRefLookUpEdit;
+            this.colSubstanceRef.FieldName = "SubstanceRef";
+            this.colSubstanceRef.Name = "colSubstanceRef";
+            this.colSubstanceRef.Visible = true;
+            this.colSubstanceRef.VisibleIndex = 10;
+            // 
+            // SubstanceRefLookUpEdit
+            // 
+            this.SubstanceRefLookUpEdit.AutoHeight = false;
+            this.SubstanceRefLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.SubstanceRefLookUpEdit.DataSource = this.substanceBindingSource;
+            this.SubstanceRefLookUpEdit.DisplayMember = "Name";
+            this.SubstanceRefLookUpEdit.Name = "SubstanceRefLookUpEdit";
+            this.SubstanceRefLookUpEdit.ValidateOnEnterKey = true;
+            this.SubstanceRefLookUpEdit.ValueMember = "ID";
+            // 
+            // substanceBindingSource
+            // 
+            this.substanceBindingSource.DataMember = "Substance";
+            this.substanceBindingSource.DataSource = this.fullDataSet;
+            // 
+            // colFarmGrouplevel2Ref
+            // 
+            this.colFarmGrouplevel2Ref.Caption = "Фармгруппа";
+            this.colFarmGrouplevel2Ref.ColumnEdit = this.FarmGrouplevel2RefLookUpEdit;
+            this.colFarmGrouplevel2Ref.FieldName = "FarmGrouplevel2Ref";
+            this.colFarmGrouplevel2Ref.Name = "colFarmGrouplevel2Ref";
+            this.colFarmGrouplevel2Ref.Visible = true;
+            this.colFarmGrouplevel2Ref.VisibleIndex = 11;
+            // 
+            // FarmGrouplevel2RefLookUpEdit
+            // 
+            this.FarmGrouplevel2RefLookUpEdit.AutoHeight = false;
+            this.FarmGrouplevel2RefLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.FarmGrouplevel2RefLookUpEdit.DataSource = this.farmGroupLevel2BindingSource;
+            this.FarmGrouplevel2RefLookUpEdit.DisplayMember = "Name";
+            this.FarmGrouplevel2RefLookUpEdit.Name = "FarmGrouplevel2RefLookUpEdit";
+            this.FarmGrouplevel2RefLookUpEdit.ValueMember = "ID";
+            // 
+            // farmGroupLevel2BindingSource
+            // 
+            this.farmGroupLevel2BindingSource.DataMember = "FarmGroupLevel2";
+            this.farmGroupLevel2BindingSource.DataSource = this.fullDataSet;
             // 
             // errorProvider1
             // 
@@ -595,6 +696,17 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewMainProduct)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UnitRefLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unitBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fullDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PackingRefLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.packingBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StorageConditionRefLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.storageConditionBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SubstanceRefLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.substanceBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FarmGrouplevel2RefLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.farmGroupLevel2BindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
             this.bindingNavigator1.ResumeLayout(false);
@@ -608,7 +720,6 @@ namespace RetailTrade
 
         private System.Windows.Forms.ToolStrip toolStrip1;
         private MDataSet mDataSet;
-        private RetailTrade.MDataSetTableAdapters.ProductTableAdapter productTableAdapter;
         private DevExpress.XtraGrid.GridControl grid;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewMainProduct;
         private DevExpress.XtraGrid.Columns.GridColumn colID;
@@ -642,22 +753,31 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private DevExpress.XtraGrid.Columns.GridColumn colOldKod;
         private DevExpress.XtraGrid.Columns.GridColumn colOldName;
-        private DevExpress.XtraGrid.Columns.GridColumn colManufacturerName;
-        private DevExpress.XtraGrid.Columns.GridColumn colUnitName;
         private DevExpress.XtraGrid.Columns.GridColumn colIsHide;
         private DevExpress.XtraGrid.Columns.GridColumn colDateLastModif;
         private DevExpress.XtraGrid.Columns.GridColumn colNote;
-        private DevExpress.XtraGrid.Columns.GridColumn colCountryName;
-        private DevExpress.XtraGrid.Columns.GridColumn colFarmGroupName;
-        private DevExpress.XtraGrid.Columns.GridColumn colPackingName;
-        private DevExpress.XtraGrid.Columns.GridColumn colStorageConditionName;
         private DevExpress.XtraGrid.Columns.GridColumn colFarmGroupLevel2;
-        private DevExpress.XtraGrid.Columns.GridColumn colSubstanceName;
         private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
         private System.Windows.Forms.ToolStripMenuItem mField;
         private System.Windows.Forms.ToolStripMenuItem обновитьДанныеToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton btCancel;
         private System.Windows.Forms.ToolStripButton btEditGrid;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private DevExpress.XtraGrid.Columns.GridColumn colUnitRef;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit UnitRefLookUpEdit;
+        private System.Windows.Forms.BindingSource unitBindingSource;
+        private FullDataSet fullDataSet;
+        private DevExpress.XtraGrid.Columns.GridColumn colPackingRef;
+        private DevExpress.XtraGrid.Columns.GridColumn colStorageConditionRef;
+        private DevExpress.XtraGrid.Columns.GridColumn colSubstanceRef;
+        private DevExpress.XtraGrid.Columns.GridColumn colFarmGrouplevel2Ref;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit PackingRefLookUpEdit;
+        private System.Windows.Forms.BindingSource packingBindingSource;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit StorageConditionRefLookUpEdit;
+        private System.Windows.Forms.BindingSource storageConditionBindingSource;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit SubstanceRefLookUpEdit;
+        private System.Windows.Forms.BindingSource substanceBindingSource;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit FarmGrouplevel2RefLookUpEdit;
+        private System.Windows.Forms.BindingSource farmGroupLevel2BindingSource;
     }
 }

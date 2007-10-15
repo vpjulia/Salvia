@@ -43,16 +43,16 @@ namespace RetailTrade
             this.flowLayoutPanel1.Controls.Add(this.btOk);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 137);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 60);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(331, 40);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(232, 40);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // btCancel
             // 
             this.btCancel.CausesValidation = false;
             this.btCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btCancel.Location = new System.Drawing.Point(245, 3);
+            this.btCancel.Location = new System.Drawing.Point(146, 3);
             this.btCancel.Name = "btCancel";
             this.btCancel.Size = new System.Drawing.Size(83, 34);
             this.btCancel.TabIndex = 1;
@@ -62,7 +62,7 @@ namespace RetailTrade
             // btOk
             // 
             this.btOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btOk.Location = new System.Drawing.Point(155, 3);
+            this.btOk.Location = new System.Drawing.Point(56, 3);
             this.btOk.Name = "btOk";
             this.btOk.Size = new System.Drawing.Size(84, 34);
             this.btOk.TabIndex = 0;
@@ -77,7 +77,7 @@ namespace RetailTrade
             this.panel.Location = new System.Drawing.Point(0, 0);
             this.panel.Margin = new System.Windows.Forms.Padding(25);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(331, 137);
+            this.panel.Size = new System.Drawing.Size(232, 60);
             this.panel.TabIndex = 1;
             // 
             // FormDialog
@@ -88,7 +88,7 @@ namespace RetailTrade
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.CancelButton = this.btCancel;
-            this.ClientSize = new System.Drawing.Size(331, 177);
+            this.ClientSize = new System.Drawing.Size(232, 100);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.flowLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

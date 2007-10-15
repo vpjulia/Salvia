@@ -15,6 +15,36 @@ namespace RetailTrade
             sp.label.Text = System.Environment.UserDomainName;
             sp.ShowDialog();
         }
+
+        public DataRow AddProduct()
+        {
+
+            DataRow ProductRow = (productBindingSource.AddNew() as DataRowView).Row;
+
+            FormDialog dform = new FormDialog();
+
+            dform.panel.Controls.Add(new ucProductRow(ProductRow, MainForm.ActionDialog.Edit));
+
+            if (DialogResult.OK == dform.ShowDialog(this))
+            {
+                this.productBindingSource.EndEdit();
+             //   this.SaveToBaseDirectoryModifed( ProductRow.Table.Select(null, null, DataViewRowState.Added));
+                
+                
+              
+            }
+            else
+            {
+                productBindingSource.CurrencyManager.CancelCurrentEdit();
+
+            }
+
+            return ProductRow;
+
+        }
+        
+        
+        
         //  --------  event
 
         private void ReceiptDetail_TableNewRow(object sender, DataTableNewRowEventArgs e)
@@ -564,10 +594,14 @@ namespace RetailTrade
                 args[0] = this.mDataSet.Tables[NameTable];
                 foreach (DataRelation relation in this.mDataSet.Tables[NameTable].ParentRelations)
                     FillTable(relation.ParentTable.ToString());
-                        
+
                 tp.GetMethod("Fill").Invoke(this.components.Components[NameTable + "TableAdapter"], args);
             }
+            else
+
+                RefreshData(this.mDataSet.Tables[NameTable]);
         }
+
         public bool FullFillTable(string NameTable, params object[] list)
         {
              // заполнить родительские таблицы
@@ -651,6 +685,7 @@ namespace RetailTrade
             return true;
         }
 
+           
 
         public bool RefreshData(MDataSet.ReceiptMasterRow sourceRow) 
         {
@@ -690,6 +725,8 @@ namespace RetailTrade
             }
             return true;
         }
+
+
         public bool RefreshData(MDataSet.InvoiceMasterRow sourceRow) 
         {
            MDataSet.InvoiceMasterDataTable _invoiceMasterDataTable=new MDataSet.InvoiceMasterDataTable();

@@ -31,7 +31,12 @@ namespace RetailTrade
         {
             InitializeComponent();
             productBindingSource.DataSource = source.Product;
-
+            this.unitBindingSource.DataSource = source.Unit;
+            this.storageConditionBindingSource.DataSource = source.StorageCondition;
+            this.substanceBindingSource.DataSource = source.Substance;
+            this.farmGroupLevel2BindingSource.DataSource = source.FarmGroupLevel2;
+            this.packingBindingSource.DataSource  = source.Packing;
+      
             _changes = new DataView(source.Product, null, null, DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted);
             _changes.ListChanged+=new ListChangedEventHandler(_changes_ListChanged);
 
@@ -47,8 +52,16 @@ namespace RetailTrade
 
             InitializeComponent();
 
-            productBindingSource.DataSource = new DataView(source.Product, "IsNds=" + isNds.ToString(), null, DataViewRowState.CurrentRows|DataViewRowState.Added|DataViewRowState.ModifiedCurrent);
+            productBindingSource.DataSource = new DataView(source.Product, "IsNds=" + isNds.ToString()+" and ID<>0", null, DataViewRowState.CurrentRows|DataViewRowState.Added|DataViewRowState.ModifiedCurrent);
 
+            this.unitBindingSource.DataSource = source.Unit;
+
+            this.storageConditionBindingSource.DataSource = source.StorageCondition;
+            this.substanceBindingSource.DataSource = source.Substance;
+            this.farmGroupLevel2BindingSource.DataSource = source.FarmGroupLevel2;
+            this.packingBindingSource.DataSource = source.Packing;
+      
+            
             _isnds = isNds;
 
             _changes = new DataView(source.Product, null, null, DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted);
