@@ -221,7 +221,7 @@ namespace RetailTrade
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.actionStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 661);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 566);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(837, 23);
             this.statusStrip1.TabIndex = 1;
@@ -258,8 +258,8 @@ namespace RetailTrade
             this.splitContainer1.Panel2.AutoScroll = true;
             this.splitContainer1.Panel2.Controls.Add(this.gridControl1);
             this.splitContainer1.Panel2MinSize = 50;
-            this.splitContainer1.Size = new System.Drawing.Size(837, 610);
-            this.splitContainer1.SplitterDistance = 556;
+            this.splitContainer1.Size = new System.Drawing.Size(837, 515);
+            this.splitContainer1.SplitterDistance = 449;
             this.splitContainer1.TabIndex = 3;
             // 
             // splitContainer2
@@ -276,7 +276,7 @@ namespace RetailTrade
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tabControl);
-            this.splitContainer2.Size = new System.Drawing.Size(837, 556);
+            this.splitContainer2.Size = new System.Drawing.Size(837, 449);
             this.splitContainer2.SplitterDistance = global::RetailTrade.Properties.Settings.Default.MainSplitDist;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -289,7 +289,7 @@ namespace RetailTrade
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(218, 556);
+            this.tabControl1.Size = new System.Drawing.Size(209, 449);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -298,7 +298,7 @@ namespace RetailTrade
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(210, 527);
+            this.tabPage1.Size = new System.Drawing.Size(201, 420);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "новые";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -346,7 +346,7 @@ namespace RetailTrade
             treeNode10,
             treeNode11});
             this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(204, 521);
+            this.treeView1.Size = new System.Drawing.Size(195, 414);
             this.treeView1.TabIndex = 0;
             this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
             // 
@@ -361,7 +361,7 @@ namespace RetailTrade
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(210, 527);
+            this.tabPage2.Size = new System.Drawing.Size(214, 473);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "все";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -373,12 +373,15 @@ namespace RetailTrade
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(615, 556);
+            this.tabControl.Size = new System.Drawing.Size(624, 449);
             this.tabControl.TabIndex = 0;
             // 
             // gridControl1
             // 
             this.gridControl1.DataSource = this.substanceBindingSource1;
+            // 
+            // 
+            // 
             this.gridControl1.EmbeddedNavigator.Name = "";
             this.gridControl1.Location = new System.Drawing.Point(222, 21);
             this.gridControl1.MainView = this.gridView1;
@@ -1108,6 +1111,7 @@ namespace RetailTrade
             this.DataBindings.Add(new System.Windows.Forms.Binding("WindowState", global::RetailTrade.Properties.Settings.Default, "MyState", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Location = global::RetailTrade.Properties.Settings.Default.MyLoc;
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(200, 400);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.WindowState = global::RetailTrade.Properties.Settings.Default.MyState;

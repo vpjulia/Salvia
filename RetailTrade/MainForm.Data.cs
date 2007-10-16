@@ -77,8 +77,7 @@ namespace RetailTrade
 
         private void ReceiptDetail_RowChanged(object sender, DataRowChangeEventArgs e)
         {
-            if (e.Row.HasVersion(DataRowVersion.Original))
-            (e.Row as RetailTrade.MDataSet.ReceiptDetailRow).ReceiptMasterRow.RecalcSum = true;
+           
         }
 
         private void ReceiptDetail_RowDeleted(object sender, DataRowChangeEventArgs e) 
@@ -94,7 +93,7 @@ namespace RetailTrade
         private void ReceiptDetail_RowDeleting(object sender, DataRowChangeEventArgs e)
         {
             if (e.Row.HasVersion(DataRowVersion.Original))
-                (e.Row as RetailTrade.MDataSet.ReceiptDetailRow).ReceiptMasterRow.RecalcSum = true;
+                (e.Row as RetailTrade.MDataSet.ReceiptDetailRow).ReceiptMasterRow.SetModified();
         }
 
         // InvoiceMaster
@@ -727,6 +726,7 @@ namespace RetailTrade
             }
             return true;
        
+
         
         }
   

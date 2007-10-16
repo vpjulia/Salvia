@@ -107,6 +107,7 @@ namespace RetailTrade
             this.toolStripSplitButton2 = new System.Windows.Forms.ToolStripSplitButton();
             this.btField = new System.Windows.Forms.ToolStripMenuItem();
             this.btRefresh = new System.Windows.Forms.ToolStripMenuItem();
+            this.modifedStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             numberLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewReceiptDetailOrders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCalcEditQuantity)).BeginInit();
@@ -625,7 +626,8 @@ namespace RetailTrade
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AuthorLabel});
+            this.AuthorLabel,
+            this.modifedStripStatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 434);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(792, 23);
@@ -997,6 +999,11 @@ namespace RetailTrade
             this.btRefresh.Size = new System.Drawing.Size(208, 22);
             this.btRefresh.Text = "Обновить";
             // 
+            // modifedStripStatusLabel
+            // 
+            this.modifedStripStatusLabel.Name = "modifedStripStatusLabel";
+            this.modifedStripStatusLabel.Size = new System.Drawing.Size(0, 18);
+            // 
             // ReceiptRowOrganization
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1118,5 +1125,6 @@ namespace RetailTrade
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ToolStripStatusLabel modifedStripStatusLabel;
     }
 }
