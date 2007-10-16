@@ -41,17 +41,25 @@ namespace RetailTrade.Receipt
 
         private void ReceiptDetailRowAdd_Validating(object sender, CancelEventArgs e)
         {
-            
+            string tmp = this.QuantityEdit.Text;
 
-            if (this.ValidateChildren())
-            
-              foreach (Control ctrl in this.tableLayoutPanel1.Controls)
+            this.PriceEdit.DoValidate();
+
+            this.QuantityEdit.Text = tmp;
+
+            this.QuantityEdit.DoValidate();
+
+             if (!this.ValidateChildren())
+                e.Cancel = true;
+
+             /* foreach (Control ctrl in this.tableLayoutPanel1.Controls)
                 if (errorProvider1.GetError(ctrl) != "")
                     {
                         ctrl.Focus();
                         e.Cancel = true;
                         break;
-                   }
+                   }*/
+
        }
 
         
@@ -61,9 +69,9 @@ namespace RetailTrade.Receipt
           
            
             _receiptDetailRow.ProductRef = _productRow.ID;
-
-            this.QuantityEdit.EditValue = 0;
-            this.QuantityEdit.Focus();
+            _receiptDetailRow.PricePurchase = 0;
+            _receiptDetailRow.Quantity = 0;
+           
         }
 
         
@@ -71,6 +79,11 @@ namespace RetailTrade.Receipt
         private void productBindingSource_DataError(object sender, BindingManagerDataErrorEventArgs e)
         {
             MessageBox.Show("DataError");
+        }
+
+        private void QuantityEdit_Leave(object sender, EventArgs e)
+        {
+           // this.QuantityEdit.DoValidate();
         }
 
        

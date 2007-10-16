@@ -13,45 +13,45 @@ namespace RetailTrade
 {
     public partial class ReceiptDetailByRef : UserControl
     {
-     
+        private bool _isNds;
+
+        DataTable _productTable;
 
         public ReceiptDetailByRef()
         {
             InitializeComponent();
         }
 
-        public ReceiptDetailByRef(MDataSet.ReceiptMasterRow source)
+        public ReceiptDetailByRef(MDataSet.ReceiptMasterRow source,DataTable tableProduct)
         {
-
-            // this.receiptMasterBindingSource таблица//
-
+           
             InitializeComponent();
 
+            _productTable = tableProduct;
+            _isNds = source.StockRowByFK_ReceiptMaster_Stock.IsNDS;
 
             this.mDataSet = source.Table.DataSet as MDataSet;
-
-            this.productBindingSource.DataSource = this.mDataSet.Product.Select("IsNds=" + source.StockRowByFK_ReceiptMaster_Stock.IsNDS.ToString() );
-            
-
+            this.productBindingSource.DataSource = tableProduct.Select("IsNds=" + _isNds.ToString(),"Name",DataViewRowState.Unchanged);
+            this.productBindingSource.ResetBindings(true);
+     //      this.productBindingSource.DataSource = this.mDataSet.Product.Select("IsNds=" + source.StockRowByFK_ReceiptMaster_Stock.IsNDS.ToString() );
+  
             this.receiptMasterBindingSource.DataSource = source;
             this.receiptMasterBindingSource.ResetBindings(true);
 
             this.receiptMasterBindingSourceView.DataSource = source.Table;
-          //  this.receiptMasterBindingSourceView.DataMember = "ReceiptMaster";
-           this.receiptMasterBindingSourceView.ResetBindings(true);
-           this.receiptMasterBindingSourceView.CurrencyManager.Position= this.receiptMasterBindingSourceView.Find("ID", source.ID);
-               //Filter="ID="+ source.ID.ToString();
-
-           this.receiptDetailBindingSource.DataSource = this.receiptMasterBindingSourceView;
-           this.receiptDetailBindingSource.DataMember = "ReceiptMaster_ReceiptDetail";
-           this.receiptDetailBindingSource.ResetBindings(true);
-           
-           
+       
+            this.receiptMasterBindingSourceView.ResetBindings(true);
+            this.receiptMasterBindingSourceView.CurrencyManager.Position= this.receiptMasterBindingSourceView.Find("ID", source.ID);
+              
+            this.receiptDetailBindingSource.DataSource = this.receiptMasterBindingSourceView;
+            this.receiptDetailBindingSource.DataMember = "ReceiptMaster_ReceiptDetail";
+            this.receiptDetailBindingSource.ResetBindings(true);
         }
 
-
-
-
+        private void ReceiptDetailByRef_Load(object sender, EventArgs e)
+        {
+           
+        }
         private void gridViewProduct_Click(object sender, EventArgs e)
       
             /*создать новую строку, указатель на нее в ReceiptDetailRowAdd для редактирования*/
@@ -62,9 +62,25 @@ namespace RetailTrade
                 FormDialog _formDialog = new FormDialog();
                 _formDialog.AcceptButton = null;
                 _formDialog.Text = "Добавить стоку";
+
                MDataSet.ReceiptDetailRow sourceRow = ((this.receiptDetailBindingSource.AddNew() as DataRowView).Row as MDataSet.ReceiptDetailRow);
-               MDataSet.ProductRow productRow =(this.productBindingSource.CurrencyManager.Current as MDataSet.ProductRow) ;
-                
+ 
+                int _idproduct = Convert.ToInt32((this.productBindingSource.CurrencyManager.Current as DataRow)["ID"]);
+
+                 MDataSet.ProductRow productRow = this.mDataSet.Product.FindByID(_idproduct);
+
+                 if (productRow==null)
+                 {
+                     (this.productBindingSource.CurrencyManager.Current as FullDataSet.ProductRow).SetModified();
+
+                     this.mDataSet.Product.Merge(_productTable.GetChanges());
+                 
+                     (this.productBindingSource.CurrencyManager.Current as FullDataSet.ProductRow).AcceptChanges();
+              
+                     productRow = this.mDataSet.Product.FindByID(_idproduct);
+
+                    }
+
                 if ((sourceRow != null)&(productRow!=null))
                 {
                     ReceiptDetailRowAdd _receiptDetailRowAdd = new ReceiptDetailRowAdd(sourceRow, productRow);
@@ -78,18 +94,13 @@ namespace RetailTrade
                     {
                         this.receiptDetailBindingSource.CancelEdit();
                     }
+
                 }
+                
             }
         }
 
-       
-
-       
-        private void ReceiptDetailByRef_Load(object sender, EventArgs e)
-        {
-           
-        }
-
+      
         private void gridProduct_KeyDown(object sender, KeyEventArgs e)
         {
             if ((e.KeyCode == Keys.Enter) & (this.gridViewProduct.IsValidRowHandle(this.gridViewProduct.FocusedRowHandle)))

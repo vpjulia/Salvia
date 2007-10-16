@@ -593,8 +593,10 @@ namespace RetailTrade
                 Object[] args = new Object[1];
                 args[0] = this.mDataSet.Tables[NameTable];
                 foreach (DataRelation relation in this.mDataSet.Tables[NameTable].ParentRelations)
+                {
+                  if (relation.ChildKeyConstraint != null)
                     FillTable(relation.ParentTable.ToString());
-
+                }
                 tp.GetMethod("Fill").Invoke(this.components.Components[NameTable + "TableAdapter"], args);
             }
             else
@@ -602,6 +604,8 @@ namespace RetailTrade
                 RefreshData(this.mDataSet.Tables[NameTable]);
         }
 
+
+        /*FullDataset*/
         public bool FullFillTable(string NameTable, params object[] list)
         {
              // заполнить родительские таблицы
@@ -685,8 +689,48 @@ namespace RetailTrade
             return true;
         }
 
-           
+        /*MDataset, новые приходные документы */
+        public bool FillTableNewDocuments(MDataSet.ReceiptMasterDataTable source)
+       {
+           MDataSet.ReceiptMasterDataTable _tmpMaster = new MDataSet.ReceiptMasterDataTable();
+           MDataSet.ReceiptDetailDataTable _tmpDetail = new MDataSet.ReceiptDetailDataTable();
 
+
+           try
+           {
+               this.receiptMasterTableAdapter.Fill(_tmpMaster);
+               this.receiptDetailTableAdapter.Fill(_tmpDetail);
+
+           }
+
+           catch (SqlException sqlerr)
+           {
+               if (sqlerr.Class < 17)
+               {
+                   MessageBox.Show(sqlerr.Message);
+               }
+               else
+
+                   caughtGlobalError(sqlerr);
+               return false;
+           }
+           catch (Exception err)
+           {
+               MessageBox.Show(err.Message);
+               return false;
+           }
+            finally
+            {
+                this.mDataSet.ReceiptMaster.Merge(_tmpMaster);
+                this.mDataSet.ReceiptDetail.Merge(_tmpDetail);
+
+            }
+            return true;
+       
+        
+        }
+  
+          /*FillNew + Merge + FillDetailsById*/
         public bool RefreshData(MDataSet.ReceiptMasterRow sourceRow) 
         {
             MDataSet.ReceiptMasterDataTable _ReceiptMasterDataTable = new MDataSet.ReceiptMasterDataTable();
@@ -720,8 +764,8 @@ namespace RetailTrade
             }
             finally
             {
-                this.mDataSet.ReceiptMaster.Merge(_ReceiptMasterDataTable);
-                this.mDataSet.ReceiptDetail.Merge(_ReceiptDetailDataTable);
+                this.mDataSet.ReceiptMaster.Merge(_ReceiptMasterDataTable,true);
+                this.mDataSet.ReceiptDetail.Merge(_ReceiptDetailDataTable,true);
             }
             return true;
         }
@@ -752,6 +796,7 @@ namespace RetailTrade
             return true;
 
         }
+
         public bool RefreshData(DataTable source) 
         {
 
@@ -765,9 +810,11 @@ namespace RetailTrade
             //нужен у все метод FillNew с  параметром дата 
 
 
-           /*foreach (DataRelation relation in sourceTable.ParentRelations)
-                RefreshData(relation.ParentTable);
-            */
+             foreach (DataRelation relation in source.ParentRelations)
+             {if (relation.ChildKeyConstraint!=null)
+
+                 RefreshData(relation.ParentTable);
+             }
 
             Object[] parameters = new Object[0];
             Object _newTable;
@@ -824,6 +871,7 @@ namespace RetailTrade
 
                 return true;
         }
+
         public bool RefreshData(MDataSet.InvoiceDetailRow sourceRow)
         {
             MDataSet.InvoiceDetailDataTable  _invoiceDetailDataTable = new MDataSet.InvoiceDetailDataTable();
@@ -844,6 +892,7 @@ namespace RetailTrade
             return true;
              
         }
+
         public bool RefreshData(MDataSet.RemainsRow sourceRow)
         {
             MDataSet.RemainsDataTable _RemainsDataTable = new MDataSet.RemainsDataTable();

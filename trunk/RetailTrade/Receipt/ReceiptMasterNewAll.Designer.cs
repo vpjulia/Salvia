@@ -29,9 +29,9 @@ namespace RetailTrade
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode3 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode4 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode5 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode6 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReceiptMasterNewAll));
             this.gridViewRecDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colProductRef1 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -86,12 +86,12 @@ namespace RetailTrade
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.btField = new System.Windows.Forms.ToolStripMenuItem();
-            this.Ó·ÌÓ‚ËÚ¸ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btRefresh = new System.Windows.Forms.ToolStripMenuItem();
+            this.btCancel = new System.Windows.Forms.ToolStripButton();
             this.receiptMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.receiptMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptMasterTableAdapter();
             this.productTableAdapter = new RetailTrade.MDataSetTableAdapters.ProductTableAdapter();
             this.organizationTableAdapter = new RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter();
-            this.btCancel = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRecDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
@@ -222,17 +222,17 @@ namespace RetailTrade
             this.grid.DataSource = this.receiptMasterNewBindingSource;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid.EmbeddedNavigator.Name = "";
-            gridLevelNode1.LevelTemplate = this.gridViewRecDetail;
-            gridLevelNode2.LevelTemplate = this.gridViewOrders;
-            gridLevelNode2.RelationName = "ReceiptDetail_Orders";
-            gridLevelNode3.LevelTemplate = this.gridView1;
-            gridLevelNode3.RelationName = "ReceiptDetail_PricesPurchase";
-            gridLevelNode1.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode2,
-            gridLevelNode3});
-            gridLevelNode1.RelationName = "ReceiptMaster_ReceiptDetail";
+            gridLevelNode4.LevelTemplate = this.gridViewRecDetail;
+            gridLevelNode5.LevelTemplate = this.gridViewOrders;
+            gridLevelNode5.RelationName = "ReceiptDetail_Orders";
+            gridLevelNode6.LevelTemplate = this.gridView1;
+            gridLevelNode6.RelationName = "ReceiptDetail_PricesPurchase";
+            gridLevelNode4.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
+            gridLevelNode5,
+            gridLevelNode6});
+            gridLevelNode4.RelationName = "ReceiptMaster_ReceiptDetail";
             this.grid.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode1});
+            gridLevelNode4});
             this.grid.Location = new System.Drawing.Point(0, 25);
             this.grid.MainView = this.gridViewMain;
             this.grid.Name = "grid";
@@ -665,7 +665,7 @@ namespace RetailTrade
             this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btField,
-            this.Ó·ÌÓ‚ËÚ¸ToolStripMenuItem});
+            this.btRefresh});
             this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
             this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
@@ -679,11 +679,22 @@ namespace RetailTrade
             this.btField.Text = "Õ‡ÒÚÓÈÍ‡ ÔÓÎÂÈ";
             this.btField.Click += new System.EventHandler(this.btField_Click);
             // 
-            // Ó·ÌÓ‚ËÚ¸ToolStripMenuItem
+            // btRefresh
             // 
-            this.Ó·ÌÓ‚ËÚ¸ToolStripMenuItem.Name = "Ó·ÌÓ‚ËÚ¸ToolStripMenuItem";
-            this.Ó·ÌÓ‚ËÚ¸ToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.Ó·ÌÓ‚ËÚ¸ToolStripMenuItem.Text = "Œ·ÌÓ‚ËÚ¸";
+            this.btRefresh.Name = "btRefresh";
+            this.btRefresh.Size = new System.Drawing.Size(208, 22);
+            this.btRefresh.Text = "Œ·ÌÓ‚ËÚ¸";
+            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
+            // 
+            // btCancel
+            // 
+            this.btCancel.Image = ((System.Drawing.Image)(resources.GetObject("btCancel.Image")));
+            this.btCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btCancel.Name = "btCancel";
+            this.btCancel.Size = new System.Drawing.Size(97, 22);
+            this.btCancel.Text = "ŒÚÏÂÌËÚ¸";
+            this.btCancel.Visible = false;
+            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
             // receiptMasterBindingSource
             // 
@@ -701,16 +712,6 @@ namespace RetailTrade
             // organizationTableAdapter
             // 
             this.organizationTableAdapter.ClearBeforeFill = true;
-            // 
-            // btCancel
-            // 
-            this.btCancel.Image = ((System.Drawing.Image)(resources.GetObject("btCancel.Image")));
-            this.btCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btCancel.Name = "btCancel";
-            this.btCancel.Size = new System.Drawing.Size(97, 22);
-            this.btCancel.Text = "ŒÚÏÂÌËÚ¸";
-            this.btCancel.Visible = false;
-            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
             // ReceiptMasterNewAll
             // 
@@ -777,7 +778,7 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Columns.GridColumn colAuthorLastModif;
         private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
         private System.Windows.Forms.ToolStripMenuItem btField;
-        private System.Windows.Forms.ToolStripMenuItem Ó·ÌÓ‚ËÚ¸ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btRefresh;
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit productLookUpEdit;
         private System.Windows.Forms.BindingSource productBindingSource;
         private RetailTrade.MDataSetTableAdapters.ProductTableAdapter productTableAdapter;
