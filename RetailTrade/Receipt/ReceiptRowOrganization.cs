@@ -191,7 +191,7 @@ namespace RetailTrade
             FormDialog _formDialog = new FormDialog();
             _formDialog.Text = "¹ " + _curentReceiptMasterRow.Number.ToString() + "  " + _curentReceiptMasterRow.OrganizationRow.ShortName.ToString();
             _formDialog.AcceptButton = null;
-            ReceiptDetailByRef _peceiptDetail = new ReceiptDetailByRef(_curentReceiptMasterRow);
+            ReceiptDetailByRef _peceiptDetail = new ReceiptDetailByRef(_curentReceiptMasterRow,(this.ParentForm as MainForm).fullDataSet.Product);
       
             _formDialog.panel.Controls.Add(_peceiptDetail);
 

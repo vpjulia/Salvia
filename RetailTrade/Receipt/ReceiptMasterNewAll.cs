@@ -73,7 +73,7 @@ namespace RetailTrade
 
             //вычитать с сервера новые документы
 
-            (this.ParentForm as MainForm).FillTable(_changesDetail.Table.TableName);
+            (this.ParentForm as MainForm).FillTableNewDocuments(this.mDataSet.ReceiptMaster);
 
 
             foreach (GridView view in this.grid.ViewCollection)
@@ -89,6 +89,8 @@ namespace RetailTrade
             this.ParentForm.FormClosing += new FormClosingEventHandler(ParentForm_FormClosing);
       
         }
+
+
 
         private void _changesMaster_ListChanged(object sender, ListChangedEventArgs e)
         {
@@ -364,6 +366,14 @@ namespace RetailTrade
         {
             this.CancelChages();
         }
+
+        private void btRefresh_Click(object sender, EventArgs e)
+        {
+            (this.ParentForm as MainForm).FillTableNewDocuments(this.mDataSet.ReceiptMaster);
+
+        }
+
+        
 
     }
 }

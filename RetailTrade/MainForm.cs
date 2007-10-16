@@ -82,12 +82,13 @@ namespace RetailTrade
            
           
             FillTable("Stock");
+            FillTable("Product");
+            FillTable("Organization");
 
-            FillTable("ReceiptDetail");
-            FillTable("Orders");
+           /* FillTable("Orders");
             FillTable("InvoiceDetail");
             FillTable("PricesPurchase");
-
+            */
 
 
             SanseeGridLocalizer gLocalizer = new SanseeGridLocalizer();
