@@ -17,7 +17,9 @@ namespace RetailTrade
         
         MDataSet.ReceiptMasterRow _curentReceiptMasterRow;
         DataView _viewChangesReceiptDetail;
-       
+
+        DataView _viewModifedOriginal;
+
         public MDataSet.ReceiptMasterRow CurentReceiptMasterRow
         {
             get { return _curentReceiptMasterRow; }
@@ -51,10 +53,15 @@ namespace RetailTrade
 
            this.receiptMasterBindingSource.ResetBindings(false);
 
+
+           _viewModifedOriginal = new DataView(source.Table, "ID=" + _curentReceiptMasterRow.ID.ToString(), null, DataViewRowState.ModifiedOriginal);
+           _viewModifedOriginal.ListChanged += new ListChangedEventHandler(_viewModifedOriginal_ListChanged);
  
             _viewChangesReceiptDetail = new DataView(this.mDataSet.ReceiptDetail, "ReceiptMasterRef=" + _curentReceiptMasterRow.ID.ToString(), null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
          
             _viewChangesReceiptDetail.ListChanged+=new ListChangedEventHandler(_viewChangesReceiptDetail_ListChanged);
+
+            
             (this.receiptMasterBindingSource.DataSource as DataView).ListChanged += new ListChangedEventHandler(_viewChangesReceiptDetail_ListChanged);
 
         
@@ -76,12 +83,34 @@ namespace RetailTrade
             {
                 this.panelNumber.Enabled = false;
             }
+           
+
+
 
             this.AuthorLabel.Text = "Автор :" + _curentReceiptMasterRow.AuthorCreate.ToString();
       
             this.receiptMasterBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.receiptMasterBindingSource_ListChanged);
        
         }
+
+        void _viewModifedOriginal_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            if (_viewModifedOriginal.Count >0)
+            {
+            
+                if ((_viewModifedOriginal[0].Row as MDataSet.ReceiptMasterRow).RowVersion != _curentReceiptMasterRow.RowVersion)
+                {
+                    this.modifedStripStatusLabel.Text = (_viewModifedOriginal[0].Row as MDataSet.ReceiptMasterRow).AuthorLastModif.ToString();
+                }
+
+          
+            }
+
+
+        }
+
+
+
         private void ReceiptRowOrganization_Load(object sender, EventArgs e)
         {
             foreach (GridView view in this.grid.ViewCollection)
@@ -90,6 +119,15 @@ namespace RetailTrade
                 if (File.Exists(fileName))
                     view.RestoreLayoutFromXml(fileName);
             }
+
+     
+            if (_curentReceiptMasterRow.HasVersion(DataRowVersion.Original))
+            {
+                (this.ParentForm as MainForm).RefreshData(_curentReceiptMasterRow);
+                _curentReceiptMasterRow.RejectChanges();
+                
+            }
+           
 
             this.ParentForm.FormClosing += new FormClosingEventHandler(ParentForm_FormClosing);
 
@@ -156,6 +194,7 @@ namespace RetailTrade
             
             if (_viewChangesReceiptDetail.Count > 0)
             {
+
                 this.btCancel.Visible = true;
                 this.btSaveReciept.Enabled = true;
             }
