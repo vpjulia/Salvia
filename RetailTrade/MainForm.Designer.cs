@@ -41,14 +41,16 @@ namespace RetailTrade
             treeNode3,
             treeNode4});
             System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Новые");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("На складе");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Приходные", new System.Windows.Forms.TreeNode[] {
-            treeNode6,
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Все за  месяц");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("На складе", new System.Windows.Forms.TreeNode[] {
             treeNode7});
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Центральный склад");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Остатки товара", new System.Windows.Forms.TreeNode[] {
-            treeNode9});
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Заявки");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Приходные", new System.Windows.Forms.TreeNode[] {
+            treeNode6,
+            treeNode8});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Центральный склад");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Остатки товара", new System.Windows.Forms.TreeNode[] {
+            treeNode10});
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Заявки");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.actionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -221,7 +223,7 @@ namespace RetailTrade
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.actionStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 566);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 661);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(837, 23);
             this.statusStrip1.TabIndex = 1;
@@ -258,8 +260,8 @@ namespace RetailTrade
             this.splitContainer1.Panel2.AutoScroll = true;
             this.splitContainer1.Panel2.Controls.Add(this.gridControl1);
             this.splitContainer1.Panel2MinSize = 50;
-            this.splitContainer1.Size = new System.Drawing.Size(837, 515);
-            this.splitContainer1.SplitterDistance = 449;
+            this.splitContainer1.Size = new System.Drawing.Size(837, 610);
+            this.splitContainer1.SplitterDistance = 531;
             this.splitContainer1.TabIndex = 3;
             // 
             // splitContainer2
@@ -276,7 +278,7 @@ namespace RetailTrade
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tabControl);
-            this.splitContainer2.Size = new System.Drawing.Size(837, 449);
+            this.splitContainer2.Size = new System.Drawing.Size(837, 531);
             this.splitContainer2.SplitterDistance = global::RetailTrade.Properties.Settings.Default.MainSplitDist;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -289,7 +291,7 @@ namespace RetailTrade
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(209, 449);
+            this.tabControl1.Size = new System.Drawing.Size(222, 531);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -298,7 +300,7 @@ namespace RetailTrade
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(201, 420);
+            this.tabPage1.Size = new System.Drawing.Size(214, 502);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "новые";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -327,26 +329,32 @@ namespace RetailTrade
             treeNode6.Tag = "ReceiptMasterNewAll";
             treeNode6.Text = "Новые";
             treeNode6.ToolTipText = "Новые приходные акты";
-            treeNode7.Name = "Node11";
+            treeNode7.Name = "Node0";
             treeNode7.Tag = "ReceiptMasterStock";
-            treeNode7.Text = "На складе";
-            treeNode7.ToolTipText = "Приходные документы";
-            treeNode8.Name = "Node9";
-            treeNode8.Text = "Приходные";
-            treeNode9.Name = "Node1";
-            treeNode9.Text = "Центральный склад";
-            treeNode10.Name = "Node0";
-            treeNode10.Text = "Остатки товара";
-            treeNode11.Name = "Node12";
-            treeNode11.Tag = "OrdersAll";
-            treeNode11.Text = "Заявки";
+            treeNode7.Text = "Все за  месяц";
+            treeNode7.ToolTipText = "Приходные документы за этот месяц {all}";
+            treeNode8.Name = "Node11";
+            treeNode8.Tag = "ReceiptMasterStock";
+            treeNode8.Text = "На складе";
+            treeNode8.ToolTipText = "Приходные документы {new}";
+            treeNode9.Name = "Node9";
+            treeNode9.Text = "Приходные";
+            treeNode10.Name = "Node1";
+            treeNode10.Tag = "Remains";
+            treeNode10.Text = "Центральный склад";
+            treeNode10.ToolTipText = "Отстатки - центр. склад";
+            treeNode11.Name = "Node0";
+            treeNode11.Text = "Остатки товара";
+            treeNode12.Name = "Node12";
+            treeNode12.Tag = "OrdersAll";
+            treeNode12.Text = "Заявки";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode5,
-            treeNode8,
-            treeNode10,
-            treeNode11});
+            treeNode9,
+            treeNode11,
+            treeNode12});
             this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(195, 414);
+            this.treeView1.Size = new System.Drawing.Size(208, 496);
             this.treeView1.TabIndex = 0;
             this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
             // 
@@ -361,7 +369,7 @@ namespace RetailTrade
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(214, 473);
+            this.tabPage2.Size = new System.Drawing.Size(214, 502);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "все";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -373,7 +381,7 @@ namespace RetailTrade
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(624, 449);
+            this.tabControl.Size = new System.Drawing.Size(611, 531);
             this.tabControl.TabIndex = 0;
             // 
             // gridControl1

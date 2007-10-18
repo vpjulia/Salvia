@@ -50,7 +50,7 @@ namespace RetailTrade.Receipt
 
             _changesReceiptDetail = new DataView(this.mDataSet.ReceiptDetail, "DocumentTypeRef=1", null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
 
-             _changesReceiptMaster.ListChanged+=new ListChangedEventHandler(_changes_ListChanged);
+            _changesReceiptMaster.ListChanged+=new ListChangedEventHandler(_changes_ListChanged);
             _changesReceiptMaster.ListChanged+=new ListChangedEventHandler (_changes_ListChanged);
 
 
@@ -67,7 +67,14 @@ namespace RetailTrade.Receipt
 
             _layoutChanged = false;
 
+
+         
+
             this.ParentForm.FormClosing += new FormClosingEventHandler(ParentForm_FormClosing);
+
+
+
+
         }
      
         private void _changes_ListChanged(object sender, ListChangedEventArgs e)
@@ -284,6 +291,11 @@ namespace RetailTrade.Receipt
             } 
 
 
+        }
+
+        private void gridViewMasterStock_MasterRowGetChildList(object sender, MasterRowGetChildListEventArgs e)
+        {
+            (this.ParentForm as MainForm).RefreshData((receiptMasterBindingSource.CurrencyManager.Current as DataRowView).Row as MDataSet.ReceiptMasterRow);
         }
 
     }

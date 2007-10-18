@@ -29,9 +29,9 @@ namespace RetailTrade
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode4 = new DevExpress.XtraGrid.GridLevelNode();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode5 = new DevExpress.XtraGrid.GridLevelNode();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode6 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode3 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReceiptMasterNewAll));
             this.gridViewRecDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colProductRef1 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -41,7 +41,9 @@ namespace RetailTrade
             this.colSeries1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colUseByDate1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQuantity1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.QuantitycalcEdit = new DevExpress.XtraEditors.Repository.RepositoryItemCalcEdit();
             this.colPricePurchase1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.PriceCalcEdit = new DevExpress.XtraEditors.Repository.RepositoryItemCalcEdit();
             this.colCalcPurchSum = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colManufacturerName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.grid = new DevExpress.XtraGrid.GridControl();
@@ -96,6 +98,8 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.productLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.QuantitycalcEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PriceCalcEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterNewBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewMain)).BeginInit();
@@ -175,23 +179,49 @@ namespace RetailTrade
             // colQuantity1
             // 
             this.colQuantity1.Caption = "Кол-во";
+            this.colQuantity1.ColumnEdit = this.QuantitycalcEdit;
+            this.colQuantity1.DisplayFormat.FormatString = "####.###";
+            this.colQuantity1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colQuantity1.FieldName = "Quantity";
             this.colQuantity1.Name = "colQuantity1";
             this.colQuantity1.Visible = true;
             this.colQuantity1.VisibleIndex = 3;
             // 
+            // QuantitycalcEdit
+            // 
+            this.QuantitycalcEdit.AutoHeight = false;
+            this.QuantitycalcEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.QuantitycalcEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.QuantitycalcEdit.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.QuantitycalcEdit.Name = "QuantitycalcEdit";
+            // 
             // colPricePurchase1
             // 
             this.colPricePurchase1.Caption = "Цена";
+            this.colPricePurchase1.ColumnEdit = this.PriceCalcEdit;
+            this.colPricePurchase1.DisplayFormat.FormatString = "###.#####";
+            this.colPricePurchase1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colPricePurchase1.FieldName = "PricePurchase";
             this.colPricePurchase1.Name = "colPricePurchase1";
             this.colPricePurchase1.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.colPricePurchase1.Visible = true;
             this.colPricePurchase1.VisibleIndex = 4;
             // 
+            // PriceCalcEdit
+            // 
+            this.PriceCalcEdit.AutoHeight = false;
+            this.PriceCalcEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.PriceCalcEdit.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.PriceCalcEdit.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.PriceCalcEdit.Name = "PriceCalcEdit";
+            // 
             // colCalcPurchSum
             // 
             this.colCalcPurchSum.Caption = "Сумма";
+            this.colCalcPurchSum.DisplayFormat.FormatString = "#####.##";
+            this.colCalcPurchSum.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colCalcPurchSum.FieldName = "CalcPurchSum";
             this.colCalcPurchSum.Name = "colCalcPurchSum";
             this.colCalcPurchSum.OptionsColumn.AllowEdit = false;
@@ -222,23 +252,25 @@ namespace RetailTrade
             this.grid.DataSource = this.receiptMasterNewBindingSource;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid.EmbeddedNavigator.Name = "";
-            gridLevelNode4.LevelTemplate = this.gridViewRecDetail;
-            gridLevelNode5.LevelTemplate = this.gridViewOrders;
-            gridLevelNode5.RelationName = "ReceiptDetail_Orders";
-            gridLevelNode6.LevelTemplate = this.gridView1;
-            gridLevelNode6.RelationName = "ReceiptDetail_PricesPurchase";
-            gridLevelNode4.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode5,
-            gridLevelNode6});
-            gridLevelNode4.RelationName = "ReceiptMaster_ReceiptDetail";
+            gridLevelNode1.LevelTemplate = this.gridViewRecDetail;
+            gridLevelNode2.LevelTemplate = this.gridViewOrders;
+            gridLevelNode2.RelationName = "ReceiptDetail_Orders";
+            gridLevelNode3.LevelTemplate = this.gridView1;
+            gridLevelNode3.RelationName = "ReceiptDetail_PricesPurchase";
+            gridLevelNode1.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
+            gridLevelNode2,
+            gridLevelNode3});
+            gridLevelNode1.RelationName = "ReceiptMaster_ReceiptDetail";
             this.grid.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode4});
+            gridLevelNode1});
             this.grid.Location = new System.Drawing.Point(0, 25);
             this.grid.MainView = this.gridViewMain;
             this.grid.Name = "grid";
             this.grid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.productLookUpEdit,
-            this.OrganizationLookUpEdit});
+            this.OrganizationLookUpEdit,
+            this.QuantitycalcEdit,
+            this.PriceCalcEdit});
             this.grid.ShowOnlyPredefinedDetails = true;
             this.grid.Size = new System.Drawing.Size(740, 376);
             this.grid.TabIndex = 2;
@@ -279,7 +311,6 @@ namespace RetailTrade
             this.gridViewMain.OptionsView.ShowGroupedColumns = true;
             this.gridViewMain.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.gridViewMain_CustomDrawCell);
             this.gridViewMain.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
-            this.gridViewMain.CustomColumnDisplayText += new DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler(this.gridViewMain_CustomColumnDisplayText);
             this.gridViewMain.InvalidRowException += new DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventHandler(this.gridViewMain_InvalidRowException);
             // 
             // colNumber
@@ -728,6 +759,8 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.productLookUpEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.QuantitycalcEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PriceCalcEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterNewBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewMain)).EndInit();
@@ -805,5 +838,7 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Columns.GridColumn colTradePupletName;
         private System.Windows.Forms.ToolStripButton btSave;
         private System.Windows.Forms.ToolStripButton btCancel;
+        private DevExpress.XtraEditors.Repository.RepositoryItemCalcEdit QuantitycalcEdit;
+        private DevExpress.XtraEditors.Repository.RepositoryItemCalcEdit PriceCalcEdit;
     }
 }
