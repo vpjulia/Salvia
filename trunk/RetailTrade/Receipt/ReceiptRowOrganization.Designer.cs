@@ -75,6 +75,7 @@ namespace RetailTrade
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.AuthorLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.modifedStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -107,7 +108,6 @@ namespace RetailTrade
             this.toolStripSplitButton2 = new System.Windows.Forms.ToolStripSplitButton();
             this.btField = new System.Windows.Forms.ToolStripMenuItem();
             this.btRefresh = new System.Windows.Forms.ToolStripMenuItem();
-            this.modifedStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             numberLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewReceiptDetailOrders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCalcEditQuantity)).BeginInit();
@@ -220,7 +220,7 @@ namespace RetailTrade
             this.repositoryItemCalcEditQuantity.AutoHeight = false;
             this.repositoryItemCalcEditQuantity.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemCalcEditQuantity.DisplayFormat.FormatString = "#0.###";
+            this.repositoryItemCalcEditQuantity.DisplayFormat.FormatString = "#.###";
             this.repositoryItemCalcEditQuantity.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.repositoryItemCalcEditQuantity.EditFormat.FormatString = "#.###";
             this.repositoryItemCalcEditQuantity.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
@@ -461,7 +461,7 @@ namespace RetailTrade
             // 
             this.colQuantity.Caption = "Количество";
             this.colQuantity.ColumnEdit = this.repositoryItemCalcEditQuantity;
-            this.colQuantity.DisplayFormat.FormatString = "#0.###";
+            this.colQuantity.DisplayFormat.FormatString = "##.###";
             this.colQuantity.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colQuantity.FieldName = "Quantity";
             this.colQuantity.Name = "colQuantity";
@@ -639,6 +639,11 @@ namespace RetailTrade
             this.AuthorLabel.Name = "AuthorLabel";
             this.AuthorLabel.Size = new System.Drawing.Size(84, 18);
             this.AuthorLabel.Text = "AuthorLabel";
+            // 
+            // modifedStripStatusLabel
+            // 
+            this.modifedStripStatusLabel.Name = "modifedStripStatusLabel";
+            this.modifedStripStatusLabel.Size = new System.Drawing.Size(0, 18);
             // 
             // tabControl1
             // 
@@ -998,11 +1003,6 @@ namespace RetailTrade
             this.btRefresh.Name = "btRefresh";
             this.btRefresh.Size = new System.Drawing.Size(208, 22);
             this.btRefresh.Text = "Обновить";
-            // 
-            // modifedStripStatusLabel
-            // 
-            this.modifedStripStatusLabel.Name = "modifedStripStatusLabel";
-            this.modifedStripStatusLabel.Size = new System.Drawing.Size(0, 18);
             // 
             // ReceiptRowOrganization
             // 

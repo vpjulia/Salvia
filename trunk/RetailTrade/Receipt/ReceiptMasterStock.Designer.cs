@@ -300,6 +300,7 @@ namespace RetailTrade.Receipt
             this.gridViewMasterStock.OptionsBehavior.Editable = false;
             this.gridViewMasterStock.OptionsDetail.AllowOnlyOneMasterRowExpanded = true;
             this.gridViewMasterStock.OptionsView.ShowFooter = true;
+            this.gridViewMasterStock.MasterRowGetChildList += new DevExpress.XtraGrid.Views.Grid.MasterRowGetChildListEventHandler(this.gridViewMasterStock_MasterRowGetChildList);
             this.gridViewMasterStock.Layout += new System.EventHandler(this.gridViewMasterStock_Layout);
             // 
             // colNumber

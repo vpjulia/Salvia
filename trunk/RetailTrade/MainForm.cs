@@ -15,6 +15,7 @@ using System.Data.SqlClient;
 using RetailTrade.Invoice;
 using RetailTrade.Receipt;
 using RetailTrade.Orders;
+using RetailTrade.Remains;
 
 
 
@@ -79,11 +80,20 @@ namespace RetailTrade
      
         private void MainForm_Load(object sender, EventArgs e)
         {
-           
-          
-            FillTable("Stock");
-            FillTable("Product");
-            FillTable("Organization");
+
+            try
+            {
+
+                FillTable("Stock");
+                FillTable("Product");
+                FillTable("Organization");
+            }
+
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+
 
            /* FillTable("Orders");
             FillTable("InvoiceDetail");
@@ -315,7 +325,34 @@ namespace RetailTrade
 
                     case "ReceiptMasterStock":
 
-                        usControl = new ReceiptMasterStock(this.mDataSet);
+                    //вычитать с сервера новые документы
+                        
+                        if (Title.Contains("{all}"))
+                        {
+                            TagControl += "all";
+                            if (!FindOpenedTabs(TagControl))
+                            {
+                                Title = Title.Replace("{all}", "");
+                                FillTableStockDocuments(this.mDataSet.ReceiptMaster, 0);
+                            }
+                            else
+                                return false;
+                        }
+                        else
+                        {
+                            TagControl += "new";
+                            if (!FindOpenedTabs(TagControl))
+                            {
+                                Title = Title.Replace("{new}", ""); 
+                                DateTime _begin = DateTime.Now.AddDays(-7);
+
+                                FillTableStockDocuments(this.mDataSet.ReceiptMaster, _begin);
+                            }
+                            else
+                                return false;
+                        }
+
+                         usControl = new ReceiptMasterStock(this.mDataSet);
                         (usControl as ReceiptMasterStock).Dock = DockStyle.Fill;
                         (usControl as ReceiptMasterStock).Tag = Title;
                         break;
@@ -368,6 +405,12 @@ namespace RetailTrade
                        usControl = new OrdersAll(this.mDataSet.Orders);
                        (usControl as OrdersAll).Dock = DockStyle.Fill;
                        (usControl as OrdersAll).Tag = Title;
+
+                       break;
+                   case "Remains":
+                       usControl = new RemainsLocal(this.mDataSet.Remains);
+                       (usControl as RemainsLocal).Dock = DockStyle.Fill;
+                       (usControl as RemainsLocal).Tag = Title;
 
                        break;
 
@@ -476,8 +519,6 @@ namespace RetailTrade
             Properties.Settings.Default.Save();
 
         }
-
-
 
         private void btAddProduct_Click(object sender, EventArgs e)
         { 

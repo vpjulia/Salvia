@@ -729,10 +729,95 @@ namespace RetailTrade
 
         
         }
+
+        /*MDataset, документы на складе, из открытого периода, новые, X дней*/
+        public bool FillTableStockDocuments(MDataSet.ReceiptMasterDataTable source,DateTime begin)
+        {
+            MDataSet.ReceiptMasterDataTable _tmpMaster = new MDataSet.ReceiptMasterDataTable();
+            MDataSet.ReceiptDetailDataTable _tmpDetail = new MDataSet.ReceiptDetailDataTable();
+
+            
+
+
+            try
+            {
+                this.receiptMasterTableAdapter.FillByPeriod(_tmpMaster,begin);
+                this.receiptDetailTableAdapter.FillByPeriod(_tmpDetail,begin);
+
+            }
+
+            catch (SqlException sqlerr)
+            {
+                if (sqlerr.Class < 17)
+                {
+                    MessageBox.Show(sqlerr.Message);
+                }
+                else
+
+                    caughtGlobalError(sqlerr);
+                return false;
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+                return false;
+            }
+            finally
+            {
+                this.mDataSet.ReceiptMaster.Merge(_tmpMaster);
+                this.mDataSet.ReceiptDetail.Merge(_tmpDetail);
+
+            }
+            return true;
+
+
+
+        }
+        /*MDataset, документы на складе 
+         по номеру периода, подгрузка построчно нужна*/
+        public bool FillTableStockDocuments(MDataSet.ReceiptMasterDataTable source, int numPeriods)
+        {
+         
+            MDataSet.ReceiptMasterDataTable _tmpMaster = new MDataSet.ReceiptMasterDataTable();
+            MDataSet.ReceiptDetailDataTable _tmpDetail = new MDataSet.ReceiptDetailDataTable();
+            try
+               {
+                        this.receiptMasterTableAdapter.FillByPeriodNum(_tmpMaster, numPeriods);
+              }
+                    catch (SqlException sqlerr)
+                    {
+                        if (sqlerr.Class < 17)
+                        {
+                            MessageBox.Show(sqlerr.Message);
+                        }
+                        else
+
+                            caughtGlobalError(sqlerr);
+                        return false;
+                    }
+                    catch (Exception err)
+                    {
+                        MessageBox.Show(err.Message);
+                        return false;
+                    }
+                    finally
+                    {
+                        this.mDataSet.ReceiptMaster.Merge(_tmpMaster);
+                      
+
+                    }
+                    return true;
+
+
+
+                }
   
-          /*FillNew + Merge + FillDetailsById*/
+                  /*FillNew + Merge + FillDetailsById*/
         public bool RefreshData(MDataSet.ReceiptMasterRow sourceRow) 
         {
+            /*нужно обновить спр. товаров, как????*/
+
+
             MDataSet.ReceiptMasterDataTable _ReceiptMasterDataTable = new MDataSet.ReceiptMasterDataTable();
             MDataSet.ReceiptDetailDataTable _ReceiptDetailDataTable = new MDataSet.ReceiptDetailDataTable();
 
@@ -766,6 +851,8 @@ namespace RetailTrade
             {
                 this.mDataSet.ReceiptMaster.Merge(_ReceiptMasterDataTable,true);
                 this.mDataSet.ReceiptDetail.Merge(_ReceiptDetailDataTable,true);
+                this.mDataSet.ReceiptMaster.AcceptChanges();
+                this.mDataSet.ReceiptDetail.AcceptChanges();
             }
             return true;
         }
