@@ -820,6 +820,8 @@ namespace RetailTrade
 
             MDataSet.ReceiptMasterDataTable _ReceiptMasterDataTable = new MDataSet.ReceiptMasterDataTable();
             MDataSet.ReceiptDetailDataTable _ReceiptDetailDataTable = new MDataSet.ReceiptDetailDataTable();
+            MDataSet.ProductDataTable _productDataTable = new MDataSet.ProductDataTable();
+
 
             DateTime _dateparam;
 
@@ -838,9 +840,11 @@ namespace RetailTrade
                 }
             try
             {
+                this.productTableAdapter.FillByReceiptId(_productDataTable, sourceRow.ID);
                 this.receiptMasterTableAdapter.FillNew(_ReceiptMasterDataTable, sourceRow.DateUpdate);
 
                 this.receiptDetailTableAdapter.FillByReceiptMasterRef(_ReceiptDetailDataTable, sourceRow.ID);
+                
             }
             catch (Exception err)
             {
@@ -849,8 +853,9 @@ namespace RetailTrade
             }
             finally
             {
-                this.mDataSet.ReceiptMaster.Merge(_ReceiptMasterDataTable,true);
-                this.mDataSet.ReceiptDetail.Merge(_ReceiptDetailDataTable,true);
+                this.mDataSet.Product.Merge(_productDataTable);
+                this.mDataSet.ReceiptMaster.Merge(_ReceiptMasterDataTable);
+                this.mDataSet.ReceiptDetail.Merge(_ReceiptDetailDataTable);
                 this.mDataSet.ReceiptMaster.AcceptChanges();
                 this.mDataSet.ReceiptDetail.AcceptChanges();
             }

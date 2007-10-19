@@ -46,6 +46,15 @@ namespace RetailTrade.Receipt
             this.receiptMasterBindingSource.ResetBindings(false);
             // this.productBindingSource.DataSource = this.mDataSet.Product;
         
+           //  заполнить 
+
+         
+
+           this.PariodsComboBox.ComboBox.DataSource = this.mDataSet.Periods;
+           this.PariodsComboBox.ComboBox.DisplayMember = "Name";
+
+           this.PariodsComboBox.ComboBox.ValueMember = "ID";
+
             _changesReceiptMaster = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=1", null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
 
             _changesReceiptDetail = new DataView(this.mDataSet.ReceiptDetail, "DocumentTypeRef=1", null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
@@ -68,10 +77,14 @@ namespace RetailTrade.Receipt
             _layoutChanged = false;
 
 
-         
-
-            this.ParentForm.FormClosing += new FormClosingEventHandler(ParentForm_FormClosing);
-
+          
+           DateTime _begin = DateTime.Now.AddDays(-7);
+            
+          (this.ParentForm as MainForm).FillTableStockDocuments(this.mDataSet.ReceiptMaster, _begin);
+              
+          this.ParentForm.FormClosing += new FormClosingEventHandler(ParentForm_FormClosing);
+          this.gridViewMasterStock.MasterRowGetChildList += new DevExpress.XtraGrid.Views.Grid.MasterRowGetChildListEventHandler(this.gridViewMasterStock_MasterRowGetChildList);
+     
 
 
 
@@ -92,6 +105,11 @@ namespace RetailTrade.Receipt
             }
         }
 
+        private void gridViewMasterStock_MasterRowGetChildList(object sender, MasterRowGetChildListEventArgs e)
+        {
+            (this.ParentForm as MainForm).RefreshData((receiptMasterBindingSource.CurrencyManager.Current as DataRowView).Row as MDataSet.ReceiptMasterRow);
+        }
+        
         private bool CancelChages()
         {
 
@@ -254,7 +272,8 @@ namespace RetailTrade.Receipt
                 }
             } 
         }
-       
+     
+ 
         void ParentForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.receiptMasterBindingSource.EndEdit();
@@ -293,9 +312,12 @@ namespace RetailTrade.Receipt
 
         }
 
-        private void gridViewMasterStock_MasterRowGetChildList(object sender, MasterRowGetChildListEventArgs e)
+   
+        private void btPeriod_Click(object sender, EventArgs e)
         {
-            (this.ParentForm as MainForm).RefreshData((receiptMasterBindingSource.CurrencyManager.Current as DataRowView).Row as MDataSet.ReceiptMasterRow);
+
+         (this.ParentForm as MainForm).FillTableStockDocuments(this.mDataSet.ReceiptMaster, Convert.ToInt32(this.PariodsComboBox.ComboBox.SelectedValue.ToString()));
+              
         }
 
     }

@@ -31,26 +31,24 @@ namespace RetailTrade
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Новые");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("К отправке");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Отправленные");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Возвратные");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Накладные", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4});
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Новые");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Все за  месяц");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("На складе", new System.Windows.Forms.TreeNode[] {
-            treeNode7});
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Приходные", new System.Windows.Forms.TreeNode[] {
-            treeNode6,
-            treeNode8});
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Центральный склад");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Остатки товара", new System.Windows.Forms.TreeNode[] {
-            treeNode10});
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Заявки");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Новые");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("К отправке");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Отправленные");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Возвратные");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Накладные", new System.Windows.Forms.TreeNode[] {
+            treeNode12,
+            treeNode13,
+            treeNode14,
+            treeNode15});
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Новые");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("На складе");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Приходные", new System.Windows.Forms.TreeNode[] {
+            treeNode17,
+            treeNode18});
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Центральный склад");
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Остатки товара", new System.Windows.Forms.TreeNode[] {
+            treeNode20});
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Заявки");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.actionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -174,6 +172,8 @@ namespace RetailTrade
             this.storageConditionTableAdapter1 = new RetailTrade.FullDataSetTableAdapters.StorageConditionTableAdapter();
             this.unitTableAdapter1 = new RetailTrade.FullDataSetTableAdapters.UnitTableAdapter();
             this.substanceTableAdapter1 = new RetailTrade.FullDataSetTableAdapters.SubstanceTableAdapter();
+            this.periodsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.periodsTableAdapter = new RetailTrade.MDataSetTableAdapters.PeriodsTableAdapter();
             this.statusStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -217,6 +217,7 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.manufacturerBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.packingBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.storageConditionBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.periodsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -312,47 +313,43 @@ namespace RetailTrade
             this.treeView1.ImageList = this.imageList1;
             this.treeView1.Location = new System.Drawing.Point(3, 3);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "NodeRecieptNew";
-            treeNode1.Tag = "InvoiceMasterNew";
-            treeNode1.Text = "Новые";
-            treeNode1.ToolTipText = "Новые накладные";
-            treeNode2.Name = "Node6";
-            treeNode2.Text = "К отправке";
-            treeNode3.Name = "Node7";
-            treeNode3.Text = "Отправленные";
-            treeNode4.Name = "Node8";
-            treeNode4.Text = "Возвратные";
-            treeNode5.Name = "NodeReciept";
-            treeNode5.Tag = "";
-            treeNode5.Text = "Накладные";
-            treeNode6.Name = "Node10";
-            treeNode6.Tag = "ReceiptMasterNewAll";
-            treeNode6.Text = "Новые";
-            treeNode6.ToolTipText = "Новые приходные акты";
-            treeNode7.Name = "Node0";
-            treeNode7.Tag = "ReceiptMasterStock";
-            treeNode7.Text = "Все за  месяц";
-            treeNode7.ToolTipText = "Приходные документы за этот месяц {all}";
-            treeNode8.Name = "Node11";
-            treeNode8.Tag = "ReceiptMasterStock";
-            treeNode8.Text = "На складе";
-            treeNode8.ToolTipText = "Приходные документы {new}";
-            treeNode9.Name = "Node9";
-            treeNode9.Text = "Приходные";
-            treeNode10.Name = "Node1";
-            treeNode10.Tag = "Remains";
-            treeNode10.Text = "Центральный склад";
-            treeNode10.ToolTipText = "Отстатки - центр. склад";
-            treeNode11.Name = "Node0";
-            treeNode11.Text = "Остатки товара";
-            treeNode12.Name = "Node12";
-            treeNode12.Tag = "OrdersAll";
-            treeNode12.Text = "Заявки";
+            treeNode12.Name = "NodeRecieptNew";
+            treeNode12.Tag = "InvoiceMasterNew";
+            treeNode12.Text = "Новые";
+            treeNode12.ToolTipText = "Новые накладные";
+            treeNode13.Name = "Node6";
+            treeNode13.Text = "К отправке";
+            treeNode14.Name = "Node7";
+            treeNode14.Text = "Отправленные";
+            treeNode15.Name = "Node8";
+            treeNode15.Text = "Возвратные";
+            treeNode16.Name = "NodeReciept";
+            treeNode16.Tag = "";
+            treeNode16.Text = "Накладные";
+            treeNode17.Name = "Node10";
+            treeNode17.Tag = "ReceiptMasterNewAll";
+            treeNode17.Text = "Новые";
+            treeNode17.ToolTipText = "Новые приходные акты";
+            treeNode18.Name = "Node11";
+            treeNode18.Tag = "ReceiptMasterStock";
+            treeNode18.Text = "На складе";
+            treeNode18.ToolTipText = "Приходные документы {new}";
+            treeNode19.Name = "Node9";
+            treeNode19.Text = "Приходные";
+            treeNode20.Name = "Node1";
+            treeNode20.Tag = "Remains";
+            treeNode20.Text = "Центральный склад";
+            treeNode20.ToolTipText = "Отстатки - центр. склад";
+            treeNode21.Name = "Node0";
+            treeNode21.Text = "Остатки товара";
+            treeNode22.Name = "Node12";
+            treeNode22.Tag = "OrdersAll";
+            treeNode22.Text = "Заявки";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode5,
-            treeNode9,
-            treeNode11,
-            treeNode12});
+            treeNode16,
+            treeNode19,
+            treeNode21,
+            treeNode22});
             this.treeView1.SelectedImageIndex = 0;
             this.treeView1.Size = new System.Drawing.Size(208, 496);
             this.treeView1.TabIndex = 0;
@@ -386,7 +383,7 @@ namespace RetailTrade
             // 
             // gridControl1
             // 
-            this.gridControl1.DataSource = this.substanceBindingSource1;
+            this.gridControl1.DataSource = this.periodsBindingSource;
             // 
             // 
             // 
@@ -1107,6 +1104,15 @@ namespace RetailTrade
             // 
             this.substanceTableAdapter1.ClearBeforeFill = true;
             // 
+            // periodsBindingSource
+            // 
+            this.periodsBindingSource.DataMember = "Periods";
+            this.periodsBindingSource.DataSource = this.mDataSet;
+            // 
+            // periodsTableAdapter
+            // 
+            this.periodsTableAdapter.ClearBeforeFill = true;
+            // 
             // MainForm
             // 
             this.ClientSize = global::RetailTrade.Properties.Settings.Default.MySize;
@@ -1170,6 +1176,7 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.manufacturerBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.packingBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.storageConditionBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.periodsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1301,6 +1308,8 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripMenuItem btProductNds;
         private System.Windows.Forms.ToolStripMenuItem btAddProduct;
         public FullDataSet fullDataSet;
+        private System.Windows.Forms.BindingSource periodsBindingSource;
+        private RetailTrade.MDataSetTableAdapters.PeriodsTableAdapter periodsTableAdapter;
         }
 }
 
