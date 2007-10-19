@@ -82,6 +82,8 @@ namespace RetailTrade.Receipt
             this.btDelete = new System.Windows.Forms.ToolStripButton();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.btField = new System.Windows.Forms.ToolStripMenuItem();
+            this.btPeriod = new System.Windows.Forms.ToolStripButton();
+            this.PariodsComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.organizationTableAdapter = new RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRecieptDetailStock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
@@ -257,13 +259,13 @@ namespace RetailTrade.Receipt
             gridLevelNode1.RelationName = "ReceiptMaster_ReceiptDetail";
             this.grid.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
             gridLevelNode1});
-            this.grid.Location = new System.Drawing.Point(0, 25);
+            this.grid.Location = new System.Drawing.Point(0, 26);
             this.grid.MainView = this.gridViewMasterStock;
             this.grid.Name = "grid";
             this.grid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.OrganizationLookUpEdit});
             this.grid.ShowOnlyPredefinedDetails = true;
-            this.grid.Size = new System.Drawing.Size(679, 411);
+            this.grid.Size = new System.Drawing.Size(679, 410);
             this.grid.TabIndex = 2;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewMasterStock,
@@ -300,7 +302,6 @@ namespace RetailTrade.Receipt
             this.gridViewMasterStock.OptionsBehavior.Editable = false;
             this.gridViewMasterStock.OptionsDetail.AllowOnlyOneMasterRowExpanded = true;
             this.gridViewMasterStock.OptionsView.ShowFooter = true;
-            this.gridViewMasterStock.MasterRowGetChildList += new DevExpress.XtraGrid.Views.Grid.MasterRowGetChildListEventHandler(this.gridViewMasterStock_MasterRowGetChildList);
             this.gridViewMasterStock.Layout += new System.EventHandler(this.gridViewMasterStock_Layout);
             // 
             // colNumber
@@ -530,14 +531,16 @@ namespace RetailTrade.Receipt
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btClose,
+            this.PariodsComboBox,
             this.btEdit,
             this.btSave,
             this.btCancel,
             this.btDelete,
-            this.toolStripSplitButton1});
+            this.toolStripSplitButton1,
+            this.btPeriod});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(679, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(679, 26);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -548,7 +551,7 @@ namespace RetailTrade.Receipt
             this.btClose.Image = ((System.Drawing.Image)(resources.GetObject("btClose.Image")));
             this.btClose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btClose.Name = "btClose";
-            this.btClose.Size = new System.Drawing.Size(23, 22);
+            this.btClose.Size = new System.Drawing.Size(23, 23);
             this.btClose.Text = "x";
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
@@ -557,7 +560,7 @@ namespace RetailTrade.Receipt
             this.btEdit.Image = ((System.Drawing.Image)(resources.GetObject("btEdit.Image")));
             this.btEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btEdit.Name = "btEdit";
-            this.btEdit.Size = new System.Drawing.Size(95, 22);
+            this.btEdit.Size = new System.Drawing.Size(95, 23);
             this.btEdit.Text = "Изменить";
             this.btEdit.Click += new System.EventHandler(this.btEdit_Click);
             // 
@@ -566,7 +569,7 @@ namespace RetailTrade.Receipt
             this.btSave.Image = ((System.Drawing.Image)(resources.GetObject("btSave.Image")));
             this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(101, 22);
+            this.btSave.Size = new System.Drawing.Size(101, 23);
             this.btSave.Text = "Сохранить";
             this.btSave.Visible = false;
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
@@ -576,7 +579,7 @@ namespace RetailTrade.Receipt
             this.btCancel.Image = ((System.Drawing.Image)(resources.GetObject("btCancel.Image")));
             this.btCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btCancel.Name = "btCancel";
-            this.btCancel.Size = new System.Drawing.Size(97, 22);
+            this.btCancel.Size = new System.Drawing.Size(97, 23);
             this.btCancel.Text = "Отменить";
             this.btCancel.Visible = false;
             this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
@@ -586,20 +589,21 @@ namespace RetailTrade.Receipt
             this.btDelete.Image = ((System.Drawing.Image)(resources.GetObject("btDelete.Image")));
             this.btDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btDelete.Name = "btDelete";
-            this.btDelete.Size = new System.Drawing.Size(85, 22);
+            this.btDelete.Size = new System.Drawing.Size(85, 23);
             this.btDelete.Text = "Удалить";
             this.btDelete.ToolTipText = "Убрать товар со склада";
             this.btDelete.Visible = false;
             // 
             // toolStripSplitButton1
             // 
+            this.toolStripSplitButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
             this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btField});
             this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
             this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(16, 22);
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(16, 23);
             this.toolStripSplitButton1.Text = "toolStripSplitButton1";
             // 
             // btField
@@ -608,6 +612,22 @@ namespace RetailTrade.Receipt
             this.btField.Size = new System.Drawing.Size(208, 22);
             this.btField.Text = "Настройка полей";
             this.btField.Click += new System.EventHandler(this.btField_Click);
+            // 
+            // btPeriod
+            // 
+            this.btPeriod.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btPeriod.Image = ((System.Drawing.Image)(resources.GetObject("btPeriod.Image")));
+            this.btPeriod.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btPeriod.Name = "btPeriod";
+            this.btPeriod.Size = new System.Drawing.Size(81, 22);
+            this.btPeriod.Text = "За период";
+            this.btPeriod.Click += new System.EventHandler(this.btPeriod_Click);
+            // 
+            // PariodsComboBox
+            // 
+            this.PariodsComboBox.CausesValidation = false;
+            this.PariodsComboBox.Name = "PariodsComboBox";
+            this.PariodsComboBox.Size = new System.Drawing.Size(170, 26);
             // 
             // organizationTableAdapter
             // 
@@ -691,5 +711,7 @@ namespace RetailTrade.Receipt
         private System.Windows.Forms.ToolStripButton btEdit;
         private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
         private System.Windows.Forms.ToolStripMenuItem btField;
+        private System.Windows.Forms.ToolStripButton btPeriod;
+        private System.Windows.Forms.ToolStripComboBox PariodsComboBox;
     }
 }

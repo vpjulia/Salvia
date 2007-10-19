@@ -69,7 +69,7 @@ namespace RetailTrade
             this.components.Add(this.substanceTableAdapter1, "substanceTableAdapter1");
             this.components.Add(this.unitTableAdapter1, "unitTableAdapter1");
             this.components.Add(this.countryTableAdapter1, "countryTableAdapter1");
-          
+            this.components.Add(this.periodsTableAdapter, "periodsTableAdapter");
             
             /*  FillTable("Product");
             FillTable("Organization");
@@ -80,11 +80,11 @@ namespace RetailTrade
      
         private void MainForm_Load(object sender, EventArgs e)
         {
-
-            try
+              try
             {
 
                 FillTable("Stock");
+                FillTable("Periods");
                 FillTable("Product");
                 FillTable("Organization");
             }
@@ -324,40 +324,10 @@ namespace RetailTrade
                         break;
 
                     case "ReceiptMasterStock":
-
-                    //вычитать с сервера новые документы
-                        
-                        if (Title.Contains("{all}"))
-                        {
-                            TagControl += "all";
-                            if (!FindOpenedTabs(TagControl))
-                            {
-                                Title = Title.Replace("{all}", "");
-                                FillTableStockDocuments(this.mDataSet.ReceiptMaster, 0);
-                            }
-                            else
-                                return false;
-                        }
-                        else
-                        {
-                            TagControl += "new";
-                            if (!FindOpenedTabs(TagControl))
-                            {
-                                Title = Title.Replace("{new}", ""); 
-                                DateTime _begin = DateTime.Now.AddDays(-7);
-
-                                FillTableStockDocuments(this.mDataSet.ReceiptMaster, _begin);
-                            }
-                            else
-                                return false;
-                        }
-
-                         usControl = new ReceiptMasterStock(this.mDataSet);
+                        usControl = new ReceiptMasterStock(this.mDataSet);
                         (usControl as ReceiptMasterStock).Dock = DockStyle.Fill;
                         (usControl as ReceiptMasterStock).Tag = Title;
                         break;
-
-
 
                     case "ReceiptRowOrganization":
 
