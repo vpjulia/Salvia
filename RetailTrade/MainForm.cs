@@ -109,12 +109,12 @@ namespace RetailTrade
             thread.Abort();
             Thread.Sleep(30);
 
-            this.Size = Properties.Settings.Default.MySize;
+         /*   this.Size = Properties.Settings.Default.MySize;
 
             this.Location = Properties.Settings.Default.MyLoc;
 
             this.WindowState = Properties.Settings.Default.MyState;
-
+            */
             
            
           //  System.Configuration.AppSettingsReader app = new System.Configuration.AppSettingsReader();
@@ -383,6 +383,14 @@ namespace RetailTrade
                        (usControl as RemainsLocal).Tag = Title;
 
                        break;
+
+                   case "ReceiptImport":
+                       usControl = new ReceiptImport();
+                       (usControl as ReceiptImport).Dock = DockStyle.Fill;
+                       (usControl as ReceiptImport).Tag = Title;
+
+                       break;
+
 
 
                     default:

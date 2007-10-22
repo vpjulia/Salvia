@@ -96,6 +96,11 @@
     <Compile Include="Dialog\printingControl.Designer.cs">
       <DependentUpon>printingControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="FarmTrade.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FarmTrade.xsd</DependentUpon>
+    </Compile>
     <Compile Include="FullDataSet.cs">
       <DependentUpon>FullDataSet.xsd</DependentUpon>
     </Compile>
@@ -238,6 +243,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>ReceiptDetailByRef.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Receipt\ReceiptImport.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ReceiptImport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Receipt\ReceiptMasterNewAll.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ReceiptMasterNewAll.cs</DependentUpon>
@@ -330,6 +339,12 @@
     <Compile Include="Receipt\ReceiptDetailByRef.Designer.cs">
       <DependentUpon>ReceiptDetailByRef.cs</DependentUpon>
     </Compile>
+    <Compile Include="Receipt\ReceiptImport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Receipt\ReceiptImport.Designer.cs">
+      <DependentUpon>ReceiptImport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Receipt\ReceiptMasterNewAll.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -370,6 +385,17 @@
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
+    <None Include="FarmTrade.xsc">
+      <DependentUpon>FarmTrade.xsd</DependentUpon>
+    </None>
+    <None Include="FarmTrade.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FarmTrade.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="FarmTrade.xss">
+      <DependentUpon>FarmTrade.xsd</DependentUpon>
+    </None>
     <None Include="FullDataSet.xsc">
       <DependentUpon>FullDataSet.xsd</DependentUpon>
     </None>
