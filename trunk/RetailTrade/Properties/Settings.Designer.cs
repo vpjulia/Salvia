@@ -90,5 +90,38 @@ namespace RetailTrade.Properties {
                 this["MyState"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=VFPOLEDB.1;Data Source=D:\\WORK\\FarmTrade\\Вента(Дн)_F98DF9B1_090232.dbf")]
+        public string ConnectionString {
+            get {
+                return ((string)(this["ConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("164")]
+        public int impSplitDist {
+            get {
+                return ((int)(this["impSplitDist"]));
+            }
+            set {
+                this["impSplitDist"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public object ImpDataSource {
+            get {
+                return ((object)(this["ImpDataSource"]));
+            }
+            set {
+                this["ImpDataSource"] = value;
+            }
+        }
     }
 }

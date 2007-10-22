@@ -52,3 +52,4 @@ bin\Debug\DevExpress.XtraEditors3.xml
 bin\Debug\DevExpress.XtraGrid3.xml
 bin\Debug\Microsoft.ReportViewer.WinForms.xml
 obj\Debug\RetailTrade.Remains.RemainsLocal.resources
+obj\Debug\RetailTrade.Receipt.ReceiptImport.resources

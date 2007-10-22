@@ -812,12 +812,9 @@ namespace RetailTrade
 
                 }
   
-                  /*FillNew + Merge + FillDetailsById*/
+       /*FillNew + Merge + FillDetailsById*/
         public bool RefreshData(MDataSet.ReceiptMasterRow sourceRow) 
         {
-            /*нужно обновить спр. товаров, как????*/
-
-
             MDataSet.ReceiptMasterDataTable _ReceiptMasterDataTable = new MDataSet.ReceiptMasterDataTable();
             MDataSet.ReceiptDetailDataTable _ReceiptDetailDataTable = new MDataSet.ReceiptDetailDataTable();
             MDataSet.ProductDataTable _productDataTable = new MDataSet.ProductDataTable();
