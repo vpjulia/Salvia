@@ -12,6 +12,9 @@ namespace RetailTrade.Invoice
 {
     public partial class InvoiceRow : UserControl
     {
+
+        MDataSet.InvoiceMasterRow _curentMasterRow;
+
         public InvoiceRow()
         {
             InitializeComponent();
@@ -21,9 +24,11 @@ namespace RetailTrade.Invoice
         public InvoiceRow(MDataSet.InvoiceMasterRow source)
         {
             InitializeComponent();
+            
+            _curentMasterRow = source;
 
             this.mDataSet = source.Table.DataSet as MDataSet;
-
+           
             this.invoiceMasterBindingSource.DataSource = source.Table;
             this.invoiceMasterBindingSource.ResetBindings(false);
             this.invoiceMasterBindingSource.CurrencyManager.Position = this.invoiceMasterBindingSource.Find("ID", source.ID);
@@ -200,6 +205,25 @@ namespace RetailTrade.Invoice
             this.invoiceMasterBindingSource.EndEdit();
             this.MainStockBindingSource.Filter = "IsLocal=1 and IsNDS =" + ((this.invoiceMasterBindingSource.Current as DataRowView).Row as MDataSet.InvoiceMasterRow).IsNDS.ToString();
             this.mainStocklookUpEdit.Enabled = true;
+        }
+
+        private void btMove_Click(object sender, EventArgs e)
+        {
+            this.invoiceMasterBindingSource.EndEdit();
+            
+            try
+            {
+                (this.ParentForm as MainForm).invoiceMasterTableAdapter.InvoiceMasterMove(_curentMasterRow.ID);
+
+                (this.ParentForm as MainForm).RefreshData(_curentMasterRow);
+            }
+            catch
+            { MessageBox.Show("Ошибка внутреннего перемещения!"); }
+
+            finally
+            {
+                this.btClose.PerformClick();
+            }
         }
 
        

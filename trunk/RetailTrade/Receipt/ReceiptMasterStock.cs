@@ -40,7 +40,6 @@ namespace RetailTrade.Receipt
         {
             InitializeComponent();
 
-          
             this.mDataSet = source;
             this.receiptMasterBindingSource.DataSource = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=1", null, DataViewRowState.CurrentRows);
             this.receiptMasterBindingSource.ResetBindings(false);
@@ -60,7 +59,7 @@ namespace RetailTrade.Receipt
             _changesReceiptDetail = new DataView(this.mDataSet.ReceiptDetail, "DocumentTypeRef=1", null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
 
             _changesReceiptMaster.ListChanged+=new ListChangedEventHandler(_changes_ListChanged);
-            _changesReceiptMaster.ListChanged+=new ListChangedEventHandler (_changes_ListChanged);
+            _changesReceiptDetail.ListChanged += new ListChangedEventHandler(_changes_ListChanged);
 
 
         }
@@ -318,6 +317,43 @@ namespace RetailTrade.Receipt
 
          (this.ParentForm as MainForm).FillTableStockDocuments(this.mDataSet.ReceiptMaster, Convert.ToInt32(this.PariodsComboBox.ComboBox.SelectedValue.ToString()));
               
+        }
+
+        private void btDelete_Click(object sender, EventArgs e)
+        {
+            DataRow _dr = (this.grid.FocusedView as GridView).GetDataRow((this.grid.FocusedView as GridView).FocusedRowHandle);
+            if ((_dr as MDataSet.ReceiptDetailRow) != null)
+            {
+                foreach(DataRelation _relation in _dr.Table.ChildRelations)
+
+                    if (_dr.GetChildRows(_relation) != null)
+                    {
+                        MessageBox.Show("Невозможно удалить строку!");
+                        return;
+                    }
+
+                _dr.Delete();
+                this.SaveChanges();
+            }
+     
+        }
+
+        private void btMakeNew_Click(object sender, EventArgs e)
+        {
+            DataRow _dr = (this.grid.FocusedView as GridView).GetDataRow((this.grid.FocusedView as GridView).FocusedRowHandle);
+            if ((_dr as MDataSet.ReceiptMasterRow) != null)
+            {
+                try
+                {
+                    (this.ParentForm as MainForm).receiptMasterTableAdapter.ReceiptMasterMakeToNew((_dr as MDataSet.ReceiptMasterRow).ID);
+                    (this.ParentForm as MainForm).RefreshData((_dr as MDataSet.ReceiptMasterRow));
+
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message);
+                }
+            }
         }
 
     }

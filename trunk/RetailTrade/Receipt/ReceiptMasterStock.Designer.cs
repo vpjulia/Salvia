@@ -79,11 +79,13 @@ namespace RetailTrade.Receipt
             this.btEdit = new System.Windows.Forms.ToolStripButton();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btCancel = new System.Windows.Forms.ToolStripButton();
+            this.btMakeNew = new System.Windows.Forms.ToolStripButton();
             this.btDelete = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.PariodsComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.btField = new System.Windows.Forms.ToolStripMenuItem();
             this.btPeriod = new System.Windows.Forms.ToolStripButton();
-            this.PariodsComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.organizationTableAdapter = new RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRecieptDetailStock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
@@ -265,7 +267,7 @@ namespace RetailTrade.Receipt
             this.grid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.OrganizationLookUpEdit});
             this.grid.ShowOnlyPredefinedDetails = true;
-            this.grid.Size = new System.Drawing.Size(679, 410);
+            this.grid.Size = new System.Drawing.Size(781, 481);
             this.grid.TabIndex = 2;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewMasterStock,
@@ -521,9 +523,9 @@ namespace RetailTrade.Receipt
             // 
             // statusStrip
             // 
-            this.statusStrip.Location = new System.Drawing.Point(0, 436);
+            this.statusStrip.Location = new System.Drawing.Point(0, 507);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(679, 22);
+            this.statusStrip.Size = new System.Drawing.Size(781, 22);
             this.statusStrip.TabIndex = 0;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -531,16 +533,18 @@ namespace RetailTrade.Receipt
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btClose,
-            this.PariodsComboBox,
             this.btEdit,
             this.btSave,
             this.btCancel,
+            this.btMakeNew,
             this.btDelete,
+            this.toolStripSeparator1,
+            this.PariodsComboBox,
             this.toolStripSplitButton1,
             this.btPeriod});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(679, 26);
+            this.toolStrip1.Size = new System.Drawing.Size(781, 26);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -584,6 +588,15 @@ namespace RetailTrade.Receipt
             this.btCancel.Visible = false;
             this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
+            // btMakeNew
+            // 
+            this.btMakeNew.Image = ((System.Drawing.Image)(resources.GetObject("btMakeNew.Image")));
+            this.btMakeNew.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btMakeNew.Name = "btMakeNew";
+            this.btMakeNew.Size = new System.Drawing.Size(148, 23);
+            this.btMakeNew.Text = "Убрать со склада";
+            this.btMakeNew.Click += new System.EventHandler(this.btMakeNew_Click);
+            // 
             // btDelete
             // 
             this.btDelete.Image = ((System.Drawing.Image)(resources.GetObject("btDelete.Image")));
@@ -593,6 +606,18 @@ namespace RetailTrade.Receipt
             this.btDelete.Text = "Удалить";
             this.btDelete.ToolTipText = "Убрать товар со склада";
             this.btDelete.Visible = false;
+            this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 26);
+            // 
+            // PariodsComboBox
+            // 
+            this.PariodsComboBox.CausesValidation = false;
+            this.PariodsComboBox.Name = "PariodsComboBox";
+            this.PariodsComboBox.Size = new System.Drawing.Size(170, 26);
             // 
             // toolStripSplitButton1
             // 
@@ -623,12 +648,6 @@ namespace RetailTrade.Receipt
             this.btPeriod.Text = "За период";
             this.btPeriod.Click += new System.EventHandler(this.btPeriod_Click);
             // 
-            // PariodsComboBox
-            // 
-            this.PariodsComboBox.CausesValidation = false;
-            this.PariodsComboBox.Name = "PariodsComboBox";
-            this.PariodsComboBox.Size = new System.Drawing.Size(170, 26);
-            // 
             // organizationTableAdapter
             // 
             this.organizationTableAdapter.ClearBeforeFill = true;
@@ -641,7 +660,7 @@ namespace RetailTrade.Receipt
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip);
             this.Name = "ReceiptMasterStock";
-            this.Size = new System.Drawing.Size(679, 458);
+            this.Size = new System.Drawing.Size(781, 529);
             this.Load += new System.EventHandler(this.ReceiptMasterStock_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRecieptDetailStock)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
@@ -713,5 +732,7 @@ namespace RetailTrade.Receipt
         private System.Windows.Forms.ToolStripMenuItem btField;
         private System.Windows.Forms.ToolStripButton btPeriod;
         private System.Windows.Forms.ToolStripComboBox PariodsComboBox;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton btMakeNew;
     }
 }

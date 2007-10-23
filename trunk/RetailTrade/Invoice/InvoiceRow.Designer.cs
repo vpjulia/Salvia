@@ -76,6 +76,7 @@ namespace RetailTrade.Invoice
             this.invoiceMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.InvoiceMasterTableAdapter();
             this.invoiceDetailTableAdapter = new RetailTrade.MDataSetTableAdapters.InvoiceDetailTableAdapter();
             this.stockTableAdapter = new RetailTrade.MDataSetTableAdapters.StockTableAdapter();
+            this.btMove = new System.Windows.Forms.ToolStripButton();
             numberLabel = new System.Windows.Forms.Label();
             this.toolStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -111,7 +112,8 @@ namespace RetailTrade.Invoice
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btEdit,
             this.toolStripSplitButton1,
-            this.btClose});
+            this.btClose,
+            this.btMove});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(797, 25);
@@ -312,10 +314,9 @@ namespace RetailTrade.Invoice
             this.StockEdit.Properties.ValueMember = "ID";
             this.StockEdit.Size = new System.Drawing.Size(220, 22);
             this.StockEdit.TabIndex = 2;
-           
             this.StockEdit.EditValueChanged += new System.EventHandler(this.StockEdit_EditValueChanged);
             this.StockEdit.Validated += new System.EventHandler(this.StockEdit_Validated);
-             // 
+            // 
             // stockBindingSource
             // 
             this.stockBindingSource.DataMember = "Stock";
@@ -555,6 +556,15 @@ namespace RetailTrade.Invoice
             // 
             this.stockTableAdapter.ClearBeforeFill = true;
             // 
+            // btMove
+            // 
+            this.btMove.Image = ((System.Drawing.Image)(resources.GetObject("btMove.Image")));
+            this.btMove.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btMove.Name = "btMove";
+            this.btMove.Size = new System.Drawing.Size(148, 22);
+            this.btMove.Text = "Готов к отправке";
+            this.btMove.Click += new System.EventHandler(this.btMove_Click);
+            // 
             // InvoiceRow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -641,6 +651,7 @@ namespace RetailTrade.Invoice
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
         private DevExpress.XtraEditors.LookUpEdit mainStocklookUpEdit;
+        private System.Windows.Forms.ToolStripButton btMove;
        
     }
 }

@@ -29,7 +29,7 @@ namespace RetailTrade.Invoice
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvoiceMasterNewAll));
             this.gridViewInvoiceDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colProductName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -128,10 +128,10 @@ namespace RetailTrade.Invoice
             this.grid.DataSource = this.invoiceMasterBindingSource;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid.EmbeddedNavigator.Name = "";
-            gridLevelNode1.LevelTemplate = this.gridViewInvoiceDetail;
-            gridLevelNode1.RelationName = "FK_InvoiceDetail_InvoiceMaster";
+            gridLevelNode2.LevelTemplate = this.gridViewInvoiceDetail;
+            gridLevelNode2.RelationName = "FK_InvoiceDetail_InvoiceMaster";
             this.grid.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode1});
+            gridLevelNode2});
             this.grid.Location = new System.Drawing.Point(0, 25);
             this.grid.MainView = this.gridViewInvoiceMasterAll;
             this.grid.Name = "grid";
@@ -139,7 +139,7 @@ namespace RetailTrade.Invoice
             this.repositoryItemDateEdit1,
             this.RemoteStockLookupEdit});
             this.grid.ShowOnlyPredefinedDetails = true;
-            this.grid.Size = new System.Drawing.Size(794, 431);
+            this.grid.Size = new System.Drawing.Size(794, 506);
             this.grid.TabIndex = 2;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewInvoiceMasterAll,
@@ -313,7 +313,7 @@ namespace RetailTrade.Invoice
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 456);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 531);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(794, 22);
             this.statusStrip1.TabIndex = 0;
@@ -410,7 +410,8 @@ namespace RetailTrade.Invoice
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Name = "InvoiceMasterNewAll";
-            this.Size = new System.Drawing.Size(794, 478);
+            this.Size = new System.Drawing.Size(794, 553);
+            this.Load += new System.EventHandler(this.InvoiceMasterNewAll_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridViewInvoiceDetail)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSource)).EndInit();
