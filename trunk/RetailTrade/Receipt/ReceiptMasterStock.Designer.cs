@@ -644,7 +644,7 @@ namespace RetailTrade.Receipt
             this.btPeriod.Image = ((System.Drawing.Image)(resources.GetObject("btPeriod.Image")));
             this.btPeriod.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btPeriod.Name = "btPeriod";
-            this.btPeriod.Size = new System.Drawing.Size(81, 22);
+            this.btPeriod.Size = new System.Drawing.Size(81, 23);
             this.btPeriod.Text = "За период";
             this.btPeriod.Click += new System.EventHandler(this.btPeriod_Click);
             // 

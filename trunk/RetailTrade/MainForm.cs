@@ -50,6 +50,7 @@ namespace RetailTrade
             w.WriteLine("-------------------------------");
             
             w.Flush();
+            w.Close();
         }
 
         public static void DeleteOldLogs()
@@ -126,7 +127,7 @@ namespace RetailTrade
      
         private void MainForm_Load(object sender, EventArgs e)
         {
-              try
+            try
             {
 
                 FillTable("Stock");
@@ -137,10 +138,14 @@ namespace RetailTrade
 
             catch (Exception err)
             {
-                MessageBox.Show(err.Message);
-                Log("MainForm_Load ERROR " + err.Message+" " + err.Source+err.InnerException.Message);
+                MessageBox.Show("MainForm_Load ERROR " + err.Message);
+                Log("MainForm_Load ERROR " + err.Message + " " + err.Source + err.InnerException.Message);
             }
-
+            finally
+            {
+                Log("MainForm_Load         finally");
+            
+            }
 
            
 
