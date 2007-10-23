@@ -16,6 +16,7 @@ using RetailTrade.Invoice;
 using RetailTrade.Receipt;
 using RetailTrade.Orders;
 using RetailTrade.Remains;
+using System.IO;
 
 
 
@@ -27,13 +28,58 @@ namespace RetailTrade
     public partial class MainForm : Form
     {
         Thread thread;
+     
+        public static void Log(String logMessage )
+        {
+            string path = (Application.StartupPath +"\\log_" + DateTime.Now.ToShortDateString() + ".txt");
+
+            TextWriter w;
+
+            if (!File.Exists(path))
+                w = File.CreateText(path);
+            else
+                w = File.AppendText(path);
+
+
+           
+            w.Write("\r\nLog Entry : ");
+            w.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(),
+                DateTime.Now.ToLongDateString());
+            w.WriteLine("  :");
+            w.WriteLine("  :{0}", logMessage);
+            w.WriteLine("-------------------------------");
+            
+            w.Flush();
+        }
+
+        public static void DeleteOldLogs()
+        {
+
+            DirectoryInfo dir = new DirectoryInfo(Application.StartupPath);
+            foreach (FileInfo f in dir.GetFiles("log*.txt"))
+            {
+                String name = f.Name;
+                long size = f.Length;
+                DateTime creationTime = f.CreationTime;
+                if( creationTime < DateTime.Now.AddDays(-7))
+                   File.Delete(f.Name);
+
+
+            }
+
+
+        }
+
         public MainForm()
         {
             thread = new Thread(new ThreadStart(DoSplash));
             thread.Start();
             Thread.Sleep(300);
+          
+            DeleteOldLogs();
         
             InitializeComponent();
+ 
             this.components.Add(this.productTableAdapter, "productTableAdapter");
             this.components.Add(this.manufacturerTableAdapter, "manufacturerTableAdapter");
             this.components.Add(this.farmGroupTableAdapter, "farmGroupTableAdapter");
@@ -70,7 +116,7 @@ namespace RetailTrade
             this.components.Add(this.unitTableAdapter1, "unitTableAdapter1");
             this.components.Add(this.countryTableAdapter1, "countryTableAdapter1");
             this.components.Add(this.periodsTableAdapter, "periodsTableAdapter");
-            
+            Log("InitializeComponent true");
             /*  FillTable("Product");
             FillTable("Organization");
         */
@@ -92,13 +138,11 @@ namespace RetailTrade
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
+                Log("MainForm_Load ERROR " + err.Message+" " + err.Source+err.InnerException.Message);
             }
 
 
-           /* FillTable("Orders");
-            FillTable("InvoiceDetail");
-            FillTable("PricesPurchase");
-            */
+           
 
 
             SanseeGridLocalizer gLocalizer = new SanseeGridLocalizer();
@@ -139,7 +183,9 @@ namespace RetailTrade
             this.mDataSet.InvoiceDetail.TableNewRow+=new DataTableNewRowEventHandler(InvoiceDetail_TableNewRow);
             this.mDataSet.InvoiceDetail.RowDeleted+=new DataRowChangeEventHandler(InvoiceDetail_RowDeleted);
             this.mDataSet.InvoiceDetail.RowChanged+=new DataRowChangeEventHandler(InvoiceDetail_RowChanged);
-            
+         
+            Log("MainForm_Load True ");
+           
               
         }
            
@@ -233,8 +279,245 @@ namespace RetailTrade
                 }
                    return false;
         }
-       
-        public bool ShowNewDataTab(string TagControl, string Title,params object[] list)
+
+
+        private UserControl InitiUCProductAll( ref String TagControl ,ref string Title)
+        {
+            UserControl usControl;
+
+            if (Title.Contains("НДС"))
+            {
+                TagControl += "NDS";
+                if (!FindOpenedTabs(TagControl))
+                {
+                    usControl = new UCProductAll(this.fullDataSet, true);
+                }
+                else
+                    return null;
+
+            }
+            else
+            {
+                TagControl += "outNDS";
+                if (!FindOpenedTabs(TagControl))
+                {
+                    usControl = new UCProductAll(this.fullDataSet, false);
+                }
+                else
+                    return null;
+
+            }
+            usControl.Dock = DockStyle.Fill;
+
+            usControl.Tag = Title;
+            
+            return usControl;            
+        
+        
+        }
+        private UserControl InitManufacturer(ref String TagControl,ref string Title)
+        {
+            UserControl usControl;
+
+            usControl = new UcGroupDirectory(this.mDataSet.Tables["Manufacturer"]);
+            (usControl as UcGroupDirectory).errorProvider1.DataSource = this.mDataSet;
+
+            (usControl as UcGroupDirectory).gridView.FocusedRowHandle = DevExpress.XtraGrid.GridControl.AutoFilterRowHandle;
+            (usControl as UcGroupDirectory).gridView.FocusedColumn = (usControl as UcGroupDirectory).gridView.Columns["Name"];
+            (usControl as UcGroupDirectory).Tag = "Справочник изготовителей";
+            (usControl as UcGroupDirectory).Dock = DockStyle.Fill;
+            return usControl;
+        
+        }
+        private UserControl InitFarmGroupLevel2(ref String TagControl, ref string Title)
+        {
+            UserControl usControl;
+
+            usControl = new UcGroupDirectory(this.mDataSet.Tables["FarmGroupLevel2"]);
+            (usControl as UcGroupDirectory).errorProvider1.DataSource = this.mDataSet;
+
+            (usControl as UcGroupDirectory).gridView.FocusedRowHandle = DevExpress.XtraGrid.GridControl.AutoFilterRowHandle;
+            (usControl as UcGroupDirectory).gridView.FocusedColumn = (usControl as UcGroupDirectory).gridView.Columns["Name"];
+            (usControl as UcGroupDirectory).Tag = Title;
+            (usControl as UcGroupDirectory).Dock = DockStyle.Fill;
+            return usControl;
+
+         
+        }
+        private UserControl InitOrganization(ref String TagControl, ref string Title)
+        {
+            UserControl usControl;
+                         usControl = new UCOrganizationAll(this.mDataSet);
+                        //(usControl as UcGroupDirectory).errorProvider1.DataSource = this.mDataSet;
+
+                         (usControl as UCOrganizationAll).gridView.FocusedRowHandle = DevExpress.XtraGrid.GridControl.AutoFilterRowHandle;
+                         (usControl as UCOrganizationAll).gridView.FocusedColumn = (usControl as UCOrganizationAll).gridView.Columns["Name"];
+                         (usControl as UCOrganizationAll).Tag = Title;
+                        (usControl as UCOrganizationAll).Dock = DockStyle.Fill;
+
+                        return usControl;
+        }
+     /*    private UserControl Init(ref String TagControl, ref string Title)
+        {
+            UserControl usControl;
+            return usControl;
+        
+        }
+
+     */
+        private UserControl InitReceiptImport(ref String TagControl, ref string Title)
+        {
+            UserControl usControl;
+
+            usControl = new ReceiptImport();
+            (usControl as ReceiptImport).Dock = DockStyle.Fill;
+            (usControl as ReceiptImport).Tag = Title;
+
+
+            return usControl;
+
+        }
+        private UserControl InitRemains(ref String TagControl, ref string Title)
+        {
+            UserControl usControl;
+            usControl = new RemainsLocal(this.mDataSet.Remains);
+            (usControl as RemainsLocal).Dock = DockStyle.Fill;
+            (usControl as RemainsLocal).Tag = Title;
+
+
+
+            return usControl;
+
+        }
+        private UserControl InitOrdersAll(ref String TagControl, ref string Title)
+        {
+            UserControl usControl;
+
+            
+                       usControl = new OrdersAll(this.mDataSet.Orders);
+                       (usControl as OrdersAll).Dock = DockStyle.Fill;
+                       (usControl as OrdersAll).Tag = Title;
+
+            return usControl;
+
+        }
+        private UserControl InitInvoiceRow(ref String TagControl, ref string Title, params object[] list)
+        {
+            UserControl usControl;
+
+            if ((list[0] as MDataSet.InvoiceMasterRow) != null)
+             {
+                           
+                            TagControl += (list[0] as MDataSet.InvoiceMasterRow).ID.ToString();
+                            if (!FindOpenedTabs(TagControl))
+                            {
+                                Title = "№" + (list[0] as MDataSet.InvoiceMasterRow).Number.ToString() + " " + (list[0] as MDataSet.InvoiceMasterRow).TradePupletName.ToString();
+                                usControl = new InvoiceRow((list[0] as MDataSet.InvoiceMasterRow));
+                                (usControl as InvoiceRow).Tag = Title;
+                                (usControl as InvoiceRow).Dock = DockStyle.Fill;
+                            }
+                            else
+                            {
+                                return null;
+                            }
+                            return usControl;
+
+                   }
+
+            return null;
+        }
+        private UserControl InitInvoiceMasterNew(ref String TagControl, ref string Title)
+        {
+            UserControl usControl;
+
+                       usControl = new InvoiceMasterNewAll(this.mDataSet);
+                       (usControl as InvoiceMasterNewAll).Dock = DockStyle.Fill;
+                       (usControl as InvoiceMasterNewAll).Tag = Title;
+
+            return usControl;
+
+        }
+        private UserControl InitReceiptRowOrganization(ref String TagControl, ref string Title, params object[] list)
+        {
+            UserControl usControl;
+            if ((list[0] as MDataSet.ReceiptMasterRow) != null)
+            {
+
+                TagControl += (list[0] as MDataSet.ReceiptMasterRow).ID.ToString();
+                if (!FindOpenedTabs(TagControl))
+                {
+                    Title = "№" + (list[0] as MDataSet.ReceiptMasterRow).Number.ToString() + " " + (list[0] as MDataSet.ReceiptMasterRow).OrganizationRow.ShortName.ToString();
+                    usControl = new ReceiptRowOrganization((list[0] as MDataSet.ReceiptMasterRow), (list[0] as MDataSet.ReceiptMasterRow).ID);
+                    (usControl as ReceiptRowOrganization).Tag = Title;
+                    (usControl as ReceiptRowOrganization).Dock = DockStyle.Fill;
+                }
+                else
+                {
+                    return null;
+                }
+                return usControl;
+
+            }
+            else
+                return null;
+
+            
+
+        }
+        private UserControl InitReceiptMasterStock(ref String TagControl, ref string Title)
+        {
+            UserControl usControl;
+            usControl = new ReceiptMasterStock(this.mDataSet);
+            (usControl as ReceiptMasterStock).Dock = DockStyle.Fill;
+            (usControl as ReceiptMasterStock).Tag = Title;
+
+
+            return usControl;
+
+        }
+        private UserControl InitReceiptMasterNewAll(ref String TagControl, ref string Title)
+        {
+            UserControl usControl;
+
+
+                        usControl = new ReceiptMasterNewAll(this.mDataSet);
+                       (usControl as ReceiptMasterNewAll).Dock = DockStyle.Fill;
+                       (usControl as ReceiptMasterNewAll).Tag = Title;
+                        
+
+
+            return usControl;
+
+        }
+        private UserControl InitTradePutlet(ref String TagControl, ref string Title)
+        {
+            UserControl usControl;
+           
+                        usControl = new UCTradePuplet(this.mDataSet);
+                        (usControl as UCTradePuplet).gridView.FocusedRowHandle = DevExpress.XtraGrid.GridControl.AutoFilterRowHandle;
+                        (usControl as UCTradePuplet).gridView.FocusedColumn = (usControl as UCTradePuplet).gridView.Columns["Name"];
+                        (usControl as UCTradePuplet).Dock = DockStyle.Fill;
+                        (usControl as UCTradePuplet).Tag = Title;
+
+            return usControl;
+
+        }
+        private UserControl InitInvoiceForReplication(ref String TagControl, ref string Title)
+           {
+               UserControl usControl;
+
+               usControl = new InvoiceForReplication(this.mDataSet);
+               (usControl as InvoiceForReplication).Dock = DockStyle.Fill;
+               (usControl as InvoiceForReplication).Tag = Title;
+
+               return usControl;
+        
+           }
+
+      
+        
+        
+        public bool ShowNewDataTab(String TagControl, string Title,params object[] list)
         {
           if (!FindOpenedTabs(TagControl))
             {
@@ -244,150 +527,121 @@ namespace RetailTrade
                 {
                     case "UCProductAll":
 
-
-
-                        if (Title.Contains("НДС"))
-                        {
-                            TagControl += "NDS";
-                            if (!FindOpenedTabs(TagControl))
-                            {
-                                usControl = new UCProductAll(this.fullDataSet, true);
-                            }
-                            else
-                                return false;
-
-                        }
-                        else
-                        {
-                            TagControl += "outNDS";
-                            if (!FindOpenedTabs(TagControl))
-                            {
-                                usControl = new UCProductAll(this.fullDataSet, false);
-                            }
-                            else
-                                return false;
-                        
-                        }
-                       usControl.Dock = DockStyle.Fill;
-
-                       usControl.Tag = Title;
-                      
-                    
+                        usControl = InitiUCProductAll(ref TagControl, ref Title);
+                        if (usControl == null)
+                            return false;
                      break;
 
                     case "Manufacturer":
 
-                      usControl = new UcGroupDirectory(this.mDataSet.Tables["Manufacturer"]);
-                     (usControl as   UcGroupDirectory).errorProvider1.DataSource = this.mDataSet;
+                        usControl = InitManufacturer(ref TagControl,ref  Title);
+                        if (usControl == null)
+                            return false;
 
-                     (usControl as UcGroupDirectory).gridView.FocusedRowHandle = DevExpress.XtraGrid.GridControl.AutoFilterRowHandle;
-                     (usControl as UcGroupDirectory).gridView.FocusedColumn = (usControl as UcGroupDirectory).gridView.Columns["Name"];
-                     (usControl as UcGroupDirectory).Tag = "Справочник изготовителей";
-                        (usControl as UcGroupDirectory).Dock = DockStyle.Fill;
-                       
                         break;
                     case "FarmGroupLevel2":
-                        usControl = new UcGroupDirectory(this.mDataSet.Tables["FarmGroupLevel2"]);
-                        (usControl as UcGroupDirectory).errorProvider1.DataSource = this.mDataSet;
 
-                        (usControl as UcGroupDirectory).gridView.FocusedRowHandle = DevExpress.XtraGrid.GridControl.AutoFilterRowHandle;
-                        (usControl as UcGroupDirectory).gridView.FocusedColumn = (usControl as UcGroupDirectory).gridView.Columns["Name"];
-                        (usControl as UcGroupDirectory).Tag = Title;
-                        (usControl as UcGroupDirectory).Dock = DockStyle.Fill;
-          
+                        usControl = InitFarmGroupLevel2(ref TagControl, ref Title);
+                    
+                        if (usControl == null)
+                            return false;
+
+
                         break;
 
                     case "Organization":
-                         usControl = new UCOrganizationAll(this.mDataSet);
-                        //(usControl as UcGroupDirectory).errorProvider1.DataSource = this.mDataSet;
 
-                         (usControl as UCOrganizationAll).gridView.FocusedRowHandle = DevExpress.XtraGrid.GridControl.AutoFilterRowHandle;
-                         (usControl as UCOrganizationAll).gridView.FocusedColumn = (usControl as UCOrganizationAll).gridView.Columns["Name"];
-                         (usControl as UCOrganizationAll).Tag = Title;
-                        (usControl as UCOrganizationAll).Dock = DockStyle.Fill;
-    
+                        usControl = InitOrganization(ref TagControl, ref Title);
+                    
+                        if (usControl == null)
+                            return false;
+
+
                         break;
 
                     case "TradePutlet":
-                        usControl = new UCTradePuplet(this.mDataSet);
-                        (usControl as UCTradePuplet).gridView.FocusedRowHandle = DevExpress.XtraGrid.GridControl.AutoFilterRowHandle;
-                        (usControl as UCTradePuplet).gridView.FocusedColumn = (usControl as UCTradePuplet).gridView.Columns["Name"];
-                        (usControl as UCTradePuplet).Dock = DockStyle.Fill;
-                        (usControl as UCTradePuplet).Tag = Title;
+
+                        usControl = InitTradePutlet(ref TagControl, ref Title);
+
+                        if (usControl == null)
+                            return false;
+
+
                         break;
 
                     case "ReceiptMasterNewAll":
 
-                        usControl = new ReceiptMasterNewAll(this.mDataSet);
-                       (usControl as ReceiptMasterNewAll).Dock = DockStyle.Fill;
-                       (usControl as ReceiptMasterNewAll).Tag = Title;
+                        usControl = InitReceiptMasterNewAll(ref TagControl, ref Title);
+
+                        if (usControl == null)
+                            return false;
+                                                
                         break;
 
                     case "ReceiptMasterStock":
-                        usControl = new ReceiptMasterStock(this.mDataSet);
-                        (usControl as ReceiptMasterStock).Dock = DockStyle.Fill;
-                        (usControl as ReceiptMasterStock).Tag = Title;
+
+                        usControl = InitReceiptMasterStock(ref TagControl, ref Title);
+
+                        if (usControl == null)
+                            return false;
+
                         break;
 
                     case "ReceiptRowOrganization":
 
-                        if ((list[0] as MDataSet.ReceiptMasterRow) != null)
-                        {
-                           
-                            TagControl += (list[0] as MDataSet.ReceiptMasterRow).ID.ToString();
-                            if (!FindOpenedTabs(TagControl))
-                            {
-                                Title = "№" + (list[0] as MDataSet.ReceiptMasterRow).Number.ToString() + " " + (list[0] as MDataSet.ReceiptMasterRow).OrganizationRow.ShortName.ToString();
-                                 usControl = new ReceiptRowOrganization((list[0] as MDataSet.ReceiptMasterRow), (list[0] as MDataSet.ReceiptMasterRow).ID);
-                                (usControl as ReceiptRowOrganization).Tag = Title;
-                                (usControl as ReceiptRowOrganization).Dock = DockStyle.Fill;
-                            }
-                            else
-                                return  false;
-                        }
+                        usControl = InitReceiptRowOrganization(ref TagControl, ref Title,list);
+
+                        if (usControl == null)
+                            return false;
+
                         break;
                     case "InvoiceMasterNew":
-                       usControl = new InvoiceMasterNewAll(this.mDataSet);
-                       (usControl as InvoiceMasterNewAll).Dock = DockStyle.Fill;
-                       (usControl as InvoiceMasterNewAll).Tag = Title;
+                        usControl = InitInvoiceMasterNew(ref TagControl, ref Title);
+
+                        if (usControl == null)
+                            return false;
+                      
                      
                      break;
 
                  case "InvoiceRow":
-                    
 
-                    if ((list[0] as MDataSet.InvoiceMasterRow) != null)
-                        {
-                           
-                            TagControl += (list[0] as MDataSet.InvoiceMasterRow).ID.ToString();
-                            if (!FindOpenedTabs(TagControl))
-                            {
-                                 Title = "№" + (list[0] as MDataSet.InvoiceMasterRow).Number.ToString() + " " + (list[0] as MDataSet.InvoiceMasterRow).TradePupletName.ToString();
-                                 usControl = new InvoiceRow((list[0] as MDataSet.InvoiceMasterRow));
-                                (usControl as InvoiceRow).Tag = Title;
-                                (usControl as InvoiceRow).Dock = DockStyle.Fill;
-                            }
-                            else
-                                return  false;
-                   }
+                     usControl = InitInvoiceRow(ref TagControl, ref Title,list);
+
+                     if (usControl == null)
+                         return false;
+                      
+                     
+                   
                        break;
                    case "OrdersAll":
-                       usControl = new OrdersAll(this.mDataSet.Orders);
-                       (usControl as OrdersAll).Dock = DockStyle.Fill;
-                       (usControl as OrdersAll).Tag = Title;
+                       usControl = InitOrdersAll(ref TagControl, ref Title);
 
+                       if (usControl == null)
+                           return false;
                        break;
                    case "Remains":
-                       usControl = new RemainsLocal(this.mDataSet.Remains);
-                       (usControl as RemainsLocal).Dock = DockStyle.Fill;
-                       (usControl as RemainsLocal).Tag = Title;
+                       usControl = InitRemains(ref TagControl, ref Title);
 
+                       if (usControl == null)
+                           return false;
                        break;
 
                    case "ReceiptImport":
-                       usControl = new ReceiptImport();
-                       (usControl as ReceiptImport).Dock = DockStyle.Fill;
-                       (usControl as ReceiptImport).Tag = Title;
+
+                       usControl = InitReceiptImport(ref TagControl, ref Title);
+
+                       if (usControl == null)
+                           return false;
+                     
+                       break;
+
+                   case "InvoiceForReplication":
+
+                       usControl = InitInvoiceForReplication(ref TagControl, ref Title);
+
+                       if (usControl == null)
+                           return false;
 
                        break;
 
@@ -399,6 +653,8 @@ namespace RetailTrade
                         }
                 }
                
+
+
                     TabPage newTab = new TabPage(Title);
                     newTab.Controls.Add(usControl);
                     tabControl.TabPages.Add(newTab);
@@ -534,6 +790,16 @@ namespace RetailTrade
 
 
         
+        }
+
+        private void splitContainer2_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Log("MainForm_FormClosed : " + e.CloseReason.ToString());
         }
 
        

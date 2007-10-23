@@ -45,7 +45,7 @@ namespace RetailTrade.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("222")]
+        [global::System.Configuration.DefaultSettingValueAttribute("195")]
         public int MainSplitDist {
             get {
                 return ((int)(this["MainSplitDist"]));
@@ -69,7 +69,7 @@ namespace RetailTrade.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("837, 684")]
+        [global::System.Configuration.DefaultSettingValueAttribute("592, 560")]
         public global::System.Drawing.Size MySize {
             get {
                 return ((global::System.Drawing.Size)(this["MySize"]));

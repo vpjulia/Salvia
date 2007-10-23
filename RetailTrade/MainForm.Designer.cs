@@ -31,64 +31,33 @@ namespace RetailTrade
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Новые");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("К отправке");
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Отправленные");
             System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Возвратные");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Накладные", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Списание");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Накладные", new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2,
             treeNode3,
-            treeNode4});
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Новые");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("На складе");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Приходные", new System.Windows.Forms.TreeNode[] {
-            treeNode6,
-            treeNode7});
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Центральный склад");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Остатки товара", new System.Windows.Forms.TreeNode[] {
-            treeNode9});
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Заявки");
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            treeNode4,
+            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Новые");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("На складе");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Приходные", new System.Windows.Forms.TreeNode[] {
+            treeNode7,
+            treeNode8});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Центральный склад");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Остатки товара", new System.Windows.Forms.TreeNode[] {
+            treeNode10});
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Заявки");
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.actionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.treeView1 = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabControl = new System.Windows.Forms.TabControl();
-            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.periodsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mDataSet = new RetailTrade.MDataSet();
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colSmallName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPriceManufact = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colUnitRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPackingRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colStorageConditionRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colSubstanceRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colFarmGrouplevel2Ref = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colManufacturerRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colIsRecept = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colIsOneRecept = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colIsHide = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colMinDivisor = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colIsNDS = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colOldKol = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colOldKod = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colOldName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colNote = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAuthorCreate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAuthorLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDateLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDateCreate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colRowVersion = new DevExpress.XtraGrid.Columns.GridColumn();
             this.substanceBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.fullDataSet = new RetailTrade.FullDataSet();
             this.unitBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -175,19 +144,15 @@ namespace RetailTrade
             this.unitTableAdapter1 = new RetailTrade.FullDataSetTableAdapters.UnitTableAdapter();
             this.substanceTableAdapter1 = new RetailTrade.FullDataSetTableAdapters.SubstanceTableAdapter();
             this.periodsTableAdapter = new RetailTrade.MDataSetTableAdapters.PeriodsTableAdapter();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabControl = new System.Windows.Forms.TabControl();
             this.statusStrip1.SuspendLayout();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.substanceBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fullDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unitBindingSource1)).BeginInit();
@@ -219,15 +184,20 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.manufacturerBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.packingBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.storageConditionBindingSource1)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.actionStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 661);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 560);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(837, 23);
+            this.statusStrip1.Size = new System.Drawing.Size(779, 23);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -241,161 +211,15 @@ namespace RetailTrade
             // 
             this.toolStrip1.Location = new System.Drawing.Point(0, 26);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(837, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(779, 25);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 51);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Panel1MinSize = 50;
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.AutoScroll = true;
-            this.splitContainer1.Panel2.Controls.Add(this.gridControl1);
-            this.splitContainer1.Panel2MinSize = 50;
-            this.splitContainer1.Size = new System.Drawing.Size(837, 610);
-            this.splitContainer1.SplitterDistance = 531;
-            this.splitContainer1.TabIndex = 3;
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.DataBindings.Add(new System.Windows.Forms.Binding("SplitterDistance", global::RetailTrade.Properties.Settings.Default, "MainSplitDist", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.tabControl1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.tabControl);
-            this.splitContainer2.Size = new System.Drawing.Size(837, 531);
-            this.splitContainer2.SplitterDistance = global::RetailTrade.Properties.Settings.Default.MainSplitDist;
-            this.splitContainer2.TabIndex = 0;
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Multiline = true;
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(222, 531);
-            this.tabControl1.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.treeView1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(214, 502);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "новые";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // treeView1
-            // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.ImageIndex = 0;
-            this.treeView1.ImageList = this.imageList1;
-            this.treeView1.Location = new System.Drawing.Point(3, 3);
-            this.treeView1.Name = "treeView1";
-            treeNode1.Name = "NodeRecieptNew";
-            treeNode1.Tag = "InvoiceMasterNew";
-            treeNode1.Text = "Новые";
-            treeNode1.ToolTipText = "Новые накладные";
-            treeNode2.Name = "Node6";
-            treeNode2.Text = "К отправке";
-            treeNode3.Name = "Node7";
-            treeNode3.Text = "Отправленные";
-            treeNode4.Name = "Node8";
-            treeNode4.Text = "Возвратные";
-            treeNode5.Name = "NodeReciept";
-            treeNode5.Tag = "";
-            treeNode5.Text = "Накладные";
-            treeNode6.Name = "Node10";
-            treeNode6.Tag = "ReceiptMasterNewAll";
-            treeNode6.Text = "Новые";
-            treeNode6.ToolTipText = "Новые приходные акты";
-            treeNode7.Name = "Node11";
-            treeNode7.Tag = "ReceiptMasterStock";
-            treeNode7.Text = "На складе";
-            treeNode7.ToolTipText = "Приходные документы {new}";
-            treeNode8.Name = "Node9";
-            treeNode8.Text = "Приходные";
-            treeNode9.Name = "Node1";
-            treeNode9.Tag = "Remains";
-            treeNode9.Text = "Центральный склад";
-            treeNode9.ToolTipText = "Отстатки - центр. склад";
-            treeNode10.Name = "Node0";
-            treeNode10.Text = "Остатки товара";
-            treeNode11.Name = "Node12";
-            treeNode11.Tag = "OrdersAll";
-            treeNode11.Text = "Заявки";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode5,
-            treeNode8,
-            treeNode10,
-            treeNode11});
-            this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(208, 496);
-            this.treeView1.TabIndex = 0;
-            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
             // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "CASGEBBI.jpg");
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(214, 502);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "все";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabControl
-            // 
-            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl.Location = new System.Drawing.Point(0, 0);
-            this.tabControl.Multiline = true;
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(611, 531);
-            this.tabControl.TabIndex = 0;
-            // 
-            // gridControl1
-            // 
-            this.gridControl1.DataSource = this.periodsBindingSource;
-            // 
-            // 
-            // 
-            this.gridControl1.EmbeddedNavigator.Name = "";
-            this.gridControl1.Location = new System.Drawing.Point(222, 21);
-            this.gridControl1.MainView = this.gridView1;
-            this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(400, 200);
-            this.gridControl1.TabIndex = 0;
-            this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView1});
             // 
             // periodsBindingSource
             // 
@@ -406,230 +230,6 @@ namespace RetailTrade
             // 
             this.mDataSet.DataSetName = "MDataSet";
             this.mDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // gridView1
-            // 
-            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colID,
-            this.colName,
-            this.colSmallName,
-            this.colPriceManufact,
-            this.colUnitRef,
-            this.colPackingRef,
-            this.colStorageConditionRef,
-            this.colSubstanceRef,
-            this.colFarmGrouplevel2Ref,
-            this.colManufacturerRef,
-            this.colIsRecept,
-            this.colIsOneRecept,
-            this.colIsHide,
-            this.colMinDivisor,
-            this.colIsNDS,
-            this.colOldKol,
-            this.colOldKod,
-            this.colOldName,
-            this.colNote,
-            this.colAuthorCreate,
-            this.colAuthorLastModif,
-            this.colDateLastModif,
-            this.colDateCreate,
-            this.colRowVersion});
-            this.gridView1.GridControl = this.gridControl1;
-            this.gridView1.Name = "gridView1";
-            // 
-            // colID
-            // 
-            this.colID.Caption = "ID";
-            this.colID.FieldName = "ID";
-            this.colID.Name = "colID";
-            this.colID.OptionsColumn.ReadOnly = true;
-            this.colID.Visible = true;
-            this.colID.VisibleIndex = 0;
-            // 
-            // colName
-            // 
-            this.colName.Caption = "Name";
-            this.colName.FieldName = "Name";
-            this.colName.Name = "colName";
-            this.colName.Visible = true;
-            this.colName.VisibleIndex = 1;
-            // 
-            // colSmallName
-            // 
-            this.colSmallName.Caption = "SmallName";
-            this.colSmallName.FieldName = "SmallName";
-            this.colSmallName.Name = "colSmallName";
-            this.colSmallName.Visible = true;
-            this.colSmallName.VisibleIndex = 2;
-            // 
-            // colPriceManufact
-            // 
-            this.colPriceManufact.Caption = "PriceManufact";
-            this.colPriceManufact.FieldName = "PriceManufact";
-            this.colPriceManufact.Name = "colPriceManufact";
-            this.colPriceManufact.Visible = true;
-            this.colPriceManufact.VisibleIndex = 3;
-            // 
-            // colUnitRef
-            // 
-            this.colUnitRef.Caption = "UnitRef";
-            this.colUnitRef.FieldName = "UnitRef";
-            this.colUnitRef.Name = "colUnitRef";
-            this.colUnitRef.Visible = true;
-            this.colUnitRef.VisibleIndex = 4;
-            // 
-            // colPackingRef
-            // 
-            this.colPackingRef.Caption = "PackingRef";
-            this.colPackingRef.FieldName = "PackingRef";
-            this.colPackingRef.Name = "colPackingRef";
-            this.colPackingRef.Visible = true;
-            this.colPackingRef.VisibleIndex = 5;
-            // 
-            // colStorageConditionRef
-            // 
-            this.colStorageConditionRef.Caption = "StorageConditionRef";
-            this.colStorageConditionRef.FieldName = "StorageConditionRef";
-            this.colStorageConditionRef.Name = "colStorageConditionRef";
-            this.colStorageConditionRef.Visible = true;
-            this.colStorageConditionRef.VisibleIndex = 6;
-            // 
-            // colSubstanceRef
-            // 
-            this.colSubstanceRef.Caption = "SubstanceRef";
-            this.colSubstanceRef.FieldName = "SubstanceRef";
-            this.colSubstanceRef.Name = "colSubstanceRef";
-            this.colSubstanceRef.Visible = true;
-            this.colSubstanceRef.VisibleIndex = 7;
-            // 
-            // colFarmGrouplevel2Ref
-            // 
-            this.colFarmGrouplevel2Ref.Caption = "FarmGrouplevel2Ref";
-            this.colFarmGrouplevel2Ref.FieldName = "FarmGrouplevel2Ref";
-            this.colFarmGrouplevel2Ref.Name = "colFarmGrouplevel2Ref";
-            this.colFarmGrouplevel2Ref.Visible = true;
-            this.colFarmGrouplevel2Ref.VisibleIndex = 8;
-            // 
-            // colManufacturerRef
-            // 
-            this.colManufacturerRef.Caption = "ManufacturerRef";
-            this.colManufacturerRef.FieldName = "ManufacturerRef";
-            this.colManufacturerRef.Name = "colManufacturerRef";
-            this.colManufacturerRef.Visible = true;
-            this.colManufacturerRef.VisibleIndex = 9;
-            // 
-            // colIsRecept
-            // 
-            this.colIsRecept.Caption = "IsRecept";
-            this.colIsRecept.FieldName = "IsRecept";
-            this.colIsRecept.Name = "colIsRecept";
-            this.colIsRecept.Visible = true;
-            this.colIsRecept.VisibleIndex = 10;
-            // 
-            // colIsOneRecept
-            // 
-            this.colIsOneRecept.Caption = "IsOneRecept";
-            this.colIsOneRecept.FieldName = "IsOneRecept";
-            this.colIsOneRecept.Name = "colIsOneRecept";
-            this.colIsOneRecept.Visible = true;
-            this.colIsOneRecept.VisibleIndex = 11;
-            // 
-            // colIsHide
-            // 
-            this.colIsHide.Caption = "IsHide";
-            this.colIsHide.FieldName = "IsHide";
-            this.colIsHide.Name = "colIsHide";
-            this.colIsHide.Visible = true;
-            this.colIsHide.VisibleIndex = 12;
-            // 
-            // colMinDivisor
-            // 
-            this.colMinDivisor.Caption = "MinDivisor";
-            this.colMinDivisor.FieldName = "MinDivisor";
-            this.colMinDivisor.Name = "colMinDivisor";
-            this.colMinDivisor.Visible = true;
-            this.colMinDivisor.VisibleIndex = 13;
-            // 
-            // colIsNDS
-            // 
-            this.colIsNDS.Caption = "IsNDS";
-            this.colIsNDS.FieldName = "IsNDS";
-            this.colIsNDS.Name = "colIsNDS";
-            this.colIsNDS.Visible = true;
-            this.colIsNDS.VisibleIndex = 14;
-            // 
-            // colOldKol
-            // 
-            this.colOldKol.Caption = "OldKol";
-            this.colOldKol.FieldName = "OldKol";
-            this.colOldKol.Name = "colOldKol";
-            this.colOldKol.Visible = true;
-            this.colOldKol.VisibleIndex = 15;
-            // 
-            // colOldKod
-            // 
-            this.colOldKod.Caption = "OldKod";
-            this.colOldKod.FieldName = "OldKod";
-            this.colOldKod.Name = "colOldKod";
-            this.colOldKod.Visible = true;
-            this.colOldKod.VisibleIndex = 16;
-            // 
-            // colOldName
-            // 
-            this.colOldName.Caption = "OldName";
-            this.colOldName.FieldName = "OldName";
-            this.colOldName.Name = "colOldName";
-            this.colOldName.Visible = true;
-            this.colOldName.VisibleIndex = 17;
-            // 
-            // colNote
-            // 
-            this.colNote.Caption = "Note";
-            this.colNote.FieldName = "Note";
-            this.colNote.Name = "colNote";
-            this.colNote.Visible = true;
-            this.colNote.VisibleIndex = 18;
-            // 
-            // colAuthorCreate
-            // 
-            this.colAuthorCreate.Caption = "AuthorCreate";
-            this.colAuthorCreate.FieldName = "AuthorCreate";
-            this.colAuthorCreate.Name = "colAuthorCreate";
-            this.colAuthorCreate.Visible = true;
-            this.colAuthorCreate.VisibleIndex = 19;
-            // 
-            // colAuthorLastModif
-            // 
-            this.colAuthorLastModif.Caption = "AuthorLastModif";
-            this.colAuthorLastModif.FieldName = "AuthorLastModif";
-            this.colAuthorLastModif.Name = "colAuthorLastModif";
-            this.colAuthorLastModif.Visible = true;
-            this.colAuthorLastModif.VisibleIndex = 20;
-            // 
-            // colDateLastModif
-            // 
-            this.colDateLastModif.Caption = "DateLastModif";
-            this.colDateLastModif.FieldName = "DateLastModif";
-            this.colDateLastModif.Name = "colDateLastModif";
-            this.colDateLastModif.Visible = true;
-            this.colDateLastModif.VisibleIndex = 21;
-            // 
-            // colDateCreate
-            // 
-            this.colDateCreate.Caption = "DateCreate";
-            this.colDateCreate.FieldName = "DateCreate";
-            this.colDateCreate.Name = "colDateCreate";
-            this.colDateCreate.Visible = true;
-            this.colDateCreate.VisibleIndex = 22;
-            // 
-            // colRowVersion
-            // 
-            this.colRowVersion.Caption = "RowVersion";
-            this.colRowVersion.FieldName = "RowVersion";
-            this.colRowVersion.Name = "colRowVersion";
-            this.colRowVersion.OptionsColumn.ReadOnly = true;
-            this.colRowVersion.Visible = true;
-            this.colRowVersion.VisibleIndex = 23;
             // 
             // substanceBindingSource1
             // 
@@ -750,7 +350,7 @@ namespace RetailTrade
             this.отчетыToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(837, 26);
+            this.menuStrip1.Size = new System.Drawing.Size(779, 26);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1125,38 +725,144 @@ namespace RetailTrade
             // 
             this.periodsTableAdapter.ClearBeforeFill = true;
             // 
+            // splitContainer2
+            // 
+            this.splitContainer2.DataBindings.Add(new System.Windows.Forms.Binding("SplitterDistance", global::RetailTrade.Properties.Settings.Default, "MainSplitDist", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 51);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.tabControl1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.tabControl);
+            this.splitContainer2.Size = new System.Drawing.Size(779, 509);
+            this.splitContainer2.SplitterDistance = 259;
+            this.splitContainer2.TabIndex = 5;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Multiline = true;
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(259, 509);
+            this.tabControl1.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.treeView1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(251, 480);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "новые";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // treeView1
+            // 
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.ImageIndex = 0;
+            this.treeView1.ImageList = this.imageList1;
+            this.treeView1.Location = new System.Drawing.Point(3, 3);
+            this.treeView1.Name = "treeView1";
+            treeNode1.Name = "NodeRecieptNew";
+            treeNode1.Tag = "InvoiceMasterNew";
+            treeNode1.Text = "Новые";
+            treeNode1.ToolTipText = "Новые накладные";
+            treeNode2.Name = "Node6";
+            treeNode2.Tag = "InvoiceForReplication";
+            treeNode2.Text = "К отправке";
+            treeNode2.ToolTipText = "Документы к отправке";
+            treeNode3.Name = "Node7";
+            treeNode3.Tag = "InvoiceClosed";
+            treeNode3.Text = "Отправленные";
+            treeNode3.ToolTipText = "Отправленные документы";
+            treeNode4.Name = "Node8";
+            treeNode4.Tag = "InvoiceReturn";
+            treeNode4.Text = "Возвратные";
+            treeNode4.ToolTipText = "Возвратные документы";
+            treeNode5.Name = "Node0";
+            treeNode5.Tag = "InvoiceAkt";
+            treeNode5.Text = "Списание";
+            treeNode5.ToolTipText = "Документы списания";
+            treeNode6.Name = "NodeReciept";
+            treeNode6.Tag = "";
+            treeNode6.Text = "Накладные";
+            treeNode7.Name = "Node10";
+            treeNode7.Tag = "ReceiptMasterNewAll";
+            treeNode7.Text = "Новые";
+            treeNode7.ToolTipText = "Новые приходные акты";
+            treeNode8.Name = "Node11";
+            treeNode8.Tag = "ReceiptMasterStock";
+            treeNode8.Text = "На складе";
+            treeNode8.ToolTipText = "Приходные документы";
+            treeNode9.Name = "Node9";
+            treeNode9.Text = "Приходные";
+            treeNode10.Name = "Node1";
+            treeNode10.Tag = "Remains";
+            treeNode10.Text = "Центральный склад";
+            treeNode10.ToolTipText = "Отстатки - центр. склад";
+            treeNode11.Name = "Node0";
+            treeNode11.Text = "Остатки товара";
+            treeNode12.Name = "Node12";
+            treeNode12.Tag = "OrdersAll";
+            treeNode12.Text = "Заявки";
+            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode6,
+            treeNode9,
+            treeNode11,
+            treeNode12});
+            this.treeView1.SelectedImageIndex = 0;
+            this.treeView1.Size = new System.Drawing.Size(245, 474);
+            this.treeView1.TabIndex = 0;
+            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(251, 480);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "все";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabControl
+            // 
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Multiline = true;
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(516, 509);
+            this.tabControl.TabIndex = 0;
+            // 
             // MainForm
             // 
-            this.ClientSize = global::RetailTrade.Properties.Settings.Default.MySize;
-            this.Controls.Add(this.splitContainer1);
+            this.ClientSize = new System.Drawing.Size(779, 583);
+            this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
-            this.DataBindings.Add(new System.Windows.Forms.Binding("Location", global::RetailTrade.Properties.Settings.Default, "MyLoc", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.DataBindings.Add(new System.Windows.Forms.Binding("ClientSize", global::RetailTrade.Properties.Settings.Default, "MySize", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.DataBindings.Add(new System.Windows.Forms.Binding("WindowState", global::RetailTrade.Properties.Settings.Default, "MyState", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Location = global::RetailTrade.Properties.Settings.Default.MyLoc;
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(200, 400);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.WindowState = global::RetailTrade.Properties.Settings.Default.MyState;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            this.splitContainer2.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.periodsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.substanceBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fullDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unitBindingSource1)).EndInit();
@@ -1189,6 +895,11 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.manufacturerBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.packingBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.storageConditionBindingSource1)).EndInit();
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1198,8 +909,6 @@ namespace RetailTrade
 
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem btProduct;
@@ -1238,13 +947,9 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem складовToolStripMenuItem;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ToolStripMenuItem документыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сервисToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem отчетыToolStripMenuItem;
-        private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.BindingSource organizationBindingSource;
         private RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter organizationTableAdapter;
         private System.Windows.Forms.BindingSource tradePutletBindingSource;
@@ -1256,14 +961,11 @@ namespace RetailTrade
         private RetailTrade.MDataSetTableAdapters.ReceiptDetailTableAdapter receiptDetailTableAdapter;
         public System.Windows.Forms.BindingSource receiptDetailBindingSource;
         public System.Windows.Forms.BindingSource receiptMasterBindingSource;
-    
-        public System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.BindingSource documentTypeBindingSource;
         private RetailTrade.MDataSetTableAdapters.DocumentTypeTableAdapter documentTypeTableAdapter;
 
         private RetailTrade.MDataSetTableAdapters.OrdersTableAdapter OrdersTableAdapter;
         private System.Windows.Forms.BindingSource invoiceMasterBindingSource;
-        private RetailTrade.MDataSetTableAdapters.InvoiceMasterTableAdapter invoiceMasterTableAdapter;
         private System.Windows.Forms.BindingSource invoiceDetailBindingSource;
         private RetailTrade.MDataSetTableAdapters.InvoiceDetailTableAdapter invoiceDetailTableAdapter;
         public RetailTrade.MDataSetTableAdapters.ReceiptMasterTableAdapter receiptMasterTableAdapter;
@@ -1272,34 +974,8 @@ namespace RetailTrade
         private System.Windows.Forms.BindingSource pricesPurchaseBindingSource;
         private RetailTrade.MDataSetTableAdapters.PricesPurchaseTableAdapter pricesPurchaseTableAdapter;
         private System.Windows.Forms.ToolStripStatusLabel actionStatusLabel;
-        private DevExpress.XtraGrid.GridControl gridControl1;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private System.Windows.Forms.BindingSource productBindingSource1;
         private RetailTrade.FullDataSetTableAdapters.ProductTableAdapter productTableAdapter1;
-        private DevExpress.XtraGrid.Columns.GridColumn colID;
-        private DevExpress.XtraGrid.Columns.GridColumn colName;
-        private DevExpress.XtraGrid.Columns.GridColumn colSmallName;
-        private DevExpress.XtraGrid.Columns.GridColumn colPriceManufact;
-        private DevExpress.XtraGrid.Columns.GridColumn colUnitRef;
-        private DevExpress.XtraGrid.Columns.GridColumn colPackingRef;
-        private DevExpress.XtraGrid.Columns.GridColumn colStorageConditionRef;
-        private DevExpress.XtraGrid.Columns.GridColumn colSubstanceRef;
-        private DevExpress.XtraGrid.Columns.GridColumn colFarmGrouplevel2Ref;
-        private DevExpress.XtraGrid.Columns.GridColumn colManufacturerRef;
-        private DevExpress.XtraGrid.Columns.GridColumn colIsRecept;
-        private DevExpress.XtraGrid.Columns.GridColumn colIsOneRecept;
-        private DevExpress.XtraGrid.Columns.GridColumn colIsHide;
-        private DevExpress.XtraGrid.Columns.GridColumn colMinDivisor;
-        private DevExpress.XtraGrid.Columns.GridColumn colIsNDS;
-        private DevExpress.XtraGrid.Columns.GridColumn colOldKol;
-        private DevExpress.XtraGrid.Columns.GridColumn colOldKod;
-        private DevExpress.XtraGrid.Columns.GridColumn colOldName;
-        private DevExpress.XtraGrid.Columns.GridColumn colNote;
-        private DevExpress.XtraGrid.Columns.GridColumn colAuthorCreate;
-        private DevExpress.XtraGrid.Columns.GridColumn colAuthorLastModif;
-        private DevExpress.XtraGrid.Columns.GridColumn colDateLastModif;
-        private DevExpress.XtraGrid.Columns.GridColumn colDateCreate;
-        private DevExpress.XtraGrid.Columns.GridColumn colRowVersion;
         private System.Windows.Forms.BindingSource countryBindingSource1;
         private RetailTrade.FullDataSetTableAdapters.CountryTableAdapter countryTableAdapter1;
         private System.Windows.Forms.BindingSource farmGroupBindingSource1;
@@ -1323,6 +999,13 @@ namespace RetailTrade
         private System.Windows.Forms.BindingSource periodsBindingSource;
         private RetailTrade.MDataSetTableAdapters.PeriodsTableAdapter periodsTableAdapter;
         private System.Windows.Forms.ToolStripMenuItem btFarmTrade;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TabPage tabPage2;
+        public System.Windows.Forms.TabControl tabControl;
+        public RetailTrade.MDataSetTableAdapters.InvoiceMasterTableAdapter invoiceMasterTableAdapter;
         }
 }
 

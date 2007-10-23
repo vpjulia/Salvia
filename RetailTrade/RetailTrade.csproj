@@ -109,6 +109,30 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FullDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Invoice\InvoiceAkt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceAkt.Designer.cs">
+      <DependentUpon>InvoiceAkt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceClosed.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceClosed.Designer.cs">
+      <DependentUpon>InvoiceClosed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceForReplication.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceForReplication.Designer.cs">
+      <DependentUpon>InvoiceForReplication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceReturn.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceReturn.Designer.cs">
+      <DependentUpon>InvoiceReturn.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.Data.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,6 +209,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>UCTradePuplet.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\InvoiceClosed.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InvoiceClosed.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Invoice\InvoiceDetailEdit.resx">
       <SubType>Designer</SubType>
       <DependentUpon>InvoiceDetailEdit.cs</DependentUpon>
@@ -192,6 +220,10 @@
     <EmbeddedResource Include="Invoice\InvoiceDetailRowAdd.resx">
       <SubType>Designer</SubType>
       <DependentUpon>InvoiceDetailRowAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\InvoiceForReplication.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InvoiceForReplication.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Invoice\InvoiceMasterNewAll.resx">
       <SubType>Designer</SubType>

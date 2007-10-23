@@ -17699,7 +17699,7 @@ namespace RetailTrade.MDataSetTableAdapters {
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[2];
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[3];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "dbo.InvoiceMasterSelectCommand";
@@ -17711,6 +17711,12 @@ namespace RetailTrade.MDataSetTableAdapters {
             this._commandCollection[1].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "dbo.InvoiceMasterMove";
+            this._commandCollection[2].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@invoicemasterId", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -17792,6 +17798,33 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual int Update(System.Data.DataRow[] dataRows) {
             return this.Adapter.Update(dataRows);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int InvoiceMasterMove(System.Nullable<int> invoicemasterId) {
+            System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
+            if ((invoicemasterId.HasValue == true)) {
+                command.Parameters[1].Value = ((int)(invoicemasterId.Value));
+            }
+            else {
+                command.Parameters[1].Value = System.DBNull.Value;
+            }
+            System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & System.Data.ConnectionState.Open) 
+                        != System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
         }
     }
     
@@ -19417,7 +19450,7 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[5];
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[6];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "dbo.ReceiptMasterSelectCommand";
@@ -19443,10 +19476,16 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
             this._commandCollection[3].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[4].Connection = this.Connection;
-            this._commandCollection[4].CommandText = "dbo.ReceiptMasterMove";
+            this._commandCollection[4].CommandText = "dbo.ReceiptMasterMakeToNew";
             this._commandCollection[4].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[4].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[4].Parameters.Add(new System.Data.SqlClient.SqlParameter("@receiptmasterId", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4].Parameters.Add(new System.Data.SqlClient.SqlParameter("@idReceiptMaster", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[5] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[5].Connection = this.Connection;
+            this._commandCollection[5].CommandText = "dbo.ReceiptMasterMove";
+            this._commandCollection[5].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[5].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[5].Parameters.Add(new System.Data.SqlClient.SqlParameter("@receiptmasterId", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -19600,8 +19639,35 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int ReceiptMasterMove(System.Nullable<int> receiptmasterId) {
+        public virtual int ReceiptMasterMakeToNew(System.Nullable<int> idReceiptMaster) {
             System.Data.SqlClient.SqlCommand command = this.CommandCollection[4];
+            if ((idReceiptMaster.HasValue == true)) {
+                command.Parameters[1].Value = ((int)(idReceiptMaster.Value));
+            }
+            else {
+                command.Parameters[1].Value = System.DBNull.Value;
+            }
+            System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & System.Data.ConnectionState.Open) 
+                        != System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int ReceiptMasterMove(System.Nullable<int> receiptmasterId) {
+            System.Data.SqlClient.SqlCommand command = this.CommandCollection[5];
             if ((receiptmasterId.HasValue == true)) {
                 command.Parameters[1].Value = ((int)(receiptmasterId.Value));
             }

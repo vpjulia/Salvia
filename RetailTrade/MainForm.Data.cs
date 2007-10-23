@@ -730,6 +730,48 @@ namespace RetailTrade
         
         }
 
+        public bool FillTableNewDocuments(MDataSet.InvoiceMasterDataTable source)
+        {
+            MDataSet.InvoiceMasterDataTable _tmpMaster = new MDataSet.InvoiceMasterDataTable();
+            MDataSet.InvoiceDetailDataTable _tmpDetail = new MDataSet.InvoiceDetailDataTable();
+
+
+            try
+            {
+                this.invoiceMasterTableAdapter.Fill(_tmpMaster);
+                this.invoiceDetailTableAdapter.Fill(_tmpDetail);
+
+            }
+
+            catch (SqlException sqlerr)
+            {
+                if (sqlerr.Class < 17)
+                {
+                    MessageBox.Show(sqlerr.Message);
+                }
+                else
+
+                    caughtGlobalError(sqlerr);
+                return false;
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+                return false;
+            }
+            finally
+            {
+                this.mDataSet.InvoiceMaster.Merge(_tmpMaster);
+                this.mDataSet.InvoiceDetail.Merge(_tmpDetail);
+
+            }
+            return true;
+       
+
+        
+        }
+
+
         /*MDataset, документы на складе, из открытого периода, новые, X дней*/
         public bool FillTableStockDocuments(MDataSet.ReceiptMasterDataTable source,DateTime begin)
         {
@@ -818,7 +860,7 @@ namespace RetailTrade
             MDataSet.ReceiptMasterDataTable _ReceiptMasterDataTable = new MDataSet.ReceiptMasterDataTable();
             MDataSet.ReceiptDetailDataTable _ReceiptDetailDataTable = new MDataSet.ReceiptDetailDataTable();
             MDataSet.ProductDataTable _productDataTable = new MDataSet.ProductDataTable();
-
+           
 
             DateTime _dateparam;
 

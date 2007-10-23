@@ -32,6 +32,21 @@ namespace RetailTrade.Invoice
             _changesDetail = new DataView(this.mDataSet.InvoiceDetail, "DocumentTypeRef=0", null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
         }
 
+        private void InvoiceMasterNewAll_Load(object sender, EventArgs e)
+        {
+            (this.ParentForm as MainForm).FillTableNewDocuments(this.mDataSet.InvoiceMaster);
+        
+            foreach (GridView view in this.grid.ViewCollection)
+            {
+                string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
+                if (File.Exists(fileName))
+                    view.RestoreLayoutFromXml(fileName);
+            }
+
+        
+        
+        }
+  
         private void gridInvoiceMasterNewAll_DoubleClick(object sender, EventArgs e)
         {
               if ((this.ParentForm as MainForm) != null)
@@ -63,6 +78,20 @@ namespace RetailTrade.Invoice
 
         }
 
+      
+        private bool CancelChages()
+        {
+            this.invoiceMasterBindingSource.CancelEdit();
+            return true;
+        }
+
+        private bool SaveChanges()
+        {
+            this.invoiceMasterBindingSource.EndEdit();
+            return true;
+        }
+
+      
         private void btClose_Click(object sender, EventArgs e)
         {
             this.invoiceMasterBindingSource.EndEdit();
@@ -110,16 +139,8 @@ namespace RetailTrade.Invoice
             } 
         }
 
-        private bool CancelChages()
-        {
-            this.invoiceMasterBindingSource.CancelEdit();
-            return true;
-        }
+        
 
-        private bool SaveChanges()
-        {
-            this.invoiceMasterBindingSource.EndEdit();
-            return true;
-        }
+
     }
 }
