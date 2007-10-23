@@ -67,23 +67,21 @@ namespace RetailTrade {
         
         private PeriodsDataTable tablePeriods;
         
-        private System.Data.DataRelation relationFK_Stock_InvoiceMaster;
-        
         private System.Data.DataRelation relationFK_InvoiceMaster_StockMain;
+        
+        private System.Data.DataRelation relationFK_Stock_InvoiceMaster;
         
         private System.Data.DataRelation relationFK_ReceiptRemains_ReceiptDetail;
         
-        private System.Data.DataRelation relationTradePutlet_Stock;
-        
         private System.Data.DataRelation relationReceiptMaster_ReceiptDetail;
         
-        private System.Data.DataRelation relationFK_FarmGroupLevel2_Product;
-        
-        private System.Data.DataRelation relationFK_Unit_Product;
+        private System.Data.DataRelation relationFK_Manufacturer_Product;
         
         private System.Data.DataRelation relationFK_Substance_Product;
         
-        private System.Data.DataRelation relationFK_Manufacturer_Product;
+        private System.Data.DataRelation relationFK_Unit_Product;
+        
+        private System.Data.DataRelation relationFK_FarmGroupLevel2_Product;
         
         private System.Data.DataRelation relationFK_Country_Manufacturer;
         
@@ -124,6 +122,8 @@ namespace RetailTrade {
         private System.Data.DataRelation relationReceiptDetail_InvoiceDetail;
         
         private System.Data.DataRelation relationReceiptDetail_Remains;
+        
+        private System.Data.DataRelation relationTradePutlet_Stock;
         
         private System.Data.SchemaSerializationMode _schemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -723,15 +723,14 @@ namespace RetailTrade {
                     this.tablePeriods.InitVars();
                 }
             }
-            this.relationFK_Stock_InvoiceMaster = this.Relations["FK_Stock_InvoiceMaster"];
             this.relationFK_InvoiceMaster_StockMain = this.Relations["FK_InvoiceMaster_StockMain"];
+            this.relationFK_Stock_InvoiceMaster = this.Relations["FK_Stock_InvoiceMaster"];
             this.relationFK_ReceiptRemains_ReceiptDetail = this.Relations["FK_ReceiptRemains_ReceiptDetail"];
-            this.relationTradePutlet_Stock = this.Relations["TradePutlet_Stock"];
             this.relationReceiptMaster_ReceiptDetail = this.Relations["ReceiptMaster_ReceiptDetail"];
-            this.relationFK_FarmGroupLevel2_Product = this.Relations["FK_FarmGroupLevel2_Product"];
-            this.relationFK_Unit_Product = this.Relations["FK_Unit_Product"];
-            this.relationFK_Substance_Product = this.Relations["FK_Substance_Product"];
             this.relationFK_Manufacturer_Product = this.Relations["FK_Manufacturer_Product"];
+            this.relationFK_Substance_Product = this.Relations["FK_Substance_Product"];
+            this.relationFK_Unit_Product = this.Relations["FK_Unit_Product"];
+            this.relationFK_FarmGroupLevel2_Product = this.Relations["FK_FarmGroupLevel2_Product"];
             this.relationFK_Country_Manufacturer = this.Relations["FK_Country_Manufacturer"];
             this.relationFK_FarmGroup_FarmGroupLevel2 = this.Relations["FK_FarmGroup_FarmGroupLevel2"];
             this.relationFK_InvoiceDetail_InvoiceMaster = this.Relations["FK_InvoiceDetail_InvoiceMaster"];
@@ -752,6 +751,7 @@ namespace RetailTrade {
             this.relationReceiptDetail_PricesPurchase = this.Relations["ReceiptDetail_PricesPurchase"];
             this.relationReceiptDetail_InvoiceDetail = this.Relations["ReceiptDetail_InvoiceDetail"];
             this.relationReceiptDetail_Remains = this.Relations["ReceiptDetail_Remains"];
+            this.relationTradePutlet_Stock = this.Relations["TradePutlet_Stock"];
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -806,16 +806,16 @@ namespace RetailTrade {
             this.tablePeriods = new PeriodsDataTable(false);
             base.Tables.Add(this.tablePeriods);
             System.Data.ForeignKeyConstraint fkc;
-            fkc = new System.Data.ForeignKeyConstraint("FK_Stock_InvoiceMaster", new System.Data.DataColumn[] {
+            fkc = new System.Data.ForeignKeyConstraint("FK_InvoiceMaster_StockMain", new System.Data.DataColumn[] {
                         this.tableStock.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableInvoiceMaster.RemoteStockRefColumn});
+                        this.tableInvoiceMaster.MainStockRefColumn});
             this.tableInvoiceMaster.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_InvoiceMaster_StockMain", new System.Data.DataColumn[] {
+            fkc = new System.Data.ForeignKeyConstraint("FK_Stock_InvoiceMaster", new System.Data.DataColumn[] {
                         this.tableStock.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableInvoiceMaster.MainStockRefColumn});
+                        this.tableInvoiceMaster.RemoteStockRefColumn});
             this.tableInvoiceMaster.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
@@ -827,13 +827,6 @@ namespace RetailTrade {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("TradePutlet_Stock", new System.Data.DataColumn[] {
-                        this.tableTradePutlet.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableStock.TradePupletRefColumn});
-            this.tableStock.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = System.Data.Rule.None;
-            fkc.UpdateRule = System.Data.Rule.Cascade;
             fkc = new System.Data.ForeignKeyConstraint("ReceiptMaster_ReceiptDetail", new System.Data.DataColumn[] {
                         this.tableReceiptMaster.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptDetail.ReceiptMasterRefColumn});
@@ -841,16 +834,9 @@ namespace RetailTrade {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
-                        this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.FarmGrouplevel2RefColumn});
-            this.tableProduct.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = System.Data.Rule.None;
-            fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_Unit_Product", new System.Data.DataColumn[] {
-                        this.tableUnit.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.UnitRefColumn});
+            fkc = new System.Data.ForeignKeyConstraint("FK_Manufacturer_Product", new System.Data.DataColumn[] {
+                        this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.ManufacturerRefColumn});
             this.tableProduct.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
@@ -862,9 +848,16 @@ namespace RetailTrade {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_Manufacturer_Product", new System.Data.DataColumn[] {
-                        this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.ManufacturerRefColumn});
+            fkc = new System.Data.ForeignKeyConstraint("FK_Unit_Product", new System.Data.DataColumn[] {
+                        this.tableUnit.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.UnitRefColumn});
+            this.tableProduct.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = System.Data.Rule.None;
+            fkc.UpdateRule = System.Data.Rule.Cascade;
+            fkc = new System.Data.ForeignKeyConstraint("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
+                        this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.FarmGrouplevel2RefColumn});
             this.tableProduct.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
@@ -883,42 +876,38 @@ namespace RetailTrade {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            this.relationFK_Stock_InvoiceMaster = new System.Data.DataRelation("FK_Stock_InvoiceMaster", new System.Data.DataColumn[] {
-                        this.tableStock.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableInvoiceMaster.RemoteStockRefColumn}, false);
-            this.Relations.Add(this.relationFK_Stock_InvoiceMaster);
             this.relationFK_InvoiceMaster_StockMain = new System.Data.DataRelation("FK_InvoiceMaster_StockMain", new System.Data.DataColumn[] {
                         this.tableStock.IDColumn}, new System.Data.DataColumn[] {
                         this.tableInvoiceMaster.MainStockRefColumn}, false);
             this.Relations.Add(this.relationFK_InvoiceMaster_StockMain);
+            this.relationFK_Stock_InvoiceMaster = new System.Data.DataRelation("FK_Stock_InvoiceMaster", new System.Data.DataColumn[] {
+                        this.tableStock.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableInvoiceMaster.RemoteStockRefColumn}, false);
+            this.Relations.Add(this.relationFK_Stock_InvoiceMaster);
             this.relationFK_ReceiptRemains_ReceiptDetail = new System.Data.DataRelation("FK_ReceiptRemains_ReceiptDetail", new System.Data.DataColumn[] {
                         this.tableReceiptDetail.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptRemains.ReceiptDetailRefColumn}, false);
             this.Relations.Add(this.relationFK_ReceiptRemains_ReceiptDetail);
-            this.relationTradePutlet_Stock = new System.Data.DataRelation("TradePutlet_Stock", new System.Data.DataColumn[] {
-                        this.tableTradePutlet.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableStock.TradePupletRefColumn}, false);
-            this.Relations.Add(this.relationTradePutlet_Stock);
             this.relationReceiptMaster_ReceiptDetail = new System.Data.DataRelation("ReceiptMaster_ReceiptDetail", new System.Data.DataColumn[] {
                         this.tableReceiptMaster.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptDetail.ReceiptMasterRefColumn}, false);
             this.Relations.Add(this.relationReceiptMaster_ReceiptDetail);
-            this.relationFK_FarmGroupLevel2_Product = new System.Data.DataRelation("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
-                        this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.FarmGrouplevel2RefColumn}, false);
-            this.Relations.Add(this.relationFK_FarmGroupLevel2_Product);
-            this.relationFK_Unit_Product = new System.Data.DataRelation("FK_Unit_Product", new System.Data.DataColumn[] {
-                        this.tableUnit.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.UnitRefColumn}, false);
-            this.Relations.Add(this.relationFK_Unit_Product);
-            this.relationFK_Substance_Product = new System.Data.DataRelation("FK_Substance_Product", new System.Data.DataColumn[] {
-                        this.tableSubstance.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.SubstanceRefColumn}, false);
-            this.Relations.Add(this.relationFK_Substance_Product);
             this.relationFK_Manufacturer_Product = new System.Data.DataRelation("FK_Manufacturer_Product", new System.Data.DataColumn[] {
                         this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
                         this.tableProduct.ManufacturerRefColumn}, false);
             this.Relations.Add(this.relationFK_Manufacturer_Product);
+            this.relationFK_Substance_Product = new System.Data.DataRelation("FK_Substance_Product", new System.Data.DataColumn[] {
+                        this.tableSubstance.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.SubstanceRefColumn}, false);
+            this.Relations.Add(this.relationFK_Substance_Product);
+            this.relationFK_Unit_Product = new System.Data.DataRelation("FK_Unit_Product", new System.Data.DataColumn[] {
+                        this.tableUnit.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.UnitRefColumn}, false);
+            this.Relations.Add(this.relationFK_Unit_Product);
+            this.relationFK_FarmGroupLevel2_Product = new System.Data.DataRelation("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
+                        this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.FarmGrouplevel2RefColumn}, false);
+            this.Relations.Add(this.relationFK_FarmGroupLevel2_Product);
             this.relationFK_Country_Manufacturer = new System.Data.DataRelation("FK_Country_Manufacturer", new System.Data.DataColumn[] {
                         this.tableCountry.IDColumn}, new System.Data.DataColumn[] {
                         this.tableManufacturer.CounrtyRefColumn}, false);
@@ -999,6 +988,10 @@ namespace RetailTrade {
                         this.tableReceiptDetail.IDColumn}, new System.Data.DataColumn[] {
                         this.tableRemains.ReceiptDetailRefColumn}, false);
             this.Relations.Add(this.relationReceiptDetail_Remains);
+            this.relationTradePutlet_Stock = new System.Data.DataRelation("TradePutlet_Stock", new System.Data.DataColumn[] {
+                        this.tableTradePutlet.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableStock.TradePupletRefColumn}, false);
+            this.Relations.Add(this.relationTradePutlet_Stock);
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11034,22 +11027,22 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public StockRow StockRowByFK_Stock_InvoiceMaster {
-                get {
-                    return ((StockRow)(this.GetParentRow(this.Table.ParentRelations["FK_Stock_InvoiceMaster"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Stock_InvoiceMaster"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public StockRow StockRowByFK_InvoiceMaster_StockMain {
                 get {
                     return ((StockRow)(this.GetParentRow(this.Table.ParentRelations["FK_InvoiceMaster_StockMain"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_InvoiceMaster_StockMain"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public StockRow StockRowByFK_Stock_InvoiceMaster {
+                get {
+                    return ((StockRow)(this.GetParentRow(this.Table.ParentRelations["FK_Stock_InvoiceMaster"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Stock_InvoiceMaster"]);
                 }
             }
             
@@ -12030,13 +12023,13 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public InvoiceMasterRow[] GetInvoiceMasterRowsByFK_Stock_InvoiceMaster() {
-                return ((InvoiceMasterRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Stock_InvoiceMaster"])));
+            public InvoiceMasterRow[] GetInvoiceMasterRowsByFK_InvoiceMaster_StockMain() {
+                return ((InvoiceMasterRow[])(base.GetChildRows(this.Table.ChildRelations["FK_InvoiceMaster_StockMain"])));
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public InvoiceMasterRow[] GetInvoiceMasterRowsByFK_InvoiceMaster_StockMain() {
-                return ((InvoiceMasterRow[])(base.GetChildRows(this.Table.ChildRelations["FK_InvoiceMaster_StockMain"])));
+            public InvoiceMasterRow[] GetInvoiceMasterRowsByFK_Stock_InvoiceMaster() {
+                return ((InvoiceMasterRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Stock_InvoiceMaster"])));
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12152,13 +12145,13 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public StockRow[] GetStockRows() {
-                return ((StockRow[])(base.GetChildRows(this.Table.ChildRelations["TradePutlet_Stock"])));
+            public OrdersRow[] GetOrdersRows() {
+                return ((OrdersRow[])(base.GetChildRows(this.Table.ChildRelations["TradePutlet_Orders"])));
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public OrdersRow[] GetOrdersRows() {
-                return ((OrdersRow[])(base.GetChildRows(this.Table.ChildRelations["TradePutlet_Orders"])));
+            public StockRow[] GetStockRows() {
+                return ((StockRow[])(base.GetChildRows(this.Table.ChildRelations["TradePutlet_Stock"])));
             }
         }
         
@@ -13770,22 +13763,12 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FarmGroupLevel2Row FarmGroupLevel2Row {
+            public ManufacturerRow ManufacturerRow {
                 get {
-                    return ((FarmGroupLevel2Row)(this.GetParentRow(this.Table.ParentRelations["FK_FarmGroupLevel2_Product"])));
+                    return ((ManufacturerRow)(this.GetParentRow(this.Table.ParentRelations["FK_Manufacturer_Product"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_FarmGroupLevel2_Product"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UnitRow UnitRow {
-                get {
-                    return ((UnitRow)(this.GetParentRow(this.Table.ParentRelations["FK_Unit_Product"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Unit_Product"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Manufacturer_Product"]);
                 }
             }
             
@@ -13800,12 +13783,22 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ManufacturerRow ManufacturerRow {
+            public UnitRow UnitRow {
                 get {
-                    return ((ManufacturerRow)(this.GetParentRow(this.Table.ParentRelations["FK_Manufacturer_Product"])));
+                    return ((UnitRow)(this.GetParentRow(this.Table.ParentRelations["FK_Unit_Product"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Manufacturer_Product"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Unit_Product"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public FarmGroupLevel2Row FarmGroupLevel2Row {
+                get {
+                    return ((FarmGroupLevel2Row)(this.GetParentRow(this.Table.ParentRelations["FK_FarmGroupLevel2_Product"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_FarmGroupLevel2_Product"]);
                 }
             }
             
@@ -19070,36 +19063,36 @@ namespace RetailTrade.MDataSetTableAdapters {
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [TradePutlet] WHERE (([ID] = @Original_ID) AND ([RowVersion] = @Origi" +
-                "nal_RowVersion))";
-            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 0, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.CommandText = "dbo.TradePutletDeleteCommand";
+            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [TradePutlet] ([Name], [AuthorCreate], [AuthorLastModif], [DateCreate], [IP], [Adress]) VALUES (@Name, @AuthorCreate, @AuthorLastModif, @DateCreate, @IP, @Adress);
-SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adress FROM TradePutlet WHERE (ID = SCOPE_IDENTITY())";
-            this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IP", System.Data.SqlDbType.NChar, 0, System.Data.ParameterDirection.Input, 0, 0, "IP", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Adress", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Adress", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.CommandText = "dbo.TradePutletInsertCommand";
+            this._adapter.InsertCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IP", System.Data.SqlDbType.NChar, 15, System.Data.ParameterDirection.Input, 0, 0, "IP", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Adress", System.Data.SqlDbType.NVarChar, 150, System.Data.ParameterDirection.Input, 0, 0, "Adress", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [TradePutlet] SET [Name] = @Name, [AuthorCreate] = @AuthorCreate, [AuthorLastModif] = @AuthorLastModif, [DateCreate] = @DateCreate, [IP] = @IP, [Adress] = @Adress WHERE (([ID] = @Original_ID) AND ([RowVersion] = @Original_RowVersion));
-SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adress FROM TradePutlet WHERE (ID = @ID)";
-            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IP", System.Data.SqlDbType.NChar, 0, System.Data.ParameterDirection.Input, 0, 0, "IP", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Adress", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Adress", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 0, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.CommandText = "dbo.TradePutletUpdateCommand";
+            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorCreate", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@AuthorLastModif", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "AuthorLastModif", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateCreate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateCreate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IP", System.Data.SqlDbType.NChar, 15, System.Data.ParameterDirection.Input, 0, 0, "IP", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Adress", System.Data.SqlDbType.NVarChar, 150, System.Data.ParameterDirection.Input, 0, 0, "Adress", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 8, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -19113,9 +19106,9 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
             this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adres" +
-                "s\r\nFROM  TradePutlet";
-            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[0].CommandText = "dbo.TradePutletSelectCommand";
+            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -19163,143 +19156,6 @@ SELECT ID, Name, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, IP, Adre
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual int Update(System.Data.DataRow[] dataRows) {
             return this.Adapter.Update(dataRows);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, byte[] Original_RowVersion) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
-            if ((Original_RowVersion == null)) {
-                throw new System.ArgumentNullException("Original_RowVersion");
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((byte[])(Original_RowVersion));
-            }
-            System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Name, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, string IP, string Adress) {
-            if ((Name == null)) {
-                throw new System.ArgumentNullException("Name");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(Name));
-            }
-            if ((AuthorCreate == null)) {
-                throw new System.ArgumentNullException("AuthorCreate");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(AuthorCreate));
-            }
-            if ((AuthorLastModif == null)) {
-                throw new System.ArgumentNullException("AuthorLastModif");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(AuthorLastModif));
-            }
-            this.Adapter.InsertCommand.Parameters[3].Value = ((System.DateTime)(DateCreate));
-            if ((IP == null)) {
-                throw new System.ArgumentNullException("IP");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(IP));
-            }
-            if ((Adress == null)) {
-                throw new System.ArgumentNullException("Adress");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(Adress));
-            }
-            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Name, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, string IP, string Adress, int Original_ID, byte[] Original_RowVersion, int ID) {
-            if ((Name == null)) {
-                throw new System.ArgumentNullException("Name");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(Name));
-            }
-            if ((AuthorCreate == null)) {
-                throw new System.ArgumentNullException("AuthorCreate");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(AuthorCreate));
-            }
-            if ((AuthorLastModif == null)) {
-                throw new System.ArgumentNullException("AuthorLastModif");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(AuthorLastModif));
-            }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((System.DateTime)(DateCreate));
-            if ((IP == null)) {
-                throw new System.ArgumentNullException("IP");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(IP));
-            }
-            if ((Adress == null)) {
-                throw new System.ArgumentNullException("Adress");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Adress));
-            }
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_ID));
-            if ((Original_RowVersion == null)) {
-                throw new System.ArgumentNullException("Original_RowVersion");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((byte[])(Original_RowVersion));
-            }
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(ID));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
         }
     }
     
@@ -23110,33 +22966,6 @@ SELECT ID, TradePupletRef, ProductRef, DateOrder, Quantity, Price, Reserved, Qua
             tableMapping.ColumnMappings.Add("isClosed", "isClosed");
             tableMapping.ColumnMappings.Add("RowVersion", "RowVersion");
             this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Periods] WHERE (([ID] = @Original_ID) AND ([RowVersion] = @Ori" +
-                "ginal_RowVersion))";
-            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 0, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Periods] ([StartDate], [ClosedDate], [isClosed]) VALUES (@Star" +
-                "tDate, @ClosedDate, @isClosed);\r\nSELECT ID, StartDate, ClosedDate, isClosed, Row" +
-                "Version FROM Periods WHERE (ID = SCOPE_IDENTITY())";
-            this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@StartDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "StartDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ClosedDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "ClosedDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@isClosed", System.Data.SqlDbType.Bit, 0, System.Data.ParameterDirection.Input, 0, 0, "isClosed", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Periods] SET [StartDate] = @StartDate, [ClosedDate] = @ClosedDate, [isClosed] = @isClosed WHERE (([ID] = @Original_ID) AND ([RowVersion] = @Original_RowVersion));
-SELECT ID, StartDate, ClosedDate, isClosed, RowVersion FROM Periods WHERE (ID = @ID)";
-            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@StartDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "StartDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ClosedDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "ClosedDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@isClosed", System.Data.SqlDbType.Bit, 0, System.Data.ParameterDirection.Input, 0, 0, "isClosed", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 0, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -23150,8 +22979,9 @@ SELECT ID, StartDate, ClosedDate, isClosed, RowVersion FROM Periods WHERE (ID = 
             this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, StartDate, ClosedDate, isClosed, RowVersion FROM dbo.Periods";
-            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[0].CommandText = "dbo.PeriodsSelectCommand";
+            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Variant, 0, System.Data.ParameterDirection.ReturnValue, 0, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -23174,112 +23004,6 @@ SELECT ID, StartDate, ClosedDate, isClosed, RowVersion FROM Periods WHERE (ID = 
             MDataSet.PeriodsDataTable dataTable = new MDataSet.PeriodsDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(MDataSet.PeriodsDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(MDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "Periods");
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, byte[] Original_RowVersion) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
-            if ((Original_RowVersion == null)) {
-                throw new System.ArgumentNullException("Original_RowVersion");
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((byte[])(Original_RowVersion));
-            }
-            System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(System.DateTime StartDate, System.DateTime ClosedDate, bool isClosed) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((System.DateTime)(StartDate));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((System.DateTime)(ClosedDate));
-            this.Adapter.InsertCommand.Parameters[2].Value = ((bool)(isClosed));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(System.DateTime StartDate, System.DateTime ClosedDate, bool isClosed, int Original_ID, byte[] Original_RowVersion, int ID) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((System.DateTime)(StartDate));
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(ClosedDate));
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((bool)(isClosed));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_ID));
-            if ((Original_RowVersion == null)) {
-                throw new System.ArgumentNullException("Original_RowVersion");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((byte[])(Original_RowVersion));
-            }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(ID));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
         }
     }
 }
