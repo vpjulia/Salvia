@@ -127,7 +127,7 @@ namespace RetailTrade
                 
             }
 
-            (this.ParentForm as MainForm).RefreshData(this.mDataSet.Product);
+            (this.ParentForm as MainForm).RefreshData(_changes.Table);
             return true;
         }
 

@@ -241,6 +241,9 @@ namespace RetailTrade
             // 
             this.grid.DataSource = this.productBindingSource;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
             this.grid.EmbeddedNavigator.Name = "";
             this.errorProvider1.SetError(this.grid, "jj");
             this.grid.Location = new System.Drawing.Point(0, 25);
@@ -303,6 +306,8 @@ namespace RetailTrade
             this.gridViewMainProduct.OptionsView.ShowAutoFilterRow = true;
             this.gridViewMainProduct.OptionsView.ShowDetailButtons = false;
             this.gridViewMainProduct.OptionsView.ShowFooter = true;
+            this.gridViewMainProduct.OptionsView.ShowPreview = true;
+            this.gridViewMainProduct.PreviewFieldName = "OldName";
             this.gridViewMainProduct.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.gridViewMainProduct_CustomDrawCell);
             this.gridViewMainProduct.DoubleClick += new System.EventHandler(this.gridView_DoubleClick);
             this.gridViewMainProduct.Layout += new System.EventHandler(this.gridViewMainProduct_Layout);
@@ -345,6 +350,7 @@ namespace RetailTrade
             this.colPriceManufact.Caption = "Цена изг.";
             this.colPriceManufact.FieldName = "PriceManufact";
             this.colPriceManufact.Name = "colPriceManufact";
+            this.colPriceManufact.OptionsColumn.ReadOnly = true;
             this.colPriceManufact.Width = 36;
             // 
             // colManufacturerRef
@@ -353,7 +359,7 @@ namespace RetailTrade
             this.colManufacturerRef.FieldName = "ManufacturerRef";
             this.colManufacturerRef.Name = "colManufacturerRef";
             this.colManufacturerRef.Visible = true;
-            this.colManufacturerRef.VisibleIndex = 6;
+            this.colManufacturerRef.VisibleIndex = 5;
             this.colManufacturerRef.Width = 48;
             // 
             // colIsRecept
@@ -386,7 +392,7 @@ namespace RetailTrade
             this.colMinDivisor.FieldName = "MinDivisor";
             this.colMinDivisor.Name = "colMinDivisor";
             this.colMinDivisor.Visible = true;
-            this.colMinDivisor.VisibleIndex = 5;
+            this.colMinDivisor.VisibleIndex = 4;
             this.colMinDivisor.Width = 71;
             // 
             // colAuthorCreate
@@ -394,24 +400,28 @@ namespace RetailTrade
             this.colAuthorCreate.Caption = "Автор";
             this.colAuthorCreate.FieldName = "AuthorCreate";
             this.colAuthorCreate.Name = "colAuthorCreate";
+            this.colAuthorCreate.OptionsColumn.ReadOnly = true;
             // 
             // colDateLastModif
             // 
             this.colDateLastModif.Caption = "Изменен";
             this.colDateLastModif.FieldName = "DateLastModif";
             this.colDateLastModif.Name = "colDateLastModif";
+            this.colDateLastModif.OptionsColumn.ReadOnly = true;
             // 
             // colAuthorLastModif
             // 
             this.colAuthorLastModif.Caption = "Редактор";
             this.colAuthorLastModif.FieldName = "AuthorLastModif";
             this.colAuthorLastModif.Name = "colAuthorLastModif";
+            this.colAuthorLastModif.OptionsColumn.ReadOnly = true;
             // 
             // colDateCreate
             // 
             this.colDateCreate.Caption = "Создан";
             this.colDateCreate.FieldName = "DateCreate";
             this.colDateCreate.Name = "colDateCreate";
+            this.colDateCreate.OptionsColumn.ReadOnly = true;
             this.colDateCreate.Width = 67;
             // 
             // colOldKod
@@ -419,6 +429,7 @@ namespace RetailTrade
             this.colOldKod.Caption = "Код Старый";
             this.colOldKod.FieldName = "OldKod";
             this.colOldKod.Name = "colOldKod";
+            this.colOldKod.OptionsColumn.ReadOnly = true;
             this.colOldKod.Visible = true;
             this.colOldKod.VisibleIndex = 3;
             this.colOldKod.Width = 91;
@@ -428,8 +439,7 @@ namespace RetailTrade
             this.colOldName.Caption = "Имя старое";
             this.colOldName.FieldName = "OldName";
             this.colOldName.Name = "colOldName";
-            this.colOldName.Visible = true;
-            this.colOldName.VisibleIndex = 4;
+            this.colOldName.OptionsColumn.ReadOnly = true;
             this.colOldName.Width = 81;
             // 
             // colIsHide
@@ -457,16 +467,19 @@ namespace RetailTrade
             this.colUnitRef.FieldName = "UnitRef";
             this.colUnitRef.Name = "colUnitRef";
             this.colUnitRef.Visible = true;
-            this.colUnitRef.VisibleIndex = 7;
+            this.colUnitRef.VisibleIndex = 6;
             // 
             // UnitRefLookUpEdit
             // 
             this.UnitRefLookUpEdit.AutoHeight = false;
             this.UnitRefLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.UnitRefLookUpEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name", 39, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near)});
             this.UnitRefLookUpEdit.DataSource = this.unitBindingSource;
             this.UnitRefLookUpEdit.DisplayMember = "Name";
             this.UnitRefLookUpEdit.Name = "UnitRefLookUpEdit";
+            this.UnitRefLookUpEdit.ShowHeader = false;
             this.UnitRefLookUpEdit.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
             this.UnitRefLookUpEdit.ValueMember = "ID";
             // 
@@ -487,16 +500,19 @@ namespace RetailTrade
             this.colPackingRef.FieldName = "PackingRef";
             this.colPackingRef.Name = "colPackingRef";
             this.colPackingRef.Visible = true;
-            this.colPackingRef.VisibleIndex = 8;
+            this.colPackingRef.VisibleIndex = 7;
             // 
             // PackingRefLookUpEdit
             // 
             this.PackingRefLookUpEdit.AutoHeight = false;
             this.PackingRefLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.PackingRefLookUpEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name", 39, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near)});
             this.PackingRefLookUpEdit.DataSource = this.packingBindingSource;
             this.PackingRefLookUpEdit.DisplayMember = "Name";
             this.PackingRefLookUpEdit.Name = "PackingRefLookUpEdit";
+            this.PackingRefLookUpEdit.ShowHeader = false;
             this.PackingRefLookUpEdit.ValueMember = "ID";
             // 
             // packingBindingSource
@@ -511,16 +527,19 @@ namespace RetailTrade
             this.colStorageConditionRef.FieldName = "StorageConditionRef";
             this.colStorageConditionRef.Name = "colStorageConditionRef";
             this.colStorageConditionRef.Visible = true;
-            this.colStorageConditionRef.VisibleIndex = 9;
+            this.colStorageConditionRef.VisibleIndex = 8;
             // 
             // StorageConditionRefLookUpEdit
             // 
             this.StorageConditionRefLookUpEdit.AutoHeight = false;
             this.StorageConditionRefLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.StorageConditionRefLookUpEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name", 39, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near)});
             this.StorageConditionRefLookUpEdit.DataSource = this.storageConditionBindingSource;
             this.StorageConditionRefLookUpEdit.DisplayMember = "Name";
             this.StorageConditionRefLookUpEdit.Name = "StorageConditionRefLookUpEdit";
+            this.StorageConditionRefLookUpEdit.ShowHeader = false;
             this.StorageConditionRefLookUpEdit.ValidateOnEnterKey = true;
             this.StorageConditionRefLookUpEdit.ValueMember = "ID";
             // 
@@ -536,16 +555,19 @@ namespace RetailTrade
             this.colSubstanceRef.FieldName = "SubstanceRef";
             this.colSubstanceRef.Name = "colSubstanceRef";
             this.colSubstanceRef.Visible = true;
-            this.colSubstanceRef.VisibleIndex = 10;
+            this.colSubstanceRef.VisibleIndex = 9;
             // 
             // SubstanceRefLookUpEdit
             // 
             this.SubstanceRefLookUpEdit.AutoHeight = false;
             this.SubstanceRefLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.SubstanceRefLookUpEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name", 39, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near)});
             this.SubstanceRefLookUpEdit.DataSource = this.substanceBindingSource;
             this.SubstanceRefLookUpEdit.DisplayMember = "Name";
             this.SubstanceRefLookUpEdit.Name = "SubstanceRefLookUpEdit";
+            this.SubstanceRefLookUpEdit.ShowHeader = false;
             this.SubstanceRefLookUpEdit.ValidateOnEnterKey = true;
             this.SubstanceRefLookUpEdit.ValueMember = "ID";
             // 
@@ -561,16 +583,19 @@ namespace RetailTrade
             this.colFarmGrouplevel2Ref.FieldName = "FarmGrouplevel2Ref";
             this.colFarmGrouplevel2Ref.Name = "colFarmGrouplevel2Ref";
             this.colFarmGrouplevel2Ref.Visible = true;
-            this.colFarmGrouplevel2Ref.VisibleIndex = 11;
+            this.colFarmGrouplevel2Ref.VisibleIndex = 10;
             // 
             // FarmGrouplevel2RefLookUpEdit
             // 
             this.FarmGrouplevel2RefLookUpEdit.AutoHeight = false;
             this.FarmGrouplevel2RefLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.FarmGrouplevel2RefLookUpEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name", 39, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near)});
             this.FarmGrouplevel2RefLookUpEdit.DataSource = this.farmGroupLevel2BindingSource;
             this.FarmGrouplevel2RefLookUpEdit.DisplayMember = "Name";
             this.FarmGrouplevel2RefLookUpEdit.Name = "FarmGrouplevel2RefLookUpEdit";
+            this.FarmGrouplevel2RefLookUpEdit.ShowHeader = false;
             this.FarmGrouplevel2RefLookUpEdit.ValueMember = "ID";
             // 
             // farmGroupLevel2BindingSource

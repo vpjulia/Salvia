@@ -28,7 +28,9 @@ namespace RetailTrade
         {
             InitializeComponent();
                       
-            this.bindingSource.DataSource=source;
+            //this.bindingSource.DataSource=source;
+            this.bindingSource.DataSource = new DataView(source, "ID<>0", null, DataViewRowState.CurrentRows);
+
             this.grid.DataSource = this.bindingSource;
 
             _changes = new DataView(source, "ID<>0", null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
@@ -43,10 +45,13 @@ namespace RetailTrade
         {
             InitializeComponent();
 
-            this.bindingSource.DataSource = source;
+           // this.bindingSource.DataSource = source;
+            this.bindingSource.DataSource = new DataView(source, "ID<>0", null, DataViewRowState.CurrentRows);
+
+            
             this.grid.DataSource = this.bindingSource;
             _currentInParent = _current;
-            _changes = new DataView(source, null, null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
+            _changes = new DataView(source, "ID<>0", null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
             _changes.ListChanged += new ListChangedEventHandler(_changes_ListChanged);
 
             this.errorProvider1.DataSource = source;

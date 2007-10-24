@@ -941,25 +941,11 @@ namespace RetailTrade
             MDataSet.ProductDataTable _productDataTable = new MDataSet.ProductDataTable();
            
 
-            DateTime _dateparam;
-
-            if (!sourceRow.IsDateUpdateDetailNull())
-            {
-                _dateparam = sourceRow.DateUpdateDetail;
-            }
-            else
-                if (!sourceRow.IsDateUpdateNull())
-                {
-                    _dateparam = sourceRow.DateUpdate;
-                }
-                else
-                {
-                    _dateparam = DateTime.Now;
-                }
+            
             try
             {
                 this.productTableAdapter.FillByReceiptId(_productDataTable, sourceRow.ID);
-                this.receiptMasterTableAdapter.FillNew(_ReceiptMasterDataTable, sourceRow.DateUpdate);
+                this.receiptMasterTableAdapter.FillNew(_ReceiptMasterDataTable);
 
                 this.receiptDetailTableAdapter.FillByReceiptMasterRef(_ReceiptDetailDataTable, sourceRow.ID);
                 
@@ -987,7 +973,7 @@ namespace RetailTrade
          
             try
              {
-               this.invoiceMasterTableAdapter.FillNew(_invoiceMasterDataTable,sourceRow.DateUpdate);
+               this.invoiceMasterTableAdapter.FillNew(_invoiceMasterDataTable);
                this.invoiceDetailTableAdapter.FillByInvoiceMasterRef(_invoiceDetailDataTable,sourceRow.ID);
 
               
@@ -1028,13 +1014,10 @@ namespace RetailTrade
             Object[] parameters = new Object[0];
             Object _newTable;
             
-            Object[] args = new Object[2];
+            Object[] args = new Object[1];
 
 
-            if (source.Columns.Contains("DateUpdate"))
-            {
-                args[1] = source.Rows[0]["DateUpdate"];
-
+           
 
                 try
                 {
@@ -1069,14 +1052,7 @@ namespace RetailTrade
                     return false;
 
                 }
-            }
-            else
-
-            {
-                return false;
             
-            
-            }
 
                 return true;
         }
@@ -1087,7 +1063,7 @@ namespace RetailTrade
 
             try
             {
-                this.invoiceDetailTableAdapter.FillNew(_invoiceDetailDataTable, sourceRow.DateUpdate);
+                this.invoiceDetailTableAdapter.FillNew(_invoiceDetailDataTable);
             }
             catch (Exception err)
             {
