@@ -15,6 +15,9 @@ namespace RetailTrade.Invoice
 
         MDataSet.InvoiceMasterRow _curentMasterRow;
 
+        DataView _detail;
+
+
         public InvoiceRow()
         {
             InitializeComponent();
@@ -31,11 +34,24 @@ namespace RetailTrade.Invoice
            
             this.invoiceMasterBindingSource.DataSource = source.Table;
             this.invoiceMasterBindingSource.ResetBindings(false);
+
+            _detail = new DataView(this.mDataSet.InvoiceDetail, "InvoiceMasterRef=" + source.ID.ToString(), null, DataViewRowState.CurrentRows);
+
             this.invoiceMasterBindingSource.CurrencyManager.Position = this.invoiceMasterBindingSource.Find("ID", source.ID);
 
-              this.stockBindingSource.DataSource = this.mDataSet.Stock.Select("IsLocal=0");
-            /*    this.productBindingSource.DataSource = this.mDataSet.Product;
-     */
+            if (_detail.Count> 0)
+            {
+                this.mainStocklookUpEdit.Enabled = false;
+                this.stockBindingSource.DataSource = this.mDataSet.Stock.Select("IsLocal=0 and isnds="+source.IsNDS.ToString());
+
+            }
+            else
+            {
+                this.stockBindingSource.DataSource = this.mDataSet.Stock.Select("IsLocal=0");
+                this.mainStocklookUpEdit.Enabled = true;
+            }
+
+            
 
             this.invoiceDetailBindingSource.DataSource = this.invoiceMasterBindingSource;
             this.invoiceDetailBindingSource.DataMember = "FK_InvoiceDetail_InvoiceMaster";
@@ -48,11 +64,7 @@ namespace RetailTrade.Invoice
             }
 
 
-            if (source.GetInvoiceDetailRows().Length>0)
-            {
-                this.mainStocklookUpEdit.Enabled = false;
-                this.StockEdit.Enabled = false;
-            }
+            
             if (source.RemoteStockRef ==0)
             {
                 this.grid.Enabled = false;
@@ -60,6 +72,18 @@ namespace RetailTrade.Invoice
                 this.mainStocklookUpEdit.Enabled = false;
             }
 
+            _detail.ListChanged += new ListChangedEventHandler(_detail_ListChanged);
+
+        }
+
+        void _detail_ListChanged(object sender, ListChangedEventArgs e)
+        {
+
+            if (_detail.Count > 0)
+            {
+             this.mainStocklookUpEdit.Enabled = false;
+             this.stockBindingSource.DataSource= this.mDataSet.Stock.Select("IsLocal=0 and isnds=" + _curentMasterRow.IsNDS.ToString());
+            }
 
 
         }
@@ -204,6 +228,7 @@ namespace RetailTrade.Invoice
         {
             this.invoiceMasterBindingSource.EndEdit();
             this.MainStockBindingSource.Filter = "IsLocal=1 and IsNDS =" + ((this.invoiceMasterBindingSource.Current as DataRowView).Row as MDataSet.InvoiceMasterRow).IsNDS.ToString();
+           if (_detail.Count==0) 
             this.mainStocklookUpEdit.Enabled = true;
         }
 
@@ -224,6 +249,12 @@ namespace RetailTrade.Invoice
             {
                 this.btClose.PerformClick();
             }
+        }
+
+        private void StockEdit_Popup(object sender, EventArgs e)
+        {
+           
+
         }
 
        
