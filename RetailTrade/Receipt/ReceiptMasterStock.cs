@@ -332,8 +332,11 @@ namespace RetailTrade.Receipt
                         return;
                     }
 
-                _dr.Delete();
-                this.SaveChanges();
+                if (DialogResult.OK == MessageBox.Show("Удалить строку? ", "Удаление строки прихода", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
+                {
+                    _dr.Delete();
+                    this.SaveChanges();
+                }
             }
      
         }

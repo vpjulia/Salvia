@@ -42,9 +42,7 @@ namespace RetailTrade
             return ProductRow;
 
         }
-        
-        
-        
+     
         //  --------  event
 
         private void ReceiptDetail_TableNewRow(object sender, DataTableNewRowEventArgs e)
@@ -821,11 +819,12 @@ namespace RetailTrade
         {
          
             MDataSet.ReceiptMasterDataTable _tmpMaster = new MDataSet.ReceiptMasterDataTable();
-            MDataSet.ReceiptDetailDataTable _tmpDetail = new MDataSet.ReceiptDetailDataTable();
+          //  MDataSet.ReceiptDetailDataTable _tmpDetail = new MDataSet.ReceiptDetailDataTable();
             try
                {
-                        this.receiptMasterTableAdapter.FillByPeriodNum(_tmpMaster, numPeriods);
-              }
+                  this.receiptMasterTableAdapter.FillByPeriodNum(_tmpMaster, numPeriods);
+              
+            }
                     catch (SqlException sqlerr)
                     {
                         if (sqlerr.Class < 17)
@@ -853,8 +852,88 @@ namespace RetailTrade
 
 
                 }
+        public bool FillTableStockDocuments(MDataSet.InvoiceMasterDataTable source, DateTime begin)
+        {
+            MDataSet.InvoiceMasterDataTable _tmpMaster = new MDataSet.InvoiceMasterDataTable();
+            MDataSet.InvoiceDetailDataTable _tmpDetail = new MDataSet.InvoiceDetailDataTable();
+
+
+
+
+            try
+            {
+                this.invoiceMasterTableAdapter.FillByPeriod(_tmpMaster, begin);
+                this.invoiceDetailTableAdapter.FillByPeriod(_tmpDetail, begin);
+
+            }
+
+            catch (SqlException sqlerr)
+            {
+                if (sqlerr.Class < 17)
+                {
+                    MessageBox.Show(sqlerr.Message);
+                }
+                else
+
+                    caughtGlobalError(sqlerr);
+                return false;
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+                return false;
+            }
+            finally
+            {
+                this.mDataSet.InvoiceMaster.Merge(_tmpMaster);
+                this.mDataSet.InvoiceDetail.Merge(_tmpDetail);
+
+            }
+            return true;
+
+
+
+        }
+       
+        public bool FillTableStockDocuments(MDataSet.InvoiceMasterDataTable source, int numPeriods)
+        {
+
+            MDataSet.InvoiceMasterDataTable _tmpMaster = new MDataSet.InvoiceMasterDataTable();
+          //  MDataSet.InvoiceDetailDataTable _tmpDetail = new MDataSet.InvoiceDetailDataTable();
+            try
+            {
+                this.invoiceMasterTableAdapter.FillByPeriodNum(_tmpMaster, numPeriods);
+            }
+            catch (SqlException sqlerr)
+            {
+                if (sqlerr.Class < 17)
+                {
+                    MessageBox.Show(sqlerr.Message);
+                }
+                else
+
+                    caughtGlobalError(sqlerr);
+                return false;
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+                return false;
+            }
+            finally
+            {
+                this.mDataSet.InvoiceMaster.Merge(_tmpMaster);
+
+
+            }
+            return true;
+
+
+
+        }
   
-       /*FillNew + Merge + FillDetailsById*/
+        
+        /*FillNew + Merge + FillDetailsById*/
         public bool RefreshData(MDataSet.ReceiptMasterRow sourceRow) 
         {
             MDataSet.ReceiptMasterDataTable _ReceiptMasterDataTable = new MDataSet.ReceiptMasterDataTable();
@@ -900,8 +979,7 @@ namespace RetailTrade
             }
             return true;
         }
-
-
+        
         public bool RefreshData(MDataSet.InvoiceMasterRow sourceRow) 
         {
            MDataSet.InvoiceMasterDataTable _invoiceMasterDataTable=new MDataSet.InvoiceMasterDataTable();

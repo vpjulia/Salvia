@@ -37,6 +37,7 @@ namespace RetailTrade.Invoice
             this.btField = new System.Windows.Forms.ToolStripMenuItem();
             this.btRefresh = new System.Windows.Forms.ToolStripMenuItem();
             this.btClose = new System.Windows.Forms.ToolStripButton();
+            this.btMove = new System.Windows.Forms.ToolStripButton();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -76,7 +77,6 @@ namespace RetailTrade.Invoice
             this.invoiceMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.InvoiceMasterTableAdapter();
             this.invoiceDetailTableAdapter = new RetailTrade.MDataSetTableAdapters.InvoiceDetailTableAdapter();
             this.stockTableAdapter = new RetailTrade.MDataSetTableAdapters.StockTableAdapter();
-            this.btMove = new System.Windows.Forms.ToolStripButton();
             numberLabel = new System.Windows.Forms.Label();
             this.toolStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -165,6 +165,15 @@ namespace RetailTrade.Invoice
             this.btClose.Size = new System.Drawing.Size(23, 22);
             this.btClose.Text = "X";
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
+            // 
+            // btMove
+            // 
+            this.btMove.Image = ((System.Drawing.Image)(resources.GetObject("btMove.Image")));
+            this.btMove.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btMove.Name = "btMove";
+            this.btMove.Size = new System.Drawing.Size(148, 22);
+            this.btMove.Text = "Готов к отправке";
+            this.btMove.Click += new System.EventHandler(this.btMove_Click);
             // 
             // statusStrip
             // 
@@ -315,6 +324,7 @@ namespace RetailTrade.Invoice
             this.StockEdit.Size = new System.Drawing.Size(220, 22);
             this.StockEdit.TabIndex = 2;
             this.StockEdit.EditValueChanged += new System.EventHandler(this.StockEdit_EditValueChanged);
+            this.StockEdit.Popup += new System.EventHandler(this.StockEdit_Popup);
             this.StockEdit.Validated += new System.EventHandler(this.StockEdit_Validated);
             // 
             // stockBindingSource
@@ -555,15 +565,6 @@ namespace RetailTrade.Invoice
             // stockTableAdapter
             // 
             this.stockTableAdapter.ClearBeforeFill = true;
-            // 
-            // btMove
-            // 
-            this.btMove.Image = ((System.Drawing.Image)(resources.GetObject("btMove.Image")));
-            this.btMove.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btMove.Name = "btMove";
-            this.btMove.Size = new System.Drawing.Size(148, 22);
-            this.btMove.Text = "Готов к отправке";
-            this.btMove.Click += new System.EventHandler(this.btMove_Click);
             // 
             // InvoiceRow
             // 

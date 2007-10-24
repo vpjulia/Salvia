@@ -143,7 +143,7 @@ namespace RetailTrade
             }
             finally
             {
-                Log("MainForm_Load         finally");
+                Log("MainForm_Load   finally");
             
             }
 
@@ -519,6 +519,18 @@ namespace RetailTrade
         
            }
 
+        private UserControl InitInvoiceClosed(ref String TagControl, ref string Title)
+        {
+            UserControl usControl;
+
+            usControl = new InvoiceClosed(this.mDataSet);
+            (usControl as InvoiceClosed).Dock = DockStyle.Fill;
+            (usControl as InvoiceClosed).Tag = Title;
+
+            return usControl;
+
+        }
+
       
         
         
@@ -644,6 +656,15 @@ namespace RetailTrade
                    case "InvoiceForReplication":
 
                        usControl = InitInvoiceForReplication(ref TagControl, ref Title);
+
+                       if (usControl == null)
+                           return false;
+
+                       break;
+
+                   case "InvoiceClosed":
+
+                       usControl = InitInvoiceClosed(ref TagControl, ref Title);
 
                        if (usControl == null)
                            return false;

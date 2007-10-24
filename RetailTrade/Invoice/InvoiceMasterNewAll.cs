@@ -88,10 +88,14 @@ namespace RetailTrade.Invoice
         private bool SaveChanges()
         {
             this.invoiceMasterBindingSource.EndEdit();
-            return true;
+
+            foreach (DataRowView _mastRow in _changesMaster)
+            {
+                (this.ParentForm as MainForm).SaveToBase(_mastRow.Row as MDataSet.InvoiceMasterRow);
+            }
+                return true;
         }
 
-      
         private void btClose_Click(object sender, EventArgs e)
         {
             this.invoiceMasterBindingSource.EndEdit();
@@ -137,6 +141,31 @@ namespace RetailTrade.Invoice
                         (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
                 }
             } 
+        }
+
+        private void btDelete_Click(object sender, EventArgs e)
+        {
+
+            DataRow _dr = (this.grid.FocusedView as GridView).GetDataRow((this.grid.FocusedView as GridView).FocusedRowHandle);
+            if ((_dr) != null)
+            {
+                foreach (DataRelation _relation in _dr.Table.ChildRelations)
+                {
+                    
+                    
+                    if ((_dr.GetChildRows(_relation).Length>0)&(_relation.ParentKeyConstraint!=null))
+                    {
+                        MessageBox.Show("Невозможно удалить строку!");
+                        return;
+                    }
+
+                    if (DialogResult.OK == MessageBox.Show("Удалить строку? ", "Удаление строки прихода", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
+                    {
+                        _dr.Delete();
+                        this.SaveChanges();
+                    }
+                }
+            }
         }
 
         

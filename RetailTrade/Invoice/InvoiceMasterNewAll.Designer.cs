@@ -29,7 +29,7 @@ namespace RetailTrade.Invoice
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvoiceMasterNewAll));
             this.gridViewInvoiceDetail = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colProductName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -128,10 +128,10 @@ namespace RetailTrade.Invoice
             this.grid.DataSource = this.invoiceMasterBindingSource;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid.EmbeddedNavigator.Name = "";
-            gridLevelNode2.LevelTemplate = this.gridViewInvoiceDetail;
-            gridLevelNode2.RelationName = "FK_InvoiceDetail_InvoiceMaster";
+            gridLevelNode1.LevelTemplate = this.gridViewInvoiceDetail;
+            gridLevelNode1.RelationName = "FK_InvoiceDetail_InvoiceMaster";
             this.grid.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode2});
+            gridLevelNode1});
             this.grid.Location = new System.Drawing.Point(0, 25);
             this.grid.MainView = this.gridViewInvoiceMasterAll;
             this.grid.Name = "grid";
@@ -358,6 +358,7 @@ namespace RetailTrade.Invoice
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(85, 22);
             this.btDelete.Text = "Удалить";
+            this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
             // 
             // toolStripSplitButton1
             // 
