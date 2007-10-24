@@ -37,11 +37,13 @@ namespace RetailTrade
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btClose = new System.Windows.Forms.ToolStripButton();
             this.btRefresh = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
+            this.btField = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.grid = new DevExpress.XtraGrid.GridControl();
             this.organizationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mDataSet = new RetailTrade.MDataSet();
-            this.gridView = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridViewOrgns = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colShortName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -68,7 +70,7 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewOrgns)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,10 +82,11 @@ namespace RetailTrade
             this.btDel,
             this.btSave,
             this.btClose,
-            this.btRefresh});
+            this.btRefresh,
+            this.toolStripSplitButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(548, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(640, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -146,11 +149,29 @@ namespace RetailTrade
             this.btRefresh.Size = new System.Drawing.Size(23, 22);
             this.btRefresh.Text = "Обновить";
             // 
+            // toolStripSplitButton1
+            // 
+            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btField});
+            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(16, 22);
+            this.toolStripSplitButton1.Text = "toolStripSplitButton1";
+            // 
+            // btField
+            // 
+            this.btField.Name = "btField";
+            this.btField.Size = new System.Drawing.Size(208, 22);
+            this.btField.Text = "Настройка полей";
+            this.btField.Click += new System.EventHandler(this.btField_Click);
+            // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 390);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 503);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(548, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(640, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -163,12 +184,12 @@ namespace RetailTrade
             // 
             this.grid.EmbeddedNavigator.Name = "";
             this.grid.Location = new System.Drawing.Point(0, 25);
-            this.grid.MainView = this.gridView;
+            this.grid.MainView = this.gridViewOrgns;
             this.grid.Name = "grid";
-            this.grid.Size = new System.Drawing.Size(548, 365);
+            this.grid.Size = new System.Drawing.Size(640, 478);
             this.grid.TabIndex = 2;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView});
+            this.gridViewOrgns});
             // 
             // organizationBindingSource
             // 
@@ -180,11 +201,11 @@ namespace RetailTrade
             this.mDataSet.DataSetName = "MDataSet";
             this.mDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // gridView
+            // gridViewOrgns
             // 
-            this.gridView.Appearance.FocusedRow.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold);
-            this.gridView.Appearance.FocusedRow.Options.UseFont = true;
-            this.gridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridViewOrgns.Appearance.FocusedRow.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold);
+            this.gridViewOrgns.Appearance.FocusedRow.Options.UseFont = true;
+            this.gridViewOrgns.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colID,
             this.colShortName,
             this.colName,
@@ -205,12 +226,12 @@ namespace RetailTrade
             this.colAuthorLastModif,
             this.colDateCreate,
             this.colDateLastModif});
-            this.gridView.GridControl = this.grid;
-            this.gridView.Name = "gridView";
-            this.gridView.OptionsBehavior.AllowIncrementalSearch = true;
-            this.gridView.OptionsBehavior.Editable = false;
-            this.gridView.OptionsDetail.EnableMasterViewMode = false;
-            this.gridView.DoubleClick += new System.EventHandler(this.gridView_DoubleClick);
+            this.gridViewOrgns.GridControl = this.grid;
+            this.gridViewOrgns.Name = "gridViewOrgns";
+            this.gridViewOrgns.OptionsBehavior.AllowIncrementalSearch = true;
+            this.gridViewOrgns.OptionsBehavior.Editable = false;
+            this.gridViewOrgns.OptionsDetail.EnableMasterViewMode = false;
+            this.gridViewOrgns.DoubleClick += new System.EventHandler(this.gridView_DoubleClick);
             // 
             // colID
             // 
@@ -361,13 +382,14 @@ namespace RetailTrade
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "UCOrganizationAll";
-            this.Size = new System.Drawing.Size(548, 412);
+            this.Size = new System.Drawing.Size(640, 525);
+            this.Load += new System.EventHandler(this.UCOrganizationAll_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewOrgns)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -401,7 +423,7 @@ namespace RetailTrade
         private RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter organizationTableAdapter;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         public DevExpress.XtraGrid.GridControl grid;
-        public DevExpress.XtraGrid.Views.Grid.GridView gridView;
+        public DevExpress.XtraGrid.Views.Grid.GridView gridViewOrgns;
         private System.Windows.Forms.ToolStripButton btEdit;
         private System.Windows.Forms.ToolStripButton btAdd;
         private System.Windows.Forms.ToolStripButton btDel;
@@ -410,5 +432,7 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripButton btRefresh;
         private DevExpress.XtraGrid.Columns.GridColumn colDateCreate;
         private DevExpress.XtraGrid.Columns.GridColumn colDateLastModif;
+        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
+        private System.Windows.Forms.ToolStripMenuItem btField;
     }
 }

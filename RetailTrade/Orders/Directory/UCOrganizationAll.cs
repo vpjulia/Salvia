@@ -6,11 +6,16 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.Grid;
+using System.IO;
 
 namespace RetailTrade
 {
     public partial class UCOrganizationAll : UserControl
     {
+
+        DataView _changes;
+
         public UCOrganizationAll()
         {
             InitializeComponent();
@@ -20,7 +25,7 @@ namespace RetailTrade
         {
             InitializeComponent();
             organizationBindingSource.DataSource = source.Organization;
-            
+            _changes = new DataView(source.Organization,null,null,DataViewRowState.ModifiedCurrent);
         }
         private bool SaveChange()
         {
@@ -28,33 +33,8 @@ namespace RetailTrade
 
             if (dt.GetChanges() != null)
             {
-                FormDialog fInf = new FormDialog();
-                Information infcontr = new Information();
-                infcontr.Dock = DockStyle.Fill;
-
-                DataTable tbChahgesAdd = dt.GetChanges(DataRowState.Added);
-                if (tbChahgesAdd != null)
-                    foreach (DataRow frRow in tbChahgesAdd.Rows)
-                        infcontr.listBoxInf.Items.Add("Добавить " + "'" + frRow[1, DataRowVersion.Current].ToString() + "'");
-
-
-                DataTable tbChahges = dt.GetChanges(DataRowState.Modified);
-                if (tbChahges != null)
-                    foreach (DataRow frRow in tbChahges.Rows)
-                        infcontr.listBoxInf.Items.Add("Изменить   " + "'" + frRow[1, DataRowVersion.Original].ToString()+"'");
-
-
-                DataTable tbChahgesDel = dt.GetChanges(DataRowState.Deleted);
-                if (tbChahgesDel != null)
-                    foreach (DataRow frRow in tbChahgesDel.Rows)
-                        infcontr.listBoxInf.Items.Add("Удалить   " + "'" + frRow[1, DataRowVersion.Original].ToString() + "'");
-
-                fInf.Size = new System.Drawing.Size((Screen.PrimaryScreen.WorkingArea.Width / 3), (Screen.PrimaryScreen.WorkingArea.Height / 2));
-
-                fInf.panel.Controls.Add(infcontr);
-
-                if (DialogResult.OK == fInf.ShowDialog(this.ParentForm))
-                {
+               
+               
 
                     /*сохранить удаление*/
                     (this.ParentForm as MainForm).SaveToBaseDirectoryDeleted(dt.Select(null, null, DataViewRowState.Deleted));
@@ -68,16 +48,21 @@ namespace RetailTrade
 
                     (this.organizationBindingSource.DataSource as DataTable).AcceptChanges();
 
-
-                }
-                else return false;
+               
+               
             }
 
             return true;
         }
+        private bool CancelChanges()
+        {
+            (this.organizationBindingSource.DataSource as DataTable).RejectChanges();
+            return true;
+        }
+
         private void gridView_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
         {
-            this.gridView.SetColumnError(this.gridView.Columns[1], e.ErrorText.ToString());
+            this.gridViewOrgns.SetColumnError(this.gridViewOrgns.Columns[1], e.ErrorText.ToString());
             e.ExceptionMode = DevExpress.XtraEditors.Controls.ExceptionMode.NoAction;
 
         }
@@ -86,9 +71,9 @@ namespace RetailTrade
         {
             int hendl = (this.grid.FocusedView as ColumnView).FocusedRowHandle;
 
-            if (this.gridView.IsValidRowHandle(hendl) & hendl != DevExpress.XtraGrid.GridControl.AutoFilterRowHandle)
+            if (this.gridViewOrgns.IsValidRowHandle(hendl) & hendl != DevExpress.XtraGrid.GridControl.AutoFilterRowHandle)
             {
-                MDataSet.OrganizationRow OrganizationRow = (organizationBindingSource.DataSource as MDataSet.OrganizationDataTable).FindByID(((int)this.gridView.GetFocusedRowCellValue(this.colID)));
+                MDataSet.OrganizationRow OrganizationRow = (organizationBindingSource.DataSource as MDataSet.OrganizationDataTable).FindByID(((int)this.gridViewOrgns.GetFocusedRowCellValue(this.colID)));
 
                 FormDialog dform = new FormDialog();
 
@@ -139,11 +124,11 @@ namespace RetailTrade
     
           
 
-            if (this.gridView.HasColumnErrors) return;
+            if (this.gridViewOrgns.HasColumnErrors) return;
 
             this.btEdit.Enabled = true;
             this.btSave.Enabled = false;
-            this.gridView.OptionsBehavior.Editable = false;
+            this.gridViewOrgns.OptionsBehavior.Editable = false;
 
 
             if (this.SaveChange())
@@ -156,7 +141,7 @@ namespace RetailTrade
             {
                
                 this.btSave.Enabled = true;
-                this.gridView.OptionsBehavior.Editable = true;
+                this.gridViewOrgns.OptionsBehavior.Editable = true;
             }
 
         }
@@ -165,7 +150,7 @@ namespace RetailTrade
         {
             int hendl = (this.grid.FocusedView as ColumnView).FocusedRowHandle;
 
-            if (this.gridView.IsValidRowHandle(hendl) & hendl != DevExpress.XtraGrid.GridControl.AutoFilterRowHandle)
+            if (this.gridViewOrgns.IsValidRowHandle(hendl) & hendl != DevExpress.XtraGrid.GridControl.AutoFilterRowHandle)
             {
                 int countChild = 0;
 
@@ -190,7 +175,7 @@ namespace RetailTrade
                     MessageBox.Show("Невозможно удалить запись, ссылок на нее :  " + countChild.ToString());
                 else
 
-                    if (MessageBox.Show(" Удалить запись? " + this.gridView.GetFocusedRowCellDisplayText(this.gridView.Columns[1]), "Удаление карточки",
+                    if (MessageBox.Show(" Удалить запись? " + this.gridViewOrgns.GetFocusedRowCellDisplayText(this.gridViewOrgns.Columns[1]), "Удаление карточки",
                          MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                          == DialogResult.Yes)
                     {
@@ -205,21 +190,77 @@ namespace RetailTrade
         {
             this.grid.EmbeddedNavigator.Buttons.EndEdit.DoClick();
 
-            if (this.gridView.HasColumnErrors)
+            if (this.gridViewOrgns.HasColumnErrors)
             {
                 this.organizationBindingSource.CancelEdit();
             }
-            else if (this.SaveChange())
+            foreach (GridView view in this.grid.ViewCollection)
             {
-                if ((this.ParentForm as MainForm) != null)
-                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
+                view.SaveLayoutToXml(fileName);
 
             }
+            if (_changes.Count > 0)
+            {
+                
+                   
+                        DialogResult result;
+                        result = MessageBox.Show(this, "Сохранить изменения?", "Редактирование справочника", MessageBoxButtons.YesNoCancel,
+                            MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+                        switch (result)
+                        {
+                            case DialogResult.Yes:
+
+                                if ((this.SaveChange()))
+                                {
+                                    if ((this.ParentForm as MainForm) != null)
+                                        (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
+
+                                }
+                                break;
+                            case DialogResult.No:
+                                if (this.CancelChanges())
+                                    if ((this.ParentForm as MainForm) != null)
+                                        (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
+                                break;
+                            case DialogResult.Cancel:
+                                break;
+
+
+                    }
+            }
+                    else
+                        if ((this.ParentForm as MainForm) != null)
+                            (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
+
+                
+
+            
+
+           
+           
         }
 
         private void gridView_DoubleClick(object sender, EventArgs e)
         {
             this.btEdit.PerformClick();
+        }
+
+        private void btField_Click(object sender, EventArgs e)
+        {
+            (this.grid.FocusedView as GridView).ColumnsCustomization();
+            
+        }
+
+        private void UCOrganizationAll_Load(object sender, EventArgs e)
+        {
+            foreach (GridView view in this.grid.ViewCollection)
+            {
+                string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
+                if (File.Exists(fileName))
+                    view.RestoreLayoutFromXml(fileName);
+            } 
         }
         
     }

@@ -355,8 +355,8 @@ namespace RetailTrade
                          usControl = new UCOrganizationAll(this.mDataSet);
                         //(usControl as UcGroupDirectory).errorProvider1.DataSource = this.mDataSet;
 
-                         (usControl as UCOrganizationAll).gridView.FocusedRowHandle = DevExpress.XtraGrid.GridControl.AutoFilterRowHandle;
-                         (usControl as UCOrganizationAll).gridView.FocusedColumn = (usControl as UCOrganizationAll).gridView.Columns["Name"];
+                         (usControl as UCOrganizationAll).gridViewOrgns.FocusedRowHandle = DevExpress.XtraGrid.GridControl.AutoFilterRowHandle;
+                         (usControl as UCOrganizationAll).gridViewOrgns.FocusedColumn = (usControl as UCOrganizationAll).gridViewOrgns.Columns["Name"];
                          (usControl as UCOrganizationAll).Tag = Title;
                         (usControl as UCOrganizationAll).Dock = DockStyle.Fill;
 

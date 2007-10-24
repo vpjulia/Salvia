@@ -761,7 +761,7 @@ namespace RetailTrade {
             this.Namespace = "http://tempuri.org/MDataSet.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableCountry = new CountryDataTable(false);
+            this.tableCountry = new CountryDataTable();
             base.Tables.Add(this.tableCountry);
             this.tableDocumentType = new DocumentTypeDataTable();
             base.Tables.Add(this.tableDocumentType);
@@ -785,13 +785,13 @@ namespace RetailTrade {
             base.Tables.Add(this.tableStorageCondition);
             this.tableProduct = new ProductDataTable(false);
             base.Tables.Add(this.tableProduct);
-            this.tableFarmGroup = new FarmGroupDataTable(false);
+            this.tableFarmGroup = new FarmGroupDataTable();
             base.Tables.Add(this.tableFarmGroup);
-            this.tablePacking = new PackingDataTable(false);
+            this.tablePacking = new PackingDataTable();
             base.Tables.Add(this.tablePacking);
-            this.tableSubstance = new SubstanceDataTable(false);
+            this.tableSubstance = new SubstanceDataTable();
             base.Tables.Add(this.tableSubstance);
-            this.tableUnit = new UnitDataTable(false);
+            this.tableUnit = new UnitDataTable();
             base.Tables.Add(this.tableUnit);
             this.tableManufacturer = new ManufacturerDataTable(false);
             base.Tables.Add(this.tableManufacturer);
@@ -1133,16 +1133,13 @@ namespace RetailTrade {
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitExpressions() {
-            this.Country.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.InvoiceDetail.NumberColumn.Expression = "Parent(FK_InvoiceDetail_InvoiceMaster).Number";
             this.InvoiceDetail.DateColumn.Expression = "Parent(FK_InvoiceDetail_InvoiceMaster).Date";
             this.InvoiceDetail.ProductNameColumn.Expression = "Parent(ReceiptDetail_InvoiceDetail).ProductName";
             this.InvoiceDetail.ManufacturerNameColumn.Expression = "Parent(ReceiptDetail_InvoiceDetail).ManufacturerName";
-            this.InvoiceDetail.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.InvoiceDetail.CalcSumColumn.Expression = "PriceRetailNDS*Quantity";
             this.InvoiceDetail.DocumentTypeRefColumn.Expression = "Parent(FK_InvoiceDetail_InvoiceMaster).DocumentTypeRef";
             this.InvoiceMaster.IsNDSColumn.Expression = "Parent(FK_Stock_InvoiceMaster).IsNDS";
-            this.InvoiceMaster.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.InvoiceMaster.IsNDSMainColumn.Expression = "Parent(FK_InvoiceMaster_StockMain).IsNDS";
             this.InvoiceMaster.TradePupletNameColumn.Expression = "Parent(FK_Stock_InvoiceMaster).TradePupletName";
             this.Organization.DateUpdateColumn.Expression = "Max(DateLastModif)";
@@ -1151,7 +1148,6 @@ namespace RetailTrade {
             this.ReceiptMaster.CalcPurchSumColumn.Expression = "sum(Child(ReceiptMaster_ReceiptDetail).CalcPurchSum)";
             this.ReceiptMaster.IsNDSColumn.Expression = "Parent(FK_ReceiptMaster_Stock).IsNDS";
             this.ReceiptMaster.DateUpdateDetailColumn.Expression = "Max(Child(ReceiptMaster_ReceiptDetail).DateLastModif)";
-            this.ReceiptMaster.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.ReceiptDetail.CalcPurchSumColumn.Expression = "Quantity*PricePurchase";
             this.ReceiptDetail.OrganisationRefColumn.Expression = "Parent(ReceiptMaster_ReceiptDetail).OrganizationRef";
             this.ReceiptDetail.ProductNameColumn.Expression = "Parent(Product_ReceiptDetail).Name";
@@ -1166,14 +1162,8 @@ namespace RetailTrade {
             this.Product.FarmGroupLevel2Column.Expression = "Parent(FK_FarmGroupLevel2_Product).Name";
             this.Product.UnitNameColumn.Expression = "Parent(FK_Unit_Product).Name";
             this.Product.SubstanceNameColumn.Expression = "Parent(FK_Substance_Product).Name";
-            this.Product.DateUpdateColumn.Expression = "Max(DateLastModif)";
-            this.FarmGroup.DateUpdateColumn.Expression = "Max(DateLastModif)";
-            this.Packing.DateUpdateColumn.Expression = "Max(DateLastModif)";
-            this.Substance.DateUpdateColumn.Expression = "Max(DateLastModif)";
-            this.Unit.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.Manufacturer.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.Manufacturer.CountryNameColumn.Expression = "Parent(FK_Country_Manufacturer).Name";
-            this.FarmGroupLevel2.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.FarmGroupLevel2.FarmGroupNameColumn.Expression = "Parent(FK_FarmGroup_FarmGroupLevel2).Name";
             this.Orders.TradePupletNameColumn.Expression = "Parent(TradePutlet_Orders).Name";
             this.Orders.ProductNameColumn.Expression = "Parent(Product_Orders).Name";
@@ -1244,21 +1234,11 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnDateLastModif;
             
-            private System.Data.DataColumn columnDateUpdate;
-            
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public CountryDataTable() : 
-                    this(false) {
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal CountryDataTable(bool initExpressions) {
+            public CountryDataTable() {
                 this.TableName = "Country";
                 this.BeginInit();
                 this.InitClass();
-                if ((initExpressions == true)) {
-                    this.InitExpressions();
-                }
                 this.EndInit();
             }
             
@@ -1334,13 +1314,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn DateUpdateColumn {
-                get {
-                    return this.columnDateUpdate;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1369,7 +1342,7 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public CountryRow AddCountryRow(string Name, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, byte[] RowVersion, System.DateTime DateLastModif, System.DateTime DateUpdate) {
+            public CountryRow AddCountryRow(string Name, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, byte[] RowVersion, System.DateTime DateLastModif) {
                 CountryRow rowCountryRow = ((CountryRow)(this.NewRow()));
                 rowCountryRow.ItemArray = new object[] {
                         null,
@@ -1378,8 +1351,7 @@ namespace RetailTrade {
                         AuthorLastModif,
                         DateCreate,
                         RowVersion,
-                        DateLastModif,
-                        DateUpdate};
+                        DateLastModif};
                 this.Rows.Add(rowCountryRow);
                 return rowCountryRow;
             }
@@ -1416,7 +1388,6 @@ namespace RetailTrade {
                 this.columnDateCreate = base.Columns["DateCreate"];
                 this.columnRowVersion = base.Columns["RowVersion"];
                 this.columnDateLastModif = base.Columns["DateLastModif"];
-                this.columnDateUpdate = base.Columns["DateUpdate"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1435,8 +1406,6 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnRowVersion);
                 this.columnDateLastModif = new System.Data.DataColumn("DateLastModif", typeof(System.DateTime), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDateLastModif);
-                this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(System.DateTime), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDateUpdate);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -1450,7 +1419,6 @@ namespace RetailTrade {
                 this.columnAuthorCreate.MaxLength = 50;
                 this.columnAuthorLastModif.MaxLength = 50;
                 this.columnRowVersion.ReadOnly = true;
-                this.columnDateUpdate.ReadOnly = true;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1466,11 +1434,6 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Type GetRowType() {
                 return typeof(CountryRow);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitExpressions() {
-                this.DateUpdateColumn.Expression = "Max(DateLastModif)";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1889,8 +1852,6 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnManufacturerName;
             
-            private System.Data.DataColumn columnDateUpdate;
-            
             private System.Data.DataColumn columnCalcSum;
             
             private System.Data.DataColumn columnDocumentTypeRef;
@@ -2074,13 +2035,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn DateUpdateColumn {
-                get {
-                    return this.columnDateUpdate;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.Data.DataColumn CalcSumColumn {
                 get {
                     return this.columnCalcSum;
@@ -2143,7 +2097,6 @@ namespace RetailTrade {
                         string Date, 
                         string ProductName, 
                         string ManufacturerName, 
-                        System.DateTime DateUpdate, 
                         decimal CalcSum, 
                         string DocumentTypeRef) {
                 InvoiceDetailRow rowInvoiceDetailRow = ((InvoiceDetailRow)(this.NewRow()));
@@ -2168,7 +2121,6 @@ namespace RetailTrade {
                         Date,
                         ProductName,
                         ManufacturerName,
-                        DateUpdate,
                         CalcSum,
                         DocumentTypeRef};
                 this.Rows.Add(rowInvoiceDetailRow);
@@ -2220,7 +2172,6 @@ namespace RetailTrade {
                 this.columnDate = base.Columns["Date"];
                 this.columnProductName = base.Columns["ProductName"];
                 this.columnManufacturerName = base.Columns["ManufacturerName"];
-                this.columnDateUpdate = base.Columns["DateUpdate"];
                 this.columnCalcSum = base.Columns["CalcSum"];
                 this.columnDocumentTypeRef = base.Columns["DocumentTypeRef"];
             }
@@ -2267,8 +2218,6 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnProductName);
                 this.columnManufacturerName = new System.Data.DataColumn("ManufacturerName", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnManufacturerName);
-                this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(System.DateTime), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDateUpdate);
                 this.columnCalcSum = new System.Data.DataColumn("CalcSum", typeof(decimal), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCalcSum);
                 this.columnDocumentTypeRef = new System.Data.DataColumn("DocumentTypeRef", typeof(string), null, System.Data.MappingType.Element);
@@ -2309,7 +2258,6 @@ namespace RetailTrade {
                 this.columnDate.ReadOnly = true;
                 this.columnProductName.ReadOnly = true;
                 this.columnManufacturerName.ReadOnly = true;
-                this.columnDateUpdate.ReadOnly = true;
                 this.columnCalcSum.ReadOnly = true;
                 this.columnDocumentTypeRef.ReadOnly = true;
             }
@@ -2335,7 +2283,6 @@ namespace RetailTrade {
                 this.DateColumn.Expression = "Parent(FK_InvoiceDetail_InvoiceMaster).Date";
                 this.ProductNameColumn.Expression = "Parent(ReceiptDetail_InvoiceDetail).ProductName";
                 this.ManufacturerNameColumn.Expression = "Parent(ReceiptDetail_InvoiceDetail).ManufacturerName";
-                this.DateUpdateColumn.Expression = "Max(DateLastModif)";
                 this.CalcSumColumn.Expression = "PriceRetailNDS*Quantity";
                 this.DocumentTypeRefColumn.Expression = "Parent(FK_InvoiceDetail_InvoiceMaster).DocumentTypeRef";
             }
@@ -2451,8 +2398,6 @@ namespace RetailTrade {
             private System.Data.DataColumn columnRecalcSum;
             
             private System.Data.DataColumn columnIsNDS;
-            
-            private System.Data.DataColumn columnDateUpdate;
             
             private System.Data.DataColumn columnIsNDSMain;
             
@@ -2639,13 +2584,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn DateUpdateColumn {
-                get {
-                    return this.columnDateUpdate;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.Data.DataColumn IsNDSMainColumn {
                 get {
                     return this.columnIsNDSMain;
@@ -2707,7 +2645,6 @@ namespace RetailTrade {
                         StockRow parentStockRowByFK_InvoiceMaster_StockMain, 
                         bool RecalcSum, 
                         bool IsNDS, 
-                        System.DateTime DateUpdate, 
                         bool IsNDSMain, 
                         string TradePupletName) {
                 InvoiceMasterRow rowInvoiceMasterRow = ((InvoiceMasterRow)(this.NewRow()));
@@ -2732,7 +2669,6 @@ namespace RetailTrade {
                         parentStockRowByFK_InvoiceMaster_StockMain[0],
                         RecalcSum,
                         IsNDS,
-                        DateUpdate,
                         IsNDSMain,
                         TradePupletName};
                 this.Rows.Add(rowInvoiceMasterRow);
@@ -2784,7 +2720,6 @@ namespace RetailTrade {
                 this.columnMainStockRef = base.Columns["MainStockRef"];
                 this.columnRecalcSum = base.Columns["RecalcSum"];
                 this.columnIsNDS = base.Columns["IsNDS"];
-                this.columnDateUpdate = base.Columns["DateUpdate"];
                 this.columnIsNDSMain = base.Columns["IsNDSMain"];
                 this.columnTradePupletName = base.Columns["TradePupletName"];
             }
@@ -2831,8 +2766,6 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnRecalcSum);
                 this.columnIsNDS = new System.Data.DataColumn("IsNDS", typeof(bool), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsNDS);
-                this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(System.DateTime), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDateUpdate);
                 this.columnIsNDSMain = new System.Data.DataColumn("IsNDSMain", typeof(bool), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsNDSMain);
                 this.columnTradePupletName = new System.Data.DataColumn("TradePupletName", typeof(string), null, System.Data.MappingType.Element);
@@ -2876,7 +2809,6 @@ namespace RetailTrade {
                 this.columnMainStockRef.AllowDBNull = false;
                 this.columnMainStockRef.DefaultValue = ((int)(0));
                 this.columnIsNDS.ReadOnly = true;
-                this.columnDateUpdate.ReadOnly = true;
                 this.columnIsNDSMain.ReadOnly = true;
                 this.columnTradePupletName.ReadOnly = true;
             }
@@ -2899,7 +2831,6 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             private void InitExpressions() {
                 this.IsNDSColumn.Expression = "Parent(FK_Stock_InvoiceMaster).IsNDS";
-                this.DateUpdateColumn.Expression = "Max(DateLastModif)";
                 this.IsNDSMainColumn.Expression = "Parent(FK_InvoiceMaster_StockMain).IsNDS";
                 this.TradePupletNameColumn.Expression = "Parent(FK_Stock_InvoiceMaster).TradePupletName";
             }
@@ -4522,8 +4453,6 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnDateUpdateDetail;
             
-            private System.Data.DataColumn columnDateUpdate;
-            
             private System.Data.DataColumn columnDateLastModif;
             
             private static System.DateTime columnDocDate_defaultValue = System.DateTime.Parse("01/01/2007 00:00:00");
@@ -4728,13 +4657,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn DateUpdateColumn {
-                get {
-                    return this.columnDateUpdate;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.Data.DataColumn DateLastModifColumn {
                 get {
                     return this.columnDateLastModif;
@@ -4792,7 +4714,6 @@ namespace RetailTrade {
                         decimal CalcPurchSum, 
                         bool IsNDS, 
                         System.DateTime DateUpdateDetail, 
-                        System.DateTime DateUpdate, 
                         System.DateTime DateLastModif) {
                 ReceiptMasterRow rowReceiptMasterRow = ((ReceiptMasterRow)(this.NewRow()));
                 rowReceiptMasterRow.ItemArray = new object[] {
@@ -4819,7 +4740,6 @@ namespace RetailTrade {
                         CalcPurchSum,
                         IsNDS,
                         DateUpdateDetail,
-                        DateUpdate,
                         DateLastModif};
                 this.Rows.Add(rowReceiptMasterRow);
                 return rowReceiptMasterRow;
@@ -4873,7 +4793,6 @@ namespace RetailTrade {
                 this.columnCalcPurchSum = base.Columns["CalcPurchSum"];
                 this.columnIsNDS = base.Columns["IsNDS"];
                 this.columnDateUpdateDetail = base.Columns["DateUpdateDetail"];
-                this.columnDateUpdate = base.Columns["DateUpdate"];
                 this.columnDateLastModif = base.Columns["DateLastModif"];
             }
             
@@ -4925,8 +4844,6 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnIsNDS);
                 this.columnDateUpdateDetail = new System.Data.DataColumn("DateUpdateDetail", typeof(System.DateTime), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDateUpdateDetail);
-                this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(System.DateTime), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDateUpdate);
                 this.columnDateLastModif = new System.Data.DataColumn("DateLastModif", typeof(System.DateTime), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDateLastModif);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
@@ -4982,7 +4899,6 @@ namespace RetailTrade {
                 this.columnCalcPurchSum.ReadOnly = true;
                 this.columnIsNDS.ReadOnly = true;
                 this.columnDateUpdateDetail.ReadOnly = true;
-                this.columnDateUpdate.ReadOnly = true;
                 this.columnDateLastModif.ReadOnly = true;
             }
             
@@ -5007,7 +4923,6 @@ namespace RetailTrade {
                 this.CalcPurchSumColumn.Expression = "sum(Child(ReceiptMaster_ReceiptDetail).CalcPurchSum)";
                 this.IsNDSColumn.Expression = "Parent(FK_ReceiptMaster_Stock).IsNDS";
                 this.DateUpdateDetailColumn.Expression = "Max(Child(ReceiptMaster_ReceiptDetail).DateLastModif)";
-                this.DateUpdateColumn.Expression = "Max(DateLastModif)";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6030,8 +5945,6 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnIsHide;
             
-            private System.Data.DataColumn columnDateUpdate;
-            
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public ProductDataTable() : 
                     this(false) {
@@ -6295,13 +6208,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn DateUpdateColumn {
-                get {
-                    return this.columnDateUpdate;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -6361,8 +6267,7 @@ namespace RetailTrade {
                         string FarmGroupLevel2, 
                         string UnitName, 
                         string SubstanceName, 
-                        bool IsHide, 
-                        System.DateTime DateUpdate) {
+                        bool IsHide) {
                 ProductRow rowProductRow = ((ProductRow)(this.NewRow()));
                 rowProductRow.ItemArray = new object[] {
                         null,
@@ -6396,8 +6301,7 @@ namespace RetailTrade {
                         FarmGroupLevel2,
                         UnitName,
                         SubstanceName,
-                        IsHide,
-                        DateUpdate};
+                        IsHide};
                 this.Rows.Add(rowProductRow);
                 return rowProductRow;
             }
@@ -6459,7 +6363,6 @@ namespace RetailTrade {
                 this.columnUnitName = base.Columns["UnitName"];
                 this.columnSubstanceName = base.Columns["SubstanceName"];
                 this.columnIsHide = base.Columns["IsHide"];
-                this.columnDateUpdate = base.Columns["DateUpdate"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6528,8 +6431,6 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnSubstanceName);
                 this.columnIsHide = new System.Data.DataColumn("IsHide", typeof(bool), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsHide);
-                this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(System.DateTime), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDateUpdate);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -6595,7 +6496,6 @@ namespace RetailTrade {
                 this.columnSubstanceName.MaxLength = 50;
                 this.columnIsHide.AllowDBNull = false;
                 this.columnIsHide.DefaultValue = ((bool)(false));
-                this.columnDateUpdate.ReadOnly = true;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6623,7 +6523,6 @@ namespace RetailTrade {
                 this.FarmGroupLevel2Column.Expression = "Parent(FK_FarmGroupLevel2_Product).Name";
                 this.UnitNameColumn.Expression = "Parent(FK_Unit_Product).Name";
                 this.SubstanceNameColumn.Expression = "Parent(FK_Substance_Product).Name";
-                this.DateUpdateColumn.Expression = "Max(DateLastModif)";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6712,21 +6611,11 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnRowVersion;
             
-            private System.Data.DataColumn columnDateUpdate;
-            
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FarmGroupDataTable() : 
-                    this(false) {
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal FarmGroupDataTable(bool initExpressions) {
+            public FarmGroupDataTable() {
                 this.TableName = "FarmGroup";
                 this.BeginInit();
                 this.InitClass();
-                if ((initExpressions == true)) {
-                    this.InitExpressions();
-                }
                 this.EndInit();
             }
             
@@ -6802,13 +6691,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn DateUpdateColumn {
-                get {
-                    return this.columnDateUpdate;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -6837,7 +6719,7 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FarmGroupRow AddFarmGroupRow(string Name, string AuthorCreate, string AuthorLastModif, System.DateTime DateLastModif, System.DateTime DateCreate, byte[] RowVersion, string DateUpdate) {
+            public FarmGroupRow AddFarmGroupRow(string Name, string AuthorCreate, string AuthorLastModif, System.DateTime DateLastModif, System.DateTime DateCreate, byte[] RowVersion) {
                 FarmGroupRow rowFarmGroupRow = ((FarmGroupRow)(this.NewRow()));
                 rowFarmGroupRow.ItemArray = new object[] {
                         null,
@@ -6846,8 +6728,7 @@ namespace RetailTrade {
                         AuthorLastModif,
                         DateLastModif,
                         DateCreate,
-                        RowVersion,
-                        DateUpdate};
+                        RowVersion};
                 this.Rows.Add(rowFarmGroupRow);
                 return rowFarmGroupRow;
             }
@@ -6884,7 +6765,6 @@ namespace RetailTrade {
                 this.columnDateLastModif = base.Columns["DateLastModif"];
                 this.columnDateCreate = base.Columns["DateCreate"];
                 this.columnRowVersion = base.Columns["RowVersion"];
-                this.columnDateUpdate = base.Columns["DateUpdate"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6903,8 +6783,6 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnDateCreate);
                 this.columnRowVersion = new System.Data.DataColumn("RowVersion", typeof(byte[]), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRowVersion);
-                this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDateUpdate);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -6918,7 +6796,6 @@ namespace RetailTrade {
                 this.columnAuthorCreate.MaxLength = 50;
                 this.columnAuthorLastModif.MaxLength = 50;
                 this.columnRowVersion.ReadOnly = true;
-                this.columnDateUpdate.ReadOnly = true;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6934,11 +6811,6 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Type GetRowType() {
                 return typeof(FarmGroupRow);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitExpressions() {
-                this.DateUpdateColumn.Expression = "Max(DateLastModif)";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7027,21 +6899,11 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnRowVersion;
             
-            private System.Data.DataColumn columnDateUpdate;
-            
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PackingDataTable() : 
-                    this(false) {
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal PackingDataTable(bool initExpressions) {
+            public PackingDataTable() {
                 this.TableName = "Packing";
                 this.BeginInit();
                 this.InitClass();
-                if ((initExpressions == true)) {
-                    this.InitExpressions();
-                }
                 this.EndInit();
             }
             
@@ -7117,13 +6979,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn DateUpdateColumn {
-                get {
-                    return this.columnDateUpdate;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -7152,7 +7007,7 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PackingRow AddPackingRow(string Name, string AuthorCreate, string AuthorLastModif, System.DateTime DateLastModif, System.DateTime DateCreate, byte[] RowVersion, System.DateTime DateUpdate) {
+            public PackingRow AddPackingRow(string Name, string AuthorCreate, string AuthorLastModif, System.DateTime DateLastModif, System.DateTime DateCreate, byte[] RowVersion) {
                 PackingRow rowPackingRow = ((PackingRow)(this.NewRow()));
                 rowPackingRow.ItemArray = new object[] {
                         null,
@@ -7161,8 +7016,7 @@ namespace RetailTrade {
                         AuthorLastModif,
                         DateLastModif,
                         DateCreate,
-                        RowVersion,
-                        DateUpdate};
+                        RowVersion};
                 this.Rows.Add(rowPackingRow);
                 return rowPackingRow;
             }
@@ -7199,7 +7053,6 @@ namespace RetailTrade {
                 this.columnDateLastModif = base.Columns["DateLastModif"];
                 this.columnDateCreate = base.Columns["DateCreate"];
                 this.columnRowVersion = base.Columns["RowVersion"];
-                this.columnDateUpdate = base.Columns["DateUpdate"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7218,8 +7071,6 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnDateCreate);
                 this.columnRowVersion = new System.Data.DataColumn("RowVersion", typeof(byte[]), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRowVersion);
-                this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(System.DateTime), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDateUpdate);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -7233,7 +7084,6 @@ namespace RetailTrade {
                 this.columnAuthorCreate.MaxLength = 50;
                 this.columnAuthorLastModif.MaxLength = 50;
                 this.columnRowVersion.ReadOnly = true;
-                this.columnDateUpdate.ReadOnly = true;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7249,11 +7099,6 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Type GetRowType() {
                 return typeof(PackingRow);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitExpressions() {
-                this.DateUpdateColumn.Expression = "Max(DateLastModif)";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7342,21 +7187,11 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnRowVersion;
             
-            private System.Data.DataColumn columnDateUpdate;
-            
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public SubstanceDataTable() : 
-                    this(false) {
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal SubstanceDataTable(bool initExpressions) {
+            public SubstanceDataTable() {
                 this.TableName = "Substance";
                 this.BeginInit();
                 this.InitClass();
-                if ((initExpressions == true)) {
-                    this.InitExpressions();
-                }
                 this.EndInit();
             }
             
@@ -7432,13 +7267,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn DateUpdateColumn {
-                get {
-                    return this.columnDateUpdate;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -7467,7 +7295,7 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public SubstanceRow AddSubstanceRow(string Name, System.DateTime DateLastModif, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, byte[] RowVersion, System.DateTime DateUpdate) {
+            public SubstanceRow AddSubstanceRow(string Name, System.DateTime DateLastModif, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, byte[] RowVersion) {
                 SubstanceRow rowSubstanceRow = ((SubstanceRow)(this.NewRow()));
                 rowSubstanceRow.ItemArray = new object[] {
                         null,
@@ -7476,8 +7304,7 @@ namespace RetailTrade {
                         AuthorCreate,
                         AuthorLastModif,
                         DateCreate,
-                        RowVersion,
-                        DateUpdate};
+                        RowVersion};
                 this.Rows.Add(rowSubstanceRow);
                 return rowSubstanceRow;
             }
@@ -7514,7 +7341,6 @@ namespace RetailTrade {
                 this.columnAuthorLastModif = base.Columns["AuthorLastModif"];
                 this.columnDateCreate = base.Columns["DateCreate"];
                 this.columnRowVersion = base.Columns["RowVersion"];
-                this.columnDateUpdate = base.Columns["DateUpdate"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7533,8 +7359,6 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnDateCreate);
                 this.columnRowVersion = new System.Data.DataColumn("RowVersion", typeof(byte[]), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRowVersion);
-                this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(System.DateTime), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDateUpdate);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -7548,7 +7372,6 @@ namespace RetailTrade {
                 this.columnAuthorCreate.MaxLength = 50;
                 this.columnAuthorLastModif.MaxLength = 50;
                 this.columnRowVersion.ReadOnly = true;
-                this.columnDateUpdate.ReadOnly = true;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7564,11 +7387,6 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Type GetRowType() {
                 return typeof(SubstanceRow);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitExpressions() {
-                this.DateUpdateColumn.Expression = "Max(DateLastModif)";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7657,21 +7475,11 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnRowVersion;
             
-            private System.Data.DataColumn columnDateUpdate;
-            
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UnitDataTable() : 
-                    this(false) {
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal UnitDataTable(bool initExpressions) {
+            public UnitDataTable() {
                 this.TableName = "Unit";
                 this.BeginInit();
                 this.InitClass();
-                if ((initExpressions == true)) {
-                    this.InitExpressions();
-                }
                 this.EndInit();
             }
             
@@ -7747,13 +7555,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn DateUpdateColumn {
-                get {
-                    return this.columnDateUpdate;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -7782,7 +7583,7 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UnitRow AddUnitRow(string Name, System.DateTime DateLastModif, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, byte[] RowVersion, System.DateTime DateUpdate) {
+            public UnitRow AddUnitRow(string Name, System.DateTime DateLastModif, string AuthorCreate, string AuthorLastModif, System.DateTime DateCreate, byte[] RowVersion) {
                 UnitRow rowUnitRow = ((UnitRow)(this.NewRow()));
                 rowUnitRow.ItemArray = new object[] {
                         null,
@@ -7791,8 +7592,7 @@ namespace RetailTrade {
                         AuthorCreate,
                         AuthorLastModif,
                         DateCreate,
-                        RowVersion,
-                        DateUpdate};
+                        RowVersion};
                 this.Rows.Add(rowUnitRow);
                 return rowUnitRow;
             }
@@ -7829,7 +7629,6 @@ namespace RetailTrade {
                 this.columnAuthorLastModif = base.Columns["AuthorLastModif"];
                 this.columnDateCreate = base.Columns["DateCreate"];
                 this.columnRowVersion = base.Columns["RowVersion"];
-                this.columnDateUpdate = base.Columns["DateUpdate"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7848,8 +7647,6 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnDateCreate);
                 this.columnRowVersion = new System.Data.DataColumn("RowVersion", typeof(byte[]), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRowVersion);
-                this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(System.DateTime), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDateUpdate);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -7863,7 +7660,6 @@ namespace RetailTrade {
                 this.columnAuthorCreate.MaxLength = 50;
                 this.columnAuthorLastModif.MaxLength = 50;
                 this.columnRowVersion.ReadOnly = true;
-                this.columnDateUpdate.ReadOnly = true;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7879,11 +7675,6 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Type GetRowType() {
                 return typeof(UnitRow);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitExpressions() {
-                this.DateUpdateColumn.Expression = "Max(DateLastModif)";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8319,8 +8110,6 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnRowVersion;
             
-            private System.Data.DataColumn columnDateUpdate;
-            
             private System.Data.DataColumn columnFarmGroupName;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8418,13 +8207,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn DateUpdateColumn {
-                get {
-                    return this.columnDateUpdate;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.Data.DataColumn FarmGroupNameColumn {
                 get {
                     return this.columnFarmGroupName;
@@ -8460,7 +8242,7 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FarmGroupLevel2Row AddFarmGroupLevel2Row(string Name, FarmGroupRow parentFarmGroupRowByFK_FarmGroup_FarmGroupLevel2, string AuthorCreate, string AuthorLastModif, System.DateTime DateLastModif, System.DateTime DateCreate, byte[] RowVersion, System.DateTime DateUpdate, string FarmGroupName) {
+            public FarmGroupLevel2Row AddFarmGroupLevel2Row(string Name, FarmGroupRow parentFarmGroupRowByFK_FarmGroup_FarmGroupLevel2, string AuthorCreate, string AuthorLastModif, System.DateTime DateLastModif, System.DateTime DateCreate, byte[] RowVersion, string FarmGroupName) {
                 FarmGroupLevel2Row rowFarmGroupLevel2Row = ((FarmGroupLevel2Row)(this.NewRow()));
                 rowFarmGroupLevel2Row.ItemArray = new object[] {
                         null,
@@ -8471,7 +8253,6 @@ namespace RetailTrade {
                         DateLastModif,
                         DateCreate,
                         RowVersion,
-                        DateUpdate,
                         FarmGroupName};
                 this.Rows.Add(rowFarmGroupLevel2Row);
                 return rowFarmGroupLevel2Row;
@@ -8510,7 +8291,6 @@ namespace RetailTrade {
                 this.columnDateLastModif = base.Columns["DateLastModif"];
                 this.columnDateCreate = base.Columns["DateCreate"];
                 this.columnRowVersion = base.Columns["RowVersion"];
-                this.columnDateUpdate = base.Columns["DateUpdate"];
                 this.columnFarmGroupName = base.Columns["FarmGroupName"];
             }
             
@@ -8532,8 +8312,6 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnDateCreate);
                 this.columnRowVersion = new System.Data.DataColumn("RowVersion", typeof(byte[]), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRowVersion);
-                this.columnDateUpdate = new System.Data.DataColumn("DateUpdate", typeof(System.DateTime), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDateUpdate);
                 this.columnFarmGroupName = new System.Data.DataColumn("FarmGroupName", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFarmGroupName);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
@@ -8551,7 +8329,6 @@ namespace RetailTrade {
                 this.columnAuthorCreate.MaxLength = 50;
                 this.columnAuthorLastModif.MaxLength = 50;
                 this.columnRowVersion.ReadOnly = true;
-                this.columnDateUpdate.ReadOnly = true;
                 this.columnFarmGroupName.ReadOnly = true;
             }
             
@@ -8572,7 +8349,6 @@ namespace RetailTrade {
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             private void InitExpressions() {
-                this.DateUpdateColumn.Expression = "Max(DateLastModif)";
                 this.FarmGroupNameColumn.Expression = "Parent(FK_FarmGroup_FarmGroupLevel2).Name";
             }
             
@@ -10099,21 +9875,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime DateUpdate {
-                get {
-                    try {
-                        return ((System.DateTime)(this[this.tableCountry.DateUpdateColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'DateUpdate\' in table \'Country\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableCountry.DateUpdateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsAuthorCreateNull() {
                 return this.IsNull(this.tableCountry.AuthorCreateColumn);
             }
@@ -10161,16 +9922,6 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetDateLastModifNull() {
                 this[this.tableCountry.DateLastModifColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsDateUpdateNull() {
-                return this.IsNull(this.tableCountry.DateUpdateColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetDateUpdateNull() {
-                this[this.tableCountry.DateUpdateColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10548,21 +10299,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime DateUpdate {
-                get {
-                    try {
-                        return ((System.DateTime)(this[this.tableInvoiceDetail.DateUpdateColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'DateUpdate\' in table \'InvoiceDetail\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableInvoiceDetail.DateUpdateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public decimal CalcSum {
                 get {
                     try {
@@ -10710,16 +10446,6 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetManufacturerNameNull() {
                 this[this.tableInvoiceDetail.ManufacturerNameColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsDateUpdateNull() {
-                return this.IsNull(this.tableInvoiceDetail.DateUpdateColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetDateUpdateNull() {
-                this[this.tableInvoiceDetail.DateUpdateColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10990,21 +10716,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime DateUpdate {
-                get {
-                    try {
-                        return ((System.DateTime)(this[this.tableInvoiceMaster.DateUpdateColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'DateUpdate\' in table \'InvoiceMaster\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableInvoiceMaster.DateUpdateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsNDSMain {
                 get {
                     try {
@@ -11132,16 +10843,6 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetIsNDSNull() {
                 this[this.tableInvoiceMaster.IsNDSColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsDateUpdateNull() {
-                return this.IsNull(this.tableInvoiceMaster.DateUpdateColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetDateUpdateNull() {
-                this[this.tableInvoiceMaster.DateUpdateColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12445,21 +12146,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime DateUpdate {
-                get {
-                    try {
-                        return ((System.DateTime)(this[this.tableReceiptMaster.DateUpdateColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'DateUpdate\' in table \'ReceiptMaster\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReceiptMaster.DateUpdateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.DateTime DateLastModif {
                 get {
                     try {
@@ -12582,16 +12268,6 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetDateUpdateDetailNull() {
                 this[this.tableReceiptMaster.DateUpdateDetailColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsDateUpdateNull() {
-                return this.IsNull(this.tableReceiptMaster.DateUpdateColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetDateUpdateNull() {
-                this[this.tableReceiptMaster.DateUpdateColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13756,21 +13432,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime DateUpdate {
-                get {
-                    try {
-                        return ((System.DateTime)(this[this.tableProduct.DateUpdateColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'DateUpdate\' in table \'Product\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProduct.DateUpdateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public FarmGroupLevel2Row FarmGroupLevel2Row {
                 get {
                     return ((FarmGroupLevel2Row)(this.GetParentRow(this.Table.ParentRelations["FK_FarmGroupLevel2_Product"])));
@@ -13981,16 +13642,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsDateUpdateNull() {
-                return this.IsNull(this.tableProduct.DateUpdateColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetDateUpdateNull() {
-                this[this.tableProduct.DateUpdateColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public ReceiptDetailRow[] GetReceiptDetailRows() {
                 return ((ReceiptDetailRow[])(base.GetChildRows(this.Table.ChildRelations["Product_ReceiptDetail"])));
             }
@@ -14118,21 +13769,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string DateUpdate {
-                get {
-                    try {
-                        return ((string)(this[this.tableFarmGroup.DateUpdateColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'DateUpdate\' in table \'FarmGroup\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableFarmGroup.DateUpdateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsAuthorCreateNull() {
                 return this.IsNull(this.tableFarmGroup.AuthorCreateColumn);
             }
@@ -14180,16 +13816,6 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetRowVersionNull() {
                 this[this.tableFarmGroup.RowVersionColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsDateUpdateNull() {
-                return this.IsNull(this.tableFarmGroup.DateUpdateColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetDateUpdateNull() {
-                this[this.tableFarmGroup.DateUpdateColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -14305,21 +13931,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime DateUpdate {
-                get {
-                    try {
-                        return ((System.DateTime)(this[this.tablePacking.DateUpdateColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'DateUpdate\' in table \'Packing\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablePacking.DateUpdateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsAuthorCreateNull() {
                 return this.IsNull(this.tablePacking.AuthorCreateColumn);
             }
@@ -14367,16 +13978,6 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetRowVersionNull() {
                 this[this.tablePacking.RowVersionColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsDateUpdateNull() {
-                return this.IsNull(this.tablePacking.DateUpdateColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetDateUpdateNull() {
-                this[this.tablePacking.DateUpdateColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -14492,21 +14093,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime DateUpdate {
-                get {
-                    try {
-                        return ((System.DateTime)(this[this.tableSubstance.DateUpdateColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'DateUpdate\' in table \'Substance\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableSubstance.DateUpdateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsDateLastModifNull() {
                 return this.IsNull(this.tableSubstance.DateLastModifColumn);
             }
@@ -14554,16 +14140,6 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetRowVersionNull() {
                 this[this.tableSubstance.RowVersionColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsDateUpdateNull() {
-                return this.IsNull(this.tableSubstance.DateUpdateColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetDateUpdateNull() {
-                this[this.tableSubstance.DateUpdateColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -14679,21 +14255,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime DateUpdate {
-                get {
-                    try {
-                        return ((System.DateTime)(this[this.tableUnit.DateUpdateColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'DateUpdate\' in table \'Unit\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableUnit.DateUpdateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsDateLastModifNull() {
                 return this.IsNull(this.tableUnit.DateLastModifColumn);
             }
@@ -14741,16 +14302,6 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetRowVersionNull() {
                 this[this.tableUnit.RowVersionColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsDateUpdateNull() {
-                return this.IsNull(this.tableUnit.DateUpdateColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetDateUpdateNull() {
-                this[this.tableUnit.DateUpdateColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -15108,21 +14659,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime DateUpdate {
-                get {
-                    try {
-                        return ((System.DateTime)(this[this.tableFarmGroupLevel2.DateUpdateColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'DateUpdate\' in table \'FarmGroupLevel2\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableFarmGroupLevel2.DateUpdateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string FarmGroupName {
                 get {
                     try {
@@ -15195,16 +14731,6 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetRowVersionNull() {
                 this[this.tableFarmGroupLevel2.RowVersionColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsDateUpdateNull() {
-                return this.IsNull(this.tableFarmGroupLevel2.DateUpdateColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetDateUpdateNull() {
-                this[this.tableFarmGroupLevel2.DateUpdateColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -16607,7 +16133,6 @@ namespace RetailTrade.MDataSetTableAdapters {
             this._commandCollection[1].CommandText = "dbo.CountrySelectNewCommand";
             this._commandCollection[1].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, "DateUpdate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateUpdate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -16635,14 +16160,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillNew(MDataSet.CountryDataTable dataTable, System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual int FillNew(MDataSet.CountryDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -16653,14 +16172,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual MDataSet.CountryDataTable GetDataNew(System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual MDataSet.CountryDataTable GetDataNew() {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             MDataSet.CountryDataTable dataTable = new MDataSet.CountryDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -17272,7 +16785,6 @@ namespace RetailTrade.MDataSetTableAdapters {
             this._commandCollection[4].CommandText = "dbo.InvoiceDetailSelectNewCommand";
             this._commandCollection[4].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[4].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[4].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -17402,14 +16914,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillNew(MDataSet.InvoiceDetailDataTable dataTable, System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual int FillNew(MDataSet.InvoiceDetailDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[4];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -17420,14 +16926,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual MDataSet.InvoiceDetailDataTable GetDataNew(System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual MDataSet.InvoiceDetailDataTable GetDataNew() {
             this.Adapter.SelectCommand = this.CommandCollection[4];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             MDataSet.InvoiceDetailDataTable dataTable = new MDataSet.InvoiceDetailDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -17763,7 +17263,6 @@ namespace RetailTrade.MDataSetTableAdapters {
             this._commandCollection[3].CommandText = "dbo.invoiceMasterSelectNewCommand";
             this._commandCollection[3].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[3].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[3].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[4].Connection = this.Connection;
             this._commandCollection[4].CommandText = "dbo.InvoiceMasterMakeToNew";
@@ -17871,14 +17370,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillNew(MDataSet.InvoiceMasterDataTable dataTable, System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual int FillNew(MDataSet.InvoiceMasterDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[3];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -17889,14 +17382,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual MDataSet.InvoiceMasterDataTable GetDataNew(System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual MDataSet.InvoiceMasterDataTable GetDataNew() {
             this.Adapter.SelectCommand = this.CommandCollection[3];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             MDataSet.InvoiceMasterDataTable dataTable = new MDataSet.InvoiceMasterDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -19490,7 +18977,6 @@ namespace RetailTrade.MDataSetTableAdapters {
             this._commandCollection[3].CommandText = "dbo.ReceiptMasterSelectNewCommand";
             this._commandCollection[3].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[3].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[3].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[4].Connection = this.Connection;
             this._commandCollection[4].CommandText = "dbo.ReceiptMasterMakeToNew";
@@ -19598,14 +19084,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillNew(MDataSet.ReceiptMasterDataTable dataTable, System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual int FillNew(MDataSet.ReceiptMasterDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[3];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -19616,14 +19096,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual MDataSet.ReceiptMasterDataTable GetDataNew(System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual MDataSet.ReceiptMasterDataTable GetDataNew() {
             this.Adapter.SelectCommand = this.CommandCollection[3];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             MDataSet.ReceiptMasterDataTable dataTable = new MDataSet.ReceiptMasterDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -20318,7 +19792,6 @@ namespace RetailTrade.MDataSetTableAdapters {
             this._commandCollection[1].CommandText = "dbo.StorageConditionSelectNewCommand";
             this._commandCollection[1].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateUpdate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -20346,14 +19819,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillNew(MDataSet.StorageConditionDataTable dataTable, System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual int FillNew(MDataSet.StorageConditionDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -20364,14 +19831,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual MDataSet.StorageConditionDataTable GetDataNew(System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual MDataSet.StorageConditionDataTable GetDataNew() {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             MDataSet.StorageConditionDataTable dataTable = new MDataSet.StorageConditionDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -20593,7 +20054,6 @@ namespace RetailTrade.MDataSetTableAdapters {
             this._commandCollection[2].CommandText = "dbo.ProductSelectNewCommand";
             this._commandCollection[2].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -20655,14 +20115,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillNew(MDataSet.ProductDataTable dataTable, System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual int FillNew(MDataSet.ProductDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[2];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -20673,14 +20127,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual MDataSet.ProductDataTable GetDataNew(System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual MDataSet.ProductDataTable GetDataNew() {
             this.Adapter.SelectCommand = this.CommandCollection[2];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             MDataSet.ProductDataTable dataTable = new MDataSet.ProductDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -21172,7 +20620,6 @@ namespace RetailTrade.MDataSetTableAdapters {
             this._commandCollection[1].CommandText = "dbo.FarmGroupSelectNewCommand";
             this._commandCollection[1].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -21200,14 +20647,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillNew(MDataSet.FarmGroupDataTable dataTable, System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual int FillNew(MDataSet.FarmGroupDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -21218,14 +20659,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual MDataSet.FarmGroupDataTable GetDataNew(System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual MDataSet.FarmGroupDataTable GetDataNew() {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             MDataSet.FarmGroupDataTable dataTable = new MDataSet.FarmGroupDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -21393,7 +20828,6 @@ namespace RetailTrade.MDataSetTableAdapters {
             this._commandCollection[1].CommandText = "dbo.PackingSelectNewCommand";
             this._commandCollection[1].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -21421,14 +20855,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillNew(MDataSet.PackingDataTable dataTable, System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual int FillNew(MDataSet.PackingDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -21439,14 +20867,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual MDataSet.PackingDataTable GetDataNew(System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual MDataSet.PackingDataTable GetDataNew() {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             MDataSet.PackingDataTable dataTable = new MDataSet.PackingDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -21614,7 +21036,6 @@ namespace RetailTrade.MDataSetTableAdapters {
             this._commandCollection[1].CommandText = "dbo.SubstanceSelectNewCommand";
             this._commandCollection[1].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateUpdate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -21642,14 +21063,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillNew(MDataSet.SubstanceDataTable dataTable, System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual int FillNew(MDataSet.SubstanceDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -21660,14 +21075,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual MDataSet.SubstanceDataTable GetDataNew(System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual MDataSet.SubstanceDataTable GetDataNew() {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             MDataSet.SubstanceDataTable dataTable = new MDataSet.SubstanceDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -21835,7 +21244,6 @@ namespace RetailTrade.MDataSetTableAdapters {
             this._commandCollection[1].CommandText = "dbo.UnitSelectNewCommand";
             this._commandCollection[1].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -21863,14 +21271,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillNew(MDataSet.UnitDataTable dataTable, System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual int FillNew(MDataSet.UnitDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -21881,14 +21283,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual MDataSet.UnitDataTable GetDataNew(System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual MDataSet.UnitDataTable GetDataNew() {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             MDataSet.UnitDataTable dataTable = new MDataSet.UnitDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -22059,7 +21455,6 @@ namespace RetailTrade.MDataSetTableAdapters {
             this._commandCollection[1].CommandText = "dbo.ManufacturerSelectNewCommand";
             this._commandCollection[1].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, "DateUpdate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -22087,14 +21482,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillNew(MDataSet.ManufacturerDataTable dataTable, System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual int FillNew(MDataSet.ManufacturerDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -22105,14 +21494,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual MDataSet.ManufacturerDataTable GetDataNew(System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual MDataSet.ManufacturerDataTable GetDataNew() {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             MDataSet.ManufacturerDataTable dataTable = new MDataSet.ManufacturerDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -22282,7 +21665,6 @@ namespace RetailTrade.MDataSetTableAdapters {
             this._commandCollection[1].CommandText = "dbo.FarmGroupLevel2SelectNewCommand";
             this._commandCollection[1].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@DateLastUpdate", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -22310,14 +21692,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillNew(MDataSet.FarmGroupLevel2DataTable dataTable, System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual int FillNew(MDataSet.FarmGroupLevel2DataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -22328,14 +21704,8 @@ namespace RetailTrade.MDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual MDataSet.FarmGroupLevel2DataTable GetDataNew(System.Nullable<System.DateTime> DateLastUpdate) {
+        public virtual MDataSet.FarmGroupLevel2DataTable GetDataNew() {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((DateLastUpdate.HasValue == true)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((System.DateTime)(DateLastUpdate.Value));
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
-            }
             MDataSet.FarmGroupLevel2DataTable dataTable = new MDataSet.FarmGroupLevel2DataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
