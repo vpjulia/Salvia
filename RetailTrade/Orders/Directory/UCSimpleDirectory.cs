@@ -91,12 +91,14 @@ namespace RetailTrade
                 this.btSave.Visible = true;
                 this.btCancel.Visible = true;
                 this.btEdit.Visible = false;
+                this.btDelete.Visible = true;
             }
             else
             {
                 this.btSave.Visible = false;
                 this.btCancel.Visible = false;
                 this.btEdit.Visible = true;
+                this.btDelete.Visible = false;
             
             }
 
@@ -108,7 +110,7 @@ namespace RetailTrade
 
             if (this.ValidateChildren())
             {
-                if ((this.bindingSource.DataSource as DataTable).HasErrors)
+                if (_changes.Table.HasErrors)
                 {
                     MessageBox.Show("Error");
                 }
@@ -198,7 +200,9 @@ namespace RetailTrade
 
 
                         _mainForm.RefreshData(_mainForm.mDataSet.Tables[_changes.Table.TableName]);
-                        return true;
+
+                        this.gridView.OptionsBehavior.Editable = true;  
+                     return true;
 
                     }
            
@@ -211,7 +215,10 @@ namespace RetailTrade
 
         private bool CancelChanges()
         {
-            (this.bindingSource.DataSource as DataTable).RejectChanges();
+           // (this.bindingSource.DataSource  as DataTable).RejectChanges();
+            _changes.Table.RejectChanges();
+            this.btCancel.Visible = false;
+            this.btSave.Visible = false;
             return true;
         }
         
@@ -222,7 +229,7 @@ namespace RetailTrade
              
             //  this.grid.EmbeddedNavigator.Buttons.Append.DoClick();
             this.bindingSource.AddNew();  
-            this.gridView.SetFocusedValue("[новое значение]");
+            this.gridView.SetFocusedValue("[]");
              // this.btEdit.PerformClick();
            // this.gridView.sek  
             this.btCancel.Visible = true;
@@ -248,19 +255,10 @@ namespace RetailTrade
 
         
             this.gridView.OptionsBehavior.Editable = false;
-           
-        
-            if (this.SaveChange())
-            { 
-                this.btEdit.Visible= false;
-               
 
-            }
-                 else
-                 {
-                                       
-                     this.gridView.OptionsBehavior.Editable = true;
-                 }
+            this.SaveChange();
+        
+            
 
             }
  

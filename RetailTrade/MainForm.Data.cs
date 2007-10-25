@@ -215,6 +215,7 @@ namespace RetailTrade
             catch (DBConcurrencyException dbcx)
             {
                 this.onDirectoryDBCError(dbcx);
+                Log("SaveToBaseDirectoryModifed" + dbcx.Message);
                 return false;
             }
 
@@ -223,6 +224,7 @@ namespace RetailTrade
                 if (sqlerr.Class < 17)
                 {
                     MessageBox.Show("Не отработана ошибка"+sqlerr.Message);
+                    Log("SaveToBaseDirectoryModifed SQLERROR" + sqlerr.Message);
                 }
                 else
 
@@ -234,13 +236,15 @@ namespace RetailTrade
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
+                Log("SaveToBaseDirectoryModifed ERROR" + err.Message + " " + err.Source + err.InnerException.Message);                
                 return false;
             }
 
            
             finally
             {
-               
+                Log("SaveToBaseDirectoryModifed successful;");                
+           
             }
             return true;
         }
@@ -258,19 +262,17 @@ namespace RetailTrade
             {
                 tp.GetMethod("Update", types).Invoke(this.components.Components[dataRows[0].Table.TableName + "TableAdapter"], args);
             }
-            catch
+            catch (Exception err)
             {
+                Log("SaveToBaseDirectoryDeleted ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
                 return false;
             }
             finally
             {
-                /*
-                     Object[] _argsFill = new Object[2];
-                     _argsFill[0] = dataRows[0].Table.Clone();
-                     _argsFill[1] = DateTime.Now;
-                     tp.GetMethod("FillNew").Invoke(this.components.Components[dataRows[0].Table.TableName + "TableAdapter"], _argsFill);
-                     dataRows[0].Table.Merge(_argsFill[0] as DataTable, false);
-                 */
+
+                Log("SaveToBaseDirectoryDeleted successfull");  
+                
+               
             }
             return true;
         }
@@ -302,6 +304,9 @@ namespace RetailTrade
                 else
 
                     caughtGlobalError(sqlerr);
+
+                Log("SaveToBaseDeletedDetails ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
+               
                 return false;
 
 
@@ -309,6 +314,9 @@ namespace RetailTrade
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
+                Log("SaveToBaseDeletedDetails ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
+                
+
                 return false;
             }
 
@@ -346,6 +354,11 @@ namespace RetailTrade
                 else
 
                     caughtGlobalError(sqlerr);
+
+
+                Log("SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
+            
+
                 return false;
 
 
@@ -353,6 +366,9 @@ namespace RetailTrade
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
+                Log("SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
+            
+
                 return false;
             }
 
@@ -382,6 +398,10 @@ namespace RetailTrade
                 else
 
                     caughtGlobalError(sqlerr);
+
+                Log("SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
+            
+
                 return false;
 
 
@@ -389,6 +409,10 @@ namespace RetailTrade
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
+
+                Log("SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
+            
+
                 return false;
             }
 
@@ -416,6 +440,10 @@ namespace RetailTrade
                 else
 
                     caughtGlobalError(sqlerr);
+
+                Log("SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
+            
+
                 return false;
 
 
@@ -423,6 +451,9 @@ namespace RetailTrade
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
+                Log("SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
+            
+
                 return false;
             }
 
@@ -450,6 +481,9 @@ namespace RetailTrade
                 else
 
                     caughtGlobalError(sqlerr);
+
+                Log("SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
+            
                 return false;
 
 
@@ -457,6 +491,9 @@ namespace RetailTrade
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
+                Log("SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
+            
+
                 return false;
             }
 
@@ -498,6 +535,10 @@ namespace RetailTrade
                    else
                 
                      caughtGlobalError(sqlerr);
+
+                 Log("SaveToBase(MDataSet.InvoiceMasterRow sourceRow) ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
+            
+
                return false;
          
          
@@ -506,14 +547,18 @@ namespace RetailTrade
          
             {
               MessageBox.Show(err.Message);
+              Log("SaveToBase(MDataSet.InvoiceMasterRow sourceRow) ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
+            
               return false;
             }
             finally
             {
-             RefreshData(sourceRow.Table);
+             RefreshData(sourceRow.Table as MDataSet.InvoiceMasterDataTable);
             }
             return true;
         }
+
+
         public bool SaveToBase(MDataSet.InvoiceDetailRow sourceRow)
         {
 
@@ -561,12 +606,19 @@ namespace RetailTrade
              }
              else
                 caughtGlobalError(sqlerr);
+
+            Log("SaveToBase(MDataSet.InvoiceDetailRow sourceRow) ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
+            
                return false;
 
           }
           catch (Exception err)
           {
               MessageBox.Show(err.Message);
+
+              Log("SaveToBase(MDataSet.InvoiceDetailRow sourceRow) ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
+            
+
               return false;
           }
             finally
@@ -594,7 +646,17 @@ namespace RetailTrade
                   if (relation.ChildKeyConstraint != null)
                     FillTable(relation.ParentTable.ToString());
                 }
-                tp.GetMethod("Fill").Invoke(this.components.Components[NameTable + "TableAdapter"], args);
+                try
+                {
+
+                    tp.GetMethod("Fill").Invoke(this.components.Components[NameTable + "TableAdapter"], args);
+                }
+                catch (Exception err)
+                {
+                    Log("FillTable(string)"+ NameTable+" ) ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
+            
+                }
+
             }
             else
 
@@ -656,11 +718,16 @@ namespace RetailTrade
                         catch (SecurityException e)
                         {
                             Console.WriteLine("SecurityException: " + e.Message);
+                           
+                            Log("FullFillTable(string)" + NameTable + " ) ERROR" + e.Message + " " + e.Source + e.InnerException.Message);  
+  
                             return false;
                         }
                         catch (Exception e)
                         {
                             Console.WriteLine("Exception: " + e.Message);
+                            Log("FullFillTable(string)" + NameTable + " ) ERROR" + e.Message + " " + e.Source + e.InnerException.Message);  
+  
                             return false;
                         }
 
@@ -674,6 +741,9 @@ namespace RetailTrade
                         catch (Exception err)
                         {
                             MessageBox.Show(err.Message);
+
+                            Log("FullFillTable(string)" + NameTable + " ) ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
+  
                             return false;
 
                         }
@@ -709,11 +779,21 @@ namespace RetailTrade
                else
 
                    caughtGlobalError(sqlerr);
+
+
+
+
+
+               Log("FillTableNewDocuments(MDataSet.ReceiptMasterDataTable source) ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
+  
                return false;
            }
            catch (Exception err)
            {
                MessageBox.Show(err.Message);
+
+               Log("FillTableNewDocuments(MDataSet.ReceiptMasterDataTable source) ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
+  
                return false;
            }
             finally
@@ -750,11 +830,19 @@ namespace RetailTrade
                 else
 
                     caughtGlobalError(sqlerr);
+
+                Log("FillTableNewDocuments(MDataSet.ReceiptMasterDataTable source) ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
+  
+
                 return false;
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
+
+                Log("FillTableNewDocuments(MDataSet.ReceiptMasterDataTable source) ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
+  
+
                 return false;
             }
             finally
@@ -795,11 +883,19 @@ namespace RetailTrade
                 else
 
                     caughtGlobalError(sqlerr);
+
+
+                Log("FillTableStockDocuments(MDataSet.ReceiptMasterDataTable source) ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
+  
                 return false;
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
+
+                Log("FillTableStockDocuments(MDataSet.ReceiptMasterDataTable source) ERROR" + err.Message + " " + err.Source +err.InnerException.Message);  
+  
+
                 return false;
             }
             finally
@@ -834,11 +930,16 @@ namespace RetailTrade
                         else
 
                             caughtGlobalError(sqlerr);
+
+                        Log("FillTableStockDocuments(MDataSet.ReceiptMasterDataTable source) ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
+  
                         return false;
                     }
                     catch (Exception err)
                     {
                         MessageBox.Show(err.Message);
+                        Log("FillTableStockDocuments(MDataSet.ReceiptMasterDataTable source) ERROR" + err.Message + " " + err.Source +err.InnerException.Message);  
+  
                         return false;
                     }
                     finally
@@ -876,11 +977,16 @@ namespace RetailTrade
                 else
 
                     caughtGlobalError(sqlerr);
+
+                Log("FillTableStockDocuments(MDataSet.InvoiceMasterDataTable source) ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
+  
                 return false;
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
+                Log("FillTableStockDocuments(MDataSet.InvoiceMasterDataTable source) ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
+  
                 return false;
             }
             finally
@@ -913,11 +1019,16 @@ namespace RetailTrade
                 else
 
                     caughtGlobalError(sqlerr);
+
+                Log("FillTableStockDocuments(MDataSet.InvoiceMasterDataTable source) ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
+  
                 return false;
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
+                Log("FillTableStockDocuments(MDataSet.InvoiceMasterDataTable source) ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
+  
                 return false;
             }
             finally
@@ -953,6 +1064,8 @@ namespace RetailTrade
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
+                Log("RefreshData(MDataSet.ReceiptMasterRow sourceRow)  ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
+  
                 return false;
             }
             finally
@@ -981,6 +1094,8 @@ namespace RetailTrade
              catch (Exception err)
              {
                  MessageBox.Show(err.Message);
+                 Log("RefreshData(MDataSet.InvoiceMasterRow sourceRow) " + err.Message + " " + err.Source + err.InnerException.Message);  
+  
                  return false;
              }
              finally
@@ -1028,14 +1143,17 @@ namespace RetailTrade
                     args[0] = _newTable;
                 }
 
-                catch (SecurityException e)
+                catch (SecurityException err)
                 {
-                    Console.WriteLine("SecurityException: " + e.Message);
+                    Log("RefreshData : " + source.TableName + err.Message + " " + err.Source + err.InnerException.Message);  
+  
                     return false;
                 }
-                catch (Exception e)
+                catch (Exception err)
                 {
-                    Console.WriteLine("Exception: " + e.Message);
+                    
+                    Log("RefreshData : " + source.TableName + err.Message + " " + err.Source + err.InnerException.Message);  
+  
                     return false;
                 }
 
@@ -1049,6 +1167,8 @@ namespace RetailTrade
                 catch (Exception err)
                 {
                     MessageBox.Show(err.Message);
+                    Log("RefreshData : " + source.TableName + err.Message + " " + err.Source + err.InnerException.Message);  
+  
                     return false;
 
                 }
@@ -1068,6 +1188,8 @@ namespace RetailTrade
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
+                Log("RefreshData (MDataSet.InvoiceDetailRow sourceRow) "  + err.Message + " " + err.Source + err.InnerException.Message);  
+  
                 return false;
             }
             finally
@@ -1089,6 +1211,9 @@ namespace RetailTrade
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
+
+                Log("(MDataSet.RemainsRow sourceRow) " + err.Message + " " + err.Source + err.InnerException.Message);  
+  
                 return false;
             }
             finally

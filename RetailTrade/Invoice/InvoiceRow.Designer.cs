@@ -33,10 +33,10 @@ namespace RetailTrade.Invoice
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvoiceRow));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.btEdit = new System.Windows.Forms.ToolStripButton();
+            this.btClose = new System.Windows.Forms.ToolStripButton();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.btField = new System.Windows.Forms.ToolStripMenuItem();
             this.btRefresh = new System.Windows.Forms.ToolStripMenuItem();
-            this.btClose = new System.Windows.Forms.ToolStripButton();
             this.btMove = new System.Windows.Forms.ToolStripButton();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -59,6 +59,10 @@ namespace RetailTrade.Invoice
             this.label1 = new System.Windows.Forms.Label();
             this.numberTextBox = new System.Windows.Forms.TextBox();
             this.grid = new DevExpress.XtraGrid.GridControl();
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.DelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fieldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.invoiceDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridInvoiceRowView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -94,6 +98,7 @@ namespace RetailTrade.Invoice
             ((System.ComponentModel.ISupportInitialize)(this.stockBindingSource)).BeginInit();
             this.panelNumber.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
+            this.contextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridInvoiceRowView)).BeginInit();
             this.SuspendLayout();
@@ -111,8 +116,8 @@ namespace RetailTrade.Invoice
             // 
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btEdit,
-            this.toolStripSplitButton1,
             this.btClose,
+            this.toolStripSplitButton1,
             this.btMove});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
@@ -129,16 +134,28 @@ namespace RetailTrade.Invoice
             this.btEdit.Text = "Изменить";
             this.btEdit.Click += new System.EventHandler(this.btEdit_Click);
             // 
+            // btClose
+            // 
+            this.btClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btClose.Image = ((System.Drawing.Image)(resources.GetObject("btClose.Image")));
+            this.btClose.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btClose.Name = "btClose";
+            this.btClose.Size = new System.Drawing.Size(23, 22);
+            this.btClose.Text = "X";
+            this.btClose.Click += new System.EventHandler(this.btClose_Click);
+            // 
             // toolStripSplitButton1
             // 
-            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripSplitButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
             this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btField,
             this.btRefresh});
             this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
             this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(32, 22);
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(16, 22);
             this.toolStripSplitButton1.Text = "toolStripSplitButton1";
             this.toolStripSplitButton1.ButtonClick += new System.EventHandler(this.toolStripSplitButton1_ButtonClick);
             // 
@@ -155,17 +172,6 @@ namespace RetailTrade.Invoice
             this.btRefresh.Size = new System.Drawing.Size(208, 22);
             this.btRefresh.Text = "Обновить";
             // 
-            // btClose
-            // 
-            this.btClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btClose.Image = ((System.Drawing.Image)(resources.GetObject("btClose.Image")));
-            this.btClose.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btClose.Name = "btClose";
-            this.btClose.Size = new System.Drawing.Size(23, 22);
-            this.btClose.Text = "X";
-            this.btClose.Click += new System.EventHandler(this.btClose_Click);
-            // 
             // btMove
             // 
             this.btMove.Image = ((System.Drawing.Image)(resources.GetObject("btMove.Image")));
@@ -173,6 +179,7 @@ namespace RetailTrade.Invoice
             this.btMove.Name = "btMove";
             this.btMove.Size = new System.Drawing.Size(148, 22);
             this.btMove.Text = "Готов к отправке";
+            this.btMove.Visible = false;
             this.btMove.Click += new System.EventHandler(this.btMove_Click);
             // 
             // statusStrip
@@ -403,6 +410,7 @@ namespace RetailTrade.Invoice
             // 
             // grid
             // 
+            this.grid.ContextMenuStrip = this.contextMenuStrip;
             this.grid.DataSource = this.invoiceDetailBindingSource;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid.EmbeddedNavigator.Name = "";
@@ -413,6 +421,36 @@ namespace RetailTrade.Invoice
             this.grid.TabIndex = 0;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridInvoiceRowView});
+            // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DelToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.fieldToolStripMenuItem});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(209, 92);
+            // 
+            // DelToolStripMenuItem
+            // 
+            this.DelToolStripMenuItem.Name = "DelToolStripMenuItem";
+            this.DelToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.DelToolStripMenuItem.Text = "Удалить строку";
+            this.DelToolStripMenuItem.Click += new System.EventHandler(this.Del_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.editToolStripMenuItem.Text = "Изменить";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.btEdit_Click);
+            // 
+            // fieldToolStripMenuItem
+            // 
+            this.fieldToolStripMenuItem.Name = "fieldToolStripMenuItem";
+            this.fieldToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.fieldToolStripMenuItem.Text = "Настройка полей";
+            this.fieldToolStripMenuItem.Click += new System.EventHandler(this.btField_Click);
             // 
             // invoiceDetailBindingSource
             // 
@@ -597,6 +635,7 @@ namespace RetailTrade.Invoice
             this.panelNumber.ResumeLayout(false);
             this.panelNumber.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
+            this.contextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.invoiceDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridInvoiceRowView)).EndInit();
             this.ResumeLayout(false);
@@ -653,6 +692,10 @@ namespace RetailTrade.Invoice
         private System.Windows.Forms.Label label5;
         private DevExpress.XtraEditors.LookUpEdit mainStocklookUpEdit;
         private System.Windows.Forms.ToolStripButton btMove;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem DelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fieldToolStripMenuItem;
        
     }
 }

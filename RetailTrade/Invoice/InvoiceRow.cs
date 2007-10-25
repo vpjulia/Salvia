@@ -43,7 +43,7 @@ namespace RetailTrade.Invoice
             {
                 this.mainStocklookUpEdit.Enabled = false;
                 this.stockBindingSource.DataSource = this.mDataSet.Stock.Select("IsLocal=0 and isnds="+source.IsNDS.ToString());
-
+                this.btMove.Visible = true;
             }
             else
             {
@@ -81,9 +81,14 @@ namespace RetailTrade.Invoice
 
             if (_detail.Count > 0)
             {
+
              this.mainStocklookUpEdit.Enabled = false;
              this.stockBindingSource.DataSource= this.mDataSet.Stock.Select("IsLocal=0 and isnds=" + _curentMasterRow.IsNDS.ToString());
-            }
+             this.btMove.Visible = true;
+
+            }else
+                this.btMove.Visible = false;
+
 
 
         }
@@ -128,6 +133,14 @@ namespace RetailTrade.Invoice
             if (this.gridInvoiceRowView.HasColumnErrors)
             {
                 this.invoiceDetailBindingSource.CancelEdit();
+            }
+            if ((_detail.Count == 0) & (_curentMasterRow.ID < 0))
+            {
+                this._curentMasterRow.RejectChanges();
+                if ((this.ParentForm as MainForm) != null)
+                {
+                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
+                }
             }
             else if (this.SaveChange())
             {
@@ -230,6 +243,9 @@ namespace RetailTrade.Invoice
             this.MainStockBindingSource.Filter = "IsLocal=1 and IsNDS =" + ((this.invoiceMasterBindingSource.Current as DataRowView).Row as MDataSet.InvoiceMasterRow).IsNDS.ToString();
            if (_detail.Count==0) 
             this.mainStocklookUpEdit.Enabled = true;
+       
+            this.btEdit.Enabled = true;
+
         }
 
         private void btMove_Click(object sender, EventArgs e)
@@ -255,6 +271,25 @@ namespace RetailTrade.Invoice
         {
            
 
+        }
+
+        private void Del_Click(object sender, EventArgs e)
+        {
+            if (this.gridInvoiceRowView.IsValidRowHandle(this.gridInvoiceRowView.FocusedRowHandle) & this.gridInvoiceRowView.State == GridState.Normal & !this.gridInvoiceRowView.IsFilterRow(this.gridInvoiceRowView.FocusedRowHandle))
+            {
+                DataRow _dr = this.gridInvoiceRowView.GetDataRow(this.gridInvoiceRowView.FocusedRowHandle);
+
+                if ((_dr as MDataSet.InvoiceDetailRow) != null)
+                {
+                    if (DialogResult.OK == MessageBox.Show("Удалить стоку?", "Изменение накладной", MessageBoxButtons.OKCancel, MessageBoxIcon.Question))
+                    {
+
+                        this.invoiceDetailBindingSource.RemoveCurrent();
+
+                    }
+                }
+
+            }
         }
 
        

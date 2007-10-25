@@ -247,6 +247,7 @@ namespace RetailTrade
             this.gridView.OptionsBehavior.Editable = false;
             this.gridView.OptionsDetail.EnableMasterViewMode = false;
             this.gridView.OptionsNavigation.AutoFocusNewRow = true;
+            this.gridView.OptionsNavigation.EnterMoveNextColumn = true;
             this.gridView.OptionsView.ShowAutoFilterRow = true;
             this.gridView.DoubleClick += new System.EventHandler(this.gridView_DoubleClick);
             this.gridView.InvalidValueException += new DevExpress.XtraEditors.Controls.InvalidValueExceptionEventHandler(this.gridView_InvalidValueException);

@@ -129,7 +129,7 @@ namespace RetailTrade
         {
             try
             {
-
+                FillTable("TradePutlet");
                 FillTable("Stock");
                 FillTable("Periods");
                 FillTable("Product");
