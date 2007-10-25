@@ -139,6 +139,7 @@ namespace RetailTrade.Invoice
                 return true;
            
         }
+
         private void InvoiceDetailEdit_Validating(object sender, CancelEventArgs e)
         {
             if (!this.ValidateChildren())

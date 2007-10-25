@@ -76,7 +76,13 @@ namespace RetailTrade
 
         private bool CancelChanges()
         {
-            (this.bindingSource.DataSource as DataTable).RejectChanges();
+            (this.bindingSource.DataSource as DataView).Table.RejectChanges();
+            this.btEdit.Visible = true;
+            this.btDel.Visible = false;
+            this.btSave.Visible = false;
+            this.btCancel.Visible = false;
+            this.btViewDict.Visible = false;
+
             return true;
         }
 
@@ -188,17 +194,9 @@ namespace RetailTrade
             if (this.gridView.HasColumnErrors) return;
  
             this.gridView.OptionsBehavior.Editable = false;
- 
-            if (this.SaveChange())
-            {
-                this.btEdit.Visible = false;
-            }
-            else
-            {
-                this.btEdit.Visible = true;       
-                this.gridView.OptionsBehavior.Editable = true;
-            }
 
+            this.SaveChange();
+            
         }
 
         private void btCancel_Click(object sender, EventArgs e)
