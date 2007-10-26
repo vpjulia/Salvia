@@ -28,7 +28,8 @@ namespace RetailTrade
     public partial class MainForm : Form
     {
         Thread thread;
-     
+
+        
         public static void Log(String logMessage )
         {
             string path = (Application.StartupPath +"\\log_" + DateTime.Now.ToShortDateString() + ".txt");
@@ -531,6 +532,19 @@ namespace RetailTrade
 
         }
 
+        private UserControl InitProjectSettings(ref String TagControl, ref string Title)
+        {
+            UserControl usControl;
+
+            usControl = new ProjectSettings();
+            (usControl as ProjectSettings).Dock = DockStyle.Fill;
+            (usControl as ProjectSettings).Tag = Title;
+
+            return usControl;
+
+        }
+
+
       
         
         
@@ -665,6 +679,14 @@ namespace RetailTrade
                    case "InvoiceClosed":
 
                        usControl = InitInvoiceClosed(ref TagControl, ref Title);
+
+                       if (usControl == null)
+                           return false;
+
+                       break;
+                   case "ProjectSettings":
+
+                       usControl = InitProjectSettings(ref TagControl, ref Title);
 
                        if (usControl == null)
                            return false;
