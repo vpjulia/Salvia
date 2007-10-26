@@ -58,10 +58,10 @@ namespace RetailTrade.Invoice
             this.btAdd = new System.Windows.Forms.ToolStripButton();
             this.btEdit = new System.Windows.Forms.ToolStripButton();
             this.btDelete = new System.Windows.Forms.ToolStripButton();
+            this.btClose = new System.Windows.Forms.ToolStripButton();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.btField = new System.Windows.Forms.ToolStripMenuItem();
             this.btRefresh = new System.Windows.Forms.ToolStripMenuItem();
-            this.btClose = new System.Windows.Forms.ToolStripButton();
             this.invoiceMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.InvoiceMasterTableAdapter();
             this.stockTableAdapter = new RetailTrade.MDataSetTableAdapters.StockTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewInvoiceDetail)).BeginInit();
@@ -360,6 +360,17 @@ namespace RetailTrade.Invoice
             this.btDelete.Text = "Удалить";
             this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
             // 
+            // btClose
+            // 
+            this.btClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btClose.Image = ((System.Drawing.Image)(resources.GetObject("btClose.Image")));
+            this.btClose.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btClose.Name = "btClose";
+            this.btClose.Size = new System.Drawing.Size(23, 22);
+            this.btClose.Text = "X";
+            this.btClose.Click += new System.EventHandler(this.btClose_Click);
+            // 
             // toolStripSplitButton1
             // 
             this.toolStripSplitButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -378,23 +389,13 @@ namespace RetailTrade.Invoice
             this.btField.Name = "btField";
             this.btField.Size = new System.Drawing.Size(208, 22);
             this.btField.Text = "Настройка полей";
+            this.btField.Click += new System.EventHandler(this.btField_Click);
             // 
             // btRefresh
             // 
             this.btRefresh.Name = "btRefresh";
             this.btRefresh.Size = new System.Drawing.Size(208, 22);
             this.btRefresh.Text = "Обновить";
-            // 
-            // btClose
-            // 
-            this.btClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btClose.Image = ((System.Drawing.Image)(resources.GetObject("btClose.Image")));
-            this.btClose.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btClose.Name = "btClose";
-            this.btClose.Size = new System.Drawing.Size(23, 22);
-            this.btClose.Text = "X";
-            this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
             // invoiceMasterTableAdapter
             // 

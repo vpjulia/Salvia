@@ -159,13 +159,18 @@ namespace RetailTrade.Invoice
                         return;
                     }
 
-                    if (DialogResult.OK == MessageBox.Show("Удалить строку? ", "Удаление строки прихода", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
+                    if (DialogResult.OK == MessageBox.Show("Удалить строку? ", "Удаление накладной", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning))
                     {
                         _dr.Delete();
                         this.SaveChanges();
                     }
                 }
             }
+        }
+
+        private void btField_Click(object sender, EventArgs e)
+        {
+            (this.grid.FocusedView as GridView).ColumnsCustomization();
         }
 
         

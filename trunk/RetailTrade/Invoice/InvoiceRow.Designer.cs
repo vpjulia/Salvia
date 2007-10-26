@@ -429,7 +429,7 @@ namespace RetailTrade.Invoice
             this.editToolStripMenuItem,
             this.fieldToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(209, 92);
+            this.contextMenuStrip.Size = new System.Drawing.Size(209, 70);
             // 
             // DelToolStripMenuItem
             // 

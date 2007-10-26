@@ -31,6 +31,10 @@ namespace RetailTrade.Properties {
             get {
                 return ((string)(this["RetailTradeConnectionString"]));
             }
+            set{
+                this["RetailTradeConnectionString"] = value;
+            
+            }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]

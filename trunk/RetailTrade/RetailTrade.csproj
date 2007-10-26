@@ -192,6 +192,12 @@
       <DependentUpon>OrdersAll.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="ProjectSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProjectSettings.Designer.cs">
+      <DependentUpon>ProjectSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Dialog\FormDialog.resx">
       <SubType>Designer</SubType>
@@ -240,6 +246,10 @@
     <EmbeddedResource Include="Orders\OrdersAll.resx">
       <SubType>Designer</SubType>
       <DependentUpon>OrdersAll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectSettings.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ProjectSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -407,6 +417,7 @@
     <Compile Include="Remains\RemainsLocal.Designer.cs">
       <DependentUpon>RemainsLocal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="SplashScreen.cs">
       <SubType>Form</SubType>
     </Compile>
