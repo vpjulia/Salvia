@@ -139,16 +139,13 @@ namespace RetailTrade.Invoice
                 this._curentMasterRow.RejectChanges();
                 if ((this.ParentForm as MainForm) != null)
                 {
-                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
-                }
+                    (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage); 
+                        
+                    }
             }
             else if (this.SaveChange())
             {
-                if ((this.ParentForm as MainForm) != null)
-                    (this.ParentForm as MainForm).tabControl.TabPages.Remove((this.ParentForm as MainForm).tabControl.SelectedTab);
-
-
-                foreach (GridView view in this.grid.ViewCollection)
+                  foreach (GridView view in this.grid.ViewCollection)
                 {
 
                     string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
@@ -163,6 +160,11 @@ namespace RetailTrade.Invoice
                     }
 
                 }
+                if ((this.ParentForm as MainForm) != null)
+
+                    (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage); 
+                        
+              
             }
         }
 

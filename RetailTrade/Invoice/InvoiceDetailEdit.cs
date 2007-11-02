@@ -157,6 +157,7 @@ namespace RetailTrade.Invoice
 
         private void InvoiceDetailEdit_Load(object sender, EventArgs e)
         {
+            this.FindMainForm(this.ParentForm).RefreshData(this.mDataSet.Remains as DataTable);
             this.ParentForm.FormClosing+=new FormClosingEventHandler(ParentForm_FormClosing);
         }
 

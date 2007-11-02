@@ -111,7 +111,7 @@ namespace RetailTrade
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(635, 25);
-            this.toolStrip1.TabIndex = 1;
+            this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripButton1
@@ -132,7 +132,7 @@ namespace RetailTrade
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(635, 539);
-            this.tabControl1.TabIndex = 2;
+            this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -160,7 +160,7 @@ namespace RetailTrade
             // 
             this.splitContainer1.Panel2.Controls.Add(this.gridReceiptDetail);
             this.splitContainer1.Size = new System.Drawing.Size(621, 504);
-            this.splitContainer1.SplitterDistance = 215;
+            this.splitContainer1.SplitterDistance = 249;
             this.splitContainer1.TabIndex = 0;
             // 
             // gridProduct
@@ -171,8 +171,8 @@ namespace RetailTrade
             this.gridProduct.Location = new System.Drawing.Point(0, 0);
             this.gridProduct.MainView = this.gridViewProduct;
             this.gridProduct.Name = "gridProduct";
-            this.gridProduct.Size = new System.Drawing.Size(621, 215);
-            this.gridProduct.TabIndex = 1;
+            this.gridProduct.Size = new System.Drawing.Size(621, 249);
+            this.gridProduct.TabIndex = 0;
             this.gridProduct.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewProduct});
             this.gridProduct.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridProduct_KeyDown);
@@ -189,6 +189,10 @@ namespace RetailTrade
             // 
             // gridViewProduct
             // 
+            this.gridViewProduct.Appearance.Preview.Font = new System.Drawing.Font("Tahoma", 7F);
+            this.gridViewProduct.Appearance.Preview.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.gridViewProduct.Appearance.Preview.Options.UseFont = true;
+            this.gridViewProduct.Appearance.Preview.Options.UseForeColor = true;
             this.gridViewProduct.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colID,
             this.colName,
@@ -224,7 +228,9 @@ namespace RetailTrade
             this.gridViewProduct.OptionsDetail.EnableMasterViewMode = false;
             this.gridViewProduct.OptionsView.ShowAutoFilterRow = true;
             this.gridViewProduct.OptionsView.ShowGroupPanel = false;
-            this.gridViewProduct.Click += new System.EventHandler(this.gridViewProduct_Click);
+            this.gridViewProduct.OptionsView.ShowPreview = true;
+            this.gridViewProduct.CalcPreviewText += new DevExpress.XtraGrid.Views.Grid.CalcPreviewTextEventHandler(this.gridViewProduct_CalcPreviewText);
+            this.gridViewProduct.DoubleClick += new System.EventHandler(this.gridViewProduct_Click);
             // 
             // colID
             // 
@@ -235,6 +241,8 @@ namespace RetailTrade
             // 
             // colName
             // 
+            this.colName.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold);
+            this.colName.AppearanceCell.Options.UseFont = true;
             this.colName.Caption = "Наименование";
             this.colName.FieldName = "Name";
             this.colName.Name = "colName";
@@ -407,7 +415,7 @@ namespace RetailTrade
             this.gridReceiptDetail.Name = "gridReceiptDetail";
             this.gridReceiptDetail.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.productLookUpEdit});
-            this.gridReceiptDetail.Size = new System.Drawing.Size(621, 285);
+            this.gridReceiptDetail.Size = new System.Drawing.Size(621, 251);
             this.gridReceiptDetail.TabIndex = 0;
             this.gridReceiptDetail.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewReceiptDetail});

@@ -47,7 +47,8 @@ namespace RetailTrade.Receipt
         
            //  заполнить 
 
-         
+            this.btDelete.Visible = false;
+            this.btMakeNew.Visible = false;
 
            this.PariodsComboBox.ComboBox.DataSource = this.mDataSet.Periods;
            this.PariodsComboBox.ComboBox.DisplayMember = "Name";
@@ -179,6 +180,10 @@ namespace RetailTrade.Receipt
           
                 this.btEdit.Visible = true;
                 this.btDelete.Visible = false;
+                this.btMakeNew.Visible = false;
+                this.PariodsComboBox.Visible = true;
+                this.btPeriod.Visible = true;
+
             }
 
         }
@@ -203,7 +208,10 @@ namespace RetailTrade.Receipt
             this.gridViewRecieptDetailStock.OptionsBehavior.Editable = true;
             this.btDelete.Visible = true;
             this.btEdit.Visible = false;
-
+            this.btMakeNew.Visible = true;
+            this.btDelete.Visible = false;
+            this.PariodsComboBox.Visible = false;
+            this.btPeriod.Visible = false;
         }
        
         private void btField_Click(object sender, EventArgs e)

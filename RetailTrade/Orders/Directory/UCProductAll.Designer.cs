@@ -127,7 +127,7 @@ namespace RetailTrade
             this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(915, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(912, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -241,9 +241,6 @@ namespace RetailTrade
             // 
             this.grid.DataSource = this.productBindingSource;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
             this.grid.EmbeddedNavigator.Name = "";
             this.errorProvider1.SetError(this.grid, "jj");
             this.grid.Location = new System.Drawing.Point(0, 25);
@@ -255,7 +252,7 @@ namespace RetailTrade
             this.StorageConditionRefLookUpEdit,
             this.SubstanceRefLookUpEdit,
             this.FarmGrouplevel2RefLookUpEdit});
-            this.grid.Size = new System.Drawing.Size(915, 540);
+            this.grid.Size = new System.Drawing.Size(912, 540);
             this.grid.TabIndex = 1;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewMainProduct});
@@ -267,6 +264,10 @@ namespace RetailTrade
             // 
             // gridViewMainProduct
             // 
+            this.gridViewMainProduct.Appearance.Preview.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Italic);
+            this.gridViewMainProduct.Appearance.Preview.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.gridViewMainProduct.Appearance.Preview.Options.UseFont = true;
+            this.gridViewMainProduct.Appearance.Preview.Options.UseForeColor = true;
             this.gridViewMainProduct.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Style3D;
             this.gridViewMainProduct.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colID,
@@ -309,6 +310,7 @@ namespace RetailTrade
             this.gridViewMainProduct.OptionsView.ShowPreview = true;
             this.gridViewMainProduct.PreviewFieldName = "OldName";
             this.gridViewMainProduct.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.gridViewMainProduct_CustomDrawCell);
+            this.gridViewMainProduct.CalcPreviewText += new DevExpress.XtraGrid.Views.Grid.CalcPreviewTextEventHandler(this.gridViewMainProduct_CalcPreviewText);
             this.gridViewMainProduct.DoubleClick += new System.EventHandler(this.gridView_DoubleClick);
             this.gridViewMainProduct.Layout += new System.EventHandler(this.gridViewMainProduct_Layout);
             // 
@@ -468,6 +470,7 @@ namespace RetailTrade
             this.colUnitRef.Name = "colUnitRef";
             this.colUnitRef.Visible = true;
             this.colUnitRef.VisibleIndex = 6;
+            this.colUnitRef.Width = 71;
             // 
             // UnitRefLookUpEdit
             // 
@@ -501,6 +504,7 @@ namespace RetailTrade
             this.colPackingRef.Name = "colPackingRef";
             this.colPackingRef.Visible = true;
             this.colPackingRef.VisibleIndex = 7;
+            this.colPackingRef.Width = 71;
             // 
             // PackingRefLookUpEdit
             // 
@@ -528,6 +532,7 @@ namespace RetailTrade
             this.colStorageConditionRef.Name = "colStorageConditionRef";
             this.colStorageConditionRef.Visible = true;
             this.colStorageConditionRef.VisibleIndex = 8;
+            this.colStorageConditionRef.Width = 71;
             // 
             // StorageConditionRefLookUpEdit
             // 
@@ -556,6 +561,7 @@ namespace RetailTrade
             this.colSubstanceRef.Name = "colSubstanceRef";
             this.colSubstanceRef.Visible = true;
             this.colSubstanceRef.VisibleIndex = 9;
+            this.colSubstanceRef.Width = 71;
             // 
             // SubstanceRefLookUpEdit
             // 
@@ -584,6 +590,7 @@ namespace RetailTrade
             this.colFarmGrouplevel2Ref.Name = "colFarmGrouplevel2Ref";
             this.colFarmGrouplevel2Ref.Visible = true;
             this.colFarmGrouplevel2Ref.VisibleIndex = 10;
+            this.colFarmGrouplevel2Ref.Width = 85;
             // 
             // FarmGrouplevel2RefLookUpEdit
             // 
@@ -633,7 +640,7 @@ namespace RetailTrade
             this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bindingNavigator1.Name = "bindingNavigator1";
             this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingNavigator1.Size = new System.Drawing.Size(915, 25);
+            this.bindingNavigator1.Size = new System.Drawing.Size(912, 25);
             this.bindingNavigator1.TabIndex = 3;
             this.bindingNavigator1.Text = "Настройка полей";
             // 
@@ -712,7 +719,7 @@ namespace RetailTrade
             this.Controls.Add(this.bindingNavigator1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "UCProductAll";
-            this.Size = new System.Drawing.Size(915, 590);
+            this.Size = new System.Drawing.Size(912, 590);
             this.Load += new System.EventHandler(this.UCProductAll_Load);
             this.Validating += new System.ComponentModel.CancelEventHandler(this.UCProductAll_Validating);
             this.toolStrip1.ResumeLayout(false);

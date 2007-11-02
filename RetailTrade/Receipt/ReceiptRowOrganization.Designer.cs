@@ -771,7 +771,7 @@ namespace RetailTrade
             this.StockEdit.Properties.ValueMember = "ID";
             this.StockEdit.Size = new System.Drawing.Size(220, 22);
             this.StockEdit.TabIndex = 2;
-            this.StockEdit.EditValueChanged += new System.EventHandler(this.StockEdit_EditValueChanged);
+
             this.StockEdit.QueryPopUp += new System.ComponentModel.CancelEventHandler(this.StockEdit_QueryPopUp);
             // 
             // stockBindingSource

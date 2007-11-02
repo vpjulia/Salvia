@@ -8,7 +8,12 @@ namespace RetailTrade
     using System.Reflection;
     using System.Security; 
     partial class MainForm
+
+
     {
+
+        private DataView _changesInvoiceDetail;
+
         public static void DoSplash()
         {
             SplashScreen sp = new SplashScreen();
@@ -146,7 +151,7 @@ namespace RetailTrade
 
                             throw new ArgumentException("Остаток на складе меньше!");
                         else
-                            (e.Row as MDataSet.InvoiceDetailRow).RemainsRow.QuantityRemains -= (decimal)e.ProposedValue - (e.Row as MDataSet.InvoiceDetailRow).Quantity;
+                            (e.Row as MDataSet.InvoiceDetailRow).RemainsRow.QuantityRemains -= (decimal)e.ProposedValue;// -(e.Row as MDataSet.InvoiceDetailRow).Quantity;
                 }
             }
            
@@ -566,8 +571,8 @@ namespace RetailTrade
                 return false;
             if ((sourceRow.RowState == DataRowState.Detached)|(sourceRow.RowState==DataRowState.Unchanged))
                 return true;
-
-
+            if (_changesInvoiceDetail.Count == 0)
+                return true;
 
             MDataSet.InvoiceMasterRow _invoiceMasterRow;
             _invoiceMasterRow = sourceRow.InvoiceMasterRow;

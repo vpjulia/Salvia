@@ -203,6 +203,7 @@ namespace RetailTrade
             this.gridView.OptionsBehavior.Editable = false;
             this.gridView.OptionsDetail.EnableMasterViewMode = false;
             this.gridView.OptionsDetail.ShowDetailTabs = false;
+            this.gridView.OptionsNavigation.AutoFocusNewRow = true;
             this.gridView.OptionsView.ShowAutoFilterRow = true;
             this.gridView.OptionsView.ShowDetailButtons = false;
             this.gridView.DoubleClick += new System.EventHandler(this.gridView_DoubleClick);
