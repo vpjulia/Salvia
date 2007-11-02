@@ -396,6 +396,40 @@ namespace RetailTrade
            }
         }
 
+        private void gridViewMainProduct_CalcPreviewText(object sender, CalcPreviewTextEventArgs e)
+        {
+            //e.PreviewText = "Item: " + e.PreviewText + "; Units: " + gridView1.GetRowCellDisplayText(e.RowHandle, gridView1.Columns["UnitsOnOrder"]) + ".";
+            FullDataSet.ProductRow _row = this.gridViewMainProduct.GetDataRow(e.RowHandle) as FullDataSet.ProductRow;
+            if (_row != null)
+            {
+                string pack = "";
+                string place = "";
+                string farmgr = "";
+                string subst = "";
+                string country = "";
+
+                if (_row.PackingRef > 0)
+                    pack = _row.PackingRow.Name.ToString();
+
+                if (_row.StorageConditionRef > 0)
+                    place = _row.StorageConditionRow.Name.ToString();
+
+                if (_row.FarmGrouplevel2Ref > 0)
+
+                    farmgr = _row.FarmGroupLevel2Row.Name.ToString();
+
+                if (_row.SubstanceRef > 0)
+                    place = _row.SubstanceRow.Name.ToString();
+
+                if (_row.ManufacturerRef > 0)
+                    country = _row.ManufacturerRow.CountryRow.Name.ToString();
+
+
+                e.PreviewText = pack.ToString() + "   " + place + "  " + farmgr + "   " + subst + "  " + country;
+
+            }
+        }
+
        
 
        

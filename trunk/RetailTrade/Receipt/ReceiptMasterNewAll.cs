@@ -146,6 +146,8 @@ namespace RetailTrade
             this.productBindingSource.DataSource = this.mDataSet.Product;
             this.organizationBindingSource.DataSource = this.mDataSet.Organization;
 
+            this.stockBindingSource.DataSource = this.mDataSet.Stock;
+
 
           
         //    _viewChangesReceiptDetail.ListChanged += new ListChangedEventHandler(_viewChangesReceiptDetail_ListChanged);
@@ -332,15 +334,22 @@ namespace RetailTrade
                     {
                         case DialogResult.Yes:
                             if (this.SaveChanges())
+                            {
                                 if ((this.ParentForm as MainForm) != null)
                                     (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
-                              
+                          
+                                this.ParentForm.FormClosing += new FormClosingEventHandler(ParentForm_FormClosing);
+      
+                            } 
                             break;
                         case DialogResult.No:
                             {
                                 if (this.CancelChages())
                                     if ((this.ParentForm as MainForm) != null)
                                         (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
+                           
+                                this.ParentForm.FormClosing += new FormClosingEventHandler(ParentForm_FormClosing);
+      
                             }
                             break;
                         case DialogResult.Cancel:
@@ -348,9 +357,12 @@ namespace RetailTrade
                     }
                 }
                 else
-                {
+                { 
+                    this.ParentForm.FormClosing -= new FormClosingEventHandler(ParentForm_FormClosing);
+      
                     if ((this.ParentForm as MainForm) != null)
                         (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
+                      
                 }
             } 
        }
@@ -378,6 +390,12 @@ namespace RetailTrade
 
        private void ParentForm_FormClosing(object sender ,FormClosingEventArgs e)
         {
+            foreach (GridView view in this.grid.ViewCollection)
+            {
+                string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
+                view.SaveLayoutToXml(fileName);
+            }
+
             if ((_changesMaster.Count > 0) | (_changesDetail.Count > 0))
             
            

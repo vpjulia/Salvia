@@ -94,6 +94,9 @@ namespace RetailTrade
             this.receiptMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptMasterTableAdapter();
             this.productTableAdapter = new RetailTrade.MDataSetTableAdapters.ProductTableAdapter();
             this.organizationTableAdapter = new RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter();
+            this.StockItemLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.stockBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.stockTableAdapter = new RetailTrade.MDataSetTableAdapters.StockTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRecDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
@@ -109,6 +112,8 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOrders)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StockItemLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stockBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // gridViewRecDetail
@@ -270,9 +275,10 @@ namespace RetailTrade
             this.productLookUpEdit,
             this.OrganizationLookUpEdit,
             this.QuantitycalcEdit,
-            this.PriceCalcEdit});
+            this.PriceCalcEdit,
+            this.StockItemLookUpEdit});
             this.grid.ShowOnlyPredefinedDetails = true;
-            this.grid.Size = new System.Drawing.Size(740, 376);
+            this.grid.Size = new System.Drawing.Size(830, 447);
             this.grid.TabIndex = 2;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewMain,
@@ -354,7 +360,8 @@ namespace RetailTrade
             // colStockName
             // 
             this.colStockName.Caption = "Склад";
-            this.colStockName.FieldName = "StockName";
+            this.colStockName.ColumnEdit = this.StockItemLookUpEdit;
+            this.colStockName.FieldName = "MainStockRef";
             this.colStockName.Name = "colStockName";
             this.colStockName.OptionsColumn.AllowEdit = false;
             this.colStockName.OptionsColumn.AllowFocus = false;
@@ -622,9 +629,9 @@ namespace RetailTrade
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 401);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 472);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(740, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(830, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -640,7 +647,7 @@ namespace RetailTrade
             this.btCancel});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(740, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(830, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -744,6 +751,25 @@ namespace RetailTrade
             // 
             this.organizationTableAdapter.ClearBeforeFill = true;
             // 
+            // StockItemLookUpEdit
+            // 
+            this.StockItemLookUpEdit.AutoHeight = false;
+            this.StockItemLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.StockItemLookUpEdit.DataSource = this.stockBindingSource;
+            this.StockItemLookUpEdit.DisplayMember = "Name";
+            this.StockItemLookUpEdit.Name = "StockItemLookUpEdit";
+            this.StockItemLookUpEdit.ValueMember = "ID";
+            // 
+            // stockBindingSource
+            // 
+            this.stockBindingSource.DataMember = "Stock";
+            this.stockBindingSource.DataSource = this.mDataSet;
+            // 
+            // stockTableAdapter
+            // 
+            this.stockTableAdapter.ClearBeforeFill = true;
+            // 
             // ReceiptMasterNewAll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -752,7 +778,7 @@ namespace RetailTrade
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Name = "ReceiptMasterNewAll";
-            this.Size = new System.Drawing.Size(740, 423);
+            this.Size = new System.Drawing.Size(830, 494);
             this.Load += new System.EventHandler(this.ReceiptMasterNew_Load);
             this.Validating += new System.ComponentModel.CancelEventHandler(this.ReceiptMasterNewAll_Validating);
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRecDetail)).EndInit();
@@ -771,6 +797,8 @@ namespace RetailTrade
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StockItemLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stockBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -840,5 +868,8 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripButton btCancel;
         private DevExpress.XtraEditors.Repository.RepositoryItemCalcEdit QuantitycalcEdit;
         private DevExpress.XtraEditors.Repository.RepositoryItemCalcEdit PriceCalcEdit;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit StockItemLookUpEdit;
+        private System.Windows.Forms.BindingSource stockBindingSource;
+        private RetailTrade.MDataSetTableAdapters.StockTableAdapter stockTableAdapter;
     }
 }

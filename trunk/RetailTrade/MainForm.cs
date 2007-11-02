@@ -30,6 +30,7 @@ namespace RetailTrade
         Thread thread;
 
         
+
         public static void Log(String logMessage )
         {
             string path = (Application.StartupPath +"\\log_" + DateTime.Now.ToShortDateString() + ".txt");
@@ -190,6 +191,9 @@ namespace RetailTrade
             this.mDataSet.InvoiceDetail.RowDeleted+=new DataRowChangeEventHandler(InvoiceDetail_RowDeleted);
             this.mDataSet.InvoiceDetail.RowChanged+=new DataRowChangeEventHandler(InvoiceDetail_RowChanged);
          
+
+            _changesInvoiceDetail = new DataView(this.mDataSet.InvoiceDetail,null,null,DataViewRowState.Added | DataViewRowState.ModifiedCurrent|DataViewRowState.Deleted);
+          
             Log("MainForm_Load True ");
            
               
@@ -407,7 +411,7 @@ namespace RetailTrade
             return usControl;
 
         }
-        private UserControl InitInvoiceRow(ref String TagControl, ref string Title, params object[] list)
+        private UserControl InitInvoiceRow(ref string TagControl, ref string Title, params object[] list)
         {
             UserControl usControl;
 
@@ -637,7 +641,7 @@ namespace RetailTrade
 
                  case "InvoiceRow":
 
-                     usControl = InitInvoiceRow(ref TagControl, ref Title,list);
+                     usControl = InitInvoiceRow(ref TagControl, ref Title, list);
 
                      if (usControl == null)
                          return false;
@@ -704,9 +708,10 @@ namespace RetailTrade
 
 
                     TabPage newTab = new TabPage(Title);
+                    newTab.Tag = TagControl;
                     newTab.Controls.Add(usControl);
                     tabControl.TabPages.Add(newTab);
-                    tabControl.TabPages[tabControl.TabPages.Count - 1].Tag = TagControl;
+                  //  tabControl.TabPages[tabControl.TabPages.Count - 1].Tag = TagControl;
                     tabControl.SelectedTab = newTab;
 
                     return true;

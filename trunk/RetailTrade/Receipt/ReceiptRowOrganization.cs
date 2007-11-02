@@ -82,33 +82,23 @@ namespace RetailTrade
             if (source.ID < 0)
             {
                 this.panelNumber.Enabled = false;
+                this.btMove.Visible = false;
             }
-           
+            if (_curentReceiptMasterRow.GetReceiptDetailRows().Length == 0)
+            {
+                this.btMove.Visible = false;
+            //    this.btPrintAkt.Visible = false;
+            }
+
 
 
 
             this.AuthorLabel.Text = "Автор :" + _curentReceiptMasterRow.AuthorCreate.ToString();
       
-            this.receiptMasterBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.receiptMasterBindingSource_ListChanged);
-       
-        }
-
-        void _viewModifedOriginal_ListChanged(object sender, ListChangedEventArgs e)
-        {
-            if (_viewModifedOriginal.Count >0)
-            {
-            
-                if ((_viewModifedOriginal[0].Row as MDataSet.ReceiptMasterRow).RowVersion != _curentReceiptMasterRow.RowVersion)
-                {
-                    this.modifedStripStatusLabel.Text = (_viewModifedOriginal[0].Row as MDataSet.ReceiptMasterRow).AuthorLastModif.ToString();
-                }
-
           
-            }
-
-
         }
 
+    
 
 
         private void ReceiptRowOrganization_Load(object sender, EventArgs e)
@@ -133,8 +123,48 @@ namespace RetailTrade
 
 
         }
-     
-        //
+    
+        private void _viewChangesReceiptDetail_ListChanged(object sender, ListChangedEventArgs e) 
+        {
+            
+            if (_viewChangesReceiptDetail.Count > 0)
+            {
+                this.btMove.Visible = false;
+              
+                this.btCancel.Visible = true;
+                this.btSaveReciept.Enabled = true;
+            }
+            else
+            {
+                
+                this.btCancel.Visible =false;
+                this.btSaveReciept.Enabled = false;
+
+                if (_curentReceiptMasterRow.GetReceiptDetailRows().Length == 0)
+                    this.btMove.Visible = false;
+                else
+                    this.btMove.Visible = true;
+            }
+ 
+
+        }
+
+        void _viewModifedOriginal_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            if (_viewModifedOriginal.Count >0)
+            {
+            
+                if ((_viewModifedOriginal[0].Row as MDataSet.ReceiptMasterRow).RowVersion != _curentReceiptMasterRow.RowVersion)
+                {
+                    this.modifedStripStatusLabel.Text = (_viewModifedOriginal[0].Row as MDataSet.ReceiptMasterRow).AuthorLastModif.ToString();
+                }
+
+          
+            }
+
+
+        }
+ //
         private bool SaveChanges()
         {
             this.receiptMasterBindingSource.CurrencyManager.EndCurrentEdit();
@@ -189,25 +219,7 @@ namespace RetailTrade
          
         //
 
-        private void _viewChangesReceiptDetail_ListChanged(object sender, ListChangedEventArgs e) 
-        {
-            
-            if (_viewChangesReceiptDetail.Count > 0)
-            {
-
-                this.btCancel.Visible = true;
-                this.btSaveReciept.Enabled = true;
-            }
-            else
-            {
-                this.btCancel.Visible =false;
-                this.btSaveReciept.Enabled = false;
-            
-            }
- 
-
-        }
-
+       
         //
 
         private void gridView1_InvalidValueException(object sender, DevExpress.XtraEditors.Controls.InvalidValueExceptionEventArgs e)
@@ -221,7 +233,12 @@ namespace RetailTrade
             e.ExceptionMode = DevExpress.XtraEditors.Controls.ExceptionMode.NoAction;
 
         }
-        //
+       
+        private void gridView_DoubleClick(object sender, EventArgs e)
+        {
+            this.btEdit.PerformClick();
+        }
+  //
        
         private void btEdit_Click(object sender, EventArgs e)
         {
@@ -241,17 +258,22 @@ namespace RetailTrade
         }
 
 
+ 
 
         private void btSaveReciept_Click(object sender, EventArgs e)
         {
             this.SaveChanges();
         }
 
-        private void gridView_DoubleClick(object sender, EventArgs e)
+       
+        private void btCancel_Click(object sender, EventArgs e)
         {
-            this.btEdit.PerformClick();
+            this.CancelChanges(); 
+          
+
         }
 
+      
         private void btField_Click(object sender, EventArgs e)
         {
             (this.grid.FocusedView as GridView).ColumnsCustomization();
@@ -292,6 +314,7 @@ namespace RetailTrade
 
         }
 
+    
         private void btMove_Click(object sender, EventArgs e)
         {
           try
@@ -308,7 +331,16 @@ namespace RetailTrade
               this.btClose.PerformClick();  
             }
         }
+    
        
+       
+      
+        private void ReceiptRowOrganization_Validating(object sender, CancelEventArgs e)
+        {
+            this.receiptMasterBindingSource.EndEdit();
+            this.receiptDetailBindingSource.EndEdit();
+        }
+   
         private void btClose_Click(object sender, EventArgs e)
         {
             foreach (GridView view in this.grid.ViewCollection)
@@ -376,29 +408,6 @@ namespace RetailTrade
            
 
 
-        }
-
-        private void StockEdit_EditValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btCancel_Click(object sender, EventArgs e)
-        {
-            this.CancelChanges(); 
-          
-
-        }
-
-        private void receiptMasterBindingSource_ListChanged(object sender, ListChangedEventArgs e)
-        {
-          
-        }
-
-        private void ReceiptRowOrganization_Validating(object sender, CancelEventArgs e)
-        {
-            this.receiptMasterBindingSource.EndEdit();
-            this.receiptDetailBindingSource.EndEdit();
         }
 
     }
