@@ -18,6 +18,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -121,6 +122,12 @@
     <Compile Include="Invoice\InvoiceClosed.Designer.cs">
       <DependentUpon>InvoiceClosed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Invoice\InvoiceTradePutlet\InvoiceDetailEditPrintMar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceTradePutlet\InvoiceDetailEditPrintMar.Designer.cs">
+      <DependentUpon>InvoiceDetailEditPrintMar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Invoice\InvoiceForReplication.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -132,6 +139,12 @@
     </Compile>
     <Compile Include="Invoice\InvoiceReturn.Designer.cs">
       <DependentUpon>InvoiceReturn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceTradePutlet\InvoiceTradePutletAll.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceTradePutlet\InvoiceTradePutletAll.Designer.cs">
+      <DependentUpon>InvoiceTradePutletAll.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.Data.cs">
       <SubType>Form</SubType>
@@ -191,6 +204,7 @@
     <Compile Include="Orders\OrdersAll.Designer.cs">
       <DependentUpon>OrdersAll.cs</DependentUpon>
     </Compile>
+    <Compile Include="Printers\Datecs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectSettings.cs">
       <SubType>UserControl</SubType>
@@ -223,6 +237,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>InvoiceDetailEdit.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\InvoiceTradePutlet\InvoiceDetailEditPrintMar.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InvoiceDetailEditPrintMar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Invoice\InvoiceDetailRowAdd.resx">
       <SubType>Designer</SubType>
       <DependentUpon>InvoiceDetailRowAdd.cs</DependentUpon>
@@ -238,6 +256,10 @@
     <EmbeddedResource Include="Invoice\InvoiceRow.resx">
       <SubType>Designer</SubType>
       <DependentUpon>InvoiceRow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\InvoiceTradePutlet\InvoiceTradePutletAll.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InvoiceTradePutletAll.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <SubType>Designer</SubType>
