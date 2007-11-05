@@ -17,6 +17,7 @@ using RetailTrade.Receipt;
 using RetailTrade.Orders;
 using RetailTrade.Remains;
 using System.IO;
+using RetailTrade.Invoice.InvoiceTradePutlet;
 
 
 
@@ -548,6 +549,17 @@ namespace RetailTrade
 
         }
 
+        private UserControl InitInvoiceTradePutletAll(ref String TagControl, ref string Title)
+        {
+            UserControl usControl;
+
+            usControl = new InvoiceTradePutletAll(this.mDataSet);
+            (usControl as InvoiceTradePutletAll).Dock = DockStyle.Fill;
+            (usControl as InvoiceTradePutletAll).Tag = Title;
+
+            return usControl;
+
+        }
 
       
         
@@ -697,6 +709,14 @@ namespace RetailTrade
 
                        break;
 
+                   case "InvoiceTradePutletAll":
+
+                       usControl = InitInvoiceTradePutletAll(ref TagControl, ref Title);
+
+                       if (usControl == null)
+                           return false;
+
+                       break;
 
 
                     default:

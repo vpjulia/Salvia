@@ -36,11 +36,12 @@ namespace RetailTrade.Invoice
             this.colManufacturerName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQuantity = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPriceRetail = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPriceRetailNDS = new DevExpress.XtraGrid.Columns.GridColumn();
             this.grid = new DevExpress.XtraGrid.GridControl();
             this.invoiceMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mDataSet = new RetailTrade.MDataSet();
             this.gridViewInvoiceMasterAll = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colNumber = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemDateEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.colRemoteStockRef = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -81,7 +82,8 @@ namespace RetailTrade.Invoice
             this.colProductName,
             this.colManufacturerName,
             this.colQuantity,
-            this.colPriceRetail});
+            this.colPriceRetail,
+            this.colPriceRetailNDS});
             this.gridViewInvoiceDetail.GridControl = this.grid;
             this.gridViewInvoiceDetail.Name = "gridViewInvoiceDetail";
             // 
@@ -123,6 +125,14 @@ namespace RetailTrade.Invoice
             this.colPriceRetail.Visible = true;
             this.colPriceRetail.VisibleIndex = 1;
             // 
+            // colPriceRetailNDS
+            // 
+            this.colPriceRetailNDS.Caption = "Цена с НДС";
+            this.colPriceRetailNDS.FieldName = "PriceRetailNDS";
+            this.colPriceRetailNDS.Name = "colPriceRetailNDS";
+            this.colPriceRetailNDS.Visible = true;
+            this.colPriceRetailNDS.VisibleIndex = 4;
+            // 
             // grid
             // 
             this.grid.DataSource = this.invoiceMasterBindingSource;
@@ -159,7 +169,7 @@ namespace RetailTrade.Invoice
             // gridViewInvoiceMasterAll
             // 
             this.gridViewInvoiceMasterAll.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colNumber,
+            this.gridColumn1,
             this.colDate,
             this.colRemoteStockRef,
             this.colTradePupletName,
@@ -171,16 +181,16 @@ namespace RetailTrade.Invoice
             this.colDateLastModif});
             this.gridViewInvoiceMasterAll.GridControl = this.grid;
             this.gridViewInvoiceMasterAll.Name = "gridViewInvoiceMasterAll";
+            this.gridViewInvoiceMasterAll.OptionsDetail.AllowOnlyOneMasterRowExpanded = true;
             this.gridViewInvoiceMasterAll.OptionsView.ShowFooter = true;
             // 
-            // colNumber
+            // gridColumn1
             // 
-            this.colNumber.Caption = "Номер";
-            this.colNumber.FieldName = "Number";
-            this.colNumber.Name = "colNumber";
-            this.colNumber.Visible = true;
-            this.colNumber.VisibleIndex = 0;
-            this.colNumber.Width = 116;
+            this.gridColumn1.Caption = "gridColumn1";
+            this.gridColumn1.FieldName = "Number";
+            this.gridColumn1.Name = "gridColumn1";
+            this.gridColumn1.Visible = true;
+            this.gridColumn1.VisibleIndex = 0;
             // 
             // colDate
             // 
@@ -438,7 +448,6 @@ namespace RetailTrade.Invoice
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewInvoiceMasterAll;
         private System.Windows.Forms.BindingSource invoiceMasterBindingSource;
         private MDataSet mDataSet;
-        private DevExpress.XtraGrid.Columns.GridColumn colNumber;
         private DevExpress.XtraGrid.Columns.GridColumn colDate;
         private DevExpress.XtraGrid.Columns.GridColumn colRemoteStockRef;
         private DevExpress.XtraGrid.Columns.GridColumn colSum;
@@ -465,5 +474,7 @@ namespace RetailTrade.Invoice
         private DevExpress.XtraGrid.Columns.GridColumn colPriceRetail;
         private DevExpress.XtraGrid.Columns.GridColumn colProductName;
         private DevExpress.XtraGrid.Columns.GridColumn colManufacturerName;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private DevExpress.XtraGrid.Columns.GridColumn colPriceRetailNDS;
     }
 }

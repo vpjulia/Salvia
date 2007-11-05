@@ -361,7 +361,7 @@ namespace RetailTrade
                     caughtGlobalError(sqlerr);
 
 
-                Log("SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
+                Log("SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERROR" + sqlerr.Message + " " + sqlerr.Source );  
             
 
                 return false;
@@ -404,7 +404,7 @@ namespace RetailTrade
 
                     caughtGlobalError(sqlerr);
 
-                Log("SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
+                Log("SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERROR" + sqlerr.Message + " " + sqlerr.Source );  
             
 
                 return false;
