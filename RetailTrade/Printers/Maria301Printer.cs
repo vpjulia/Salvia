@@ -193,7 +193,7 @@ namespace RetailTrade.Printers
                 _tp = Type.GetTypeFromProgID("M301Ole.Document");
                 _printer = Activator.CreateInstance(_tp);
          
-            if (this.Init(numuser.ToString()))
+            if (this.Init(numuser))
             {
                 this.Info = new PrinterInfo(_printer);
 
@@ -217,7 +217,7 @@ namespace RetailTrade.Printers
     
         }
 
-        public bool Init(string numusers)
+        public bool Init(int numusers)
         {
             Object[] args = new Object[3];
         
@@ -225,7 +225,7 @@ namespace RetailTrade.Printers
             args[0] = "1";
             
             // кассир
-            args[1] =numusers[0];
+            args[1] =numusers.ToString();
             
             //пароль
             args[2] = "1111111111";
