@@ -23,7 +23,7 @@ namespace RetailTrade.Properties {
             }
         }
         
-        
+      
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -125,6 +125,16 @@ namespace RetailTrade.Properties {
             }
             set {
                 this["SERVER"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SERVER;Initial Catalog=RetailTrade;Integrated Security=True")]
+        public string RetailTradeConnectionString1 {
+            get {
+                return ((string)(this["RetailTradeConnectionString1"]));
             }
         }
     }

@@ -67,21 +67,23 @@ namespace RetailTrade {
         
         private PeriodsDataTable tablePeriods;
         
-        private System.Data.DataRelation relationFK_Stock_InvoiceMaster;
+        private CashDataTable tableCash;
         
         private System.Data.DataRelation relationFK_InvoiceMaster_StockMain;
+        
+        private System.Data.DataRelation relationFK_Stock_InvoiceMaster;
         
         private System.Data.DataRelation relationFK_ReceiptRemains_ReceiptDetail;
         
         private System.Data.DataRelation relationReceiptMaster_ReceiptDetail;
         
-        private System.Data.DataRelation relationFK_FarmGroupLevel2_Product;
-        
-        private System.Data.DataRelation relationFK_Unit_Product;
+        private System.Data.DataRelation relationFK_Manufacturer_Product;
         
         private System.Data.DataRelation relationFK_Substance_Product;
         
-        private System.Data.DataRelation relationFK_Manufacturer_Product;
+        private System.Data.DataRelation relationFK_Unit_Product;
+        
+        private System.Data.DataRelation relationFK_FarmGroupLevel2_Product;
         
         private System.Data.DataRelation relationFK_Country_Manufacturer;
         
@@ -217,6 +219,9 @@ namespace RetailTrade {
                 }
                 if ((ds.Tables["Periods"] != null)) {
                     base.Tables.Add(new PeriodsDataTable(ds.Tables["Periods"]));
+                }
+                if ((ds.Tables["Cash"] != null)) {
+                    base.Tables.Add(new CashDataTable(ds.Tables["Cash"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -436,6 +441,15 @@ namespace RetailTrade {
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Browsable(false)]
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public CashDataTable Cash {
+            get {
+                return this.tableCash;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.BrowsableAttribute(true)]
         [System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -560,6 +574,9 @@ namespace RetailTrade {
                 }
                 if ((ds.Tables["Periods"] != null)) {
                     base.Tables.Add(new PeriodsDataTable(ds.Tables["Periods"]));
+                }
+                if ((ds.Tables["Cash"] != null)) {
+                    base.Tables.Add(new CashDataTable(ds.Tables["Cash"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -723,14 +740,20 @@ namespace RetailTrade {
                     this.tablePeriods.InitVars();
                 }
             }
-            this.relationFK_Stock_InvoiceMaster = this.Relations["FK_Stock_InvoiceMaster"];
+            this.tableCash = ((CashDataTable)(base.Tables["Cash"]));
+            if ((initTable == true)) {
+                if ((this.tableCash != null)) {
+                    this.tableCash.InitVars();
+                }
+            }
             this.relationFK_InvoiceMaster_StockMain = this.Relations["FK_InvoiceMaster_StockMain"];
+            this.relationFK_Stock_InvoiceMaster = this.Relations["FK_Stock_InvoiceMaster"];
             this.relationFK_ReceiptRemains_ReceiptDetail = this.Relations["FK_ReceiptRemains_ReceiptDetail"];
             this.relationReceiptMaster_ReceiptDetail = this.Relations["ReceiptMaster_ReceiptDetail"];
-            this.relationFK_FarmGroupLevel2_Product = this.Relations["FK_FarmGroupLevel2_Product"];
-            this.relationFK_Unit_Product = this.Relations["FK_Unit_Product"];
-            this.relationFK_Substance_Product = this.Relations["FK_Substance_Product"];
             this.relationFK_Manufacturer_Product = this.Relations["FK_Manufacturer_Product"];
+            this.relationFK_Substance_Product = this.Relations["FK_Substance_Product"];
+            this.relationFK_Unit_Product = this.Relations["FK_Unit_Product"];
+            this.relationFK_FarmGroupLevel2_Product = this.Relations["FK_FarmGroupLevel2_Product"];
             this.relationFK_Country_Manufacturer = this.Relations["FK_Country_Manufacturer"];
             this.relationFK_FarmGroup_FarmGroupLevel2 = this.Relations["FK_FarmGroup_FarmGroupLevel2"];
             this.relationFK_InvoiceDetail_InvoiceMaster = this.Relations["FK_InvoiceDetail_InvoiceMaster"];
@@ -805,17 +828,19 @@ namespace RetailTrade {
             base.Tables.Add(this.tablePricesPurchase);
             this.tablePeriods = new PeriodsDataTable(false);
             base.Tables.Add(this.tablePeriods);
+            this.tableCash = new CashDataTable();
+            base.Tables.Add(this.tableCash);
             System.Data.ForeignKeyConstraint fkc;
-            fkc = new System.Data.ForeignKeyConstraint("FK_Stock_InvoiceMaster", new System.Data.DataColumn[] {
+            fkc = new System.Data.ForeignKeyConstraint("FK_InvoiceMaster_StockMain", new System.Data.DataColumn[] {
                         this.tableStock.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableInvoiceMaster.RemoteStockRefColumn});
+                        this.tableInvoiceMaster.MainStockRefColumn});
             this.tableInvoiceMaster.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_InvoiceMaster_StockMain", new System.Data.DataColumn[] {
+            fkc = new System.Data.ForeignKeyConstraint("FK_Stock_InvoiceMaster", new System.Data.DataColumn[] {
                         this.tableStock.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableInvoiceMaster.MainStockRefColumn});
+                        this.tableInvoiceMaster.RemoteStockRefColumn});
             this.tableInvoiceMaster.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
@@ -834,16 +859,9 @@ namespace RetailTrade {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
-                        this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.FarmGrouplevel2RefColumn});
-            this.tableProduct.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = System.Data.Rule.None;
-            fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_Unit_Product", new System.Data.DataColumn[] {
-                        this.tableUnit.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.UnitRefColumn});
+            fkc = new System.Data.ForeignKeyConstraint("FK_Manufacturer_Product", new System.Data.DataColumn[] {
+                        this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.ManufacturerRefColumn});
             this.tableProduct.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
@@ -855,9 +873,16 @@ namespace RetailTrade {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_Manufacturer_Product", new System.Data.DataColumn[] {
-                        this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.ManufacturerRefColumn});
+            fkc = new System.Data.ForeignKeyConstraint("FK_Unit_Product", new System.Data.DataColumn[] {
+                        this.tableUnit.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.UnitRefColumn});
+            this.tableProduct.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = System.Data.Rule.None;
+            fkc.UpdateRule = System.Data.Rule.Cascade;
+            fkc = new System.Data.ForeignKeyConstraint("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
+                        this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.FarmGrouplevel2RefColumn});
             this.tableProduct.Constraints.Add(fkc);
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
@@ -876,14 +901,14 @@ namespace RetailTrade {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            this.relationFK_Stock_InvoiceMaster = new System.Data.DataRelation("FK_Stock_InvoiceMaster", new System.Data.DataColumn[] {
-                        this.tableStock.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableInvoiceMaster.RemoteStockRefColumn}, false);
-            this.Relations.Add(this.relationFK_Stock_InvoiceMaster);
             this.relationFK_InvoiceMaster_StockMain = new System.Data.DataRelation("FK_InvoiceMaster_StockMain", new System.Data.DataColumn[] {
                         this.tableStock.IDColumn}, new System.Data.DataColumn[] {
                         this.tableInvoiceMaster.MainStockRefColumn}, false);
             this.Relations.Add(this.relationFK_InvoiceMaster_StockMain);
+            this.relationFK_Stock_InvoiceMaster = new System.Data.DataRelation("FK_Stock_InvoiceMaster", new System.Data.DataColumn[] {
+                        this.tableStock.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableInvoiceMaster.RemoteStockRefColumn}, false);
+            this.Relations.Add(this.relationFK_Stock_InvoiceMaster);
             this.relationFK_ReceiptRemains_ReceiptDetail = new System.Data.DataRelation("FK_ReceiptRemains_ReceiptDetail", new System.Data.DataColumn[] {
                         this.tableReceiptDetail.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptRemains.ReceiptDetailRefColumn}, false);
@@ -892,22 +917,22 @@ namespace RetailTrade {
                         this.tableReceiptMaster.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptDetail.ReceiptMasterRefColumn}, false);
             this.Relations.Add(this.relationReceiptMaster_ReceiptDetail);
-            this.relationFK_FarmGroupLevel2_Product = new System.Data.DataRelation("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
-                        this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.FarmGrouplevel2RefColumn}, false);
-            this.Relations.Add(this.relationFK_FarmGroupLevel2_Product);
-            this.relationFK_Unit_Product = new System.Data.DataRelation("FK_Unit_Product", new System.Data.DataColumn[] {
-                        this.tableUnit.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.UnitRefColumn}, false);
-            this.Relations.Add(this.relationFK_Unit_Product);
-            this.relationFK_Substance_Product = new System.Data.DataRelation("FK_Substance_Product", new System.Data.DataColumn[] {
-                        this.tableSubstance.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.SubstanceRefColumn}, false);
-            this.Relations.Add(this.relationFK_Substance_Product);
             this.relationFK_Manufacturer_Product = new System.Data.DataRelation("FK_Manufacturer_Product", new System.Data.DataColumn[] {
                         this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
                         this.tableProduct.ManufacturerRefColumn}, false);
             this.Relations.Add(this.relationFK_Manufacturer_Product);
+            this.relationFK_Substance_Product = new System.Data.DataRelation("FK_Substance_Product", new System.Data.DataColumn[] {
+                        this.tableSubstance.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.SubstanceRefColumn}, false);
+            this.Relations.Add(this.relationFK_Substance_Product);
+            this.relationFK_Unit_Product = new System.Data.DataRelation("FK_Unit_Product", new System.Data.DataColumn[] {
+                        this.tableUnit.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.UnitRefColumn}, false);
+            this.Relations.Add(this.relationFK_Unit_Product);
+            this.relationFK_FarmGroupLevel2_Product = new System.Data.DataRelation("FK_FarmGroupLevel2_Product", new System.Data.DataColumn[] {
+                        this.tableFarmGroupLevel2.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableProduct.FarmGrouplevel2RefColumn}, false);
+            this.Relations.Add(this.relationFK_FarmGroupLevel2_Product);
             this.relationFK_Country_Manufacturer = new System.Data.DataRelation("FK_Country_Manufacturer", new System.Data.DataColumn[] {
                         this.tableCountry.IDColumn}, new System.Data.DataColumn[] {
                         this.tableManufacturer.CounrtyRefColumn}, false);
@@ -1105,6 +1130,11 @@ namespace RetailTrade {
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializeCash() {
+            return false;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void SchemaChanged(object sender, System.ComponentModel.CollectionChangeEventArgs e) {
             if ((e.Action == System.ComponentModel.CollectionChangeAction.Remove)) {
                 this.InitVars();
@@ -1207,6 +1237,8 @@ namespace RetailTrade {
         public delegate void PricesPurchaseRowChangeEventHandler(object sender, PricesPurchaseRowChangeEvent e);
         
         public delegate void PeriodsRowChangeEventHandler(object sender, PeriodsRowChangeEvent e);
+        
+        public delegate void CashRowChangeEventHandler(object sender, CashRowChangeEvent e);
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [System.Serializable()]
@@ -9762,6 +9794,349 @@ namespace RetailTrade {
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [System.Serializable()]
+        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class CashDataTable : System.Data.DataTable, System.Collections.IEnumerable {
+            
+            private System.Data.DataColumn columnID;
+            
+            private System.Data.DataColumn columnNumZ;
+            
+            private System.Data.DataColumn columnDate;
+            
+            private System.Data.DataColumn columnBalanceBegin;
+            
+            private System.Data.DataColumn columnOfIncome;
+            
+            private System.Data.DataColumn columnOfExpend;
+            
+            private System.Data.DataColumn columnIncome;
+            
+            private System.Data.DataColumn columnExpend;
+            
+            private System.Data.DataColumn columnBalanceEnd;
+            
+            private System.Data.DataColumn columnIsClosed;
+            
+            private System.Data.DataColumn columnRowVersion;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CashDataTable() {
+                this.TableName = "Cash";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal CashDataTable(System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected CashDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn IDColumn {
+                get {
+                    return this.columnID;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn NumZColumn {
+                get {
+                    return this.columnNumZ;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateColumn {
+                get {
+                    return this.columnDate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn BalanceBeginColumn {
+                get {
+                    return this.columnBalanceBegin;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn OfIncomeColumn {
+                get {
+                    return this.columnOfIncome;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn OfExpendColumn {
+                get {
+                    return this.columnOfExpend;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn IncomeColumn {
+                get {
+                    return this.columnIncome;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ExpendColumn {
+                get {
+                    return this.columnExpend;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn BalanceEndColumn {
+                get {
+                    return this.columnBalanceEnd;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn IsClosedColumn {
+                get {
+                    return this.columnIsClosed;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn RowVersionColumn {
+                get {
+                    return this.columnRowVersion;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CashRow this[int index] {
+                get {
+                    return ((CashRow)(this.Rows[index]));
+                }
+            }
+            
+            public event CashRowChangeEventHandler CashRowChanging;
+            
+            public event CashRowChangeEventHandler CashRowChanged;
+            
+            public event CashRowChangeEventHandler CashRowDeleting;
+            
+            public event CashRowChangeEventHandler CashRowDeleted;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddCashRow(CashRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CashRow AddCashRow(int NumZ, System.DateTime Date, decimal BalanceBegin, decimal OfIncome, decimal OfExpend, decimal Income, decimal Expend, decimal BalanceEnd, bool IsClosed, byte[] RowVersion) {
+                CashRow rowCashRow = ((CashRow)(this.NewRow()));
+                rowCashRow.ItemArray = new object[] {
+                        null,
+                        NumZ,
+                        Date,
+                        BalanceBegin,
+                        OfIncome,
+                        OfExpend,
+                        Income,
+                        Expend,
+                        BalanceEnd,
+                        IsClosed,
+                        RowVersion};
+                this.Rows.Add(rowCashRow);
+                return rowCashRow;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CashRow FindByID(int ID) {
+                return ((CashRow)(this.Rows.Find(new object[] {
+                            ID})));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public virtual System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override System.Data.DataTable Clone() {
+                CashDataTable cln = ((CashDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataTable CreateInstance() {
+                return new CashDataTable();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars() {
+                this.columnID = base.Columns["ID"];
+                this.columnNumZ = base.Columns["NumZ"];
+                this.columnDate = base.Columns["Date"];
+                this.columnBalanceBegin = base.Columns["BalanceBegin"];
+                this.columnOfIncome = base.Columns["OfIncome"];
+                this.columnOfExpend = base.Columns["OfExpend"];
+                this.columnIncome = base.Columns["Income"];
+                this.columnExpend = base.Columns["Expend"];
+                this.columnBalanceEnd = base.Columns["BalanceEnd"];
+                this.columnIsClosed = base.Columns["IsClosed"];
+                this.columnRowVersion = base.Columns["RowVersion"];
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass() {
+                this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID);
+                this.columnNumZ = new System.Data.DataColumn("NumZ", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNumZ);
+                this.columnDate = new System.Data.DataColumn("Date", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDate);
+                this.columnBalanceBegin = new System.Data.DataColumn("BalanceBegin", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBalanceBegin);
+                this.columnOfIncome = new System.Data.DataColumn("OfIncome", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOfIncome);
+                this.columnOfExpend = new System.Data.DataColumn("OfExpend", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOfExpend);
+                this.columnIncome = new System.Data.DataColumn("Income", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIncome);
+                this.columnExpend = new System.Data.DataColumn("Expend", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnExpend);
+                this.columnBalanceEnd = new System.Data.DataColumn("BalanceEnd", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBalanceEnd);
+                this.columnIsClosed = new System.Data.DataColumn("IsClosed", typeof(bool), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsClosed);
+                this.columnRowVersion = new System.Data.DataColumn("RowVersion", typeof(byte[]), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRowVersion);
+                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
+                                this.columnID}, true));
+                this.columnID.AutoIncrement = true;
+                this.columnID.AllowDBNull = false;
+                this.columnID.ReadOnly = true;
+                this.columnID.Unique = true;
+                this.columnNumZ.AllowDBNull = false;
+                this.columnDate.AllowDBNull = false;
+                this.columnBalanceBegin.AllowDBNull = false;
+                this.columnOfIncome.AllowDBNull = false;
+                this.columnOfExpend.AllowDBNull = false;
+                this.columnIncome.AllowDBNull = false;
+                this.columnExpend.AllowDBNull = false;
+                this.columnBalanceEnd.AllowDBNull = false;
+                this.columnIsClosed.AllowDBNull = false;
+                this.columnRowVersion.ReadOnly = true;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CashRow NewCashRow() {
+                return ((CashRow)(this.NewRow()));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
+                return new CashRow(builder);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Type GetRowType() {
+                return typeof(CashRow);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.CashRowChanged != null)) {
+                    this.CashRowChanged(this, new CashRowChangeEvent(((CashRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.CashRowChanging != null)) {
+                    this.CashRowChanging(this, new CashRowChangeEvent(((CashRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.CashRowDeleted != null)) {
+                    this.CashRowDeleted(this, new CashRowChangeEvent(((CashRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.CashRowDeleting != null)) {
+                    this.CashRowDeleting(this, new CashRowChangeEvent(((CashRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemoveCashRow(CashRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
+                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
+                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
+                MDataSet ds = new MDataSet();
+                xs.Add(ds.GetSchemaSerializable());
+                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "CashDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                return type;
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         public partial class CountryRow : System.Data.DataRow {
             
             private CountryDataTable tableCountry;
@@ -10739,22 +11114,22 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public StockRow StockRowByFK_Stock_InvoiceMaster {
-                get {
-                    return ((StockRow)(this.GetParentRow(this.Table.ParentRelations["FK_Stock_InvoiceMaster"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Stock_InvoiceMaster"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public StockRow StockRowByFK_InvoiceMaster_StockMain {
                 get {
                     return ((StockRow)(this.GetParentRow(this.Table.ParentRelations["FK_InvoiceMaster_StockMain"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_InvoiceMaster_StockMain"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public StockRow StockRowByFK_Stock_InvoiceMaster {
+                get {
+                    return ((StockRow)(this.GetParentRow(this.Table.ParentRelations["FK_Stock_InvoiceMaster"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Stock_InvoiceMaster"]);
                 }
             }
             
@@ -11725,13 +12100,13 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public InvoiceMasterRow[] GetInvoiceMasterRowsByFK_Stock_InvoiceMaster() {
-                return ((InvoiceMasterRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Stock_InvoiceMaster"])));
+            public InvoiceMasterRow[] GetInvoiceMasterRowsByFK_InvoiceMaster_StockMain() {
+                return ((InvoiceMasterRow[])(base.GetChildRows(this.Table.ChildRelations["FK_InvoiceMaster_StockMain"])));
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public InvoiceMasterRow[] GetInvoiceMasterRowsByFK_InvoiceMaster_StockMain() {
-                return ((InvoiceMasterRow[])(base.GetChildRows(this.Table.ChildRelations["FK_InvoiceMaster_StockMain"])));
+            public InvoiceMasterRow[] GetInvoiceMasterRowsByFK_Stock_InvoiceMaster() {
+                return ((InvoiceMasterRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Stock_InvoiceMaster"])));
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13425,22 +13800,12 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public FarmGroupLevel2Row FarmGroupLevel2Row {
+            public ManufacturerRow ManufacturerRow {
                 get {
-                    return ((FarmGroupLevel2Row)(this.GetParentRow(this.Table.ParentRelations["FK_FarmGroupLevel2_Product"])));
+                    return ((ManufacturerRow)(this.GetParentRow(this.Table.ParentRelations["FK_Manufacturer_Product"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_FarmGroupLevel2_Product"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UnitRow UnitRow {
-                get {
-                    return ((UnitRow)(this.GetParentRow(this.Table.ParentRelations["FK_Unit_Product"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Unit_Product"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Manufacturer_Product"]);
                 }
             }
             
@@ -13455,12 +13820,22 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ManufacturerRow ManufacturerRow {
+            public UnitRow UnitRow {
                 get {
-                    return ((ManufacturerRow)(this.GetParentRow(this.Table.ParentRelations["FK_Manufacturer_Product"])));
+                    return ((UnitRow)(this.GetParentRow(this.Table.ParentRelations["FK_Unit_Product"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Manufacturer_Product"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Unit_Product"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public FarmGroupLevel2Row FarmGroupLevel2Row {
+                get {
+                    return ((FarmGroupLevel2Row)(this.GetParentRow(this.Table.ParentRelations["FK_FarmGroupLevel2_Product"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_FarmGroupLevel2_Product"]);
                 }
             }
             
@@ -15371,6 +15746,143 @@ namespace RetailTrade {
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class CashRow : System.Data.DataRow {
+            
+            private CashDataTable tableCash;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal CashRow(System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableCash = ((CashDataTable)(this.Table));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ID {
+                get {
+                    return ((int)(this[this.tableCash.IDColumn]));
+                }
+                set {
+                    this[this.tableCash.IDColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int NumZ {
+                get {
+                    return ((int)(this[this.tableCash.NumZColumn]));
+                }
+                set {
+                    this[this.tableCash.NumZColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime Date {
+                get {
+                    return ((System.DateTime)(this[this.tableCash.DateColumn]));
+                }
+                set {
+                    this[this.tableCash.DateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal BalanceBegin {
+                get {
+                    return ((decimal)(this[this.tableCash.BalanceBeginColumn]));
+                }
+                set {
+                    this[this.tableCash.BalanceBeginColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal OfIncome {
+                get {
+                    return ((decimal)(this[this.tableCash.OfIncomeColumn]));
+                }
+                set {
+                    this[this.tableCash.OfIncomeColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal OfExpend {
+                get {
+                    return ((decimal)(this[this.tableCash.OfExpendColumn]));
+                }
+                set {
+                    this[this.tableCash.OfExpendColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal Income {
+                get {
+                    return ((decimal)(this[this.tableCash.IncomeColumn]));
+                }
+                set {
+                    this[this.tableCash.IncomeColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal Expend {
+                get {
+                    return ((decimal)(this[this.tableCash.ExpendColumn]));
+                }
+                set {
+                    this[this.tableCash.ExpendColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal BalanceEnd {
+                get {
+                    return ((decimal)(this[this.tableCash.BalanceEndColumn]));
+                }
+                set {
+                    this[this.tableCash.BalanceEndColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsClosed {
+                get {
+                    return ((bool)(this[this.tableCash.IsClosedColumn]));
+                }
+                set {
+                    this[this.tableCash.IsClosedColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public byte[] RowVersion {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableCash.RowVersionColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'RowVersion\' in table \'Cash\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCash.RowVersionColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsRowVersionNull() {
+                return this.IsNull(this.tableCash.RowVersionColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetRowVersionNull() {
+                this[this.tableCash.RowVersionColumn] = System.Convert.DBNull;
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         public class CountryRowChangeEvent : System.EventArgs {
             
             private CountryRow eventRow;
@@ -15973,6 +16485,34 @@ namespace RetailTrade {
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public PeriodsRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class CashRowChangeEvent : System.EventArgs {
+            
+            private CashRow eventRow;
+            
+            private System.Data.DataRowAction eventAction;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CashRowChangeEvent(CashRow row, System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public CashRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -22582,6 +23122,300 @@ SELECT ID, TradePupletRef, ProductRef, DateOrder, Quantity, Price, Reserved, Qua
             MDataSet.PeriodsDataTable dataTable = new MDataSet.PeriodsDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.ComponentModel.ToolboxItem(true)]
+    [System.ComponentModel.DataObjectAttribute(true)]
+    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class CashTableAdapter : System.ComponentModel.Component {
+        
+        private System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private System.Data.SqlClient.SqlConnection _connection;
+        
+        private System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public CashTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        internal System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitAdapter() {
+            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
+            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "Cash";
+            tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("NumZ", "NumZ");
+            tableMapping.ColumnMappings.Add("Date", "Date");
+            tableMapping.ColumnMappings.Add("BalanceBegin", "BalanceBegin");
+            tableMapping.ColumnMappings.Add("OfIncome", "OfIncome");
+            tableMapping.ColumnMappings.Add("OfExpend", "OfExpend");
+            tableMapping.ColumnMappings.Add("Income", "Income");
+            tableMapping.ColumnMappings.Add("Expend", "Expend");
+            tableMapping.ColumnMappings.Add("BalanceEnd", "BalanceEnd");
+            tableMapping.ColumnMappings.Add("IsClosed", "IsClosed");
+            tableMapping.ColumnMappings.Add("RowVersion", "RowVersion");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = "dbo.CashDeleteCommand";
+            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Variant, 0, System.Data.ParameterDirection.ReturnValue, 0, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 0, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = "dbo.CashInsertCommand";
+            this._adapter.InsertCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Variant, 0, System.Data.ParameterDirection.ReturnValue, 0, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NumZ", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "NumZ", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Date", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "Date", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BalanceBegin", System.Data.SqlDbType.Decimal, 0, System.Data.ParameterDirection.Input, 18, 2, "BalanceBegin", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OfIncome", System.Data.SqlDbType.Decimal, 0, System.Data.ParameterDirection.Input, 18, 2, "OfIncome", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OfExpend", System.Data.SqlDbType.Decimal, 0, System.Data.ParameterDirection.Input, 18, 2, "OfExpend", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Income", System.Data.SqlDbType.Decimal, 0, System.Data.ParameterDirection.Input, 18, 2, "Income", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Expend", System.Data.SqlDbType.Decimal, 0, System.Data.ParameterDirection.Input, 18, 2, "Expend", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BalanceEnd", System.Data.SqlDbType.Decimal, 0, System.Data.ParameterDirection.Input, 18, 2, "BalanceEnd", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IsClosed", System.Data.SqlDbType.Bit, 0, System.Data.ParameterDirection.Input, 0, 0, "IsClosed", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = "dbo.CashUpdateCommand";
+            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Variant, 0, System.Data.ParameterDirection.ReturnValue, 0, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NumZ", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "NumZ", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Date", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "Date", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BalanceBegin", System.Data.SqlDbType.Decimal, 0, System.Data.ParameterDirection.Input, 18, 2, "BalanceBegin", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OfIncome", System.Data.SqlDbType.Decimal, 0, System.Data.ParameterDirection.Input, 18, 2, "OfIncome", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OfExpend", System.Data.SqlDbType.Decimal, 0, System.Data.ParameterDirection.Input, 18, 2, "OfExpend", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Income", System.Data.SqlDbType.Decimal, 0, System.Data.ParameterDirection.Input, 18, 2, "Income", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Expend", System.Data.SqlDbType.Decimal, 0, System.Data.ParameterDirection.Input, 18, 2, "Expend", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BalanceEnd", System.Data.SqlDbType.Decimal, 0, System.Data.ParameterDirection.Input, 18, 2, "BalanceEnd", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IsClosed", System.Data.SqlDbType.Bit, 0, System.Data.ParameterDirection.Input, 0, 0, "IsClosed", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_RowVersion", System.Data.SqlDbType.Timestamp, 0, System.Data.ParameterDirection.Input, 0, 0, "RowVersion", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitConnection() {
+            this._connection = new System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::RetailTrade.Properties.Settings.Default.RetailTradeConnectionString1;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitCommandCollection() {
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "dbo.CashSelectCommand";
+            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Variant, 0, System.Data.ParameterDirection.ReturnValue, 0, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(MDataSet.CashDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual MDataSet.CashDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            MDataSet.CashDataTable dataTable = new MDataSet.CashDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(MDataSet.CashDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(MDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "Cash");
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(int Original_ID, byte[] Original_RowVersion) {
+            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_ID));
+            if ((Original_RowVersion == null)) {
+                throw new System.ArgumentNullException("Original_RowVersion");
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((byte[])(Original_RowVersion));
+            }
+            System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & System.Data.ConnectionState.Open) 
+                        != System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(int NumZ, System.DateTime Date, decimal BalanceBegin, decimal OfIncome, decimal OfExpend, decimal Income, decimal Expend, decimal BalanceEnd, bool IsClosed) {
+            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(NumZ));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((System.DateTime)(Date));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((decimal)(BalanceBegin));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((decimal)(OfIncome));
+            this.Adapter.InsertCommand.Parameters[5].Value = ((decimal)(OfExpend));
+            this.Adapter.InsertCommand.Parameters[6].Value = ((decimal)(Income));
+            this.Adapter.InsertCommand.Parameters[7].Value = ((decimal)(Expend));
+            this.Adapter.InsertCommand.Parameters[8].Value = ((decimal)(BalanceEnd));
+            this.Adapter.InsertCommand.Parameters[9].Value = ((bool)(IsClosed));
+            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
+                        != System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(int NumZ, System.DateTime Date, decimal BalanceBegin, decimal OfIncome, decimal OfExpend, decimal Income, decimal Expend, decimal BalanceEnd, bool IsClosed, int Original_ID, byte[] Original_RowVersion, int ID) {
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(NumZ));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((System.DateTime)(Date));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((decimal)(BalanceBegin));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((decimal)(OfIncome));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((decimal)(OfExpend));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((decimal)(Income));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((decimal)(Expend));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((decimal)(BalanceEnd));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((bool)(IsClosed));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_ID));
+            if ((Original_RowVersion == null)) {
+                throw new System.ArgumentNullException("Original_RowVersion");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((byte[])(Original_RowVersion));
+            }
+            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(ID));
+            System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
+                        != System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
         }
     }
 }
