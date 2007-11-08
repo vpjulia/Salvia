@@ -1,0 +1,522 @@
+
+Log Entry : 11:09:56 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 11:10:01 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 11:10:02 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 11:17:43 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 11:22:34 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 11:22:37 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 11:22:37 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 11:26:42 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 11:28:20 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 11:28:22 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 11:28:23 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 11:30:08 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 11:37:00 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 11:37:02 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 11:37:02 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 11:41:23 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 11:54:34 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 11:54:45 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 11:54:45 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 11:57:27 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 11:57:29 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 11:57:29 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 11:58:32 5 ноября 2007 г.
+  :
+  :SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERRORПрошлый период закрыт!
+The transaction ended in the trigger. The batch has been aborted. .Net SqlClient Data Provider
+-------------------------------
+
+Log Entry : 12:00:58 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 12:00:59 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 12:00:59 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 12:10:19 5 ноября 2007 г.
+  :
+  :SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERRORС документа есть продажи ранее!
+The transaction ended in the trigger. The batch has been aborted. .Net SqlClient Data Provider
+-------------------------------
+
+Log Entry : 12:11:07 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 12:17:47 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 12:17:49 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 12:17:49 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:32:38 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:32:42 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:32:42 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:33:10 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 13:37:19 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:37:26 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:37:26 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:37:46 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 13:38:59 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:39:01 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:39:01 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:40:18 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 13:40:36 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:40:37 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:40:37 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:41:00 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 13:41:24 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:41:26 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:41:26 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:42:55 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:42:59 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:42:59 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:44:54 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 13:46:27 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:46:35 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:46:35 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:47:19 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:47:20 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:47:21 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:48:07 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 13:51:01 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:51:02 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:51:02 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:52:03 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 13:53:11 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:53:15 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:53:15 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:53:47 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 13:54:32 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:54:35 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:54:36 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:54:55 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 14:06:16 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 14:06:17 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 14:06:18 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 14:06:37 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 14:31:45 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 14:32:01 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 14:32:02 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 14:32:45 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 15:01:56 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 15:02:12 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 15:02:12 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 15:02:37 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 15:07:54 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 15:08:11 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 15:08:12 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 15:09:15 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 15:12:04 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 15:12:21 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 15:12:22 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 15:14:21 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 15:23:02 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 15:24:38 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 15:24:54 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 15:24:56 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 15:29:15 5 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 16:33:34 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 16:34:02 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 16:34:03 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 18:11:45 5 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 18:12:01 5 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 18:12:02 5 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------

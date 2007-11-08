@@ -1,0 +1,775 @@
+
+Log Entry : 10:04:59 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 10:05:15 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 10:05:16 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 10:09:25 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 10:09:40 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 10:09:41 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 10:17:29 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 10:17:47 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 10:17:48 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 10:22:59 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 10:33:31 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 10:33:48 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 10:33:50 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 10:37:55 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 10:38:14 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 10:38:15 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 10:42:47 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 10:43:09 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 10:43:10 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 10:48:58 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 10:51:41 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 10:51:58 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 10:52:00 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 10:55:43 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 11:02:47 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 11:03:08 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 11:03:09 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 11:11:35 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 11:12:50 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 11:13:07 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 11:13:07 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 11:14:56 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 11:15:12 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 11:15:14 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 11:58:54 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 11:59:10 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 11:59:11 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 12:01:28 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 12:01:42 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 12:01:43 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 12:10:35 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 12:10:53 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 12:10:54 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 12:12:40 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 12:34:59 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 12:35:19 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 12:35:21 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 12:35:36 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 12:38:28 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 12:38:41 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 12:38:42 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 12:41:18 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 12:41:32 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 12:41:33 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 12:44:36 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 12:44:56 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 12:44:57 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 12:49:54 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 12:52:29 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 12:52:46 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 12:52:48 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 12:59:23 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 13:02:59 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:03:14 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:03:14 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:04:10 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:04:29 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:04:30 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:06:18 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 13:54:04 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:54:29 7 ноября 2007 г.
+  :
+  :FillTable(string)TradePutlet ) ERRORException has been thrown by the target of an invocation. mscorlibTimeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
+-------------------------------
+
+Log Entry : 13:54:29 7 ноября 2007 г.
+  :
+  :FillTable(string)Stock ) ERRORException has been thrown by the target of an invocation. mscorlibTimeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
+-------------------------------
+
+Log Entry : 13:54:29 7 ноября 2007 г.
+  :
+  :FillTable(string)Periods ) ERRORException has been thrown by the target of an invocation. mscorlibTimeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
+-------------------------------
+
+Log Entry : 13:54:29 7 ноября 2007 г.
+  :
+  :FillTable(string)FarmGroup ) ERRORException has been thrown by the target of an invocation. mscorlibTimeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
+-------------------------------
+
+Log Entry : 13:54:29 7 ноября 2007 г.
+  :
+  :FillTable(string)FarmGroupLevel2 ) ERRORException has been thrown by the target of an invocation. mscorlibTimeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
+-------------------------------
+
+Log Entry : 13:54:30 7 ноября 2007 г.
+  :
+  :FillTable(string)Unit ) ERRORException has been thrown by the target of an invocation. mscorlibTimeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
+-------------------------------
+
+Log Entry : 13:54:30 7 ноября 2007 г.
+  :
+  :FillTable(string)Substance ) ERRORException has been thrown by the target of an invocation. mscorlibTimeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
+-------------------------------
+
+Log Entry : 13:54:31 7 ноября 2007 г.
+  :
+  :FillTable(string)Country ) ERRORException has been thrown by the target of an invocation. mscorlibTimeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
+-------------------------------
+
+Log Entry : 13:54:31 7 ноября 2007 г.
+  :
+  :FillTable(string)Manufacturer ) ERRORException has been thrown by the target of an invocation. mscorlibTimeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
+-------------------------------
+
+Log Entry : 13:54:31 7 ноября 2007 г.
+  :
+  :FillTable(string)Product ) ERRORException has been thrown by the target of an invocation. mscorlibTimeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
+-------------------------------
+
+Log Entry : 13:54:32 7 ноября 2007 г.
+  :
+  :FillTable(string)Organization ) ERRORException has been thrown by the target of an invocation. mscorlibTimeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
+-------------------------------
+
+Log Entry : 13:54:32 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:54:33 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:56:20 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 13:56:56 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:57:12 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:57:13 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:59:43 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:59:56 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:59:57 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 14:01:15 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 14:13:08 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 14:13:22 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 14:13:23 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 14:14:42 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 14:16:08 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 14:16:22 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 14:16:23 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 14:17:10 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 14:18:26 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 14:18:38 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 14:18:39 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 14:19:14 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 14:20:41 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 14:20:58 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 14:20:58 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 14:21:54 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 14:26:29 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 14:26:43 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 14:26:44 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 14:27:44 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 14:28:38 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 14:28:50 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 14:28:51 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 14:29:31 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 14:30:22 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 14:30:37 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 14:30:37 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 14:31:32 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 14:32:33 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 14:33:16 7 ноября 2007 г.
+  :
+  :FillTable(string)TradePutlet ) ERRORException has been thrown by the target of an invocation. mscorlibAn error has occurred while establishing a connection to the server.  When connecting to SQL Server 2005, this failure may be caused by the fact that under the default settings SQL Server does not allow remote connections. (provider: HTTP Provider, error: 0 - )
+-------------------------------
+
+Log Entry : 14:33:17 7 ноября 2007 г.
+  :
+  :FillTable(string)Stock ) ERRORException has been thrown by the target of an invocation. mscorlibAn error has occurred while establishing a connection to the server.  When connecting to SQL Server 2005, this failure may be caused by the fact that under the default settings SQL Server does not allow remote connections. (provider: HTTP Provider, error: 0 - )
+-------------------------------
+
+Log Entry : 14:33:17 7 ноября 2007 г.
+  :
+  :FillTable(string)Periods ) ERRORException has been thrown by the target of an invocation. mscorlibAn error has occurred while establishing a connection to the server.  When connecting to SQL Server 2005, this failure may be caused by the fact that under the default settings SQL Server does not allow remote connections. (provider: HTTP Provider, error: 0 - )
+-------------------------------
+
+Log Entry : 14:33:17 7 ноября 2007 г.
+  :
+  :FillTable(string)FarmGroup ) ERRORException has been thrown by the target of an invocation. mscorlibAn error has occurred while establishing a connection to the server.  When connecting to SQL Server 2005, this failure may be caused by the fact that under the default settings SQL Server does not allow remote connections. (provider: HTTP Provider, error: 0 - )
+-------------------------------
+
+Log Entry : 14:33:17 7 ноября 2007 г.
+  :
+  :FillTable(string)FarmGroupLevel2 ) ERRORException has been thrown by the target of an invocation. mscorlibAn error has occurred while establishing a connection to the server.  When connecting to SQL Server 2005, this failure may be caused by the fact that under the default settings SQL Server does not allow remote connections. (provider: HTTP Provider, error: 0 - )
+-------------------------------
+
+Log Entry : 14:33:18 7 ноября 2007 г.
+  :
+  :FillTable(string)Unit ) ERRORException has been thrown by the target of an invocation. mscorlibAn error has occurred while establishing a connection to the server.  When connecting to SQL Server 2005, this failure may be caused by the fact that under the default settings SQL Server does not allow remote connections. (provider: HTTP Provider, error: 0 - )
+-------------------------------
+
+Log Entry : 14:33:18 7 ноября 2007 г.
+  :
+  :FillTable(string)Substance ) ERRORException has been thrown by the target of an invocation. mscorlibAn error has occurred while establishing a connection to the server.  When connecting to SQL Server 2005, this failure may be caused by the fact that under the default settings SQL Server does not allow remote connections. (provider: HTTP Provider, error: 0 - )
+-------------------------------
+
+Log Entry : 14:33:18 7 ноября 2007 г.
+  :
+  :FillTable(string)Country ) ERRORException has been thrown by the target of an invocation. mscorlibAn error has occurred while establishing a connection to the server.  When connecting to SQL Server 2005, this failure may be caused by the fact that under the default settings SQL Server does not allow remote connections. (provider: HTTP Provider, error: 0 - )
+-------------------------------
+
+Log Entry : 14:33:19 7 ноября 2007 г.
+  :
+  :FillTable(string)Manufacturer ) ERRORException has been thrown by the target of an invocation. mscorlibAn error has occurred while establishing a connection to the server.  When connecting to SQL Server 2005, this failure may be caused by the fact that under the default settings SQL Server does not allow remote connections. (provider: HTTP Provider, error: 0 - )
+-------------------------------
+
+Log Entry : 14:33:19 7 ноября 2007 г.
+  :
+  :FillTable(string)Product ) ERRORException has been thrown by the target of an invocation. mscorlibAn error has occurred while establishing a connection to the server.  When connecting to SQL Server 2005, this failure may be caused by the fact that under the default settings SQL Server does not allow remote connections. (provider: HTTP Provider, error: 0 - )
+-------------------------------
+
+Log Entry : 14:33:19 7 ноября 2007 г.
+  :
+  :FillTable(string)Organization ) ERRORException has been thrown by the target of an invocation. mscorlibAn error has occurred while establishing a connection to the server.  When connecting to SQL Server 2005, this failure may be caused by the fact that under the default settings SQL Server does not allow remote connections. (provider: HTTP Provider, error: 0 - )
+-------------------------------
+
+Log Entry : 14:33:19 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 14:33:20 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 14:34:49 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 14:36:39 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 14:36:52 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 14:36:53 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 14:37:57 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 14:43:37 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 14:43:53 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 14:43:53 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 14:45:02 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 15:18:07 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 15:18:23 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 15:18:24 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 15:18:35 7 ноября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 15:32:20 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 15:32:34 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 15:32:35 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 15:35:01 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 15:35:21 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 15:35:22 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 15:39:18 7 ноября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 15:39:32 7 ноября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 15:39:33 7 ноября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
