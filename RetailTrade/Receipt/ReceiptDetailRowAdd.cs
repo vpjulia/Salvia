@@ -32,6 +32,8 @@ namespace RetailTrade.Receipt
             this.productBindingSource.ResetBindings(false);
             this.receiptDetailBindingSource.ResetBindings(true);
 
+            this.manufacturerBindingSource.DataSource = (source.Table.DataSet as MDataSet).Manufacturer;
+
             this.errorProvider1.DataSource = this.receiptDetailBindingSource;
             this.errorProvider1.UpdateBinding();
         }

@@ -139,11 +139,13 @@ namespace RetailTrade
                 
                 this.btCancel.Visible =false;
                 this.btSaveReciept.Enabled = false;
-
+               if ( _curentReceiptMasterRow.HasVersion(DataRowVersion.Original))
+               {
                 if (_curentReceiptMasterRow.GetReceiptDetailRows().Length == 0)
                     this.btMove.Visible = false;
                 else
                     this.btMove.Visible = true;
+               }
             }
  
 
