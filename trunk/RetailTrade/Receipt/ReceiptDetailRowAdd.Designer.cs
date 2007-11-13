@@ -37,24 +37,30 @@ namespace RetailTrade.Receipt
             this.mDataSet = new RetailTrade.MDataSet();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.QuantityEdit = new DevExpress.XtraEditors.TextEdit();
             this.label6 = new System.Windows.Forms.Label();
             this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
+            this.PriceEdit = new DevExpress.XtraEditors.TextEdit();
             this.textEdit3 = new DevExpress.XtraEditors.TextEdit();
+            this.ManufacturerlookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
+            this.manufacturerBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label5 = new System.Windows.Forms.Label();
-            this.QuantityEdit = new DevExpress.XtraEditors.TextEdit();
-            this.PriceEdit = new DevExpress.XtraEditors.TextEdit();
+            this.manufacturerTableAdapter = new RetailTrade.MDataSetTableAdapters.ManufacturerTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.QuantityEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PriceEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ManufacturerlookUpEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.manufacturerBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -63,27 +69,27 @@ namespace RetailTrade.Receipt
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 28);
+            this.label1.Size = new System.Drawing.Size(124, 28);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Количество";
+            this.label1.Text = "Количество :";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 62);
+            this.label2.Location = new System.Drawing.Point(3, 56);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 17);
+            this.label2.Size = new System.Drawing.Size(57, 17);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Серия";
+            this.label2.Text = "Серия :";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 90);
+            this.label3.Location = new System.Drawing.Point(3, 84);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 34);
+            this.label3.Size = new System.Drawing.Size(111, 17);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Срок годности";
+            this.label3.Text = "Срок годности :";
             // 
             // errorProvider1
             // 
@@ -103,6 +109,7 @@ namespace RetailTrade.Receipt
             // 
             // groupBox1
             // 
+            this.groupBox1.AutoSize = true;
             this.groupBox1.Controls.Add(this.tableLayoutPanel1);
             this.groupBox1.Location = new System.Drawing.Point(21, 67);
             this.groupBox1.Name = "groupBox1";
@@ -112,55 +119,87 @@ namespace RetailTrade.Receipt
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.21683F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.78317F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.13841F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 59.86159F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 21F));
             this.tableLayoutPanel1.Controls.Add(this.QuantityEdit, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.textEdit1, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.textEdit3, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.PriceEdit, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.textEdit3, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.ManufacturerlookUpEdit, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 18);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(347, 144);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // QuantityEdit
+            // 
+            this.QuantityEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.receiptDetailBindingSource, "Quantity", true, System.Windows.Forms.DataSourceUpdateMode.Never));
+            this.QuantityEdit.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.receiptDetailBindingSource, "Quantity", true));
+            this.QuantityEdit.EnterMoveNextControl = true;
+            this.QuantityEdit.Location = new System.Drawing.Point(133, 3);
+            this.QuantityEdit.Name = "QuantityEdit";
+            this.QuantityEdit.Properties.HideSelection = false;
+            this.QuantityEdit.Properties.Mask.EditMask = "n3";
+            this.QuantityEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.QuantityEdit.Properties.ValidateOnEnterKey = true;
+            this.QuantityEdit.Size = new System.Drawing.Size(100, 22);
+            this.QuantityEdit.TabIndex = 1;
+            this.QuantityEdit.Leave += new System.EventHandler(this.QuantityEdit_Leave);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(3, 28);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(74, 34);
+            this.label6.Size = new System.Drawing.Size(112, 17);
             this.label6.TabIndex = 6;
-            this.label6.Text = "Цена без НДС";
+            this.label6.Text = "Цена без НДС :";
             // 
             // textEdit1
             // 
             this.textEdit1.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.receiptDetailBindingSource, "Series", true));
             this.textEdit1.EnterMoveNextControl = true;
-            this.textEdit1.Location = new System.Drawing.Point(111, 65);
+            this.textEdit1.Location = new System.Drawing.Point(133, 59);
             this.textEdit1.Name = "textEdit1";
             this.textEdit1.Properties.HideSelection = false;
             this.textEdit1.Properties.ValidateOnEnterKey = true;
             this.textEdit1.Size = new System.Drawing.Size(100, 22);
             this.textEdit1.TabIndex = 3;
             // 
+            // PriceEdit
+            // 
+            this.PriceEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.receiptDetailBindingSource, "PricePurchase", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "C5"));
+            this.PriceEdit.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.receiptDetailBindingSource, "PricePurchase", true));
+            this.PriceEdit.EnterMoveNextControl = true;
+            this.PriceEdit.Location = new System.Drawing.Point(133, 31);
+            this.PriceEdit.Name = "PriceEdit";
+            this.PriceEdit.Properties.HideSelection = false;
+            this.PriceEdit.Properties.ValidateOnEnterKey = true;
+            this.PriceEdit.Size = new System.Drawing.Size(100, 22);
+            this.PriceEdit.TabIndex = 2;
+            // 
             // textEdit3
             // 
             this.textEdit3.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.receiptDetailBindingSource, "UseByDate", true));
+            this.textEdit3.Dock = System.Windows.Forms.DockStyle.Left;
             this.textEdit3.EnterMoveNextControl = true;
-            this.textEdit3.Location = new System.Drawing.Point(111, 93);
+            this.textEdit3.Location = new System.Drawing.Point(133, 87);
             this.textEdit3.Name = "textEdit3";
             this.textEdit3.Properties.DisplayFormat.FormatString = "d";
             this.textEdit3.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
@@ -172,6 +211,39 @@ namespace RetailTrade.Receipt
             this.textEdit3.Properties.ValidateOnEnterKey = true;
             this.textEdit3.Size = new System.Drawing.Size(100, 22);
             this.textEdit3.TabIndex = 4;
+            // 
+            // ManufacturerlookUpEdit
+            // 
+            this.ManufacturerlookUpEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.receiptDetailBindingSource, "ManufacturerRef", true));
+            this.ManufacturerlookUpEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ManufacturerlookUpEdit.Location = new System.Drawing.Point(133, 116);
+            this.ManufacturerlookUpEdit.Name = "ManufacturerlookUpEdit";
+            this.ManufacturerlookUpEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.ManufacturerlookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.ManufacturerlookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name", 50, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("CountryName", "CountryName", 30, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near)});
+            this.ManufacturerlookUpEdit.Properties.DataSource = this.manufacturerBindingSource;
+            this.ManufacturerlookUpEdit.Properties.DisplayMember = "Name";
+            this.ManufacturerlookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.ManufacturerlookUpEdit.Properties.ValueMember = "ID";
+            this.ManufacturerlookUpEdit.Size = new System.Drawing.Size(189, 22);
+            this.ManufacturerlookUpEdit.TabIndex = 5;
+            // 
+            // manufacturerBindingSource
+            // 
+            this.manufacturerBindingSource.DataMember = "Manufacturer";
+            this.manufacturerBindingSource.DataSource = this.mDataSet;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 113);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(106, 17);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Изготовитель :";
             // 
             // label4
             // 
@@ -200,32 +272,9 @@ namespace RetailTrade.Receipt
             this.label5.TabIndex = 12;
             this.label5.Text = "label5";
             // 
-            // QuantityEdit
+            // manufacturerTableAdapter
             // 
-            this.QuantityEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.receiptDetailBindingSource, "Quantity", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.QuantityEdit.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.receiptDetailBindingSource, "Quantity", true));
-            this.QuantityEdit.EnterMoveNextControl = true;
-            this.QuantityEdit.Location = new System.Drawing.Point(111, 3);
-            this.QuantityEdit.Name = "QuantityEdit";
-            this.QuantityEdit.Properties.HideSelection = false;
-            this.QuantityEdit.Properties.Mask.EditMask = "n3";
-            this.QuantityEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            this.QuantityEdit.Properties.ValidateOnEnterKey = true;
-            this.QuantityEdit.Size = new System.Drawing.Size(100, 22);
-            this.QuantityEdit.TabIndex = 1;
-            this.QuantityEdit.Leave += new System.EventHandler(this.QuantityEdit_Leave);
-            // 
-            // PriceEdit
-            // 
-            this.PriceEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.receiptDetailBindingSource, "PricePurchase", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "C5"));
-            this.PriceEdit.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.receiptDetailBindingSource, "PricePurchase", true));
-            this.PriceEdit.EnterMoveNextControl = true;
-            this.PriceEdit.Location = new System.Drawing.Point(111, 31);
-            this.PriceEdit.Name = "PriceEdit";
-            this.PriceEdit.Properties.HideSelection = false;
-            this.PriceEdit.Properties.ValidateOnEnterKey = true;
-            this.PriceEdit.Size = new System.Drawing.Size(100, 22);
-            this.PriceEdit.TabIndex = 2;
+            this.manufacturerTableAdapter.ClearBeforeFill = true;
             // 
             // ReceiptDetailRowAdd
             // 
@@ -243,13 +292,16 @@ namespace RetailTrade.Receipt
             ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.QuantityEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PriceEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ManufacturerlookUpEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.manufacturerBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,5 +325,9 @@ namespace RetailTrade.Receipt
         private DevExpress.XtraEditors.TextEdit textEdit3;
         private DevExpress.XtraEditors.TextEdit QuantityEdit;
         private DevExpress.XtraEditors.TextEdit PriceEdit;
+        private DevExpress.XtraEditors.LookUpEdit ManufacturerlookUpEdit;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.BindingSource manufacturerBindingSource;
+        private RetailTrade.MDataSetTableAdapters.ManufacturerTableAdapter manufacturerTableAdapter;
     }
 }

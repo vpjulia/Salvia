@@ -134,6 +134,8 @@ namespace RetailTrade
                 FillTable("TradePutlet");
                 FillTable("Stock");
                 FillTable("Periods");
+                FillTable("Manufacturer");
+
                 FillTable("Product");
                 FillTable("Organization");
             }

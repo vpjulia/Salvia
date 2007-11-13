@@ -16,7 +16,7 @@ namespace RetailTrade.Properties {
             this.SettingsSaving += this.SettingsSavingEventHandler;
             //
         }
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+    /*    [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source={0};Initial Catalog=RetailTrade;Integrated Security=True")]
@@ -26,7 +26,7 @@ namespace RetailTrade.Properties {
             {
                 return (string.Format((string)(this["RetailTradeConnectionString"]), this["SERVER"]));
             }
-        }
+        }*/
         private void SettingChangingEventHandler(object sender, System.Configuration.SettingChangingEventArgs e) {
 
            // this.Save();
