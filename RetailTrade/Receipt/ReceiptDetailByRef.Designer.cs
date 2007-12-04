@@ -31,7 +31,7 @@ namespace RetailTrade
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReceiptDetailByRef));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.btFind = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -48,7 +48,6 @@ namespace RetailTrade
             this.colStorageConditionRef = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSubstanceRef = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFarmGrouplevel2Ref = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colManufacturerRef = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsRecept = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsOneRecept = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsHide = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -58,11 +57,9 @@ namespace RetailTrade
             this.colAuthorLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDateCreate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colRowVersion = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCountryName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFarmGroupName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPackingName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStorageConditionName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colManufacturerName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFarmGroupLevel2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colUnitName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSubstanceName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -107,21 +104,21 @@ namespace RetailTrade
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1});
+            this.btFind});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(635, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripButton1
+            // btFind
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.btFind.Image = ((System.Drawing.Image)(resources.GetObject("btFind.Image")));
+            this.btFind.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btFind.Name = "btFind";
+            this.btFind.Size = new System.Drawing.Size(70, 22);
+            this.btFind.Text = "Найти";
+            this.btFind.Click += new System.EventHandler(this.btFind_Click);
             // 
             // tabControl1
             // 
@@ -203,7 +200,6 @@ namespace RetailTrade
             this.colStorageConditionRef,
             this.colSubstanceRef,
             this.colFarmGrouplevel2Ref,
-            this.colManufacturerRef,
             this.colIsRecept,
             this.colIsOneRecept,
             this.colIsHide,
@@ -213,11 +209,9 @@ namespace RetailTrade
             this.colAuthorLastModif,
             this.colDateCreate,
             this.colRowVersion,
-            this.colCountryName,
             this.colFarmGroupName,
             this.colPackingName,
             this.colStorageConditionName,
-            this.colManufacturerName,
             this.colFarmGroupLevel2,
             this.colUnitName,
             this.colSubstanceName});
@@ -248,7 +242,7 @@ namespace RetailTrade
             this.colName.Name = "colName";
             this.colName.Visible = true;
             this.colName.VisibleIndex = 0;
-            this.colName.Width = 132;
+            this.colName.Width = 322;
             // 
             // colSmallName
             // 
@@ -291,12 +285,6 @@ namespace RetailTrade
             this.colFarmGrouplevel2Ref.Caption = "FarmGrouplevel2Ref";
             this.colFarmGrouplevel2Ref.FieldName = "FarmGrouplevel2Ref";
             this.colFarmGrouplevel2Ref.Name = "colFarmGrouplevel2Ref";
-            // 
-            // colManufacturerRef
-            // 
-            this.colManufacturerRef.Caption = "ManufacturerRef";
-            this.colManufacturerRef.FieldName = "ManufacturerRef";
-            this.colManufacturerRef.Name = "colManufacturerRef";
             // 
             // colIsRecept
             // 
@@ -353,12 +341,6 @@ namespace RetailTrade
             this.colRowVersion.Name = "colRowVersion";
             this.colRowVersion.OptionsColumn.ReadOnly = true;
             // 
-            // colCountryName
-            // 
-            this.colCountryName.Caption = "CountryName";
-            this.colCountryName.FieldName = "CountryName";
-            this.colCountryName.Name = "colCountryName";
-            // 
             // colFarmGroupName
             // 
             this.colFarmGroupName.Caption = "FarmGroupName";
@@ -367,24 +349,18 @@ namespace RetailTrade
             // 
             // colPackingName
             // 
-            this.colPackingName.Caption = "PackingName";
+            this.colPackingName.Caption = "Форма выпуска";
             this.colPackingName.FieldName = "PackingName";
             this.colPackingName.Name = "colPackingName";
+            this.colPackingName.Visible = true;
+            this.colPackingName.VisibleIndex = 1;
+            this.colPackingName.Width = 285;
             // 
             // colStorageConditionName
             // 
             this.colStorageConditionName.Caption = "StorageConditionName";
             this.colStorageConditionName.FieldName = "StorageConditionName";
             this.colStorageConditionName.Name = "colStorageConditionName";
-            // 
-            // colManufacturerName
-            // 
-            this.colManufacturerName.Caption = "Изготовитель";
-            this.colManufacturerName.FieldName = "ManufacturerName";
-            this.colManufacturerName.Name = "colManufacturerName";
-            this.colManufacturerName.Visible = true;
-            this.colManufacturerName.VisibleIndex = 1;
-            this.colManufacturerName.Width = 117;
             // 
             // colFarmGroupLevel2
             // 
@@ -638,7 +614,6 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Columns.GridColumn colStorageConditionRef;
         private DevExpress.XtraGrid.Columns.GridColumn colSubstanceRef;
         private DevExpress.XtraGrid.Columns.GridColumn colFarmGrouplevel2Ref;
-        private DevExpress.XtraGrid.Columns.GridColumn colManufacturerRef;
         private DevExpress.XtraGrid.Columns.GridColumn colIsRecept;
         private DevExpress.XtraGrid.Columns.GridColumn colIsOneRecept;
         private DevExpress.XtraGrid.Columns.GridColumn colIsHide;
@@ -648,11 +623,9 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Columns.GridColumn colAuthorLastModif;
         private DevExpress.XtraGrid.Columns.GridColumn colDateCreate;
         private DevExpress.XtraGrid.Columns.GridColumn colRowVersion;
-        private DevExpress.XtraGrid.Columns.GridColumn colCountryName;
         private DevExpress.XtraGrid.Columns.GridColumn colFarmGroupName;
         private DevExpress.XtraGrid.Columns.GridColumn colPackingName;
         private DevExpress.XtraGrid.Columns.GridColumn colStorageConditionName;
-        private DevExpress.XtraGrid.Columns.GridColumn colManufacturerName;
         private DevExpress.XtraGrid.Columns.GridColumn colFarmGroupLevel2;
         private DevExpress.XtraGrid.Columns.GridColumn colUnitName;
         private DevExpress.XtraGrid.Columns.GridColumn colSubstanceName;
@@ -667,7 +640,7 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Columns.GridColumn colUseByDate;
         private DevExpress.XtraGrid.Columns.GridColumn colQuantity;
         private DevExpress.XtraGrid.Columns.GridColumn colPricePurchase;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton btFind;
         private System.Windows.Forms.BindingSource receiptMasterBindingSourceView;
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit productLookUpEdit;
         private System.Windows.Forms.ContextMenuStrip contextMenuReceiptDetail;

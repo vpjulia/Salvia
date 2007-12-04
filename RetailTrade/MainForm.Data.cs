@@ -341,8 +341,7 @@ namespace RetailTrade
             {
                 int res = this.receiptMasterTableAdapter.Update(sourceRow);
 
-                this.actionStatusLabel.Text = "Сохранен приходный акт №"+ sourceRow.Number.ToString();
-            }
+           }
         
             catch (DBConcurrencyException dbcx)
             {
@@ -379,14 +378,17 @@ namespace RetailTrade
 
           finally
             {
-                sourceRow.AcceptChanges();
+               
                
             }
 
-            /*Сохранить удаления*/
+          if (sourceRow.RowState== DataRowState.Detached) return true;
+
+
+            /*Сохранить дочерние*/
            try
             {
-                int res = this.receiptDetailTableAdapter.Update(this.mDataSet.ReceiptDetail.Select("ReceiptMasterRef=" + sourceRow.ID.ToString(), null,DataViewRowState.Deleted));
+                int res = this.receiptDetailTableAdapter.Update(sourceRow.GetReceiptDetailRows() );
              }
             catch (DBConcurrencyException dbcx)
             {
@@ -404,7 +406,7 @@ namespace RetailTrade
 
                     caughtGlobalError(sqlerr);
 
-                Log("SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
+                Log("SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERROR" + sqlerr.Message + " " + sqlerr.Source);  
             
 
                 return false;
@@ -423,96 +425,9 @@ namespace RetailTrade
 
             finally
             {
-               // this.RefreshData(sourceRow);
+                RefreshData(sourceRow);
             }
-            // добавления 
-            try
-            {
-                int res = this.receiptDetailTableAdapter.Update(this.mDataSet.ReceiptDetail.Select("ReceiptMasterRef=" + sourceRow.ID.ToString(), null, DataViewRowState.Added));
-            }
-            catch (DBConcurrencyException dbcx)
-            {
-                this.onReceiptDetailDBCError(dbcx);
-                return false;
-            }
-
-            catch (SqlException sqlerr)
-            {
-                if (sqlerr.Class < 17)
-                {
-                    OnReceiptDetailSQLError(sqlerr, sourceRow);
-                }
-                else
-
-                    caughtGlobalError(sqlerr);
-
-                Log("SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
-            
-
-                return false;
-
-
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message);
-                Log("SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
-            
-
-                return false;
-            }
-
-            finally
-            {
-                // this.RefreshData(sourceRow);
-            }
-            /*Изменения*/
-            try
-            {
-                int res = this.receiptDetailTableAdapter.Update(this.mDataSet.ReceiptDetail.Select("ReceiptMasterRef=" + sourceRow.ID.ToString(), null, DataViewRowState.ModifiedCurrent));
-            }
-            catch (DBConcurrencyException dbcx)
-            {
-                this.onReceiptDetailDBCError(dbcx);
-                return false;
-            }
-
-            catch (SqlException sqlerr)
-            {
-                if (sqlerr.Class < 17)
-                {
-                    OnReceiptDetailSQLError(sqlerr, sourceRow);
-                }
-                else
-
-                    caughtGlobalError(sqlerr);
-
-                Log("SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
-            
-                return false;
-
-
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message);
-                Log("SaveToBase(MDataSet.ReceiptMasterRow sourceRow) ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
-            
-
-                return false;
-            }
-
-            finally
-            {
-                this.RefreshData(sourceRow);
-            }
-
-            foreach (DataRow _dr in sourceRow.GetReceiptDetailRows())
-            {
-                _dr.AcceptChanges();
-            }
-
-            sourceRow.AcceptChanges();
+         
 
           return true;
 
@@ -804,7 +719,7 @@ namespace RetailTrade
             finally
             {
                 this.mDataSet.ReceiptMaster.Merge(_tmpMaster);
-                this.mDataSet.ReceiptDetail.Merge(_tmpDetail);
+              //  this.mDataSet.ReceiptDetail.Merge(_tmpDetail);
 
             }
             return true;
@@ -868,14 +783,31 @@ namespace RetailTrade
         {
             MDataSet.ReceiptMasterDataTable _tmpMaster = new MDataSet.ReceiptMasterDataTable();
             MDataSet.ReceiptDetailDataTable _tmpDetail = new MDataSet.ReceiptDetailDataTable();
-
-            
+            MDataSet.ProductDataTable _prod = new MDataSet.ProductDataTable();
+            MDataSet.ManufacturerDataTable _man = new MDataSet.ManufacturerDataTable();
 
 
             try
             {
+  
                 this.receiptMasterTableAdapter.FillByPeriod(_tmpMaster,begin);
-                this.receiptDetailTableAdapter.FillByPeriod(_tmpDetail,begin);
+                
+                foreach(DataRow masRow in _tmpMaster )
+                {
+
+
+                    this.productTableAdapter.FillByReceiptId(_prod, (masRow as MDataSet.ReceiptMasterRow).ID);
+                    this.manufacturerTableAdapter.FillByReceiptMasterRef(_man, (masRow as MDataSet.ReceiptMasterRow).ID);
+
+                    this.mDataSet.Product.Merge(_prod);
+                    this.mDataSet.Manufacturer.Merge(_man);
+                }
+
+
+                this.receiptDetailTableAdapter.FillByPeriod(_tmpDetail, begin);
+
+                this.mDataSet.ReceiptMaster.Merge(_tmpMaster);
+                this.mDataSet.ReceiptDetail.Merge(_tmpDetail);
 
             }
 
@@ -896,6 +828,10 @@ namespace RetailTrade
             }
             catch (Exception err)
             {
+             /*  DataRow[] dr = this.mDataSet.er.ReceiptDetail.GetErrors();
+
+                DataColumn[] dc =  dr[0].GetColumnsInError();
+                */
                 MessageBox.Show(err.Message);
 
                 Log("FillTableStockDocuments(MDataSet.ReceiptMasterDataTable source) ERROR" + err.Message + " " + err.Source +err.InnerException.Message);  
@@ -905,8 +841,7 @@ namespace RetailTrade
             }
             finally
             {
-                this.mDataSet.ReceiptMaster.Merge(_tmpMaster);
-                this.mDataSet.ReceiptDetail.Merge(_tmpDetail);
+                
 
             }
             return true;
@@ -997,7 +932,7 @@ namespace RetailTrade
             finally
             {
                 this.mDataSet.InvoiceMaster.Merge(_tmpMaster);
-                this.mDataSet.InvoiceDetail.Merge(_tmpDetail);
+             this.mDataSet.InvoiceDetail.Merge(_tmpDetail);
 
             }
             return true;
@@ -1077,7 +1012,7 @@ namespace RetailTrade
             {
                 this.mDataSet.Product.Merge(_productDataTable);
                 this.mDataSet.ReceiptMaster.Merge(_ReceiptMasterDataTable);
-                this.mDataSet.ReceiptDetail.Merge(_ReceiptDetailDataTable);
+              //  this.mDataSet.ReceiptDetail.Merge(_ReceiptDetailDataTable);
                 this.mDataSet.ReceiptMaster.AcceptChanges();
                 this.mDataSet.ReceiptDetail.AcceptChanges();
             }
