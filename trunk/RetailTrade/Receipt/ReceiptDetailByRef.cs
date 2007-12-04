@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using RetailTrade.Receipt;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid;
 
 namespace RetailTrade
 {
@@ -16,22 +17,31 @@ namespace RetailTrade
         private bool _isNds;
 
         DataTable _productTable;
+        MainForm _mainForm;
 
         public ReceiptDetailByRef()
         {
             InitializeComponent();
         }
 
-        public ReceiptDetailByRef(MDataSet.ReceiptMasterRow source,DataTable tableProduct)
+        public ReceiptDetailByRef(MDataSet.ReceiptMasterRow source,DataTable tableProduct,MainForm mainform)
         {
            
             InitializeComponent();
 
+            _mainForm = mainform;
+
             _productTable = tableProduct;
+
+
             _isNds = source.StockRowByFK_ReceiptMaster_Stock.IsNDS;
 
             this.mDataSet = source.Table.DataSet as MDataSet;
-            this.productBindingSource.DataSource = tableProduct.Select("IsNds=" + _isNds.ToString(),"Name",DataViewRowState.Unchanged);
+            
+            
+
+            this.productBindingSource.DataSource = new DataView(_productTable, "IsNds=" + _isNds.ToString(),"Name",DataViewRowState.Unchanged);
+           
             this.productBindingSource.ResetBindings(true);
      //      this.productBindingSource.DataSource = this.mDataSet.Product.Select("IsNds=" + source.StockRowByFK_ReceiptMaster_Stock.IsNDS.ToString() );
   
@@ -50,8 +60,21 @@ namespace RetailTrade
 
         private void ReceiptDetailByRef_Load(object sender, EventArgs e)
         {
-           
+            try
+            {
+                FullDataSet.ProductDataTable _pr = new FullDataSet.ProductDataTable();
+
+                _mainForm.productTableAdapter1.FillByName(_pr, "А");
+                _productTable.Merge(_pr);
+
+                this.productBindingSource.ResetBindings(false);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
         }
+
         private void gridViewProduct_Click(object sender, EventArgs e)
       
             /*создать новую строку, указатель на нее в ReceiptDetailRowAdd для редактирования*/
@@ -65,17 +88,17 @@ namespace RetailTrade
 
                MDataSet.ReceiptDetailRow sourceRow = ((this.receiptDetailBindingSource.AddNew() as DataRowView).Row as MDataSet.ReceiptDetailRow);
  
-                int _idproduct = Convert.ToInt32((this.productBindingSource.CurrencyManager.Current as DataRow)["ID"]);
+                int _idproduct = Convert.ToInt32(((this.productBindingSource.CurrencyManager.Current as DataRowView).Row as DataRow)["ID"]);
 
                  MDataSet.ProductRow productRow = this.mDataSet.Product.FindByID(_idproduct);
 
                  if (productRow==null)
                  {
-                     (this.productBindingSource.CurrencyManager.Current as FullDataSet.ProductRow).SetModified();
+                     ((this.productBindingSource.CurrencyManager.Current as DataRowView).Row  as FullDataSet.ProductRow).SetModified();
 
                      this.mDataSet.Product.Merge(_productTable.GetChanges());
-                 
-                     (this.productBindingSource.CurrencyManager.Current as FullDataSet.ProductRow).AcceptChanges();
+
+                     ((this.productBindingSource.CurrencyManager.Current as DataRowView).Row as FullDataSet.ProductRow).AcceptChanges();
               
                      productRow = this.mDataSet.Product.FindByID(_idproduct);
 
@@ -213,6 +236,28 @@ namespace RetailTrade
 
 
                 e.PreviewText = pack.ToString() + "   " + place + "  " + farmgr + "   " + subst + "  " + country;
+            }
+        }
+
+        private void btFind_Click(object sender, EventArgs e)
+        {
+            string name = this.gridViewProduct.GetRowCellDisplayText(GridControl.AutoFilterRowHandle, this.colName);
+
+            if (name.Length == 0) return;
+
+
+            try
+            {
+                FullDataSet.ProductDataTable _pr = new FullDataSet.ProductDataTable();
+
+                _mainForm.productTableAdapter1.FillByName(_pr, name);
+                _productTable.Merge(_pr);
+
+                this.productBindingSource.ResetBindings(false);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
             }
         }
     }

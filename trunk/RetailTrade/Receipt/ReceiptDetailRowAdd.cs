@@ -26,13 +26,14 @@ namespace RetailTrade.Receipt
             _receiptDetailRow = source;
             _productRow = product;
 
+            this.mDataSet = (source.Table.DataSet as MDataSet);
             this.receiptDetailBindingSource.DataSource = _receiptDetailRow;
             this.productBindingSource.DataSource = _productRow;
 
             this.productBindingSource.ResetBindings(false);
             this.receiptDetailBindingSource.ResetBindings(true);
 
-            this.manufacturerBindingSource.DataSource = (source.Table.DataSet as MDataSet).Manufacturer;
+            this.manufacturerBindingSource.DataSource = this.mDataSet.Manufacturer;
 
             this.errorProvider1.DataSource = this.receiptDetailBindingSource;
             this.errorProvider1.UpdateBinding();
@@ -54,13 +55,13 @@ namespace RetailTrade.Receipt
              if (!this.ValidateChildren())
                 e.Cancel = true;
 
-             /* foreach (Control ctrl in this.tableLayoutPanel1.Controls)
+            foreach (Control ctrl in this.tableLayoutPanel1.Controls)
                 if (errorProvider1.GetError(ctrl) != "")
                     {
                         ctrl.Focus();
                         e.Cancel = true;
-                        break;
-                   }*/
+                        return;
+                   }
 
        }
 
@@ -86,6 +87,36 @@ namespace RetailTrade.Receipt
         private void QuantityEdit_Leave(object sender, EventArgs e)
         {
            // this.QuantityEdit.DoValidate();
+        }
+
+        private void btManRefresh_Click(object sender, EventArgs e)
+        {
+            string name = this.ManufacturerlookUpEdit.Text;
+
+            if (name.Length == 0) return;
+
+            if (name.Length > 3)
+                name = name.Substring(0, 3);
+            
+            try
+            {
+                MDataSet.ManufacturerDataTable _tmp = new MDataSet.ManufacturerDataTable();
+
+                (this.ParentForm as FormDialog).MainForm.manufacturerTableAdapter.FillByName(_tmp,name);
+                this.mDataSet.Manufacturer.Merge(_tmp);
+             }
+
+            catch (Exception err)
+            {
+
+                MessageBox.Show(err.Message);
+            }
+            
+        }
+
+        private void ManufacturerlookUpEdit_GetNotInListValue(object sender, DevExpress.XtraEditors.Controls.GetNotInListValueEventArgs e)
+        {
+            MessageBox.Show("Запись не найдена");
         }
 
        

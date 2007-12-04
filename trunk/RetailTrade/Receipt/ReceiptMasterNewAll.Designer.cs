@@ -54,6 +54,8 @@ namespace RetailTrade
             this.colOrganizationName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNote = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStockName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.StockItemLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.stockBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.colDocumentTypeName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsNDS = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTradePutletName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -94,8 +96,6 @@ namespace RetailTrade
             this.receiptMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptMasterTableAdapter();
             this.productTableAdapter = new RetailTrade.MDataSetTableAdapters.ProductTableAdapter();
             this.organizationTableAdapter = new RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter();
-            this.StockItemLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
-            this.stockBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.stockTableAdapter = new RetailTrade.MDataSetTableAdapters.StockTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRecDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productLookUpEdit)).BeginInit();
@@ -106,14 +106,14 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterNewBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewMain)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StockItemLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stockBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OrganizationLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOrders)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.StockItemLookUpEdit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.stockBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // gridViewRecDetail
@@ -369,6 +369,21 @@ namespace RetailTrade
             this.colStockName.Visible = true;
             this.colStockName.VisibleIndex = 6;
             this.colStockName.Width = 60;
+            // 
+            // StockItemLookUpEdit
+            // 
+            this.StockItemLookUpEdit.AutoHeight = false;
+            this.StockItemLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.StockItemLookUpEdit.DataSource = this.stockBindingSource;
+            this.StockItemLookUpEdit.DisplayMember = "Name";
+            this.StockItemLookUpEdit.Name = "StockItemLookUpEdit";
+            this.StockItemLookUpEdit.ValueMember = "ID";
+            // 
+            // stockBindingSource
+            // 
+            this.stockBindingSource.DataMember = "Stock";
+            this.stockBindingSource.DataSource = this.mDataSet;
             // 
             // colDocumentTypeName
             // 
@@ -676,6 +691,7 @@ namespace RetailTrade
             this.btDel.Name = "btDel";
             this.btDel.Size = new System.Drawing.Size(85, 22);
             this.btDel.Text = "Удалить";
+            this.btDel.Click += new System.EventHandler(this.btDel_Click);
             // 
             // BtClose
             // 
@@ -751,21 +767,6 @@ namespace RetailTrade
             // 
             this.organizationTableAdapter.ClearBeforeFill = true;
             // 
-            // StockItemLookUpEdit
-            // 
-            this.StockItemLookUpEdit.AutoHeight = false;
-            this.StockItemLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.StockItemLookUpEdit.DataSource = this.stockBindingSource;
-            this.StockItemLookUpEdit.DisplayMember = "Name";
-            this.StockItemLookUpEdit.Name = "StockItemLookUpEdit";
-            this.StockItemLookUpEdit.ValueMember = "ID";
-            // 
-            // stockBindingSource
-            // 
-            this.stockBindingSource.DataMember = "Stock";
-            this.stockBindingSource.DataSource = this.mDataSet;
-            // 
             // stockTableAdapter
             // 
             this.stockTableAdapter.ClearBeforeFill = true;
@@ -790,6 +791,8 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterNewBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewMain)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StockItemLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stockBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OrganizationLookUpEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
@@ -797,8 +800,6 @@ namespace RetailTrade
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.StockItemLookUpEdit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.stockBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

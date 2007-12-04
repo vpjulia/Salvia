@@ -84,18 +84,33 @@ namespace RetailTrade
             {
                 foreach (DataRowView _drMaster in _changesMaster)
                 {
-                    string _tag = "ReceiptRowOrganization" + (_drMaster.Row as MDataSet.ReceiptMasterRow).ID.ToString();
+                    string _tag="";
+                   
+                   if (_drMaster.Row.HasVersion(DataRowVersion.Current))
+                   {
 
+                       _tag = "ReceiptRowOrganization" + (_drMaster.Row as MDataSet.ReceiptMasterRow)["ID",DataRowVersion.Current].ToString();
+                   }
+                   else
+                       if (_drMaster.Row.HasVersion(DataRowVersion.Original))
+                       {
+                   
+                           _tag = "ReceiptRowOrganization" + (_drMaster.Row as MDataSet.ReceiptMasterRow)["ID", DataRowVersion.Original].ToString();
+                       
+                       }
+                    
                     if (!(this.ParentForm as MainForm).FindOpenedTabs(_tag))
-                    {
-                        (this.ParentForm as MainForm).SaveToBase(_drMaster.Row as RetailTrade.MDataSet.ReceiptMasterRow );
-                        
-                    }
-                    else
-                    {
-                        MessageBox.Show("Завершите работу с документом", "Сохранение изменений", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        return false;
-                    }
+                        {
+                            (this.ParentForm as MainForm).SaveToBase(_drMaster.Row as RetailTrade.MDataSet.ReceiptMasterRow);
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Завершите работу с документом", "Сохранение изменений", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            return false;
+                        }
+                    
+                   
                 }
             }
 
@@ -425,6 +440,25 @@ namespace RetailTrade
             }
              
             
+        }
+
+        private void btDel_Click(object sender, EventArgs e)
+        {
+            MDataSet.ReceiptMasterRow row = this.gridViewMain.GetDataRow(this.gridViewMain.FocusedRowHandle) as MDataSet.ReceiptMasterRow;
+
+            if (row == null) return;
+
+            if (row.GetReceiptDetailRows().Length > 0)
+            {
+                MessageBox.Show("Документ не пустой!");
+                return;
+            }
+
+            row.Delete();
+
+            this.SaveChanges();
+                       
+
         }
 
      
