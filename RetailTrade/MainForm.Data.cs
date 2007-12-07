@@ -502,10 +502,19 @@ namespace RetailTrade
             if (sourceRow.RowState==DataRowState.Deleted)
               _invoiceMasterRow = this.mDataSet.InvoiceMaster.FindByID(Convert.ToInt32((sourceRow as MDataSet.InvoiceDetailRow)["InvoiceMasterRef", DataRowVersion.Original]));
 
+
+          MDataSet.RemainsDataTable _rem = new MDataSet.RemainsDataTable();
+
+
           try
           {
 
               int res = this.invoiceDetailTableAdapter.Update(sourceRow);
+
+              this.RemainsTableAdapter.FillNew(_rem);
+
+
+              this.mDataSet.Remains.Merge(_rem);
               this.actionStatusLabel.Text = "Успешно обновлена строка";
 
           }
@@ -527,7 +536,7 @@ namespace RetailTrade
              else
                 caughtGlobalError(sqlerr);
 
-            Log("SaveToBase(MDataSet.InvoiceDetailRow sourceRow) ERROR" + sqlerr.Message + " " + sqlerr.Source + sqlerr.InnerException.Message);  
+            Log("SaveToBase(MDataSet.InvoiceDetailRow sourceRow) ERROR" + sqlerr.Message + " " + sqlerr.Source );  
             
                return false;
 
@@ -536,14 +545,14 @@ namespace RetailTrade
           {
               MessageBox.Show(err.Message);
 
-              Log("SaveToBase(MDataSet.InvoiceDetailRow sourceRow) ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
+              Log("SaveToBase(MDataSet.InvoiceDetailRow sourceRow) ERROR" + err.Message + " " + err.Source);  
             
 
               return false;
           }
             finally
             {
-                this.RemainsTableAdapter.Fill(this.mDataSet.Remains);
+                
                 RefreshData(_invoiceMasterRow);
             }
 
@@ -612,20 +621,29 @@ namespace RetailTrade
                         Object[] args = new Object[2];
                         args[0] = this.fullDataSet.Tables[NameTable];
                         args[1] = list[0];
+                        try
+                        {
+                            tp.GetMethod("Fill").Invoke(this.components.Components[NameTable + "TableAdapter1"], args);
+                        }
 
-                        tp.GetMethod("Fill").Invoke(this.components.Components[NameTable + "TableAdapter1"], args);
+                        catch (Exception err)
+                        {
+
+                            MessageBox.Show(err.Message);
+                            return false;
+                        }
                     }
                     else
                     {
                         //если есть данные 
 
                         // слияние
-                   Object[] args = new Object[2];
-                       
-                     args[1] = list[0];
+                        Object[] args = new Object[2];
 
-                     Object  _newTable;
-                     Object[] parameters = new Object[0];
+                        args[1] = list[0];
+
+                        Object _newTable;
+                        Object[] parameters = new Object[0];
                         try
                         {
                             // создать пустую таблицу 
@@ -638,23 +656,23 @@ namespace RetailTrade
                         catch (SecurityException e)
                         {
                             Console.WriteLine("SecurityException: " + e.Message);
-                           
-                            Log("FullFillTable(string)" + NameTable + " ) ERROR" + e.Message + " " + e.Source + e.InnerException.Message);  
-  
+
+                            Log("FullFillTable(string)" + NameTable + " ) ERROR" + e.Message + " " + e.Source + e.InnerException.Message);
+
                             return false;
                         }
                         catch (Exception e)
                         {
                             Console.WriteLine("Exception: " + e.Message);
-                            Log("FullFillTable(string)" + NameTable + " ) ERROR" + e.Message + " " + e.Source + e.InnerException.Message);  
-  
+                            Log("FullFillTable(string)" + NameTable + " ) ERROR" + e.Message + " " + e.Source + e.InnerException.Message);
+
                             return false;
                         }
 
                         // Merge
                         try
                         {
-                           
+
                             tp.GetMethod("Fill").Invoke(this.components.Components[NameTable + "TableAdapter1"], args);
                             this.fullDataSet.Tables[NameTable].Merge(_newTable as DataTable, false);
                         }
@@ -662,8 +680,8 @@ namespace RetailTrade
                         {
                             MessageBox.Show(err.Message);
 
-                            Log("FullFillTable(string)" + NameTable + " ) ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
-  
+                            Log("FullFillTable(string)" + NameTable + " ) ERROR" + err.Message + " " + err.Source + err.InnerException.Message);
+
                             return false;
 
                         }
@@ -719,7 +737,7 @@ namespace RetailTrade
             finally
             {
                 this.mDataSet.ReceiptMaster.Merge(_tmpMaster);
-              //  this.mDataSet.ReceiptDetail.Merge(_tmpDetail);
+                 this.mDataSet.ReceiptDetail.Merge(_tmpDetail);
 
             }
             return true;
@@ -784,9 +802,7 @@ namespace RetailTrade
             MDataSet.ReceiptMasterDataTable _tmpMaster = new MDataSet.ReceiptMasterDataTable();
             MDataSet.ReceiptDetailDataTable _tmpDetail = new MDataSet.ReceiptDetailDataTable();
             MDataSet.ProductDataTable _prod = new MDataSet.ProductDataTable();
-            MDataSet.ManufacturerDataTable _man = new MDataSet.ManufacturerDataTable();
-
-
+          
             try
             {
   
@@ -795,12 +811,21 @@ namespace RetailTrade
                 foreach(DataRow masRow in _tmpMaster )
                 {
 
+                    MDataSet.ManufacturerDataTable _man = new MDataSet.ManufacturerDataTable();
 
-                    this.productTableAdapter.FillByReceiptId(_prod, (masRow as MDataSet.ReceiptMasterRow).ID);
+                    
                     this.manufacturerTableAdapter.FillByReceiptMasterRef(_man, (masRow as MDataSet.ReceiptMasterRow).ID);
 
+
+
+                    this.productTableAdapter.FillByReceiptId(_prod, (masRow as MDataSet.ReceiptMasterRow).ID);
+                 
+                 //   this.manufacturerTableAdapter.FillByReceiptMasterRef(_man , (masRow as MDataSet.ReceiptMasterRow).ID);
+
+                    
                     this.mDataSet.Product.Merge(_prod);
                     this.mDataSet.Manufacturer.Merge(_man);
+                   
                 }
 
 
@@ -828,13 +853,13 @@ namespace RetailTrade
             }
             catch (Exception err)
             {
-             /*  DataRow[] dr = this.mDataSet.er.ReceiptDetail.GetErrors();
+                DataRow[] dr = this.mDataSet.Manufacturer.GetErrors();
 
                 DataColumn[] dc =  dr[0].GetColumnsInError();
-                */
+                
                 MessageBox.Show(err.Message);
 
-                Log("FillTableStockDocuments(MDataSet.ReceiptMasterDataTable source) ERROR" + err.Message + " " + err.Source +err.InnerException.Message);  
+                Log("FillTableStockDocuments(MDataSet.ReceiptMasterDataTable source) ERROR" + err.Message + " " + err.Source );  
   
 
                 return false;

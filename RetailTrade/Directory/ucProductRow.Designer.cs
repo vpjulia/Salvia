@@ -39,9 +39,6 @@ namespace RetailTrade
             this.ceIsRecept = new DevExpress.XtraEditors.CheckEdit();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.ManufacturerlookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
-            this.manufacturerBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.btManufacturer = new System.Windows.Forms.Button();
             this.NametextEdit = new DevExpress.XtraEditors.TextEdit();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -63,7 +60,6 @@ namespace RetailTrade
             this.btFarmGroupLevel2 = new System.Windows.Forms.Button();
             this.btPlace = new System.Windows.Forms.Button();
             this.btSubstance = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.ceIsOneRecept = new DevExpress.XtraEditors.CheckEdit();
             this.ceIsHide = new DevExpress.XtraEditors.CheckEdit();
             this.label11 = new System.Windows.Forms.Label();
@@ -74,20 +70,18 @@ namespace RetailTrade
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.SamallNameEdit = new DevExpress.XtraEditors.TextEdit();
-            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.productTableAdapter = new RetailTrade.MDataSetTableAdapters.ProductTableAdapter();
-            this.manufacturerTableAdapter = new RetailTrade.MDataSetTableAdapters.ManufacturerTableAdapter();
             this.packingTableAdapter = new RetailTrade.MDataSetTableAdapters.PackingTableAdapter();
             this.storageConditionTableAdapter = new RetailTrade.MDataSetTableAdapters.StorageConditionTableAdapter();
             this.substanceTableAdapter = new RetailTrade.MDataSetTableAdapters.SubstanceTableAdapter();
             this.farmGroupLevel2TableAdapter = new RetailTrade.MDataSetTableAdapters.FarmGroupLevel2TableAdapter();
             this.unitTableAdapter = new RetailTrade.MDataSetTableAdapters.UnitTableAdapter();
-            this.label15 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
@@ -95,8 +89,6 @@ namespace RetailTrade
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ceIsRecept.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ManufacturerlookUpEdit.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.manufacturerBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NametextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PackinglookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.packingBindingSource)).BeginInit();
@@ -176,8 +168,6 @@ namespace RetailTrade
             this.tableLayoutPanel1.Controls.Add(this.ceIsRecept, 0, 17);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.ManufacturerlookUpEdit, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.btManufacturer, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.NametextEdit, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 5);
@@ -194,7 +184,6 @@ namespace RetailTrade
             this.tableLayoutPanel1.Controls.Add(this.btFarmGroupLevel2, 2, 8);
             this.tableLayoutPanel1.Controls.Add(this.btPlace, 2, 9);
             this.tableLayoutPanel1.Controls.Add(this.btSubstance, 2, 10);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.ceIsOneRecept, 0, 14);
             this.tableLayoutPanel1.Controls.Add(this.ceIsHide, 1, 17);
             this.tableLayoutPanel1.Controls.Add(this.label11, 0, 13);
@@ -205,7 +194,6 @@ namespace RetailTrade
             this.tableLayoutPanel1.Controls.Add(this.textBox1, 0, 18);
             this.tableLayoutPanel1.Controls.Add(this.label13, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.SamallNameEdit, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label14, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.label15, 1, 19);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
@@ -239,7 +227,7 @@ namespace RetailTrade
             // 
             this.ceIsRecept.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "IsRecept", true));
             this.ceIsRecept.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ceIsRecept.Location = new System.Drawing.Point(3, 314);
+            this.ceIsRecept.Location = new System.Drawing.Point(3, 279);
             this.ceIsRecept.Name = "ceIsRecept";
             this.ceIsRecept.Properties.Caption = "по рецепту";
             this.ceIsRecept.Size = new System.Drawing.Size(207, 21);
@@ -262,50 +250,10 @@ namespace RetailTrade
             this.label2.Dock = System.Windows.Forms.DockStyle.Left;
             this.label2.Location = new System.Drawing.Point(3, 48);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 34);
+            this.label2.Size = new System.Drawing.Size(63, 28);
             this.label2.TabIndex = 11;
             this.label2.Text = "Краткое";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // ManufacturerlookUpEdit
-            // 
-            this.ManufacturerlookUpEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "ManufacturerRef", true));
-            this.ManufacturerlookUpEdit.DataBindings.Add(new System.Windows.Forms.Binding("Tag", this.productBindingSource, "ManufacturerRef", true));
-            this.ManufacturerlookUpEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ManufacturerlookUpEdit.EnterMoveNextControl = true;
-            this.ManufacturerlookUpEdit.Location = new System.Drawing.Point(216, 85);
-            this.ManufacturerlookUpEdit.Name = "ManufacturerlookUpEdit";
-            this.ManufacturerlookUpEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            this.ManufacturerlookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.ManufacturerlookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name")});
-            this.ManufacturerlookUpEdit.Properties.DataSource = this.manufacturerBindingSource;
-            this.ManufacturerlookUpEdit.Properties.DisplayMember = "Name";
-            this.ManufacturerlookUpEdit.Properties.ShowHeader = false;
-            this.ManufacturerlookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.ManufacturerlookUpEdit.Properties.ValidateOnEnterKey = true;
-            this.ManufacturerlookUpEdit.Properties.ValueMember = "ID";
-            this.ManufacturerlookUpEdit.Size = new System.Drawing.Size(264, 22);
-            this.ManufacturerlookUpEdit.TabIndex = 3;
-            // 
-            // manufacturerBindingSource
-            // 
-            this.manufacturerBindingSource.DataMember = "Manufacturer";
-            this.manufacturerBindingSource.DataSource = this.mDataSet;
-            // 
-            // btManufacturer
-            // 
-            this.btManufacturer.Location = new System.Drawing.Point(486, 85);
-            this.btManufacturer.Name = "btManufacturer";
-            this.btManufacturer.Size = new System.Drawing.Size(51, 23);
-            this.btManufacturer.TabIndex = 6;
-            this.btManufacturer.TabStop = false;
-            this.btManufacturer.Tag = "Manufacturer";
-            this.btManufacturer.Text = "...";
-            this.toolTip1.SetToolTip(this.btManufacturer, "Справочник изготовителей");
-            this.btManufacturer.UseVisualStyleBackColor = true;
-            this.btManufacturer.Click += new System.EventHandler(this.btUcGroupDirectory_Click);
             // 
             // NametextEdit
             // 
@@ -324,7 +272,7 @@ namespace RetailTrade
             // 
             this.label7.AutoSize = true;
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Location = new System.Drawing.Point(3, 140);
+            this.label7.Location = new System.Drawing.Point(3, 105);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(207, 29);
             this.label7.TabIndex = 17;
@@ -333,7 +281,7 @@ namespace RetailTrade
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 111);
+            this.label6.Location = new System.Drawing.Point(3, 76);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(112, 17);
             this.label6.TabIndex = 15;
@@ -343,7 +291,7 @@ namespace RetailTrade
             // 
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Location = new System.Drawing.Point(3, 169);
+            this.label5.Location = new System.Drawing.Point(3, 134);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(207, 29);
             this.label5.TabIndex = 9;
@@ -352,7 +300,7 @@ namespace RetailTrade
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 198);
+            this.label9.Location = new System.Drawing.Point(3, 163);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(115, 17);
             this.label9.TabIndex = 13;
@@ -361,7 +309,7 @@ namespace RetailTrade
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(3, 227);
+            this.label10.Location = new System.Drawing.Point(3, 192);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(167, 17);
             this.label10.TabIndex = 14;
@@ -372,7 +320,7 @@ namespace RetailTrade
             this.PackinglookUpEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "PackingRef", true));
             this.PackinglookUpEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PackinglookUpEdit.EnterMoveNextControl = true;
-            this.PackinglookUpEdit.Location = new System.Drawing.Point(216, 114);
+            this.PackinglookUpEdit.Location = new System.Drawing.Point(216, 79);
             this.PackinglookUpEdit.Name = "PackinglookUpEdit";
             this.PackinglookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -397,7 +345,7 @@ namespace RetailTrade
             this.UnitlookUpEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "UnitRef", true));
             this.UnitlookUpEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.UnitlookUpEdit.EnterMoveNextControl = true;
-            this.UnitlookUpEdit.Location = new System.Drawing.Point(216, 143);
+            this.UnitlookUpEdit.Location = new System.Drawing.Point(216, 108);
             this.UnitlookUpEdit.Name = "UnitlookUpEdit";
             this.UnitlookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -421,7 +369,7 @@ namespace RetailTrade
             this.FarmGroupLevel2lookUpEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "FarmGrouplevel2Ref", true));
             this.FarmGroupLevel2lookUpEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FarmGroupLevel2lookUpEdit.EnterMoveNextControl = true;
-            this.FarmGroupLevel2lookUpEdit.Location = new System.Drawing.Point(216, 172);
+            this.FarmGroupLevel2lookUpEdit.Location = new System.Drawing.Point(216, 137);
             this.FarmGroupLevel2lookUpEdit.Name = "FarmGroupLevel2lookUpEdit";
             this.FarmGroupLevel2lookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -444,7 +392,7 @@ namespace RetailTrade
             this.StorageConditionlookUpEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "StorageConditionRef", true));
             this.StorageConditionlookUpEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.StorageConditionlookUpEdit.EnterMoveNextControl = true;
-            this.StorageConditionlookUpEdit.Location = new System.Drawing.Point(216, 201);
+            this.StorageConditionlookUpEdit.Location = new System.Drawing.Point(216, 166);
             this.StorageConditionlookUpEdit.Name = "StorageConditionlookUpEdit";
             this.StorageConditionlookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -469,7 +417,7 @@ namespace RetailTrade
             this.SubstancelookUpEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "SubstanceRef", true));
             this.SubstancelookUpEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SubstancelookUpEdit.EnterMoveNextControl = true;
-            this.SubstancelookUpEdit.Location = new System.Drawing.Point(216, 230);
+            this.SubstancelookUpEdit.Location = new System.Drawing.Point(216, 195);
             this.SubstancelookUpEdit.Name = "SubstancelookUpEdit";
             this.SubstancelookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -490,7 +438,7 @@ namespace RetailTrade
             // 
             // btPaking
             // 
-            this.btPaking.Location = new System.Drawing.Point(486, 114);
+            this.btPaking.Location = new System.Drawing.Point(486, 79);
             this.btPaking.Name = "btPaking";
             this.btPaking.Size = new System.Drawing.Size(51, 23);
             this.btPaking.TabIndex = 25;
@@ -503,7 +451,7 @@ namespace RetailTrade
             // 
             // btUnit
             // 
-            this.btUnit.Location = new System.Drawing.Point(486, 143);
+            this.btUnit.Location = new System.Drawing.Point(486, 108);
             this.btUnit.Name = "btUnit";
             this.btUnit.Size = new System.Drawing.Size(51, 23);
             this.btUnit.TabIndex = 26;
@@ -516,7 +464,7 @@ namespace RetailTrade
             // 
             // btFarmGroupLevel2
             // 
-            this.btFarmGroupLevel2.Location = new System.Drawing.Point(486, 172);
+            this.btFarmGroupLevel2.Location = new System.Drawing.Point(486, 137);
             this.btFarmGroupLevel2.Name = "btFarmGroupLevel2";
             this.btFarmGroupLevel2.Size = new System.Drawing.Size(51, 23);
             this.btFarmGroupLevel2.TabIndex = 27;
@@ -529,7 +477,7 @@ namespace RetailTrade
             // 
             // btPlace
             // 
-            this.btPlace.Location = new System.Drawing.Point(486, 201);
+            this.btPlace.Location = new System.Drawing.Point(486, 166);
             this.btPlace.Name = "btPlace";
             this.btPlace.Size = new System.Drawing.Size(51, 23);
             this.btPlace.TabIndex = 28;
@@ -542,7 +490,7 @@ namespace RetailTrade
             // 
             // btSubstance
             // 
-            this.btSubstance.Location = new System.Drawing.Point(486, 230);
+            this.btSubstance.Location = new System.Drawing.Point(486, 195);
             this.btSubstance.Name = "btSubstance";
             this.btSubstance.Size = new System.Drawing.Size(51, 23);
             this.btSubstance.TabIndex = 29;
@@ -553,20 +501,11 @@ namespace RetailTrade
             this.btSubstance.UseVisualStyleBackColor = true;
             this.btSubstance.Click += new System.EventHandler(this.btSimpleDirectory_Click);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 82);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(110, 17);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Производитель";
-            // 
             // ceIsOneRecept
             // 
             this.ceIsOneRecept.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "IsOneRecept", true));
             this.ceIsOneRecept.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ceIsOneRecept.Location = new System.Drawing.Point(3, 287);
+            this.ceIsOneRecept.Location = new System.Drawing.Point(3, 252);
             this.ceIsOneRecept.Name = "ceIsOneRecept";
             this.ceIsOneRecept.Properties.Caption = "один на рецепте";
             this.ceIsOneRecept.Size = new System.Drawing.Size(207, 21);
@@ -576,7 +515,7 @@ namespace RetailTrade
             // 
             this.ceIsHide.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "IsHide", true));
             this.ceIsHide.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ceIsHide.Location = new System.Drawing.Point(216, 314);
+            this.ceIsHide.Location = new System.Drawing.Point(216, 279);
             this.ceIsHide.Name = "ceIsHide";
             this.ceIsHide.Properties.Caption = "скрывать";
             this.ceIsHide.Size = new System.Drawing.Size(264, 21);
@@ -586,7 +525,7 @@ namespace RetailTrade
             // 
             this.label11.AutoSize = true;
             this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label11.Location = new System.Drawing.Point(3, 256);
+            this.label11.Location = new System.Drawing.Point(3, 221);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(207, 28);
             this.label11.TabIndex = 30;
@@ -595,7 +534,7 @@ namespace RetailTrade
             // numericUpDown1
             // 
             this.numericUpDown1.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.productBindingSource, "MinDivisor", true));
-            this.numericUpDown1.Location = new System.Drawing.Point(216, 259);
+            this.numericUpDown1.Location = new System.Drawing.Point(216, 224);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(45, 22);
             this.numericUpDown1.TabIndex = 9;
@@ -604,7 +543,7 @@ namespace RetailTrade
             // 
             this.ceISNDS.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.productBindingSource, "IsNDS", true));
             this.ceISNDS.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ceISNDS.Location = new System.Drawing.Point(216, 287);
+            this.ceISNDS.Location = new System.Drawing.Point(216, 252);
             this.ceISNDS.Name = "ceISNDS";
             this.ceISNDS.Properties.Caption = "НДС";
             this.ceISNDS.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -615,7 +554,7 @@ namespace RetailTrade
             // 
             this.label12.AutoSize = true;
             this.label12.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "OldKod", true));
-            this.label12.Location = new System.Drawing.Point(486, 356);
+            this.label12.Location = new System.Drawing.Point(486, 321);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(46, 22);
             this.label12.TabIndex = 34;
@@ -625,7 +564,7 @@ namespace RetailTrade
             // 
             this.label3.AutoSize = true;
             this.label3.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "OldName", true));
-            this.label3.Location = new System.Drawing.Point(216, 356);
+            this.label3.Location = new System.Drawing.Point(216, 321);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(46, 17);
             this.label3.TabIndex = 13;
@@ -634,7 +573,7 @@ namespace RetailTrade
             // textBox1
             // 
             this.textBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "OldKol", true));
-            this.textBox1.Location = new System.Drawing.Point(3, 359);
+            this.textBox1.Location = new System.Drawing.Point(3, 324);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 22);
             this.textBox1.TabIndex = 12;
@@ -661,15 +600,15 @@ namespace RetailTrade
             this.SamallNameEdit.Size = new System.Drawing.Size(100, 22);
             this.SamallNameEdit.TabIndex = 37;
             // 
-            // label14
+            // label15
             // 
-            this.label14.AutoSize = true;
-            this.label14.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "ManufacturerRef", true));
-            this.label14.Location = new System.Drawing.Point(486, 48);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(46, 34);
-            this.label14.TabIndex = 38;
-            this.label14.Text = "label14";
+            this.label15.AutoSize = true;
+            this.label15.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "Note", true));
+            this.label15.Location = new System.Drawing.Point(216, 343);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(54, 17);
+            this.label15.TabIndex = 39;
+            this.label15.Text = "label15";
             // 
             // tabPage2
             // 
@@ -710,10 +649,6 @@ namespace RetailTrade
             // 
             this.productTableAdapter.ClearBeforeFill = true;
             // 
-            // manufacturerTableAdapter
-            // 
-            this.manufacturerTableAdapter.ClearBeforeFill = true;
-            // 
             // packingTableAdapter
             // 
             this.packingTableAdapter.ClearBeforeFill = true;
@@ -734,16 +669,6 @@ namespace RetailTrade
             // 
             this.unitTableAdapter.ClearBeforeFill = true;
             // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "Note", true));
-            this.label15.Location = new System.Drawing.Point(216, 378);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(54, 17);
-            this.label15.TabIndex = 39;
-            this.label15.Text = "label15";
-            // 
             // ucProductRow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -763,8 +688,6 @@ namespace RetailTrade
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ceIsRecept.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ManufacturerlookUpEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.manufacturerBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NametextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PackinglookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.packingBindingSource)).EndInit();
@@ -804,12 +727,7 @@ namespace RetailTrade
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private DevExpress.XtraEditors.LookUpEdit ManufacturerlookUpEdit;
-        private System.Windows.Forms.Button btManufacturer;
-        private System.Windows.Forms.BindingSource manufacturerBindingSource;
-        private RetailTrade.MDataSetTableAdapters.ManufacturerTableAdapter manufacturerTableAdapter;
         private DevExpress.XtraEditors.TextEdit NametextEdit;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -848,7 +766,7 @@ namespace RetailTrade
         private System.Windows.Forms.Label label13;
         private DevExpress.XtraEditors.TextEdit textEdit1;
         private DevExpress.XtraEditors.TextEdit SamallNameEdit;
-        private System.Windows.Forms.Label label14;
+       
         private System.Windows.Forms.Label label15;
     }
 }

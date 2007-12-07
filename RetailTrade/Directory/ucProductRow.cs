@@ -26,7 +26,6 @@ namespace RetailTrade
             InitializeComponent();
             this.mDataSet = productRow.Table.DataSet as MDataSet;
             this.productBindingSource.DataSource = productRow;
-            this.manufacturerBindingSource.DataSource = this.mDataSet.Manufacturer;
             this.packingBindingSource.DataSource = this.mDataSet.Packing;
             this.storageConditionBindingSource.DataSource = this.mDataSet.StorageCondition;
             this.substanceBindingSource.DataSource = this.mDataSet.Substance;
@@ -46,7 +45,6 @@ namespace RetailTrade
 
           //  this.mDataSet = productRow.Table.DataSet as MDataSet;
             this.productBindingSource.DataSource = productRow ;
-            this.manufacturerBindingSource.DataSource = this.dataSet.Tables["Manufacturer"];
             this.packingBindingSource.DataSource = this.dataSet.Tables["Packing"];
             this.storageConditionBindingSource.DataSource = this.dataSet.Tables["StorageCondition"];
             this.substanceBindingSource.DataSource = this.dataSet.Tables["Substance"];
