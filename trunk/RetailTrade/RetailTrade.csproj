@@ -235,6 +235,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>InvoiceMasterNewAll.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\InvoiceReturn.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InvoiceReturn.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Invoice\InvoiceRow.resx">
       <SubType>Designer</SubType>
       <DependentUpon>InvoiceRow.cs</DependentUpon>

@@ -50,8 +50,7 @@ namespace RetailTrade
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSmallName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPriceManufact = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colManufacturerRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colIsRecept = new DevExpress.XtraGrid.Columns.GridColumn();
+             this.colIsRecept = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsNDS = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsOneRecept = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colMinDivisor = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -62,6 +61,7 @@ namespace RetailTrade
             this.colOldKod = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOldName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsHide = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOldKol = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNote = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFarmGroupLevel2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colUnitRef = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -241,6 +241,9 @@ namespace RetailTrade
             // 
             this.grid.DataSource = this.productBindingSource;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
             this.grid.EmbeddedNavigator.Name = "";
             this.errorProvider1.SetError(this.grid, "jj");
             this.grid.Location = new System.Drawing.Point(0, 25);
@@ -274,7 +277,7 @@ namespace RetailTrade
             this.colName,
             this.colSmallName,
             this.colPriceManufact,
-            this.colManufacturerRef,
+           
             this.colIsRecept,
             this.colIsNDS,
             this.colIsOneRecept,
@@ -286,6 +289,7 @@ namespace RetailTrade
             this.colOldKod,
             this.colOldName,
             this.colIsHide,
+            this.colOldKol,
             this.colNote,
             this.colFarmGroupLevel2,
             this.colUnitRef,
@@ -324,7 +328,7 @@ namespace RetailTrade
             this.colID.OptionsColumn.ReadOnly = true;
             this.colID.Visible = true;
             this.colID.VisibleIndex = 0;
-            this.colID.Width = 99;
+            this.colID.Width = 112;
             // 
             // colName
             // 
@@ -338,7 +342,7 @@ namespace RetailTrade
             this.colName.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Count;
             this.colName.Visible = true;
             this.colName.VisibleIndex = 1;
-            this.colName.Width = 224;
+            this.colName.Width = 203;
             // 
             // colSmallName
             // 
@@ -357,12 +361,7 @@ namespace RetailTrade
             // 
             // colManufacturerRef
             // 
-            this.colManufacturerRef.Caption = "Код изготовителя";
-            this.colManufacturerRef.FieldName = "ManufacturerRef";
-            this.colManufacturerRef.Name = "colManufacturerRef";
-            this.colManufacturerRef.Visible = true;
-            this.colManufacturerRef.VisibleIndex = 5;
-            this.colManufacturerRef.Width = 48;
+          
             // 
             // colIsRecept
             // 
@@ -377,8 +376,6 @@ namespace RetailTrade
             this.colIsNDS.FieldName = "IsNDS";
             this.colIsNDS.Name = "colIsNDS";
             this.colIsNDS.OptionsColumn.AllowEdit = false;
-            this.colIsNDS.Visible = true;
-            this.colIsNDS.VisibleIndex = 2;
             this.colIsNDS.Width = 69;
             // 
             // colIsOneRecept
@@ -394,8 +391,8 @@ namespace RetailTrade
             this.colMinDivisor.FieldName = "MinDivisor";
             this.colMinDivisor.Name = "colMinDivisor";
             this.colMinDivisor.Visible = true;
-            this.colMinDivisor.VisibleIndex = 4;
-            this.colMinDivisor.Width = 71;
+            this.colMinDivisor.VisibleIndex = 2;
+            this.colMinDivisor.Width = 86;
             // 
             // colAuthorCreate
             // 
@@ -432,15 +429,14 @@ namespace RetailTrade
             this.colOldKod.FieldName = "OldKod";
             this.colOldKod.Name = "colOldKod";
             this.colOldKod.OptionsColumn.ReadOnly = true;
-            this.colOldKod.Visible = true;
-            this.colOldKod.VisibleIndex = 3;
             this.colOldKod.Width = 91;
             // 
             // colOldName
             // 
-            this.colOldName.Caption = "Имя старое";
+            this.colOldName.Caption = "Имя Фарм Трейд";
             this.colOldName.FieldName = "OldName";
             this.colOldName.Name = "colOldName";
+            this.colOldName.OptionsColumn.AllowEdit = false;
             this.colOldName.OptionsColumn.ReadOnly = true;
             this.colOldName.Width = 81;
             // 
@@ -449,6 +445,15 @@ namespace RetailTrade
             this.colIsHide.Caption = "Видимость";
             this.colIsHide.FieldName = "IsHide";
             this.colIsHide.Name = "colIsHide";
+            // 
+            // colOldKol
+            // 
+            this.colOldKol.Caption = "Кол-во Фам Трейд";
+            this.colOldKol.FieldName = "OldKol";
+            this.colOldKol.Name = "colOldKol";
+            this.colOldKol.Visible = true;
+            this.colOldKol.VisibleIndex = 4;
+            this.colOldKol.Width = 100;
             // 
             // colNote
             // 
@@ -469,8 +474,8 @@ namespace RetailTrade
             this.colUnitRef.FieldName = "UnitRef";
             this.colUnitRef.Name = "colUnitRef";
             this.colUnitRef.Visible = true;
-            this.colUnitRef.VisibleIndex = 6;
-            this.colUnitRef.Width = 71;
+            this.colUnitRef.VisibleIndex = 3;
+            this.colUnitRef.Width = 76;
             // 
             // UnitRefLookUpEdit
             // 
@@ -502,9 +507,7 @@ namespace RetailTrade
             this.colPackingRef.ColumnEdit = this.PackingRefLookUpEdit;
             this.colPackingRef.FieldName = "PackingRef";
             this.colPackingRef.Name = "colPackingRef";
-            this.colPackingRef.Visible = true;
-            this.colPackingRef.VisibleIndex = 7;
-            this.colPackingRef.Width = 71;
+            this.colPackingRef.Width = 76;
             // 
             // PackingRefLookUpEdit
             // 
@@ -530,9 +533,7 @@ namespace RetailTrade
             this.colStorageConditionRef.ColumnEdit = this.StorageConditionRefLookUpEdit;
             this.colStorageConditionRef.FieldName = "StorageConditionRef";
             this.colStorageConditionRef.Name = "colStorageConditionRef";
-            this.colStorageConditionRef.Visible = true;
-            this.colStorageConditionRef.VisibleIndex = 8;
-            this.colStorageConditionRef.Width = 71;
+            this.colStorageConditionRef.Width = 76;
             // 
             // StorageConditionRefLookUpEdit
             // 
@@ -559,9 +560,7 @@ namespace RetailTrade
             this.colSubstanceRef.ColumnEdit = this.SubstanceRefLookUpEdit;
             this.colSubstanceRef.FieldName = "SubstanceRef";
             this.colSubstanceRef.Name = "colSubstanceRef";
-            this.colSubstanceRef.Visible = true;
-            this.colSubstanceRef.VisibleIndex = 9;
-            this.colSubstanceRef.Width = 71;
+            this.colSubstanceRef.Width = 76;
             // 
             // SubstanceRefLookUpEdit
             // 
@@ -588,9 +587,7 @@ namespace RetailTrade
             this.colFarmGrouplevel2Ref.ColumnEdit = this.FarmGrouplevel2RefLookUpEdit;
             this.colFarmGrouplevel2Ref.FieldName = "FarmGrouplevel2Ref";
             this.colFarmGrouplevel2Ref.Name = "colFarmGrouplevel2Ref";
-            this.colFarmGrouplevel2Ref.Visible = true;
-            this.colFarmGrouplevel2Ref.VisibleIndex = 10;
-            this.colFarmGrouplevel2Ref.Width = 85;
+            this.colFarmGrouplevel2Ref.Width = 91;
             // 
             // FarmGrouplevel2RefLookUpEdit
             // 
@@ -758,7 +755,7 @@ namespace RetailTrade
         private DevExpress.XtraGrid.Columns.GridColumn colName;
         private DevExpress.XtraGrid.Columns.GridColumn colSmallName;
         private DevExpress.XtraGrid.Columns.GridColumn colPriceManufact;
-        private DevExpress.XtraGrid.Columns.GridColumn colManufacturerRef;
+
         private DevExpress.XtraGrid.Columns.GridColumn colIsRecept;
         private DevExpress.XtraGrid.Columns.GridColumn colIsOneRecept;
         private DevExpress.XtraGrid.Columns.GridColumn colMinDivisor;
@@ -811,5 +808,6 @@ namespace RetailTrade
         private System.Windows.Forms.BindingSource substanceBindingSource;
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit FarmGrouplevel2RefLookUpEdit;
         private System.Windows.Forms.BindingSource farmGroupLevel2BindingSource;
+        private DevExpress.XtraGrid.Columns.GridColumn colOldKol;
     }
 }

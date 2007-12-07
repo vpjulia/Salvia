@@ -196,7 +196,7 @@ namespace RetailTrade
                         /*сохранить добавления*/
                         _mainForm.SaveToBaseDirectoryModifed(_changes.Table.Select(null, null, DataViewRowState.Added));
 
-                        _mainForm.RefreshData(_changes.Table);
+                      
 
 
                         _mainForm.RefreshData(_mainForm.mDataSet.Tables[_changes.Table.TableName]);

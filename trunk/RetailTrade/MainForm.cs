@@ -138,6 +138,10 @@ namespace RetailTrade
 
                 FillTable("Product");
                 FillTable("Organization");
+                FillTable("Remains");
+
+
+
             }
 
             catch (Exception err)
@@ -550,6 +554,17 @@ namespace RetailTrade
 
         }
 
+        private UserControl InitInvoiceReturn(ref String TagControl, ref string Title)
+        {
+            UserControl usControl;
+
+             usControl = new InvoiceReturn(this.mDataSet,this);
+            (usControl as InvoiceReturn).Dock = DockStyle.Fill;
+            (usControl as InvoiceReturn).Tag = Title;
+
+            return usControl;
+
+        }
 
       
         
@@ -700,6 +715,14 @@ namespace RetailTrade
                        break;
 
 
+                   case "InvoiceReturn":
+
+                       usControl = InitInvoiceReturn(ref TagControl, ref Title);
+
+                       if (usControl == null)
+                           return false;
+
+                       break;
 
                     default:
                         {

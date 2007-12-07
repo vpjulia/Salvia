@@ -67,6 +67,10 @@ namespace RetailTrade {
         
         private PeriodsDataTable tablePeriods;
         
+        private LinkedInvoiceDetailDataTable tableLinkedInvoiceDetail;
+        
+        private LinkedInvoiceMasterDataTable tableLinkedInvoiceMaster;
+        
         private System.Data.DataRelation relationFK_Stock_InvoiceMaster;
         
         private System.Data.DataRelation relationFK_InvoiceMaster_StockMain;
@@ -78,8 +82,6 @@ namespace RetailTrade {
         private System.Data.DataRelation relationFK_Unit_Product;
         
         private System.Data.DataRelation relationFK_Substance_Product;
-        
-        private System.Data.DataRelation relationFK_Country_Manufacturer;
         
         private System.Data.DataRelation relationFK_FarmGroup_FarmGroupLevel2;
         
@@ -124,6 +126,10 @@ namespace RetailTrade {
         private System.Data.DataRelation relationFK_Manufacturer_ReceiptDetail;
         
         private System.Data.DataRelation relationReceiptMaster_ReceiptDetail;
+        
+        private System.Data.DataRelation relationLinkedInvoiceMaster_LinkedInvoiceDetail;
+        
+        private System.Data.DataRelation relationFK_Country_Manufacturer;
         
         private System.Data.SchemaSerializationMode _schemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -217,6 +223,12 @@ namespace RetailTrade {
                 }
                 if ((ds.Tables["Periods"] != null)) {
                     base.Tables.Add(new PeriodsDataTable(ds.Tables["Periods"]));
+                }
+                if ((ds.Tables["LinkedInvoiceDetail"] != null)) {
+                    base.Tables.Add(new LinkedInvoiceDetailDataTable(ds.Tables["LinkedInvoiceDetail"]));
+                }
+                if ((ds.Tables["LinkedInvoiceMaster"] != null)) {
+                    base.Tables.Add(new LinkedInvoiceMasterDataTable(ds.Tables["LinkedInvoiceMaster"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -436,6 +448,24 @@ namespace RetailTrade {
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Browsable(false)]
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public LinkedInvoiceDetailDataTable LinkedInvoiceDetail {
+            get {
+                return this.tableLinkedInvoiceDetail;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Browsable(false)]
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public LinkedInvoiceMasterDataTable LinkedInvoiceMaster {
+            get {
+                return this.tableLinkedInvoiceMaster;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.BrowsableAttribute(true)]
         [System.ComponentModel.DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -560,6 +590,12 @@ namespace RetailTrade {
                 }
                 if ((ds.Tables["Periods"] != null)) {
                     base.Tables.Add(new PeriodsDataTable(ds.Tables["Periods"]));
+                }
+                if ((ds.Tables["LinkedInvoiceDetail"] != null)) {
+                    base.Tables.Add(new LinkedInvoiceDetailDataTable(ds.Tables["LinkedInvoiceDetail"]));
+                }
+                if ((ds.Tables["LinkedInvoiceMaster"] != null)) {
+                    base.Tables.Add(new LinkedInvoiceMasterDataTable(ds.Tables["LinkedInvoiceMaster"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -723,13 +759,24 @@ namespace RetailTrade {
                     this.tablePeriods.InitVars();
                 }
             }
+            this.tableLinkedInvoiceDetail = ((LinkedInvoiceDetailDataTable)(base.Tables["LinkedInvoiceDetail"]));
+            if ((initTable == true)) {
+                if ((this.tableLinkedInvoiceDetail != null)) {
+                    this.tableLinkedInvoiceDetail.InitVars();
+                }
+            }
+            this.tableLinkedInvoiceMaster = ((LinkedInvoiceMasterDataTable)(base.Tables["LinkedInvoiceMaster"]));
+            if ((initTable == true)) {
+                if ((this.tableLinkedInvoiceMaster != null)) {
+                    this.tableLinkedInvoiceMaster.InitVars();
+                }
+            }
             this.relationFK_Stock_InvoiceMaster = this.Relations["FK_Stock_InvoiceMaster"];
             this.relationFK_InvoiceMaster_StockMain = this.Relations["FK_InvoiceMaster_StockMain"];
             this.relationFK_ReceiptRemains_ReceiptDetail = this.Relations["FK_ReceiptRemains_ReceiptDetail"];
             this.relationFK_FarmGroupLevel2_Product = this.Relations["FK_FarmGroupLevel2_Product"];
             this.relationFK_Unit_Product = this.Relations["FK_Unit_Product"];
             this.relationFK_Substance_Product = this.Relations["FK_Substance_Product"];
-            this.relationFK_Country_Manufacturer = this.Relations["FK_Country_Manufacturer"];
             this.relationFK_FarmGroup_FarmGroupLevel2 = this.Relations["FK_FarmGroup_FarmGroupLevel2"];
             this.relationFK_InvoiceDetail_InvoiceMaster = this.Relations["FK_InvoiceDetail_InvoiceMaster"];
             this.relationFK_InvoiceMaster_Organization = this.Relations["FK_InvoiceMaster_Organization"];
@@ -752,6 +799,8 @@ namespace RetailTrade {
             this.relationProduct_ReceiptDetail = this.Relations["Product_ReceiptDetail"];
             this.relationFK_Manufacturer_ReceiptDetail = this.Relations["FK_Manufacturer_ReceiptDetail"];
             this.relationReceiptMaster_ReceiptDetail = this.Relations["ReceiptMaster_ReceiptDetail"];
+            this.relationLinkedInvoiceMaster_LinkedInvoiceDetail = this.Relations["LinkedInvoiceMaster_LinkedInvoiceDetail"];
+            this.relationFK_Country_Manufacturer = this.Relations["FK_Country_Manufacturer"];
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -799,12 +848,16 @@ namespace RetailTrade {
             base.Tables.Add(this.tableFarmGroupLevel2);
             this.tableOrders = new OrdersDataTable(false);
             base.Tables.Add(this.tableOrders);
-            this.tableRemains = new RemainsDataTable();
+            this.tableRemains = new RemainsDataTable(false);
             base.Tables.Add(this.tableRemains);
             this.tablePricesPurchase = new PricesPurchaseDataTable(false);
             base.Tables.Add(this.tablePricesPurchase);
             this.tablePeriods = new PeriodsDataTable(false);
             base.Tables.Add(this.tablePeriods);
+            this.tableLinkedInvoiceDetail = new LinkedInvoiceDetailDataTable();
+            base.Tables.Add(this.tableLinkedInvoiceDetail);
+            this.tableLinkedInvoiceMaster = new LinkedInvoiceMasterDataTable();
+            base.Tables.Add(this.tableLinkedInvoiceMaster);
             System.Data.ForeignKeyConstraint fkc;
             fkc = new System.Data.ForeignKeyConstraint("FK_Stock_InvoiceMaster", new System.Data.DataColumn[] {
                         this.tableStock.IDColumn}, new System.Data.DataColumn[] {
@@ -848,13 +901,6 @@ namespace RetailTrade {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            fkc = new System.Data.ForeignKeyConstraint("FK_Country_Manufacturer", new System.Data.DataColumn[] {
-                        this.tableCountry.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableManufacturer.CounrtyRefColumn});
-            this.tableManufacturer.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = System.Data.Rule.None;
-            fkc.UpdateRule = System.Data.Rule.Cascade;
             fkc = new System.Data.ForeignKeyConstraint("FK_FarmGroup_FarmGroupLevel2", new System.Data.DataColumn[] {
                         this.tableFarmGroup.IDColumn}, new System.Data.DataColumn[] {
                         this.tableFarmGroupLevel2.FarmGroupRefColumn});
@@ -886,10 +932,6 @@ namespace RetailTrade {
                         this.tableSubstance.IDColumn}, new System.Data.DataColumn[] {
                         this.tableProduct.SubstanceRefColumn}, false);
             this.Relations.Add(this.relationFK_Substance_Product);
-            this.relationFK_Country_Manufacturer = new System.Data.DataRelation("FK_Country_Manufacturer", new System.Data.DataColumn[] {
-                        this.tableCountry.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableManufacturer.CounrtyRefColumn}, false);
-            this.Relations.Add(this.relationFK_Country_Manufacturer);
             this.relationFK_FarmGroup_FarmGroupLevel2 = new System.Data.DataRelation("FK_FarmGroup_FarmGroupLevel2", new System.Data.DataColumn[] {
                         this.tableFarmGroup.IDColumn}, new System.Data.DataColumn[] {
                         this.tableFarmGroupLevel2.FarmGroupRefColumn}, false);
@@ -978,6 +1020,16 @@ namespace RetailTrade {
                         this.tableReceiptMaster.IDColumn}, new System.Data.DataColumn[] {
                         this.tableReceiptDetail.ReceiptMasterRefColumn}, false);
             this.Relations.Add(this.relationReceiptMaster_ReceiptDetail);
+            this.relationLinkedInvoiceMaster_LinkedInvoiceDetail = new System.Data.DataRelation("LinkedInvoiceMaster_LinkedInvoiceDetail", new System.Data.DataColumn[] {
+                        this.tableLinkedInvoiceMaster.TradePutletRefColumn,
+                        this.tableLinkedInvoiceMaster.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableLinkedInvoiceDetail.TradePutletRefColumn,
+                        this.tableLinkedInvoiceDetail.InvoiceMasterRefColumn}, false);
+            this.Relations.Add(this.relationLinkedInvoiceMaster_LinkedInvoiceDetail);
+            this.relationFK_Country_Manufacturer = new System.Data.DataRelation("FK_Country_Manufacturer", new System.Data.DataColumn[] {
+                        this.tableCountry.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableManufacturer.CounrtyRefColumn}, false);
+            this.Relations.Add(this.relationFK_Country_Manufacturer);
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1091,6 +1143,16 @@ namespace RetailTrade {
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializeLinkedInvoiceDetail() {
+            return false;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializeLinkedInvoiceMaster() {
+            return false;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void SchemaChanged(object sender, System.ComponentModel.CollectionChangeEventArgs e) {
             if ((e.Action == System.ComponentModel.CollectionChangeAction.Remove)) {
                 this.InitVars();
@@ -1114,7 +1176,7 @@ namespace RetailTrade {
         private void InitExpressions() {
             this.InvoiceDetail.NumberColumn.Expression = "Parent(FK_InvoiceDetail_InvoiceMaster).Number";
             this.InvoiceDetail.DateColumn.Expression = "Parent(FK_InvoiceDetail_InvoiceMaster).Date";
-            this.InvoiceDetail.ProductNameColumn.Expression = "Parent(ReceiptDetail_InvoiceDetail).ProductName";
+            this.InvoiceDetail.ProductNameColumn.Expression = "Parent(Remains_InvoiceDetail).ProductName";
             this.InvoiceDetail.ManufacturerNameColumn.Expression = "Parent(ReceiptDetail_InvoiceDetail).ManufacturerName";
             this.InvoiceDetail.CalcSumColumn.Expression = "PriceRetailNDS*Quantity";
             this.InvoiceDetail.DocumentTypeRefColumn.Expression = "Parent(FK_InvoiceDetail_InvoiceMaster).DocumentTypeRef";
@@ -1144,6 +1206,7 @@ namespace RetailTrade {
             this.FarmGroupLevel2.FarmGroupNameColumn.Expression = "Parent(FK_FarmGroup_FarmGroupLevel2).Name";
             this.Orders.TradePupletNameColumn.Expression = "Parent(TradePutlet_Orders).Name";
             this.Orders.ProductNameColumn.Expression = "Parent(Product_Orders).Name";
+            this.Remains.ProductNameColumn.Expression = "Parent(Product_Remains).Name";
             this.PricesPurchase.OrganizationNameColumn.Expression = "Parent(Organization_PricesPurchase).ShortNAme";
             this.Periods.NameColumn.Expression = "StartDate+\' - \'+ClosedDate";
         }
@@ -1191,6 +1254,10 @@ namespace RetailTrade {
         public delegate void PricesPurchaseRowChangeEventHandler(object sender, PricesPurchaseRowChangeEvent e);
         
         public delegate void PeriodsRowChangeEventHandler(object sender, PeriodsRowChangeEvent e);
+        
+        public delegate void LinkedInvoiceDetailRowChangeEventHandler(object sender, LinkedInvoiceDetailRowChangeEvent e);
+        
+        public delegate void LinkedInvoiceMasterRowChangeEventHandler(object sender, LinkedInvoiceMasterRowChangeEvent e);
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [System.Serializable()]
@@ -2242,7 +2309,7 @@ namespace RetailTrade {
             private void InitExpressions() {
                 this.NumberColumn.Expression = "Parent(FK_InvoiceDetail_InvoiceMaster).Number";
                 this.DateColumn.Expression = "Parent(FK_InvoiceDetail_InvoiceMaster).Date";
-                this.ProductNameColumn.Expression = "Parent(ReceiptDetail_InvoiceDetail).ProductName";
+                this.ProductNameColumn.Expression = "Parent(Remains_InvoiceDetail).ProductName";
                 this.ManufacturerNameColumn.Expression = "Parent(ReceiptDetail_InvoiceDetail).ManufacturerName";
                 this.CalcSumColumn.Expression = "PriceRetailNDS*Quantity";
                 this.DocumentTypeRefColumn.Expression = "Parent(FK_InvoiceDetail_InvoiceMaster).DocumentTypeRef";
@@ -7942,7 +8009,6 @@ namespace RetailTrade {
                 this.columnRowVersion.ReadOnly = true;
                 this.columnDateUpdate.ReadOnly = true;
                 this.columnCountryName.ReadOnly = true;
-                this.columnrowguid.AllowDBNull = false;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8850,11 +8916,21 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnAuthorLastModif;
             
+            private System.Data.DataColumn columnProductName;
+            
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public RemainsDataTable() {
+            public RemainsDataTable() : 
+                    this(false) {
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal RemainsDataTable(bool initExpressions) {
                 this.TableName = "Remains";
                 this.BeginInit();
                 this.InitClass();
+                if ((initExpressions == true)) {
+                    this.InitExpressions();
+                }
                 this.EndInit();
             }
             
@@ -8958,6 +9034,13 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ProductNameColumn {
+                get {
+                    return this.columnProductName;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -8986,7 +9069,7 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public RemainsRow AddRemainsRow(System.DateTime DocDate, ProductRow parentProductRowByProduct_Remains, string Series, System.DateTime UseByDate, decimal PricePurchase, decimal QuantityRemains, int MainStockRef, ReceiptDetailRow parentReceiptDetailRowByReceiptDetail_Remains, decimal Quantity, System.DateTime DateLastModif, string AuthorLastModif) {
+            public RemainsRow AddRemainsRow(System.DateTime DocDate, ProductRow parentProductRowByProduct_Remains, string Series, System.DateTime UseByDate, decimal PricePurchase, decimal QuantityRemains, int MainStockRef, ReceiptDetailRow parentReceiptDetailRowByReceiptDetail_Remains, decimal Quantity, System.DateTime DateLastModif, string AuthorLastModif, string ProductName) {
                 RemainsRow rowRemainsRow = ((RemainsRow)(this.NewRow()));
                 rowRemainsRow.ItemArray = new object[] {
                         DocDate,
@@ -8999,7 +9082,8 @@ namespace RetailTrade {
                         parentReceiptDetailRowByReceiptDetail_Remains[0],
                         Quantity,
                         DateLastModif,
-                        AuthorLastModif};
+                        AuthorLastModif,
+                        ProductName};
                 this.Rows.Add(rowRemainsRow);
                 return rowRemainsRow;
             }
@@ -9040,6 +9124,7 @@ namespace RetailTrade {
                 this.columnQuantity = base.Columns["Quantity"];
                 this.columnDateLastModif = base.Columns["DateLastModif"];
                 this.columnAuthorLastModif = base.Columns["AuthorLastModif"];
+                this.columnProductName = base.Columns["ProductName"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9066,6 +9151,8 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnDateLastModif);
                 this.columnAuthorLastModif = new System.Data.DataColumn("AuthorLastModif", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAuthorLastModif);
+                this.columnProductName = new System.Data.DataColumn("ProductName", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnProductName);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnReceiptDetailRef}, true));
                 this.columnDocDate.AllowDBNull = false;
@@ -9082,6 +9169,7 @@ namespace RetailTrade {
                 this.columnDateLastModif.AllowDBNull = false;
                 this.columnAuthorLastModif.AllowDBNull = false;
                 this.columnAuthorLastModif.MaxLength = 50;
+                this.columnProductName.ReadOnly = true;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9097,6 +9185,11 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Type GetRowType() {
                 return typeof(RemainsRow);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitExpressions() {
+                this.ProductNameColumn.Expression = "Parent(Product_Remains).Name";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9706,6 +9799,1110 @@ namespace RetailTrade {
                 System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "PeriodsDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                return type;
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [System.Serializable()]
+        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class LinkedInvoiceDetailDataTable : System.Data.DataTable, System.Collections.IEnumerable {
+            
+            private System.Data.DataColumn columnID;
+            
+            private System.Data.DataColumn columnInvoiceMasterRef;
+            
+            private System.Data.DataColumn columnQuantity;
+            
+            private System.Data.DataColumn columnPricePurchase;
+            
+            private System.Data.DataColumn columnDiscountSum;
+            
+            private System.Data.DataColumn columnPurchaseNDS;
+            
+            private System.Data.DataColumn columnPriceRetail;
+            
+            private System.Data.DataColumn columnRetailNDS;
+            
+            private System.Data.DataColumn columnPriceRetailNDS;
+            
+            private System.Data.DataColumn columnLocalReceiptDetailRef;
+            
+            private System.Data.DataColumn columnRemoteInvoiceDetailRef;
+            
+            private System.Data.DataColumn columnExtra;
+            
+            private System.Data.DataColumn columnDiscount;
+            
+            private System.Data.DataColumn columnNote;
+            
+            private System.Data.DataColumn columnAuthorCreate;
+            
+            private System.Data.DataColumn columnAuthorLastModif;
+            
+            private System.Data.DataColumn columnDateLastModif;
+            
+            private System.Data.DataColumn columnDateCreate;
+            
+            private System.Data.DataColumn columnRowVersion;
+            
+            private System.Data.DataColumn columnRetailSum;
+            
+            private System.Data.DataColumn columnArticle;
+            
+            private System.Data.DataColumn columnHOST;
+            
+            private System.Data.DataColumn columnrowguid;
+            
+            private System.Data.DataColumn columnTradePutletRef;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public LinkedInvoiceDetailDataTable() {
+                this.TableName = "LinkedInvoiceDetail";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal LinkedInvoiceDetailDataTable(System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected LinkedInvoiceDetailDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn IDColumn {
+                get {
+                    return this.columnID;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn InvoiceMasterRefColumn {
+                get {
+                    return this.columnInvoiceMasterRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn QuantityColumn {
+                get {
+                    return this.columnQuantity;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn PricePurchaseColumn {
+                get {
+                    return this.columnPricePurchase;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DiscountSumColumn {
+                get {
+                    return this.columnDiscountSum;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn PurchaseNDSColumn {
+                get {
+                    return this.columnPurchaseNDS;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn PriceRetailColumn {
+                get {
+                    return this.columnPriceRetail;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn RetailNDSColumn {
+                get {
+                    return this.columnRetailNDS;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn PriceRetailNDSColumn {
+                get {
+                    return this.columnPriceRetailNDS;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn LocalReceiptDetailRefColumn {
+                get {
+                    return this.columnLocalReceiptDetailRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn RemoteInvoiceDetailRefColumn {
+                get {
+                    return this.columnRemoteInvoiceDetailRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ExtraColumn {
+                get {
+                    return this.columnExtra;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DiscountColumn {
+                get {
+                    return this.columnDiscount;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn NoteColumn {
+                get {
+                    return this.columnNote;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn AuthorCreateColumn {
+                get {
+                    return this.columnAuthorCreate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn AuthorLastModifColumn {
+                get {
+                    return this.columnAuthorLastModif;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateLastModifColumn {
+                get {
+                    return this.columnDateLastModif;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateCreateColumn {
+                get {
+                    return this.columnDateCreate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn RowVersionColumn {
+                get {
+                    return this.columnRowVersion;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn RetailSumColumn {
+                get {
+                    return this.columnRetailSum;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ArticleColumn {
+                get {
+                    return this.columnArticle;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn HOSTColumn {
+                get {
+                    return this.columnHOST;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn rowguidColumn {
+                get {
+                    return this.columnrowguid;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn TradePutletRefColumn {
+                get {
+                    return this.columnTradePutletRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public LinkedInvoiceDetailRow this[int index] {
+                get {
+                    return ((LinkedInvoiceDetailRow)(this.Rows[index]));
+                }
+            }
+            
+            public event LinkedInvoiceDetailRowChangeEventHandler LinkedInvoiceDetailRowChanging;
+            
+            public event LinkedInvoiceDetailRowChangeEventHandler LinkedInvoiceDetailRowChanged;
+            
+            public event LinkedInvoiceDetailRowChangeEventHandler LinkedInvoiceDetailRowDeleting;
+            
+            public event LinkedInvoiceDetailRowChangeEventHandler LinkedInvoiceDetailRowDeleted;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddLinkedInvoiceDetailRow(LinkedInvoiceDetailRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public LinkedInvoiceDetailRow AddLinkedInvoiceDetailRow(
+                        int ID, 
+                        int InvoiceMasterRef, 
+                        decimal Quantity, 
+                        decimal PricePurchase, 
+                        decimal DiscountSum, 
+                        decimal PurchaseNDS, 
+                        decimal PriceRetail, 
+                        decimal RetailNDS, 
+                        decimal PriceRetailNDS, 
+                        int LocalReceiptDetailRef, 
+                        int RemoteInvoiceDetailRef, 
+                        decimal Extra, 
+                        decimal Discount, 
+                        string Note, 
+                        string AuthorCreate, 
+                        string AuthorLastModif, 
+                        System.DateTime DateLastModif, 
+                        System.DateTime DateCreate, 
+                        byte[] RowVersion, 
+                        decimal RetailSum, 
+                        int Article, 
+                        string HOST, 
+                        System.Guid rowguid, 
+                        int TradePutletRef) {
+                LinkedInvoiceDetailRow rowLinkedInvoiceDetailRow = ((LinkedInvoiceDetailRow)(this.NewRow()));
+                rowLinkedInvoiceDetailRow.ItemArray = new object[] {
+                        ID,
+                        InvoiceMasterRef,
+                        Quantity,
+                        PricePurchase,
+                        DiscountSum,
+                        PurchaseNDS,
+                        PriceRetail,
+                        RetailNDS,
+                        PriceRetailNDS,
+                        LocalReceiptDetailRef,
+                        RemoteInvoiceDetailRef,
+                        Extra,
+                        Discount,
+                        Note,
+                        AuthorCreate,
+                        AuthorLastModif,
+                        DateLastModif,
+                        DateCreate,
+                        RowVersion,
+                        RetailSum,
+                        Article,
+                        HOST,
+                        rowguid,
+                        TradePutletRef};
+                this.Rows.Add(rowLinkedInvoiceDetailRow);
+                return rowLinkedInvoiceDetailRow;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public LinkedInvoiceDetailRow FindByrowguidTradePutletRef(System.Guid rowguid, int TradePutletRef) {
+                return ((LinkedInvoiceDetailRow)(this.Rows.Find(new object[] {
+                            rowguid,
+                            TradePutletRef})));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public virtual System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override System.Data.DataTable Clone() {
+                LinkedInvoiceDetailDataTable cln = ((LinkedInvoiceDetailDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataTable CreateInstance() {
+                return new LinkedInvoiceDetailDataTable();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars() {
+                this.columnID = base.Columns["ID"];
+                this.columnInvoiceMasterRef = base.Columns["InvoiceMasterRef"];
+                this.columnQuantity = base.Columns["Quantity"];
+                this.columnPricePurchase = base.Columns["PricePurchase"];
+                this.columnDiscountSum = base.Columns["DiscountSum"];
+                this.columnPurchaseNDS = base.Columns["PurchaseNDS"];
+                this.columnPriceRetail = base.Columns["PriceRetail"];
+                this.columnRetailNDS = base.Columns["RetailNDS"];
+                this.columnPriceRetailNDS = base.Columns["PriceRetailNDS"];
+                this.columnLocalReceiptDetailRef = base.Columns["LocalReceiptDetailRef"];
+                this.columnRemoteInvoiceDetailRef = base.Columns["RemoteInvoiceDetailRef"];
+                this.columnExtra = base.Columns["Extra"];
+                this.columnDiscount = base.Columns["Discount"];
+                this.columnNote = base.Columns["Note"];
+                this.columnAuthorCreate = base.Columns["AuthorCreate"];
+                this.columnAuthorLastModif = base.Columns["AuthorLastModif"];
+                this.columnDateLastModif = base.Columns["DateLastModif"];
+                this.columnDateCreate = base.Columns["DateCreate"];
+                this.columnRowVersion = base.Columns["RowVersion"];
+                this.columnRetailSum = base.Columns["RetailSum"];
+                this.columnArticle = base.Columns["Article"];
+                this.columnHOST = base.Columns["HOST"];
+                this.columnrowguid = base.Columns["rowguid"];
+                this.columnTradePutletRef = base.Columns["TradePutletRef"];
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass() {
+                this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID);
+                this.columnInvoiceMasterRef = new System.Data.DataColumn("InvoiceMasterRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnInvoiceMasterRef);
+                this.columnQuantity = new System.Data.DataColumn("Quantity", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnQuantity);
+                this.columnPricePurchase = new System.Data.DataColumn("PricePurchase", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPricePurchase);
+                this.columnDiscountSum = new System.Data.DataColumn("DiscountSum", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDiscountSum);
+                this.columnPurchaseNDS = new System.Data.DataColumn("PurchaseNDS", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPurchaseNDS);
+                this.columnPriceRetail = new System.Data.DataColumn("PriceRetail", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPriceRetail);
+                this.columnRetailNDS = new System.Data.DataColumn("RetailNDS", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRetailNDS);
+                this.columnPriceRetailNDS = new System.Data.DataColumn("PriceRetailNDS", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPriceRetailNDS);
+                this.columnLocalReceiptDetailRef = new System.Data.DataColumn("LocalReceiptDetailRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLocalReceiptDetailRef);
+                this.columnRemoteInvoiceDetailRef = new System.Data.DataColumn("RemoteInvoiceDetailRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRemoteInvoiceDetailRef);
+                this.columnExtra = new System.Data.DataColumn("Extra", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnExtra);
+                this.columnDiscount = new System.Data.DataColumn("Discount", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDiscount);
+                this.columnNote = new System.Data.DataColumn("Note", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNote);
+                this.columnAuthorCreate = new System.Data.DataColumn("AuthorCreate", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAuthorCreate);
+                this.columnAuthorLastModif = new System.Data.DataColumn("AuthorLastModif", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAuthorLastModif);
+                this.columnDateLastModif = new System.Data.DataColumn("DateLastModif", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateLastModif);
+                this.columnDateCreate = new System.Data.DataColumn("DateCreate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateCreate);
+                this.columnRowVersion = new System.Data.DataColumn("RowVersion", typeof(byte[]), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRowVersion);
+                this.columnRetailSum = new System.Data.DataColumn("RetailSum", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRetailSum);
+                this.columnArticle = new System.Data.DataColumn("Article", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnArticle);
+                this.columnHOST = new System.Data.DataColumn("HOST", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHOST);
+                this.columnrowguid = new System.Data.DataColumn("rowguid", typeof(System.Guid), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnrowguid);
+                this.columnTradePutletRef = new System.Data.DataColumn("TradePutletRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTradePutletRef);
+                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
+                                this.columnrowguid,
+                                this.columnTradePutletRef}, true));
+                this.columnID.AllowDBNull = false;
+                this.columnInvoiceMasterRef.AllowDBNull = false;
+                this.columnQuantity.AllowDBNull = false;
+                this.columnPricePurchase.AllowDBNull = false;
+                this.columnDiscountSum.AllowDBNull = false;
+                this.columnPurchaseNDS.AllowDBNull = false;
+                this.columnPriceRetail.AllowDBNull = false;
+                this.columnRetailNDS.AllowDBNull = false;
+                this.columnPriceRetailNDS.AllowDBNull = false;
+                this.columnLocalReceiptDetailRef.AllowDBNull = false;
+                this.columnRemoteInvoiceDetailRef.AllowDBNull = false;
+                this.columnExtra.AllowDBNull = false;
+                this.columnDiscount.AllowDBNull = false;
+                this.columnNote.AllowDBNull = false;
+                this.columnNote.MaxLength = 50;
+                this.columnAuthorCreate.AllowDBNull = false;
+                this.columnAuthorCreate.MaxLength = 50;
+                this.columnAuthorLastModif.AllowDBNull = false;
+                this.columnAuthorLastModif.MaxLength = 50;
+                this.columnDateLastModif.AllowDBNull = false;
+                this.columnDateCreate.AllowDBNull = false;
+                this.columnRowVersion.ReadOnly = true;
+                this.columnRetailSum.AllowDBNull = false;
+                this.columnArticle.AllowDBNull = false;
+                this.columnHOST.AllowDBNull = false;
+                this.columnHOST.MaxLength = 128;
+                this.columnrowguid.AllowDBNull = false;
+                this.columnTradePutletRef.AllowDBNull = false;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public LinkedInvoiceDetailRow NewLinkedInvoiceDetailRow() {
+                return ((LinkedInvoiceDetailRow)(this.NewRow()));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
+                return new LinkedInvoiceDetailRow(builder);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Type GetRowType() {
+                return typeof(LinkedInvoiceDetailRow);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.LinkedInvoiceDetailRowChanged != null)) {
+                    this.LinkedInvoiceDetailRowChanged(this, new LinkedInvoiceDetailRowChangeEvent(((LinkedInvoiceDetailRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.LinkedInvoiceDetailRowChanging != null)) {
+                    this.LinkedInvoiceDetailRowChanging(this, new LinkedInvoiceDetailRowChangeEvent(((LinkedInvoiceDetailRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.LinkedInvoiceDetailRowDeleted != null)) {
+                    this.LinkedInvoiceDetailRowDeleted(this, new LinkedInvoiceDetailRowChangeEvent(((LinkedInvoiceDetailRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.LinkedInvoiceDetailRowDeleting != null)) {
+                    this.LinkedInvoiceDetailRowDeleting(this, new LinkedInvoiceDetailRowChangeEvent(((LinkedInvoiceDetailRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemoveLinkedInvoiceDetailRow(LinkedInvoiceDetailRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
+                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
+                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
+                MDataSet ds = new MDataSet();
+                xs.Add(ds.GetSchemaSerializable());
+                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "LinkedInvoiceDetailDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                return type;
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [System.Serializable()]
+        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class LinkedInvoiceMasterDataTable : System.Data.DataTable, System.Collections.IEnumerable {
+            
+            private System.Data.DataColumn columnID;
+            
+            private System.Data.DataColumn columnNumber;
+            
+            private System.Data.DataColumn columnNumCheck;
+            
+            private System.Data.DataColumn columnDate;
+            
+            private System.Data.DataColumn columnOrganisationRef;
+            
+            private System.Data.DataColumn columnDocumentTypeRef;
+            
+            private System.Data.DataColumn columnRemoteReceiptMasterRef;
+            
+            private System.Data.DataColumn columnRemoteInvoiceMasterRef;
+            
+            private System.Data.DataColumn columnIsReadOnly;
+            
+            private System.Data.DataColumn columnSum;
+            
+            private System.Data.DataColumn columnNds;
+            
+            private System.Data.DataColumn columnExtra;
+            
+            private System.Data.DataColumn columnDiscount;
+            
+            private System.Data.DataColumn columnNote;
+            
+            private System.Data.DataColumn columnPeriodsRef;
+            
+            private System.Data.DataColumn columnDateLastModif;
+            
+            private System.Data.DataColumn columnAuthorCreate;
+            
+            private System.Data.DataColumn columnAuthorLastModif;
+            
+            private System.Data.DataColumn columnDateCreate;
+            
+            private System.Data.DataColumn columnRowVersion;
+            
+            private System.Data.DataColumn columnRecalcSum;
+            
+            private System.Data.DataColumn columnHOST;
+            
+            private System.Data.DataColumn columnrowguid;
+            
+            private System.Data.DataColumn columnTradePutletRef;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public LinkedInvoiceMasterDataTable() {
+                this.TableName = "LinkedInvoiceMaster";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal LinkedInvoiceMasterDataTable(System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected LinkedInvoiceMasterDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn IDColumn {
+                get {
+                    return this.columnID;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn NumberColumn {
+                get {
+                    return this.columnNumber;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn NumCheckColumn {
+                get {
+                    return this.columnNumCheck;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateColumn {
+                get {
+                    return this.columnDate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn OrganisationRefColumn {
+                get {
+                    return this.columnOrganisationRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DocumentTypeRefColumn {
+                get {
+                    return this.columnDocumentTypeRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn RemoteReceiptMasterRefColumn {
+                get {
+                    return this.columnRemoteReceiptMasterRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn RemoteInvoiceMasterRefColumn {
+                get {
+                    return this.columnRemoteInvoiceMasterRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn IsReadOnlyColumn {
+                get {
+                    return this.columnIsReadOnly;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn SumColumn {
+                get {
+                    return this.columnSum;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn NdsColumn {
+                get {
+                    return this.columnNds;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ExtraColumn {
+                get {
+                    return this.columnExtra;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DiscountColumn {
+                get {
+                    return this.columnDiscount;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn NoteColumn {
+                get {
+                    return this.columnNote;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn PeriodsRefColumn {
+                get {
+                    return this.columnPeriodsRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateLastModifColumn {
+                get {
+                    return this.columnDateLastModif;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn AuthorCreateColumn {
+                get {
+                    return this.columnAuthorCreate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn AuthorLastModifColumn {
+                get {
+                    return this.columnAuthorLastModif;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DateCreateColumn {
+                get {
+                    return this.columnDateCreate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn RowVersionColumn {
+                get {
+                    return this.columnRowVersion;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn RecalcSumColumn {
+                get {
+                    return this.columnRecalcSum;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn HOSTColumn {
+                get {
+                    return this.columnHOST;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn rowguidColumn {
+                get {
+                    return this.columnrowguid;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn TradePutletRefColumn {
+                get {
+                    return this.columnTradePutletRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public LinkedInvoiceMasterRow this[int index] {
+                get {
+                    return ((LinkedInvoiceMasterRow)(this.Rows[index]));
+                }
+            }
+            
+            public event LinkedInvoiceMasterRowChangeEventHandler LinkedInvoiceMasterRowChanging;
+            
+            public event LinkedInvoiceMasterRowChangeEventHandler LinkedInvoiceMasterRowChanged;
+            
+            public event LinkedInvoiceMasterRowChangeEventHandler LinkedInvoiceMasterRowDeleting;
+            
+            public event LinkedInvoiceMasterRowChangeEventHandler LinkedInvoiceMasterRowDeleted;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddLinkedInvoiceMasterRow(LinkedInvoiceMasterRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public LinkedInvoiceMasterRow AddLinkedInvoiceMasterRow(
+                        int ID, 
+                        int Number, 
+                        int NumCheck, 
+                        System.DateTime Date, 
+                        int OrganisationRef, 
+                        int DocumentTypeRef, 
+                        int RemoteReceiptMasterRef, 
+                        int RemoteInvoiceMasterRef, 
+                        bool IsReadOnly, 
+                        decimal Sum, 
+                        decimal Nds, 
+                        decimal Extra, 
+                        decimal Discount, 
+                        string Note, 
+                        int PeriodsRef, 
+                        System.DateTime DateLastModif, 
+                        string AuthorCreate, 
+                        string AuthorLastModif, 
+                        System.DateTime DateCreate, 
+                        byte[] RowVersion, 
+                        bool RecalcSum, 
+                        string HOST, 
+                        System.Guid rowguid, 
+                        int TradePutletRef) {
+                LinkedInvoiceMasterRow rowLinkedInvoiceMasterRow = ((LinkedInvoiceMasterRow)(this.NewRow()));
+                rowLinkedInvoiceMasterRow.ItemArray = new object[] {
+                        ID,
+                        Number,
+                        NumCheck,
+                        Date,
+                        OrganisationRef,
+                        DocumentTypeRef,
+                        RemoteReceiptMasterRef,
+                        RemoteInvoiceMasterRef,
+                        IsReadOnly,
+                        Sum,
+                        Nds,
+                        Extra,
+                        Discount,
+                        Note,
+                        PeriodsRef,
+                        DateLastModif,
+                        AuthorCreate,
+                        AuthorLastModif,
+                        DateCreate,
+                        RowVersion,
+                        RecalcSum,
+                        HOST,
+                        rowguid,
+                        TradePutletRef};
+                this.Rows.Add(rowLinkedInvoiceMasterRow);
+                return rowLinkedInvoiceMasterRow;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public LinkedInvoiceMasterRow FindByrowguidTradePutletRef(System.Guid rowguid, int TradePutletRef) {
+                return ((LinkedInvoiceMasterRow)(this.Rows.Find(new object[] {
+                            rowguid,
+                            TradePutletRef})));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public virtual System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override System.Data.DataTable Clone() {
+                LinkedInvoiceMasterDataTable cln = ((LinkedInvoiceMasterDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataTable CreateInstance() {
+                return new LinkedInvoiceMasterDataTable();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars() {
+                this.columnID = base.Columns["ID"];
+                this.columnNumber = base.Columns["Number"];
+                this.columnNumCheck = base.Columns["NumCheck"];
+                this.columnDate = base.Columns["Date"];
+                this.columnOrganisationRef = base.Columns["OrganisationRef"];
+                this.columnDocumentTypeRef = base.Columns["DocumentTypeRef"];
+                this.columnRemoteReceiptMasterRef = base.Columns["RemoteReceiptMasterRef"];
+                this.columnRemoteInvoiceMasterRef = base.Columns["RemoteInvoiceMasterRef"];
+                this.columnIsReadOnly = base.Columns["IsReadOnly"];
+                this.columnSum = base.Columns["Sum"];
+                this.columnNds = base.Columns["Nds"];
+                this.columnExtra = base.Columns["Extra"];
+                this.columnDiscount = base.Columns["Discount"];
+                this.columnNote = base.Columns["Note"];
+                this.columnPeriodsRef = base.Columns["PeriodsRef"];
+                this.columnDateLastModif = base.Columns["DateLastModif"];
+                this.columnAuthorCreate = base.Columns["AuthorCreate"];
+                this.columnAuthorLastModif = base.Columns["AuthorLastModif"];
+                this.columnDateCreate = base.Columns["DateCreate"];
+                this.columnRowVersion = base.Columns["RowVersion"];
+                this.columnRecalcSum = base.Columns["RecalcSum"];
+                this.columnHOST = base.Columns["HOST"];
+                this.columnrowguid = base.Columns["rowguid"];
+                this.columnTradePutletRef = base.Columns["TradePutletRef"];
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass() {
+                this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID);
+                this.columnNumber = new System.Data.DataColumn("Number", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNumber);
+                this.columnNumCheck = new System.Data.DataColumn("NumCheck", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNumCheck);
+                this.columnDate = new System.Data.DataColumn("Date", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDate);
+                this.columnOrganisationRef = new System.Data.DataColumn("OrganisationRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOrganisationRef);
+                this.columnDocumentTypeRef = new System.Data.DataColumn("DocumentTypeRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDocumentTypeRef);
+                this.columnRemoteReceiptMasterRef = new System.Data.DataColumn("RemoteReceiptMasterRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRemoteReceiptMasterRef);
+                this.columnRemoteInvoiceMasterRef = new System.Data.DataColumn("RemoteInvoiceMasterRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRemoteInvoiceMasterRef);
+                this.columnIsReadOnly = new System.Data.DataColumn("IsReadOnly", typeof(bool), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsReadOnly);
+                this.columnSum = new System.Data.DataColumn("Sum", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSum);
+                this.columnNds = new System.Data.DataColumn("Nds", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNds);
+                this.columnExtra = new System.Data.DataColumn("Extra", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnExtra);
+                this.columnDiscount = new System.Data.DataColumn("Discount", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDiscount);
+                this.columnNote = new System.Data.DataColumn("Note", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNote);
+                this.columnPeriodsRef = new System.Data.DataColumn("PeriodsRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPeriodsRef);
+                this.columnDateLastModif = new System.Data.DataColumn("DateLastModif", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateLastModif);
+                this.columnAuthorCreate = new System.Data.DataColumn("AuthorCreate", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAuthorCreate);
+                this.columnAuthorLastModif = new System.Data.DataColumn("AuthorLastModif", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAuthorLastModif);
+                this.columnDateCreate = new System.Data.DataColumn("DateCreate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDateCreate);
+                this.columnRowVersion = new System.Data.DataColumn("RowVersion", typeof(byte[]), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRowVersion);
+                this.columnRecalcSum = new System.Data.DataColumn("RecalcSum", typeof(bool), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRecalcSum);
+                this.columnHOST = new System.Data.DataColumn("HOST", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHOST);
+                this.columnrowguid = new System.Data.DataColumn("rowguid", typeof(System.Guid), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnrowguid);
+                this.columnTradePutletRef = new System.Data.DataColumn("TradePutletRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTradePutletRef);
+                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
+                                this.columnrowguid,
+                                this.columnTradePutletRef}, true));
+                this.columnID.AllowDBNull = false;
+                this.columnNumber.AllowDBNull = false;
+                this.columnNumCheck.AllowDBNull = false;
+                this.columnDate.AllowDBNull = false;
+                this.columnOrganisationRef.AllowDBNull = false;
+                this.columnDocumentTypeRef.AllowDBNull = false;
+                this.columnRemoteReceiptMasterRef.AllowDBNull = false;
+                this.columnRemoteInvoiceMasterRef.AllowDBNull = false;
+                this.columnIsReadOnly.AllowDBNull = false;
+                this.columnSum.AllowDBNull = false;
+                this.columnNds.AllowDBNull = false;
+                this.columnExtra.AllowDBNull = false;
+                this.columnDiscount.AllowDBNull = false;
+                this.columnNote.AllowDBNull = false;
+                this.columnNote.MaxLength = 50;
+                this.columnPeriodsRef.AllowDBNull = false;
+                this.columnDateLastModif.AllowDBNull = false;
+                this.columnAuthorCreate.AllowDBNull = false;
+                this.columnAuthorCreate.MaxLength = 50;
+                this.columnAuthorLastModif.AllowDBNull = false;
+                this.columnAuthorLastModif.MaxLength = 50;
+                this.columnDateCreate.AllowDBNull = false;
+                this.columnRowVersion.ReadOnly = true;
+                this.columnRecalcSum.AllowDBNull = false;
+                this.columnHOST.AllowDBNull = false;
+                this.columnHOST.MaxLength = 128;
+                this.columnrowguid.AllowDBNull = false;
+                this.columnTradePutletRef.AllowDBNull = false;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public LinkedInvoiceMasterRow NewLinkedInvoiceMasterRow() {
+                return ((LinkedInvoiceMasterRow)(this.NewRow()));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
+                return new LinkedInvoiceMasterRow(builder);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Type GetRowType() {
+                return typeof(LinkedInvoiceMasterRow);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.LinkedInvoiceMasterRowChanged != null)) {
+                    this.LinkedInvoiceMasterRowChanged(this, new LinkedInvoiceMasterRowChangeEvent(((LinkedInvoiceMasterRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.LinkedInvoiceMasterRowChanging != null)) {
+                    this.LinkedInvoiceMasterRowChanging(this, new LinkedInvoiceMasterRowChangeEvent(((LinkedInvoiceMasterRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.LinkedInvoiceMasterRowDeleted != null)) {
+                    this.LinkedInvoiceMasterRowDeleted(this, new LinkedInvoiceMasterRowChangeEvent(((LinkedInvoiceMasterRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.LinkedInvoiceMasterRowDeleting != null)) {
+                    this.LinkedInvoiceMasterRowDeleting(this, new LinkedInvoiceMasterRowChangeEvent(((LinkedInvoiceMasterRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemoveLinkedInvoiceMasterRow(LinkedInvoiceMasterRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
+                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
+                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
+                MDataSet ds = new MDataSet();
+                xs.Add(ds.GetSchemaSerializable());
+                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "LinkedInvoiceMasterDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 return type;
@@ -14338,7 +15535,12 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.Guid rowguid {
                 get {
-                    return ((System.Guid)(this[this.tableManufacturer.rowguidColumn]));
+                    try {
+                        return ((System.Guid)(this[this.tableManufacturer.rowguidColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'rowguid\' in table \'Manufacturer\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableManufacturer.rowguidColumn] = value;
@@ -14383,6 +15585,16 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetCountryNameNull() {
                 this[this.tableManufacturer.CountryNameColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsrowguidNull() {
+                return this.IsNull(this.tableManufacturer.rowguidColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetrowguidNull() {
+                this[this.tableManufacturer.rowguidColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -14977,6 +16189,21 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string ProductName {
+                get {
+                    try {
+                        return ((string)(this[this.tableRemains.ProductNameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'ProductName\' in table \'Remains\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableRemains.ProductNameColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public ProductRow ProductRow {
                 get {
                     return ((ProductRow)(this.GetParentRow(this.Table.ParentRelations["Product_Remains"])));
@@ -14994,6 +16221,16 @@ namespace RetailTrade {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["ReceiptDetail_Remains"]);
                 }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsProductNameNull() {
+                return this.IsNull(this.tableRemains.ProductNameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetProductNameNull() {
+                this[this.tableRemains.ProductNameColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -15223,6 +16460,555 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetNameNull() {
                 this[this.tablePeriods.NameColumn] = System.Convert.DBNull;
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class LinkedInvoiceDetailRow : System.Data.DataRow {
+            
+            private LinkedInvoiceDetailDataTable tableLinkedInvoiceDetail;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal LinkedInvoiceDetailRow(System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableLinkedInvoiceDetail = ((LinkedInvoiceDetailDataTable)(this.Table));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ID {
+                get {
+                    return ((int)(this[this.tableLinkedInvoiceDetail.IDColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.IDColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int InvoiceMasterRef {
+                get {
+                    return ((int)(this[this.tableLinkedInvoiceDetail.InvoiceMasterRefColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.InvoiceMasterRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal Quantity {
+                get {
+                    return ((decimal)(this[this.tableLinkedInvoiceDetail.QuantityColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.QuantityColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal PricePurchase {
+                get {
+                    return ((decimal)(this[this.tableLinkedInvoiceDetail.PricePurchaseColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.PricePurchaseColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal DiscountSum {
+                get {
+                    return ((decimal)(this[this.tableLinkedInvoiceDetail.DiscountSumColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.DiscountSumColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal PurchaseNDS {
+                get {
+                    return ((decimal)(this[this.tableLinkedInvoiceDetail.PurchaseNDSColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.PurchaseNDSColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal PriceRetail {
+                get {
+                    return ((decimal)(this[this.tableLinkedInvoiceDetail.PriceRetailColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.PriceRetailColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal RetailNDS {
+                get {
+                    return ((decimal)(this[this.tableLinkedInvoiceDetail.RetailNDSColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.RetailNDSColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal PriceRetailNDS {
+                get {
+                    return ((decimal)(this[this.tableLinkedInvoiceDetail.PriceRetailNDSColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.PriceRetailNDSColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int LocalReceiptDetailRef {
+                get {
+                    return ((int)(this[this.tableLinkedInvoiceDetail.LocalReceiptDetailRefColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.LocalReceiptDetailRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int RemoteInvoiceDetailRef {
+                get {
+                    return ((int)(this[this.tableLinkedInvoiceDetail.RemoteInvoiceDetailRefColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.RemoteInvoiceDetailRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal Extra {
+                get {
+                    return ((decimal)(this[this.tableLinkedInvoiceDetail.ExtraColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.ExtraColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal Discount {
+                get {
+                    return ((decimal)(this[this.tableLinkedInvoiceDetail.DiscountColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.DiscountColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Note {
+                get {
+                    return ((string)(this[this.tableLinkedInvoiceDetail.NoteColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.NoteColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string AuthorCreate {
+                get {
+                    return ((string)(this[this.tableLinkedInvoiceDetail.AuthorCreateColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.AuthorCreateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string AuthorLastModif {
+                get {
+                    return ((string)(this[this.tableLinkedInvoiceDetail.AuthorLastModifColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.AuthorLastModifColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime DateLastModif {
+                get {
+                    return ((System.DateTime)(this[this.tableLinkedInvoiceDetail.DateLastModifColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.DateLastModifColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime DateCreate {
+                get {
+                    return ((System.DateTime)(this[this.tableLinkedInvoiceDetail.DateCreateColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.DateCreateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public byte[] RowVersion {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableLinkedInvoiceDetail.RowVersionColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'RowVersion\' in table \'LinkedInvoiceDetail\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.RowVersionColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal RetailSum {
+                get {
+                    return ((decimal)(this[this.tableLinkedInvoiceDetail.RetailSumColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.RetailSumColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int Article {
+                get {
+                    return ((int)(this[this.tableLinkedInvoiceDetail.ArticleColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.ArticleColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string HOST {
+                get {
+                    return ((string)(this[this.tableLinkedInvoiceDetail.HOSTColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.HOSTColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Guid rowguid {
+                get {
+                    return ((System.Guid)(this[this.tableLinkedInvoiceDetail.rowguidColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.rowguidColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int TradePutletRef {
+                get {
+                    return ((int)(this[this.tableLinkedInvoiceDetail.TradePutletRefColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.TradePutletRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public LinkedInvoiceMasterRow LinkedInvoiceMasterRowParent {
+                get {
+                    return ((LinkedInvoiceMasterRow)(this.GetParentRow(this.Table.ParentRelations["LinkedInvoiceMaster_LinkedInvoiceDetail"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["LinkedInvoiceMaster_LinkedInvoiceDetail"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsRowVersionNull() {
+                return this.IsNull(this.tableLinkedInvoiceDetail.RowVersionColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetRowVersionNull() {
+                this[this.tableLinkedInvoiceDetail.RowVersionColumn] = System.Convert.DBNull;
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class LinkedInvoiceMasterRow : System.Data.DataRow {
+            
+            private LinkedInvoiceMasterDataTable tableLinkedInvoiceMaster;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal LinkedInvoiceMasterRow(System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableLinkedInvoiceMaster = ((LinkedInvoiceMasterDataTable)(this.Table));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ID {
+                get {
+                    return ((int)(this[this.tableLinkedInvoiceMaster.IDColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.IDColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int Number {
+                get {
+                    return ((int)(this[this.tableLinkedInvoiceMaster.NumberColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.NumberColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int NumCheck {
+                get {
+                    return ((int)(this[this.tableLinkedInvoiceMaster.NumCheckColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.NumCheckColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime Date {
+                get {
+                    return ((System.DateTime)(this[this.tableLinkedInvoiceMaster.DateColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.DateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int OrganisationRef {
+                get {
+                    return ((int)(this[this.tableLinkedInvoiceMaster.OrganisationRefColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.OrganisationRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int DocumentTypeRef {
+                get {
+                    return ((int)(this[this.tableLinkedInvoiceMaster.DocumentTypeRefColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.DocumentTypeRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int RemoteReceiptMasterRef {
+                get {
+                    return ((int)(this[this.tableLinkedInvoiceMaster.RemoteReceiptMasterRefColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.RemoteReceiptMasterRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int RemoteInvoiceMasterRef {
+                get {
+                    return ((int)(this[this.tableLinkedInvoiceMaster.RemoteInvoiceMasterRefColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.RemoteInvoiceMasterRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsReadOnly {
+                get {
+                    return ((bool)(this[this.tableLinkedInvoiceMaster.IsReadOnlyColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.IsReadOnlyColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal Sum {
+                get {
+                    return ((decimal)(this[this.tableLinkedInvoiceMaster.SumColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.SumColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal Nds {
+                get {
+                    return ((decimal)(this[this.tableLinkedInvoiceMaster.NdsColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.NdsColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal Extra {
+                get {
+                    return ((decimal)(this[this.tableLinkedInvoiceMaster.ExtraColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.ExtraColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal Discount {
+                get {
+                    return ((decimal)(this[this.tableLinkedInvoiceMaster.DiscountColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.DiscountColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Note {
+                get {
+                    return ((string)(this[this.tableLinkedInvoiceMaster.NoteColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.NoteColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int PeriodsRef {
+                get {
+                    return ((int)(this[this.tableLinkedInvoiceMaster.PeriodsRefColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.PeriodsRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime DateLastModif {
+                get {
+                    return ((System.DateTime)(this[this.tableLinkedInvoiceMaster.DateLastModifColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.DateLastModifColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string AuthorCreate {
+                get {
+                    return ((string)(this[this.tableLinkedInvoiceMaster.AuthorCreateColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.AuthorCreateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string AuthorLastModif {
+                get {
+                    return ((string)(this[this.tableLinkedInvoiceMaster.AuthorLastModifColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.AuthorLastModifColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime DateCreate {
+                get {
+                    return ((System.DateTime)(this[this.tableLinkedInvoiceMaster.DateCreateColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.DateCreateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public byte[] RowVersion {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableLinkedInvoiceMaster.RowVersionColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'RowVersion\' in table \'LinkedInvoiceMaster\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.RowVersionColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool RecalcSum {
+                get {
+                    return ((bool)(this[this.tableLinkedInvoiceMaster.RecalcSumColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.RecalcSumColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string HOST {
+                get {
+                    return ((string)(this[this.tableLinkedInvoiceMaster.HOSTColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.HOSTColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Guid rowguid {
+                get {
+                    return ((System.Guid)(this[this.tableLinkedInvoiceMaster.rowguidColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.rowguidColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int TradePutletRef {
+                get {
+                    return ((int)(this[this.tableLinkedInvoiceMaster.TradePutletRefColumn]));
+                }
+                set {
+                    this[this.tableLinkedInvoiceMaster.TradePutletRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsRowVersionNull() {
+                return this.IsNull(this.tableLinkedInvoiceMaster.RowVersionColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetRowVersionNull() {
+                this[this.tableLinkedInvoiceMaster.RowVersionColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public LinkedInvoiceDetailRow[] GetLinkedInvoiceDetailRows() {
+                return ((LinkedInvoiceDetailRow[])(base.GetChildRows(this.Table.ChildRelations["LinkedInvoiceMaster_LinkedInvoiceDetail"])));
             }
         }
         
@@ -15829,6 +17615,62 @@ namespace RetailTrade {
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public PeriodsRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class LinkedInvoiceDetailRowChangeEvent : System.EventArgs {
+            
+            private LinkedInvoiceDetailRow eventRow;
+            
+            private System.Data.DataRowAction eventAction;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public LinkedInvoiceDetailRowChangeEvent(LinkedInvoiceDetailRow row, System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public LinkedInvoiceDetailRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class LinkedInvoiceMasterRowChangeEvent : System.EventArgs {
+            
+            private LinkedInvoiceMasterRow eventRow;
+            
+            private System.Data.DataRowAction eventAction;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public LinkedInvoiceMasterRowChangeEvent(LinkedInvoiceMasterRow row, System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public LinkedInvoiceMasterRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -16579,7 +18421,7 @@ namespace RetailTrade.MDataSetTableAdapters {
             this._adapter.InsertCommand.CommandType = System.Data.CommandType.StoredProcedure;
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@InvoiceMasterRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "InvoiceMasterRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Quantity", System.Data.SqlDbType.Decimal, 5, System.Data.ParameterDirection.Input, 5, 3, "Quantity", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Quantity", System.Data.SqlDbType.Decimal, 5, System.Data.ParameterDirection.Input, 18, 3, "Quantity", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PriceRetailNDS", System.Data.SqlDbType.Decimal, 9, System.Data.ParameterDirection.Input, 18, 2, "PriceRetailNDS", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@LocalReceiptDetailRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "LocalReceiptDetailRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Note", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, "Note", System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -22504,6 +24346,306 @@ SELECT ID, TradePupletRef, ProductRef, DateOrder, Quantity, Price, Reserved, Qua
         public virtual MDataSet.PeriodsDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             MDataSet.PeriodsDataTable dataTable = new MDataSet.PeriodsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.ComponentModel.ToolboxItem(true)]
+    [System.ComponentModel.DataObjectAttribute(true)]
+    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class LinkedInvoiceDetailTableAdapter : System.ComponentModel.Component {
+        
+        private System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private System.Data.SqlClient.SqlConnection _connection;
+        
+        private System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public LinkedInvoiceDetailTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitAdapter() {
+            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
+            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "LinkedInvoiceDetail";
+            tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("InvoiceMasterRef", "InvoiceMasterRef");
+            tableMapping.ColumnMappings.Add("Quantity", "Quantity");
+            tableMapping.ColumnMappings.Add("PricePurchase", "PricePurchase");
+            tableMapping.ColumnMappings.Add("DiscountSum", "DiscountSum");
+            tableMapping.ColumnMappings.Add("PurchaseNDS", "PurchaseNDS");
+            tableMapping.ColumnMappings.Add("PriceRetail", "PriceRetail");
+            tableMapping.ColumnMappings.Add("RetailNDS", "RetailNDS");
+            tableMapping.ColumnMappings.Add("PriceRetailNDS", "PriceRetailNDS");
+            tableMapping.ColumnMappings.Add("LocalReceiptDetailRef", "LocalReceiptDetailRef");
+            tableMapping.ColumnMappings.Add("RemoteInvoiceDetailRef", "RemoteInvoiceDetailRef");
+            tableMapping.ColumnMappings.Add("Extra", "Extra");
+            tableMapping.ColumnMappings.Add("Discount", "Discount");
+            tableMapping.ColumnMappings.Add("Note", "Note");
+            tableMapping.ColumnMappings.Add("AuthorCreate", "AuthorCreate");
+            tableMapping.ColumnMappings.Add("AuthorLastModif", "AuthorLastModif");
+            tableMapping.ColumnMappings.Add("DateLastModif", "DateLastModif");
+            tableMapping.ColumnMappings.Add("DateCreate", "DateCreate");
+            tableMapping.ColumnMappings.Add("RowVersion", "RowVersion");
+            tableMapping.ColumnMappings.Add("RetailSum", "RetailSum");
+            tableMapping.ColumnMappings.Add("Article", "Article");
+            tableMapping.ColumnMappings.Add("HOST", "HOST");
+            tableMapping.ColumnMappings.Add("rowguid", "rowguid");
+            tableMapping.ColumnMappings.Add("TradePutletRef", "TradePutletRef");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitConnection() {
+            this._connection = new System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::RetailTrade.Properties.Settings.Default.RetailTradeConnectionString;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitCommandCollection() {
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = @"SELECT ID, InvoiceMasterRef, Quantity, PricePurchase, DiscountSum, PurchaseNDS, PriceRetail, RetailNDS, PriceRetailNDS, LocalReceiptDetailRef, RemoteInvoiceDetailRef, Extra, Discount, Note, AuthorCreate, AuthorLastModif, DateLastModif, DateCreate, RowVersion, RetailSum, Article, HOST, rowguid, TradePutletRef FROM dbo.LinkedInvoiceDetail";
+            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(MDataSet.LinkedInvoiceDetailDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual MDataSet.LinkedInvoiceDetailDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            MDataSet.LinkedInvoiceDetailDataTable dataTable = new MDataSet.LinkedInvoiceDetailDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.ComponentModel.ToolboxItem(true)]
+    [System.ComponentModel.DataObjectAttribute(true)]
+    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class LinkedInvoiceMasterTableAdapter : System.ComponentModel.Component {
+        
+        private System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private System.Data.SqlClient.SqlConnection _connection;
+        
+        private System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public LinkedInvoiceMasterTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitAdapter() {
+            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
+            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "LinkedInvoiceMaster";
+            tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("Number", "Number");
+            tableMapping.ColumnMappings.Add("NumCheck", "NumCheck");
+            tableMapping.ColumnMappings.Add("Date", "Date");
+            tableMapping.ColumnMappings.Add("OrganisationRef", "OrganisationRef");
+            tableMapping.ColumnMappings.Add("DocumentTypeRef", "DocumentTypeRef");
+            tableMapping.ColumnMappings.Add("RemoteReceiptMasterRef", "RemoteReceiptMasterRef");
+            tableMapping.ColumnMappings.Add("RemoteInvoiceMasterRef", "RemoteInvoiceMasterRef");
+            tableMapping.ColumnMappings.Add("IsReadOnly", "IsReadOnly");
+            tableMapping.ColumnMappings.Add("Sum", "Sum");
+            tableMapping.ColumnMappings.Add("Nds", "Nds");
+            tableMapping.ColumnMappings.Add("Extra", "Extra");
+            tableMapping.ColumnMappings.Add("Discount", "Discount");
+            tableMapping.ColumnMappings.Add("Note", "Note");
+            tableMapping.ColumnMappings.Add("PeriodsRef", "PeriodsRef");
+            tableMapping.ColumnMappings.Add("DateLastModif", "DateLastModif");
+            tableMapping.ColumnMappings.Add("AuthorCreate", "AuthorCreate");
+            tableMapping.ColumnMappings.Add("AuthorLastModif", "AuthorLastModif");
+            tableMapping.ColumnMappings.Add("DateCreate", "DateCreate");
+            tableMapping.ColumnMappings.Add("RowVersion", "RowVersion");
+            tableMapping.ColumnMappings.Add("RecalcSum", "RecalcSum");
+            tableMapping.ColumnMappings.Add("HOST", "HOST");
+            tableMapping.ColumnMappings.Add("rowguid", "rowguid");
+            tableMapping.ColumnMappings.Add("TradePutletRef", "TradePutletRef");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitConnection() {
+            this._connection = new System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::RetailTrade.Properties.Settings.Default.RetailTradeConnectionString;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitCommandCollection() {
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = @"SELECT ID, Number, NumCheck, Date, OrganisationRef, DocumentTypeRef, RemoteReceiptMasterRef, RemoteInvoiceMasterRef, IsReadOnly, Sum, Nds, Extra, Discount, Note, PeriodsRef, DateLastModif, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, RecalcSum, HOST, rowguid, TradePutletRef FROM dbo.LinkedInvoiceMaster";
+            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(MDataSet.LinkedInvoiceMasterDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual MDataSet.LinkedInvoiceMasterDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            MDataSet.LinkedInvoiceMasterDataTable dataTable = new MDataSet.LinkedInvoiceMasterDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }

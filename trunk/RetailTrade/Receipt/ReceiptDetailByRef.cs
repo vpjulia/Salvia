@@ -231,9 +231,6 @@ namespace RetailTrade
                 if (_row.SubstanceRef > 0)
                     place = _row.SubstanceRow.Name.ToString();
 
-                if (_row.ManufacturerRef > 0)
-                    country = _row.ManufacturerRow.CountryRow.Name.ToString();
-
 
                 e.PreviewText = pack.ToString() + "   " + place + "  " + farmgr + "   " + subst + "  " + country;
             }

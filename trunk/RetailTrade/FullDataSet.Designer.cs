@@ -45,8 +45,6 @@ namespace RetailTrade {
         
         private System.Data.DataRelation relationFK_FarmGroupLevel2_FarmGroup;
         
-        private System.Data.DataRelation relationFK_Product_Manufacturer;
-        
         private System.Data.DataRelation relationFK_Manufacturer_Country;
         
         private System.Data.DataRelation relationFK_Product_Packing;
@@ -384,7 +382,6 @@ namespace RetailTrade {
             }
             this.relationFK_Product_FarmGroupLevel2 = this.Relations["FK_Product_FarmGroupLevel2"];
             this.relationFK_FarmGroupLevel2_FarmGroup = this.Relations["FK_FarmGroupLevel2_FarmGroup"];
-            this.relationFK_Product_Manufacturer = this.Relations["FK_Product_Manufacturer"];
             this.relationFK_Manufacturer_Country = this.Relations["FK_Manufacturer_Country"];
             this.relationFK_Product_Packing = this.Relations["FK_Product_Packing"];
             this.relationFK_Product_StorageCondition = this.Relations["FK_Product_StorageCondition"];
@@ -425,10 +422,6 @@ namespace RetailTrade {
                         this.tableFarmGroup.IDColumn}, new System.Data.DataColumn[] {
                         this.tableFarmGroupLevel2.FarmGroupRefColumn}, false);
             this.Relations.Add(this.relationFK_FarmGroupLevel2_FarmGroup);
-            this.relationFK_Product_Manufacturer = new System.Data.DataRelation("FK_Product_Manufacturer", new System.Data.DataColumn[] {
-                        this.tableManufacturer.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableProduct.ManufacturerRefColumn}, false);
-            this.Relations.Add(this.relationFK_Product_Manufacturer);
             this.relationFK_Manufacturer_Country = new System.Data.DataRelation("FK_Manufacturer_Country", new System.Data.DataColumn[] {
                         this.tableCountry.IDColumn}, new System.Data.DataColumn[] {
                         this.tableManufacturer.CounrtyRefColumn}, false);
@@ -563,8 +556,6 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnFarmGrouplevel2Ref;
             
-            private System.Data.DataColumn columnManufacturerRef;
-            
             private System.Data.DataColumn columnIsRecept;
             
             private System.Data.DataColumn columnIsOneRecept;
@@ -683,13 +674,6 @@ namespace RetailTrade {
             public System.Data.DataColumn FarmGrouplevel2RefColumn {
                 get {
                     return this.columnFarmGrouplevel2Ref;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn ManufacturerRefColumn {
-                get {
-                    return this.columnManufacturerRef;
                 }
             }
             
@@ -829,7 +813,6 @@ namespace RetailTrade {
                         StorageConditionRow parentStorageConditionRowByFK_Product_StorageCondition, 
                         SubstanceRow parentSubstanceRowByFK_Product_Substance, 
                         FarmGroupLevel2Row parentFarmGroupLevel2RowByFK_Product_FarmGroupLevel2, 
-                        ManufacturerRow parentManufacturerRowByFK_Product_Manufacturer, 
                         bool IsRecept, 
                         bool IsOneRecept, 
                         bool IsHide, 
@@ -855,7 +838,6 @@ namespace RetailTrade {
                         parentStorageConditionRowByFK_Product_StorageCondition[0],
                         parentSubstanceRowByFK_Product_Substance[0],
                         parentFarmGroupLevel2RowByFK_Product_FarmGroupLevel2[0],
-                        parentManufacturerRowByFK_Product_Manufacturer[0],
                         IsRecept,
                         IsOneRecept,
                         IsHide,
@@ -908,7 +890,6 @@ namespace RetailTrade {
                 this.columnStorageConditionRef = base.Columns["StorageConditionRef"];
                 this.columnSubstanceRef = base.Columns["SubstanceRef"];
                 this.columnFarmGrouplevel2Ref = base.Columns["FarmGrouplevel2Ref"];
-                this.columnManufacturerRef = base.Columns["ManufacturerRef"];
                 this.columnIsRecept = base.Columns["IsRecept"];
                 this.columnIsOneRecept = base.Columns["IsOneRecept"];
                 this.columnIsHide = base.Columns["IsHide"];
@@ -945,8 +926,6 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnSubstanceRef);
                 this.columnFarmGrouplevel2Ref = new System.Data.DataColumn("FarmGrouplevel2Ref", typeof(int), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFarmGrouplevel2Ref);
-                this.columnManufacturerRef = new System.Data.DataColumn("ManufacturerRef", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnManufacturerRef);
                 this.columnIsRecept = new System.Data.DataColumn("IsRecept", typeof(bool), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsRecept);
                 this.columnIsOneRecept = new System.Data.DataColumn("IsOneRecept", typeof(bool), null, System.Data.MappingType.Element);
@@ -1000,8 +979,6 @@ namespace RetailTrade {
                 this.columnSubstanceRef.DefaultValue = ((int)(0));
                 this.columnFarmGrouplevel2Ref.AllowDBNull = false;
                 this.columnFarmGrouplevel2Ref.DefaultValue = ((int)(0));
-                this.columnManufacturerRef.AllowDBNull = false;
-                this.columnManufacturerRef.DefaultValue = ((int)(0));
                 this.columnIsRecept.AllowDBNull = false;
                 this.columnIsRecept.DefaultValue = ((bool)(false));
                 this.columnIsOneRecept.AllowDBNull = false;
@@ -3608,16 +3585,6 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ManufacturerRef {
-                get {
-                    return ((int)(this[this.tableProduct.ManufacturerRefColumn]));
-                }
-                set {
-                    this[this.tableProduct.ManufacturerRefColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsRecept {
                 get {
                     return ((bool)(this[this.tableProduct.IsReceptColumn]));
@@ -3789,16 +3756,6 @@ namespace RetailTrade {
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_Product_FarmGroupLevel2"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ManufacturerRow ManufacturerRow {
-                get {
-                    return ((ManufacturerRow)(this.GetParentRow(this.Table.ParentRelations["FK_Product_Manufacturer"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Product_Manufacturer"]);
                 }
             }
             
@@ -4623,11 +4580,6 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetCountryNameNull() {
                 this[this.tableManufacturer.CountryNameColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ProductRow[] GetProductRows() {
-                return ((ProductRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Product_Manufacturer"])));
             }
         }
         
@@ -5629,7 +5581,6 @@ namespace RetailTrade.FullDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("StorageConditionRef", "StorageConditionRef");
             tableMapping.ColumnMappings.Add("SubstanceRef", "SubstanceRef");
             tableMapping.ColumnMappings.Add("FarmGrouplevel2Ref", "FarmGrouplevel2Ref");
-            tableMapping.ColumnMappings.Add("ManufacturerRef", "ManufacturerRef");
             tableMapping.ColumnMappings.Add("IsRecept", "IsRecept");
             tableMapping.ColumnMappings.Add("IsOneRecept", "IsOneRecept");
             tableMapping.ColumnMappings.Add("IsHide", "IsHide");
@@ -5665,7 +5616,6 @@ namespace RetailTrade.FullDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@StorageConditionRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "StorageConditionRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SubstanceRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "SubstanceRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FarmGrouplevel2Ref", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "FarmGrouplevel2Ref", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ManufacturerRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ManufacturerRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IsRecept", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, 1, 0, "IsRecept", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IsOneRecept", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, 1, 0, "IsOneRecept", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IsHide", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, 1, 0, "IsHide", System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -5688,7 +5638,6 @@ namespace RetailTrade.FullDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@StorageConditionRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "StorageConditionRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SubstanceRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "SubstanceRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FarmGrouplevel2Ref", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "FarmGrouplevel2Ref", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ManufacturerRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, "ManufacturerRef", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IsRecept", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, 1, 0, "IsRecept", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IsOneRecept", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, 1, 0, "IsOneRecept", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IsHide", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, 1, 0, "IsHide", System.Data.DataRowVersion.Current, false, null, "", "", ""));

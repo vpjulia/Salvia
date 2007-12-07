@@ -23,6 +23,8 @@ namespace RetailTrade
 
         bool _isnds;
 
+        DataTable _product;
+
         public UCProductAll()
         {
             InitializeComponent();
@@ -67,6 +69,9 @@ namespace RetailTrade
             _changes = new DataView(source.Product, null, null, DataViewRowState.Added | DataViewRowState.ModifiedCurrent | DataViewRowState.Deleted);
       
             _changes.ListChanged += new ListChangedEventHandler(_changes_ListChanged);
+
+
+            _product = source.Product;
 
 
         }
@@ -115,19 +120,25 @@ namespace RetailTrade
         {
            if (_changes.Count>0)
             {
-                     /*сохранить удаление*/
-                    (this.ParentForm as MainForm).SaveToBaseDirectoryDeleted(_changes.Table.Select(null, null, DataViewRowState.Deleted));
+               int res;
 
-                    /*сохранить изменения*/
+               try
+               {
+                res =  (this.ParentForm as MainForm).productTableAdapter1.Update(_product as FullDataSet.ProductDataTable);
+                MessageBox.Show("Сохранено : " + res.ToString());
+               }
+               catch (Exception err)
 
-                    (this.ParentForm as MainForm).SaveToBaseDirectoryModifed(_changes.Table.Select(null, null, DataViewRowState.ModifiedCurrent));
+               {
 
-                    /*сохранить добавления*/
-                    (this.ParentForm as MainForm).SaveToBaseDirectoryModifed(_changes.Table.Select(null, null, DataViewRowState.Added));
-                
+                   MessageBox.Show(err.Message);
+                   MainForm.Log(err.Message);
+                   return false;
+               }
+
             }
 
-            (this.ParentForm as MainForm).RefreshData(_changes.Table);
+           
             return true;
         }
 
@@ -193,9 +204,6 @@ namespace RetailTrade
                 productBindingSource.CurrencyManager.CancelCurrentEdit();
   
             }
-
-
-
         }
 
         private void btDel_Click(object sender, EventArgs e)
@@ -406,7 +414,7 @@ namespace RetailTrade
                 string place = "";
                 string farmgr = "";
                 string subst = "";
-                string country = "";
+              
 
                 if (_row.PackingRef > 0)
                     pack = _row.PackingRow.Name.ToString();
@@ -421,11 +429,9 @@ namespace RetailTrade
                 if (_row.SubstanceRef > 0)
                     place = _row.SubstanceRow.Name.ToString();
 
-                if (_row.ManufacturerRef > 0)
-                    country = _row.ManufacturerRow.CountryRow.Name.ToString();
+              
 
-
-                e.PreviewText = pack.ToString() + "   " + place + "  " + farmgr + "   " + subst + "  " + country;
+                e.PreviewText = pack.ToString() + "   " + place + "  " + farmgr + "   " + subst ;
 
             }
         }
