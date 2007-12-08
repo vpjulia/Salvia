@@ -40,7 +40,7 @@ namespace RetailTrade
             
             
 
-            this.productBindingSource.DataSource = new DataView(_productTable, "IsNds=" + _isNds.ToString(),"Name",DataViewRowState.Unchanged);
+            this.productBindingSource.DataSource = new DataView(_productTable, "IsNds=" + _isNds.ToString(),"Name",DataViewRowState.OriginalRows);
            
             this.productBindingSource.ResetBindings(true);
      //      this.productBindingSource.DataSource = this.mDataSet.Product.Select("IsNds=" + source.StockRowByFK_ReceiptMaster_Stock.IsNDS.ToString() );
@@ -94,13 +94,19 @@ namespace RetailTrade
 
                  if (productRow==null)
                  {
-                     ((this.productBindingSource.CurrencyManager.Current as DataRowView).Row  as FullDataSet.ProductRow).SetModified();
 
-                     this.mDataSet.Product.Merge(_productTable.GetChanges());
+                    
+
+
+
+                      ((this.productBindingSource.CurrencyManager.Current as DataRowView).Row  as FullDataSet.ProductRow).SetModified();
+
+                      this.mDataSet.Product.Merge(_productTable.GetChanges());
 
                      ((this.productBindingSource.CurrencyManager.Current as DataRowView).Row as FullDataSet.ProductRow).AcceptChanges();
               
                      productRow = this.mDataSet.Product.FindByID(_idproduct);
+
 
                     }
 

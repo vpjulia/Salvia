@@ -925,7 +925,7 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripMenuItem btProduct;
         private System.Windows.Forms.BindingSource mDataSetBindingSource;
         private System.Windows.Forms.BindingSource productBindingSource;
-        private RetailTrade.MDataSetTableAdapters.ProductTableAdapter productTableAdapter;
+        public RetailTrade.MDataSetTableAdapters.ProductTableAdapter productTableAdapter;
         public MDataSet mDataSet;
         private System.Windows.Forms.BindingSource manufacturerBindingSource;
         private System.Windows.Forms.BindingSource farmGroupBindingSource;
