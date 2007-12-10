@@ -32,6 +32,11 @@ namespace RetailTrade.Remains
             (this.ParentForm as MainForm).FillTable("Remains");
         }
 
+        private void btClose_Click(object sender, EventArgs e)
+        {
+            (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
+        }
+
 
     }
 }

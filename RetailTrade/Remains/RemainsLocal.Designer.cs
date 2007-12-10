@@ -29,19 +29,25 @@ namespace RetailTrade.Remains
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RemainsLocal));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btClose = new System.Windows.Forms.ToolStripButton();
             this.grid = new DevExpress.XtraGrid.GridControl();
             this.remainsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mDataSet = new RetailTrade.MDataSet();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colReceiptDetailRef = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colQuantityReceipt = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colProductName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colManufacturerName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCountryName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSeries = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colUseByDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPricePurchase = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQuantityRemains = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAuthorCreate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colAuthorLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDateCreate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colRowVersion = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colMainStockRef = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDocDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSumRemains = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.remainsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
@@ -58,11 +64,25 @@ namespace RetailTrade.Remains
             // 
             // toolStrip1
             // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btClose});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(707, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // btClose
+            // 
+            this.btClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btClose.Image = ((System.Drawing.Image)(resources.GetObject("btClose.Image")));
+            this.btClose.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btClose.Name = "btClose";
+            this.btClose.Size = new System.Drawing.Size(23, 22);
+            this.btClose.Text = "X";
+            this.btClose.ToolTipText = "Закрыть";
+            this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
             // grid
             // 
@@ -93,83 +113,132 @@ namespace RetailTrade.Remains
             // gridView1
             // 
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colReceiptDetailRef,
-            this.colQuantityReceipt,
+            this.colProductName,
+            this.colManufacturerName,
+            this.colCountryName,
+            this.colSeries,
+            this.colUseByDate,
+            this.colPricePurchase,
             this.colQuantityRemains,
-            this.colAuthorCreate,
-            this.colAuthorLastModif,
-            this.colDateCreate,
-            this.colRowVersion});
+            this.colMainStockRef,
+            this.colDocDate,
+            this.colSumRemains});
             this.gridView1.GridControl = this.grid;
+            this.gridView1.GroupSummary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "SumRemains", null, ""),
+            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Count, "ProductName", null, "")});
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.AllowIncrementalSearch = true;
+            this.gridView1.OptionsBehavior.Editable = false;
+            this.gridView1.OptionsView.ShowAutoFilterRow = true;
+            this.gridView1.OptionsView.ShowFooter = true;
+            this.gridView1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colProductName, DevExpress.Data.ColumnSortOrder.Ascending)});
             // 
-            // colReceiptDetailRef
+            // colProductName
             // 
-            this.colReceiptDetailRef.Caption = "ReceiptDetailRef";
-            this.colReceiptDetailRef.FieldName = "ReceiptDetailRef";
-            this.colReceiptDetailRef.Name = "colReceiptDetailRef";
-            this.colReceiptDetailRef.Visible = true;
-            this.colReceiptDetailRef.VisibleIndex = 0;
+            this.colProductName.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold);
+            this.colProductName.AppearanceCell.Options.UseFont = true;
+            this.colProductName.Caption = "Наименование";
+            this.colProductName.FieldName = "ProductName";
+            this.colProductName.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.colProductName.Name = "colProductName";
+            this.colProductName.OptionsFilter.AllowFilter = false;
+            this.colProductName.SortMode = DevExpress.XtraGrid.ColumnSortMode.DisplayText;
+            this.colProductName.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Count;
+            this.colProductName.Visible = true;
+            this.colProductName.VisibleIndex = 0;
             // 
-            // colQuantityReceipt
+            // colManufacturerName
             // 
-            this.colQuantityReceipt.Caption = "QuantityReceipt";
-            this.colQuantityReceipt.FieldName = "QuantityReceipt";
-            this.colQuantityReceipt.Name = "colQuantityReceipt";
-            this.colQuantityReceipt.Visible = true;
-            this.colQuantityReceipt.VisibleIndex = 1;
+            this.colManufacturerName.Caption = "Изготовитель";
+            this.colManufacturerName.FieldName = "ManufacturerName";
+            this.colManufacturerName.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.colManufacturerName.Name = "colManufacturerName";
+            this.colManufacturerName.OptionsFilter.AllowFilter = false;
+            this.colManufacturerName.Visible = true;
+            this.colManufacturerName.VisibleIndex = 1;
+            // 
+            // colCountryName
+            // 
+            this.colCountryName.Caption = "Страна";
+            this.colCountryName.FieldName = "CountryName";
+            this.colCountryName.Name = "colCountryName";
+            this.colCountryName.OptionsFilter.AllowFilter = false;
+            this.colCountryName.Visible = true;
+            this.colCountryName.VisibleIndex = 2;
+            // 
+            // colSeries
+            // 
+            this.colSeries.Caption = "Серия";
+            this.colSeries.FieldName = "Series";
+            this.colSeries.Name = "colSeries";
+            this.colSeries.OptionsFilter.AllowFilter = false;
+            this.colSeries.Visible = true;
+            this.colSeries.VisibleIndex = 3;
+            // 
+            // colUseByDate
+            // 
+            this.colUseByDate.Caption = "Срок";
+            this.colUseByDate.FieldName = "UseByDate";
+            this.colUseByDate.Name = "colUseByDate";
+            this.colUseByDate.Visible = true;
+            this.colUseByDate.VisibleIndex = 4;
+            // 
+            // colPricePurchase
+            // 
+            this.colPricePurchase.Caption = "Цена зак.";
+            this.colPricePurchase.FieldName = "PricePurchase";
+            this.colPricePurchase.Name = "colPricePurchase";
+            this.colPricePurchase.Visible = true;
+            this.colPricePurchase.VisibleIndex = 5;
             // 
             // colQuantityRemains
             // 
-            this.colQuantityRemains.Caption = "QuantityRemains";
+            this.colQuantityRemains.Caption = "Остаток";
             this.colQuantityRemains.FieldName = "QuantityRemains";
             this.colQuantityRemains.Name = "colQuantityRemains";
             this.colQuantityRemains.Visible = true;
-            this.colQuantityRemains.VisibleIndex = 2;
+            this.colQuantityRemains.VisibleIndex = 6;
             // 
-            // colAuthorCreate
+            // colMainStockRef
             // 
-            this.colAuthorCreate.Caption = "AuthorCreate";
-            this.colAuthorCreate.FieldName = "AuthorCreate";
-            this.colAuthorCreate.Name = "colAuthorCreate";
-            this.colAuthorCreate.Visible = true;
-            this.colAuthorCreate.VisibleIndex = 3;
+            this.colMainStockRef.Caption = "Склад";
+            this.colMainStockRef.FieldName = "MainStockRef";
+            this.colMainStockRef.Name = "colMainStockRef";
+            this.colMainStockRef.OptionsFilter.AllowFilter = false;
+            this.colMainStockRef.Visible = true;
+            this.colMainStockRef.VisibleIndex = 7;
             // 
-            // colAuthorLastModif
+            // colDocDate
             // 
-            this.colAuthorLastModif.Caption = "AuthorLastModif";
-            this.colAuthorLastModif.FieldName = "AuthorLastModif";
-            this.colAuthorLastModif.Name = "colAuthorLastModif";
-            this.colAuthorLastModif.Visible = true;
-            this.colAuthorLastModif.VisibleIndex = 4;
+            this.colDocDate.Caption = "Дата прихода";
+            this.colDocDate.FieldName = "DocDate";
+            this.colDocDate.Name = "colDocDate";
+            this.colDocDate.Visible = true;
+            this.colDocDate.VisibleIndex = 8;
             // 
-            // colDateCreate
+            // colSumRemains
             // 
-            this.colDateCreate.Caption = "DateCreate";
-            this.colDateCreate.FieldName = "DateCreate";
-            this.colDateCreate.Name = "colDateCreate";
-            this.colDateCreate.Visible = true;
-            this.colDateCreate.VisibleIndex = 5;
+            this.colSumRemains.Caption = "Сумма";
+            this.colSumRemains.FieldName = "SumRemains";
+            this.colSumRemains.Name = "colSumRemains";
+            this.colSumRemains.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
+            this.colSumRemains.Visible = true;
+            this.colSumRemains.VisibleIndex = 9;
             // 
-            // colRowVersion
-            // 
-            this.colRowVersion.Caption = "RowVersion";
-            this.colRowVersion.FieldName = "RowVersion";
-            this.colRowVersion.Name = "colRowVersion";
-            this.colRowVersion.OptionsColumn.ReadOnly = true;
-            this.colRowVersion.Visible = true;
-            this.colRowVersion.VisibleIndex = 6;
-            // 
-            // Remains
+            // RemainsLocal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.grid);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
-            this.Name = "Remains";
+            this.Name = "RemainsLocal";
             this.Size = new System.Drawing.Size(707, 506);
             this.Load += new System.EventHandler(this.Remains_Load);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.remainsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
@@ -186,13 +255,17 @@ namespace RetailTrade.Remains
         private DevExpress.XtraGrid.GridControl grid;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private MDataSet mDataSet;
-        private DevExpress.XtraGrid.Columns.GridColumn colReceiptDetailRef;
-        private DevExpress.XtraGrid.Columns.GridColumn colQuantityReceipt;
-        private DevExpress.XtraGrid.Columns.GridColumn colQuantityRemains;
-        private DevExpress.XtraGrid.Columns.GridColumn colAuthorCreate;
-        private DevExpress.XtraGrid.Columns.GridColumn colAuthorLastModif;
-        private DevExpress.XtraGrid.Columns.GridColumn colDateCreate;
-        private DevExpress.XtraGrid.Columns.GridColumn colRowVersion;
         private System.Windows.Forms.BindingSource remainsBindingSource;
+        private System.Windows.Forms.ToolStripButton btClose;
+        private DevExpress.XtraGrid.Columns.GridColumn colProductName;
+        private DevExpress.XtraGrid.Columns.GridColumn colManufacturerName;
+        private DevExpress.XtraGrid.Columns.GridColumn colCountryName;
+        private DevExpress.XtraGrid.Columns.GridColumn colSeries;
+        private DevExpress.XtraGrid.Columns.GridColumn colUseByDate;
+        private DevExpress.XtraGrid.Columns.GridColumn colPricePurchase;
+        private DevExpress.XtraGrid.Columns.GridColumn colQuantityRemains;
+        private DevExpress.XtraGrid.Columns.GridColumn colMainStockRef;
+        private DevExpress.XtraGrid.Columns.GridColumn colDocDate;
+        private DevExpress.XtraGrid.Columns.GridColumn colSumRemains;
     }
 }
