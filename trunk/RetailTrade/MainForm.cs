@@ -33,7 +33,7 @@ namespace RetailTrade
 
         public static void Log(String logMessage )
         {
-            string path = (Application.StartupPath +"\\log_" + DateTime.Now.ToShortDateString() + ".txt");
+            string path = (Application.StartupPath +"\\log_");// + DateTime.Now.ToShortDateString() + ".txt");
 
             TextWriter w;
 

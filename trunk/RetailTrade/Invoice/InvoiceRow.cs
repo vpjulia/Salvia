@@ -294,7 +294,12 @@ namespace RetailTrade.Invoice
             }
         }
 
-       
+        private void tabControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            MessageBox.Show("Test");
+        }
+
+     
        
     }
 }
