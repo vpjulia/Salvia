@@ -14,5 +14,6 @@ namespace RetailTrade
         {
             InitializeComponent();
         }
+
     }
 }

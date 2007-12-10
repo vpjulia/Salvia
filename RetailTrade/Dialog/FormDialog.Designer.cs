@@ -43,18 +43,20 @@ namespace RetailTrade
             this.flowLayoutPanel1.Controls.Add(this.btOk);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 60);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 49);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(232, 40);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(174, 32);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // btCancel
             // 
             this.btCancel.CausesValidation = false;
             this.btCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btCancel.Location = new System.Drawing.Point(146, 3);
+            this.btCancel.Location = new System.Drawing.Point(110, 2);
+            this.btCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btCancel.Name = "btCancel";
-            this.btCancel.Size = new System.Drawing.Size(83, 34);
+            this.btCancel.Size = new System.Drawing.Size(62, 28);
             this.btCancel.TabIndex = 1;
             this.btCancel.Text = "Отмена";
             this.btCancel.UseVisualStyleBackColor = true;
@@ -62,9 +64,10 @@ namespace RetailTrade
             // btOk
             // 
             this.btOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btOk.Location = new System.Drawing.Point(56, 3);
+            this.btOk.Location = new System.Drawing.Point(43, 2);
+            this.btOk.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btOk.Name = "btOk";
-            this.btOk.Size = new System.Drawing.Size(84, 34);
+            this.btOk.Size = new System.Drawing.Size(63, 28);
             this.btOk.TabIndex = 0;
             this.btOk.Text = "ОК";
             this.btOk.UseVisualStyleBackColor = true;
@@ -75,24 +78,25 @@ namespace RetailTrade
             this.panel.AutoSize = true;
             this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel.Location = new System.Drawing.Point(0, 0);
-            this.panel.Margin = new System.Windows.Forms.Padding(25);
+            this.panel.Margin = new System.Windows.Forms.Padding(19, 20, 19, 20);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(232, 60);
-            this.panel.TabIndex = 1;
+            this.panel.Size = new System.Drawing.Size(174, 49);
+            this.panel.TabIndex = 0;
             // 
             // FormDialog
             // 
             this.AcceptButton = this.btOk;
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Dialog;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.CancelButton = this.btCancel;
-            this.ClientSize = new System.Drawing.Size(232, 100);
+            this.ClientSize = new System.Drawing.Size(174, 81);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.flowLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormDialog";

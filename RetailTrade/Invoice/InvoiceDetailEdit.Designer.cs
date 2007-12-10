@@ -33,6 +33,8 @@ namespace RetailTrade.Invoice
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.gridRemains = new DevExpress.XtraGrid.GridControl();
+            this.contextMenuStripRemains = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btFieldRem = new System.Windows.Forms.ToolStripMenuItem();
             this.RemainsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mDataSet = new RetailTrade.MDataSet();
             this.gridViewRemainsInvDetEdt = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -70,14 +72,13 @@ namespace RetailTrade.Invoice
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.invoiceMasterBindingSourceView = new System.Windows.Forms.BindingSource(this.components);
             this.invoiceMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.contextMenuStripRemains = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.btFieldRem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridRemains)).BeginInit();
+            this.contextMenuStripRemains.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RemainsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRemainsInvDetEdt)).BeginInit();
@@ -87,7 +88,6 @@ namespace RetailTrade.Invoice
             ((System.ComponentModel.ISupportInitialize)(this.gridViewinvDet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSourceView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSource)).BeginInit();
-            this.contextMenuStripRemains.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -97,18 +97,21 @@ namespace RetailTrade.Invoice
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(680, 535);
-            this.tabControl1.TabIndex = 1;
+            this.tabControl1.Size = new System.Drawing.Size(510, 435);
+            this.tabControl1.TabIndex = 0;
+            this.tabControl1.TabStop = false;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.splitContainer1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(672, 506);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage1.Size = new System.Drawing.Size(502, 409);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Накладная";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -116,7 +119,8 @@ namespace RetailTrade.Invoice
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Location = new System.Drawing.Point(2, 2);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -127,8 +131,9 @@ namespace RetailTrade.Invoice
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.gridInvoiceDetail);
-            this.splitContainer1.Size = new System.Drawing.Size(666, 500);
-            this.splitContainer1.SplitterDistance = 273;
+            this.splitContainer1.Size = new System.Drawing.Size(498, 405);
+            this.splitContainer1.SplitterDistance = 221;
+            this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 0;
             // 
             // gridRemains
@@ -139,16 +144,32 @@ namespace RetailTrade.Invoice
             // 
             // 
             // 
+            this.gridRemains.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(2);
             this.gridRemains.EmbeddedNavigator.Name = "";
             this.gridRemains.Location = new System.Drawing.Point(0, 0);
             this.gridRemains.MainView = this.gridViewRemainsInvDetEdt;
+            this.gridRemains.Margin = new System.Windows.Forms.Padding(2);
             this.gridRemains.Name = "gridRemains";
-            this.gridRemains.Size = new System.Drawing.Size(666, 273);
+            this.gridRemains.Size = new System.Drawing.Size(498, 221);
             this.gridRemains.TabIndex = 0;
             this.gridRemains.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewRemainsInvDetEdt});
             this.gridRemains.DoubleClick += new System.EventHandler(this.btAdd_Click);
             this.gridRemains.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridRemains_KeyDown);
+            // 
+            // contextMenuStripRemains
+            // 
+            this.contextMenuStripRemains.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btFieldRem});
+            this.contextMenuStripRemains.Name = "contextMenuStripRemains";
+            this.contextMenuStripRemains.Size = new System.Drawing.Size(173, 26);
+            // 
+            // btFieldRem
+            // 
+            this.btFieldRem.Name = "btFieldRem";
+            this.btFieldRem.Size = new System.Drawing.Size(172, 22);
+            this.btFieldRem.Text = "Настройка полей";
+            this.btFieldRem.Click += new System.EventHandler(this.btFieldRem_Click);
             // 
             // RemainsBindingSource
             // 
@@ -180,6 +201,7 @@ namespace RetailTrade.Invoice
             this.gridViewRemainsInvDetEdt.OptionsBehavior.Editable = false;
             this.gridViewRemainsInvDetEdt.OptionsFilter.UseNewCustomFilterDialog = true;
             this.gridViewRemainsInvDetEdt.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridViewRemainsInvDetEdt.OptionsView.ShowAutoFilterRow = true;
             // 
             // colProductRef
             // 
@@ -302,11 +324,13 @@ namespace RetailTrade.Invoice
             // 
             // 
             // 
+            this.gridInvoiceDetail.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(2);
             this.gridInvoiceDetail.EmbeddedNavigator.Name = "";
             this.gridInvoiceDetail.Location = new System.Drawing.Point(0, 0);
             this.gridInvoiceDetail.MainView = this.gridViewinvDet;
+            this.gridInvoiceDetail.Margin = new System.Windows.Forms.Padding(2);
             this.gridInvoiceDetail.Name = "gridInvoiceDetail";
-            this.gridInvoiceDetail.Size = new System.Drawing.Size(666, 223);
+            this.gridInvoiceDetail.Size = new System.Drawing.Size(498, 181);
             this.gridInvoiceDetail.TabIndex = 0;
             this.gridInvoiceDetail.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewinvDet});
@@ -318,26 +342,26 @@ namespace RetailTrade.Invoice
             this.btDelete,
             this.btField});
             this.contextMenuStripInvoice.Name = "contextMenuStrip";
-            this.contextMenuStripInvoice.Size = new System.Drawing.Size(209, 70);
+            this.contextMenuStripInvoice.Size = new System.Drawing.Size(173, 70);
             // 
             // btEdit
             // 
             this.btEdit.Name = "btEdit";
-            this.btEdit.Size = new System.Drawing.Size(208, 22);
+            this.btEdit.Size = new System.Drawing.Size(172, 22);
             this.btEdit.Text = "Изменить";
             this.btEdit.Click += new System.EventHandler(this.gridViewinvDet_DoubleClick);
             // 
             // btDelete
             // 
             this.btDelete.Name = "btDelete";
-            this.btDelete.Size = new System.Drawing.Size(208, 22);
+            this.btDelete.Size = new System.Drawing.Size(172, 22);
             this.btDelete.Text = "Удалить строку";
             this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
             // 
             // btField
             // 
             this.btField.Name = "btField";
-            this.btField.Size = new System.Drawing.Size(208, 22);
+            this.btField.Size = new System.Drawing.Size(172, 22);
             this.btField.Text = "Настройка полей";
             this.btField.Click += new System.EventHandler(this.btField_Click);
             // 
@@ -500,20 +524,22 @@ namespace RetailTrade.Invoice
             // 
             // tabPage2
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(672, 506);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage2.Size = new System.Drawing.Size(502, 409);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Цены";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(672, 506);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage3.Size = new System.Drawing.Size(502, 409);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Заказы";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -528,28 +554,15 @@ namespace RetailTrade.Invoice
             this.invoiceMasterBindingSource.DataMember = "InvoiceMaster";
             this.invoiceMasterBindingSource.DataSource = this.mDataSet;
             // 
-            // contextMenuStripRemains
-            // 
-            this.contextMenuStripRemains.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btFieldRem});
-            this.contextMenuStripRemains.Name = "contextMenuStripRemains";
-            this.contextMenuStripRemains.Size = new System.Drawing.Size(209, 48);
-            // 
-            // btFieldRem
-            // 
-            this.btFieldRem.Name = "btFieldRem";
-            this.btFieldRem.Size = new System.Drawing.Size(208, 22);
-            this.btFieldRem.Text = "Настройка полей";
-            this.btFieldRem.Click += new System.EventHandler(this.btFieldRem_Click);
-            // 
             // InvoiceDetailEdit
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.Controls.Add(this.tabControl1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "InvoiceDetailEdit";
-            this.Size = new System.Drawing.Size(680, 535);
+            this.Size = new System.Drawing.Size(510, 435);
             this.Load += new System.EventHandler(this.InvoiceDetailEdit_Load);
             this.Validating += new System.ComponentModel.CancelEventHandler(this.InvoiceDetailEdit_Validating);
             this.tabControl1.ResumeLayout(false);
@@ -558,6 +571,7 @@ namespace RetailTrade.Invoice
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridRemains)).EndInit();
+            this.contextMenuStripRemains.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.RemainsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRemainsInvDetEdt)).EndInit();
@@ -567,7 +581,6 @@ namespace RetailTrade.Invoice
             ((System.ComponentModel.ISupportInitialize)(this.gridViewinvDet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSourceView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceMasterBindingSource)).EndInit();
-            this.contextMenuStripRemains.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
