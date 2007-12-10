@@ -13,6 +13,8 @@ namespace RetailTrade.Invoice
     {
         private decimal _quantytiStock;
 
+        private MDataSet.ProductRow _productRow;
+
         public InvoiceDetailRowAdd()
         {
             InitializeComponent();
@@ -21,25 +23,46 @@ namespace RetailTrade.Invoice
         public InvoiceDetailRowAdd(MDataSet.InvoiceDetailRow source, MDataSet.RemainsRow remain)
         {
             InitializeComponent();
-          
-            this.invoiceDetailBindingSource.DataSource = source;
 
-         //   this.productBindingSource.DataSource = remain;
-            // this.productBindingSource.ResetBindings(false); 
+             _productRow = remain.ProductRow;
+
+
+             if (_productRow.MinDivisor == 1)
+             {
+                 this.quantityEdit.Properties.EditFormat.FormatString = "#####";
+                 this.quantityEdit.Properties.Mask.EditMask= "d";
+             }
+             else
+             {
+                 this.quantityEdit.Properties.EditFormat.FormatString = "n3";
+
+                 this.quantityEdit.Properties.Mask.EditMask = "n3"; 
+             
+             }
+
+            this.labelOst.Text = remain.QuantityRemains.ToString();
+           
+            this.mDataSet = source.Table.DataSet as MDataSet;
+            this.invoiceDetailBindingSource.DataSource = source;
+        
+           this.productBindingSource.DataSource = _productRow;
+           this.productBindingSource.ResetBindings(false); 
+          
             if (source.LocalReceiptDetailRef==0 )  
                source.LocalReceiptDetailRef = remain.ReceiptDetailRef;
 
+           this.remainsBindingSource.DataSource = remain;
 
-        //    source.Quantity = remain.QuantityRemains;
+           
+
             _quantytiStock = remain.QuantityRemains;
             
           
             this.invoiceDetailBindingSource.ResetBindings(true);
 
-           
-
             this.errorProvider1.DataSource = this.invoiceDetailBindingSource;
             this.errorProvider1.UpdateBinding();
+           
             source.EndEdit();
         }
 
@@ -70,7 +93,8 @@ namespace RetailTrade.Invoice
 
         private void priceEdit_Validated(object sender, EventArgs e)
         {
-
+            /*
+             
             if (this.priceEdit.Text.Length == 0)
             { 
              errorProvider1.SetError((sender as Control), "¬ведите цену!");
@@ -85,6 +109,7 @@ namespace RetailTrade.Invoice
                 this.quantityEdit.SelectAll();
            
             } 
+             */
         }
 
        

@@ -22,5 +22,10 @@ namespace RetailTrade.Orders
             this.ordersBindingSource.ResetBindings(false);
 
         }
+
+        private void btClose_Click(object sender, EventArgs e)
+        {
+            (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
+        }
     }
 }
