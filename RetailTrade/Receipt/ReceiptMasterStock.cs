@@ -367,5 +367,21 @@ namespace RetailTrade.Receipt
             }
         }
 
+        private void gridViewRecieptDetailStock_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        {
+           /*
+
+
+            if (det.UseByDate.AddMonths(-6) < DateTime.Today)
+
+                e.Appearance.ForeColor = Color.Pink;
+
+            if (det.UseByDate.AddMonths(-2) < DateTime.Today)
+                e.Appearance.ForeColor = Color.Red;
+            */
+
+
+        }
+
     }
 }

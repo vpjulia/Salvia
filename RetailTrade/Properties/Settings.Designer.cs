@@ -135,5 +135,17 @@ namespace RetailTrade.Properties {
                 this["SERVER"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\")]
+        public string PathToFarmNew {
+            get {
+                return ((string)(this["PathToFarmNew"]));
+            }
+            set {
+                this["PathToFarmNew"] = value;
+            }
+        }
     }
 }

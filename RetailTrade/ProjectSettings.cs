@@ -12,6 +12,21 @@ namespace RetailTrade
     {
         private string _connectionString;
 
+
+        private string _farmPathNew;
+
+        public string FarmPathNew
+        {
+            get {
+                _farmPathNew = Properties.Settings.Default.PathToFarmNew;
+
+                return _farmPathNew; 
+            }
+            set { _farmPathNew = value;
+            Properties.Settings.Default.PathToFarmNew = _farmPathNew;
+            }
+        }
+
         public string MainConnectionString
         {
 
@@ -36,11 +51,14 @@ namespace RetailTrade
         {
             InitializeComponent();
           
+  
+            this.textBoxConString.DataBindings.Add("Text", this, "MainConnectionString");
+            this.tbpathToFarmNew.DataBindings.Add("Text", this, "FarmPathNew");
 
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btSave_Click(object sender, EventArgs e)
         {
                //  string tmp;
                //  System.Configuration.AppSettingsReader app = new System.Configuration.AppSettingsReader();
@@ -48,11 +66,10 @@ namespace RetailTrade
                //  tmp = app.GetValue("RetailTradeConnectionString", System.Type.GetType("System.String")).ToString();
           //  Properties.Settings.Default.RetailTradeConnectionString
 
-                
+            Properties.Settings.Default.Save();
 
 
-         this.textBoxConString.DataBindings.Add("Text", this, "MainConnectionString");
-
+       
         }
     }
 }

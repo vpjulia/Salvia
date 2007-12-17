@@ -128,6 +128,7 @@ namespace RetailTrade
             this.colManufacturerName});
             this.gridViewRecDetail.GridControl = this.grid;
             this.gridViewRecDetail.Name = "gridViewRecDetail";
+            this.gridViewRecDetail.OptionsView.ColumnAutoWidth = false;
             this.gridViewRecDetail.OptionsView.ShowChildrenInGroupPanel = true;
             this.gridViewRecDetail.OptionsView.ShowGroupPanel = false;
             // 
@@ -419,7 +420,6 @@ namespace RetailTrade
             this.colTradePutletName.OptionsColumn.ReadOnly = true;
             this.colTradePutletName.Visible = true;
             this.colTradePutletName.VisibleIndex = 9;
-            this.colTradePutletName.Width = 29;
             // 
             // colFullAuthorModif
             // 
@@ -430,7 +430,7 @@ namespace RetailTrade
             this.colFullAuthorModif.OptionsColumn.AllowFocus = false;
             this.colFullAuthorModif.Visible = true;
             this.colFullAuthorModif.VisibleIndex = 10;
-            this.colFullAuthorModif.Width = 29;
+            this.colFullAuthorModif.Width = 73;
             // 
             // colFullAuthorCreate
             // 
@@ -442,7 +442,7 @@ namespace RetailTrade
             this.colFullAuthorCreate.OptionsColumn.ReadOnly = true;
             this.colFullAuthorCreate.Visible = true;
             this.colFullAuthorCreate.VisibleIndex = 11;
-            this.colFullAuthorCreate.Width = 69;
+            this.colFullAuthorCreate.Width = 113;
             // 
             // colPurchSum
             // 

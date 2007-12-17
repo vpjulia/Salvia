@@ -30,7 +30,6 @@ namespace RetailTrade.Remains
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RemainsLocal));
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btClose = new System.Windows.Forms.ToolStripButton();
             this.grid = new DevExpress.XtraGrid.GridControl();
@@ -53,14 +52,6 @@ namespace RetailTrade.Remains
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 484);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(707, 22);
-            this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStrip1
             // 
@@ -88,14 +79,11 @@ namespace RetailTrade.Remains
             // 
             this.grid.DataSource = this.remainsBindingSource;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
             this.grid.EmbeddedNavigator.Name = "";
             this.grid.Location = new System.Drawing.Point(0, 25);
             this.grid.MainView = this.gridView1;
             this.grid.Name = "grid";
-            this.grid.Size = new System.Drawing.Size(707, 459);
+            this.grid.Size = new System.Drawing.Size(707, 481);
             this.grid.TabIndex = 2;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -130,6 +118,7 @@ namespace RetailTrade.Remains
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.AllowIncrementalSearch = true;
             this.gridView1.OptionsBehavior.Editable = false;
+            this.gridView1.OptionsView.ColumnAutoWidth = false;
             this.gridView1.OptionsView.ShowAutoFilterRow = true;
             this.gridView1.OptionsView.ShowFooter = true;
             this.gridView1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
@@ -223,6 +212,7 @@ namespace RetailTrade.Remains
             this.colSumRemains.Caption = "—ÛÏÏ‡";
             this.colSumRemains.FieldName = "SumRemains";
             this.colSumRemains.Name = "colSumRemains";
+            this.colSumRemains.SummaryItem.DisplayFormat = "{0:##0.00}";
             this.colSumRemains.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
             this.colSumRemains.Visible = true;
             this.colSumRemains.VisibleIndex = 9;
@@ -233,7 +223,6 @@ namespace RetailTrade.Remains
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.grid);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.statusStrip1);
             this.Name = "RemainsLocal";
             this.Size = new System.Drawing.Size(707, 506);
             this.Load += new System.EventHandler(this.Remains_Load);
@@ -250,7 +239,6 @@ namespace RetailTrade.Remains
 
         #endregion
 
-        private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private DevExpress.XtraGrid.GridControl grid;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;

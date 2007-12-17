@@ -30,7 +30,7 @@ namespace RetailTrade.Receipt
 
             string vfpOleDbConString = "User ID=;DSN=;Cache Authentication=False;Data Source=\"{0}\";Password=;Provider=\"VFPOLEDB.1\";Collating Sequence=MACHINE;Mask Password=False;Mode=Share Deny None;Extended Properties=;Encrypt Password=False";
             
-            string  _vfpOleDbConString= String.Format(vfpOleDbConString,"D:\\Work\\FarmTrade" );
+            string  _vfpOleDbConString= String.Format(vfpOleDbConString, Properties.Settings.Default.PathToFarmNew);
            
             this.oleDbDataAdapter1 = new System.Data.OleDb.OleDbDataAdapter();
    
@@ -73,12 +73,7 @@ namespace RetailTrade.Receipt
 
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-        
-
-        }
-
+     
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
            this.bindingSource1.DataSource =this._dataset.Tables[this.listBox1.SelectedItem.ToString()];
@@ -136,6 +131,25 @@ namespace RetailTrade.Receipt
 
             }
 
+
+        }
+
+        private void ReceiptImport_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                this.productTableAdapter.Fill(this.fullDataSet.Product,false);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+             }
+            this.productBindingSource.ResetBindings(true);
+
+        }
+
+        private void btFind_Click(object sender, EventArgs e)
+        {
 
         }
     }

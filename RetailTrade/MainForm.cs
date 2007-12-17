@@ -18,9 +18,6 @@ using RetailTrade.Orders;
 using RetailTrade.Remains;
 using System.IO;
 
-
-
-
 namespace RetailTrade
 {
    
@@ -29,11 +26,12 @@ namespace RetailTrade
     {
         Thread thread;
 
-        
-
         public static void Log(String logMessage )
         {
-            string path = (Application.StartupPath +"\\log_");// + DateTime.Now.ToShortDateString() + ".txt");
+            string datefile = DateTime.Now.Year.ToString() + '_' + DateTime.Now.Month.ToString() + '_' + DateTime.Now.Day.ToString();
+
+
+            string path = (Application.StartupPath + "\\log_" + datefile + ".txt");
 
             TextWriter w;
 
@@ -196,15 +194,15 @@ namespace RetailTrade
             this.mDataSet.InvoiceDetail.TableNewRow+=new DataTableNewRowEventHandler(InvoiceDetail_TableNewRow);
             this.mDataSet.InvoiceDetail.RowDeleted+=new DataRowChangeEventHandler(InvoiceDetail_RowDeleted);
             this.mDataSet.InvoiceDetail.RowChanged+=new DataRowChangeEventHandler(InvoiceDetail_RowChanged);
-         
-
             _changesInvoiceDetail = new DataView(this.mDataSet.InvoiceDetail,null,null,DataViewRowState.Added | DataViewRowState.ModifiedCurrent|DataViewRowState.Deleted);
-          
+
+
+            this.userLabel.Text = "";
+         
             Log("MainForm_Load True ");
-           
-              
+      
         }
-           
+         
        
         public class SanseeGridLocalizer : GridLocalizer
         {
@@ -565,9 +563,6 @@ namespace RetailTrade
             return usControl;
 
         }
-
-      
-        
         
         public bool ShowNewDataTab(String TagControl, string Title,params object[] list)
         {

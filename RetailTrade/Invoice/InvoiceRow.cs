@@ -15,35 +15,51 @@ namespace RetailTrade.Invoice
 
         MDataSet.InvoiceMasterRow _curentMasterRow;
 
-        DataView _detail;
-
+        DataView _changesDetail;
+        DataView _changesMaster;
 
         public InvoiceRow()
         {
             InitializeComponent();
         }
 
-
         public InvoiceRow(MDataSet.InvoiceMasterRow source)
         {
             InitializeComponent();
-            
+
             _curentMasterRow = source;
 
             this.mDataSet = source.Table.DataSet as MDataSet;
-           
+
             this.invoiceMasterBindingSource.DataSource = source.Table;
             this.invoiceMasterBindingSource.ResetBindings(false);
+            this.invoiceDetailBindingSource.DataSource = this.invoiceMasterBindingSource;
+            this.invoiceDetailBindingSource.DataMember = "FK_InvoiceDetail_InvoiceMaster";
+            this.invoiceDetailBindingSource.ResetBindings(true);
 
-            _detail = new DataView(this.mDataSet.InvoiceDetail, "InvoiceMasterRef=" + source.ID.ToString(), null, DataViewRowState.CurrentRows);
+
+
+            this.MainStockBindingSource.DataSource = new DataView(this.mDataSet.Stock, "IsLocal=1 and isnds=" + source.IsNDS.ToString(), null, DataViewRowState.CurrentRows);
+
 
             this.invoiceMasterBindingSource.CurrencyManager.Position = this.invoiceMasterBindingSource.Find("ID", source.ID);
 
-            if (_detail.Count> 0)
+            _changesMaster = new DataView(source.Table, null, null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
+
+
+            //_detail = (this.invoiceMasterBindingSource.Current as DataRowView).CreateChildView("FK_InvoiceDetail_InvoiceMaster");
+
+
+            _changesDetail = new DataView(this.mDataSet.InvoiceDetail, null, null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
+
+
+
+
+            if (this._curentMasterRow.GetInvoiceDetailRows().Length > 0)
             {
                 this.mainStocklookUpEdit.Enabled = false;
-                this.stockBindingSource.DataSource = this.mDataSet.Stock.Select("IsLocal=0 and isnds="+source.IsNDS.ToString());
-                this.btMove.Visible = true;
+                this.stockBindingSource.DataSource = this.mDataSet.Stock.Select("IsLocal=0 and isnds=" + source.IsNDS.ToString());
+
             }
             else
             {
@@ -51,12 +67,6 @@ namespace RetailTrade.Invoice
                 this.mainStocklookUpEdit.Enabled = true;
             }
 
-            
-
-            this.invoiceDetailBindingSource.DataSource = this.invoiceMasterBindingSource;
-            this.invoiceDetailBindingSource.DataMember = "FK_InvoiceDetail_InvoiceMaster";
-            this.invoiceDetailBindingSource.ResetBindings(true);
-            this.MainStockBindingSource.DataSource = new DataView(this.mDataSet.Stock, "IsLocal=1 and isnds="+source.IsNDS.ToString(), null, DataViewRowState.CurrentRows);
 
             if (source.ID < 0)
             {
@@ -64,55 +74,33 @@ namespace RetailTrade.Invoice
             }
 
 
-            
-            if (source.RemoteStockRef ==0)
+
+            if (source.RemoteStockRef == 0)
             {
                 this.grid.Enabled = false;
                 this.btEdit.Enabled = false;
                 this.mainStocklookUpEdit.Enabled = false;
             }
 
-            _detail.ListChanged += new ListChangedEventHandler(_detail_ListChanged);
-
-        }
-
-        void _detail_ListChanged(object sender, ListChangedEventArgs e)
-        {
-
-            if (_detail.Count > 0)
+            if (_changesDetail.Count == 0 & _changesMaster.Count == 0)
             {
-
-             this.mainStocklookUpEdit.Enabled = false;
-             this.stockBindingSource.DataSource= this.mDataSet.Stock.Select("IsLocal=0 and isnds=" + _curentMasterRow.IsNDS.ToString());
-             this.btMove.Visible = true;
-
-            }else
-                this.btMove.Visible = false;
-
-
-
-        }
-        private bool SaveChange()
-        {
-
-            this.invoiceMasterBindingSource.CurrencyManager.EndCurrentEdit();
-            this.invoiceDetailBindingSource.CurrencyManager.EndCurrentEdit();
-
-            if ((this.ParentForm as MainForm).SaveToBase((this.invoiceMasterBindingSource.Current as DataRowView).Row as MDataSet.InvoiceMasterRow))
-            {
-                this.invoiceMasterBindingSource.ResetCurrentItem();
-                this.Parent.Tag = "InvoiceRow" + ((this.invoiceMasterBindingSource.Current as DataRowView).Row as MDataSet.InvoiceMasterRow).ID.ToString();
-                this.Parent.Text = "№" /*+ ((this.receiptMasterBindingSource.Current as DataRowView).Row as MDataSet.InvoiceMasterRow).Number.ToString() + " " + ((this.invoiceMasterBindingSource.Current as DataRowView).Row as MDataSet.InvoiceMasterRow).OrganizationRow.ShortName.ToString()*/;
-                this.panelNumber.Enabled = true;
+                btSave.Visible = false;
+                btMove.Visible = true;
             }
-            return true;
-        }
-        private void btField_Click(object sender, EventArgs e)
-        {
-            (this.grid.FocusedView as GridView).ColumnsCustomization();
+            else
+            {
+                btSave.Visible = true;
+                btMove.Visible = false;
+            
+            }
+
+
+
+            _changesDetail.ListChanged += new ListChangedEventHandler(_detail_ListChanged);
+
         }
 
-        private void InvoiceRow_Load(object sender, EventArgs e)
+       private void InvoiceRow_Load(object sender, EventArgs e)
         {
             foreach (GridView view in this.grid.ViewCollection)
             {
@@ -128,46 +116,66 @@ namespace RetailTrade.Invoice
             }
         }
 
-        private void btClose_Click(object sender, EventArgs e)
+  
+        void _detail_ListChanged(object sender, ListChangedEventArgs e)
         {
-            if (this.gridInvoiceRowView.HasColumnErrors)
+            if (this._curentMasterRow.ID >0)
             {
-                this.invoiceDetailBindingSource.CancelEdit();
+                this.panelNumber.Enabled = true;
             }
-            if ((_detail.Count == 0) & (_curentMasterRow.ID < 0))
+
+            if (this._curentMasterRow.RemoteStockRef > 0)
             {
-                this._curentMasterRow.RejectChanges();
-                if ((this.ParentForm as MainForm) != null)
-                {
-                    (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage); 
+               this.grid.Enabled = true;
                         
-                    }
             }
-            else if (this.SaveChange())
+            
+            if (this._curentMasterRow.GetInvoiceDetailRows().Length > 0)
             {
-                  foreach (GridView view in this.grid.ViewCollection)
-                {
 
-                    string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
-
-                    try
-                    {
-                        view.SaveLayoutToXml(fileName);
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Не удалось сохранить настройки");
-                    }
-
-                }
-                if ((this.ParentForm as MainForm) != null)
-
-                    (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage); 
-                        
-              
+             this.mainStocklookUpEdit.Enabled = false;
+             this.stockBindingSource.DataSource= this.mDataSet.Stock.Select("IsLocal=0 and isnds=" + _curentMasterRow.IsNDS.ToString());
+            
             }
+
+
+            if (_changesDetail.Count==0 & _changesMaster.Count==0) 
+            {
+                this.btMove.Visible = true;
+                this.btSave.Visible = false;
+
+            }
+            else
+            {
+                this.btSave.Visible = true;
+                this.btMove.Visible = false;
+            }
+
         }
 
+        private bool SaveChange()
+        {
+
+            this.invoiceMasterBindingSource.CurrencyManager.EndCurrentEdit();
+            this.invoiceDetailBindingSource.CurrencyManager.EndCurrentEdit();
+
+            if ((this.ParentForm as MainForm).SaveToBase((this.invoiceMasterBindingSource.Current as DataRowView).Row as MDataSet.InvoiceMasterRow))
+            {
+                this.invoiceMasterBindingSource.ResetCurrentItem();
+                this.Parent.Tag = "InvoiceRow" + ((this.invoiceMasterBindingSource.Current as DataRowView).Row as MDataSet.InvoiceMasterRow).ID.ToString();
+                this.Parent.Text = "№" /*+ ((this.receiptMasterBindingSource.Current as DataRowView).Row as MDataSet.InvoiceMasterRow).Number.ToString() + " " + ((this.invoiceMasterBindingSource.Current as DataRowView).Row as MDataSet.InvoiceMasterRow).OrganizationRow.ShortName.ToString()*/;
+                this.panelNumber.Enabled = true;
+            }
+            return true;
+        }
+
+        private void btField_Click(object sender, EventArgs e)
+        {
+            (this.grid.FocusedView as GridView).ColumnsCustomization();
+        }
+
+
+      
         private void gridInvoiceRowView_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
         {
             this.gridInvoiceRowView.SetColumnError(this.gridInvoiceRowView.Columns[1], e.ErrorText.ToString());
@@ -217,6 +225,8 @@ namespace RetailTrade.Invoice
 
         private void btSave_Click(object sender, EventArgs e)
         {
+            this.invoiceMasterBindingSource.EndEdit();
+
             (this.ParentForm as MainForm).SaveToBase((this.invoiceMasterBindingSource.Current as DataRowView).Row as MDataSet.InvoiceMasterRow);
         }
 
@@ -234,16 +244,13 @@ namespace RetailTrade.Invoice
                 }
         }
 
-        private void toolStripSplitButton1_ButtonClick(object sender, EventArgs e)
-        {
-        //   this.mainStocklookUpEdit.ResetText();
-        }
+      
 
         private void StockEdit_Validated(object sender, EventArgs e)
         {
             this.invoiceMasterBindingSource.EndEdit();
             this.MainStockBindingSource.Filter = "IsLocal=1 and IsNDS =" + ((this.invoiceMasterBindingSource.Current as DataRowView).Row as MDataSet.InvoiceMasterRow).IsNDS.ToString();
-           if (_detail.Count==0) 
+           if (this._curentMasterRow.GetInvoiceDetailRows().Length==0) 
             this.mainStocklookUpEdit.Enabled = true;
        
             this.btEdit.Enabled = true;
@@ -253,7 +260,18 @@ namespace RetailTrade.Invoice
         private void btMove_Click(object sender, EventArgs e)
         {
             this.invoiceMasterBindingSource.EndEdit();
-            
+            if (_curentMasterRow.Sum == 0) return;
+
+            foreach (DataRow detrow in this._curentMasterRow.GetInvoiceDetailRows())
+            {
+                if ((detrow as MDataSet.InvoiceDetailRow).PriceRetailNDS == 0)
+
+                {
+                    MessageBox.Show("Есть не установленные цены!!!");
+                    return;
+                }
+            }
+
             try
             {
                 (this.ParentForm as MainForm).invoiceMasterTableAdapter.InvoiceMasterMove(_curentMasterRow.ID);
@@ -267,12 +285,6 @@ namespace RetailTrade.Invoice
             {
                 this.btClose.PerformClick();
             }
-        }
-
-        private void StockEdit_Popup(object sender, EventArgs e)
-        {
-           
-
         }
 
         private void Del_Click(object sender, EventArgs e)
@@ -294,10 +306,87 @@ namespace RetailTrade.Invoice
             }
         }
 
-        private void tabControl_KeyDown(object sender, KeyEventArgs e)
+        private void btSetExtr_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Test");
+            if (this._curentMasterRow.GetInvoiceDetailRows().Length == 0) return;
+
+            FormDialog _FormDialog = new FormDialog();
+            _FormDialog.Text = "Установить наценку ";
+
+            _FormDialog.btCancel.Visible = false;
+
+            NumericUpDown _num = new NumericUpDown ();
+            Label _lab = new Label();
+           
+
+            _lab.Text = "Процент (%): ";
+            _num.Value = 30;
+            _num.Increment = 5;
+
+            _FormDialog.panel.Controls.Add(_lab);
+            _FormDialog.panel.Controls.Add(_num);
+ 
+            _lab.Dock = DockStyle.Bottom;
+            
+            if (_FormDialog.ShowDialog(this.ParentForm) == DialogResult.OK)
+            { 
+            
+                foreach (DataRow _Row in _curentMasterRow.GetInvoiceDetailRows())
+                {
+                    MDataSet.InvoiceDetailRow _DetailRow = _Row as MDataSet.InvoiceDetailRow; 
+
+                    _DetailRow.PriceRetailNDS = Decimal.Round(_DetailRow.PricePurchase * (1 + _num.Value / 100),2);
+                
+                }
+            
+            }
+
         }
+
+        private void btClose_Click(object sender, EventArgs e)
+        {
+            if (this.gridInvoiceRowView.HasColumnErrors)
+            {
+                this.invoiceDetailBindingSource.CancelEdit();
+            }
+            if ((_changesDetail.Count == 0) & (_curentMasterRow.ID < 0))
+            {
+                this._curentMasterRow.RejectChanges();
+                if ((this.ParentForm as MainForm) != null)
+                {
+                    (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
+
+                }
+            }
+            else if (this.SaveChange())
+            {
+                foreach (GridView view in this.grid.ViewCollection)
+                {
+
+                    string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
+
+                    try
+                    {
+                        view.SaveLayoutToXml(fileName);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Не удалось сохранить настройки");
+                    }
+
+                }
+                if ((this.ParentForm as MainForm) != null)
+
+                    (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
+
+
+            }
+        }
+
+
+
+       
+        
 
      
        

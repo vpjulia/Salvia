@@ -1186,6 +1186,7 @@ namespace RetailTrade {
             this.InvoiceMaster.IsNDSMainColumn.Expression = "Parent(FK_InvoiceMaster_StockMain).IsNDS";
             this.InvoiceMaster.TradePupletNameColumn.Expression = "Parent(FK_Stock_InvoiceMaster).TradePupletName";
             this.InvoiceMaster.EXTRAColumn.Expression = "sum(Child(FK_InvoiceDetail_InvoiceMaster).extra)";
+            this.InvoiceMaster.ExtraPercentColumn.Expression = "AVG(child(FK_InvoiceDetail_InvoiceMaster).ExtraPercent)";
             this.Organization.DateUpdateColumn.Expression = "Max(DateLastModif)";
             this.Stock.TradePupletNameColumn.Expression = "Parent(TradePutlet_Stock).Name";
             this.ReceiptMaster.OrganizationNameColumn.Expression = "Parent(FK_ReceiptMaster_Organization).ShortName";
@@ -2164,7 +2165,7 @@ namespace RetailTrade {
                         string ManufacturerName, 
                         decimal CalcSum, 
                         string DocumentTypeRef, 
-                        string ExtraPercent, 
+                        decimal ExtraPercent, 
                         string IsNds, 
                         decimal Extra) {
                 InvoiceDetailRow rowInvoiceDetailRow = ((InvoiceDetailRow)(this.NewRow()));
@@ -2292,7 +2293,7 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnCalcSum);
                 this.columnDocumentTypeRef = new System.Data.DataColumn("DocumentTypeRef", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDocumentTypeRef);
-                this.columnExtraPercent = new System.Data.DataColumn("ExtraPercent", typeof(string), null, System.Data.MappingType.Element);
+                this.columnExtraPercent = new System.Data.DataColumn("ExtraPercent", typeof(decimal), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnExtraPercent);
                 this.columnIsNds = new System.Data.DataColumn("IsNds", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsNds);
@@ -2482,6 +2483,8 @@ namespace RetailTrade {
             private System.Data.DataColumn columnTradePupletName;
             
             private System.Data.DataColumn columnEXTRA;
+            
+            private System.Data.DataColumn columnExtraPercent;
             
             private static System.DateTime columnDate_defaultValue = System.DateTime.Parse("01/01/2001 00:00:00");
             
@@ -2685,6 +2688,13 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ExtraPercentColumn {
+                get {
+                    return this.columnExtraPercent;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2734,7 +2744,8 @@ namespace RetailTrade {
                         bool IsNDS, 
                         bool IsNDSMain, 
                         string TradePupletName, 
-                        string EXTRA) {
+                        string EXTRA, 
+                        decimal ExtraPercent) {
                 InvoiceMasterRow rowInvoiceMasterRow = ((InvoiceMasterRow)(this.NewRow()));
                 rowInvoiceMasterRow.ItemArray = new object[] {
                         null,
@@ -2759,7 +2770,8 @@ namespace RetailTrade {
                         IsNDS,
                         IsNDSMain,
                         TradePupletName,
-                        EXTRA};
+                        EXTRA,
+                        ExtraPercent};
                 this.Rows.Add(rowInvoiceMasterRow);
                 return rowInvoiceMasterRow;
             }
@@ -2812,6 +2824,7 @@ namespace RetailTrade {
                 this.columnIsNDSMain = base.Columns["IsNDSMain"];
                 this.columnTradePupletName = base.Columns["TradePupletName"];
                 this.columnEXTRA = base.Columns["EXTRA"];
+                this.columnExtraPercent = base.Columns["ExtraPercent"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2862,6 +2875,8 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnTradePupletName);
                 this.columnEXTRA = new System.Data.DataColumn("EXTRA", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEXTRA);
+                this.columnExtraPercent = new System.Data.DataColumn("ExtraPercent", typeof(decimal), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnExtraPercent);
                 this.Constraints.Add(new System.Data.UniqueConstraint("InvoiceMasterKey1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -2904,6 +2919,7 @@ namespace RetailTrade {
                 this.columnIsNDSMain.ReadOnly = true;
                 this.columnTradePupletName.ReadOnly = true;
                 this.columnEXTRA.ReadOnly = true;
+                this.columnExtraPercent.ReadOnly = true;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2927,6 +2943,7 @@ namespace RetailTrade {
                 this.IsNDSMainColumn.Expression = "Parent(FK_InvoiceMaster_StockMain).IsNDS";
                 this.TradePupletNameColumn.Expression = "Parent(FK_Stock_InvoiceMaster).TradePupletName";
                 this.EXTRAColumn.Expression = "sum(Child(FK_InvoiceDetail_InvoiceMaster).extra)";
+                this.ExtraPercentColumn.Expression = "AVG(child(FK_InvoiceDetail_InvoiceMaster).ExtraPercent)";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11594,10 +11611,10 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string ExtraPercent {
+            public decimal ExtraPercent {
                 get {
                     try {
-                        return ((string)(this[this.tableInvoiceDetail.ExtraPercentColumn]));
+                        return ((decimal)(this[this.tableInvoiceDetail.ExtraPercentColumn]));
                     }
                     catch (System.InvalidCastException e) {
                         throw new System.Data.StrongTypingException("The value for column \'ExtraPercent\' in table \'InvoiceDetail\' is DBNull.", e);
@@ -12101,6 +12118,21 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public decimal ExtraPercent {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableInvoiceMaster.ExtraPercentColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'ExtraPercent\' in table \'InvoiceMaster\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableInvoiceMaster.ExtraPercentColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public StockRow StockRowByFK_InvoiceMaster_StockMain {
                 get {
                     return ((StockRow)(this.GetParentRow(this.Table.ParentRelations["FK_InvoiceMaster_StockMain"])));
@@ -12228,6 +12260,16 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetEXTRANull() {
                 this[this.tableInvoiceMaster.EXTRAColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsExtraPercentNull() {
+                return this.IsNull(this.tableInvoiceMaster.ExtraPercentColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetExtraPercentNull() {
+                this[this.tableInvoiceMaster.ExtraPercentColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
