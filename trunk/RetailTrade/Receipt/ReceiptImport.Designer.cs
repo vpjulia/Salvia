@@ -29,11 +29,9 @@ namespace RetailTrade.Receipt
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReceiptImport));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.tbPatch = new System.Windows.Forms.ToolStripTextBox();
+            this.btFind = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -44,33 +42,21 @@ namespace RetailTrade.Receipt
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colpharmtrade = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colfirm = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colsumall = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colndsall = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colnumdoc = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.coldatedoc = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsclcode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colsclname = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colkolvo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colcena = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colcenands = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colsummands = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.coledizm = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colsclmknm = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colserie = new DevExpress.XtraGrid.Columns.GridColumn();
             this.coltgodn = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colnumsertf = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.coldatsertf = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colnumreg = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.coldatreg = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colenddatreg = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.coladding = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colnds = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colsumma = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.coltamzav = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colmaxnacenka = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colnacenka = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colsclcode1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.ProductLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.fullDataSet = new RetailTrade.FullDataSet();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.btImport = new System.Windows.Forms.ToolStripButton();
+            this.productTableAdapter = new RetailTrade.FullDataSetTableAdapters.ProductTableAdapter();
+            this.colsclname1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemLookUpEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -80,7 +66,11 @@ namespace RetailTrade.Receipt
             ((System.ComponentModel.ISupportInitialize)(this.farmTrade)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProductLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fullDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -94,29 +84,21 @@ namespace RetailTrade.Receipt
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.tbPatch,
-            this.btImport});
+            this.btFind});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(619, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripButton1
+            // btFind
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
-            // tbPatch
-            // 
-            this.tbPatch.Name = "tbPatch";
-            this.tbPatch.Size = new System.Drawing.Size(100, 25);
+            this.btFind.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btFind.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btFind.Name = "btFind";
+            this.btFind.Size = new System.Drawing.Size(38, 22);
+            this.btFind.Text = "Find";
+            this.btFind.Click += new System.EventHandler(this.btFind_Click);
             // 
             // splitContainer1
             // 
@@ -180,14 +162,15 @@ namespace RetailTrade.Receipt
             // 
             // grid
             // 
+            this.grid.DataSource = this.bindingSource1;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
             this.grid.EmbeddedNavigator.Name = "";
             this.grid.Location = new System.Drawing.Point(0, 0);
             this.grid.MainView = this.gridView1;
             this.grid.Name = "grid";
+            this.grid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.ProductLookUpEdit,
+            this.repositoryItemLookUpEdit1});
             this.grid.Size = new System.Drawing.Size(619, 226);
             this.grid.TabIndex = 2;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -199,31 +182,15 @@ namespace RetailTrade.Receipt
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colpharmtrade,
             this.colfirm,
-            this.colsumall,
-            this.colndsall,
-            this.colnumdoc,
-            this.coldatedoc,
             this.colsclcode,
             this.colsclname,
             this.colkolvo,
             this.colcena,
             this.colcenands,
-            this.colsummands,
-            this.coledizm,
-            this.colsclmknm,
             this.colserie,
             this.coltgodn,
-            this.colnumsertf,
-            this.coldatsertf,
-            this.colnumreg,
-            this.coldatreg,
-            this.colenddatreg,
-            this.coladding,
-            this.colnds,
-            this.colsumma,
-            this.coltamzav,
-            this.colmaxnacenka,
-            this.colnacenka});
+            this.colsclcode1,
+            this.colsclname1});
             this.gridView1.GridControl = this.grid;
             this.gridView1.Name = "gridView1";
             // 
@@ -232,36 +199,16 @@ namespace RetailTrade.Receipt
             this.colpharmtrade.Caption = "pharmtrade";
             this.colpharmtrade.FieldName = "pharmtrade";
             this.colpharmtrade.Name = "colpharmtrade";
+            this.colpharmtrade.Visible = true;
+            this.colpharmtrade.VisibleIndex = 4;
             // 
             // colfirm
             // 
             this.colfirm.Caption = "firm";
             this.colfirm.FieldName = "firm";
             this.colfirm.Name = "colfirm";
-            // 
-            // colsumall
-            // 
-            this.colsumall.Caption = "sumall";
-            this.colsumall.FieldName = "sumall";
-            this.colsumall.Name = "colsumall";
-            // 
-            // colndsall
-            // 
-            this.colndsall.Caption = "ndsall";
-            this.colndsall.FieldName = "ndsall";
-            this.colndsall.Name = "colndsall";
-            // 
-            // colnumdoc
-            // 
-            this.colnumdoc.Caption = "numdoc";
-            this.colnumdoc.FieldName = "numdoc";
-            this.colnumdoc.Name = "colnumdoc";
-            // 
-            // coldatedoc
-            // 
-            this.coldatedoc.Caption = "datedoc";
-            this.coldatedoc.FieldName = "datedoc";
-            this.coldatedoc.Name = "coldatedoc";
+            this.colfirm.Visible = true;
+            this.colfirm.VisibleIndex = 5;
             // 
             // colsclcode
             // 
@@ -293,135 +240,92 @@ namespace RetailTrade.Receipt
             this.colcena.FieldName = "cena";
             this.colcena.Name = "colcena";
             this.colcena.Visible = true;
-            this.colcena.VisibleIndex = 8;
+            this.colcena.VisibleIndex = 3;
             // 
             // colcenands
             // 
             this.colcenands.Caption = "cenands";
             this.colcenands.FieldName = "cenands";
             this.colcenands.Name = "colcenands";
-            this.colcenands.Visible = true;
-            this.colcenands.VisibleIndex = 3;
-            // 
-            // colsummands
-            // 
-            this.colsummands.Caption = "summands";
-            this.colsummands.FieldName = "summands";
-            this.colsummands.Name = "colsummands";
-            this.colsummands.Visible = true;
-            this.colsummands.VisibleIndex = 4;
-            // 
-            // coledizm
-            // 
-            this.coledizm.Caption = "edizm";
-            this.coledizm.FieldName = "edizm";
-            this.coledizm.Name = "coledizm";
-            // 
-            // colsclmknm
-            // 
-            this.colsclmknm.Caption = "sclmknm";
-            this.colsclmknm.FieldName = "sclmknm";
-            this.colsclmknm.Name = "colsclmknm";
-            this.colsclmknm.Visible = true;
-            this.colsclmknm.VisibleIndex = 5;
             // 
             // colserie
             // 
             this.colserie.Caption = "serie";
             this.colserie.FieldName = "serie";
             this.colserie.Name = "colserie";
-            this.colserie.Visible = true;
-            this.colserie.VisibleIndex = 6;
             // 
             // coltgodn
             // 
             this.coltgodn.Caption = "tgodn";
             this.coltgodn.FieldName = "tgodn";
             this.coltgodn.Name = "coltgodn";
-            this.coltgodn.Visible = true;
-            this.coltgodn.VisibleIndex = 7;
             // 
-            // colnumsertf
+            // colsclcode1
             // 
-            this.colnumsertf.Caption = "numsertf";
-            this.colnumsertf.FieldName = "numsertf";
-            this.colnumsertf.Name = "colnumsertf";
+            this.colsclcode1.Caption = "sclcode";
+            this.colsclcode1.ColumnEdit = this.ProductLookUpEdit;
+            this.colsclcode1.FieldName = "sclcode";
+            this.colsclcode1.Name = "colsclcode1";
+            this.colsclcode1.Visible = true;
+            this.colsclcode1.VisibleIndex = 6;
             // 
-            // coldatsertf
+            // ProductLookUpEdit
             // 
-            this.coldatsertf.Caption = "datsertf";
-            this.coldatsertf.FieldName = "datsertf";
-            this.coldatsertf.Name = "coldatsertf";
+            this.ProductLookUpEdit.AutoHeight = false;
+            this.ProductLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.ProductLookUpEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name", 39, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("OldKol", "OldKol", 42, DevExpress.Utils.FormatType.Numeric, "", true, DevExpress.Utils.HorzAlignment.Far, DevExpress.Data.ColumnSortOrder.None),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("OldName", "OldName", 58, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near)});
+            this.ProductLookUpEdit.DataSource = this.productBindingSource;
+            this.ProductLookUpEdit.DisplayMember = "OldName";
+            this.ProductLookUpEdit.Name = "ProductLookUpEdit";
+            this.ProductLookUpEdit.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.ProductLookUpEdit.ValidateOnEnterKey = true;
+            this.ProductLookUpEdit.ValueMember = "ID";
             // 
-            // colnumreg
+            // productBindingSource
             // 
-            this.colnumreg.Caption = "numreg";
-            this.colnumreg.FieldName = "numreg";
-            this.colnumreg.Name = "colnumreg";
+            this.productBindingSource.DataMember = "Product";
+            this.productBindingSource.DataSource = this.fullDataSet;
             // 
-            // coldatreg
+            // fullDataSet
             // 
-            this.coldatreg.Caption = "datreg";
-            this.coldatreg.FieldName = "datreg";
-            this.coldatreg.Name = "coldatreg";
-            // 
-            // colenddatreg
-            // 
-            this.colenddatreg.Caption = "enddatreg";
-            this.colenddatreg.FieldName = "enddatreg";
-            this.colenddatreg.Name = "colenddatreg";
-            // 
-            // coladding
-            // 
-            this.coladding.Caption = "adding";
-            this.coladding.FieldName = "adding";
-            this.coladding.Name = "coladding";
-            // 
-            // colnds
-            // 
-            this.colnds.Caption = "nds";
-            this.colnds.FieldName = "nds";
-            this.colnds.Name = "colnds";
-            // 
-            // colsumma
-            // 
-            this.colsumma.Caption = "summa";
-            this.colsumma.FieldName = "summa";
-            this.colsumma.Name = "colsumma";
-            this.colsumma.Visible = true;
-            this.colsumma.VisibleIndex = 9;
-            // 
-            // coltamzav
-            // 
-            this.coltamzav.Caption = "tamzav";
-            this.coltamzav.FieldName = "tamzav";
-            this.coltamzav.Name = "coltamzav";
-            // 
-            // colmaxnacenka
-            // 
-            this.colmaxnacenka.Caption = "maxnacenka";
-            this.colmaxnacenka.FieldName = "maxnacenka";
-            this.colmaxnacenka.Name = "colmaxnacenka";
-            // 
-            // colnacenka
-            // 
-            this.colnacenka.Caption = "nacenka";
-            this.colnacenka.FieldName = "nacenka";
-            this.colnacenka.Name = "colnacenka";
+            this.fullDataSet.DataSetName = "FullDataSet";
+            this.fullDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // gridView2
             // 
             this.gridView2.GridControl = this.grid;
             this.gridView2.Name = "gridView2";
             // 
-            // btImport
+            // productTableAdapter
             // 
-            this.btImport.Image = ((System.Drawing.Image)(resources.GetObject("btImport.Image")));
-            this.btImport.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btImport.Name = "btImport";
-            this.btImport.Size = new System.Drawing.Size(86, 22);
-            this.btImport.Text = "Принять";
-            this.btImport.Click += new System.EventHandler(this.btImport_Click);
+            this.productTableAdapter.ClearBeforeFill = true;
+            // 
+            // colsclname1
+            // 
+            this.colsclname1.Caption = "sclname";
+            this.colsclname1.ColumnEdit = this.repositoryItemLookUpEdit1;
+            this.colsclname1.FieldName = "sclname";
+            this.colsclname1.Name = "colsclname1";
+            this.colsclname1.Visible = true;
+            this.colsclname1.VisibleIndex = 7;
+            // 
+            // repositoryItemLookUpEdit1
+            // 
+            this.repositoryItemLookUpEdit1.AutoHeight = false;
+            this.repositoryItemLookUpEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemLookUpEdit1.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name", 39, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("OldKol", "OldKol", 42, DevExpress.Utils.FormatType.Numeric, "", true, DevExpress.Utils.HorzAlignment.Far, DevExpress.Data.ColumnSortOrder.None),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("OldName", "OldName", 58, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near)});
+            this.repositoryItemLookUpEdit1.DataSource = this.productBindingSource;
+            this.repositoryItemLookUpEdit1.DisplayMember = "Name";
+            this.repositoryItemLookUpEdit1.Name = "repositoryItemLookUpEdit1";
+            this.repositoryItemLookUpEdit1.ValueMember = "OldName";
             // 
             // ReceiptImport
             // 
@@ -434,6 +338,7 @@ namespace RetailTrade.Receipt
             this.Name = "ReceiptImport";
             this.Size = new System.Drawing.Size(619, 441);
             this.Tag = global::RetailTrade.Properties.Settings.Default.ImpDataSource;
+            this.Load += new System.EventHandler(this.ReceiptImport_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -445,7 +350,11 @@ namespace RetailTrade.Receipt
             ((System.ComponentModel.ISupportInitialize)(this.farmTrade)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProductLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fullDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -457,45 +366,30 @@ namespace RetailTrade.Receipt
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-       
-      
-        private System.Windows.Forms.ToolStripTextBox tbPatch;
         private DevExpress.XtraGrid.GridControl grid;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.XtraGrid.Columns.GridColumn colpharmtrade;
         private DevExpress.XtraGrid.Columns.GridColumn colfirm;
-        private DevExpress.XtraGrid.Columns.GridColumn colsumall;
-        private DevExpress.XtraGrid.Columns.GridColumn colndsall;
-        private DevExpress.XtraGrid.Columns.GridColumn colnumdoc;
-        private DevExpress.XtraGrid.Columns.GridColumn coldatedoc;
         private DevExpress.XtraGrid.Columns.GridColumn colsclcode;
         private DevExpress.XtraGrid.Columns.GridColumn colsclname;
         private DevExpress.XtraGrid.Columns.GridColumn colkolvo;
         private DevExpress.XtraGrid.Columns.GridColumn colcenands;
-        private DevExpress.XtraGrid.Columns.GridColumn colsummands;
-        private DevExpress.XtraGrid.Columns.GridColumn coledizm;
-        private DevExpress.XtraGrid.Columns.GridColumn colsclmknm;
         private DevExpress.XtraGrid.Columns.GridColumn colserie;
         private DevExpress.XtraGrid.Columns.GridColumn coltgodn;
-        private DevExpress.XtraGrid.Columns.GridColumn colnumsertf;
-        private DevExpress.XtraGrid.Columns.GridColumn coldatsertf;
-        private DevExpress.XtraGrid.Columns.GridColumn colnumreg;
-        private DevExpress.XtraGrid.Columns.GridColumn coldatreg;
-        private DevExpress.XtraGrid.Columns.GridColumn colenddatreg;
-        private DevExpress.XtraGrid.Columns.GridColumn coladding;
-        private DevExpress.XtraGrid.Columns.GridColumn colnds;
         private DevExpress.XtraGrid.Columns.GridColumn colcena;
-        private DevExpress.XtraGrid.Columns.GridColumn colsumma;
-        private DevExpress.XtraGrid.Columns.GridColumn coltamzav;
-        private DevExpress.XtraGrid.Columns.GridColumn colmaxnacenka;
-        private DevExpress.XtraGrid.Columns.GridColumn colnacenka;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.BindingSource bindingSource1;
         private FarmTrade farmTrade;
-        private System.Windows.Forms.ToolStripButton btImport;
+        private DevExpress.XtraGrid.Columns.GridColumn colsclcode1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit ProductLookUpEdit;
+        private System.Windows.Forms.BindingSource productBindingSource;
+        private FullDataSet fullDataSet;
+        private RetailTrade.FullDataSetTableAdapters.ProductTableAdapter productTableAdapter;
+        private System.Windows.Forms.ToolStripButton btFind;
+        private DevExpress.XtraGrid.Columns.GridColumn colsclname1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEdit1;
      
     }
 }

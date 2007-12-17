@@ -245,6 +245,7 @@ namespace RetailTrade.Orders
             this.Controls.Add(this.statusStrip1);
             this.Name = "OrdersAll";
             this.Size = new System.Drawing.Size(718, 621);
+            this.Load += new System.EventHandler(this.OrdersAll_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();

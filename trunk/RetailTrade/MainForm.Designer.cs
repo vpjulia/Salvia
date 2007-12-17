@@ -151,6 +151,7 @@ namespace RetailTrade
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.userLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.periodsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
@@ -195,22 +196,23 @@ namespace RetailTrade
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.userLabel,
             this.actionStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 561);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 560);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(779, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(779, 23);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // actionStatusLabel
             // 
             this.actionStatusLabel.Name = "actionStatusLabel";
-            this.actionStatusLabel.Size = new System.Drawing.Size(109, 17);
-            this.actionStatusLabel.Text = "toolStripStatusLabel1";
+            this.actionStatusLabel.Size = new System.Drawing.Size(13, 18);
+            this.actionStatusLabel.Text = " ";
             // 
             // toolStrip1
             // 
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 26);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(779, 25);
             this.toolStrip1.TabIndex = 2;
@@ -351,7 +353,7 @@ namespace RetailTrade
             this.отчетыToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(779, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(779, 26);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -362,19 +364,19 @@ namespace RetailTrade
             this.ReceiptMasterNewToolStripMenuItem,
             this.btAddProduct});
             this.документыToolStripMenuItem.Name = "документыToolStripMenuItem";
-            this.документыToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
+            this.документыToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
             this.документыToolStripMenuItem.Text = "Документы";
             // 
             // CreateAktToolStripMenuItem
             // 
             this.CreateAktToolStripMenuItem.Name = "CreateAktToolStripMenuItem";
-            this.CreateAktToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.CreateAktToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.CreateAktToolStripMenuItem.Text = "Создать приходный акт";
             // 
             // ReceiptMasterNewToolStripMenuItem
             // 
             this.ReceiptMasterNewToolStripMenuItem.Name = "ReceiptMasterNewToolStripMenuItem";
-            this.ReceiptMasterNewToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.ReceiptMasterNewToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.ReceiptMasterNewToolStripMenuItem.Tag = "ReceiptMasterNew";
             this.ReceiptMasterNewToolStripMenuItem.Text = "Приходные новые";
             this.ReceiptMasterNewToolStripMenuItem.ToolTipText = "Новые приходные акты";
@@ -383,7 +385,7 @@ namespace RetailTrade
             // btAddProduct
             // 
             this.btAddProduct.Name = "btAddProduct";
-            this.btAddProduct.Size = new System.Drawing.Size(209, 22);
+            this.btAddProduct.Size = new System.Drawing.Size(254, 22);
             this.btAddProduct.Text = "Добавить товар";
             this.btAddProduct.Click += new System.EventHandler(this.btAddProduct_Click);
             // 
@@ -393,13 +395,13 @@ namespace RetailTrade
             this.btFarmTrade,
             this.btSettingsToolStripMenuItem});
             this.сервисToolStripMenuItem.Name = "сервисToolStripMenuItem";
-            this.сервисToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.сервисToolStripMenuItem.Size = new System.Drawing.Size(68, 22);
             this.сервисToolStripMenuItem.Text = "Сервис";
             // 
             // btFarmTrade
             // 
             this.btFarmTrade.Name = "btFarmTrade";
-            this.btFarmTrade.Size = new System.Drawing.Size(194, 22);
+            this.btFarmTrade.Size = new System.Drawing.Size(243, 22);
             this.btFarmTrade.Tag = "ReceiptImport";
             this.btFarmTrade.Text = "Импорт с Фарм-Трейд";
             this.btFarmTrade.ToolTipText = "Импорт приходных документов";
@@ -408,7 +410,7 @@ namespace RetailTrade
             // btSettingsToolStripMenuItem
             // 
             this.btSettingsToolStripMenuItem.Name = "btSettingsToolStripMenuItem";
-            this.btSettingsToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.btSettingsToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
             this.btSettingsToolStripMenuItem.Tag = "ProjectSettings";
             this.btSettingsToolStripMenuItem.Text = "Параметры";
             this.btSettingsToolStripMenuItem.ToolTipText = "Настроки приложения";
@@ -422,7 +424,7 @@ namespace RetailTrade
             this.toolStripSeparator1,
             this.toolStripMenuItem2});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(86, 20);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(108, 22);
             this.toolStripMenuItem1.Text = "Справочники";
             // 
             // btProduct
@@ -431,7 +433,7 @@ namespace RetailTrade
             this.btProductMed,
             this.btProductNds});
             this.btProduct.Name = "btProduct";
-            this.btProduct.Size = new System.Drawing.Size(151, 22);
+            this.btProduct.Size = new System.Drawing.Size(180, 22);
             this.btProduct.Tag = "UCProductAll";
             this.btProduct.Text = "Товаров";
             this.btProduct.ToolTipText = "Справочник товаров";
@@ -439,7 +441,7 @@ namespace RetailTrade
             // btProductMed
             // 
             this.btProductMed.Name = "btProductMed";
-            this.btProductMed.Size = new System.Drawing.Size(248, 22);
+            this.btProductMed.Size = new System.Drawing.Size(315, 22);
             this.btProductMed.Tag = "UCProductAll";
             this.btProductMed.Text = "Товары без НДС (медикаменты)";
             this.btProductMed.ToolTipText = "Справочник товаров (медикаменты)";
@@ -448,7 +450,7 @@ namespace RetailTrade
             // btProductNds
             // 
             this.btProductNds.Name = "btProductNds";
-            this.btProductNds.Size = new System.Drawing.Size(248, 22);
+            this.btProductNds.Size = new System.Drawing.Size(315, 22);
             this.btProductNds.Tag = "UCProductAll";
             this.btProductNds.Text = "Товары с НДС (прочие)";
             this.btProductNds.ToolTipText = "Справочник товаров с НДС";
@@ -457,7 +459,7 @@ namespace RetailTrade
             // OrganisationToolStripMenuItem
             // 
             this.OrganisationToolStripMenuItem.Name = "OrganisationToolStripMenuItem";
-            this.OrganisationToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.OrganisationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.OrganisationToolStripMenuItem.Tag = "Organization";
             this.OrganisationToolStripMenuItem.Text = "Организаций";
             this.OrganisationToolStripMenuItem.ToolTipText = "Справочник организаций";
@@ -466,7 +468,7 @@ namespace RetailTrade
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(148, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // toolStripMenuItem2
             // 
@@ -483,13 +485,13 @@ namespace RetailTrade
             this.TradePutletToolStripMenuItem,
             this.складовToolStripMenuItem});
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(151, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem2.Text = "Служебные";
             // 
             // ManufacturerToolStripMenuItem
             // 
             this.ManufacturerToolStripMenuItem.Name = "ManufacturerToolStripMenuItem";
-            this.ManufacturerToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.ManufacturerToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
             this.ManufacturerToolStripMenuItem.Tag = "Manufacturer";
             this.ManufacturerToolStripMenuItem.Text = "Изготовителей";
             this.ManufacturerToolStripMenuItem.ToolTipText = "Справочник изготовителей";
@@ -498,7 +500,7 @@ namespace RetailTrade
             // SubstanceToolStripMenuItem
             // 
             this.SubstanceToolStripMenuItem.Name = "SubstanceToolStripMenuItem";
-            this.SubstanceToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.SubstanceToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
             this.SubstanceToolStripMenuItem.Tag = "Substance";
             this.SubstanceToolStripMenuItem.Text = "Действующих веществ";
             this.SubstanceToolStripMenuItem.ToolTipText = "Справочник действующих веществ";
@@ -507,7 +509,7 @@ namespace RetailTrade
             // FarmGroupLevel2ToolStripMenuItem
             // 
             this.FarmGroupLevel2ToolStripMenuItem.Name = "FarmGroupLevel2ToolStripMenuItem";
-            this.FarmGroupLevel2ToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.FarmGroupLevel2ToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
             this.FarmGroupLevel2ToolStripMenuItem.Tag = "FarmGroupLevel2";
             this.FarmGroupLevel2ToolStripMenuItem.Text = "Фармгрупп";
             this.FarmGroupLevel2ToolStripMenuItem.ToolTipText = "Справочник фармгрупп";
@@ -516,7 +518,7 @@ namespace RetailTrade
             // StorageConditionToolStripMenuItem
             // 
             this.StorageConditionToolStripMenuItem.Name = "StorageConditionToolStripMenuItem";
-            this.StorageConditionToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.StorageConditionToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
             this.StorageConditionToolStripMenuItem.Tag = "StorageCondition";
             this.StorageConditionToolStripMenuItem.Text = "Мест хранения";
             this.StorageConditionToolStripMenuItem.ToolTipText = "Справочник мест хранения";
@@ -525,7 +527,7 @@ namespace RetailTrade
             // PackingToolStripMenuItem
             // 
             this.PackingToolStripMenuItem.Name = "PackingToolStripMenuItem";
-            this.PackingToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.PackingToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
             this.PackingToolStripMenuItem.Tag = "Packing";
             this.PackingToolStripMenuItem.Text = "Форм выпуска";
             this.PackingToolStripMenuItem.ToolTipText = "Справочник форм выпуска";
@@ -534,7 +536,7 @@ namespace RetailTrade
             // UnitToolStripMenuItem
             // 
             this.UnitToolStripMenuItem.Name = "UnitToolStripMenuItem";
-            this.UnitToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.UnitToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
             this.UnitToolStripMenuItem.Tag = "Unit";
             this.UnitToolStripMenuItem.Text = "Едениц измерения";
             this.UnitToolStripMenuItem.ToolTipText = "Справочник едениц измерения";
@@ -543,7 +545,7 @@ namespace RetailTrade
             // CountryToolStripMenuItem
             // 
             this.CountryToolStripMenuItem.Name = "CountryToolStripMenuItem";
-            this.CountryToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.CountryToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
             this.CountryToolStripMenuItem.Tag = "Country";
             this.CountryToolStripMenuItem.Text = "Стран";
             this.CountryToolStripMenuItem.ToolTipText = "Справочник стран";
@@ -552,18 +554,18 @@ namespace RetailTrade
             // типовДокументаToolStripMenuItem
             // 
             this.типовДокументаToolStripMenuItem.Name = "типовДокументаToolStripMenuItem";
-            this.типовДокументаToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.типовДокументаToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
             this.типовДокументаToolStripMenuItem.Text = "Типов документа";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(202, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(250, 6);
             // 
             // TradePutletToolStripMenuItem
             // 
             this.TradePutletToolStripMenuItem.Name = "TradePutletToolStripMenuItem";
-            this.TradePutletToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.TradePutletToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
             this.TradePutletToolStripMenuItem.Tag = "TradePutlet";
             this.TradePutletToolStripMenuItem.Text = "Торговых точек";
             this.TradePutletToolStripMenuItem.ToolTipText = "Справочник торговых точек";
@@ -572,13 +574,13 @@ namespace RetailTrade
             // складовToolStripMenuItem
             // 
             this.складовToolStripMenuItem.Name = "складовToolStripMenuItem";
-            this.складовToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.складовToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
             this.складовToolStripMenuItem.Text = "Складов";
             // 
             // отчетыToolStripMenuItem
             // 
             this.отчетыToolStripMenuItem.Name = "отчетыToolStripMenuItem";
-            this.отчетыToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.отчетыToolStripMenuItem.Size = new System.Drawing.Size(73, 22);
             this.отчетыToolStripMenuItem.Text = "Отчеты";
             // 
             // productTableAdapter
@@ -740,7 +742,7 @@ namespace RetailTrade
             // 
             this.splitContainer2.DataBindings.Add(new System.Windows.Forms.Binding("SplitterDistance", global::RetailTrade.Properties.Settings.Default, "MainSplitDist", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 49);
+            this.splitContainer2.Location = new System.Drawing.Point(0, 51);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -750,7 +752,7 @@ namespace RetailTrade
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tabControl);
-            this.splitContainer2.Size = new System.Drawing.Size(779, 512);
+            this.splitContainer2.Size = new System.Drawing.Size(779, 509);
             this.splitContainer2.SplitterDistance = 259;
             this.splitContainer2.TabIndex = 5;
             // 
@@ -763,16 +765,16 @@ namespace RetailTrade
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(259, 512);
+            this.tabControl1.Size = new System.Drawing.Size(259, 509);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.treeView1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(251, 486);
+            this.tabPage1.Size = new System.Drawing.Size(251, 480);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "новые";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -832,13 +834,13 @@ namespace RetailTrade
             treeNode11,
             treeNode12});
             this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(245, 480);
+            this.treeView1.Size = new System.Drawing.Size(245, 474);
             this.treeView1.TabIndex = 0;
             this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
             // 
             // tabPage2
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(251, 483);
@@ -853,8 +855,14 @@ namespace RetailTrade
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(516, 512);
+            this.tabControl.Size = new System.Drawing.Size(516, 509);
             this.tabControl.TabIndex = 0;
+            // 
+            // userLabel
+            // 
+            this.userLabel.Name = "userLabel";
+            this.userLabel.Size = new System.Drawing.Size(36, 18);
+            this.userLabel.Text = "user";
             // 
             // MainForm
             // 
@@ -1019,6 +1027,7 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripMenuItem btSettingsToolStripMenuItem;
         public RetailTrade.MDataSetTableAdapters.ManufacturerTableAdapter manufacturerTableAdapter;
         public RetailTrade.FullDataSetTableAdapters.ProductTableAdapter productTableAdapter1;
+        private System.Windows.Forms.ToolStripStatusLabel userLabel;
         }
 }
 

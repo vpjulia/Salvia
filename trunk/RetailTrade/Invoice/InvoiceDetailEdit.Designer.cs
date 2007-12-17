@@ -69,11 +69,11 @@ namespace RetailTrade.Invoice
             this.colLocalReceiptDetailRef = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCalcSum = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colExtraPercent = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colExtra = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.invoiceMasterBindingSourceView = new System.Windows.Forms.BindingSource(this.components);
             this.invoiceMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.colExtra = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -134,7 +134,7 @@ namespace RetailTrade.Invoice
             // 
             this.splitContainer1.Panel2.Controls.Add(this.gridInvoiceDetail);
             this.splitContainer1.Size = new System.Drawing.Size(666, 502);
-            this.splitContainer1.SplitterDistance = 273;
+            this.splitContainer1.SplitterDistance = 259;
             this.splitContainer1.TabIndex = 0;
             // 
             // gridRemains
@@ -142,16 +142,13 @@ namespace RetailTrade.Invoice
             this.gridRemains.ContextMenuStrip = this.contextMenuStripRemains;
             this.gridRemains.DataSource = this.RemainsBindingSource;
             this.gridRemains.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
             this.gridRemains.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gridRemains.EmbeddedNavigator.Name = "";
             this.gridRemains.Location = new System.Drawing.Point(0, 0);
             this.gridRemains.MainView = this.gridViewRemainsInvDetEdt;
             this.gridRemains.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gridRemains.Name = "gridRemains";
-            this.gridRemains.Size = new System.Drawing.Size(666, 273);
+            this.gridRemains.Size = new System.Drawing.Size(666, 259);
             this.gridRemains.TabIndex = 0;
             this.gridRemains.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewRemainsInvDetEdt});
@@ -201,8 +198,10 @@ namespace RetailTrade.Invoice
             this.gridViewRemainsInvDetEdt.OptionsBehavior.AllowIncrementalSearch = true;
             this.gridViewRemainsInvDetEdt.OptionsBehavior.Editable = false;
             this.gridViewRemainsInvDetEdt.OptionsFilter.UseNewCustomFilterDialog = true;
-            this.gridViewRemainsInvDetEdt.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridViewRemainsInvDetEdt.OptionsView.ShowAutoFilterRow = true;
+            this.gridViewRemainsInvDetEdt.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colProductName1, DevExpress.Data.ColumnSortOrder.Ascending)});
+            this.gridViewRemainsInvDetEdt.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridViewRemainsInvDetEdt_KeyDown);
             // 
             // colProductName1
             // 
@@ -213,9 +212,10 @@ namespace RetailTrade.Invoice
             this.colProductName1.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.colProductName1.Name = "colProductName1";
             this.colProductName1.OptionsFilter.AllowFilter = false;
+            this.colProductName1.SortMode = DevExpress.XtraGrid.ColumnSortMode.DisplayText;
             this.colProductName1.Visible = true;
             this.colProductName1.VisibleIndex = 0;
-            this.colProductName1.Width = 135;
+            this.colProductName1.Width = 219;
             // 
             // colManufacturerName1
             // 
@@ -224,7 +224,7 @@ namespace RetailTrade.Invoice
             this.colManufacturerName1.Name = "colManufacturerName1";
             this.colManufacturerName1.Visible = true;
             this.colManufacturerName1.VisibleIndex = 1;
-            this.colManufacturerName1.Width = 132;
+            this.colManufacturerName1.Width = 123;
             // 
             // colSeries
             // 
@@ -234,7 +234,7 @@ namespace RetailTrade.Invoice
             this.colSeries.OptionsFilter.AllowFilter = false;
             this.colSeries.Visible = true;
             this.colSeries.VisibleIndex = 2;
-            this.colSeries.Width = 62;
+            this.colSeries.Width = 57;
             // 
             // colUseByDate
             // 
@@ -246,7 +246,7 @@ namespace RetailTrade.Invoice
             this.colUseByDate.OptionsFilter.AllowFilter = false;
             this.colUseByDate.Visible = true;
             this.colUseByDate.VisibleIndex = 3;
-            this.colUseByDate.Width = 62;
+            this.colUseByDate.Width = 57;
             // 
             // colPricePurchase
             // 
@@ -260,7 +260,7 @@ namespace RetailTrade.Invoice
             this.colPricePurchase.OptionsFilter.AllowFilter = false;
             this.colPricePurchase.Visible = true;
             this.colPricePurchase.VisibleIndex = 4;
-            this.colPricePurchase.Width = 62;
+            this.colPricePurchase.Width = 57;
             // 
             // colQuantityRemains
             // 
@@ -275,7 +275,7 @@ namespace RetailTrade.Invoice
             this.colQuantityRemains.OptionsFilter.AllowFilter = false;
             this.colQuantityRemains.Visible = true;
             this.colQuantityRemains.VisibleIndex = 5;
-            this.colQuantityRemains.Width = 62;
+            this.colQuantityRemains.Width = 57;
             // 
             // colReceiptDetailRef
             // 
@@ -292,7 +292,7 @@ namespace RetailTrade.Invoice
             this.colDocDate.Name = "colDocDate";
             this.colDocDate.Visible = true;
             this.colDocDate.VisibleIndex = 6;
-            this.colDocDate.Width = 82;
+            this.colDocDate.Width = 80;
             // 
             // colDateLastModif1
             // 
@@ -325,16 +325,13 @@ namespace RetailTrade.Invoice
             this.gridInvoiceDetail.ContextMenuStrip = this.contextMenuStripInvoice;
             this.gridInvoiceDetail.DataSource = this.invoiceDetailBindingSource;
             this.gridInvoiceDetail.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
             this.gridInvoiceDetail.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gridInvoiceDetail.EmbeddedNavigator.Name = "";
             this.gridInvoiceDetail.Location = new System.Drawing.Point(0, 0);
             this.gridInvoiceDetail.MainView = this.gridViewinvDet;
             this.gridInvoiceDetail.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gridInvoiceDetail.Name = "gridInvoiceDetail";
-            this.gridInvoiceDetail.Size = new System.Drawing.Size(666, 225);
+            this.gridInvoiceDetail.Size = new System.Drawing.Size(666, 239);
             this.gridInvoiceDetail.TabIndex = 0;
             this.gridInvoiceDetail.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewinvDet});
@@ -423,7 +420,7 @@ namespace RetailTrade.Invoice
             this.colManufacturerName.OptionsFilter.AllowFilter = false;
             this.colManufacturerName.Visible = true;
             this.colManufacturerName.VisibleIndex = 1;
-            this.colManufacturerName.Width = 137;
+            this.colManufacturerName.Width = 94;
             // 
             // colPricePurchase1
             // 
@@ -437,7 +434,7 @@ namespace RetailTrade.Invoice
             this.colPricePurchase1.OptionsFilter.AllowFilter = false;
             this.colPricePurchase1.Visible = true;
             this.colPricePurchase1.VisibleIndex = 2;
-            this.colPricePurchase1.Width = 90;
+            this.colPricePurchase1.Width = 62;
             // 
             // colQuantity
             // 
@@ -447,7 +444,7 @@ namespace RetailTrade.Invoice
             this.colQuantity.OptionsFilter.AllowFilter = false;
             this.colQuantity.Visible = true;
             this.colQuantity.VisibleIndex = 3;
-            this.colQuantity.Width = 137;
+            this.colQuantity.Width = 94;
             // 
             // colPriceRetailNDS
             // 
@@ -458,7 +455,7 @@ namespace RetailTrade.Invoice
             this.colPriceRetailNDS.OptionsFilter.AllowFilter = false;
             this.colPriceRetailNDS.Visible = true;
             this.colPriceRetailNDS.VisibleIndex = 4;
-            this.colPriceRetailNDS.Width = 149;
+            this.colPriceRetailNDS.Width = 73;
             // 
             // colNote
             // 
@@ -530,6 +527,7 @@ namespace RetailTrade.Invoice
             this.colCalcSum.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
             this.colCalcSum.Visible = true;
             this.colCalcSum.VisibleIndex = 5;
+            this.colCalcSum.Width = 71;
             // 
             // colExtraPercent
             // 
@@ -540,6 +538,17 @@ namespace RetailTrade.Invoice
             this.colExtraPercent.OptionsColumn.AllowFocus = false;
             this.colExtraPercent.Visible = true;
             this.colExtraPercent.VisibleIndex = 6;
+            this.colExtraPercent.Width = 73;
+            // 
+            // colExtra
+            // 
+            this.colExtra.Caption = "Наценка";
+            this.colExtra.FieldName = "Extra";
+            this.colExtra.Name = "colExtra";
+            this.colExtra.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
+            this.colExtra.Visible = true;
+            this.colExtra.VisibleIndex = 7;
+            this.colExtra.Width = 44;
             // 
             // tabPage2
             // 
@@ -572,15 +581,6 @@ namespace RetailTrade.Invoice
             // 
             this.invoiceMasterBindingSource.DataMember = "InvoiceMaster";
             this.invoiceMasterBindingSource.DataSource = this.mDataSet;
-            // 
-            // colExtra
-            // 
-            this.colExtra.Caption = "Наценка";
-            this.colExtra.FieldName = "Extra";
-            this.colExtra.Name = "colExtra";
-            this.colExtra.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
-            this.colExtra.Visible = true;
-            this.colExtra.VisibleIndex = 7;
             // 
             // InvoiceDetailEdit
             // 

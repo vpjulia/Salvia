@@ -47,5 +47,8 @@
     <Setting Name="SERVER" Type="System.String" Scope="User">
       <Value Profile="(Default)">server</Value>
     </Setting>
+    <Setting Name="PathToFarmNew" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

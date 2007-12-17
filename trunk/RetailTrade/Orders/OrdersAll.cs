@@ -27,5 +27,10 @@ namespace RetailTrade.Orders
         {
             (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
         }
+
+        private void OrdersAll_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

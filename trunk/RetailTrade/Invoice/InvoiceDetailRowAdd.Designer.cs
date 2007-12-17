@@ -41,6 +41,8 @@ namespace RetailTrade.Invoice
             this.productTableAdapter = new RetailTrade.MDataSetTableAdapters.ProductTableAdapter();
             this.remainsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.invoiceDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -73,16 +75,14 @@ namespace RetailTrade.Invoice
             this.quantityEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.invoiceDetailBindingSource, "Quantity", true));
             this.quantityEdit.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.invoiceDetailBindingSource, "Quantity", true));
             this.quantityEdit.EnterMoveNextControl = true;
-            this.quantityEdit.Location = new System.Drawing.Point(138, 92);
+            this.quantityEdit.Location = new System.Drawing.Point(120, 92);
             this.quantityEdit.Name = "quantityEdit";
             this.quantityEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            this.quantityEdit.Properties.DisplayFormat.FormatString = "#.###";
+            this.quantityEdit.Properties.DisplayFormat.FormatString = "#####.###";
             this.quantityEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.quantityEdit.Properties.EditFormat.FormatString = "n3";
             this.quantityEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.quantityEdit.Properties.HideSelection = false;
-            this.quantityEdit.Properties.Mask.BeepOnError = true;
-            this.quantityEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             this.quantityEdit.Properties.ValidateOnEnterKey = true;
             this.quantityEdit.Size = new System.Drawing.Size(114, 22);
             this.quantityEdit.TabIndex = 0;
@@ -115,9 +115,11 @@ namespace RetailTrade.Invoice
             // labelOst
             // 
             this.labelOst.AutoSize = true;
-            this.labelOst.Location = new System.Drawing.Point(24, 63);
+            this.labelOst.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.labelOst.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelOst.Location = new System.Drawing.Point(24, 60);
             this.labelOst.Name = "labelOst";
-            this.labelOst.Size = new System.Drawing.Size(46, 17);
+            this.labelOst.Size = new System.Drawing.Size(52, 17);
             this.labelOst.TabIndex = 4;
             this.labelOst.Text = "label3";
             // 
@@ -140,10 +142,32 @@ namespace RetailTrade.Invoice
             this.label3.TabIndex = 5;
             this.label3.Text = "label3";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "UnitName", true));
+            this.label4.Location = new System.Drawing.Point(117, 60);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(46, 17);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "label4";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.productBindingSource, "MinDivisor", true));
+            this.label5.Location = new System.Drawing.Point(188, 60);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(46, 17);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "label5";
+            // 
             // InvoiceDetailRowAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.labelOst);
             this.Controls.Add(this.label2);
@@ -177,5 +201,7 @@ namespace RetailTrade.Invoice
         private System.Windows.Forms.BindingSource productBindingSource;
         private RetailTrade.MDataSetTableAdapters.ProductTableAdapter productTableAdapter;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }

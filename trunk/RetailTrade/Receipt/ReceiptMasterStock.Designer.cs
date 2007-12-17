@@ -121,6 +121,8 @@ namespace RetailTrade.Receipt
             this.gridViewRecieptDetailStock.OptionsDetail.AllowExpandEmptyDetails = true;
             this.gridViewRecieptDetailStock.OptionsDetail.AllowOnlyOneMasterRowExpanded = true;
             this.gridViewRecieptDetailStock.OptionsDetail.SmartDetailExpandButton = false;
+            this.gridViewRecieptDetailStock.OptionsView.ShowFooter = true;
+            this.gridViewRecieptDetailStock.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.gridViewRecieptDetailStock_CustomDrawCell);
             this.gridViewRecieptDetailStock.Layout += new System.EventHandler(this.gridViewMasterStock_Layout);
             // 
             // colProductName
@@ -181,6 +183,8 @@ namespace RetailTrade.Receipt
             this.colCalcPurchSum1.OptionsColumn.ReadOnly = true;
             this.colCalcPurchSum1.OptionsFilter.AllowAutoFilter = false;
             this.colCalcPurchSum1.OptionsFilter.AllowFilter = false;
+            this.colCalcPurchSum1.SummaryItem.DisplayFormat = "{0:##0.00}";
+            this.colCalcPurchSum1.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
             this.colCalcPurchSum1.Visible = true;
             this.colCalcPurchSum1.VisibleIndex = 4;
             // 
@@ -365,6 +369,8 @@ namespace RetailTrade.Receipt
             this.colCalcPurchSum.OptionsColumn.AllowEdit = false;
             this.colCalcPurchSum.OptionsColumn.AllowFocus = false;
             this.colCalcPurchSum.OptionsColumn.ReadOnly = true;
+            this.colCalcPurchSum.SummaryItem.DisplayFormat = "{0:##0.00}";
+            this.colCalcPurchSum.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
             this.colCalcPurchSum.Visible = true;
             this.colCalcPurchSum.VisibleIndex = 5;
             // 
@@ -376,6 +382,8 @@ namespace RetailTrade.Receipt
             this.colPurchNDS.OptionsColumn.AllowEdit = false;
             this.colPurchNDS.OptionsColumn.AllowFocus = false;
             this.colPurchNDS.OptionsColumn.ReadOnly = true;
+            this.colPurchNDS.SummaryItem.DisplayFormat = "{0:##0.00}";
+            this.colPurchNDS.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
             this.colPurchNDS.Visible = true;
             this.colPurchNDS.VisibleIndex = 4;
             // 
@@ -644,7 +652,7 @@ namespace RetailTrade.Receipt
             this.btPeriod.Image = ((System.Drawing.Image)(resources.GetObject("btPeriod.Image")));
             this.btPeriod.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btPeriod.Name = "btPeriod";
-            this.btPeriod.Size = new System.Drawing.Size(81, 22);
+            this.btPeriod.Size = new System.Drawing.Size(81, 23);
             this.btPeriod.Text = "За период";
             this.btPeriod.Click += new System.EventHandler(this.btPeriod_Click);
             // 

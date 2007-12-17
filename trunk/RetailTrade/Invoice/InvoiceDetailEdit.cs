@@ -47,12 +47,16 @@ namespace RetailTrade.Invoice
         private void btAdd_Click(object sender, EventArgs e)
         {
             /*создать новую строку, указатель на нее в  дл€ редактировани€*/
+            MDataSet.RemainsRow _rems = this.gridViewRemainsInvDetEdt.GetDataRow(this.gridViewRemainsInvDetEdt.FocusedRowHandle) as MDataSet.RemainsRow;
+            if (_rems == null) return;
 
-          
-                if (this.gridViewRemainsInvDetEdt.IsValidRowHandle(this.gridViewRemainsInvDetEdt.FocusedRowHandle) & this.gridViewRemainsInvDetEdt.State == GridState.Normal & !this.gridViewRemainsInvDetEdt.IsFilterRow(this.gridViewRemainsInvDetEdt.FocusedRowHandle))
-                {
+            if (_rems.ProductRow == null)
+            {
+                MessageBox.Show("ќшибка чтени€ справочника товаров!");
+                return;
+            }
                     FormDialog _formDialog = new FormDialog();
-                    _formDialog.AcceptButton = null;
+                    _formDialog.AcceptButton = _formDialog.btOk;
                     _formDialog.Text = "ƒобавить строку";
 
                     MDataSet.InvoiceDetailRow sourceRow = ((this.invoiceDetailBindingSource.AddNew() as DataRowView).Row as MDataSet.InvoiceDetailRow);
@@ -75,15 +79,11 @@ namespace RetailTrade.Invoice
                             remainsRow.RejectChanges();
                         }
                     }
-                }
-           
-        }
+       }
 
         private void gridRemains_KeyDown(object sender, KeyEventArgs e)
         {
-            if ((e.KeyCode == Keys.Enter) & (this.gridViewRemainsInvDetEdt.IsValidRowHandle(this.gridViewRemainsInvDetEdt.FocusedRowHandle))& this.gridViewRemainsInvDetEdt.State == GridState.Normal & !this.gridViewRemainsInvDetEdt.IsFilterRow(this.gridViewRemainsInvDetEdt.FocusedRowHandle))
-                this.btAdd_Click(sender, e);
-    
+          
         }
 
         private void gridViewinvDet_DoubleClick(object sender, EventArgs e)
@@ -209,9 +209,21 @@ namespace RetailTrade.Invoice
 
         private void btFieldRem_Click(object sender, EventArgs e)
         {
-                   (this.gridRemains.FocusedView as GridView).ColumnsCustomization();
+            (this.gridRemains.FocusedView as GridView).ColumnsCustomization();
             (this.gridRemains.FocusedView as GridView).CustomizationForm.TopMost = true;
            
+        }
+
+        private void gridViewRemainsInvDetEdt_KeyDown(object sender, KeyEventArgs e)
+        {
+          if (e.KeyCode == Keys.Enter)
+            {
+                MDataSet.RemainsRow _rems = this.gridViewRemainsInvDetEdt.GetDataRow(this.gridViewRemainsInvDetEdt.FocusedRowHandle) as MDataSet.RemainsRow;
+               
+                if (_rems!=null)
+                this.btAdd_Click(sender, e);
+
+            }
         }
         
     }
