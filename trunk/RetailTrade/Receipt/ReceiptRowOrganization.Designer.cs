@@ -913,7 +913,7 @@ namespace RetailTrade
             // 
             // btEdit
             // 
-            this.btEdit.Image = ((System.Drawing.Image)(resources.GetObject("btEdit.Image")));
+            this.btEdit.Image = global::RetailTrade.Properties.Resources.document_edit;
             this.btEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btEdit.Name = "btEdit";
             this.btEdit.Size = new System.Drawing.Size(95, 22);
@@ -933,8 +933,8 @@ namespace RetailTrade
             // btClose
             // 
             this.btClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btClose.Image = ((System.Drawing.Image)(resources.GetObject("btClose.Image")));
+            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btClose.Image = global::RetailTrade.Properties.Resources.delete2;
             this.btClose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(23, 22);
@@ -944,17 +944,18 @@ namespace RetailTrade
             // btCancel
             // 
             this.btCancel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btCancel.Image = ((System.Drawing.Image)(resources.GetObject("btCancel.Image")));
+            this.btCancel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btCancel.Image = global::RetailTrade.Properties.Resources.undo;
             this.btCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btCancel.Name = "btCancel";
-            this.btCancel.Size = new System.Drawing.Size(97, 22);
+            this.btCancel.Size = new System.Drawing.Size(23, 22);
             this.btCancel.Text = "Отменить";
             this.btCancel.Visible = false;
             this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
             // btMove
             // 
-            this.btMove.Image = ((System.Drawing.Image)(resources.GetObject("btMove.Image")));
+            this.btMove.Image = global::RetailTrade.Properties.Resources.document_lock;
             this.btMove.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btMove.Name = "btMove";
             this.btMove.Size = new System.Drawing.Size(134, 22);
@@ -963,12 +964,13 @@ namespace RetailTrade
             // 
             // toolStripSplitButton1
             // 
+            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btPrintAkt});
-            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+            this.toolStripSplitButton1.Image = global::RetailTrade.Properties.Resources.printer2;
             this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(90, 22);
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(32, 22);
             this.toolStripSplitButton1.Text = "Печать";
             // 
             // btPrintAkt

@@ -30,7 +30,6 @@ namespace RetailTrade.Invoice
         {
             this.components = new System.ComponentModel.Container();
             DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvoiceForReplication));
             this.gridViewInvRepDet = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colProductName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colManufacturerName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -151,9 +150,6 @@ namespace RetailTrade.Invoice
             // 
             this.grid.DataSource = this.invoiceMasterBindingSource;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
             this.grid.EmbeddedNavigator.Name = "";
             gridLevelNode1.LevelTemplate = this.gridViewInvRepDet;
             gridLevelNode1.RelationName = "FK_InvoiceDetail_InvoiceMaster";
@@ -284,8 +280,8 @@ namespace RetailTrade.Invoice
             // btClose
             // 
             this.btClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btClose.Image = ((System.Drawing.Image)(resources.GetObject("btClose.Image")));
+            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btClose.Image = global::RetailTrade.Properties.Resources.delete2;
             this.btClose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(23, 22);
@@ -294,11 +290,11 @@ namespace RetailTrade.Invoice
             // 
             // btMakeNew
             // 
-            this.btMakeNew.Image = ((System.Drawing.Image)(resources.GetObject("btMakeNew.Image")));
+            this.btMakeNew.Image = global::RetailTrade.Properties.Resources.document_stop;
             this.btMakeNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btMakeNew.Name = "btMakeNew";
-            this.btMakeNew.Size = new System.Drawing.Size(85, 22);
-            this.btMakeNew.Text = "Удалить";
+            this.btMakeNew.Size = new System.Drawing.Size(149, 22);
+            this.btMakeNew.Text = "Вернуть на склад";
             this.btMakeNew.ToolTipText = "Отменить готов к отправке";
             this.btMakeNew.Click += new System.EventHandler(this.btMakeNew_Click);
             // 

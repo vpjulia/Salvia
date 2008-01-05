@@ -112,6 +112,7 @@ namespace RetailTrade.Invoice
             this.colQuantity.Caption = "Кол-во";
             this.colQuantity.FieldName = "Quantity";
             this.colQuantity.Name = "colQuantity";
+            this.colQuantity.OptionsColumn.AllowEdit = false;
             this.colQuantity.Visible = true;
             this.colQuantity.VisibleIndex = 0;
             // 
@@ -335,7 +336,7 @@ namespace RetailTrade.Invoice
             // 
             // btAdd
             // 
-            this.btAdd.Image = ((System.Drawing.Image)(resources.GetObject("btAdd.Image")));
+            this.btAdd.Image = global::RetailTrade.Properties.Resources.document_add;
             this.btAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(94, 22);
@@ -344,7 +345,7 @@ namespace RetailTrade.Invoice
             // 
             // btEdit
             // 
-            this.btEdit.Image = ((System.Drawing.Image)(resources.GetObject("btEdit.Image")));
+            this.btEdit.Image = global::RetailTrade.Properties.Resources.document_edit;
             this.btEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btEdit.Name = "btEdit";
             this.btEdit.Size = new System.Drawing.Size(95, 22);
@@ -353,7 +354,7 @@ namespace RetailTrade.Invoice
             // 
             // btDelete
             // 
-            this.btDelete.Image = ((System.Drawing.Image)(resources.GetObject("btDelete.Image")));
+            this.btDelete.Image = global::RetailTrade.Properties.Resources.cut;
             this.btDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(85, 22);
@@ -363,8 +364,8 @@ namespace RetailTrade.Invoice
             // btClose
             // 
             this.btClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btClose.Image = ((System.Drawing.Image)(resources.GetObject("btClose.Image")));
+            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btClose.Image = global::RetailTrade.Properties.Resources.delete2;
             this.btClose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(23, 22);

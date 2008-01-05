@@ -18,9 +18,11 @@ namespace RetailTrade.Orders
         {
             InitializeComponent();
 
-            this.ordersBindingSource.DataSource = source;
-            this.ordersBindingSource.ResetBindings(false);
+            this.mDataSet = source.DataSet as MDataSet;
 
+         this.ordersBindingSource.DataSource = source;
+         this.ordersBindingSource.ResetBindings(false);
+       
         }
 
         private void btClose_Click(object sender, EventArgs e)
@@ -30,7 +32,7 @@ namespace RetailTrade.Orders
 
         private void OrdersAll_Load(object sender, EventArgs e)
         {
-
+            this.ordersTableAdapter.Fill(this.mDataSet.Orders);
         }
     }
 }

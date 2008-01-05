@@ -10009,6 +10009,10 @@ namespace RetailTrade {
             
             private System.Data.DataColumn columnTradePutletRef;
             
+            private System.Data.DataColumn columnProductRef;
+            
+            private System.Data.DataColumn columnManufacturerRef;
+            
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public LinkedInvoiceDetailDataTable() {
                 this.TableName = "LinkedInvoiceDetail";
@@ -10208,6 +10212,20 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ProductRefColumn {
+                get {
+                    return this.columnProductRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ManufacturerRefColumn {
+                get {
+                    return this.columnManufacturerRef;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -10260,7 +10278,9 @@ namespace RetailTrade {
                         int Article, 
                         string HOST, 
                         System.Guid rowguid, 
-                        int TradePutletRef) {
+                        int TradePutletRef, 
+                        int ProductRef, 
+                        int ManufacturerRef) {
                 LinkedInvoiceDetailRow rowLinkedInvoiceDetailRow = ((LinkedInvoiceDetailRow)(this.NewRow()));
                 rowLinkedInvoiceDetailRow.ItemArray = new object[] {
                         ID,
@@ -10286,7 +10306,9 @@ namespace RetailTrade {
                         Article,
                         HOST,
                         rowguid,
-                        TradePutletRef};
+                        TradePutletRef,
+                        ProductRef,
+                        ManufacturerRef};
                 this.Rows.Add(rowLinkedInvoiceDetailRow);
                 return rowLinkedInvoiceDetailRow;
             }
@@ -10341,6 +10363,8 @@ namespace RetailTrade {
                 this.columnHOST = base.Columns["HOST"];
                 this.columnrowguid = base.Columns["rowguid"];
                 this.columnTradePutletRef = base.Columns["TradePutletRef"];
+                this.columnProductRef = base.Columns["ProductRef"];
+                this.columnManufacturerRef = base.Columns["ManufacturerRef"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10393,6 +10417,10 @@ namespace RetailTrade {
                 base.Columns.Add(this.columnrowguid);
                 this.columnTradePutletRef = new System.Data.DataColumn("TradePutletRef", typeof(int), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTradePutletRef);
+                this.columnProductRef = new System.Data.DataColumn("ProductRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnProductRef);
+                this.columnManufacturerRef = new System.Data.DataColumn("ManufacturerRef", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnManufacturerRef);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnrowguid,
                                 this.columnTradePutletRef}, true));
@@ -17126,6 +17154,36 @@ namespace RetailTrade {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ProductRef {
+                get {
+                    try {
+                        return ((int)(this[this.tableLinkedInvoiceDetail.ProductRefColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'ProductRef\' in table \'LinkedInvoiceDetail\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.ProductRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ManufacturerRef {
+                get {
+                    try {
+                        return ((int)(this[this.tableLinkedInvoiceDetail.ManufacturerRefColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'ManufacturerRef\' in table \'LinkedInvoiceDetail\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLinkedInvoiceDetail.ManufacturerRefColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public LinkedInvoiceMasterRow LinkedInvoiceMasterRowParent {
                 get {
                     return ((LinkedInvoiceMasterRow)(this.GetParentRow(this.Table.ParentRelations["LinkedInvoiceMaster_LinkedInvoiceDetail"])));
@@ -17143,6 +17201,26 @@ namespace RetailTrade {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetRowVersionNull() {
                 this[this.tableLinkedInvoiceDetail.RowVersionColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsProductRefNull() {
+                return this.IsNull(this.tableLinkedInvoiceDetail.ProductRefColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetProductRefNull() {
+                this[this.tableLinkedInvoiceDetail.ProductRefColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsManufacturerRefNull() {
+                return this.IsNull(this.tableLinkedInvoiceDetail.ManufacturerRefColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetManufacturerRefNull() {
+                this[this.tableLinkedInvoiceDetail.ManufacturerRefColumn] = System.Convert.DBNull;
             }
         }
         
@@ -24870,6 +24948,8 @@ SELECT ID, TradePupletRef, ProductRef, DateOrder, Quantity, Price, Reserved, Qua
             tableMapping.ColumnMappings.Add("HOST", "HOST");
             tableMapping.ColumnMappings.Add("rowguid", "rowguid");
             tableMapping.ColumnMappings.Add("TradePutletRef", "TradePutletRef");
+            tableMapping.ColumnMappings.Add("ProductRef", "ProductRef");
+            tableMapping.ColumnMappings.Add("ManufacturerRef", "ManufacturerRef");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -24884,15 +24964,23 @@ SELECT ID, TradePupletRef, ProductRef, DateOrder, Quantity, Price, Reserved, Qua
             this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT ID, InvoiceMasterRef, Quantity, PricePurchase, DiscountSum, PurchaseNDS, PriceRetail, RetailNDS, PriceRetailNDS, LocalReceiptDetailRef, RemoteInvoiceDetailRef, Extra, Discount, Note, AuthorCreate, AuthorLastModif, DateLastModif, DateCreate, RowVersion, RetailSum, Article, HOST, rowguid, TradePutletRef FROM dbo.LinkedInvoiceDetail";
-            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[0].CommandText = "LinkedReturnInvoiceDetail";
+            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@TradePutletRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(MDataSet.LinkedInvoiceDetailDataTable dataTable) {
+        public virtual int Fill(MDataSet.LinkedInvoiceDetailDataTable dataTable, System.Nullable<int> TradePutletRef) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((TradePutletRef.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(TradePutletRef.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -24903,8 +24991,14 @@ SELECT ID, TradePupletRef, ProductRef, DateOrder, Quantity, Price, Reserved, Qua
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual MDataSet.LinkedInvoiceDetailDataTable GetData() {
+        public virtual MDataSet.LinkedInvoiceDetailDataTable GetData(System.Nullable<int> TradePutletRef) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((TradePutletRef.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(TradePutletRef.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
             MDataSet.LinkedInvoiceDetailDataTable dataTable = new MDataSet.LinkedInvoiceDetailDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -25031,18 +25125,33 @@ SELECT ID, TradePupletRef, ProductRef, DateOrder, Quantity, Price, Reserved, Qua
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT ID, Number, NumCheck, Date, OrganisationRef, DocumentTypeRef, RemoteReceiptMasterRef, RemoteInvoiceMasterRef, IsReadOnly, Sum, Nds, Extra, Discount, Note, PeriodsRef, DateLastModif, AuthorCreate, AuthorLastModif, DateCreate, RowVersion, RecalcSum, HOST, rowguid, TradePutletRef FROM dbo.LinkedInvoiceMaster";
-            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[0].CommandText = "LinkedReturnInvoiceMaster";
+            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@TradePutletRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "dbo.LinkedMoveReturnInvoice";
+            this._commandCollection[1].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@TradePutletRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@InvoiceMasterRef", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(MDataSet.LinkedInvoiceMasterDataTable dataTable) {
+        public virtual int Fill(MDataSet.LinkedInvoiceMasterDataTable dataTable, System.Nullable<int> TradePutletRef) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((TradePutletRef.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(TradePutletRef.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -25053,11 +25162,50 @@ SELECT ID, TradePupletRef, ProductRef, DateOrder, Quantity, Price, Reserved, Qua
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual MDataSet.LinkedInvoiceMasterDataTable GetData() {
+        public virtual MDataSet.LinkedInvoiceMasterDataTable GetData(System.Nullable<int> TradePutletRef) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((TradePutletRef.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(TradePutletRef.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
             MDataSet.LinkedInvoiceMasterDataTable dataTable = new MDataSet.LinkedInvoiceMasterDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int LinkedMoveReturnInvoice(System.Nullable<int> TradePutletRef, System.Nullable<int> InvoiceMasterRef) {
+            System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
+            if ((TradePutletRef.HasValue == true)) {
+                command.Parameters[1].Value = ((int)(TradePutletRef.Value));
+            }
+            else {
+                command.Parameters[1].Value = System.DBNull.Value;
+            }
+            if ((InvoiceMasterRef.HasValue == true)) {
+                command.Parameters[2].Value = ((int)(InvoiceMasterRef.Value));
+            }
+            else {
+                command.Parameters[2].Value = System.DBNull.Value;
+            }
+            System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & System.Data.ConnectionState.Open) 
+                        != System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
         }
     }
 }

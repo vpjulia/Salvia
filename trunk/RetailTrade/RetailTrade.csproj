@@ -9,6 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RetailTrade</RootNamespace>
     <AssemblyName>RetailTrade</AssemblyName>
+    <ApplicationIcon>house.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -471,6 +472,79 @@
     <Content Include="db2.mdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="house.ico" />
+    <None Include="Resources\undo.png" />
+    <None Include="Resources\document_new.png" />
+    <None Include="Resources\document_lock.png" />
+    <None Include="Resources\document_edit.png" />
+    <None Include="Resources\document_certificate.png" />
+    <None Include="Resources\document_pinned.png" />
+    <None Include="Resources\server_client_exchange.png" />
+    <None Include="Resources\earth_find.png" />
+    <None Include="Resources\download.png" />
+    <None Include="Resources\server_to_client.png" />
+    <None Include="Resources\server_from_client.png" />
+    <None Include="Resources\thermometer.png" />
+    <None Include="Resources\thermometer2.png" />
+    <None Include="Resources\product.png" />
+    <None Include="Resources\product2.png" />
+    <None Include="Resources\printer_add.png" />
+    <None Include="Resources\printer.png" />
+    <None Include="Resources\printer2.png" />
+    <None Include="Resources\potion_yellow.png" />
+    <None Include="Resources\potion_red.png" />
+    <None Include="Resources\potion_green.png" />
+    <None Include="Resources\potion_blue.png" />
+    <None Include="Resources\nurse1.png" />
+    <None Include="Resources\minibus_green.png" />
+    <None Include="Resources\medical_bag.png" />
+    <None Include="Resources\user1_monitor.png" />
+    <None Include="Resources\warning.png" />
+    <None Include="Resources\view.png" />
+    <None Include="Resources\scroll2.png" />
+    <None Include="Resources\refresh.png" />
+    <None Include="Resources\import1.png" />
+    <None Include="Resources\help.png" />
+    <None Include="Resources\help2.png" />
+    <None Include="Resources\folders.png" />
+    <None Include="Resources\folder_out.png" />
+    <None Include="Resources\folder_ok.png" />
+    <None Include="Resources\folder_new.png" />
+    <None Include="Resources\folder_network.png" />
+    <None Include="Resources\folder_lock.png" />
+    <None Include="Resources\folder_into.png" />
+    <None Include="Resources\folder_information.png" />
+    <None Include="Resources\folder_gear.png" />
+    <None Include="Resources\folder_forbidden.png" />
+    <None Include="Resources\folder_edit.png" />
+    <None Include="Resources\folder_document.png" />
+    <None Include="Resources\folder_delete.png" />
+    <None Include="Resources\folder_cubes.png" />
+    <None Include="Resources\folder_closed.png" />
+    <None Include="Resources\folder_add.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\edit.png" />
+    <None Include="Resources\document_zoom_out.png" />
+    <None Include="Resources\document_zoom_in.png" />
+    <None Include="Resources\document_warning.png" />
+    <None Include="Resources\document_stop.png" />
+    <None Include="Resources\document_refresh.png" />
+    <None Include="Resources\document_out.png" />
+    <None Include="Resources\document_ok.png" />
+    <None Include="Resources\document_into.png" />
+    <None Include="Resources\document_info.png" />
+    <None Include="Resources\document_find.png" />
+    <None Include="Resources\document_exchange.png" />
+    <None Include="Resources\document_down.png" />
+    <None Include="Resources\document_check.png" />
+    <None Include="Resources\document_attachment.png" />
+    <None Include="Resources\document_add.png" />
+    <None Include="Resources\document.png" />
+    <None Include="Resources\delete2.png" />
+    <None Include="Resources\cut.png" />
+    <None Include="Resources\check2.png" />
+    <None Include="Resources\about.png" />
+    <None Include="Resources\window_view.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

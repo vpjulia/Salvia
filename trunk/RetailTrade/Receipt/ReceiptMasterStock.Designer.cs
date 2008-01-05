@@ -559,8 +559,8 @@ namespace RetailTrade.Receipt
             // btClose
             // 
             this.btClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btClose.Image = ((System.Drawing.Image)(resources.GetObject("btClose.Image")));
+            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btClose.Image = global::RetailTrade.Properties.Resources.delete2;
             this.btClose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(23, 23);
@@ -569,11 +569,13 @@ namespace RetailTrade.Receipt
             // 
             // btEdit
             // 
+            this.btEdit.Enabled = false;
             this.btEdit.Image = ((System.Drawing.Image)(resources.GetObject("btEdit.Image")));
             this.btEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btEdit.Name = "btEdit";
             this.btEdit.Size = new System.Drawing.Size(95, 23);
             this.btEdit.Text = "Изменить";
+            this.btEdit.Visible = false;
             this.btEdit.Click += new System.EventHandler(this.btEdit_Click);
             // 
             // btSave
@@ -598,7 +600,7 @@ namespace RetailTrade.Receipt
             // 
             // btMakeNew
             // 
-            this.btMakeNew.Image = ((System.Drawing.Image)(resources.GetObject("btMakeNew.Image")));
+            this.btMakeNew.Image = global::RetailTrade.Properties.Resources.document_stop;
             this.btMakeNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btMakeNew.Name = "btMakeNew";
             this.btMakeNew.Size = new System.Drawing.Size(148, 23);
@@ -652,7 +654,7 @@ namespace RetailTrade.Receipt
             this.btPeriod.Image = ((System.Drawing.Image)(resources.GetObject("btPeriod.Image")));
             this.btPeriod.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btPeriod.Name = "btPeriod";
-            this.btPeriod.Size = new System.Drawing.Size(81, 23);
+            this.btPeriod.Size = new System.Drawing.Size(81, 22);
             this.btPeriod.Text = "За период";
             this.btPeriod.Click += new System.EventHandler(this.btPeriod_Click);
             // 

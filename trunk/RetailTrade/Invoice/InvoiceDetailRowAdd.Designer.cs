@@ -75,7 +75,7 @@ namespace RetailTrade.Invoice
             this.quantityEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.invoiceDetailBindingSource, "Quantity", true));
             this.quantityEdit.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.invoiceDetailBindingSource, "Quantity", true));
             this.quantityEdit.EnterMoveNextControl = true;
-            this.quantityEdit.Location = new System.Drawing.Point(120, 92);
+            this.quantityEdit.Location = new System.Drawing.Point(120, 89);
             this.quantityEdit.Name = "quantityEdit";
             this.quantityEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.quantityEdit.Properties.DisplayFormat.FormatString = "#####.###";
@@ -83,6 +83,7 @@ namespace RetailTrade.Invoice
             this.quantityEdit.Properties.EditFormat.FormatString = "n3";
             this.quantityEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.quantityEdit.Properties.HideSelection = false;
+            this.quantityEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             this.quantityEdit.Properties.ValidateOnEnterKey = true;
             this.quantityEdit.Size = new System.Drawing.Size(114, 22);
             this.quantityEdit.TabIndex = 0;

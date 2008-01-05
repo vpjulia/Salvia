@@ -183,6 +183,12 @@ namespace RetailTrade
               if ((this.ParentForm as MainForm).SaveToBase(_curentReceiptMasterRow))
             {
                 this.receiptMasterBindingSource.DataSource = new DataView(_curentReceiptMasterRow.Table, "ID=" + _curentReceiptMasterRow.ID.ToString(), null, DataViewRowState.CurrentRows);
+                _viewChangesReceiptDetail.ListChanged -= new ListChangedEventHandler(_viewChangesReceiptDetail_ListChanged);
+
+      
+                  _viewChangesReceiptDetail = new DataView(this.mDataSet.ReceiptDetail, "ReceiptMasterRef=" + _curentReceiptMasterRow.ID.ToString(), null, DataViewRowState.Added | DataViewRowState.Deleted | DataViewRowState.ModifiedCurrent);
+
+                  _viewChangesReceiptDetail.ListChanged += new ListChangedEventHandler(_viewChangesReceiptDetail_ListChanged);
 
                 this.receiptMasterBindingSource.ResetBindings(false);
                 this.receiptDetailBindingSource.ResetBindings(true);
@@ -245,6 +251,9 @@ namespace RetailTrade
         private void btEdit_Click(object sender, EventArgs e)
         {
             this.receiptMasterBindingSource.EndEdit();
+
+            if (!this.SaveChanges()) return;
+
            
             FormDialog _formDialog = new FormDialog();
             _formDialog.Text = "¹ " + _curentReceiptMasterRow.Number.ToString() + "  " + _curentReceiptMasterRow.OrganizationRow.ShortName.ToString();

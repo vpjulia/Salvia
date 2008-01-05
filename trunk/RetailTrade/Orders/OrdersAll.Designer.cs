@@ -29,7 +29,6 @@ namespace RetailTrade.Orders
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrdersAll));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btClose = new System.Windows.Forms.ToolStripButton();
@@ -49,6 +48,7 @@ namespace RetailTrade.Orders
             this.colAuthorLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDateLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ordersTableAdapter = new RetailTrade.MDataSetTableAdapters.OrdersTableAdapter();
+            this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ordersBindingSource)).BeginInit();
@@ -67,7 +67,8 @@ namespace RetailTrade.Orders
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btClose});
+            this.btClose,
+            this.btRefresh});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(718, 25);
@@ -77,8 +78,8 @@ namespace RetailTrade.Orders
             // btClose
             // 
             this.btClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btClose.Image = ((System.Drawing.Image)(resources.GetObject("btClose.Image")));
+            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btClose.Image = global::RetailTrade.Properties.Resources.delete2;
             this.btClose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(23, 22);
@@ -195,7 +196,7 @@ namespace RetailTrade.Orders
             // 
             // colQuantityNow
             // 
-            this.colQuantityNow.Caption = "Осталось";
+            this.colQuantityNow.Caption = "Отгружено:";
             this.colQuantityNow.FieldName = "QuantityNow";
             this.colQuantityNow.Name = "colQuantityNow";
             this.colQuantityNow.Visible = true;
@@ -235,6 +236,16 @@ namespace RetailTrade.Orders
             // ordersTableAdapter
             // 
             this.ordersTableAdapter.ClearBeforeFill = true;
+            // 
+            // btRefresh
+            // 
+            this.btRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btRefresh.Image = global::RetailTrade.Properties.Resources.refresh;
+            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btRefresh.Name = "btRefresh";
+            this.btRefresh.Size = new System.Drawing.Size(23, 22);
+            this.btRefresh.Text = "toolStripButton1";
+            this.btRefresh.Click += new System.EventHandler(this.OrdersAll_Load);
             // 
             // OrdersAll
             // 
@@ -278,5 +289,6 @@ namespace RetailTrade.Orders
         private DevExpress.XtraGrid.Columns.GridColumn colTradePupletName;
         private DevExpress.XtraGrid.Columns.GridColumn colProductName;
         private RetailTrade.MDataSetTableAdapters.OrdersTableAdapter ordersTableAdapter;
+        private System.Windows.Forms.ToolStripButton btRefresh;
     }
 }

@@ -142,6 +142,9 @@ namespace RetailTrade.Invoice
             this.gridRemains.ContextMenuStrip = this.contextMenuStripRemains;
             this.gridRemains.DataSource = this.RemainsBindingSource;
             this.gridRemains.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
             this.gridRemains.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gridRemains.EmbeddedNavigator.Name = "";
             this.gridRemains.Location = new System.Drawing.Point(0, 0);
@@ -325,6 +328,9 @@ namespace RetailTrade.Invoice
             this.gridInvoiceDetail.ContextMenuStrip = this.contextMenuStripInvoice;
             this.gridInvoiceDetail.DataSource = this.invoiceDetailBindingSource;
             this.gridInvoiceDetail.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
             this.gridInvoiceDetail.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gridInvoiceDetail.EmbeddedNavigator.Name = "";
             this.gridInvoiceDetail.Location = new System.Drawing.Point(0, 0);
@@ -441,6 +447,7 @@ namespace RetailTrade.Invoice
             this.colQuantity.Caption = "Кол-во";
             this.colQuantity.FieldName = "Quantity";
             this.colQuantity.Name = "colQuantity";
+            this.colQuantity.OptionsColumn.AllowEdit = false;
             this.colQuantity.OptionsFilter.AllowFilter = false;
             this.colQuantity.Visible = true;
             this.colQuantity.VisibleIndex = 3;
