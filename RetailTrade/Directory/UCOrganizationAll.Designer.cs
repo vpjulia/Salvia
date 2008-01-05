@@ -36,7 +36,6 @@ namespace RetailTrade
             this.btDel = new System.Windows.Forms.ToolStripButton();
             this.btSave = new System.Windows.Forms.ToolStripButton();
             this.btClose = new System.Windows.Forms.ToolStripButton();
-            this.btRefresh = new System.Windows.Forms.ToolStripButton();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.btField = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -82,7 +81,6 @@ namespace RetailTrade
             this.btDel,
             this.btSave,
             this.btClose,
-            this.btRefresh,
             this.toolStripSplitButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -92,7 +90,7 @@ namespace RetailTrade
             // 
             // btAdd
             // 
-            this.btAdd.Image = ((System.Drawing.Image)(resources.GetObject("btAdd.Image")));
+            this.btAdd.Image = global::RetailTrade.Properties.Resources.document_add;
             this.btAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(94, 22);
@@ -101,7 +99,7 @@ namespace RetailTrade
             // 
             // btEdit
             // 
-            this.btEdit.Image = ((System.Drawing.Image)(resources.GetObject("btEdit.Image")));
+            this.btEdit.Image = global::RetailTrade.Properties.Resources.document_edit;
             this.btEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btEdit.Name = "btEdit";
             this.btEdit.Size = new System.Drawing.Size(95, 22);
@@ -110,7 +108,7 @@ namespace RetailTrade
             // 
             // btDel
             // 
-            this.btDel.Image = ((System.Drawing.Image)(resources.GetObject("btDel.Image")));
+            this.btDel.Image = global::RetailTrade.Properties.Resources.cut;
             this.btDel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btDel.Name = "btDel";
             this.btDel.Size = new System.Drawing.Size(85, 22);
@@ -120,7 +118,7 @@ namespace RetailTrade
             // btSave
             // 
             this.btSave.Enabled = false;
-            this.btSave.Image = ((System.Drawing.Image)(resources.GetObject("btSave.Image")));
+            this.btSave.Image = global::RetailTrade.Properties.Resources.document_check;
             this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(101, 22);
@@ -130,8 +128,8 @@ namespace RetailTrade
             // btClose
             // 
             this.btClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btClose.Image = ((System.Drawing.Image)(resources.GetObject("btClose.Image")));
+            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btClose.Image = global::RetailTrade.Properties.Resources.delete2;
             this.btClose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(23, 22);
@@ -139,18 +137,9 @@ namespace RetailTrade
             this.btClose.ToolTipText = "Выйти";
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
-            // btRefresh
-            // 
-            this.btRefresh.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btRefresh.Image")));
-            this.btRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btRefresh.Name = "btRefresh";
-            this.btRefresh.Size = new System.Drawing.Size(23, 22);
-            this.btRefresh.Text = "Обновить";
-            // 
             // toolStripSplitButton1
             // 
+            this.toolStripSplitButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
             this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btField});
@@ -179,9 +168,6 @@ namespace RetailTrade
             // 
             this.grid.DataSource = this.organizationBindingSource;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
             this.grid.EmbeddedNavigator.Name = "";
             this.grid.Location = new System.Drawing.Point(0, 25);
             this.grid.MainView = this.gridViewOrgns;
@@ -429,7 +415,6 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripButton btDel;
         private System.Windows.Forms.ToolStripButton btSave;
         private System.Windows.Forms.ToolStripButton btClose;
-        private System.Windows.Forms.ToolStripButton btRefresh;
         private DevExpress.XtraGrid.Columns.GridColumn colDateCreate;
         private DevExpress.XtraGrid.Columns.GridColumn colDateLastModif;
         private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;

@@ -69,6 +69,7 @@ namespace RetailTrade.Invoice
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fieldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btSetExtr = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.invoiceDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridInvoiceRowView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -90,7 +91,6 @@ namespace RetailTrade.Invoice
             this.invoiceMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.InvoiceMasterTableAdapter();
             this.invoiceDetailTableAdapter = new RetailTrade.MDataSetTableAdapters.InvoiceDetailTableAdapter();
             this.stockTableAdapter = new RetailTrade.MDataSetTableAdapters.StockTableAdapter();
-            this.SaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             numberLabel = new System.Windows.Forms.Label();
             this.toolStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -138,7 +138,7 @@ namespace RetailTrade.Invoice
             // 
             // btEdit
             // 
-            this.btEdit.Image = ((System.Drawing.Image)(resources.GetObject("btEdit.Image")));
+            this.btEdit.Image = global::RetailTrade.Properties.Resources.document_edit;
             this.btEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btEdit.Name = "btEdit";
             this.btEdit.Size = new System.Drawing.Size(95, 22);
@@ -148,8 +148,8 @@ namespace RetailTrade.Invoice
             // btClose
             // 
             this.btClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btClose.Image = ((System.Drawing.Image)(resources.GetObject("btClose.Image")));
+            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btClose.Image = global::RetailTrade.Properties.Resources.delete2;
             this.btClose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(23, 22);
@@ -168,7 +168,7 @@ namespace RetailTrade.Invoice
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
             this.toolStripSplitButton1.Size = new System.Drawing.Size(16, 22);
             this.toolStripSplitButton1.Text = "toolStripSplitButton1";
-              // 
+            // 
             // btField
             // 
             this.btField.Name = "btField";
@@ -184,7 +184,7 @@ namespace RetailTrade.Invoice
             // 
             // btMove
             // 
-            this.btMove.Image = ((System.Drawing.Image)(resources.GetObject("btMove.Image")));
+            this.btMove.Image = global::RetailTrade.Properties.Resources.document_certificate;
             this.btMove.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btMove.Name = "btMove";
             this.btMove.Size = new System.Drawing.Size(148, 22);
@@ -194,7 +194,7 @@ namespace RetailTrade.Invoice
             // 
             // btSave
             // 
-            this.btSave.Image = ((System.Drawing.Image)(resources.GetObject("btSave.Image")));
+            this.btSave.Image = global::RetailTrade.Properties.Resources.document_check;
             this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(101, 22);
@@ -250,11 +250,11 @@ namespace RetailTrade.Invoice
             // 
             this.groupBox1.Controls.Add(this.tableLayoutPanel1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.Location = new System.Drawing.Point(0, 35);
+            this.groupBox1.Location = new System.Drawing.Point(0, 59);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(783, 89);
+            this.groupBox1.Size = new System.Drawing.Size(783, 101);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             // 
@@ -380,7 +380,7 @@ namespace RetailTrade.Invoice
             this.panelNumber.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelNumber.Location = new System.Drawing.Point(0, 0);
             this.panelNumber.Name = "panelNumber";
-            this.panelNumber.Size = new System.Drawing.Size(783, 35);
+            this.panelNumber.Size = new System.Drawing.Size(783, 59);
             this.panelNumber.TabIndex = 1;
             // 
             // numberTextBox
@@ -515,7 +515,7 @@ namespace RetailTrade.Invoice
             this.btSetExtr,
             this.SaveToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(233, 136);
+            this.contextMenuStrip.Size = new System.Drawing.Size(233, 114);
             // 
             // DelToolStripMenuItem
             // 
@@ -544,6 +544,15 @@ namespace RetailTrade.Invoice
             this.btSetExtr.Size = new System.Drawing.Size(232, 22);
             this.btSetExtr.Text = "Установить наценку";
             this.btSetExtr.Click += new System.EventHandler(this.btSetExtr_Click);
+            // 
+            // SaveToolStripMenuItem
+            // 
+            this.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
+            this.SaveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.SaveToolStripMenuItem.ShowShortcutKeys = false;
+            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.SaveToolStripMenuItem.Text = "Сохранить";
+            this.SaveToolStripMenuItem.Click += new System.EventHandler(this.btSave_Click);
             // 
             // invoiceDetailBindingSource
             // 
@@ -621,6 +630,7 @@ namespace RetailTrade.Invoice
             this.colQuantity.Caption = "Количество";
             this.colQuantity.FieldName = "Quantity";
             this.colQuantity.Name = "colQuantity";
+            this.colQuantity.OptionsColumn.AllowEdit = false;
             this.colQuantity.OptionsFilter.AllowFilter = false;
             this.colQuantity.Visible = true;
             this.colQuantity.VisibleIndex = 2;
@@ -762,15 +772,6 @@ namespace RetailTrade.Invoice
             // stockTableAdapter
             // 
             this.stockTableAdapter.ClearBeforeFill = true;
-            // 
-            // SaveToolStripMenuItem
-            // 
-            this.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
-            this.SaveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.SaveToolStripMenuItem.ShowShortcutKeys = false;
-            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.SaveToolStripMenuItem.Text = "Сохранить";
-            this.SaveToolStripMenuItem.Click += new System.EventHandler(this.btSave_Click);
             // 
             // InvoiceRow
             // 

@@ -353,7 +353,7 @@ namespace RetailTrade
                                 if ((this.ParentForm as MainForm) != null)
                                     (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
                           
-                                this.ParentForm.FormClosing += new FormClosingEventHandler(ParentForm_FormClosing);
+                                this.ParentForm.FormClosing -= new FormClosingEventHandler(ParentForm_FormClosing);
       
                             } 
                             break;
@@ -363,7 +363,7 @@ namespace RetailTrade
                                     if ((this.ParentForm as MainForm) != null)
                                         (this.ParentForm as MainForm).DeleteDataTab(this.Parent as TabPage);
                            
-                                this.ParentForm.FormClosing += new FormClosingEventHandler(ParentForm_FormClosing);
+                                this.ParentForm.FormClosing -= new FormClosingEventHandler(ParentForm_FormClosing);
       
                             }
                             break;

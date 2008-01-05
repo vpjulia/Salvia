@@ -30,7 +30,6 @@ namespace RetailTrade.Invoice
         {
             this.components = new System.ComponentModel.Container();
             DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvoiceClosed));
             this.gridViewInvClosdDet = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colProductName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colManufacturerName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -295,7 +294,7 @@ namespace RetailTrade.Invoice
             // 
             // btPeriod
             // 
-            this.btPeriod.Image = ((System.Drawing.Image)(resources.GetObject("btPeriod.Image")));
+            this.btPeriod.Image = global::RetailTrade.Properties.Resources.refresh;
             this.btPeriod.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btPeriod.Name = "btPeriod";
             this.btPeriod.Size = new System.Drawing.Size(97, 23);
@@ -305,8 +304,8 @@ namespace RetailTrade.Invoice
             // btClose
             // 
             this.btClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btClose.Image = ((System.Drawing.Image)(resources.GetObject("btClose.Image")));
+            this.btClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btClose.Image = global::RetailTrade.Properties.Resources.delete2;
             this.btClose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(23, 23);

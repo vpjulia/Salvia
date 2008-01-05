@@ -151,7 +151,7 @@ namespace RetailTrade
 
                             throw new ArgumentException("Остаток на складе меньше!");
                         else
-                            (e.Row as MDataSet.InvoiceDetailRow).RemainsRow.QuantityRemains -= (decimal)e.ProposedValue;// -(e.Row as MDataSet.InvoiceDetailRow).Quantity;
+                            (e.Row as MDataSet.InvoiceDetailRow).RemainsRow.QuantityRemains -= (decimal)e.ProposedValue -(e.Row as MDataSet.InvoiceDetailRow).Quantity;
                 }
             }
            

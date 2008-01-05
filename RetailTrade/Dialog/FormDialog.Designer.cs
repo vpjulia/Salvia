@@ -43,31 +43,36 @@ namespace RetailTrade
             this.flowLayoutPanel1.Controls.Add(this.btOk);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 49);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 62);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(174, 32);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(232, 38);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // btCancel
             // 
             this.btCancel.CausesValidation = false;
             this.btCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btCancel.Location = new System.Drawing.Point(110, 2);
-            this.btCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btCancel.Image = global::RetailTrade.Properties.Resources.delete2;
+            this.btCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btCancel.Location = new System.Drawing.Point(139, 2);
+            this.btCancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btCancel.Name = "btCancel";
-            this.btCancel.Size = new System.Drawing.Size(62, 28);
+            this.btCancel.Size = new System.Drawing.Size(90, 34);
             this.btCancel.TabIndex = 1;
             this.btCancel.Text = "Отмена";
+            this.btCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btCancel.UseVisualStyleBackColor = true;
             // 
             // btOk
             // 
             this.btOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btOk.Location = new System.Drawing.Point(43, 2);
-            this.btOk.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btOk.Image = global::RetailTrade.Properties.Resources.check2;
+            this.btOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btOk.Location = new System.Drawing.Point(49, 2);
+            this.btOk.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btOk.Name = "btOk";
-            this.btOk.Size = new System.Drawing.Size(63, 28);
+            this.btOk.Size = new System.Drawing.Size(84, 34);
             this.btOk.TabIndex = 0;
             this.btOk.Text = "ОК";
             this.btOk.UseVisualStyleBackColor = true;
@@ -78,30 +83,31 @@ namespace RetailTrade
             this.panel.AutoSize = true;
             this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel.Location = new System.Drawing.Point(0, 0);
-            this.panel.Margin = new System.Windows.Forms.Padding(19, 20, 19, 20);
+            this.panel.Margin = new System.Windows.Forms.Padding(25, 25, 25, 25);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(174, 49);
+            this.panel.Size = new System.Drawing.Size(232, 62);
             this.panel.TabIndex = 0;
             // 
             // FormDialog
             // 
             this.AcceptButton = this.btOk;
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Dialog;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.CancelButton = this.btCancel;
-            this.ClientSize = new System.Drawing.Size(174, 81);
+            this.ClientSize = new System.Drawing.Size(232, 100);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.flowLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormDialog";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FormDialog";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.FormDialog_Load);
             this.flowLayoutPanel1.ResumeLayout(false);

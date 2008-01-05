@@ -668,7 +668,7 @@ namespace RetailTrade
             // 
             // btAdd
             // 
-            this.btAdd.Image = ((System.Drawing.Image)(resources.GetObject("btAdd.Image")));
+            this.btAdd.Image = global::RetailTrade.Properties.Resources.document_add;
             this.btAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(94, 22);
@@ -677,7 +677,7 @@ namespace RetailTrade
             // 
             // btEdit
             // 
-            this.btEdit.Image = ((System.Drawing.Image)(resources.GetObject("btEdit.Image")));
+            this.btEdit.Image = global::RetailTrade.Properties.Resources.document_edit;
             this.btEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btEdit.Name = "btEdit";
             this.btEdit.Size = new System.Drawing.Size(95, 22);
@@ -686,7 +686,7 @@ namespace RetailTrade
             // 
             // btDel
             // 
-            this.btDel.Image = ((System.Drawing.Image)(resources.GetObject("btDel.Image")));
+            this.btDel.Image = global::RetailTrade.Properties.Resources.cut;
             this.btDel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btDel.Name = "btDel";
             this.btDel.Size = new System.Drawing.Size(85, 22);
@@ -696,8 +696,8 @@ namespace RetailTrade
             // BtClose
             // 
             this.BtClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.BtClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.BtClose.Image = ((System.Drawing.Image)(resources.GetObject("BtClose.Image")));
+            this.BtClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BtClose.Image = global::RetailTrade.Properties.Resources.delete2;
             this.BtClose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.BtClose.Name = "BtClose";
             this.BtClose.Size = new System.Drawing.Size(23, 22);
@@ -706,7 +706,7 @@ namespace RetailTrade
             // 
             // btSave
             // 
-            this.btSave.Image = ((System.Drawing.Image)(resources.GetObject("btSave.Image")));
+            this.btSave.Image = global::RetailTrade.Properties.Resources.document_check;
             this.btSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(101, 22);
@@ -716,14 +716,15 @@ namespace RetailTrade
             // 
             // toolStripSplitButton1
             // 
-            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripSplitButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
             this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btField,
             this.btRefresh});
             this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
             this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(32, 22);
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(16, 22);
             this.toolStripSplitButton1.Text = "toolStripSplitButton1";
             // 
             // btField
@@ -742,10 +743,12 @@ namespace RetailTrade
             // 
             // btCancel
             // 
-            this.btCancel.Image = ((System.Drawing.Image)(resources.GetObject("btCancel.Image")));
+            this.btCancel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btCancel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btCancel.Image = global::RetailTrade.Properties.Resources.undo;
             this.btCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btCancel.Name = "btCancel";
-            this.btCancel.Size = new System.Drawing.Size(97, 22);
+            this.btCancel.Size = new System.Drawing.Size(23, 22);
             this.btCancel.Text = "Отменить";
             this.btCancel.Visible = false;
             this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
