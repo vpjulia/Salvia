@@ -7,6 +7,9 @@ using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraGrid.Views.Grid;
 using System.IO;
+using RetailTrade.Dialog;
+using Microsoft.Reporting.WinForms;
+
 
 namespace RetailTrade
 {
@@ -151,11 +154,7 @@ namespace RetailTrade
          
             InitializeComponent();
 
-
-
             this.mDataSet = source;
-
-
             this.receiptMasterBindingSource.DataSource = new DataView(this.mDataSet.ReceiptMaster, "DocumentTypeRef=0", null, DataViewRowState.CurrentRows);
             this.receiptMasterBindingSource.ResetBindings(false);
             this.productBindingSource.DataSource = this.mDataSet.Product;
@@ -458,6 +457,30 @@ namespace RetailTrade
 
             this.SaveChanges();
                        
+
+        }
+
+        private void btPrint_Click(object sender, EventArgs e)
+        {
+            MDataSet.ReceiptMasterRow row = (this.receiptMasterBindingSource.Current as DataRowView).Row as MDataSet.ReceiptMasterRow;
+
+
+            FormDialog fromDialog = new FormDialog();
+
+
+            printingControl preview = new printingControl("/ReportRetailTrade/ReceiptMasterByID");
+
+            ReportParameter ReceiptMasterRef = new ReportParameter("ReceiptMasterRef", row.ID.ToString());
+
+            preview.reportViewer.ShowParameterPrompts = false;
+            preview.reportViewer.ServerReport.SetParameters(new ReportParameter[] { ReceiptMasterRef });
+
+            fromDialog.panel.Controls.Add(preview);
+
+            preview.reportViewer.RefreshReport();
+
+
+            fromDialog.ShowDialog(this);
 
         }
 

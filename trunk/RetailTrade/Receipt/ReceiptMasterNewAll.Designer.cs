@@ -92,6 +92,7 @@ namespace RetailTrade
             this.btField = new System.Windows.Forms.ToolStripMenuItem();
             this.btRefresh = new System.Windows.Forms.ToolStripMenuItem();
             this.btCancel = new System.Windows.Forms.ToolStripButton();
+            this.btPrint = new System.Windows.Forms.ToolStripButton();
             this.receiptMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.receiptMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.ReceiptMasterTableAdapter();
             this.productTableAdapter = new RetailTrade.MDataSetTableAdapters.ProductTableAdapter();
@@ -659,7 +660,8 @@ namespace RetailTrade
             this.BtClose,
             this.btSave,
             this.toolStripSplitButton1,
-            this.btCancel});
+            this.btCancel,
+            this.btPrint});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(830, 25);
@@ -752,6 +754,16 @@ namespace RetailTrade
             this.btCancel.Text = "Отменить";
             this.btCancel.Visible = false;
             this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
+            // 
+            // btPrint
+            // 
+            this.btPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btPrint.Image = global::RetailTrade.Properties.Resources.view;
+            this.btPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btPrint.Name = "btPrint";
+            this.btPrint.Size = new System.Drawing.Size(23, 22);
+            this.btPrint.Text = "Предварительный просмотр";
+            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
             // 
             // receiptMasterBindingSource
             // 
@@ -875,5 +887,6 @@ namespace RetailTrade
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit StockItemLookUpEdit;
         private System.Windows.Forms.BindingSource stockBindingSource;
         private RetailTrade.MDataSetTableAdapters.StockTableAdapter stockTableAdapter;
+        private System.Windows.Forms.ToolStripButton btPrint;
     }
 }

@@ -41,7 +41,7 @@ namespace RetailTrade
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.mField = new System.Windows.Forms.ToolStripMenuItem();
             this.Ó·ÌÓ‚ËÚ¸ƒ‡ÌÌ˚ÂToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.btProductReport = new System.Windows.Forms.ToolStripButton();
             this.mDataSet = new RetailTrade.MDataSet();
             this.grid = new DevExpress.XtraGrid.GridControl();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -50,7 +50,7 @@ namespace RetailTrade
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSmallName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPriceManufact = new DevExpress.XtraGrid.Columns.GridColumn();
-             this.colIsRecept = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colIsRecept = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsNDS = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsOneRecept = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colMinDivisor = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -124,7 +124,7 @@ namespace RetailTrade
             this.btClose,
             this.btCancel,
             this.toolStripSplitButton1,
-            this.toolStripButton1});
+            this.btProductReport});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(912, 25);
@@ -223,14 +223,15 @@ namespace RetailTrade
             this.Ó·ÌÓ‚ËÚ¸ƒ‡ÌÌ˚ÂToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.Ó·ÌÓ‚ËÚ¸ƒ‡ÌÌ˚ÂToolStripMenuItem.Text = "Œ·ÌÓ‚ËÚ¸ ‰‡ÌÌ˚Â";
             // 
-            // toolStripButton1
+            // btProductReport
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.btProductReport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btProductReport.Image = global::RetailTrade.Properties.Resources.view;
+            this.btProductReport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btProductReport.Name = "btProductReport";
+            this.btProductReport.Size = new System.Drawing.Size(23, 22);
+            this.btProductReport.Text = "toolStripButton1";
+            this.btProductReport.Click += new System.EventHandler(this.btProductReport_Click);
             // 
             // mDataSet
             // 
@@ -241,9 +242,6 @@ namespace RetailTrade
             // 
             this.grid.DataSource = this.productBindingSource;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
             this.grid.EmbeddedNavigator.Name = "";
             this.errorProvider1.SetError(this.grid, "jj");
             this.grid.Location = new System.Drawing.Point(0, 25);
@@ -277,7 +275,6 @@ namespace RetailTrade
             this.colName,
             this.colSmallName,
             this.colPriceManufact,
-           
             this.colIsRecept,
             this.colIsNDS,
             this.colIsOneRecept,
@@ -358,10 +355,6 @@ namespace RetailTrade
             this.colPriceManufact.Name = "colPriceManufact";
             this.colPriceManufact.OptionsColumn.ReadOnly = true;
             this.colPriceManufact.Width = 36;
-            // 
-            // colManufacturerRef
-            // 
-          
             // 
             // colIsRecept
             // 
@@ -791,7 +784,7 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripMenuItem Ó·ÌÓ‚ËÚ¸ƒ‡ÌÌ˚ÂToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton btCancel;
         private System.Windows.Forms.ToolStripButton btEditGrid;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton btProductReport;
         private DevExpress.XtraGrid.Columns.GridColumn colUnitRef;
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit UnitRefLookUpEdit;
         private System.Windows.Forms.BindingSource unitBindingSource;

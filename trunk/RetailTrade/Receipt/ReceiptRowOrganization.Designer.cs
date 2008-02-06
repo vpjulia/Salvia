@@ -34,8 +34,10 @@ namespace RetailTrade
             DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReceiptRowOrganization));
             this.gridViewReceiptDetailOrders = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colTradePupletName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colProductName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTradePupletRef = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.TradePutletLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.tradePutletBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.mDataSet = new RetailTrade.MDataSet();
             this.colDateOrder = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQuantityNow = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colReserved = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -49,7 +51,6 @@ namespace RetailTrade
             this.receiptMasterReceiptDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.receiptDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.receiptMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.mDataSet = new RetailTrade.MDataSet();
             this.gridViewReceiptDetailPrices = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colOrganizationName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPricePurchase1 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -102,20 +103,28 @@ namespace RetailTrade
             this.btSaveReciept = new System.Windows.Forms.ToolStripButton();
             this.btClose = new System.Windows.Forms.ToolStripButton();
             this.btCancel = new System.Windows.Forms.ToolStripButton();
-            this.btMove = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
+            this.btMove = new System.Windows.Forms.ToolStripSplitButton();
+            this.btMovesimple = new System.Windows.Forms.ToolStripMenuItem();
+            this.btMoveAndSell = new System.Windows.Forms.ToolStripMenuItem();
+            this.btSelToTradePutlet = new System.Windows.Forms.ToolStripMenuItem();
+            this.btPrint = new System.Windows.Forms.ToolStripSplitButton();
             this.btPrintAkt = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSplitButton2 = new System.Windows.Forms.ToolStripSplitButton();
             this.btField = new System.Windows.Forms.ToolStripMenuItem();
             this.btRefresh = new System.Windows.Forms.ToolStripMenuItem();
+            this.переместитьНаТочкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.tradePutletTableAdapter = new RetailTrade.MDataSetTableAdapters.TradePutletTableAdapter();
             numberLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewReceiptDetailOrders)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TradePutletLookUpEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tradePutletBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCalcEditQuantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterReceiptDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewReceiptDetailPrices)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewReceiptRowMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCalcEditPrice)).BeginInit();
@@ -148,8 +157,7 @@ namespace RetailTrade
             // 
             this.gridViewReceiptDetailOrders.ChildGridLevelName = "Заказы";
             this.gridViewReceiptDetailOrders.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colTradePupletName,
-            this.colProductName,
+            this.colTradePupletRef,
             this.colDateOrder,
             this.colQuantityNow,
             this.colReserved,
@@ -162,27 +170,36 @@ namespace RetailTrade
             this.gridViewReceiptDetailOrders.Name = "gridViewReceiptDetailOrders";
             this.gridViewReceiptDetailOrders.ViewCaption = "Заказы";
             // 
-            // colTradePupletName
+            // colTradePupletRef
             // 
-            this.colTradePupletName.Caption = "Торговая точка";
-            this.colTradePupletName.FieldName = "TradePupletName";
-            this.colTradePupletName.Name = "colTradePupletName";
-            this.colTradePupletName.OptionsColumn.AllowEdit = false;
-            this.colTradePupletName.OptionsColumn.AllowFocus = false;
-            this.colTradePupletName.OptionsColumn.ReadOnly = true;
-            this.colTradePupletName.Visible = true;
-            this.colTradePupletName.VisibleIndex = 0;
+            this.colTradePupletRef.Caption = "Точка";
+            this.colTradePupletRef.ColumnEdit = this.TradePutletLookUpEdit;
+            this.colTradePupletRef.FieldName = "TradePupletRef";
+            this.colTradePupletRef.Name = "colTradePupletRef";
+            this.colTradePupletRef.Visible = true;
+            this.colTradePupletRef.VisibleIndex = 3;
             // 
-            // colProductName
+            // TradePutletLookUpEdit
             // 
-            this.colProductName.Caption = "Наименование";
-            this.colProductName.FieldName = "ProductName";
-            this.colProductName.Name = "colProductName";
-            this.colProductName.OptionsColumn.AllowEdit = false;
-            this.colProductName.OptionsColumn.AllowFocus = false;
-            this.colProductName.OptionsColumn.ReadOnly = true;
-            this.colProductName.Visible = true;
-            this.colProductName.VisibleIndex = 1;
+            this.TradePutletLookUpEdit.AutoHeight = false;
+            this.TradePutletLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.TradePutletLookUpEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name", 39, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near)});
+            this.TradePutletLookUpEdit.DataSource = this.tradePutletBindingSource;
+            this.TradePutletLookUpEdit.DisplayMember = "Name";
+            this.TradePutletLookUpEdit.Name = "TradePutletLookUpEdit";
+            this.TradePutletLookUpEdit.ValueMember = "ID";
+            // 
+            // tradePutletBindingSource
+            // 
+            this.tradePutletBindingSource.DataMember = "TradePutlet";
+            this.tradePutletBindingSource.DataSource = this.mDataSet;
+            // 
+            // mDataSet
+            // 
+            this.mDataSet.DataSetName = "MDataSet";
+            this.mDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // colDateOrder
             // 
@@ -193,18 +210,18 @@ namespace RetailTrade
             this.colDateOrder.OptionsColumn.AllowFocus = false;
             this.colDateOrder.OptionsColumn.ReadOnly = true;
             this.colDateOrder.Visible = true;
-            this.colDateOrder.VisibleIndex = 2;
+            this.colDateOrder.VisibleIndex = 0;
             // 
             // colQuantityNow
             // 
-            this.colQuantityNow.Caption = "Ждут";
+            this.colQuantityNow.Caption = "Отгружено";
             this.colQuantityNow.FieldName = "QuantityNow";
             this.colQuantityNow.Name = "colQuantityNow";
             this.colQuantityNow.OptionsColumn.AllowEdit = false;
             this.colQuantityNow.OptionsColumn.AllowFocus = false;
             this.colQuantityNow.OptionsColumn.ReadOnly = true;
             this.colQuantityNow.Visible = true;
-            this.colQuantityNow.VisibleIndex = 3;
+            this.colQuantityNow.VisibleIndex = 1;
             // 
             // colReserved
             // 
@@ -213,7 +230,7 @@ namespace RetailTrade
             this.colReserved.FieldName = "Reserved";
             this.colReserved.Name = "colReserved";
             this.colReserved.Visible = true;
-            this.colReserved.VisibleIndex = 4;
+            this.colReserved.VisibleIndex = 2;
             // 
             // repositoryItemCalcEditQuantity
             // 
@@ -289,9 +306,10 @@ namespace RetailTrade
             this.grid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.ProductLookUpEdit,
             this.repositoryItemCalcEditQuantity,
-            this.repositoryItemCalcEditPrice});
+            this.repositoryItemCalcEditPrice,
+            this.TradePutletLookUpEdit});
             this.grid.ShowOnlyPredefinedDetails = true;
-            this.grid.Size = new System.Drawing.Size(778, 212);
+            this.grid.Size = new System.Drawing.Size(778, 258);
             this.grid.TabIndex = 1;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewReceiptDetailPrices,
@@ -312,11 +330,6 @@ namespace RetailTrade
             // 
             this.receiptMasterBindingSource.DataMember = "ReceiptMaster";
             this.receiptMasterBindingSource.DataSource = this.mDataSet;
-            // 
-            // mDataSet
-            // 
-            this.mDataSet.DataSetName = "MDataSet";
-            this.mDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // gridViewReceiptDetailPrices
             // 
@@ -628,7 +641,7 @@ namespace RetailTrade
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.AuthorLabel,
             this.modifedStripStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 434);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 480);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(792, 23);
             this.statusStrip1.TabIndex = 0;
@@ -653,7 +666,7 @@ namespace RetailTrade
             this.tabControl1.Location = new System.Drawing.Point(0, 25);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(792, 409);
+            this.tabControl1.Size = new System.Drawing.Size(792, 455);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -665,7 +678,7 @@ namespace RetailTrade
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(784, 380);
+            this.tabPage1.Size = new System.Drawing.Size(784, 426);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Документ";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -890,7 +903,7 @@ namespace RetailTrade
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(784, 380);
+            this.tabPage2.Size = new System.Drawing.Size(784, 426);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Заявки";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -903,7 +916,7 @@ namespace RetailTrade
             this.btClose,
             this.btCancel,
             this.btMove,
-            this.toolStripSplitButton1,
+            this.btPrint,
             this.toolStripSplitButton2});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -955,37 +968,62 @@ namespace RetailTrade
             // 
             // btMove
             // 
+            this.btMove.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btMovesimple,
+            this.btMoveAndSell,
+            this.btSelToTradePutlet});
             this.btMove.Image = global::RetailTrade.Properties.Resources.document_lock;
             this.btMove.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btMove.Name = "btMove";
-            this.btMove.Size = new System.Drawing.Size(134, 22);
+            this.btMove.Size = new System.Drawing.Size(146, 22);
             this.btMove.Text = "Переместить...";
-            this.btMove.Click += new System.EventHandler(this.btMove_Click);
             // 
-            // toolStripSplitButton1
+            // btMovesimple
             // 
-            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btMovesimple.Name = "btMovesimple";
+            this.btMovesimple.Size = new System.Drawing.Size(257, 22);
+            this.btMovesimple.Text = "...на склад";
+            this.btMovesimple.Click += new System.EventHandler(this.btMove_Click);
+            // 
+            // btMoveAndSell
+            // 
+            this.btMoveAndSell.Name = "btMoveAndSell";
+            this.btMoveAndSell.Size = new System.Drawing.Size(257, 22);
+            this.btMoveAndSell.Text = "...и продать по заявкам";
+            this.btMoveAndSell.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // btSelToTradePutlet
+            // 
+            this.btSelToTradePutlet.Name = "btSelToTradePutlet";
+            this.btSelToTradePutlet.Size = new System.Drawing.Size(257, 22);
+            this.btSelToTradePutlet.Text = "... все на точку ...";
+            this.btSelToTradePutlet.Click += new System.EventHandler(this.btSelToTradePutlet_Click);
+            // 
+            // btPrint
+            // 
+            this.btPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btPrint.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btPrintAkt});
-            this.toolStripSplitButton1.Image = global::RetailTrade.Properties.Resources.printer2;
-            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(32, 22);
-            this.toolStripSplitButton1.Text = "Печать";
+            this.btPrint.Image = global::RetailTrade.Properties.Resources.view;
+            this.btPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btPrint.Name = "btPrint";
+            this.btPrint.Size = new System.Drawing.Size(32, 22);
+            this.btPrint.Text = "Печать";
+            this.btPrint.ButtonClick += new System.EventHandler(this.btPrint_Click);
             // 
             // btPrintAkt
             // 
             this.btPrintAkt.Name = "btPrintAkt";
             this.btPrintAkt.Size = new System.Drawing.Size(195, 22);
             this.btPrintAkt.Text = "Приходный акт";
-            this.btPrintAkt.Click += new System.EventHandler(this.btPrintAkt_Click);
             // 
             // toolStripSplitButton2
             // 
             this.toolStripSplitButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripSplitButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btField,
-            this.btRefresh});
+            this.btRefresh,
+            this.переместитьНаТочкуToolStripMenuItem});
             this.toolStripSplitButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton2.Image")));
             this.toolStripSplitButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton2.Name = "toolStripSplitButton2";
@@ -995,15 +1033,32 @@ namespace RetailTrade
             // btField
             // 
             this.btField.Name = "btField";
-            this.btField.Size = new System.Drawing.Size(208, 22);
+            this.btField.Size = new System.Drawing.Size(247, 22);
             this.btField.Text = "Настройка полей";
             this.btField.Click += new System.EventHandler(this.btField_Click);
             // 
             // btRefresh
             // 
             this.btRefresh.Name = "btRefresh";
-            this.btRefresh.Size = new System.Drawing.Size(208, 22);
+            this.btRefresh.Size = new System.Drawing.Size(247, 22);
             this.btRefresh.Text = "Обновить";
+            // 
+            // переместитьНаТочкуToolStripMenuItem
+            // 
+            this.переместитьНаТочкуToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripComboBox1});
+            this.переместитьНаТочкуToolStripMenuItem.Name = "переместитьНаТочкуToolStripMenuItem";
+            this.переместитьНаТочкуToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.переместитьНаТочкуToolStripMenuItem.Text = "Переместить на точку";
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 26);
+            // 
+            // tradePutletTableAdapter
+            // 
+            this.tradePutletTableAdapter.ClearBeforeFill = true;
             // 
             // ReceiptRowOrganization
             // 
@@ -1013,16 +1068,18 @@ namespace RetailTrade
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "ReceiptRowOrganization";
-            this.Size = new System.Drawing.Size(792, 457);
+            this.Size = new System.Drawing.Size(792, 503);
             this.Load += new System.EventHandler(this.ReceiptRowOrganization_Load);
             this.Validating += new System.ComponentModel.CancelEventHandler(this.ReceiptRowOrganization_Validating);
             ((System.ComponentModel.ISupportInitialize)(this.gridViewReceiptDetailOrders)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TradePutletLookUpEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tradePutletBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCalcEditQuantity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterReceiptDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiptMasterBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewReceiptDetailPrices)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewReceiptRowMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCalcEditPrice)).EndInit();
@@ -1079,9 +1136,8 @@ namespace RetailTrade
         private DevExpress.XtraEditors.LookUpEdit OrganisationlookUpEdit;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
+        private System.Windows.Forms.ToolStripSplitButton btPrint;
         private System.Windows.Forms.ToolStripMenuItem btPrintAkt;
-        private System.Windows.Forms.ToolStripButton btMove;
         private System.Windows.Forms.BindingSource receiptMasterReceiptDetailBindingSource;
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit ProductLookUpEdit;
         private System.Windows.Forms.BindingSource productBindingSource;
@@ -1104,8 +1160,6 @@ namespace RetailTrade
         private System.Windows.Forms.ToolStripStatusLabel AuthorLabel;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewReceiptDetailPrices;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewReceiptDetailOrders;
-        private DevExpress.XtraGrid.Columns.GridColumn colTradePupletName;
-        private DevExpress.XtraGrid.Columns.GridColumn colProductName;
         private DevExpress.XtraGrid.Columns.GridColumn colDateOrder;
         private DevExpress.XtraGrid.Columns.GridColumn colQuantityNow;
         private DevExpress.XtraGrid.Columns.GridColumn colReserved;
@@ -1127,5 +1181,15 @@ namespace RetailTrade
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ToolStripStatusLabel modifedStripStatusLabel;
+        private System.Windows.Forms.ToolStripMenuItem переместитьНаТочкуToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripSplitButton btMove;
+        private System.Windows.Forms.ToolStripMenuItem btMovesimple;
+        private System.Windows.Forms.ToolStripMenuItem btMoveAndSell;
+        private System.Windows.Forms.ToolStripMenuItem btSelToTradePutlet;
+        private DevExpress.XtraGrid.Columns.GridColumn colTradePupletRef;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit TradePutletLookUpEdit;
+        private System.Windows.Forms.BindingSource tradePutletBindingSource;
+        private RetailTrade.MDataSetTableAdapters.TradePutletTableAdapter tradePutletTableAdapter;
     }
 }

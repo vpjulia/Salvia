@@ -7,6 +7,8 @@ using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraGrid.Views.Grid;
 using System.IO;
+using RetailTrade.Dialog;
+using Microsoft.Reporting.WinForms;
 
 namespace RetailTrade.Invoice
 {
@@ -381,6 +383,44 @@ namespace RetailTrade.Invoice
 
 
             }
+        }
+
+        private void btPrint_Click(object sender, EventArgs e)
+        {
+          
+           
+            FormDialog fromDialog = new FormDialog();
+
+
+            printingControl preview = new printingControl("/ReportRetailTrade/InvoiceMasterByID");
+
+            ReportParameter ReceiptMasterRef = new ReportParameter("InvoiceMasterRef", this._curentMasterRow.ID.ToString());
+
+            preview.reportViewer.ShowParameterPrompts = false;
+            preview.reportViewer.ServerReport.SetParameters(new ReportParameter[] { ReceiptMasterRef });
+
+            fromDialog.panel.Controls.Add(preview);
+
+            preview.reportViewer.RefreshReport();
+
+
+            fromDialog.ShowDialog(this);
+        }
+
+        private void btProductReport_Click(object sender, EventArgs e)
+        {
+             if (this.gridInvoiceRowView.IsValidRowHandle(this.gridInvoiceRowView.FocusedRowHandle) & this.gridInvoiceRowView.State == GridState.Normal & !this.gridInvoiceRowView.IsFilterRow(this.gridInvoiceRowView.FocusedRowHandle))
+            {
+                DataRow _dr = this.gridInvoiceRowView.GetDataRow(this.gridInvoiceRowView.FocusedRowHandle);
+
+                if ((_dr as MDataSet.InvoiceDetailRow).RemainsRow != null)
+                {
+                    (this.ParentForm as MainForm).ProductReport((_dr as MDataSet.InvoiceDetailRow).RemainsRow.ProductRef);
+                }
+
+            }
+
+           
         }
 
 

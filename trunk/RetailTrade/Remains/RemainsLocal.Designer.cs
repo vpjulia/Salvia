@@ -59,7 +59,7 @@ namespace RetailTrade.Remains
             this.btClose});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(707, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(711, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -79,11 +79,14 @@ namespace RetailTrade.Remains
             // 
             this.grid.DataSource = this.remainsBindingSource;
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            // 
+            // 
+            // 
             this.grid.EmbeddedNavigator.Name = "";
             this.grid.Location = new System.Drawing.Point(0, 25);
             this.grid.MainView = this.gridView1;
             this.grid.Name = "grid";
-            this.grid.Size = new System.Drawing.Size(707, 481);
+            this.grid.Size = new System.Drawing.Size(711, 481);
             this.grid.TabIndex = 2;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -224,7 +227,7 @@ namespace RetailTrade.Remains
             this.Controls.Add(this.grid);
             this.Controls.Add(this.toolStrip1);
             this.Name = "RemainsLocal";
-            this.Size = new System.Drawing.Size(707, 506);
+            this.Size = new System.Drawing.Size(711, 506);
             this.Load += new System.EventHandler(this.Remains_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

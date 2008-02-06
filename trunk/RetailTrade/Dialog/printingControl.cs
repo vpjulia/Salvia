@@ -14,5 +14,13 @@ namespace RetailTrade.Dialog
         {
             InitializeComponent();
         }
+
+        public printingControl(string PathServerReport)
+        {
+            InitializeComponent();
+
+            this.reportViewer.ServerReport.ReportPath = PathServerReport;
+           
+        }
     }
 }

@@ -13,16 +13,12 @@ namespace RetailTrade.Remains
         public RemainsLocal()
         {
             InitializeComponent();
-
-
         }
 
         public RemainsLocal(MDataSet.RemainsDataTable source)
         {
             InitializeComponent();
-
-           
-            this.remainsBindingSource.DataSource = source;
+            this.remainsBindingSource.DataSource = new DataView(source, "QuantityRemains>0",null,DataViewRowState.CurrentRows);
 
         }
 

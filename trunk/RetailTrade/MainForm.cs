@@ -17,6 +17,7 @@ using RetailTrade.Receipt;
 using RetailTrade.Orders;
 using RetailTrade.Remains;
 using System.IO;
+using RetailTrade.Dialog;
 
 namespace RetailTrade
 {
@@ -873,6 +874,33 @@ namespace RetailTrade
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Log("MainForm_FormClosed : " + e.CloseReason.ToString());
+        }
+
+        private void ReportPrint_Click(object sender, EventArgs e)
+        {
+
+            
+            if ((sender as ToolStripMenuItem).Tag.ToString().Length == 0) return;
+
+            string namereport = (sender as ToolStripMenuItem).Tag.ToString();
+
+            FormDialog fromDialog = new FormDialog();
+
+
+            printingControl preview = new printingControl("/ReportRetailTrade/" + namereport);
+
+          //  ReportParameter ReceiptMasterRef = new ReportParameter("ReceiptMasterRef", row.ID.ToString());
+
+            //preview.reportViewer.ShowParameterPrompts = false;
+           // preview.reportViewer.ServerReport.SetParameters(new ReportParameter[] { ReceiptMasterRef });
+
+            fromDialog.panel.Controls.Add(preview);
+
+            preview.reportViewer.RefreshReport();
+
+
+            fromDialog.ShowDialog(this);
+
         }
 
        

@@ -114,7 +114,7 @@ namespace RetailTrade.Receipt
             this.groupBox1.Controls.Add(this.tableLayoutPanel1);
             this.groupBox1.Location = new System.Drawing.Point(21, 67);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(374, 165);
+            this.groupBox1.Size = new System.Drawing.Size(375, 165);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -146,7 +146,7 @@ namespace RetailTrade.Receipt
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(368, 144);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(369, 144);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // QuantityEdit
@@ -208,6 +208,7 @@ namespace RetailTrade.Receipt
             this.ManufacturerlookUpEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.ManufacturerlookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.ManufacturerlookUpEdit.Properties.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
             this.ManufacturerlookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name", 50, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near),
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("CountryName", "CountryName", 30, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near)});
@@ -215,6 +216,7 @@ namespace RetailTrade.Receipt
             this.ManufacturerlookUpEdit.Properties.DisplayMember = "Name";
             this.ManufacturerlookUpEdit.Properties.ShowHeader = false;
             this.ManufacturerlookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.ManufacturerlookUpEdit.Properties.ValidateOnEnterKey = true;
             this.ManufacturerlookUpEdit.Properties.ValueMember = "ID";
             this.ManufacturerlookUpEdit.Size = new System.Drawing.Size(189, 22);
             this.ManufacturerlookUpEdit.TabIndex = 5;
@@ -253,7 +255,7 @@ namespace RetailTrade.Receipt
             this.btManRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btManRefresh.Location = new System.Drawing.Point(328, 116);
             this.btManRefresh.Name = "btManRefresh";
-            this.btManRefresh.Size = new System.Drawing.Size(37, 25);
+            this.btManRefresh.Size = new System.Drawing.Size(38, 25);
             this.btManRefresh.TabIndex = 4;
             this.btManRefresh.TabStop = false;
             this.btManRefresh.Text = "...";

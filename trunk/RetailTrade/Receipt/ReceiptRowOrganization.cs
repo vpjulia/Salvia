@@ -51,7 +51,11 @@ namespace RetailTrade
 
            this.receiptMasterBindingSource.DataSource =new DataView(source.Table,"ID="+_curentReceiptMasterRow.ID.ToString(),null,DataViewRowState.CurrentRows);
 
+
            this.receiptMasterBindingSource.ResetBindings(false);
+
+           this.tradePutletBindingSource.DataSource = this.mDataSet.TradePutlet;
+           this.tradePutletBindingSource.ResetBindings(false);
 
 
            _viewModifedOriginal = new DataView(source.Table, "ID=" + _curentReceiptMasterRow.ID.ToString(), null, DataViewRowState.ModifiedOriginal);
@@ -90,12 +94,8 @@ namespace RetailTrade
             //    this.btPrintAkt.Visible = false;
             }
 
-
-
-
             this.AuthorLabel.Text = "Автор :" + _curentReceiptMasterRow.AuthorCreate.ToString();
-      
-          
+
         }
 
     
@@ -103,6 +103,9 @@ namespace RetailTrade
 
         private void ReceiptRowOrganization_Load(object sender, EventArgs e)
         {
+           
+
+
             foreach (GridView view in this.grid.ViewCollection)
             {
                 string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
@@ -291,25 +294,7 @@ namespace RetailTrade
       
         }
 
-        private void btPrintAkt_Click(object sender, EventArgs e)
-        {
-            ReportParameter p = new ReportParameter("ID", ((this.receiptMasterBindingSource.CurrencyManager.Current as DataRowView).Row as MDataSet.ReceiptMasterRow).ID.ToString());
-            FormDialog formdialog = new FormDialog();
-            printingControl print = new printingControl();
-            formdialog.Text = "Печать приходного акта";
-            formdialog.btOk.Visible = false;
-            formdialog.panel.Controls.Add(print);
-
-            print.reportViewer.ServerReport.ReportPath = "/ReportRatailTrade/ReceiptMasterByID";
        
-            print.reportViewer.ServerReport.SetParameters(new ReportParameter[] { p });
-
-            print.reportViewer.RefreshReport();
-            formdialog.ShowDialog(this);
-                  
-
-
-        }
  
         private void StockEdit_QueryPopUp(object sender, CancelEventArgs e)
         {
@@ -420,6 +405,72 @@ namespace RetailTrade
 
 
         }
+
+       
+              private void btPrint_Click(object sender, EventArgs e)
+        {
+            MDataSet.ReceiptMasterRow row = (this.receiptMasterBindingSource.Current as DataRowView).Row as MDataSet.ReceiptMasterRow;
+
+
+            FormDialog fromDialog = new FormDialog();
+
+
+            printingControl preview = new printingControl("/ReportRetailTrade/ReceiptMasterByID");
+
+            ReportParameter ReceiptMasterRef = new ReportParameter("ReceiptMasterRef", row.ID.ToString());
+ 
+            preview.reportViewer.ShowParameterPrompts = false;
+            preview.reportViewer.ServerReport.SetParameters(new ReportParameter[] { ReceiptMasterRef });
+
+             fromDialog.panel.Controls.Add(preview);
+          
+           preview.reportViewer.RefreshReport();
+                     fromDialog.ShowDialog(this);
+
+
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void btSelToTradePutlet_Click(object sender, EventArgs e)
+        {
+
+            FormDialog formDialog = new FormDialog();
+            SelectTradePutlet selectTradePutlet = new SelectTradePutlet();
+
+            selectTradePutlet.tradePutletBindingSource.DataSource = this.mDataSet.TradePutlet;
+            selectTradePutlet.tradePutletBindingSource.ResetBindings(false);
+           
+             formDialog.panel.Controls.Add(selectTradePutlet);
+
+
+             if (formDialog.ShowDialog(this) == DialogResult.OK)
+             {
+                 try
+                 {
+                     (this.ParentForm as MainForm).receiptMasterTableAdapter.ReceiptMasterSellCommand(this.CurentReceiptMasterRow.ID, (int)selectTradePutlet.lookUpEdit.EditValue);
+                     (this.ParentForm as MainForm).RefreshData(this._curentReceiptMasterRow);
+                     (this.ParentForm as MainForm).RefreshData(this.mDataSet.Remains as DataTable);
+                 }
+                 catch (Exception err)
+                 {
+
+                     MessageBox.Show(err.Message);
+                 }
+
+                 this.btClose_Click(sender,e);
+             }
+
+        }
+
+        
+
+       
+        
 
     }
 }
