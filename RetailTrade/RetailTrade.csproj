@@ -97,6 +97,12 @@
     <Compile Include="Dialog\printingControl.Designer.cs">
       <DependentUpon>printingControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialog\SelectTradePutlet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dialog\SelectTradePutlet.Designer.cs">
+      <DependentUpon>SelectTradePutlet.cs</DependentUpon>
+    </Compile>
     <Compile Include="FarmTrade.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -186,6 +192,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Orders\OrderAdd.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Orders\OrderAdd.Designer.cs">
+      <DependentUpon>OrderAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Orders\OrdersAll.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -211,6 +223,10 @@
     <EmbeddedResource Include="Dialog\printingControl.resx">
       <SubType>Designer</SubType>
       <DependentUpon>printingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialog\SelectTradePutlet.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SelectTradePutlet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Directory\UCTradePuplet.resx">
       <SubType>Designer</SubType>
@@ -247,6 +263,10 @@
     <EmbeddedResource Include="MainForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Orders\OrderAdd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>OrderAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Orders\OrdersAll.resx">
       <SubType>Designer</SubType>
@@ -473,6 +493,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="house.ico" />
+    <None Include="ClassDiagram3.cd" />
+    <None Include="Resources\flash.png" />
     <None Include="Resources\undo.png" />
     <None Include="Resources\document_new.png" />
     <None Include="Resources\document_lock.png" />

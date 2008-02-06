@@ -128,7 +128,7 @@ namespace RetailTrade
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.48276F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.51724F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 57F));
             this.tableLayoutPanel1.Controls.Add(this.textEdit2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
@@ -157,7 +157,7 @@ namespace RetailTrade
             this.textEdit2.Name = "textEdit2";
             this.textEdit2.Properties.MaxLength = 255;
             this.textEdit2.Properties.ValidateOnEnterKey = true;
-            this.textEdit2.Size = new System.Drawing.Size(309, 22);
+            this.textEdit2.Size = new System.Drawing.Size(308, 22);
             this.textEdit2.TabIndex = 0;
             this.textEdit2.Tag = "";
             // 
@@ -214,13 +214,13 @@ namespace RetailTrade
             // textEdit1
             // 
             this.textEdit1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.organizationBindingSource, "ShortName", true));
-            this.textEdit1.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.organizationBindingSource, "OKPO", true));
+            this.textEdit1.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.organizationBindingSource, "ShortName", true));
             this.textEdit1.EnterMoveNextControl = true;
             this.textEdit1.Location = new System.Drawing.Point(168, 36);
             this.textEdit1.Name = "textEdit1";
             this.textEdit1.Properties.MaxLength = 70;
             this.textEdit1.Properties.ValidateOnEnterKey = true;
-            this.textEdit1.Size = new System.Drawing.Size(309, 22);
+            this.textEdit1.Size = new System.Drawing.Size(308, 22);
             this.textEdit1.TabIndex = 2;
             this.textEdit1.Tag = "";
             // 

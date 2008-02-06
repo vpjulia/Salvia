@@ -44,6 +44,9 @@ namespace RetailTrade.Receipt
 
         private void ReceiptDetailRowAdd_Validating(object sender, CancelEventArgs e)
         {
+
+            this.receiptDetailBindingSource.EndEdit();
+
             string tmp = this.QuantityEdit.Text;
 
             this.PriceEdit.DoValidate();

@@ -33,13 +33,13 @@ namespace RetailTrade.Dialog
             // 
             // reportViewer
             // 
+            this.reportViewer.AutoSize = true;
             this.reportViewer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.reportViewer.Location = new System.Drawing.Point(0, 0);
             this.reportViewer.Name = "reportViewer";
             this.reportViewer.ProcessingMode = Microsoft.Reporting.WinForms.ProcessingMode.Remote;
             this.reportViewer.ServerReport.ReportServerUrl = new System.Uri("http://server/reportserver", System.UriKind.Absolute);
             this.reportViewer.ShowCredentialPrompts = false;
-            this.reportViewer.ShowParameterPrompts = false;
             this.reportViewer.Size = new System.Drawing.Size(663, 514);
             this.reportViewer.TabIndex = 0;
             // 
@@ -51,6 +51,7 @@ namespace RetailTrade.Dialog
             this.Name = "printingControl";
             this.Size = new System.Drawing.Size(663, 514);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

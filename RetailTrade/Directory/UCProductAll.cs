@@ -436,6 +436,16 @@ namespace RetailTrade
             }
         }
 
+        private void btProductReport_Click(object sender, EventArgs e)
+        {
+            FullDataSet.ProductRow _row = this.gridViewMainProduct.GetDataRow((this.grid.FocusedView as ColumnView).FocusedRowHandle) as FullDataSet.ProductRow;
+            if (_row != null)
+            {
+                (this.ParentForm as MainForm).ProductReport(_row.ID);
+            
+            }
+        }
+
        
 
        

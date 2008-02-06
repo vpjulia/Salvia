@@ -7,6 +7,8 @@ using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraGrid.Views.Grid;
 using System.IO;
+using RetailTrade.Dialog;
+using Microsoft.Reporting.WinForms;
 
 namespace RetailTrade.Receipt
 {
@@ -382,6 +384,50 @@ namespace RetailTrade.Receipt
 
 
         }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+       
+          private void btPrint_Click(object sender, EventArgs e)
+        {
+
+            MDataSet.ReceiptMasterRow row = (this.receiptMasterBindingSource.Current as DataRowView).Row as MDataSet.ReceiptMasterRow;
+
+
+            FormDialog fromDialog = new FormDialog();
+
+
+            printingControl preview = new printingControl("/ReportRetailTrade/ReceiptMasterByID");
+
+            ReportParameter ReceiptMasterRef = new ReportParameter("ReceiptMasterRef", row.ID.ToString());
+
+            preview.reportViewer.ShowParameterPrompts = false;
+            preview.reportViewer.ServerReport.SetParameters(new ReportParameter[] { ReceiptMasterRef });
+
+            fromDialog.panel.Controls.Add(preview);
+
+            preview.reportViewer.RefreshReport();
+
+
+            fromDialog.ShowDialog(this);
+
+        }
+
+        private void gridViewMasterStock_MasterRowCollapsing(object sender, MasterRowCanExpandEventArgs e)
+        {
+            MDataSet.ReceiptMasterRow _ReceiptMasterRow = this.gridViewMasterStock.GetDataRow(e.RowHandle) as MDataSet.ReceiptMasterRow;
+
+            if (_ReceiptMasterRow == null) return;
+
+                  (this.ParentForm as MainForm).RefreshData(_ReceiptMasterRow);
+
+
+            //
+        }
+       
 
     }
 }

@@ -6,7 +6,9 @@ namespace RetailTrade
     using System;
     using System.Data.SqlClient;
     using System.Reflection;
-    using System.Security; 
+    using System.Security;
+    using RetailTrade.Dialog;
+    using Microsoft.Reporting.WinForms; 
     partial class MainForm
 
 
@@ -1015,7 +1017,8 @@ namespace RetailTrade
             MDataSet.ReceiptMasterDataTable _ReceiptMasterDataTable = new MDataSet.ReceiptMasterDataTable();
             MDataSet.ReceiptDetailDataTable _ReceiptDetailDataTable = new MDataSet.ReceiptDetailDataTable();
             MDataSet.ProductDataTable _productDataTable = new MDataSet.ProductDataTable();
-           
+
+        //    MDataSet.ReceiptRemainsDataTable _ReceiptRemainsDataTable = new MDataSet.ReceiptRemainsDataTable();
 
             
             try
@@ -1024,6 +1027,7 @@ namespace RetailTrade
                 this.receiptMasterTableAdapter.FillNew(_ReceiptMasterDataTable);
 
                 this.receiptDetailTableAdapter.FillByReceiptMasterRef(_ReceiptDetailDataTable, sourceRow.ID);
+                
                 
             }
             catch (Exception err)
@@ -1316,6 +1320,30 @@ namespace RetailTrade
                     this.mDataSet.InvoiceMaster.Merge(newTable);
                     break;
             }
+        }
+
+
+
+        //Report
+        public void ProductReport(int ProductRef)
+        {
+
+            FormDialog fromDialog = new FormDialog();
+
+
+            printingControl preview = new printingControl("/ReportRetailTrade/ProductReport");
+
+            ReportParameter _ProductRef = new ReportParameter("ProductRef", ProductRef.ToString());
+
+            preview.reportViewer.ShowParameterPrompts = true;
+            preview.reportViewer.ServerReport.SetParameters(new ReportParameter[] { _ProductRef });
+
+            fromDialog.panel.Controls.Add(preview);
+
+            preview.reportViewer.RefreshReport();
+
+
+            fromDialog.ShowDialog(this);
         }
 
     } 

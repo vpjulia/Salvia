@@ -109,6 +109,7 @@ namespace RetailTrade
             this.TradePutletToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ñêëàäîâToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.îò÷åòûToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ReportCashPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.productTableAdapter = new RetailTrade.MDataSetTableAdapters.ProductTableAdapter();
             this.manufacturerTableAdapter = new RetailTrade.MDataSetTableAdapters.ManufacturerTableAdapter();
             this.farmGroupTableAdapter = new RetailTrade.MDataSetTableAdapters.FarmGroupTableAdapter();
@@ -152,6 +153,7 @@ namespace RetailTrade
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.ReportSumByPeriodPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.periodsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
@@ -589,9 +591,20 @@ namespace RetailTrade
             // 
             // îò÷åòûToolStripMenuItem
             // 
+            this.îò÷åòûToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ReportCashPrint,
+            this.ReportSumByPeriodPrint});
             this.îò÷åòûToolStripMenuItem.Name = "îò÷åòûToolStripMenuItem";
             this.îò÷åòûToolStripMenuItem.Size = new System.Drawing.Size(73, 22);
             this.îò÷åòûToolStripMenuItem.Text = "Îò÷åòû";
+            // 
+            // ReportCashPrint
+            // 
+            this.ReportCashPrint.Name = "ReportCashPrint";
+            this.ReportCashPrint.Size = new System.Drawing.Size(238, 22);
+            this.ReportCashPrint.Tag = "Cash";
+            this.ReportCashPrint.Text = "Êàññà íà òî÷êàõ";
+            this.ReportCashPrint.Click += new System.EventHandler(this.ReportPrint_Click);
             // 
             // productTableAdapter
             // 
@@ -865,6 +878,7 @@ namespace RetailTrade
             treeNode12.SelectedImageIndex = 4;
             treeNode12.Tag = "OrdersAll";
             treeNode12.Text = "Çàÿâêè";
+            treeNode12.ToolTipText = "Çàêàçû ñ òîğãîâûõ òî÷åê";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode6,
             treeNode9,
@@ -894,6 +908,14 @@ namespace RetailTrade
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(516, 509);
             this.tabControl.TabIndex = 0;
+            // 
+            // ReportSumByPeriodPrint
+            // 
+            this.ReportSumByPeriodPrint.Name = "ReportSumByPeriodPrint";
+            this.ReportSumByPeriodPrint.Size = new System.Drawing.Size(238, 22);
+            this.ReportSumByPeriodPrint.Tag = "ReportSumByPeriod";
+            this.ReportSumByPeriodPrint.Text = "Ìàòåğèàëüíûé îò÷åò";
+            this.ReportSumByPeriodPrint.Click += new System.EventHandler(this.ReportPrint_Click);
             // 
             // MainForm
             // 
@@ -1060,6 +1082,8 @@ namespace RetailTrade
         public RetailTrade.MDataSetTableAdapters.ManufacturerTableAdapter manufacturerTableAdapter;
         public RetailTrade.FullDataSetTableAdapters.ProductTableAdapter productTableAdapter1;
         private System.Windows.Forms.ToolStripStatusLabel userLabel;
+        private System.Windows.Forms.ToolStripMenuItem ReportCashPrint;
+        private System.Windows.Forms.ToolStripMenuItem ReportSumByPeriodPrint;
         }
 }
 

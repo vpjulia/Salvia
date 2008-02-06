@@ -46,6 +46,7 @@ namespace RetailTrade.Receipt
             this.colAuthorLastModif1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDateCreate1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDateLastModif = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPurchNDS1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.grid = new DevExpress.XtraGrid.GridControl();
             this.receiptMasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mDataSet = new RetailTrade.MDataSet();
@@ -83,9 +84,9 @@ namespace RetailTrade.Receipt
             this.btDelete = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.PariodsComboBox = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
-            this.btField = new System.Windows.Forms.ToolStripMenuItem();
             this.btPeriod = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.btPrint = new System.Windows.Forms.ToolStripButton();
             this.organizationTableAdapter = new RetailTrade.MDataSetTableAdapters.OrganizationTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRecieptDetailStock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
@@ -113,7 +114,8 @@ namespace RetailTrade.Receipt
             this.colAuthorCreate1,
             this.colAuthorLastModif1,
             this.colDateCreate1,
-            this.colDateLastModif});
+            this.colDateLastModif,
+            this.colPurchNDS1});
             this.gridViewRecieptDetailStock.GridControl = this.grid;
             this.gridViewRecieptDetailStock.Name = "gridViewRecieptDetailStock";
             this.gridViewRecieptDetailStock.OptionsBehavior.AllowIncrementalSearch = true;
@@ -176,7 +178,7 @@ namespace RetailTrade.Receipt
             this.colCalcPurchSum1.Caption = "Сумма без НДС";
             this.colCalcPurchSum1.DisplayFormat.FormatString = "#0.00###";
             this.colCalcPurchSum1.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colCalcPurchSum1.FieldName = "CalcPurchSum";
+            this.colCalcPurchSum1.FieldName = "PurchSum";
             this.colCalcPurchSum1.Name = "colCalcPurchSum1";
             this.colCalcPurchSum1.OptionsColumn.AllowEdit = false;
             this.colCalcPurchSum1.OptionsColumn.AllowFocus = false;
@@ -184,6 +186,7 @@ namespace RetailTrade.Receipt
             this.colCalcPurchSum1.OptionsFilter.AllowAutoFilter = false;
             this.colCalcPurchSum1.OptionsFilter.AllowFilter = false;
             this.colCalcPurchSum1.SummaryItem.DisplayFormat = "{0:##0.00}";
+            this.colCalcPurchSum1.SummaryItem.FieldName = "CalcPurchSum";
             this.colCalcPurchSum1.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
             this.colCalcPurchSum1.Visible = true;
             this.colCalcPurchSum1.VisibleIndex = 4;
@@ -249,6 +252,15 @@ namespace RetailTrade.Receipt
             this.colDateLastModif.OptionsFilter.AllowAutoFilter = false;
             this.colDateLastModif.OptionsFilter.AllowFilter = false;
             // 
+            // colPurchNDS1
+            // 
+            this.colPurchNDS1.Caption = "НДС";
+            this.colPurchNDS1.FieldName = "PurchNDS";
+            this.colPurchNDS1.Name = "colPurchNDS1";
+            this.colPurchNDS1.OptionsColumn.AllowEdit = false;
+            this.colPurchNDS1.Visible = true;
+            this.colPurchNDS1.VisibleIndex = 5;
+            // 
             // grid
             // 
             this.grid.DataSource = this.receiptMasterBindingSource;
@@ -271,7 +283,7 @@ namespace RetailTrade.Receipt
             this.grid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.OrganizationLookUpEdit});
             this.grid.ShowOnlyPredefinedDetails = true;
-            this.grid.Size = new System.Drawing.Size(781, 481);
+            this.grid.Size = new System.Drawing.Size(843, 481);
             this.grid.TabIndex = 2;
             this.grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewMasterStock,
@@ -364,12 +376,13 @@ namespace RetailTrade.Receipt
             // colCalcPurchSum
             // 
             this.colCalcPurchSum.Caption = "Сумма без НДС";
-            this.colCalcPurchSum.FieldName = "CalcPurchSum";
+            this.colCalcPurchSum.FieldName = "PurchSum";
             this.colCalcPurchSum.Name = "colCalcPurchSum";
             this.colCalcPurchSum.OptionsColumn.AllowEdit = false;
             this.colCalcPurchSum.OptionsColumn.AllowFocus = false;
             this.colCalcPurchSum.OptionsColumn.ReadOnly = true;
             this.colCalcPurchSum.SummaryItem.DisplayFormat = "{0:##0.00}";
+            this.colCalcPurchSum.SummaryItem.FieldName = "CalcPurchSum";
             this.colCalcPurchSum.SummaryItem.SummaryType = DevExpress.Data.SummaryItemType.Sum;
             this.colCalcPurchSum.Visible = true;
             this.colCalcPurchSum.VisibleIndex = 5;
@@ -533,7 +546,7 @@ namespace RetailTrade.Receipt
             // 
             this.statusStrip.Location = new System.Drawing.Point(0, 507);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(781, 22);
+            this.statusStrip.Size = new System.Drawing.Size(843, 22);
             this.statusStrip.TabIndex = 0;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -548,13 +561,15 @@ namespace RetailTrade.Receipt
             this.btDelete,
             this.toolStripSeparator1,
             this.PariodsComboBox,
-            this.toolStripSplitButton1,
-            this.btPeriod});
+            this.btPeriod,
+            this.toolStripSeparator,
+            this.btPrint});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(781, 26);
+            this.toolStrip1.Size = new System.Drawing.Size(843, 26);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // btClose
             // 
@@ -629,34 +644,30 @@ namespace RetailTrade.Receipt
             this.PariodsComboBox.Name = "PariodsComboBox";
             this.PariodsComboBox.Size = new System.Drawing.Size(170, 26);
             // 
-            // toolStripSplitButton1
-            // 
-            this.toolStripSplitButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btField});
-            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
-            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(16, 23);
-            this.toolStripSplitButton1.Text = "toolStripSplitButton1";
-            // 
-            // btField
-            // 
-            this.btField.Name = "btField";
-            this.btField.Size = new System.Drawing.Size(208, 22);
-            this.btField.Text = "Настройка полей";
-            this.btField.Click += new System.EventHandler(this.btField_Click);
-            // 
             // btPeriod
             // 
             this.btPeriod.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btPeriod.Image = ((System.Drawing.Image)(resources.GetObject("btPeriod.Image")));
             this.btPeriod.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btPeriod.Name = "btPeriod";
-            this.btPeriod.Size = new System.Drawing.Size(81, 22);
+            this.btPeriod.Size = new System.Drawing.Size(81, 23);
             this.btPeriod.Text = "За период";
             this.btPeriod.Click += new System.EventHandler(this.btPeriod_Click);
+            // 
+            // toolStripSeparator
+            // 
+            this.toolStripSeparator.Name = "toolStripSeparator";
+            this.toolStripSeparator.Size = new System.Drawing.Size(6, 26);
+            // 
+            // btPrint
+            // 
+            this.btPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btPrint.Image = global::RetailTrade.Properties.Resources.view;
+            this.btPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btPrint.Name = "btPrint";
+            this.btPrint.Size = new System.Drawing.Size(23, 23);
+            this.btPrint.Text = "toolStripButton1";
+            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
             // 
             // organizationTableAdapter
             // 
@@ -670,7 +681,7 @@ namespace RetailTrade.Receipt
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip);
             this.Name = "ReceiptMasterStock";
-            this.Size = new System.Drawing.Size(781, 529);
+            this.Size = new System.Drawing.Size(843, 529);
             this.Load += new System.EventHandler(this.ReceiptMasterStock_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridViewRecieptDetailStock)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
@@ -738,11 +749,12 @@ namespace RetailTrade.Receipt
         private System.Windows.Forms.ToolStripButton btCancel;
         private System.Windows.Forms.ToolStripButton btDelete;
         private System.Windows.Forms.ToolStripButton btEdit;
-        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
-        private System.Windows.Forms.ToolStripMenuItem btField;
         private System.Windows.Forms.ToolStripButton btPeriod;
         private System.Windows.Forms.ToolStripComboBox PariodsComboBox;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton btMakeNew;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
+        private System.Windows.Forms.ToolStripButton btPrint;
+        private DevExpress.XtraGrid.Columns.GridColumn colPurchNDS1;
     }
 }

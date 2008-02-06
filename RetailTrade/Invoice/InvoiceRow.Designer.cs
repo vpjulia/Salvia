@@ -39,6 +39,7 @@ namespace RetailTrade.Invoice
             this.btRefresh = new System.Windows.Forms.ToolStripMenuItem();
             this.btMove = new System.Windows.Forms.ToolStripButton();
             this.btSave = new System.Windows.Forms.ToolStripButton();
+            this.btPrint = new System.Windows.Forms.ToolStripButton();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -91,6 +92,7 @@ namespace RetailTrade.Invoice
             this.invoiceMasterTableAdapter = new RetailTrade.MDataSetTableAdapters.InvoiceMasterTableAdapter();
             this.invoiceDetailTableAdapter = new RetailTrade.MDataSetTableAdapters.InvoiceDetailTableAdapter();
             this.stockTableAdapter = new RetailTrade.MDataSetTableAdapters.StockTableAdapter();
+            this.btProductReport = new System.Windows.Forms.ToolStripMenuItem();
             numberLabel = new System.Windows.Forms.Label();
             this.toolStrip.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -129,7 +131,8 @@ namespace RetailTrade.Invoice
             this.btClose,
             this.toolStripSplitButton1,
             this.btMove,
-            this.btSave});
+            this.btSave,
+            this.btPrint});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(797, 25);
@@ -200,6 +203,16 @@ namespace RetailTrade.Invoice
             this.btSave.Size = new System.Drawing.Size(101, 22);
             this.btSave.Text = "Сохранить";
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
+            // 
+            // btPrint
+            // 
+            this.btPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btPrint.Image = global::RetailTrade.Properties.Resources.view;
+            this.btPrint.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btPrint.Name = "btPrint";
+            this.btPrint.Size = new System.Drawing.Size(23, 22);
+            this.btPrint.Text = "toolStripButton1";
+            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
             // 
             // tabControl
             // 
@@ -513,9 +526,10 @@ namespace RetailTrade.Invoice
             this.editToolStripMenuItem,
             this.fieldToolStripMenuItem,
             this.btSetExtr,
-            this.SaveToolStripMenuItem});
+            this.SaveToolStripMenuItem,
+            this.btProductReport});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(233, 114);
+            this.contextMenuStrip.Size = new System.Drawing.Size(233, 158);
             // 
             // DelToolStripMenuItem
             // 
@@ -773,6 +787,13 @@ namespace RetailTrade.Invoice
             // 
             this.stockTableAdapter.ClearBeforeFill = true;
             // 
+            // btProductReport
+            // 
+            this.btProductReport.Name = "btProductReport";
+            this.btProductReport.Size = new System.Drawing.Size(232, 22);
+            this.btProductReport.Text = "Карточка товара";
+            this.btProductReport.Click += new System.EventHandler(this.btProductReport_Click);
+            // 
             // InvoiceRow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -874,6 +895,8 @@ namespace RetailTrade.Invoice
         private System.Windows.Forms.ToolStripMenuItem btSetExtr;
         private System.Windows.Forms.ToolStripButton btSave;
         private System.Windows.Forms.ToolStripMenuItem SaveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton btPrint;
+        private System.Windows.Forms.ToolStripMenuItem btProductReport;
        
     }
 }
