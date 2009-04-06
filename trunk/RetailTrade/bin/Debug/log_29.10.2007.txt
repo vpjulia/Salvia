@@ -1,0 +1,525 @@
+
+Log Entry : 11:18:53 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 11:18:55 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 11:18:55 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 11:28:18 29 октября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 11:28:32 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 11:28:33 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 11:28:33 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 11:28:49 29 октября 2007 г.
+  :
+  :FillTable(string)Remains ) ERRORException has been thrown by the target of an invocation. mscorlibFailed to enable constraints. One or more rows contain values violating non-null, unique, or foreign-key constraints.
+-------------------------------
+
+Log Entry : 12:01:40 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 12:01:41 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 12:01:42 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 12:02:56 29 октября 2007 г.
+  :
+  :SaveToBaseDirectoryModifed ERRORException has been thrown by the target of an invocation. mscorlibConcurrency violation: the UpdateCommand affected 0 of the expected 1 records.
+-------------------------------
+
+Log Entry : 12:02:56 29 октября 2007 г.
+  :
+  :SaveToBaseDirectoryModifed successful;
+-------------------------------
+
+Log Entry : 12:08:12 29 октября 2007 г.
+  :
+  :SaveToBaseDirectoryModifed ERRORException has been thrown by the target of an invocation. mscorlibConcurrency violation: the UpdateCommand affected 0 of the expected 1 records.
+-------------------------------
+
+Log Entry : 12:08:12 29 октября 2007 г.
+  :
+  :SaveToBaseDirectoryModifed successful;
+-------------------------------
+
+Log Entry : 12:08:53 29 октября 2007 г.
+  :
+  :SaveToBaseDirectoryModifed successful;
+-------------------------------
+
+Log Entry : 12:09:17 29 октября 2007 г.
+  :
+  :SaveToBaseDirectoryModifed successful;
+-------------------------------
+
+Log Entry : 12:09:17 29 октября 2007 г.
+  :
+  :SaveToBaseDirectoryModifed successful;
+-------------------------------
+
+Log Entry : 12:09:26 29 октября 2007 г.
+  :
+  :SaveToBaseDirectoryModifed successful;
+-------------------------------
+
+Log Entry : 12:20:21 29 октября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 12:20:37 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 12:20:39 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 12:20:39 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 12:23:29 29 октября 2007 г.
+  :
+  :SaveToBaseDirectoryModifed successful;
+-------------------------------
+
+Log Entry : 12:23:30 29 октября 2007 г.
+  :
+  :SaveToBaseDirectoryModifed successful;
+-------------------------------
+
+Log Entry : 12:24:53 29 октября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 12:25:02 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 12:25:03 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 12:25:03 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 12:39:34 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 12:39:37 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 12:39:37 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 12:41:39 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 12:41:39 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 12:41:40 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 12:52:26 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 12:52:27 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 12:52:27 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:02:13 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:02:14 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:02:15 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:28:49 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:28:52 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:28:52 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:35:03 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:35:05 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:35:05 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:47:15 29 октября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 13:56:05 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 13:56:07 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 13:56:07 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 13:59:53 29 октября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 14:00:06 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 14:00:07 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 14:00:08 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 14:00:38 29 октября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 14:01:37 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 14:01:38 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 14:01:38 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 14:02:01 29 октября 2007 г.
+  :
+  :FillTable(string)Remains ) ERRORException has been thrown by the target of an invocation. mscorlibFailed to enable constraints. One or more rows contain values violating non-null, unique, or foreign-key constraints.
+-------------------------------
+
+Log Entry : 14:03:31 29 октября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 14:17:18 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 14:17:20 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 14:17:20 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 14:20:03 29 октября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 14:20:14 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 14:20:15 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 14:20:15 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 14:34:48 29 октября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 14:40:30 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 14:40:32 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 14:40:32 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 15:21:53 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 15:21:55 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 15:21:55 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 15:27:49 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 15:27:50 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 15:27:51 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 15:32:37 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 15:32:38 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 15:32:38 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 15:47:07 29 октября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 15:53:45 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 15:53:48 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 15:53:48 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 15:54:57 29 октября 2007 г.
+  :
+  :FillTable(string)Remains ) ERRORException has been thrown by the target of an invocation. mscorlibFailed to enable constraints. One or more rows contain values violating non-null, unique, or foreign-key constraints.
+-------------------------------
+
+Log Entry : 16:02:42 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 16:03:10 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 16:03:10 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 16:06:28 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 16:06:30 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 16:06:30 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 16:07:02 29 октября 2007 г.
+  :
+  :FillTable(string)Remains ) ERRORException has been thrown by the target of an invocation. mscorlibFailed to enable constraints. One or more rows contain values violating non-null, unique, or foreign-key constraints.
+-------------------------------
+
+Log Entry : 16:08:22 29 октября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 16:11:47 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 16:11:48 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 16:11:49 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 16:12:39 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 16:12:48 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 16:12:48 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 16:16:43 29 октября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------
+
+Log Entry : 16:20:19 29 октября 2007 г.
+  :
+  :InitializeComponent true
+-------------------------------
+
+Log Entry : 16:20:33 29 октября 2007 г.
+  :
+  :MainForm_Load   finally
+-------------------------------
+
+Log Entry : 16:20:33 29 октября 2007 г.
+  :
+  :MainForm_Load True 
+-------------------------------
+
+Log Entry : 16:25:46 29 октября 2007 г.
+  :
+  :MainForm_FormClosed : UserClosing
+-------------------------------

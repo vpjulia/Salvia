@@ -1,0 +1,66 @@
+﻿<XtraSerializer version="1.0" application="View">
+  <property name="#LayoutVersion" />
+  <property name="Columns" iskey="true" value="13">
+    <property name="Item1" isnull="true" iskey="true">
+      <property name="Visible">true</property>
+      <property name="Name">colProductName</property>
+      <property name="VisibleIndex">0</property>
+    </property>
+    <property name="Item2" isnull="true" iskey="true">
+      <property name="Visible">true</property>
+      <property name="Name">colManufacturerName</property>
+      <property name="VisibleIndex">1</property>
+    </property>
+    <property name="Item3" isnull="true" iskey="true">
+      <property name="Visible">true</property>
+      <property name="Name">colQuantity</property>
+      <property name="VisibleIndex">2</property>
+    </property>
+    <property name="Item4" isnull="true" iskey="true">
+      <property name="Visible">true</property>
+      <property name="Name">colPricePurchase</property>
+      <property name="VisibleIndex">3</property>
+    </property>
+    <property name="Item5" isnull="true" iskey="true">
+      <property name="SummaryItem" isnull="true" iskey="true">
+        <property name="DisplayFormat">{0:##0.00}</property>
+        <property name="Tag" isnull="true" />
+        <property name="SummaryType">Sum</property>
+        <property name="FieldName">CalcPurchSum</property>
+      </property>
+      <property name="Visible">true</property>
+      <property name="Name">colCalcPurchSum1</property>
+      <property name="VisibleIndex">4</property>
+    </property>
+    <property name="Item6" isnull="true" iskey="true">
+      <property name="Name">colSeries</property>
+    </property>
+    <property name="Item7" isnull="true" iskey="true">
+      <property name="Name">colUseByDate</property>
+    </property>
+    <property name="Item8" isnull="true" iskey="true">
+      <property name="Name">colNote1</property>
+    </property>
+    <property name="Item9" isnull="true" iskey="true">
+      <property name="Name">colAuthorCreate1</property>
+    </property>
+    <property name="Item10" isnull="true" iskey="true">
+      <property name="Name">colAuthorLastModif1</property>
+    </property>
+    <property name="Item11" isnull="true" iskey="true">
+      <property name="Name">colDateCreate1</property>
+    </property>
+    <property name="Item12" isnull="true" iskey="true">
+      <property name="Name">colDateLastModif</property>
+    </property>
+    <property name="Item13" isnull="true" iskey="true">
+      <property name="Visible">true</property>
+      <property name="Name">colPurchNDS1</property>
+      <property name="VisibleIndex">5</property>
+    </property>
+  </property>
+  <property name="OptionsView" isnull="true" iskey="true">
+    <property name="ShowFooter">true</property>
+  </property>
+  <property name="ActiveFilterEnabled">true</property>
+</XtraSerializer>
