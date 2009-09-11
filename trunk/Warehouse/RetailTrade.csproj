@@ -1,0 +1,579 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B05B8941-17F1-4769-8AFD-1940EE734D6B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RetailTrade</RootNamespace>
+    <AssemblyName>RetailTrade</AssemblyName>
+    <ApplicationIcon>house.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data3, Version=3.2.1.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils3, Version=3.2.1.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors3, Version=3.2.1.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid3, Version=3.2.1.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar3, Version=2.7.1.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Deployment">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Design">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dialog\FormDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialog\FormDialog.Designer.cs">
+      <DependentUpon>FormDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\FormPrintDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialog\FormPrintDialog.Designer.cs">
+      <DependentUpon>FormPrintDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\Information.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dialog\Information.Designer.cs">
+      <DependentUpon>Information.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\SelectTradePutlet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dialog\SelectTradePutlet.Designer.cs">
+      <DependentUpon>SelectTradePutlet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FarmTrade.cs">
+      <DependentUpon>FarmTrade.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FarmTrade.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FarmTrade.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FullDataSet.cs">
+      <DependentUpon>FullDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FullDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FullDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceAkt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceAkt.Designer.cs">
+      <DependentUpon>InvoiceAkt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceClosed.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceClosed.Designer.cs">
+      <DependentUpon>InvoiceClosed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceForReplication.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceForReplication.Designer.cs">
+      <DependentUpon>InvoiceForReplication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceReturn.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceReturn.Designer.cs">
+      <DependentUpon>InvoiceReturn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.Data.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Directory\UCTradePuplet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Directory\UCTradePuplet.Designer.cs">
+      <DependentUpon>UCTradePuplet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IBDataset.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IBDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceDetailEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceDetailEdit.Designer.cs">
+      <DependentUpon>InvoiceDetailEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceDetailRowAdd.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceDetailRowAdd.Designer.cs">
+      <DependentUpon>InvoiceDetailRowAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceMasterNewAll.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceMasterNewAll.Designer.cs">
+      <DependentUpon>InvoiceMasterNewAll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\InvoiceRow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceRow.Designer.cs">
+      <DependentUpon>InvoiceRow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MDataSet.cs">
+      <DependentUpon>MDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Orders\OrderAdd.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Orders\OrderAdd.Designer.cs">
+      <DependentUpon>OrderAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Orders\OrdersAll.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Orders\OrdersAll.Designer.cs">
+      <DependentUpon>OrdersAll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="ProjectSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProjectSettings.Designer.cs">
+      <DependentUpon>ProjectSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Dialog\FormDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FormDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialog\FormPrintDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FormPrintDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialog\Information.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Information.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialog\SelectTradePutlet.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SelectTradePutlet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Directory\UCTradePuplet.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UCTradePuplet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\InvoiceClosed.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InvoiceClosed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\InvoiceDetailEdit.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InvoiceDetailEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\InvoiceDetailRowAdd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InvoiceDetailRowAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\InvoiceForReplication.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InvoiceForReplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\InvoiceMasterNewAll.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InvoiceMasterNewAll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\InvoiceReturn.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InvoiceReturn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\InvoiceRow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InvoiceRow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Orders\OrderAdd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>OrderAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Orders\OrdersAll.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>OrdersAll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectSettings.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ProjectSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Directory\UcGroupDirectory.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UcGroupDirectory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Directory\UCProductAll.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UCProductAll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Directory\ucProductRow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ucProductRow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Directory\UCSimpleDirectory.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UCSimpleDirectory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Directory\UCOrganizationAll.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UCOrganizationAll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Directory\UCOrganizationRow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UCOrganizationRow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receipt\ReceiptDetailByRef.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ReceiptDetailByRef.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receipt\ReceiptImport.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ReceiptImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receipt\ReceiptMasterNewAll.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ReceiptMasterNewAll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receipt\ReceiptMasterStock.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ReceiptMasterStock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receipt\ReceiptRowOrganization.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ReceiptRowOrganization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Receipt\ReceiptDetailRowAdd.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ReceiptDetailRowAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Remains\RemainsLocal.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RemainsLocal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SplashScreen.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="MDataSet.xsc">
+      <DependentUpon>MDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="MDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="MDataSet.xss">
+      <DependentUpon>MDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Directory\UcGroupDirectory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Directory\UcGroupDirectory.Designer.cs">
+      <DependentUpon>UcGroupDirectory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Directory\UCProductAll.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Directory\UCProductAll.Designer.cs">
+      <DependentUpon>UCProductAll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Directory\ucProductRow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Directory\ucProductRow.Designer.cs">
+      <DependentUpon>ucProductRow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Directory\UCSimpleDirectory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Directory\UCSimpleDirectory.Designer.cs">
+      <DependentUpon>UCSimpleDirectory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Directory\UCOrganizationAll.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Directory\UCOrganizationAll.Designer.cs">
+      <DependentUpon>UCOrganizationAll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Directory\UCOrganizationRow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Directory\UCOrganizationRow.Designer.cs">
+      <DependentUpon>UCOrganizationRow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receipt\ReceiptDetailByRef.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Receipt\ReceiptDetailByRef.Designer.cs">
+      <DependentUpon>ReceiptDetailByRef.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receipt\ReceiptImport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Receipt\ReceiptImport.Designer.cs">
+      <DependentUpon>ReceiptImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receipt\ReceiptMasterNewAll.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Receipt\ReceiptMasterNewAll.Designer.cs">
+      <DependentUpon>ReceiptMasterNewAll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receipt\ReceiptMasterStock.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Receipt\ReceiptMasterStock.Designer.cs">
+      <DependentUpon>ReceiptMasterStock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receipt\ReceiptRowOrganization.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Receipt\ReceiptRowOrganization.Designer.cs">
+      <DependentUpon>ReceiptRowOrganization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Receipt\ReceiptDetailRowAdd.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Receipt\ReceiptDetailRowAdd.Designer.cs">
+      <DependentUpon>ReceiptDetailRowAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Remains\RemainsLocal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Remains\RemainsLocal.Designer.cs">
+      <DependentUpon>RemainsLocal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="SplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashScreen.Designer.cs">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FarmTrade.xsc">
+      <DependentUpon>FarmTrade.xsd</DependentUpon>
+    </None>
+    <None Include="FarmTrade.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FarmTrade.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="FarmTrade.xss">
+      <DependentUpon>FarmTrade.xsd</DependentUpon>
+    </None>
+    <None Include="FullDataSet.xsc">
+      <DependentUpon>FullDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="FullDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FullDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="FullDataSet.xss">
+      <DependentUpon>FullDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="IBDataset.xsc">
+      <DependentUpon>IBDataset.xsd</DependentUpon>
+    </None>
+    <None Include="IBDataset.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>IBDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="IBDataset.xss">
+      <DependentUpon>IBDataset.xsd</DependentUpon>
+    </None>
+    <None Include="Resources\images.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="db2.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="house.ico" />
+    <None Include="Resources\flash.png" />
+    <None Include="Resources\undo.png" />
+    <None Include="Resources\document_new.png" />
+    <None Include="Resources\document_lock.png" />
+    <None Include="Resources\document_edit.png" />
+    <None Include="Resources\document_certificate.png" />
+    <None Include="Resources\document_pinned.png" />
+    <None Include="Resources\server_client_exchange.png" />
+    <None Include="Resources\earth_find.png" />
+    <None Include="Resources\download.png" />
+    <None Include="Resources\server_to_client.png" />
+    <None Include="Resources\server_from_client.png" />
+    <None Include="Resources\thermometer.png" />
+    <None Include="Resources\thermometer2.png" />
+    <None Include="Resources\product.png" />
+    <None Include="Resources\product2.png" />
+    <None Include="Resources\printer_add.png" />
+    <None Include="Resources\printer.png" />
+    <None Include="Resources\printer2.png" />
+    <None Include="Resources\potion_yellow.png" />
+    <None Include="Resources\potion_red.png" />
+    <None Include="Resources\potion_green.png" />
+    <None Include="Resources\potion_blue.png" />
+    <None Include="Resources\nurse1.png" />
+    <None Include="Resources\minibus_green.png" />
+    <None Include="Resources\medical_bag.png" />
+    <None Include="Resources\user1_monitor.png" />
+    <None Include="Resources\warning.png" />
+    <None Include="Resources\view.png" />
+    <None Include="Resources\scroll2.png" />
+    <None Include="Resources\refresh.png" />
+    <None Include="Resources\import1.png" />
+    <None Include="Resources\help.png" />
+    <None Include="Resources\help2.png" />
+    <None Include="Resources\folders.png" />
+    <None Include="Resources\folder_out.png" />
+    <None Include="Resources\folder_ok.png" />
+    <None Include="Resources\folder_new.png" />
+    <None Include="Resources\folder_network.png" />
+    <None Include="Resources\folder_lock.png" />
+    <None Include="Resources\folder_into.png" />
+    <None Include="Resources\folder_information.png" />
+    <None Include="Resources\folder_gear.png" />
+    <None Include="Resources\folder_forbidden.png" />
+    <None Include="Resources\folder_edit.png" />
+    <None Include="Resources\folder_document.png" />
+    <None Include="Resources\folder_delete.png" />
+    <None Include="Resources\folder_cubes.png" />
+    <None Include="Resources\folder_closed.png" />
+    <None Include="Resources\folder_add.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\edit.png" />
+    <None Include="Resources\document_zoom_out.png" />
+    <None Include="Resources\document_zoom_in.png" />
+    <None Include="Resources\document_warning.png" />
+    <None Include="Resources\document_stop.png" />
+    <None Include="Resources\document_refresh.png" />
+    <None Include="Resources\document_out.png" />
+    <None Include="Resources\document_ok.png" />
+    <None Include="Resources\document_into.png" />
+    <None Include="Resources\document_info.png" />
+    <None Include="Resources\document_find.png" />
+    <None Include="Resources\document_exchange.png" />
+    <None Include="Resources\document_down.png" />
+    <None Include="Resources\document_check.png" />
+    <None Include="Resources\document_attachment.png" />
+    <None Include="Resources\document_add.png" />
+    <None Include="Resources\document.png" />
+    <None Include="Resources\delete2.png" />
+    <None Include="Resources\cut.png" />
+    <None Include="Resources\check2.png" />
+    <None Include="Resources\about.png" />
+    <None Include="Resources\window_view.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
