@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="RetailTradeConnectionString">
+      <ConnectionProperties>
+        <ConnectString>Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=RetailTradeCl;Integrated Security=True;Connect Timeout=300</ConnectString>
+        <DataProvider>SQL</DataProvider>
+      </ConnectionProperties>
+      <rd:DataSourceID>8d5f9b92-9e67-4fd3-b25b-d4b062fc89d0</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <BottomMargin>2.5cm</BottomMargin>
+  <RightMargin>2.5cm</RightMargin>
+  <PageWidth>21cm</PageWidth>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>21cm</InteractiveWidth>
+  <rd:GridSpacing>0.25cm</rd:GridSpacing>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <Body>
+    <ColumnSpacing>1cm</ColumnSpacing>
+    <ReportItems>
+      <Textbox Name="textbox6">
+        <Left>0.75cm</Left>
+        <Top>1.96032cm</Top>
+        <rd:DefaultName>textbox6</rd:DefaultName>
+        <ZIndex>13</ZIndex>
+        <Width>2.75cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontSize>8pt</FontSize>
+          <PaddingRight>2pt</PaddingRight>
+          <FontStyle>Italic</FontStyle>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.34524cm</Height>
+        <Value>Место хранения:</Value>
+      </Textbox>
+      <Textbox Name="textbox5">
+        <Left>0.75cm</Left>
+        <Top>1.53836cm</Top>
+        <rd:DefaultName>textbox5</rd:DefaultName>
+        <ZIndex>12</ZIndex>
+        <Width>2.53968cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontSize>8pt</FontSize>
+          <PaddingRight>2pt</PaddingRight>
+          <FontStyle>Italic</FontStyle>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.36508cm</Height>
+        <Value>Ед.изм</Value>
+      </Textbox>
+      <Textbox Name="textbox4">
+        <Left>0.75cm</Left>
+        <Top>1.17328cm</Top>
+        <rd:DefaultName>textbox4</rd:DefaultName>
+        <ZIndex>11</ZIndex>
+        <Width>2.53968cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontSize>8pt</FontSize>
+          <PaddingRight>2pt</PaddingRight>
+          <FontStyle>Italic</FontStyle>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.36508cm</Height>
+        <Value>Форма выпуска:</Value>
+      </Textbox>
+      <Textbox Name="textbox3">
+        <Left>9.5cm</Left>
+        <Top>1.53836cm</Top>
+        <rd:DefaultName>textbox3</rd:DefaultName>
+        <ZIndex>10</ZIndex>
+        <Width>2.53968cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontSize>8pt</FontSize>
+          <PaddingRight>2pt</PaddingRight>
+          <FontStyle>Italic</FontStyle>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.38492cm</Height>
+        <Value>В упаковке:</Value>
+      </Textbox>
+      <Textbox Name="textbox2">
+        <Left>9.5cm</Left>
+        <Top>1.03836cm</Top>
+        <rd:DefaultName>textbox2</rd:DefaultName>
+        <ZIndex>9</ZIndex>
+        <Width>2.53968cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontSize>8pt</FontSize>
+          <PaddingRight>2pt</PaddingRight>
+          <FontStyle>Italic</FontStyle>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.63492cm</Height>
+        <Value>Делитель:</Value>
+      </Textbox>
+      <Textbox Name="OldKol">
+        <Left>12.25cm</Left>
+        <Top>1.28836cm</Top>
+        <rd:DefaultName>OldKol</rd:DefaultName>
+        <ZIndex>8</ZIndex>
+        <Width>2.53968cm</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontSize>8pt</FontSize>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.63492cm</Height>
+        <Value>=First(Fields!OldKol.Value)</Value>
+      </Textbox>
+      <Textbox Name="SubstanceName">
+        <Left>5.5cm</Left>
+        <Top>0.74603cm</Top>
+        <rd:DefaultName>SubstanceName</rd:DefaultName>
+        <ZIndex>7</ZIndex>
+        <Width>3cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontSize>8pt</FontSize>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25cm</Height>
+        <Value>=iif(CInt(First(Fields!SubstanceRef.Value, "RetailTradeClDataSet_ProductSelectById"))=0,"",First(Fields!SubstanceName.Value))</Value>
+      </Textbox>
+      <Textbox Name="UnitName">
+        <Left>3.5cm</Left>
+        <Top>1.53836cm</Top>
+        <rd:DefaultName>UnitName</rd:DefaultName>
+        <ZIndex>6</ZIndex>
+        <Width>2.53968cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontSize>8pt</FontSize>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25cm</Height>
+        <Value>=First(Fields!UnitName.Value)</Value>
+      </Textbox>
+      <Textbox Name="StorageConditionName">
+        <Left>3.5cm</Left>
+        <Top>1.96032cm</Top>
+        <rd:DefaultName>StorageConditionName</rd:DefaultName>
+        <ZIndex>5</ZIndex>
+        <Width>2.53968cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontSize>8pt</FontSize>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25cm</Height>
+        <Value>=iif(CInt( First(Fields!StorageConditionRef.Value))=0,"",First(Fields!SubstanceName.Value))</Value>
+      </Textbox>
+      <Textbox Name="PackingName">
+        <Left>3.5cm</Left>
+        <Top>1.17328cm</Top>
+        <rd:DefaultName>PackingName</rd:DefaultName>
+        <ZIndex>4</ZIndex>
+        <Width>2.53968cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontSize>8pt</FontSize>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.36508cm</Height>
+        <Value>=iif ( CInt(First(Fields!PackingRef.Value))=0,"", First(Fields!PackingName.Value))</Value>
+      </Textbox>
+      <Textbox Name="IsNDS">
+        <Left>0.75cm</Left>
+        <Top>0.75cm</Top>
+        <rd:DefaultName>IsNDS</rd:DefaultName>
+        <ZIndex>3</ZIndex>
+        <Width>4.75cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontWeight>700</FontWeight>
+          <FontSize>8pt</FontSize>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25cm</Height>
+        <Value>=IIF(CBool(First(Fields!IsNDS.Value)),"Товар с НДС","")</Value>
+      </Textbox>
+      <Textbox Name="MinDivisor">
+        <Left>12.25cm</Left>
+        <Top>1.03836cm</Top>
+        <rd:DefaultName>MinDivisor</rd:DefaultName>
+        <ZIndex>2</ZIndex>
+        <Width>2.53968cm</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontSize>8pt</FontSize>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.63492cm</Height>
+        <Value>=First(Fields!MinDivisor.Value)</Value>
+      </Textbox>
+      <Textbox Name="IsRecept">
+        <Left>0.75cm</Left>
+        <Top>2.36508cm</Top>
+        <rd:DefaultName>IsRecept</rd:DefaultName>
+        <ZIndex>1</ZIndex>
+        <Width>4.75cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontWeight>700</FontWeight>
+          <FontSize>8pt</FontSize>
+          <Color>Red</Color>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.5cm</Height>
+        <Value>=iif(CBool(First(Fields!IsRecept.Value)),"Отпускается по рецепту","")</Value>
+      </Textbox>
+      <Textbox Name="Name">
+        <Left>0.75cm</Left>
+        <Top>0.25cm</Top>
+        <rd:DefaultName>Name</rd:DefaultName>
+        <Width>11.75cm</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontWeight>700</FontWeight>
+          <Color>Green</Color>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.63492cm</Height>
+        <Value>=First(Fields!Name.Value)</Value>
+      </Textbox>
+    </ReportItems>
+    <Height>3cm</Height>
+  </Body>
+  <rd:ReportID>9ffb2620-19a9-44c5-aa6a-9b4ffbe7c8f6</rd:ReportID>
+  <LeftMargin>2.5cm</LeftMargin>
+  <DataSets>
+    <DataSet Name="RetailTradeClDataSet_ProductSelectById">
+      <rd:DataSetInfo>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:DataSetName>RetailTradeClDataSet</rd:DataSetName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterName>ProductSelectByIdTableAdapter</rd:TableAdapterName>
+        <rd:TableName>ProductSelectById</rd:TableName>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>dbo.ProductSelectById</CommandText>
+        <DataSourceName>RetailTradeConnectionString</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="ID">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>ID</DataField>
+        </Field>
+        <Field Name="Name">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>Name</DataField>
+        </Field>
+        <Field Name="SmallName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>SmallName</DataField>
+        </Field>
+        <Field Name="PriceManufact">
+          <rd:TypeName>System.Decimal</rd:TypeName>
+          <DataField>PriceManufact</DataField>
+        </Field>
+        <Field Name="UnitRef">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>UnitRef</DataField>
+        </Field>
+        <Field Name="PackingRef">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>PackingRef</DataField>
+        </Field>
+        <Field Name="StorageConditionRef">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>StorageConditionRef</DataField>
+        </Field>
+        <Field Name="SubstanceRef">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>SubstanceRef</DataField>
+        </Field>
+        <Field Name="FarmGrouplevel2Ref">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>FarmGrouplevel2Ref</DataField>
+        </Field>
+        <Field Name="IsRecept">
+          <rd:TypeName>System.Boolean</rd:TypeName>
+          <DataField>IsRecept</DataField>
+        </Field>
+        <Field Name="IsOneRecept">
+          <rd:TypeName>System.Boolean</rd:TypeName>
+          <DataField>IsOneRecept</DataField>
+        </Field>
+        <Field Name="IsHide">
+          <rd:TypeName>System.Boolean</rd:TypeName>
+          <DataField>IsHide</DataField>
+        </Field>
+        <Field Name="MinDivisor">
+          <rd:TypeName>System.Int16</rd:TypeName>
+          <DataField>MinDivisor</DataField>
+        </Field>
+        <Field Name="IsNDS">
+          <rd:TypeName>System.Boolean</rd:TypeName>
+          <DataField>IsNDS</DataField>
+        </Field>
+        <Field Name="AuthorCreate">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>AuthorCreate</DataField>
+        </Field>
+        <Field Name="AuthorLastModif">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>AuthorLastModif</DataField>
+        </Field>
+        <Field Name="DateCreate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>DateCreate</DataField>
+        </Field>
+        <Field Name="RowVersion">
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+          <DataField>RowVersion</DataField>
+        </Field>
+        <Field Name="FarmGroupName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>FarmGroupName</DataField>
+        </Field>
+        <Field Name="PackingName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>PackingName</DataField>
+        </Field>
+        <Field Name="StorageConditionName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>StorageConditionName</DataField>
+        </Field>
+        <Field Name="FarmGroupLevel2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>FarmGroupLevel2</DataField>
+        </Field>
+        <Field Name="UnitName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UnitName</DataField>
+        </Field>
+        <Field Name="SubstanceName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>SubstanceName</DataField>
+        </Field>
+        <Field Name="DateLastModif">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>DateLastModif</DataField>
+        </Field>
+        <Field Name="Note">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>Note</DataField>
+        </Field>
+        <Field Name="OldName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>OldName</DataField>
+        </Field>
+        <Field Name="OldKod">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>OldKod</DataField>
+        </Field>
+        <Field Name="OldKol">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>OldKol</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <Width>16cm</Width>
+  <InteractiveHeight>29.7cm</InteractiveHeight>
+  <Language>en-US</Language>
+  <TopMargin>2.5cm</TopMargin>
+  <PageHeight>29.7cm</PageHeight>
+</Report>
