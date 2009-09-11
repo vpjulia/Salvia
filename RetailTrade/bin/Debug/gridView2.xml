@@ -1,5 +1,0 @@
-﻿<XtraSerializer version="1.0" application="View">
-  <property name="#LayoutVersion" />
-  <property name="Columns" iskey="true" value="0" />
-  <property name="ActiveFilterEnabled">true</property>
-</XtraSerializer>
