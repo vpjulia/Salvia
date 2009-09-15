@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="RetailTrade.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="RetailTradeClient.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="RetailTradeConnectionString" Type="(Connection string)" Scope="Application">
@@ -49,6 +49,9 @@
     </Setting>
     <Setting Name="InentSp" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">183</Value>
+    </Setting>
+    <Setting Name="CommandTimeout" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">4000</Value>
     </Setting>
   </Settings>
 </SettingsFile>

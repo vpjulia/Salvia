@@ -10,6 +10,7 @@
 
 #pragma warning disable 1591
 
+using System;
 namespace RetailTradeClient {
     using System;
     
@@ -14175,6 +14176,8 @@ SELECT ReceiptDetailRef, QuantityReceipt, QuantityRemains, DateLastModif, Author
             this._commandCollection[0].CommandText = "SELECT ReceiptDetailRef, QuantityReceipt, QuantityRemains, DateLastModif, AuthorC" +
                 "reate, AuthorLastModif, DateCreate, RowVersion FROM dbo.ReceiptRemains";
             this._commandCollection[0].CommandType = System.Data.CommandType.Text;
+            (this._commandCollection[0] as System.Data.SqlClient.SqlCommand).CommandTimeout = Convert.ToInt32(Properties.Settings.Default.CommandTimeout);
+        
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -14726,6 +14729,8 @@ SELECT ReceiptDetailRef, QuantityReceipt, QuantityRemains, DateLastModif, Author
             this._commandCollection[0].CommandText = "RemainsSelectCommand";
             this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            (this._commandCollection[0] as System.Data.SqlClient.SqlCommand).CommandTimeout = Convert.ToInt32(Properties.Settings.Default.CommandTimeout);
+        
             this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "dbo.RemainsSelectByInvoiceMasterID";
