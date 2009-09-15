@@ -148,5 +148,17 @@ namespace RetailTradeClient.Properties {
                 this["InentSp"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4000")]
+        public int CommandTimeout {
+            get {
+                return ((int)(this["CommandTimeout"]));
+            }
+            set {
+                this["CommandTimeout"] = value;
+            }
+        }
     }
 }
