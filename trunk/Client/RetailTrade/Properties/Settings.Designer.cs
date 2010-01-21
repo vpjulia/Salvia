@@ -26,8 +26,8 @@ namespace RetailTradeClient.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=RetailTradeCl;Integrated Securit" +
-            "y=True;Connect Timeout=300")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LEVADIA1\\SQLEXPRESS;Initial Catalog=RetailTradeCl;Persist Security In" +
+            "fo=True;User ID=sa;Password=123456;Connect Timeout=300")]
         public string RetailTradeConnectionString {
             get {
                 return ((string)(this["RetailTradeConnectionString"]));
