@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace RetailTradeClient.Printers
 {
-   public class Datecs
+    public class Datecs
     {
         #region Printer
         protected class Printer
@@ -1519,10 +1519,14 @@ namespace RetailTradeClient.Printers
             int res;
             decimal sum = _printer.SubTotal(discount);
             if (sum == -1) return -1;
+            decimal discountD = Convert.ToDecimal(discount);
 
-            if (discount == 0 && Decimal.Round(sum, 2) != Decimal.Round(controlsum, 2))
+            if (Decimal.Round(sum, 2) != Decimal.Round(controlsum + discountD, 2))
             {
-                this._printer.ErrorText = "Не сходятся суммы!!!)";
+                this._printer.ErrorText = "Не сходятся суммы!!!)" + System.Environment.NewLine
+                    + "printer : " + sum.ToString() + System.Environment.NewLine
+                    + " base : " + controlsum.ToString() + System.Environment.NewLine
+                    + " discount : " + discountD.ToString();
                 return -1;
             }
 
