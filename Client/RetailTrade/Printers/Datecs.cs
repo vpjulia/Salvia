@@ -6,8 +6,9 @@ using System.Windows.Forms;
 
 namespace RetailTradeClient.Printers
 {
-    class Datecs
+   public class Datecs
     {
+        #region Printer
         protected class Printer
         {
 
@@ -85,10 +86,10 @@ namespace RetailTradeClient.Printers
 
             [DllImport("fpl.dll")]
             private static extern int DayInfo(int hWnd, CallbackDef callback, int lParam);
-            
+
             [DllImport("fpl.dll")]
             private static extern int PrintFiscalText(int hWnd, CallbackDef callback, int lParam, [MarshalAs(UnmanagedType.LPStr)] string Text);
-            
+
 
             [DllImport("fpl.dll")]
             private static extern int PrintNonfiscalText(int hWnd, CallbackDef callback, int lParam, [MarshalAs(UnmanagedType.LPStr)] string Text);
@@ -240,8 +241,8 @@ namespace RetailTradeClient.Printers
 
             }
 
-            
-           
+
+
             private ZReport _currentZ;
 
             internal ZReport CurrentZReport
@@ -566,7 +567,7 @@ namespace RetailTradeClient.Printers
                 }
             }
 
-           
+
             //информация о текущих продажах
             private bool GetCurrentZreport()
             {
@@ -583,7 +584,7 @@ namespace RetailTradeClient.Printers
                     {
                         res = GetCurrentTaxes(0, callback, 0, 0);
 
-                       
+
 
                         _currentZ.sumA = Convert.ToDecimal(rd.RetItem1.ToString());
                         _currentZ.sumA = _currentZ.sumA / 100;
@@ -591,7 +592,7 @@ namespace RetailTradeClient.Printers
 
                         _currentZ.sumD = Convert.ToDecimal(rd.RetItem5.ToString());
                         _currentZ.sumD = _currentZ.sumD / 100;
- 
+
                         _currentZ.num = this.DayInfo();
 
                     }
@@ -653,7 +654,7 @@ namespace RetailTradeClient.Printers
             }
 
             // номер последнего Z отчета
-             
+
             private int DayInfo()
             {
                 int r;
@@ -792,7 +793,7 @@ namespace RetailTradeClient.Printers
 
                 if (this.HasError) return -1;
 
-                if (!this.Contains(DatecsErrorsEnum.FISCAL_OPEN,this.Status ))
+                if (!this.Contains(DatecsErrorsEnum.FISCAL_OPEN, this.Status))
                 {
                     this.HasError = true;
                     this.ErrorText = "Не открыт чек";
@@ -840,7 +841,6 @@ namespace RetailTradeClient.Printers
                 if (this.HasError) return -1;
 
                 if (!this.Contains(DatecsErrorsEnum.FISCAL_OPEN, this.Status))
-               
                 {
                     this.HasError = true;
                     this.ErrorText = "Не открыт чек";
@@ -886,16 +886,17 @@ namespace RetailTradeClient.Printers
             public bool ResetReceipt(string comment)
             {
                 string comnt;
- 
-                if (comment.Length>24)
-                { comnt = comment.Substring(0,24);
+
+                if (comment.Length > 24)
+                {
+                    comnt = comment.Substring(0, 24);
                 }
                 else
                     comnt = comment;
 
                 this.GetStatus();
 
-               if (!this.Contains(DatecsErrorsEnum.FISCAL_OPEN,this.Status))
+                if (!this.Contains(DatecsErrorsEnum.FISCAL_OPEN, this.Status))
                 {
                     return false;
                 }
@@ -910,7 +911,7 @@ namespace RetailTradeClient.Printers
                     {
                         res = PrintFiscalText(0, callback, 0, comnt);
                         res = ResetReceipt(0, callback, 0);
-                        
+
                         ClearArticle();
 
                     }
@@ -1189,7 +1190,7 @@ namespace RetailTradeClient.Printers
 
                 int res;
 
-                string startDate="";
+                string startDate = "";
 
                 if (begin.Day.ToString().Length == 1)
                 {
@@ -1210,35 +1211,35 @@ namespace RetailTradeClient.Printers
                     startDate += begin.Month.ToString();
                 }
 
-               
-                    startDate += begin.Year.ToString().Substring(2,2);
+
+                startDate += begin.Year.ToString().Substring(2, 2);
 
 
 
-                    string endDate = "";
+                string endDate = "";
 
 
-                    if (end.Day.ToString().Length == 1)
-                    {
-                        endDate = '0' + end.Day.ToString();
-                    }
-                    else
-                    {
-                        endDate = end.Day.ToString();
-                    }
+                if (end.Day.ToString().Length == 1)
+                {
+                    endDate = '0' + end.Day.ToString();
+                }
+                else
+                {
+                    endDate = end.Day.ToString();
+                }
 
 
-                    if (end.Month.ToString().Length == 1)
-                    {
-                        endDate = '0' + end.Month.ToString();
-                    }
-                    else
-                    {
-                        endDate += end.Month.ToString();
-                    }
+                if (end.Month.ToString().Length == 1)
+                {
+                    endDate = '0' + end.Month.ToString();
+                }
+                else
+                {
+                    endDate += end.Month.ToString();
+                }
 
 
-                    endDate += end.Year.ToString().Substring(2, 2);
+                endDate += end.Year.ToString().Substring(2, 2);
 
 
 
@@ -1287,7 +1288,7 @@ namespace RetailTradeClient.Printers
                     return false;
                 }
 
-               
+
 
 
                 int res;
@@ -1346,12 +1347,12 @@ namespace RetailTradeClient.Printers
                         res = FiscalClosure(0, callback, 0, "0000", '0');
                         numz = Convert.ToInt32(rd.RetItem1.ToString());
 
-                      /*  _lastZ.num = Convert.ToInt32(rd.RetItem1.ToString());
-                        _lastZ.sumA = Convert.ToDecimal(rd.RetItem2.ToString());
-                        _lastZ.sumA = _lastZ.sumA / 100;
-                        _lastZ.sumD = Convert.ToDecimal(rd.RetItem6.ToString());
-                        _lastZ.sumD = _lastZ.sumD / 100;
-                        */
+                        /*  _lastZ.num = Convert.ToInt32(rd.RetItem1.ToString());
+                          _lastZ.sumA = Convert.ToDecimal(rd.RetItem2.ToString());
+                          _lastZ.sumA = _lastZ.sumA / 100;
+                          _lastZ.sumD = Convert.ToDecimal(rd.RetItem6.ToString());
+                          _lastZ.sumD = _lastZ.sumD / 100;
+                          */
                         ClearArticle();
                     }
                 }
@@ -1379,14 +1380,14 @@ namespace RetailTradeClient.Printers
 
             }
 
-            
+
 
         }
-
-        //Properties
-
+        #endregion
+        private PrinterCashInfo _printerCashInfo;
         protected Printer _printer;
 
+        #region Classes
         [Flags]
         public enum DatecsErrorsEnum
         {
@@ -1455,18 +1456,6 @@ namespace RetailTradeClient.Printers
 
 
         };
-
-        public string ErrorText
-        {
-            get { return _printer.ErrorText; }
-        }
-
-        public bool HasError
-        {
-            get { return _printer.HasError; }
-
-        }
-
         public struct PrinterCashInfo
         {
             public int NumZ;
@@ -1479,43 +1468,28 @@ namespace RetailTradeClient.Printers
             public int LastCheckNum;
 
         };
+        #endregion
 
-        private PrinterCashInfo _printerCashInfo;
-
-        private bool SetPrinterCashInfo()
+        public string ErrorText
         {
-
-           
-            _printerCashInfo.NumZ = -1;
-
-            _printerCashInfo.BalanceBegin = _printer.CashInfo.OfIncome;
-
-            _printerCashInfo.OfExpend = _printer.CashInfo.OfExpend;
-
-            _printerCashInfo.BalanceEnd = _printer.CashInfo.BalanceEnd;
-
-            _printerCashInfo.Income = _printer.CurrentZReport.sumA + _printer.CurrentZReport.sumD;
-
-            _printerCashInfo.LastCheckSum = _printer.CheckInfo.sumCheck;
-
-            _printerCashInfo.LastCheckNum = _printer.CheckInfo.numCheck;
-
-            _printerCashInfo.LastCustomerCash = _printer.CheckInfo.cashCustomer;
-
-            return _printer.HasError;
+            get { return _printer.ErrorText; }
+        }
+        public bool HasError
+        {
+            get { return _printer.HasError; }
 
         }
-
         public PrinterCashInfo printerCashInfo
         {
             get
             {
-               
+
                 return _printerCashInfo;
             }
 
         }
 
+        #region ctor.
         public Datecs()
         {
             _printer = new Printer();
@@ -1523,12 +1497,45 @@ namespace RetailTradeClient.Printers
             if (!HasError) this.SetPrinterCashInfo();
 
         }
+        #endregion
+
+        public bool CancelCheck(string comment)
+        {
+            return _printer.ResetReceipt(comment);
+        }
 
         public void Close()
         {
 
             _printer.Close();
 
+        }
+
+        // --- номер чека
+        public int CloseCheck(double cashCustomer, double discount, decimal controlsum)
+        {
+            if (HasError) return -1;
+
+            int res;
+            decimal sum = _printer.SubTotal(discount);
+            if (sum == -1) return -1;
+
+            if (discount == 0 && Decimal.Round(sum, 2) != Decimal.Round(controlsum, 2))
+            {
+                this._printer.ErrorText = "Не сходятся суммы!!!)";
+                return -1;
+            }
+
+            decimal allsum = _printer.Total("", cashCustomer);
+
+            if (allsum == -1) return -1;
+
+            if (_printer.CloseCheck() >= 0)
+            {
+                res = _printer.CheckInfo.numCheck;
+                return res;
+            }
+            return -1;
         }
 
         public int OpenCheck(int numOperator)
@@ -1541,9 +1548,16 @@ namespace RetailTradeClient.Printers
 
         }
 
-        public bool CancelCheck(string comment)
+        public bool ReturnArticle(int numart, bool isnds, double quantity, double price, string name)
         {
-            return _printer.ResetReceipt(comment);
+            if (this.HasError) return false;
+
+            if (name.Length >= 24)
+            {
+                name = name.Substring(0, 24);
+            }
+
+            return _printer.ReturnArticle(isnds, price, name, quantity, 0, numart);
         }
 
         //номер артикула
@@ -1564,72 +1578,17 @@ namespace RetailTradeClient.Printers
 
         }
 
-        public bool ReturnArticle(int numart, bool isnds, double quantity, double price, string name)
-        {
-
-            if (this.HasError) return false;
-
-
-            if (name.Length >= 24)
-            {
-
-                name = name.Substring(0, 24);
-            }
-
-
-            return _printer.ReturnArticle(isnds, price, name, quantity, 0, numart);
-
-        }
-
-        // --- номер чека
-        public int CloseCheck(double cashCustomer, double discount,decimal controlsum)
-        {
-            if (HasError) return -1;
-
-            int res;
-
-            decimal sum = _printer.SubTotal(discount);
-
-            if (sum == -1) return -1;
-            if (Decimal.Round(sum,2)!= Decimal.Round(controlsum, 2))
-            {
-                this._printer.ErrorText ="Не сходятся суммы!!!)";
-                return -1;
-
-            }
-            decimal allsum = _printer.Total("", cashCustomer);
-
-            if (allsum == -1) return -1;
-
-            if (_printer.CloseCheck() >= 0)
-            {
-
-                res = _printer.CheckInfo.numCheck;
-
-                return res;
-            }
-
-            return -1;
-
-        }
-
+        #region Reports
         public bool XReport()
         {
-          
-
             if (HasError) return false;
-
-          
             return _printer.XReport();
-
         }
 
         public bool OfExpend(double sum)
         {
             if (HasError) return false;
-
-            return _printer.ServiceInputOutput(0-sum);
-
+            return _printer.ServiceInputOutput(0 - sum);
         }
 
         public int ZReport()
@@ -1644,31 +1603,19 @@ namespace RetailTradeClient.Printers
             if (HasError) return -1;
             this.SetPrinterCashInfo();
 
-           int res = _printer.PrintZReport();
+            int res = _printer.PrintZReport();
             _printer.ServiceInputOutput((double)forIn);
 
             decimal val = _printer.CashInfo.OfIncome;
-            
 
             this.SetPrinterCashInfo();
             return res;
         }
 
-        public bool ZPeriodReport(DateTime start,DateTime end)
+        public bool ZPeriodReport(DateTime start, DateTime end)
         {
             if (HasError) return false;
-
-           
-
-           
-
-          
-
-            bool res = _printer.PeriodZReport(start,end);
-           
-
-       
-
+            bool res = _printer.PeriodZReport(start, end);
 
             this.SetPrinterCashInfo();
             return res;
@@ -1682,7 +1629,22 @@ namespace RetailTradeClient.Printers
             this.SetPrinterCashInfo();
             return res;
         }
+        #endregion
 
+        #region private member
+        private bool SetPrinterCashInfo()
+        {
+            _printerCashInfo.NumZ = -1;
+            _printerCashInfo.BalanceBegin = _printer.CashInfo.OfIncome;
+            _printerCashInfo.OfExpend = _printer.CashInfo.OfExpend;
+            _printerCashInfo.BalanceEnd = _printer.CashInfo.BalanceEnd;
+            _printerCashInfo.Income = _printer.CurrentZReport.sumA + _printer.CurrentZReport.sumD;
+            _printerCashInfo.LastCheckSum = _printer.CheckInfo.sumCheck;
+            _printerCashInfo.LastCheckNum = _printer.CheckInfo.numCheck;
+            _printerCashInfo.LastCustomerCash = _printer.CheckInfo.cashCustomer;
 
+            return _printer.HasError;
+        }
+        #endregion
     }
 }
