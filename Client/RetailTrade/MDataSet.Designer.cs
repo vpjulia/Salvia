@@ -10,7 +10,6 @@
 
 #pragma warning disable 1591
 
-using System;
 namespace RetailTradeClient {
     using System;
     
@@ -54,9 +53,9 @@ namespace RetailTradeClient {
         
         private inventoryDetailsDataTable tableinventoryDetails;
         
-        private System.Data.DataRelation relationRemains_InvoiceDetail;
-        
         private System.Data.DataRelation relationFK_InvoiceDetail_InvoiceMaster;
+        
+        private System.Data.DataRelation relationRemains_InvoiceDetail;
         
         private System.Data.DataRelation relationFK_inventoryMaster_inventoryDetails;
         
@@ -531,8 +530,8 @@ namespace RetailTradeClient {
                     this.tableinventoryDetails.InitVars();
                 }
             }
-            this.relationRemains_InvoiceDetail = this.Relations["Remains_InvoiceDetail"];
             this.relationFK_InvoiceDetail_InvoiceMaster = this.Relations["FK_InvoiceDetail_InvoiceMaster"];
+            this.relationRemains_InvoiceDetail = this.Relations["Remains_InvoiceDetail"];
             this.relationFK_inventoryMaster_inventoryDetails = this.Relations["FK_inventoryMaster_inventoryDetails"];
             this.relationFK_ReceiptDetail_ReceiptMaster = this.Relations["FK_ReceiptDetail_ReceiptMaster"];
             this.relationFK_ReceiptMaster_DocumentType = this.Relations["FK_ReceiptMaster_DocumentType"];
@@ -584,13 +583,6 @@ namespace RetailTradeClient {
             this.tableinventoryDetails = new inventoryDetailsDataTable(false);
             base.Tables.Add(this.tableinventoryDetails);
             System.Data.ForeignKeyConstraint fkc;
-            fkc = new System.Data.ForeignKeyConstraint("Remains_InvoiceDetail", new System.Data.DataColumn[] {
-                        this.tableRemains.ReceiptDetailRefColumn}, new System.Data.DataColumn[] {
-                        this.tableInvoiceDetail.LocalReceiptDetailRefColumn});
-            this.tableInvoiceDetail.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = System.Data.Rule.None;
-            fkc.UpdateRule = System.Data.Rule.None;
             fkc = new System.Data.ForeignKeyConstraint("FK_InvoiceDetail_InvoiceMaster", new System.Data.DataColumn[] {
                         this.tableInvoiceMaster.IDColumn}, new System.Data.DataColumn[] {
                         this.tableInvoiceDetail.InvoiceMasterRefColumn});
@@ -598,6 +590,13 @@ namespace RetailTradeClient {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
+            fkc = new System.Data.ForeignKeyConstraint("Remains_InvoiceDetail", new System.Data.DataColumn[] {
+                        this.tableRemains.ReceiptDetailRefColumn}, new System.Data.DataColumn[] {
+                        this.tableInvoiceDetail.LocalReceiptDetailRefColumn});
+            this.tableInvoiceDetail.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = System.Data.Rule.None;
+            fkc.UpdateRule = System.Data.Rule.None;
             fkc = new System.Data.ForeignKeyConstraint("FK_inventoryMaster_inventoryDetails", new System.Data.DataColumn[] {
                         this.tableinventoryMaster.IDColumn}, new System.Data.DataColumn[] {
                         this.tableinventoryDetails.inventoryMasterRefColumn});
@@ -605,14 +604,14 @@ namespace RetailTradeClient {
             fkc.AcceptRejectRule = System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = System.Data.Rule.None;
             fkc.UpdateRule = System.Data.Rule.Cascade;
-            this.relationRemains_InvoiceDetail = new System.Data.DataRelation("Remains_InvoiceDetail", new System.Data.DataColumn[] {
-                        this.tableRemains.ReceiptDetailRefColumn}, new System.Data.DataColumn[] {
-                        this.tableInvoiceDetail.LocalReceiptDetailRefColumn}, false);
-            this.Relations.Add(this.relationRemains_InvoiceDetail);
             this.relationFK_InvoiceDetail_InvoiceMaster = new System.Data.DataRelation("FK_InvoiceDetail_InvoiceMaster", new System.Data.DataColumn[] {
                         this.tableInvoiceMaster.IDColumn}, new System.Data.DataColumn[] {
                         this.tableInvoiceDetail.InvoiceMasterRefColumn}, false);
             this.Relations.Add(this.relationFK_InvoiceDetail_InvoiceMaster);
+            this.relationRemains_InvoiceDetail = new System.Data.DataRelation("Remains_InvoiceDetail", new System.Data.DataColumn[] {
+                        this.tableRemains.ReceiptDetailRefColumn}, new System.Data.DataColumn[] {
+                        this.tableInvoiceDetail.LocalReceiptDetailRefColumn}, false);
+            this.Relations.Add(this.relationRemains_InvoiceDetail);
             this.relationFK_inventoryMaster_inventoryDetails = new System.Data.DataRelation("FK_inventoryMaster_inventoryDetails", new System.Data.DataColumn[] {
                         this.tableinventoryMaster.IDColumn}, new System.Data.DataColumn[] {
                         this.tableinventoryDetails.inventoryMasterRefColumn}, false);
@@ -8324,22 +8323,22 @@ namespace RetailTradeClient {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public RemainsRow RemainsRow {
-                get {
-                    return ((RemainsRow)(this.GetParentRow(this.Table.ParentRelations["Remains_InvoiceDetail"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["Remains_InvoiceDetail"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public InvoiceMasterRow InvoiceMasterRow {
                 get {
                     return ((InvoiceMasterRow)(this.GetParentRow(this.Table.ParentRelations["FK_InvoiceDetail_InvoiceMaster"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_InvoiceDetail_InvoiceMaster"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public RemainsRow RemainsRow {
+                get {
+                    return ((RemainsRow)(this.GetParentRow(this.Table.ParentRelations["Remains_InvoiceDetail"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["Remains_InvoiceDetail"]);
                 }
             }
             
@@ -14176,8 +14175,6 @@ SELECT ReceiptDetailRef, QuantityReceipt, QuantityRemains, DateLastModif, Author
             this._commandCollection[0].CommandText = "SELECT ReceiptDetailRef, QuantityReceipt, QuantityRemains, DateLastModif, AuthorC" +
                 "reate, AuthorLastModif, DateCreate, RowVersion FROM dbo.ReceiptRemains";
             this._commandCollection[0].CommandType = System.Data.CommandType.Text;
-            (this._commandCollection[0] as System.Data.SqlClient.SqlCommand).CommandTimeout = Convert.ToInt32(Properties.Settings.Default.CommandTimeout);
-        
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -14729,8 +14726,6 @@ SELECT ReceiptDetailRef, QuantityReceipt, QuantityRemains, DateLastModif, Author
             this._commandCollection[0].CommandText = "RemainsSelectCommand";
             this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            (this._commandCollection[0] as System.Data.SqlClient.SqlCommand).CommandTimeout = Convert.ToInt32(Properties.Settings.Default.CommandTimeout);
-        
             this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "dbo.RemainsSelectByInvoiceMasterID";
