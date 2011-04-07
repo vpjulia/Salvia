@@ -26,8 +26,8 @@ namespace RetailTradeClient.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LEVADIA1\\SQLEXPRESS;Initial Catalog=RetailTradeCl;Persist Security In" +
-            "fo=True;User ID=sa;Password=123456;Connect Timeout=300")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost\\SQLEXPRESS;Initial Catalog=RetailTradeCl;User ID=sa;Passwor" +
+            "d=123456;Connect Timeout=300")]
         public string RetailTradeConnectionString {
             get {
                 return ((string)(this["RetailTradeConnectionString"]));
@@ -127,7 +127,7 @@ namespace RetailTradeClient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("sansee1\\sqlexpress")]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\sqlexpress")]
         public string SERVER {
             get {
                 return ((string)(this["SERVER"]));
@@ -158,6 +158,15 @@ namespace RetailTradeClient.Properties {
             }
             set {
                 this["CommandTimeout"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Default")]
+        public string PrinterId {
+            get {
+                return ((string)(this["PrinterId"]));
             }
         }
     }

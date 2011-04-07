@@ -40,13 +40,6 @@
   <Body>
     <ColumnSpacing>1cm</ColumnSpacing>
     <ReportItems>
-      <Subreport Name="subreport1">
-        <Left>1cm</Left>
-        <ZIndex>4</ZIndex>
-        <Width>11.75cm</Width>
-        <ReportName>ProductFullInfo</ReportName>
-        <Height>3cm</Height>
-      </Subreport>
       <Textbox Name="textbox12">
         <Left>1.25cm</Left>
         <Top>3.25cm</Top>

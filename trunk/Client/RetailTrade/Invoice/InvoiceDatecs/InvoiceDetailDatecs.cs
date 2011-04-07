@@ -162,9 +162,11 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
         {
             try
             {
-
+                int focused = this.gridViewInvRem.FocusedRowHandle;
 
                 MDataSet.RemainsRow _rem = this.gridViewInvRem.GetDataRow(this.gridViewInvRem.FocusedRowHandle) as MDataSet.RemainsRow;
+              
+                _mainForm.RefreshData(_rem);
 
                 if (_rem != null)
                 {
@@ -178,8 +180,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
 
                     if (DialogResult.OK == formDialog.ShowDialog(this))
                     {
-
-
+                      
                         this.invoiceDetailBindingSource.EndEdit();
 
                         this.SaleInvoiceDetail(_newRow);
@@ -191,12 +192,18 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
                     }
                     else
                     {
+                        this.gridViewInvRem.BeginDataUpdate();
                         this.invoiceDetailBindingSource.CancelEdit();
-                        _mainForm.RefreshData(_rem);
+                        _rem.RejectChanges();
+                        this.gridViewInvRem.EndDataUpdate();
+                       
+                        this.gridRem.Focus();
+                        this.gridViewInvRem.FocusedRowHandle = focused;
+                        return;
 
 
                     }
-
+                    
                     _invoceDetailAdd.Dispose();
 
                     GC.Collect();
@@ -415,7 +422,10 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
 
                 if (DialogResult.OK == MessageBox.Show(this, "Удалить " + _detRow.Quantity.ToString(), "Удаление строки ", MessageBoxButtons.OKCancel, MessageBoxIcon.Question))
                 {
-                   this.ReturnInvoiceDetail(_detRow);
+                    this.gridViewInvRem.BeginDataUpdate();
+                    this.ReturnInvoiceDetail(_detRow);
+                    
+                   this.gridViewInvRem.EndDataUpdate();
                 }
 
             }
