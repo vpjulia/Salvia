@@ -32,21 +32,17 @@ namespace RetailTradeClient
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Новые");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("На складе");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Приходные", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("За период");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Возвратные документы");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Расходные документы", new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode5});
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Остатки товара");
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.LabelUser = new System.Windows.Forms.ToolStripStatusLabel();
             this.actionLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
+            this.новыеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.принятыеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.periodsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mDataSet = new RetailTradeClient.MDataSet();
@@ -84,18 +80,14 @@ namespace RetailTradeClient
             this.invoiceDetailTableAdapter = new RetailTradeClient.MDataSetTableAdapters.InvoiceDetailTableAdapter();
             this.RemainsTableAdapter = new RetailTradeClient.MDataSetTableAdapters.RemainsTableAdapter();
             this.periodsTableAdapter = new RetailTradeClient.MDataSetTableAdapters.PeriodsTableAdapter();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.treeView1 = new System.Windows.Forms.TreeView();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabControl = new System.Windows.Forms.TabControl();
             this.documentTypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cashBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cashTableAdapter = new RetailTradeClient.MDataSetTableAdapters.CashTableAdapter();
             this.localSettingBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.localSettingTableAdapter = new RetailTradeClient.MDataSetTableAdapters.LocalSettingTableAdapter();
+            this.tabControl = new System.Windows.Forms.TabControl();
             this.statusStrip1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.periodsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource1)).BeginInit();
@@ -107,11 +99,6 @@ namespace RetailTradeClient
             ((System.ComponentModel.ISupportInitialize)(this.receiptDetailBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentTypeBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.localSettingBindingSource)).BeginInit();
@@ -122,9 +109,9 @@ namespace RetailTradeClient
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LabelUser,
             this.actionLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 553);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 554);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(775, 23);
+            this.statusStrip1.Size = new System.Drawing.Size(775, 22);
             this.statusStrip1.TabIndex = 1;
             // 
             // LabelUser
@@ -132,22 +119,90 @@ namespace RetailTradeClient
             this.LabelUser.Font = new System.Drawing.Font("Tahoma", 8.400001F, System.Drawing.FontStyle.Italic);
             this.LabelUser.Image = ((System.Drawing.Image)(resources.GetObject("LabelUser.Image")));
             this.LabelUser.Name = "LabelUser";
-            this.LabelUser.Size = new System.Drawing.Size(157, 18);
+            this.LabelUser.Size = new System.Drawing.Size(139, 17);
             this.LabelUser.Text = "toolStripStatusLabel1";
             // 
             // actionLabel
             // 
             this.actionLabel.Name = "actionLabel";
-            this.actionLabel.Size = new System.Drawing.Size(13, 18);
+            this.actionLabel.Size = new System.Drawing.Size(10, 17);
             this.actionLabel.Text = " ";
             // 
             // toolStrip1
             // 
-            this.toolStrip1.Location = new System.Drawing.Point(0, 26);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton1,
+            this.toolStripSeparator1,
+            this.toolStripSplitButton1,
+            this.toolStripSeparator2,
+            this.toolStripButton3});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(775, 25);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Image = global::RetailTradeClient.Properties.Resources.folder_document;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(143, 22);
+            this.toolStripButton1.Tag = "InvoiceTradePutletAll";
+            this.toolStripButton1.Text = "Расходные документы";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSplitButton1
+            // 
+            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.новыеToolStripMenuItem,
+            this.принятыеToolStripMenuItem});
+            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(157, 22);
+            this.toolStripSplitButton1.Tag = "ReceiptMasterNewAll";
+            this.toolStripSplitButton1.Text = "Приходные документы";
+            this.toolStripSplitButton1.ToolTipText = "Новые приходные акты";
+            this.toolStripSplitButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // новыеToolStripMenuItem
+            // 
+            this.новыеToolStripMenuItem.Name = "новыеToolStripMenuItem";
+            this.новыеToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.новыеToolStripMenuItem.Tag = "ReceiptMasterNewAll";
+            this.новыеToolStripMenuItem.Text = "Новые";
+            this.новыеToolStripMenuItem.ToolTipText = "Новые документы";
+            this.новыеToolStripMenuItem.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // принятыеToolStripMenuItem
+            // 
+            this.принятыеToolStripMenuItem.Name = "принятыеToolStripMenuItem";
+            this.принятыеToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.принятыеToolStripMenuItem.Tag = "ReceiptMasterStock";
+            this.принятыеToolStripMenuItem.Text = "Принятые";
+            this.принятыеToolStripMenuItem.ToolTipText = "Принятые приходы";
+            this.принятыеToolStripMenuItem.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(109, 22);
+            this.toolStripButton3.Tag = "Remains";
+            this.toolStripButton3.Text = "Остатки товара";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // imageList1
             // 
@@ -208,7 +263,7 @@ namespace RetailTradeClient
             this.DatecsMenu});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(775, 26);
+            this.menuStrip1.Size = new System.Drawing.Size(775, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -218,13 +273,13 @@ namespace RetailTradeClient
             this.btSettingsToolStripMenuItem,
             this.btInventory});
             this.сервисToolStripMenuItem.Name = "сервисToolStripMenuItem";
-            this.сервисToolStripMenuItem.Size = new System.Drawing.Size(68, 22);
+            this.сервисToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.сервисToolStripMenuItem.Text = "Сервис";
             // 
             // btSettingsToolStripMenuItem
             // 
             this.btSettingsToolStripMenuItem.Name = "btSettingsToolStripMenuItem";
-            this.btSettingsToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.btSettingsToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.btSettingsToolStripMenuItem.Tag = "ProjectSettings";
             this.btSettingsToolStripMenuItem.Text = "Параметры";
             this.btSettingsToolStripMenuItem.ToolTipText = "Настроки приложения";
@@ -234,7 +289,7 @@ namespace RetailTradeClient
             // btInventory
             // 
             this.btInventory.Name = "btInventory";
-            this.btInventory.Size = new System.Drawing.Size(205, 22);
+            this.btInventory.Size = new System.Drawing.Size(169, 22);
             this.btInventory.Tag = "Inventory";
             this.btInventory.Text = "Инвентаризация";
             this.btInventory.ToolTipText = "Инвентаризационная опись";
@@ -245,13 +300,13 @@ namespace RetailTradeClient
             this.btReportSum.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btRepSum});
             this.btReportSum.Name = "btReportSum";
-            this.btReportSum.Size = new System.Drawing.Size(73, 22);
+            this.btReportSum.Size = new System.Drawing.Size(59, 20);
             this.btReportSum.Text = "Отчеты";
             // 
             // btRepSum
             // 
             this.btRepSum.Name = "btRepSum";
-            this.btRepSum.Size = new System.Drawing.Size(160, 22);
+            this.btRepSum.Size = new System.Drawing.Size(137, 22);
             this.btRepSum.Tag = "RetailTradeCLReriodical";
             this.btRepSum.Text = "За период";
             this.btRepSum.Click += new System.EventHandler(this.btReportSum_Click);
@@ -264,34 +319,34 @@ namespace RetailTradeClient
             this.btMariaOfExpend,
             this.btMariaZperiodReport});
             this.MariaMenu.Name = "MariaMenu";
-            this.MariaMenu.Size = new System.Drawing.Size(59, 22);
+            this.MariaMenu.Size = new System.Drawing.Size(48, 20);
             this.MariaMenu.Text = "Касса";
             // 
             // btMariaXreport
             // 
             this.btMariaXreport.Name = "btMariaXreport";
-            this.btMariaXreport.Size = new System.Drawing.Size(172, 22);
+            this.btMariaXreport.Size = new System.Drawing.Size(145, 22);
             this.btMariaXreport.Text = "X- Отчет";
             this.btMariaXreport.Click += new System.EventHandler(this.btMariaXreport_Click);
             // 
             // btMariaZReport
             // 
             this.btMariaZReport.Name = "btMariaZReport";
-            this.btMariaZReport.Size = new System.Drawing.Size(172, 22);
+            this.btMariaZReport.Size = new System.Drawing.Size(145, 22);
             this.btMariaZReport.Text = "Z - Отчет";
             this.btMariaZReport.Click += new System.EventHandler(this.btMariaZReport_Click);
             // 
             // btMariaOfExpend
             // 
             this.btMariaOfExpend.Name = "btMariaOfExpend";
-            this.btMariaOfExpend.Size = new System.Drawing.Size(172, 22);
+            this.btMariaOfExpend.Size = new System.Drawing.Size(145, 22);
             this.btMariaOfExpend.Text = "Инкассация";
             this.btMariaOfExpend.Click += new System.EventHandler(this.btMariaOfExpend_Click);
             // 
             // btMariaZperiodReport
             // 
             this.btMariaZperiodReport.Name = "btMariaZperiodReport";
-            this.btMariaZperiodReport.Size = new System.Drawing.Size(172, 22);
+            this.btMariaZperiodReport.Size = new System.Drawing.Size(145, 22);
             this.btMariaZperiodReport.Text = "Z за период";
             this.btMariaZperiodReport.Click += new System.EventHandler(this.btMariaZperiodReport_Click);
             // 
@@ -305,48 +360,48 @@ namespace RetailTradeClient
             this.btDatecsCloseCheck,
             this.btPeriodReportByNum});
             this.DatecsMenu.Name = "DatecsMenu";
-            this.DatecsMenu.Size = new System.Drawing.Size(59, 22);
+            this.DatecsMenu.Size = new System.Drawing.Size(48, 20);
             this.DatecsMenu.Text = "Касса";
             // 
             // btDatecsXReport
             // 
             this.btDatecsXReport.Name = "btDatecsXReport";
-            this.btDatecsXReport.Size = new System.Drawing.Size(262, 22);
+            this.btDatecsXReport.Size = new System.Drawing.Size(210, 22);
             this.btDatecsXReport.Text = "X- Отчет";
             this.btDatecsXReport.Click += new System.EventHandler(this.btDatecsXReport_Click);
             // 
             // menuDatecsZReport
             // 
             this.menuDatecsZReport.Name = "menuDatecsZReport";
-            this.menuDatecsZReport.Size = new System.Drawing.Size(262, 22);
+            this.menuDatecsZReport.Size = new System.Drawing.Size(210, 22);
             this.menuDatecsZReport.Text = "Z - Отчет";
             this.menuDatecsZReport.Click += new System.EventHandler(this.menuDatecsZReport_Click);
             // 
             // btDatecsOfExpend
             // 
             this.btDatecsOfExpend.Name = "btDatecsOfExpend";
-            this.btDatecsOfExpend.Size = new System.Drawing.Size(262, 22);
+            this.btDatecsOfExpend.Size = new System.Drawing.Size(210, 22);
             this.btDatecsOfExpend.Text = "Инкассация";
             this.btDatecsOfExpend.Click += new System.EventHandler(this.btDatecsOfExpend_Click);
             // 
             // btDatecsPeriodReport
             // 
             this.btDatecsPeriodReport.Name = "btDatecsPeriodReport";
-            this.btDatecsPeriodReport.Size = new System.Drawing.Size(262, 22);
+            this.btDatecsPeriodReport.Size = new System.Drawing.Size(210, 22);
             this.btDatecsPeriodReport.Text = "Отчет за период";
             this.btDatecsPeriodReport.Click += new System.EventHandler(this.btDatecsPeriodReport_Click);
             // 
             // btDatecsCloseCheck
             // 
             this.btDatecsCloseCheck.Name = "btDatecsCloseCheck";
-            this.btDatecsCloseCheck.Size = new System.Drawing.Size(262, 22);
+            this.btDatecsCloseCheck.Size = new System.Drawing.Size(210, 22);
             this.btDatecsCloseCheck.Text = "Закрыть чек";
             this.btDatecsCloseCheck.Click += new System.EventHandler(this.btDatecsCloseCheck_Click);
             // 
             // btPeriodReportByNum
             // 
             this.btPeriodReportByNum.Name = "btPeriodReportByNum";
-            this.btPeriodReportByNum.Size = new System.Drawing.Size(262, 22);
+            this.btPeriodReportByNum.Size = new System.Drawing.Size(210, 22);
             this.btPeriodReportByNum.Text = "Отчет за период (по №)";
             this.btPeriodReportByNum.Click += new System.EventHandler(this.btPeriodReportByNum_Click);
             // 
@@ -382,117 +437,6 @@ namespace RetailTradeClient
             // 
             this.periodsTableAdapter.ClearBeforeFill = true;
             // 
-            // splitContainer2
-            // 
-            this.splitContainer2.DataBindings.Add(new System.Windows.Forms.Binding("SplitterDistance", global::RetailTradeClient.Properties.Settings.Default, "MainSplitDist", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 51);
-            this.splitContainer2.Name = "splitContainer2";
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.tabControl1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.tabControl);
-            this.splitContainer2.Size = new System.Drawing.Size(775, 502);
-            this.splitContainer2.SplitterDistance = 245;
-            this.splitContainer2.TabIndex = 5;
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Multiline = true;
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(245, 502);
-            this.tabControl1.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.treeView1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(237, 473);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "новые";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // treeView1
-            // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.treeView1.ImageIndex = 0;
-            this.treeView1.ImageList = this.imageList1;
-            this.treeView1.Location = new System.Drawing.Point(3, 3);
-            this.treeView1.Name = "treeView1";
-            treeNode1.Name = "Node10";
-            treeNode1.Tag = "ReceiptMasterNewAll";
-            treeNode1.Text = "Новые";
-            treeNode1.ToolTipText = "Новые приходные акты";
-            treeNode2.Name = "Node11";
-            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            treeNode2.Tag = "ReceiptMasterStock";
-            treeNode2.Text = "На складе";
-            treeNode2.ToolTipText = "Приходные документы";
-            treeNode3.ImageKey = "folder_closed.png";
-            treeNode3.Name = "Node9";
-            treeNode3.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            treeNode3.SelectedImageIndex = 1;
-            treeNode3.Text = "Приходные";
-            treeNode4.Name = "Node1";
-            treeNode4.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            treeNode4.Tag = "InvoiceDetail";
-            treeNode4.Text = "За период";
-            treeNode4.ToolTipText = "За период";
-            treeNode5.Name = "Node0";
-            treeNode5.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            treeNode5.Tag = "InvoiceReturn";
-            treeNode5.Text = "Возвратные документы";
-            treeNode5.ToolTipText = "Возвратные документы";
-            treeNode6.Name = "Node0";
-            treeNode6.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            treeNode6.Tag = "InvoiceTradePutletAll";
-            treeNode6.Text = "Расходные документы";
-            treeNode6.ToolTipText = "Кассовые чеки ";
-            treeNode7.Name = "Node0";
-            treeNode7.Tag = "Remains";
-            treeNode7.Text = "Остатки товара";
-            treeNode7.ToolTipText = "Остатки товара";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode6,
-            treeNode7});
-            this.treeView1.SelectedImageIndex = 2;
-            this.treeView1.Size = new System.Drawing.Size(231, 467);
-            this.treeView1.TabIndex = 0;
-            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
-            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(237, 473);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "все";
-            // 
-            // tabControl
-            // 
-            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl.Location = new System.Drawing.Point(0, 0);
-            this.tabControl.Multiline = true;
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(526, 502);
-            this.tabControl.TabIndex = 0;
-            // 
             // documentTypeBindingSource
             // 
             this.documentTypeBindingSource.DataMember = "DocumentType";
@@ -516,10 +460,20 @@ namespace RetailTradeClient
             // 
             this.localSettingTableAdapter.ClearBeforeFill = true;
             // 
+            // tabControl
+            // 
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.Location = new System.Drawing.Point(0, 49);
+            this.tabControl.Multiline = true;
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(775, 505);
+            this.tabControl.TabIndex = 5;
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(775, 576);
-            this.Controls.Add(this.splitContainer2);
+            this.Controls.Add(this.tabControl);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -535,6 +489,8 @@ namespace RetailTradeClient
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.periodsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource1)).EndInit();
@@ -547,11 +503,6 @@ namespace RetailTradeClient
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            this.splitContainer2.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.documentTypeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.localSettingBindingSource)).EndInit();
@@ -586,12 +537,6 @@ namespace RetailTradeClient
         private System.Windows.Forms.BindingSource productBindingSource1;
         private System.Windows.Forms.BindingSource periodsBindingSource;
         private RetailTradeClient.MDataSetTableAdapters.PeriodsTableAdapter periodsTableAdapter;
-        private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.TabPage tabPage2;
-        public System.Windows.Forms.TabControl tabControl;
         public RetailTradeClient.MDataSetTableAdapters.InvoiceMasterTableAdapter invoiceMasterTableAdapter;
         private System.Windows.Forms.ToolStripMenuItem btSettingsToolStripMenuItem;
         private System.Windows.Forms.BindingSource documentTypeBindingSource;
@@ -615,6 +560,14 @@ namespace RetailTradeClient
         private System.Windows.Forms.ToolStripMenuItem btPeriodReportByNum;
         private System.Windows.Forms.ToolStripMenuItem btRepSum;
         public RetailTradeClient.MDataSetTableAdapters.InvoiceDetailTableAdapter invoiceDetailTableAdapter;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
+        private System.Windows.Forms.ToolStripMenuItem новыеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem принятыеToolStripMenuItem;
+        public System.Windows.Forms.TabControl tabControl;
         }
 }
 

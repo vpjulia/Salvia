@@ -158,17 +158,17 @@ namespace RetailTradeClient
             }
 
 
-            
-            //FormLogon _logon = new FormLogon(LocalSettingRow);
 
-            //if (DialogResult.OK != _logon.ShowDialog(this))
-            //{
-            //    Application.Exit();
-            //    return;
-            //}
+            FormLogon _logon = new FormLogon(LocalSettingRow);
 
-            //this.LabelUser.Text = LocalSettingRow.FullName;
-            //this.Text += " : " + LocalSettingRow.Name; 
+            if (DialogResult.OK != _logon.ShowDialog(this))
+            {
+                Application.Exit();
+                return;
+            }
+
+            this.LabelUser.Text = LocalSettingRow.FullName;
+            this.Text += " : " + LocalSettingRow.Name; 
 
             
             
@@ -227,9 +227,8 @@ namespace RetailTradeClient
 
             //}
 
-            Log("MainForm_Load True ");
-           
-              
+            Log("MainForm_Load True ");    
+            ShowNewDataTab("InvoiceTradePutletAll", "Расходные документы");
         }
            
        
@@ -635,11 +634,7 @@ namespace RetailTradeClient
         }
 
       
-        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            if (e.Node.Tag!=null)
-             ShowNewDataTab(e.Node.Tag.ToString(),e.Node.ToolTipText.ToString());
-        }
+    
 
         private void mainReportViewer_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -1343,6 +1338,13 @@ namespace RetailTradeClient
         private void btReportSum_Click(object sender, EventArgs e)
         {
             this.PeriodSumReport("RetailTradeCLReriodical");
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            ToolStripItem button = sender as ToolStripItem;
+            if (button!=null && button.Tag != null)
+                ShowNewDataTab(button.Tag.ToString(), button.ToolTipText.ToString());
         }
 
      }
