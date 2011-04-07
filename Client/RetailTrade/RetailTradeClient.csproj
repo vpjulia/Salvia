@@ -277,8 +277,12 @@
       <SubType>Designer</SubType>
       <DependentUpon>RemainsLocal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ProductFullInfo.rdlc" />
-    <EmbeddedResource Include="Resources\ProductReport.rdlc" />
+    <EmbeddedResource Include="Resources\ProductFullInfo.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ProductReport.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report2.rdlc" />
     <EmbeddedResource Include="SplashScreen.resx">
       <SubType>Designer</SubType>

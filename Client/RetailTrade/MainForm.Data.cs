@@ -647,7 +647,7 @@ namespace RetailTradeClient
             }
             finally
             {
-                this.mDataSet.Remains.Merge(_tmpRemains);
+                MergeRemains(_tmpRemains);
                 this.mDataSet.InvoiceMaster.Merge(_tmpMaster);
                 this.mDataSet.InvoiceDetail.Merge(_tmpDetail);
 
@@ -834,7 +834,8 @@ namespace RetailTradeClient
 
                        
                     } 
-                    this.mDataSet.Remains.Merge(_rem);
+
+                    MergeRemains(_rem);
                     this.mDataSet.InvoiceDetail.Merge(_tmpDetail);
                 }
              
@@ -961,7 +962,7 @@ namespace RetailTradeClient
              }
              finally
              {
-                 this.mDataSet.Remains.Merge(_remainsDataTable);
+                  MergeRemains(_remainsDataTable);
                
                   this.mDataSet.InvoiceMaster.Merge(_invoiceMasterDataTable);
                   this.mDataSet.InvoiceDetail.Merge(_invoiceDetailDataTable); 
@@ -1085,10 +1086,30 @@ namespace RetailTradeClient
             }
             finally
             {
-                this.mDataSet.Remains.Merge(_RemainsDataTable);
+                MergeRemains(_RemainsDataTable);
             }
-            return true;
 
+            return true;
+        }
+
+        private void MergeRemains(MDataSet.RemainsDataTable _remainsDataTable)
+        {
+            foreach (RetailTradeClient.MDataSet.RemainsRow row in _remainsDataTable.Rows)
+            {
+                RetailTradeClient.MDataSet.RemainsRow parent = this.mDataSet.Remains.FindByReceiptDetailRef(row.ReceiptDetailRef);
+                if (parent == null  )
+                { 
+                    this.mDataSet.Remains.ImportRow(row);
+                    continue;
+                }
+
+                if (parent.QuantityRemains != row.QuantityRemains)
+                {
+                    parent.QuantityRemains = row.QuantityRemains;
+                }               
+            }
+
+            this.mDataSet.Remains.AcceptChanges();
         }
 
         public bool RefreshData(MDataSet.RemainsDataTable table)

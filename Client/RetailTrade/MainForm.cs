@@ -159,16 +159,16 @@ namespace RetailTradeClient
 
 
             
-            FormLogon _logon = new FormLogon(LocalSettingRow);
+            //FormLogon _logon = new FormLogon(LocalSettingRow);
 
-            if (DialogResult.OK != _logon.ShowDialog(this))
-            {
-               Application.Exit();
-               return;
-            }
+            //if (DialogResult.OK != _logon.ShowDialog(this))
+            //{
+            //    Application.Exit();
+            //    return;
+            //}
 
-            this.LabelUser.Text = LocalSettingRow.FullName;
-            this.Text +=" : " + LocalSettingRow.Name; 
+            //this.LabelUser.Text = LocalSettingRow.FullName;
+            //this.Text += " : " + LocalSettingRow.Name; 
 
             
             
@@ -214,18 +214,18 @@ namespace RetailTradeClient
 
             _changesInvoiceDetail = new DataView(this.mDataSet.InvoiceDetail,null,null,DataViewRowState.Added | DataViewRowState.ModifiedCurrent|DataViewRowState.Deleted);
 
-            if (this.LocalSettingRow.Printer == "Maria")
-            {
-                this.MariaMenu.Visible = true;
-                this.DatecsMenu.Visible = false;
+            //if (this.LocalSettingRow.Printer == "Maria")
+            //{
+            //    this.MariaMenu.Visible = true;
+            //    this.DatecsMenu.Visible = false;
 
-            }
-            else
-            {
-                this.MariaMenu.Visible = false;
-                this.DatecsMenu.Visible = true;
+            //}
+            //else
+            //{
+            //    this.MariaMenu.Visible = false;
+            //    this.DatecsMenu.Visible = true;
 
-            }
+            //}
 
             Log("MainForm_Load True ");
            
