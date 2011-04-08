@@ -517,7 +517,9 @@ namespace RetailTradeClient
         
 
         public void FillTable(string NameTable)
-        {
+        { 
+            try
+            {
             if (this.mDataSet.Tables[NameTable].Rows.Count == 0)
             {
                 Type tp = this.components.Components[NameTable + "TableAdapter"].GetType();
@@ -528,22 +530,19 @@ namespace RetailTradeClient
                   if (relation.ChildKeyConstraint != null)
                     FillTable(relation.ParentTable.ToString());
                 }
-                try
+              
                 {
 
                     tp.GetMethod("Fill").Invoke(this.components.Components[NameTable + "TableAdapter"], args);
-                }
+                } 
+            }}
                 catch (Exception err)
                 {
                     Log("FillTable(string)"+ NameTable+" ) ERROR" + err.Message + " " + err.Source + err.InnerException.Message);  
             
                 }
-
-            }
-           
-        }
-
-
+            }           
+   
         /*FullDataset*/
        
 

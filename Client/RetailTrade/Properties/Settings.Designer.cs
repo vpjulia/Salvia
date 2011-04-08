@@ -26,8 +26,8 @@ namespace RetailTradeClient.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost\\SQLEXPRESS;Initial Catalog=RetailTradeCl;User ID=sa;Passwor" +
-            "d=123456;Connect Timeout=300")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;Initial Catalog=RetailTradeCl;Integrated Security=True;C" +
+            "onnect Timeout=300")]
         public string RetailTradeConnectionString {
             get {
                 return ((string)(this["RetailTradeConnectionString"]));
@@ -89,16 +89,6 @@ namespace RetailTradeClient.Properties {
             }
             set {
                 this["MyState"] = value;
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Provider=VFPOLEDB.1;Data Source=D:\\WORK\\FarmTrade\\Вента(Дн)_F98DF9B1_090232.dbf")]
-        public string ConnectionString {
-            get {
-                return ((string)(this["ConnectionString"]));
             }
         }
         

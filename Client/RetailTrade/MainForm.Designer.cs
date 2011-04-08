@@ -174,7 +174,7 @@ namespace RetailTradeClient
             // íîâûåToolStripMenuItem
             // 
             this.íîâûåToolStripMenuItem.Name = "íîâûåToolStripMenuItem";
-            this.íîâûåToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.íîâûåToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.íîâûåToolStripMenuItem.Tag = "ReceiptMasterNewAll";
             this.íîâûåToolStripMenuItem.Text = "Íîâûå";
             this.íîâûåToolStripMenuItem.ToolTipText = "Íîâûå äîêóìåíòû";
@@ -183,7 +183,7 @@ namespace RetailTradeClient
             // ïğèíÿòûåToolStripMenuItem
             // 
             this.ïğèíÿòûåToolStripMenuItem.Name = "ïğèíÿòûåToolStripMenuItem";
-            this.ïğèíÿòûåToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ïğèíÿòûåToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.ïğèíÿòûåToolStripMenuItem.Tag = "ReceiptMasterStock";
             this.ïğèíÿòûåToolStripMenuItem.Text = "Ïğèíÿòûå";
             this.ïğèíÿòûåToolStripMenuItem.ToolTipText = "Ïğèíÿòûå ïğèõîäû";
@@ -321,32 +321,33 @@ namespace RetailTradeClient
             this.MariaMenu.Name = "MariaMenu";
             this.MariaMenu.Size = new System.Drawing.Size(48, 20);
             this.MariaMenu.Text = "Êàññà";
+            this.MariaMenu.Visible = false;
             // 
             // btMariaXreport
             // 
             this.btMariaXreport.Name = "btMariaXreport";
-            this.btMariaXreport.Size = new System.Drawing.Size(145, 22);
+            this.btMariaXreport.Size = new System.Drawing.Size(152, 22);
             this.btMariaXreport.Text = "X- Îò÷åò";
             this.btMariaXreport.Click += new System.EventHandler(this.btMariaXreport_Click);
             // 
             // btMariaZReport
             // 
             this.btMariaZReport.Name = "btMariaZReport";
-            this.btMariaZReport.Size = new System.Drawing.Size(145, 22);
+            this.btMariaZReport.Size = new System.Drawing.Size(152, 22);
             this.btMariaZReport.Text = "Z - Îò÷åò";
             this.btMariaZReport.Click += new System.EventHandler(this.btMariaZReport_Click);
             // 
             // btMariaOfExpend
             // 
             this.btMariaOfExpend.Name = "btMariaOfExpend";
-            this.btMariaOfExpend.Size = new System.Drawing.Size(145, 22);
+            this.btMariaOfExpend.Size = new System.Drawing.Size(152, 22);
             this.btMariaOfExpend.Text = "Èíêàññàöèÿ";
             this.btMariaOfExpend.Click += new System.EventHandler(this.btMariaOfExpend_Click);
             // 
             // btMariaZperiodReport
             // 
             this.btMariaZperiodReport.Name = "btMariaZperiodReport";
-            this.btMariaZperiodReport.Size = new System.Drawing.Size(145, 22);
+            this.btMariaZperiodReport.Size = new System.Drawing.Size(152, 22);
             this.btMariaZperiodReport.Text = "Z çà ïåğèîä";
             this.btMariaZperiodReport.Click += new System.EventHandler(this.btMariaZperiodReport_Click);
             // 

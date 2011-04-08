@@ -5,10 +5,10 @@
     <Setting Name="RetailTradeConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=localhost\SQLEXPRESS;Initial Catalog=RetailTradeCl;User ID=sa;Password=123456;Connect Timeout=300&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=.\SQLEXPRESS;Initial Catalog=RetailTradeCl;Integrated Security=True;Connect Timeout=300&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=localhost\SQLEXPRESS;Initial Catalog=RetailTradeCl;User ID=sa;Password=123456;Connect Timeout=300</Value>
+      <Value Profile="(Default)">Data Source=.\SQLEXPRESS;Initial Catalog=RetailTradeCl;Integrated Security=True;Connect Timeout=300</Value>
     </Setting>
     <Setting Name="db2ConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
@@ -29,14 +29,6 @@
     </Setting>
     <Setting Name="MyState" Type="System.Windows.Forms.FormWindowState" Scope="User">
       <Value Profile="(Default)">Normal</Value>
-    </Setting>
-    <Setting Name="ConnectionString" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Provider=VFPOLEDB.1;Data Source=D:\WORK\FarmTrade\Вента(Дн)_F98DF9B1_090232.dbf&lt;/ConnectionString&gt;
-  &lt;ProviderName&gt;System.Data.OleDb&lt;/ProviderName&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Provider=VFPOLEDB.1;Data Source=D:\WORK\FarmTrade\Вента(Дн)_F98DF9B1_090232.dbf</Value>
     </Setting>
     <Setting Name="impSplitDist" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">164</Value>

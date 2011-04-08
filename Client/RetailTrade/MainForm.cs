@@ -157,7 +157,14 @@ namespace RetailTradeClient
             
             }
 
-
+            if (LocalSettingRow == null)
+            {
+                MessageBox.Show("Не найдена строка настроек");
+                Log("LocalSettingRow == null ");
+      
+                Application.Exit();
+                return;
+            }
 
             FormLogon _logon = new FormLogon(LocalSettingRow);
 
