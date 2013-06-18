@@ -684,6 +684,9 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             decimal baseSum = _invmasterRow.Sum;
             if (this.CloseCeck(0, 0, true))
             {
+                _invmasterRow.Note = "Безналичная оплата";
+                this._mainForm.SaveToBase(_invmasterRow);
+
                 this.DialogResult = DialogResult.OK;
             }
         }
@@ -711,11 +714,13 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             }
 
             _invmasterRow.Sum -= disc;
-
+            _invmasterRow.Note = "Безналичная оплата со скидкой";
             _invmasterRow.Discount = disc;
 
             if (this.CloseCeck(0, 0 - disc, true))
             {
+                _invmasterRow.Note = "Безналичная оплата со скидкой";
+            
                 this._mainForm.SaveToBase(_invmasterRow);
 
                 this.DialogResult = DialogResult.OK;
