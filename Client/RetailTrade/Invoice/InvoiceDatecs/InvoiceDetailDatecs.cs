@@ -21,14 +21,14 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
         {
             Dispose(true);
         }
-      
+
         private string causeError;
-        private bool isError= false;
+        private bool isError = false;
 
         private MDataSet.InvoiceMasterRow _invmasterRow;
 
-        private decimal _Changes ;
-        private decimal _cashCustomer ;
+        private decimal _Changes;
+        private decimal _cashCustomer;
 
 
         private MainForm _mainForm;
@@ -43,9 +43,9 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             InitializeComponent();
 
             this.mDataSet = mainForm.mDataSet;
-          
+
             _mainForm = mainForm;
-            this.CashBindingSource.DataSource = _mainForm.cashBindingSource.Current  as MDataSet.CashRow;
+            this.CashBindingSource.DataSource = _mainForm.cashBindingSource.Current as MDataSet.CashRow;
 
             this.productBindingSource.DataSource = _mainForm.mDataSet.Product;
             this.productBindingSource.ResetBindings(false);
@@ -55,7 +55,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             if (_mainForm.LocalSettingRow.PrDiscount != 0)
             {
                 btPayDiscount.Visible = true;
-            
+
             }
 
         }
@@ -76,14 +76,14 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             if (_mainForm.LocalSettingRow.PrDiscount != 0)
             {
                 btPayDiscount.Visible = true;
-
+                cardDiscountButton.Visible = true;
             }
 
         }
 
         private void InvoiceDetailDatecs_Load(object sender, EventArgs e)
         {
-             _printer = new Datecs();
+            _printer = new Datecs();
 
             if (_printer.HasError)
             {
@@ -97,7 +97,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             }
             else
             {
-   
+
                 this.invoiceMasterBindingSourceView.DataSource = mDataSet.InvoiceMaster;
 
                 this.invoiceMasterBindingSourceView.ResetBindings(true);
@@ -119,15 +119,15 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
                 {
                     this.invoiceMasterBindingSourceView.Position = this.invoiceMasterBindingSourceView.Find("Id", _invmasterRow.ID);
                     this.gridRem.Enabled = false;
-                    
+
                     this.btPay.Visible = false;
-                    
+
                     this.btPayDiscount.Visible = false;
 
                     this.btDeleteInСheck.Visible = false;
 
                     this.btPrintCheck.Visible = true;
-                    
+
                     this.btDelete.Visible = true;
 
                     this.btPayMenu.Enabled = false;
@@ -165,7 +165,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
                 int focused = this.gridViewInvRem.FocusedRowHandle;
 
                 MDataSet.RemainsRow _rem = this.gridViewInvRem.GetDataRow(this.gridViewInvRem.FocusedRowHandle) as MDataSet.RemainsRow;
-              
+
                 _mainForm.RefreshData(_rem);
 
                 if (_rem != null)
@@ -180,7 +180,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
 
                     if (DialogResult.OK == formDialog.ShowDialog(this))
                     {
-                      
+
                         this.invoiceDetailBindingSource.EndEdit();
 
                         this.SaleInvoiceDetail(_newRow);
@@ -196,14 +196,14 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
                         this.invoiceDetailBindingSource.CancelEdit();
                         _rem.RejectChanges();
                         this.gridViewInvRem.EndDataUpdate();
-                       
+
                         this.gridRem.Focus();
                         this.gridViewInvRem.FocusedRowHandle = focused;
                         return;
 
 
                     }
-                    
+
                     _invoceDetailAdd.Dispose();
 
                     GC.Collect();
@@ -213,22 +213,23 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
-                 MainForm.Log("gridControl1_DoubleClick " + err.Message);
+                MainForm.Log("gridControl1_DoubleClick " + err.Message);
             }
 
         }
 
         private bool SaleInvoiceDetail(MDataSet.InvoiceDetailRow row)
         {
-          try{
+            try
+            {
 
                 string name = row.RemainsRow.ProductRow.SmallName;
 
                 if (name.Length == 0)
                     throw new ArgumentNullException("SmallName");
-                  bool isnds = row.RemainsRow.ProductRow.IsNDS;
+                bool isnds = row.RemainsRow.ProductRow.IsNDS;
 
-                row.Article = _printer.SaleArticle(isnds,(double)row.Quantity,(double)row.PriceRetailNDS,name);
+                row.Article = _printer.SaleArticle(isnds, (double)row.Quantity, (double)row.PriceRetailNDS, name);
 
                 if (row.Article > 0)
 
@@ -243,7 +244,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
 
                     this.mDataSet.InvoiceDetail.RejectChanges();
                     this.isError = true;
-               
+
                     this.Close();
                     return false;
                 }
@@ -252,46 +253,46 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             catch (Exception err)
             {
                 MessageBox.Show("Ошибка!!");
-               
+
                 MainForm.Log(err.Message);
-                this.isError = true; 
+                this.isError = true;
                 this.Close();
                 return false;
 
 
             }
-         
 
-            return true;  
-  
+
+            return true;
+
         }
 
 
-        private bool CloseCeck(decimal CashCustomer,decimal discount)
+        private bool CloseCeck(decimal CashCustomer, decimal discount, bool creditCard)
         {
 
 
             _mainForm.RefreshData(_invmasterRow);
 
             decimal controlsum = _invmasterRow.Sum;
-           
-            if ((_printer.HasError)||(isError)||_invmasterRow.HasErrors)
+
+            if ((_printer.HasError) || (isError) || _invmasterRow.HasErrors)
             {
                 MessageBox.Show("Ошибка принетра!!!" + _printer.ErrorText);
                 return false;
 
             }
 
-            if (controlsum==0)
+            if (controlsum == 0)
             {
                 MessageBox.Show("Cумма в базе нулевая!!!");
                 return false;
 
             }
 
-            int res = _printer.CloseCheck((double)CashCustomer,(double)discount,controlsum);
+            int res = _printer.CloseCheck((double)CashCustomer, (double)discount, controlsum, creditCard);
 
-            if (res <0)
+            if (res < 0)
             {
                 MessageBox.Show("Ошибка закрытия чека!" + _printer.ErrorText);
                 return false;
@@ -300,16 +301,16 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             {
 
                 _invmasterRow.NumCheck = res;
-                _invmasterRow.Discount = 0 - discount;           
+                _invmasterRow.Discount = 0 - discount;
 
-              if ((this._mainForm.CloseCheck(_invmasterRow)))
+                if ((this._mainForm.CloseCheck(_invmasterRow)))
                 {
-                   return true;
+                    return true;
                 }
                 else
                 {
-                    return false; 
-                 }
+                    return false;
+                }
             }
 
         }
@@ -319,21 +320,20 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
 
                 _invmasterRow.SetModified();
             */
-           if (!( _mainForm.RefreshData(_invmasterRow)))
-            
-           {
-               MessageBox.Show("Ошибка сохранения данных!");
-               return;
-           }
-           if ( this.isError)
-           {
-               MessageBox.Show("Ошибка  данных!");
-               return;
-           }
+            if (!(_mainForm.RefreshData(_invmasterRow)))
+            {
+                MessageBox.Show("Ошибка сохранения данных!");
+                return;
+            }
+            if (this.isError)
+            {
+                MessageBox.Show("Ошибка  данных!");
+                return;
+            }
 
             if (_invmasterRow.Sum == 0)
             {
-                MessageBox.Show("Нулевая сумма чека !!!","Ошибка оплаты",MessageBoxButtons.OK,MessageBoxIcon.Stop);
+                MessageBox.Show("Нулевая сумма чека !!!", "Ошибка оплаты", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
             }
 
@@ -346,7 +346,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
                 _cashCustomer = _frmPay.CashCustomer;
 
                 decimal baseSum = _invmasterRow.Sum;
-                if (this.CloseCeck(Convert.ToDecimal(_frmPay.CashCustomer.ToString()),0))
+                if (this.CloseCeck(Convert.ToDecimal(_frmPay.CashCustomer.ToString()), 0, false))
                 {
                     this.DialogResult = DialogResult.OK;
                 }
@@ -354,7 +354,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             }
         }
 
-        
+
         private void btPayDiscount_Click(object sender, EventArgs e)
         {
 
@@ -365,26 +365,26 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
                 return;
             }
 
-            
+
             decimal disc;
 
             decimal pr = _mainForm.LocalSettingRow.PrDiscount;
 
-            disc = Decimal.Round(_invmasterRow.Sum*(pr/100),2);
+            disc = Decimal.Round(_invmasterRow.Sum * (pr / 100), 2);
             //посчитать скидку
 
             if (disc == 0)
             {
                 MessageBox.Show("Оплата со скидкой не возможна!");
                 return;
-            
+
             }
 
 
             _invmasterRow.Sum -= disc;
-            
 
-          
+
+
             Payment _frmPay = new Payment(_invmasterRow);
             if (DialogResult.OK == _frmPay.ShowDialog(this))
             {
@@ -394,8 +394,8 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
                 _invmasterRow.Discount = disc;
 
 
-               
-                if (this.CloseCeck(Convert.ToDecimal(_frmPay.CashCustomer.ToString()), 0 - disc))
+
+                if (this.CloseCeck(Convert.ToDecimal(_frmPay.CashCustomer.ToString()), 0 - disc, false))
                 {
 
                     this._mainForm.SaveToBase(_invmasterRow);
@@ -410,7 +410,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             {
                 _invmasterRow.RejectChanges();
             }
-       
+
         }
 
         private void btDeleteInСheck_Click(object sender, EventArgs e)
@@ -424,12 +424,12 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
                 {
                     this.gridViewInvRem.BeginDataUpdate();
                     this.ReturnInvoiceDetail(_detRow);
-                    
-                   this.gridViewInvRem.EndDataUpdate();
+
+                    this.gridViewInvRem.EndDataUpdate();
                 }
 
             }
-         
+
 
         }
 
@@ -445,11 +445,11 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
 
                 int Article = row.Article;
 
-                bool res  = _printer.ReturnArticle(Article, isnds, (double)row.Quantity, (double)row.PriceRetailNDS, name);
+                bool res = _printer.ReturnArticle(Article, isnds, (double)row.Quantity, (double)row.PriceRetailNDS, name);
 
                 if (res)
                 {
-                    MDataSet.RemainsRow rem = row.RemainsRow; 
+                    MDataSet.RemainsRow rem = row.RemainsRow;
 
 
                     this.invoiceDetailBindingSource.RemoveCurrent();
@@ -476,7 +476,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
 
         }
 
-       private void btResetErr_Click(object sender, EventArgs e)
+        private void btResetErr_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -486,10 +486,10 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             this.causeError = "Возврат : ... ";
 
             this._mainForm.MakeToReturn(_invmasterRow);
-           
+
             this.Close();
         }
-  
+
         private void InvoiceDetailDatecs_FormClosing(object sender, FormClosingEventArgs e)
         {
 
@@ -497,49 +497,49 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
 
             _mainForm.RefreshData(_invmasterRow);
 
-             //проверить если выход по ошибке
+            //проверить если выход по ошибке
 
 
-            if ((_invmasterRow.NumCheck==0)&(_invmasterRow.GetInvoiceDetailRows().Length > 0))
+            if ((_invmasterRow.NumCheck == 0) & (_invmasterRow.GetInvoiceDetailRows().Length > 0))
             {
-              
-                
-                    FormDialog _fdlg = new FormDialog();
-                    TextBox _tb = new TextBox();
-                    _fdlg.Text = "Аннуляция чека: ";
 
 
-                    if (this.causeError ==null)
-
-                        _tb.Text = "Ошибочный чек ...";
-                    else
-
-                        _tb.Text = this.causeError;
+                FormDialog _fdlg = new FormDialog();
+                TextBox _tb = new TextBox();
+                _fdlg.Text = "Аннуляция чека: ";
 
 
-                    _tb.Width = _fdlg.panel.Width;
-                    // _tb.Dock = DockStyle.Fill;
-                    _tb.SelectAll();
+                if (this.causeError == null)
 
-                    _fdlg.panel.Controls.Add(_tb);
+                    _tb.Text = "Ошибочный чек ...";
+                else
 
-                    if (DialogResult.OK == _fdlg.ShowDialog(this))
+                    _tb.Text = this.causeError;
+
+
+                _tb.Width = _fdlg.panel.Width;
+                // _tb.Dock = DockStyle.Fill;
+                _tb.SelectAll();
+
+                _fdlg.panel.Controls.Add(_tb);
+
+                if (DialogResult.OK == _fdlg.ShowDialog(this))
+                {
+
+                    _invmasterRow.Note = _tb.Text;
+
+                    if (!_mainForm.SaveToBase(_invmasterRow))
                     {
+                        MessageBox.Show("Ошибка обновления!");
+                        return;
 
-                        _invmasterRow.Note = _tb.Text;
-
-                        if (!_mainForm.SaveToBase(_invmasterRow))
-                        {
-                            MessageBox.Show("Ошибка обновления!");
-                            return;
-
-                        }
-
-                        _printer.CancelCheck("ОТМЕНА:" + _tb.Text);
                     }
-                    else
-                        e.Cancel = true;
-                  }
+
+                    _printer.CancelCheck("ОТМЕНА:" + _tb.Text);
+                }
+                else
+                    e.Cancel = true;
+            }
         }
 
         private void btDelete_Click(object sender, EventArgs e)
@@ -561,7 +561,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
                     _mainForm.invoiceDetailTableAdapter.Update(_detRow);
 
                     _mainForm.RefreshData(_invmasterRow);
-                    
+
                     this._mainForm.RefreshData(rem);
                 }
 
@@ -570,22 +570,23 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             {
                 MessageBox.Show(err.Message);
                 MainForm.Log("btDelete_Click " + err.Message);
-                           
+
             }
         }
 
         private void btPrintCheck_Click(object sender, EventArgs e)
         {
-            if (_printer.HasError) 
-            {    MessageBox.Show("Ошибка принтера" + _printer.ErrorText);
+            if (_printer.HasError)
+            {
+                MessageBox.Show("Ошибка принтера" + _printer.ErrorText);
                 return;
-             }
+            }
 
-             if (_invmasterRow.GetInvoiceDetailRows().Length == 0)
-             {
-                 MessageBox.Show("Нечего печатать");
-                 return;
-             }
+            if (_invmasterRow.GetInvoiceDetailRows().Length == 0)
+            {
+                MessageBox.Show("Нечего печатать");
+                return;
+            }
 
 
 
@@ -612,7 +613,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
         }
 
         private void InvoiceDetailDatecs_FormClosed(object sender, FormClosedEventArgs e)
-        {  
+        {
             _printer.Close();
 
             foreach (GridView view in this.gridDet.ViewCollection)
@@ -625,7 +626,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
                 string fileName = new FileInfo(Application.ExecutablePath).DirectoryName + "\\" + view.Name.ToString() + ".xml";
                 view.SaveLayoutToXml(fileName);
             }
-           
+
         }
 
         private void gridViewInvRem_KeyDown(object sender, KeyEventArgs e)
@@ -633,7 +634,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             if (e.KeyData == Keys.Enter)
             {
                 this.gridControl1_DoubleClick(sender, e as EventArgs);
-            
+
             }
         }
 
@@ -654,7 +655,6 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
                 }
             }
             catch (Exception err)
-
             {
                 MessageBox.Show(err.Message);
             }
@@ -662,6 +662,64 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
 
         }
 
+        private void CreditCardButtonClick(object sender, EventArgs e)
+        {
+            if (!(_mainForm.RefreshData(_invmasterRow)))
+            {
+                MessageBox.Show("Ошибка сохранения данных!");
+                return;
+            }
+            if (this.isError)
+            {
+                MessageBox.Show("Ошибка  данных!");
+                return;
+            }
 
+            if (_invmasterRow.Sum == 0)
+            {
+                MessageBox.Show("Нулевая сумма чека !!!", "Ошибка оплаты", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
+            decimal baseSum = _invmasterRow.Sum;
+            if (this.CloseCeck(0, 0, true))
+            {
+                this.DialogResult = DialogResult.OK;
+            }
+        }
+
+        private void CreditCardDiscountButtonClick(object sender, EventArgs e)
+        {
+            _mainForm.RefreshData(_invmasterRow);
+
+            if (!_mainForm.SaveToBase(_invmasterRow))
+            {
+                return;
+            }
+
+            decimal disc;
+
+            decimal pr = _mainForm.LocalSettingRow.PrDiscount;
+
+            disc = Decimal.Round(_invmasterRow.Sum * (pr / 100), 2);
+            //посчитать скидку
+
+            if (disc == 0)
+            {
+                CreditCardButtonClick(sender, e);
+                return;
+            }
+
+            _invmasterRow.Sum -= disc;
+
+            _invmasterRow.Discount = disc;
+
+            if (this.CloseCeck(0, 0 - disc, true))
+            {
+                this._mainForm.SaveToBase(_invmasterRow);
+
+                this.DialogResult = DialogResult.OK;
+            }
+        }
     }
 }
