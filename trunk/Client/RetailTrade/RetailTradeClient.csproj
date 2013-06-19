@@ -368,6 +368,7 @@
     <None Include="Resources\document_pinned.png" />
     <None Include="Resources\about.png" />
     <None Include="Resources\mt200.gif" />
+    <Content Include="Resources\creditcards32.png" />
     <Content Include="Resources\printer_information.png" />
     <None Include="Resources\printer_new.png" />
     <None Include="Resources\printer_ok.png" />

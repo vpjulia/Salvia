@@ -44,6 +44,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btPay = new System.Windows.Forms.Button();
             this.btPrintCheck = new System.Windows.Forms.Button();
+            this.printCreditCardButton = new System.Windows.Forms.Button();
             this.btPayDiscount = new System.Windows.Forms.Button();
             this.invoiceMasterBindingSourceView = new System.Windows.Forms.BindingSource(this.components);
             this.mDataSet = new RetailTradeClient.MDataSet();
@@ -119,7 +120,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(645, 23);
+            this.toolStrip1.Size = new System.Drawing.Size(645, 28);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -127,13 +128,13 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             // 
             this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btResetErr,
-            this.btRecetReturn,
             this.creditCardButton,
-            this.cardDiscountButton});
+            this.cardDiscountButton,
+            this.btRecetReturn});
             this.toolStripSplitButton1.Image = global::RetailTradeClient.Properties.Resources.delete2;
             this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(98, 20);
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(98, 28);
             this.toolStripSplitButton1.Text = "Закрыть ...";
             this.toolStripSplitButton1.ToolTipText = "закрыть документ без чека";
             // 
@@ -141,7 +142,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             // 
             this.btResetErr.Image = global::RetailTradeClient.Properties.Resources.document_pinned;
             this.btResetErr.Name = "btResetErr";
-            this.btResetErr.Size = new System.Drawing.Size(273, 22);
+            this.btResetErr.Size = new System.Drawing.Size(273, 26);
             this.btResetErr.Text = "...ошибочный документ";
             this.btResetErr.Click += new System.EventHandler(this.btResetErr_Click);
             // 
@@ -149,7 +150,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             // 
             this.btRecetReturn.Image = global::RetailTradeClient.Properties.Resources.document_lock;
             this.btRecetReturn.Name = "btRecetReturn";
-            this.btRecetReturn.Size = new System.Drawing.Size(273, 22);
+            this.btRecetReturn.Size = new System.Drawing.Size(273, 26);
             this.btRecetReturn.Text = "возвратный документ на Цен. склад";
             this.btRecetReturn.Click += new System.EventHandler(this.btRecetReturn_Click);
             // 
@@ -157,6 +158,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             // 
             this.flowLayoutPanel1.Controls.Add(this.btPay);
             this.flowLayoutPanel1.Controls.Add(this.btPrintCheck);
+            this.flowLayoutPanel1.Controls.Add(this.printCreditCardButton);
             this.flowLayoutPanel1.Controls.Add(this.btPayDiscount);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
@@ -169,11 +171,12 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             // btPay
             // 
             this.btPay.Image = global::RetailTradeClient.Properties.Resources.printer;
+            this.btPay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btPay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btPay.Location = new System.Drawing.Point(537, 2);
             this.btPay.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btPay.Name = "btPay";
-            this.btPay.Size = new System.Drawing.Size(106, 26);
+            this.btPay.Size = new System.Drawing.Size(126, 28);
             this.btPay.TabIndex = 0;
             this.btPay.Text = "Оплата";
             this.btPay.UseVisualStyleBackColor = true;
@@ -183,15 +186,29 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             // 
             this.btPrintCheck.Image = global::RetailTradeClient.Properties.Resources.printer_ok;
             this.btPrintCheck.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btPrintCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btPrintCheck.Location = new System.Drawing.Point(418, 2);
             this.btPrintCheck.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btPrintCheck.Name = "btPrintCheck";
-            this.btPrintCheck.Size = new System.Drawing.Size(115, 26);
+            this.btPrintCheck.Size = new System.Drawing.Size(115, 28);
             this.btPrintCheck.TabIndex = 2;
             this.btPrintCheck.Text = "Печать чека";
             this.btPrintCheck.UseVisualStyleBackColor = true;
             this.btPrintCheck.Visible = false;
             this.btPrintCheck.Click += new System.EventHandler(this.btPrintCheck_Click);
+
+            this.printCreditCardButton.Image = global::RetailTradeClient.Properties.Resources.creditcards32;
+            this.printCreditCardButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.printCreditCardButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.printCreditCardButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.printCreditCardButton.Name = "btPrintCardCheck";
+            this.printCreditCardButton.Size = new System.Drawing.Size(155, 28);
+            this.printCreditCardButton.TabIndex = 3;
+            this.printCreditCardButton.Text = "Безналичная оплата";
+            this.printCreditCardButton.UseVisualStyleBackColor = true;
+            this.printCreditCardButton.Visible = false;
+            this.printCreditCardButton.Click += this.PrintCreditCardClick;
+            
             // 
             // btPayDiscount
             // 
@@ -200,7 +217,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             this.btPayDiscount.Location = new System.Drawing.Point(283, 2);
             this.btPayDiscount.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btPayDiscount.Name = "btPayDiscount";
-            this.btPayDiscount.Size = new System.Drawing.Size(131, 26);
+            this.btPayDiscount.Size = new System.Drawing.Size(161, 28);
             this.btPayDiscount.TabIndex = 1;
             this.btPayDiscount.Text = "Оплата + скидка";
             this.btPayDiscount.UseVisualStyleBackColor = true;
@@ -641,7 +658,8 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             // creditCardButton
             // 
             this.creditCardButton.Name = "creditCardButton";
-            this.creditCardButton.Size = new System.Drawing.Size(273, 22);
+            this.creditCardButton.Image = global::RetailTradeClient.Properties.Resources.creditcards32;
+            this.creditCardButton.Size = new System.Drawing.Size(273, 26);
             this.creditCardButton.Text = "Безналичный расчет";
             this.creditCardButton.Click += CreditCardButtonClick;
             // 
@@ -740,6 +758,8 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
         private System.Windows.Forms.ToolStripMenuItem btResetErr;
         private System.Windows.Forms.ToolStripMenuItem btRecetReturn;
         private System.Windows.Forms.Button btPrintCheck;
+        private System.Windows.Forms.Button printCreditCardButton;
+       
         private System.Windows.Forms.ToolStripMenuItem btDelete;
         private DevExpress.XtraGrid.Columns.GridColumn colProductName;
         private DevExpress.XtraGrid.Columns.GridColumn colManufacturerName;
