@@ -834,7 +834,7 @@ namespace RetailTradeClient.Printers
                 }
             }
 
-            public decimal Total(string comment, double cashCustomer)
+            public decimal Total(string comment, double cashCustomer, bool creditCard)
             {
                 this.GetStatus();
 
@@ -849,12 +849,12 @@ namespace RetailTradeClient.Printers
 
                 int res;
                 decimal sum;
-
+                char code = creditCard ? 'D' : 'P';
                 try
                 {
                     unsafe
                     {
-                        res = Total(0, callback, 0, comment, 'P', cashCustomer);
+                        res = Total(0, callback, 0, comment, code, cashCustomer);
                         sum = Convert.ToDecimal(rd.RetItem2.ToString());
                         sum = sum / 100;
                     }
@@ -1512,7 +1512,7 @@ namespace RetailTradeClient.Printers
         }
 
         // --- номер чека
-        public int CloseCheck(double cashCustomer, double discount, decimal controlsum)
+        public int CloseCheck(double cashCustomer, double discount, decimal controlsum, bool creditCard)
         {
             if (HasError) return -1;
 
@@ -1530,7 +1530,7 @@ namespace RetailTradeClient.Printers
                 return -1;
             }
 
-            decimal allsum = _printer.Total("", cashCustomer);
+            decimal allsum = _printer.Total("", cashCustomer, creditCard);
 
             if (allsum == -1) return -1;
 

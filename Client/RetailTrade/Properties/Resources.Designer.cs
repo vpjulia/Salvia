@@ -74,6 +74,13 @@ namespace RetailTradeClient.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap creditcards32 {
+            get {
+                object obj = ResourceManager.GetObject("creditcards32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap delete2 {
             get {
                 object obj = ResourceManager.GetObject("delete2", resourceCulture);

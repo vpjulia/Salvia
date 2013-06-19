@@ -121,6 +121,8 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
                     this.gridRem.Enabled = false;
 
                     this.btPay.Visible = false;
+                    this.creditCardButton.Visible = false;
+                    this.cardDiscountButton.Visible = false;
 
                     this.btPayDiscount.Visible = false;
 
@@ -128,6 +130,8 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
 
                     this.btPrintCheck.Visible = true;
 
+                    this.printCreditCardButton.Visible = true;
+                    
                     this.btDelete.Visible = true;
 
                     this.btPayMenu.Enabled = false;
@@ -682,7 +686,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             }
 
             decimal baseSum = _invmasterRow.Sum;
-            if (this.CloseCeck(0, 0, true))
+            if (this.CloseCeck(Convert.ToDecimal(_invmasterRow.Sum.ToString()), 0, true))
             {
                 _invmasterRow.Note = "Безналичная оплата";
                 this._mainForm.SaveToBase(_invmasterRow);
@@ -717,7 +721,7 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
             _invmasterRow.Note = "Безналичная оплата со скидкой";
             _invmasterRow.Discount = disc;
 
-            if (this.CloseCeck(0, 0 - disc, true))
+            if (this.CloseCeck(Convert.ToDecimal(_invmasterRow.Sum.ToString()), 0 - disc, true))
             {
                 _invmasterRow.Note = "Безналичная оплата со скидкой";
             
@@ -725,6 +729,38 @@ namespace RetailTradeClient.Invoice.InvoiceDatecs
 
                 this.DialogResult = DialogResult.OK;
             }
+        }
+
+        private void PrintCreditCardClick(object sender, EventArgs e)
+        {
+            if (_printer.HasError)
+            {
+                MessageBox.Show("Ошибка принтера" + _printer.ErrorText);
+                return;
+            }
+
+            if (_invmasterRow.GetInvoiceDetailRows().Length == 0)
+            {
+                MessageBox.Show("Нечего печатать");
+                return;
+            }
+
+            _printer.OpenCheck(_mainForm.LocalSettingRow.Num);
+
+            this.gridRem.Enabled = false;
+
+            this.gridRem.Enabled = false;
+
+            this.btDelete.Enabled = false;
+
+            foreach (MDataSet.InvoiceDetailRow detrow in _invmasterRow.GetInvoiceDetailRows())
+            {
+                this.SaleInvoiceDetail(detrow);
+            }
+
+            if (_printer.HasError) return;
+
+            this.CreditCardButtonClick(sender, e);
         }
     }
 }

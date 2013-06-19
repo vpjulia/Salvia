@@ -1183,7 +1183,7 @@ namespace RetailTradeClient
             Datecs _printer = new Datecs();
             _printer.CancelCheck("Ошибка!!!");
 
-            _printer.CloseCheck(10000, 0,1000);
+            _printer.CloseCheck(10000, 0,1000, false);
             _printer.Close();
         }
 
