@@ -1599,8 +1599,8 @@ namespace RetailTradeClient.Printers
         {
             if (HasError) return -1;
 
-            _printer.OperatorsReport();
-            if (HasError) return -1;
+            //_printer.OperatorsReport();
+            //if (HasError) return -1;
 
             decimal forIn = _printer.CashInfo.BalanceEnd;
 
