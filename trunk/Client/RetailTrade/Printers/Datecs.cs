@@ -590,7 +590,7 @@ namespace RetailTradeClient.Printers
                         _currentZ.sumA = _currentZ.sumA / 100;
 
 
-                        _currentZ.sumD = Convert.ToDecimal(rd.RetItem5.ToString());
+                        _currentZ.sumD = Convert.ToDecimal(rd.RetItem3.ToString());
                         _currentZ.sumD = _currentZ.sumD / 100;
 
                         _currentZ.num = this.DayInfo();
