@@ -480,7 +480,7 @@ namespace RetailTradeClient.Printers
                 int maxArt = this.GetMaxArticle();
 
 
-                char _tax = isNds ? 'À' : 'Ä';
+                char _tax = isNds ? 'À' : 'Â';
 
 
                 int res;
